@@ -26,7 +26,7 @@
 
 #### For JS
 
-```markup
+```html
 <!-- Order of tags is important -->
 <link rel="stylesheet" href="jasmine.css">
 <script src="jasmine.js"></script>
@@ -184,7 +184,7 @@ afterEach
 
 `index.html`
 
-```markup
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -322,7 +322,7 @@ import { AppComponent } from './app.component';
 
 `app.component.html`
 
-```markup
+```html
 <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
@@ -405,7 +405,7 @@ describe('AppComponent', () => {
 
 ## Conclusion
 
-* Jasmine is a relatively timple testing tool 
+* Jasmine is a relatively simple testing tool 
   * Easy to implement on a variety of projects
 * Karma Automates testing
   * Test on multiple places simultaneously
