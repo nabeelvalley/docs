@@ -2,26 +2,6 @@
 
 * [Nabeel's Docs](README.md)
 
-## Design Thinking
-
-* [Practitioner](design-thinking/practitioner.md)
-* [Immerse Yourself](design-thinking/immerse-yourself.md)
-* [Co-Creator](design-thinking/co-creator.md)
-* [Research Lab](design-thinking/ibm-research-lab.md)
-
-## Agile and DevOps
-
-* [A Taste of Agile](agile-and-devops/a-taste-of-agile.md)
-* [Operations Fundamentals](agile-and-devops/operations-fundamentals.md)
-* [Program Fundamentals](agile-and-devops/program-fundamentals.md)
-
-## Garage Method
-
-* [Introduction](garage-method/introduction.md)
-
-## Cloud Certification
-
-* [Introduction](cloud-certification/cloud-developer-certification.md)
 
 ## Containers and Microservices
 
