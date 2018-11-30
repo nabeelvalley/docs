@@ -2,11 +2,12 @@
 
 This document will cover the various methods of calling an external API from a Watson Assistant Dialog Node based on the documentation [here](https://console.bluemix.net/docs/services/conversation/configure-workspace.html#configuring-a-watson-assistant-workspace)
 
+
 ## Using Cloud Function as a Proxy
 
 We can use Cloud Functions as a proxy with which we call our external API
 
-> It is important that our Cloud Function and Watson Assistant instances are located in the same region. Furthermore this needs to be either US South \(Dallas\) or Germany \(Frankfurt\)
+> It is important that our Cloud Function and Watson Assistant instances are located in the same region. Furthermore this needs to be either US South (Dallas) or Germany (Frankfurt)
 
 ### Cloud Function
 
