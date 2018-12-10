@@ -105,8 +105,8 @@ Head over to the editor screen and you will be able to see the different configu
 
 The different elements of our blockchain are defined with the following structures and rules
 
-{% code-tabs %}
-{% code-tabs-item title="models/auction.cto" %}
+
+
 ```javascript
 namespace org.acme.vehicle.auction
 
@@ -154,11 +154,8 @@ transaction CloseBidding {
   --> VehicleListing listing
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
-{% code-tabs %}
-{% code-tabs-item title="lib/logic.js" %}
+
 ```javascript
 async function closeBidding(closeBidding) {  // eslint-disable-line no-unused-vars
     const listing = closeBidding.listing;
@@ -233,11 +230,11 @@ async function makeOffer(offer) {  // eslint-disable-line no-unused-vars
     await vehicleListingRegistry.update(listing);
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
-{% code-tabs %}
-{% code-tabs-item title="permissions.acl" %}
+
+
+
+
 ```javascript
 rule Auctioneer {
     description: "Allow the auctioneer full access"
@@ -297,6 +294,6 @@ rule NetworkAdminSystem {
     action: ALLOW
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+
+
 
