@@ -250,9 +250,9 @@ kubectl get service istio-ingress -n istio-system
 
 ### Set up a Controller to work with IBM Cloud Kubernetes Service
 
-{% hint style="warning" %}
+
 This will only work with a paid cluster
-{% endhint %}
+
 
 Get your Ingress subdomain
 
@@ -405,8 +405,8 @@ istioctl create -f mixer-rule-denial.yaml
 
 The rule we have created is as follows
 
-{% code-tabs %}
-{% code-tabs-item title="mixer-rule-denial.yaml" %}
+
+
 ```yaml
 apiVersion: "config.istio.io/v1alpha2"
 kind: denier
@@ -439,8 +439,8 @@ spec:
     instances:
     - denyrequest.checknothing
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+
+
 
 We can verify that the access is denied by navigating to our Ingress IP, next we can remove the rule with
 

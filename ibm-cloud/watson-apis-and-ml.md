@@ -73,8 +73,8 @@ This will bring you to the function creation menu where you can name and select 
 
 This function will make a call to the Twitter API and request tweets from a **username** input and output the result of that request
 
-{% code-tabs %}
-{% code-tabs-item title="Twitter API Function" %}
+
+
 ```python
 import sys
 import json
@@ -86,8 +86,8 @@ def main(username):
 
     return payload
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+
+
 
 ### Twitter to Personality Insights
 
@@ -109,8 +109,8 @@ Then create an instance of the service and view your API Keys from the service's
 
 Thereafter create an action with the following code
 
-{% code-tabs %}
-{% code-tabs-item title="Twitter to Personality Insights" %}
+
+
 ```python
 import sys
 import requests
@@ -138,15 +138,15 @@ def main(payload):
 
     return PiResult
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+
+
 
 ### Personality Insights to ML Model
 
 Create an action to clean up the results of the Personality Insights and extract only the needed information, in this case the person's movie genres of interest
 
-{% code-tabs %}
-{% code-tabs-item title="Personality Insights to ML" %}
+
+
 ```javascript
 function main(pi) {
     const cp = pi.consumption_preferences;
@@ -162,15 +162,15 @@ function main(pi) {
     return {movie_preferences : user_pref};
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+
+
 
 ### Calling the ML Model
 
 We use the Movie Preferences from our previous function and call out Machine Learning Model API with it
 
-{% code-tabs %}
-{% code-tabs-item title="Calling the Machine Learning Model" %}
+
+
 ```python
 import sys
 import urllib3, requests, json
@@ -211,8 +211,8 @@ def main(inputGenres):
     print(json.loads(response_scoring.text))
     return { 'result': json.loads(response_scoring.text)}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+
+
 
 ### Sequencing
 
@@ -232,8 +232,8 @@ We can test the sequence by adding our input data and invoking the sequence
 
 A sample output from our sequence is as follows which shows a person's director recommendations based on the information determined from their recent tweets
 
-{% code-tabs %}
-{% code-tabs-item title="Machine Learning Output" %}
+
+
 ```javascript
 {
   "result": {
@@ -280,6 +280,6 @@ A sample output from our sequence is as follows which shows a person's director 
   }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+
+
 

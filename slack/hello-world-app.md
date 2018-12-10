@@ -65,9 +65,9 @@ Will become this
 ask <@U012ABCDEF> to bake a birthday cake for <@U345GHIJKL> in <#C012ABCDE>
 ```
 
-{% hint style="warning" %}
+
 It is important to note that Slack Commands are not namespaced, and Slack will take preference of the last installed app's command
-{% endhint %}
+
 
 ### Receiving Commands
 
@@ -141,8 +141,8 @@ I'm linking my app to a Cloud Function which will handle the requests
 
 Create a new Cloud Function on IBM Cloud, in my case I'm going to make it with `Node.js 8` and the code will be as follows
 
-{% code-tabs %}
-{% code-tabs-item title="Cloud Function" %}
+
+
 ```javascript
 function main(params) {
     let req = JSON.stringify(params, null, 2);
@@ -163,8 +163,8 @@ function main(params) {
 }
 
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+
+
 
 The function will simply respond with a `Hello World!` output, along with the original input body as pretty-printed JSON
 

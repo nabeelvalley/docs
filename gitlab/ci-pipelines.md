@@ -4,8 +4,8 @@
 
 To deploy a static site we make use of the `pages` object. Our script will make a new `public` directory and copy our site files to this directory. The `only` lists the branch from which we want our deployments to run from
 
-{% code-tabs %}
-{% code-tabs-item title=".gitlab-ci.yml" %}
+
+
 ```yaml
 pages:
   stage: deploy
@@ -19,8 +19,8 @@ pages:
   only:
   - master
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+
+
 
 ## Angular
 
@@ -34,12 +34,12 @@ During our build stage we install our dependencies, do the application build, an
 
 We simply copy the contents of our `dist` folder to our `public` directory. 
 
-{% hint style="danger" %}
-Note that we also need to modify our `index.html` file's base url to be `<base href="">` otherwise our app will get a 404 error when trying to get our script and css files
-{% endhint %}
 
-{% code-tabs %}
-{% code-tabs-item title="build" %}
+Note that we also need to modify our `index.html` file's base url to be `<base href="">` otherwise our app will get a 404 error when trying to get our script and css files
+
+
+
+
 ```yaml
 build:
   image: node:latest
@@ -57,9 +57,9 @@ build:
     paths:
     - node_modules
 ```
-{% endcode-tabs-item %}
 
-{% code-tabs-item title="deploy" %}
+
+
 ```yaml
 pages:
   stage: deploy
@@ -77,9 +77,9 @@ pages:
   only:
   - develop
 ```
-{% endcode-tabs-item %}
 
-{% code-tabs-item title=".gitlab-ci.yml" %}
+
+
 ```yaml
 stages:
  - build
@@ -117,9 +117,9 @@ pages:
   only:
   - develop
 ```
-{% endcode-tabs-item %}
 
-{% code-tabs-item title="index.html" %}
+
+
 ```markup
 <!doctype html>
 <html lang="en">
@@ -136,6 +136,6 @@ pages:
 </html>
 
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+
+
 
