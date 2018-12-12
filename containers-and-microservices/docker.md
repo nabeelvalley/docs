@@ -93,6 +93,12 @@ docker container run --detach --publish 8080:80 --name nginx nginx
 docker container run --detach --publish 8081:27017 --name mongo mongo:3.4
 ```
 
+If you run into the following error, simply restart Docker
+
+```
+Error response from daemon: driver failed programming external connectivity on endpoint xenodochial_spence (d2836ffdcd649ba692d504e34af61c9aab57bf3a135587875db3c88ca0baa070): Error starting userland proxy: mkdir /port/tcp:0.0.0.0:8080:tcp:172.17.0.2:80: input/output error.
+``` 
+
 We can list running containers and inspect one that we chose with
 
 ```bash
