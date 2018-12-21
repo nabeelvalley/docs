@@ -22,46 +22,143 @@ kubectl config set-credentials admin --token=<YOUR TOKEN>kubectl config set-cont
 kubectl config use-context cluster.local-context
 ```
 
-Then we need to get our deployment manifest file and run the deploy command, in my case as follows
+### Deploy the Application
 
-`deploy.yaml`
+[DeveloperWorks Article on Doing this](https://developer.ibm.com/recipes/tutorials/setting-up-access-logging-on-ibm-cloud-private/)
+
+Then we need to get our deployment manifest file and run the deploy command, we will need the following
+
+- Deployment manifest
+- Service manifest
+- Ingress manifest
+
+We need the service to expose our app on a port, and an ingress rule to expose that externally
+
+`deployment.yaml`
 ```yaml
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: express-basic
-  labels:
-    app: express-basic
-    version: "1.0"
+ name: express-basic
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: express-basic
   template:
     metadata:
       labels:
         app: express-basic
-        version: "1.0"
+        version: v2
     spec:
       containers:
-      - name: express-basic
-        image: nabeelvalley/express-basic
+      - image: nabeelvalley/express-basic
+        name: express-basic
         ports:
-        - name: http-server
-          containerPort: 8080
+        - containerPort: 8080
 ```
 
-Then create a new resource with
+`service.yaml`
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+ name: express-basic
+ labels:
+   app: express-basic
+   version: v2
+spec:
+ ports:
+ - port: 8080
+   name: http
+ selector:
+   app: express-basic
+   version: v2
+```
+
+`ingress.yaml`
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+ name: express-basic-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+         serviceName: express-basic
+         servicePort: 8080
+      - path: /test
+        backend:
+          serviceName: express-basic
+          servicePort: 8080 
+```
+
+We can then deploy these resource definitions on our cluster with
 
 ```bash
-kubectl create -f deploy.yaml
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+kubectl apply -f ingress.yaml
 ```
 
-Next we can expose our application as a service with
+Alternatively we can include all three in a single file and apply it as follows
+
+`deploy.yaml`
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+ name: express-basic
+ labels:
+   app: express-basic
+   version: v2
+spec:
+ ports:
+ - port: 8080
+   name: http
+ selector:
+   app: express-basic
+   version: v2
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ name: express-basic
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: express-basic
+        version: v2
+    spec:
+      containers:
+      - image: nabeelvalley/express-basic
+        name: express-basic
+        ports:
+        - containerPort: 8080
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+ name: express-basic-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+         serviceName: express-basic
+         servicePort: 8080
+      - path: /test
+        backend:
+          serviceName: express-basic
+          servicePort: 8080 
+---
+```
 
 ```bash
-kubectl expose deployment/express-basic --type="NodePort" --port=8080
+kubectl apply -f deploy.yaml
 ```
-
-(For some reason this doesn't seem to be working as planned, will try to re-approach)
