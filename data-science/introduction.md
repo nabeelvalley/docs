@@ -1,5 +1,5 @@
 # Introduction
-[Based on this Cognitive Class Course]()
+[Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/data-science-101/)
 
 
 - [Introduction](#introduction)

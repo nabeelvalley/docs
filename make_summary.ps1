@@ -23,4 +23,4 @@ Get-ChildItem -Directory | ForEach-Object {
 	}
 }
 
-$summary | Out-File "README.md"
+$summary | Out-File "README.md" -Encoding UTF8
