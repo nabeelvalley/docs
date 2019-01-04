@@ -22,6 +22,45 @@ Some basic language syntax and operation for python
     - [Concatenation](#concatenation)
     - [Escape Characters](#escape-characters)
     - [String Operations](#string-operations)
+  - [Tuples](#tuples)
+    - [Define](#define)
+    - [Indexing](#indexing-1)
+    - [Concatenation](#concatenation-1)
+    - [Slice and Stride](#slice-and-stride)
+    - [Sorting](#sorting)
+    - [Nesting](#nesting)
+  - [Lists](#lists)
+    - [Defining](#defining)
+    - [Indexing](#indexing-2)
+    - [Operations](#operations)
+      - [Slice and Stride](#slice-and-stride-1)
+      - [Extend](#extend)
+      - [Append](#append)
+    - [Modify an element](#modify-an-element)
+    - [Delete an Element](#delete-an-element)
+    - [String Splitting](#string-splitting)
+    - [Cloning](#cloning)
+  - [Sets](#sets)
+    - [Defining a Set](#defining-a-set)
+    - [Set Operations](#set-operations)
+      - [Set from a List](#set-from-a-list)
+      - [Add Element](#add-element)
+      - [Remove Element](#remove-element)
+      - [Check if Element is in Set](#check-if-element-is-in-set)
+    - [Set Logic](#set-logic)
+      - [Intersection](#intersection)
+      - [Difference](#difference)
+      - [Union](#union)
+      - [Superset](#superset)
+      - [Subset](#subset)
+  - [Dictionaries](#dictionaries)
+    - [Defining](#defining-1)
+    - [Accessing a Value](#accessing-a-value)
+    - [Get All Keys](#get-all-keys)
+    - [Append a Key](#append-a-key)
+    - [Delete an Entry](#delete-an-entry)
+    - [Verify that Key is in Dictionary](#verify-that-key-is-in-dictionary)
+
 
 ## Labs
 
@@ -227,8 +266,8 @@ At times we may need to escape some characters in a Python string, these are as 
 | --------------- | ----------- |
 | newline         | \<NEW LINE> |
 | \               | \\          |
-| '               | \\'          |
-| "               | \\"          |
+| '               | \\'         |
+| "               | \\"         |
 | ASCII Bell      | \a          |
 | ASCII Backspace | \b          |
 | ASCII FF        | \f          |
@@ -262,3 +301,309 @@ text.find('ell') # 1
 text.find('asnfoan') # -1
 ```
 
+## Tuples
+
+### Define
+
+A tuple is a way for us to store data of different types, this can be done simply as follows
+
+```py
+my_tuple = ('Hello', 3, 0.14)
+type(my_tuple) # tuple
+```
+
+A key thing about tuples is that they are immutable. We can reassign the entire tuple, but not change its values
+
+### Indexing
+
+We can index a tuple the same way as a string or list using positive or negative indexing
+
+```py
+my_tuple[1] # 3
+my_tuple[-2] # 3
+```
+
+### Concatenation
+
+We can also concatenate tuples
+
+```py
+my_tuple += ('pies', 'are', 3.14)
+my_tuple # ('Hello', 3, 0.14, 'pies', 'are', 3.14)
+```
+
+### Slice and Stride
+
+We can slice and stride as usual with
+
+```py
+my_tuple[start:end]
+my_tuple[::2]
+my_tuple[0:4:2]
+```
+
+### Sorting
+
+We can sort a tuple with the `sorted` function
+
+```py
+sorted(tuple)
+```
+
+The `sorted` function will return a **list**
+
+### Nesting
+
+Since tuples can hold anything, they can also hold tuples
+
+```py
+my_tuple = ('hello', 4)
+my_tuple2 = (my_tuple, 'bye')
+```
+
+We can access elements of tuples with double indexing as follows
+
+```py
+my_tuple2[0][1] # 4
+```
+
+## Lists
+
+### Defining
+
+A list is an easy way for us to store data of any form, such as numbers, strings, tuples, and lists
+
+Lists are mutable and have many operations that enable us to work with them more easily
+
+```py
+my_list = [1,2,3,'Hello']
+```
+
+### Indexing
+
+Lists can also be indexed using the usual method both negatively and positively
+
+```py
+my_list[1] # 2
+my_list[-1] # Hello
+```
+
+### Operations
+
+#### Slice and Stride
+
+```py
+my_list[start:end] # slicing
+my_list[::stride]
+my_list[start:end:stride]
+```
+
+#### Extend
+
+Extend will add each object to the end of the list
+
+```py
+my_list = [1,2]
+my_list.extend([item1, item2])
+my_list # [1, 2, item1, item2]
+```
+
+#### Append
+
+Append will add the input as a single object to the last value of the list
+
+```py
+my_list = [1,2]
+my_list.append([item1, item2])
+my_list # [1, 2, [item1, item2]]
+```
+
+### Modify an element
+
+List elements can be modified by referencing the index
+
+```py
+my_list = [1,2]
+my_list[1] = 3
+my_list # [1,3]
+```
+
+### Delete an Element
+
+```py
+my_list = [1,2,3]
+del(my_list[1])
+my_list # [1,3]
+```
+
+We can delete elements by index as well
+
+### String Splitting
+
+We can split a string into a list as follows
+
+```py
+my_list = 'hello'.split()
+my_list # [h,e,l,l,o]
+
+my_list = 'hello, world, !'.split(',')
+my_list # ['hello', 'world', '!']
+```
+
+### Cloning
+
+Lists are stored by reference in Python, if we want to clone a list we can do it as follows
+
+```py
+new_list = my_list[:]
+```
+
+## Sets
+
+A set is a unique collection of objets in Python, sets will automatically remove duplicate items
+
+### Defining a Set
+
+```py
+my_set = {1, 2, 3, 1, 2}
+my_set # {1, 2, 3}
+```
+
+### Set Operations
+
+#### Set from a List
+
+We can create a set from a list with the `set` function
+
+```py
+my_set = set(my_list)
+```
+
+#### Add Element
+
+We can add elements to a set with
+
+```py
+my_set.add("New Element")
+```
+
+If the element already exists nothing will happen
+
+#### Remove Element
+
+We can remove an element from a set with
+
+```py
+my_set.remove("New Element")
+```
+
+#### Check if Element is in Set
+
+We can check if an element is in a set by using `in` which will return a `bool`
+
+```py
+"New Element" in my_set # False
+```
+
+### Set Logic
+
+When using sets we can compare them with one another
+
+#### Intersection
+
+We can find the intersection between sets with `&` or with the intersection function
+
+```py
+set_1 & set_2
+set_1.intersection(set_2)
+```
+
+#### Difference
+
+We can fin d the difference in a specific set relative to another set with
+
+```py
+set_1.difference(set_2)
+```
+
+Which will give us the elements that `set_1` has that `set_2` does not
+
+#### Union
+
+We can get the union of two sets with
+
+```py
+set_1.union(set_2)
+```
+
+#### Superset
+
+We can check if one set is a superset of another with
+
+```py
+set_1.issuperset(set_2)
+```
+
+#### Subset
+
+We can check if one set is a subset of another with
+
+```py
+set_1.isSubset(set_2)
+```
+
+## Dictionaries
+
+Dictionaries are like lists, but store data by a key instead of an index
+
+Keys can be strings, numbers, or any immutable object such as a tuple
+
+### Defining
+
+We can define a dictionary as a set of key-value pairs
+
+```py
+my_dictionary = {"key1": 1, "key2": "2", "key3": [3, 3, 3], "key4": (4, 4, 4), ('key5'): 5, (0, 1): 6, 92: 'hello'}
+```
+
+### Accessing a Value
+
+We can access a value by using its key, such as
+
+```py
+my_dictionary['key1'] # 1
+my_dictionary[(0,1)] # 6
+my_dictionary[5] # 'hello'
+```
+
+### Get All Keys
+
+We can get all the keys in a dictionary as follows
+
+```py
+my_dictionary.keys()
+```
+
+### Append a Key
+
+Key-value pairs can be added to a dictionary as follows
+
+```py
+my_dictionary['New Key'] = new_value
+```
+
+### Delete an Entry
+
+We can delete an entry by key using
+
+```py
+del('New Key)
+```
+
+### Verify that Key is in Dictionary
+
+We can use the `in` operator to check if a key exists in a dictionary
+
+```py
+'My Key' in my_dictionary
+```
