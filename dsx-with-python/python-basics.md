@@ -946,7 +946,7 @@ We can use the built-in `open` function to read a file which will provide us wit
 example1 = '/data/test.txt'
 file1 = open(example1,'r')
 ```
-The `'r'` sets open to read mode, for write mode we can use `'w'`
+The `'r'` sets open to read mode, for write mode we can use `'w'`, and `'a'` for append mode
 
 #### Properties
 
