@@ -27,6 +27,10 @@
 * [Methodology](data-science/methodology.md)
 * [Data Science Tools](data-science/tools.md)
 
+## Dsx With Python 
+
+* [Python Basics](dsx-with-python/python-basics.md)
+
 ## Dsx With R 
 
 * [Inference & Modeling](dsx-with-r/inference-and-modeling.md)
@@ -75,6 +79,9 @@
 ## Slack 
 
 * [Hello World App](slack/hello-world-app.md)
+
+## Statistics 
+
 
 ## Tj Bot 
 
