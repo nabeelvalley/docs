@@ -101,6 +101,20 @@
       - [Reading Cells](#reading-cells)
       - [Slicing](#slicing-1)
     - [Saving Data to CSV](#saving-data-to-csv)
+  - [Arrays](#arrays)
+    - [1D Arrays](#1d-arrays)
+      - [Defining an Array](#defining-an-array)
+      - [Types](#types-1)
+      - [Manipulating Values](#manipulating-values)
+      - [Attributes](#attributes)
+      - [Array Operations](#array-operations)
+      - [Linspace](#linspace)
+      - [Plotting Values](#plotting-values)
+    - [2D Arrays](#2d-arrays)
+      - [Defining a 2D Array](#defining-a-2d-array)
+      - [Accessing Values](#accessing-values)
+      - [Slicing](#slicing-2)
+      - [Mathematical Operations](#mathematical-operations)
 
 
 ## Labs
@@ -1195,4 +1209,134 @@ Using Pandas, we can save our DataFrame to a CSV with
 ```py
 df.to_csv('my_dataframe.csv')
 ```
+
+## Arrays
+
+The Numpy Library allows us to work with arrays the same as we would mathematically, in order to use Numpy we need to import it as follows
+
+```py
+import numpy as np
+```
+
+Arrays are similar to lists but are fixed size, and each element is of the same type
+
+### 1D Arrays
+
+#### Defining an Array
+
+We can simply define an array as follows
+
+```py
+a = np.array([1,2,3]) # casting a list to array
+
+```
+
+#### Types
+
+An array can only store data of a single type, we can find the type of the data in an array with
+
+```py
+a.dtype
+```
+
+#### Manipulating Values
+
+We can easily manipulate values in an array by changing them as we would in a list. The same can be done with splicing and striding operations
+
+```py
+a = np.array([1,2,3]) # array([1,2,3])
+a[1] = 5 # array([5,2,3])
+b = c[1:3] # array([2,3])
+```
+
+We can also use a list to select a specific indexes and even assign values to those indexes
+
+```py
+a = np.array([1,2,3]) # array([1,2,3])
+select = [1,2]
+b = a[select] # array([1,2])
+a[select] = 0 # array([1,0,0])
+```
+
+#### Attributes
+
+An array has various properties and functions such as
+
+```py
+a = np.array([1,2,3])
+a.size # size
+a.ndim # number of dimensions
+a.shape # shape
+a.mean() # mean of values
+a.max() # max value
+a.min() # min value
+```
+
+#### Array Operations
+
+We have a few different operations on arrays such as
+
+```py
+u = np.array([1,0])
+v = np.array([0,1])
+u+v # vector addition
+u*v # array multiplication
+np.dot(u,v) # dot product
+np.cross(u,v) # cross product
+u.T # transpose array
+```
+
+#### Linspace
+
+The `linspace` function can be used to generate an array with values over a specific interval
+
+```py
+np.linspace(start, end, num=divisions)
+np.linspace(-2,2,num=5) # array([-2., -1.,  0.,  1.,  2.])
+np.linspace(0,2*np.pi,num=10)
+# array([0.        , 0.6981317 , 1.3962634 , 2.0943951 , 2.7925268 ,
+#        3.4906585 , 4.1887902 , 4.88692191, 5.58505361, 6.28318531])
+```
+
+#### Plotting Values
+
+We can apply a function to these values by using array operations, such as those mentioned above as well as others like
+
+```py
+x = np.linspace(0,2*np.pi, num=100)
+y = np.sin(x) + np.cos(x)
+```
+### 2D Arrays
+
+#### Defining a 2D Array
+
+Two dimensional Arrays can be defined by a list that contains nested lists of the same size as follows
+
+```py
+a = np.array([[11,12,13],[21,22,23],[31,32,33]])
+```
+
+We can similarly make use of the previously defined array operations
+
+#### Accessing Values
+
+Values in a 2D array can be indexed in either one of two ways
+
+```py
+a[1,2] # 23
+a[1][2] # 23
+```
+
+#### Slicing
+
+We can perform slicing as follows
+
+```py
+a[0][0:2] # array([11, 12])
+a[0:2,2] # array([13, 23])
+```
+
+#### Mathematical Operations
+
+We can perform the usual mathematical operations with 2D arrays as with 1D
 
