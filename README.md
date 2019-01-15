@@ -29,6 +29,8 @@
 
 ## Dsx With Python 
 
+* [](dsx-with-python/data-analysis.md)
+* [](dsx-with-python/machine-learning.md)
 * [Python Basics](dsx-with-python/python-basics.md)
 
 ## Dsx With R 
