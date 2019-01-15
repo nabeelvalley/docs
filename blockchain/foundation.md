@@ -1,5 +1,7 @@
 # Foundation
 
+### --- Temporarily Discontinued --
+
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/ibm-blockchain-foundation-dev/)
 
 ## Prerequisites

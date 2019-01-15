@@ -5,6 +5,7 @@
 ## Blockchain 
 
 * [Essentials](blockchain/essentials.md)
+* [Working with Fabric](blockchain/fabric-via-docs.md)
 * [Foundation](blockchain/foundation.md)
 
 ## Cloud Application Developer 
