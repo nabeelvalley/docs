@@ -2900,7 +2900,7 @@ plt.show()
 ```
 
 
-![png](./images/output_57_0.png)
+![png](images-an/output_57_0.png)
 
 
 ### Categorical to Quantatative
@@ -3584,7 +3584,7 @@ plt.show()
 ```
 
 
-![png](./images/output_78_0.png)
+![png](images-an/output_78_0.png)
 
 
 We can also view the correlation matrix for these two variables as follows
@@ -3650,7 +3650,7 @@ df[['highway-mpg', 'price']].corr()
 ```
 
 
-![png](./images/output_82_0.png)
+![png](images-an/output_82_0.png)
 
 
 
@@ -3709,7 +3709,7 @@ df[['peak-rpm','price']].corr()
 ```
 
 
-![png](./images/output_84_0.png)
+![png](images-an/output_84_0.png)
 
 
 
@@ -3766,7 +3766,7 @@ df[["stroke","price"]].corr()
 ```
 
 
-![png](./images/output_86_0.png)
+![png](images-an/output_86_0.png)
 
 
 
@@ -3824,7 +3824,7 @@ plt.show()
 
 
 
-![png](./images/output_88_1.png)
+![png](images-an/output_88_1.png)
 
 
 
@@ -3838,7 +3838,7 @@ plt.show()
 
 
 
-![png](./images/output_89_1.png)
+![png](images-an/output_89_1.png)
 
 
 
@@ -3852,7 +3852,7 @@ plt.show()
 
 
 
-![png](./images/output_90_1.png)
+![png](images-an/output_90_1.png)
 
 
 #### Descriptive Statistics
@@ -4614,7 +4614,7 @@ plt.show()
 ```
 
 
-![png](./images/output_106_0.png)
+![png](images-an/output_106_0.png)
 
 
 ### Analysis of Variance (ANOVA)
@@ -5131,7 +5131,7 @@ plt.show()
 ```
 
 
-![png](./images/output_129_0.png)
+![png](images-an/output_129_0.png)
 
 
 
@@ -5149,7 +5149,7 @@ plt.ylim(0,)
 
 
 
-![png](./images/output_130_1.png)
+![png](images-an/output_130_1.png)
 
 
 #### Residual Plot
@@ -5174,7 +5174,7 @@ plt.show()
 ```
 
 
-![png](./images/output_132_0.png)
+![png](images-an/output_132_0.png)
 
 
 #### Distribution Plot
@@ -5216,7 +5216,7 @@ plt.close()
 ```
 
 
-![png](./images/output_135_0.png)
+![png](images-an/output_135_0.png)
 
 
 ### Polynomial Regression and Pipelines
@@ -5281,7 +5281,7 @@ PlotPolly(p,x,y, 'highway-mpg')
 ```
 
 
-![png](./images/output_140_0.png)
+![png](images-an/output_140_0.png)
 
 
 ### Multi Dimension Polynomial Regression
@@ -5657,7 +5657,7 @@ plt.show()
 ```
 
 
-![png](./images/output_171_0.png)
+![png](images-an/output_171_0.png)
 
 
 #### Conclusion
