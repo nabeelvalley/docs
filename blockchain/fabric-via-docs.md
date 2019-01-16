@@ -41,15 +41,31 @@
     - [Run the Tools](#run-the-tools)
       - [Manually Generate the Artifacts](#manually-generate-the-artifacts)
       - [Create Channel Configuration](#create-channel-configuration)
-      - [Start the Network](#start-the-network)
+    - [Start the Network](#start-the-network)
+      - [Environment Variables](#environment-variables)
+      - [Create and Join a Channel](#create-and-join-a-channel)
+      - [Update the Anchor Peers](#update-the-anchor-peers)
+      - [Install and Instantiate Chaincode](#install-and-instantiate-chaincode)
+      - [Verify Chaincode](#verify-chaincode)
+        - [Query](#query)
+        - [Invoke](#invoke)
+        - [Query](#query-1)
+        - [Install on New Peer](#install-on-new-peer)
+        - [Join Channel](#join-channel)
+        - [Query](#query-2)
+    - [Take Down the Network](#take-down-the-network)
+    - [Important Points](#important-points)
+    - [Viewing Transactions](#viewing-transactions)
+    - [CouchDB](#couchdb)
+    - [Troubleshooting](#troubleshooting)
 
 ## Resources
 
-- [Prerequisites](https://hyperledger-fabric.readthedocs.io/en/release-1.3/prereqs.html)
-- [Tutorials](https://hyperledger-fabric.readthedocs.io/en/release-1.3/tutorials.html)
-  - [Writing your first application](https://hyperledger-fabric.readthedocs.io/en/release-1.3/write_first_app.html)
-  - [Build your first network](https://hyperledger-fabric.readthedocs.io/en/release-1.3/build_network.html)
-- [Glossary](https://hyperledger-fabric.readthedocs.io/en/release-1.3/glossary.html)
+- [Prerequisites](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html)
+- [Tutorials](https://hyperledger-fabric.readthedocs.io/en/latest/tutorials.html)
+  - [Writing your first application](https://hyperledger-fabric.readthedocs.io/en/latest/write_first_app.html)
+  - [Build your first network](https://hyperledger-fabric.readthedocs.io/en/latest/build_network.html)
+- [Glossary](https://hyperledger-fabric.readthedocs.io/en/latest/glossary.html)
 
 ## Overview
 
@@ -387,9 +403,9 @@ We then make use of a `PeerAdmin` identity card that contains the necessary cred
 composer network install --card PeerAdmin@hlfv1 --archiveFile tutorial-network@0.0.1.bna
 ```
 
-## [Prerequisites]((https://hyperledger-fabric.readthedocs.io/en/release-1.3/prereqs.html)
+## [Prerequisites]((https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html)
 
-Before you can really get started you will need to first [install the necessary prerequisites](https://hyperledger-fabric.readthedocs.io/en/release-1.3/prereqs.html)
+Before you can really get started you will need to first [install the necessary prerequisites](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html)
 
 
 - Curl
@@ -424,7 +440,7 @@ Next add the path to the downloaded files to your environment with
 export PATH=~/fabric-samples/bin:$PATH
 ```
 
-## [Writing your First Application](https://hyperledger-fabric.readthedocs.io/en/release-1.3/write_first_app.html)
+## [Writing your First Application](https://hyperledger-fabric.readthedocs.io/en/latest/write_first_app.html)
 
 ### Setting up the environment
 
@@ -704,7 +720,7 @@ If this tutorial has been done before, also remove the chaincode image with the 
 docker rmi dev-peer0.org1.example.com-fabcar-1.0-5c906e402ed29f20260ae42283216aa75549c571e2e380f3615826365d8269ba
 ```
 
-## [Building your First Network](https://hyperledger-fabric.readthedocs.io/en/release-1.3/build_network.html#configuration-transaction-generator)
+## [Building your First Network](https://hyperledger-fabric.readthedocs.io/en/latest/build_network.html#configuration-transaction-generator)
 
 This tutorial needs to be run from the `fabric-samples/first-network` directory
 
@@ -1087,6 +1103,12 @@ Profiles:
 
 We can make use of the `configtxgen` and `cryptogen` commands to do what we need, alternatively we can also adapt the `byfn.sh` script's `generateCerts` function to meet our requirements
 
+> Before running the remainder of the tools, make sure the previous network is down by running the following
+> ```bash
+> ./byfn.sh down
+> ```
+> If you run into an error that says `cannot remove .... Permission denied` run the command as `sudo`
+
 #### Manually Generate the Artifacts
 
 We can refer to the `generateCerts` function to see how we would go about doing this, but we can also do this using the binaries manually as follows
@@ -1142,5 +1164,257 @@ Then define the Anchor Peer for `Org1` and `Org2` as follows
 ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
 ```
 
-#### Start the Network
+### Start the Network
+
+We make use of the docker compose files to bring up the fabric containers and bootstrap the Orderer with the `genesis.block`
+
+There are a few different steps as follows
+
+Start the network from your terminal with the following command, the `-d` flag disables container logs, if you want to view the logs, run the following command in a new terminal
+
+```bash
+docker-compose -f docker-compose-cli.yaml up -d
+```
+
+#### Environment Variables
+
+We need to configure some environment variables. The variables for `peer0.org1.example.com` are coded into the CLI container via the `docker-compose-cli.yaml` file, however if we want to send calls to other peers or Orderers, we need to modify the following values in the `cli.environment` object in the `yaml` file before starting the network
+
+```yaml
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+CORE_PEER_LOCALMSPID="Org1MSP"
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+```
+
+#### Create and Join a Channel
+
+We created the channel configuraion transaction using the `configtxgen` tool, that process can be repeated to create additional channel configurations with the `configtx.yaml` file by using the same or different profiles
+
+We enter the CLI container next with `docker exec`
+
+```bash
+docker exec -it cli bash
+```
+
+If successful you will see the following
+
+```bash
+root@0d78bb69300d:/opt/gopath/src/github.com/hyperledger/fabric/peer#
+```
+
+Now we need to set previously mentioned variables in the `cli` container as they are different to what we had previously set in the `docker-compose-cli.yaml` file. From the Container's terminal run the following
+
+```bash
+export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+export CORE_PEER_LOCALMSPID="Org1MSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+```
+
+Next we specify the channel name with the `-c` flag, and the channel transaction with the `-f` flag, we will create the channel with the following from our terminal:
+
+```bash
+export CHANNEL_NAME=mychannel
+
+# the channel.tx file is mounted in the channel-artifacts directory within your CLI container
+# as a result, we pass the full path for the file
+# we also pass the path for the orderer ca-cert in order to verify the TLS handshake
+# be sure to export or replace the $CHANNEL_NAME variable appropriately
+
+peer channel create -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+```
+
+If you run into an error at this stage, such as the one below
+
+```bash
+Error: error getting endorser client chaincode: endorser client failed to connect to peer0.org1.example.com:7051 failed to create new connection context deadline exceeded.
+```
+
+It likely indicatesthat the previous network was not taken down correctly, run `sudo ./byfn. down` and ensure that you have no running containers with `docker container ls`
+
+Note the `--cafile` is the Certificate file for the Orderer allowing us to verify the TLS handshake
+
+The command we just executed generated a proto called `mychannel.block` which we can see by running `ls` from within the container
+
+We can now join `peer0.org1.example.com` to the channel we just created with the following
+
+```bash
+peer channel join -b mychannel.block
+```
+
+Thereafter join `peer0.org2` by prefacing it with the appropriate environment variables and joining the channel on behalf of `peer0.org2`
+
+```bash
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer0.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt peer channel join -b mychannel.block
+```
+
+#### Update the Anchor Peers
+
+Nexty we will perform channel updates which will propogate to the definition of the channel, essentially adding configuration deltas for the channel's genesis block to define the anchor peers
+
+We can define the anchor peer for Org1 as `peer.0org1.example.com`, as our environment variables still hold the values for 
+
+```bash
+peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org1MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+```
+
+And for Org2 as `peer0.org2.example.com` by updating 
+
+```bash
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer0.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org2MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+```
+
+#### Install and Instantiate Chaincode
+
+Applications interact with the ledger through `chaincode`, we need to install chaincode on every peer that will need to execute and endorse out interactions. Chaincode can be written in Go, Java, and Javascript and runs on the peer in the context of a chaincode container with a specific name and version and exists on the peer's filesystem
+
+We can install chaincode on a peer with the following command, the `-l` flag allows us to specify the language
+
+```bash
+peer chaincode install -n mycc -v 1.0 -l node -p /opt/gopath/src/github.com/chaincode/chaincode_example02/node/
+```
+
+The `-p` argument is the path to the file and the `-n` is the name of the chaincode
+
+Next we can instantiate the Chaincode on the peer, the `-P` flag indicates the endorsement policy needed, in the following case it is `-P "AND ('Org1MSP.peer','Org2MSP.peer')"`
+
+Next, modify the environment variables and install the chaincode on peer 2
+
+```bash
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+CORE_PEER_ADDRESS=peer0.org2.example.com:7051
+CORE_PEER_LOCALMSPID="Org2MSP"
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+```
+
+```bash
+peer chaincode install -n mycc -v 1.0 -l node -p /opt/gopath/src/github.com/chaincode/chaincode_example02/node/
+```
+
+We can instantiate the chaincode with the following
+
+```bash
+peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C $CHANNEL_NAME -n mycc -l node -v 1.0 -c '{"Args":["init","a", "100", "b","200"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')"
+```
+
+Note that the above command may take a while to execute for Node and Java as it is also installing a shim and container respectively
+
+#### Verify Chaincode
+
+We can make some queries and transactions to verify that the chaincode was correctly installed
+
+##### Query
+
+we can query the value od `a` to make sure the state DB was populated as follows
+
+```bash
+peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
+```
+
+The queey should return `100`
+
+##### Invoke
+
+Next, move 10 from `a` to `b`
+
+```bash
+peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C $CHANNEL_NAME -n mycc --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{"Args":["invoke","a","b","10"]}'
+```
+
+##### Query
+
+Thereafter, query the value again to verify that the transfer succeeded
+
+```bash
+peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
+```
+
+We should now see `90`
+
+##### Install on New Peer
+
+Now, Install the chaincode on a third peer `peer1.org2`, first set the folowing environment variables
+
+```bash
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+CORE_PEER_ADDRESS=peer1.org2.example.com:7051
+CORE_PEER_LOCALMSPID="Org2MSP"
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
+```
+
+Then install the chaincode
+
+```bash
+peer chaincode install -n mycc -v 1.0 -l node -p /opt/gopath/src/github.com/chaincode/chaincode_example02/node/
+```
+
+##### Join Channel
+
+Next the new peer needs to join the channel before it can respond to queries
+
+```bash
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer1.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt peer channel join -b mychannel.block
+```
+
+##### Query
+
+After a few seconds when the peer has joined the channel, we can submit the query
+
+```bash
+peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
+```
+
+We should see the same output as before of `90`
+
+### Take Down the Network
+
+Lastly, we can take down the network with
+
+```bash
+./byfn.sh down
+```
+
+The process we just covered is the same as what happens when we run `./byfn.sh up`, we can run this again and look at the logs in order to see the above with some neat output which I will not put here
+
+### Important Points
+
+- Chaincode must be installed on a peer for it to successfully read and write
+- Chaincode is not instantiated until an `init` or `read/write` transaction is performed against the chaincode
+- An intial transaction causes a container to start
+- All peers on a channel maintain the same copy of the ledger, even those without the chaincode installed on them
+
+### Viewing Transactions
+
+We can see transactions by looking at the logs for the CLI container
+
+```bash
+docker logs -f cli
+```
+
+Furhtermore we can see the chaincode logs by looking at the logs for each respective peer
+
+```bash
+docker logs dev-peer0.org2.example.com-mycc-1.0
+dokcer logs dev-peer0.org1.example.com-mycc-1.0
+docker logs dev-peer1.org2.example.com-mycc-1.0
+```
+
+### CouchDB
+
+We can switch the database from GloveDB to CouchDB in order to allow us to make more complex queries additional to the standard chaincode functionality, to use CouchDB we simply compose with the `docker-compose-couch.yaml` file as follows
+
+```bash
+docker-compose -f docker-compose-cli.yaml -f docker-compose-couch.yaml up -d
+```
+
+While running a development environment we can map CouchDB to a port in order to allow us to use the REST API and visualize the Db with the Web UI, however port mapping is not recommended for Production environments
+
+If we want to look at a tutorial for doing the above with CouchDB we can find that [here](https://hyperledger-fabric.readthedocs.io/en/latest/build_network.html#using-couchdb)
+
+CouchDB allows us to store more complex JSON data in a fully queryable format, as well as enhancing security for compliance and allows us to do field-level security such as calue masking and filtering
+
+### Troubleshooting
+
+If you need to shoot some trouble you can find some information in the [Fabric Docs](https://hyperledger-fabric.readthedocs.io/en/latest/build_network.html#troubleshooting)
 
