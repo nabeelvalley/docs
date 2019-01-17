@@ -1,64 +1,5 @@
 # Working with Fabric
 
-- [Working with Fabric](#working-with-fabric)
-  - [Resources](#resources)
-  - [Overview](#overview)
-    - [Models](#models)
-      - [CTO Language](#cto-language)
-        - [Namespaces](#namespaces)
-        - [Classes](#classes)
-        - [Enums](#enums)
-        - [Concepts](#concepts)
-        - [Primitive Types](#primitive-types)
-        - [Arrays](#arrays)
-        - [Relationships](#relationships)
-        - [Field Validation](#field-validation)
-        - [Imports](#imports)
-      - [Example](#example)
-    - [Logic](#logic)
-      - [Example](#example-1)
-    - [Queries](#queries)
-    - [Access Control](#access-control)
-      - [Example](#example-2)
-    - [Deployment](#deployment)
-  - [Prerequisites](#prerequisites)
-    - [Installing Samples](#installing-samples)
-  - [Writing your First Application](#writing-your-first-application)
-    - [Setting up the environment](#setting-up-the-environment)
-    - [Installing Clients and Launching the Network](#installing-clients-and-launching-the-network)
-    - [Enroll the Admin User](#enroll-the-admin-user)
-    - [Enroll a new User](#enroll-a-new-user)
-    - [Querying the Ledger](#querying-the-ledger)
-    - [Updating the Ledger](#updating-the-ledger)
-    - [Cleanup](#cleanup)
-  - [Building your First Network](#building-your-first-network)
-    - [Network Builder Script](#network-builder-script)
-      - [Generate Network Artifacts](#generate-network-artifacts)
-      - [Bring Up the Network](#bring-up-the-network)
-      - [Bringing Down the Network](#bringing-down-the-network)
-    - [Crypto Generator](#crypto-generator)
-    - [Configuration Transaction Generator](#configuration-transaction-generator)
-    - [Run the Tools](#run-the-tools)
-      - [Manually Generate the Artifacts](#manually-generate-the-artifacts)
-      - [Create Channel Configuration](#create-channel-configuration)
-    - [Start the Network](#start-the-network)
-      - [Environment Variables](#environment-variables)
-      - [Create and Join a Channel](#create-and-join-a-channel)
-      - [Update the Anchor Peers](#update-the-anchor-peers)
-      - [Install and Instantiate Chaincode](#install-and-instantiate-chaincode)
-      - [Verify Chaincode](#verify-chaincode)
-        - [Query](#query)
-        - [Invoke](#invoke)
-        - [Query](#query-1)
-        - [Install on New Peer](#install-on-new-peer)
-        - [Join Channel](#join-channel)
-        - [Query](#query-2)
-    - [Take Down the Network](#take-down-the-network)
-    - [Important Points](#important-points)
-    - [Viewing Transactions](#viewing-transactions)
-    - [CouchDB](#couchdb)
-    - [Troubleshooting](#troubleshooting)
-
 ## Resources
 
 - [Prerequisites](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html)
@@ -795,6 +736,12 @@ To bring up the network with Node as the Language, use the following command:
 ./byfn.sh up -l node
 ```
 
+Furthermore if we want to use by defining a language channel name, and DB type, we can use look at the documentation for more commands on the script. For example if we wanted to use Node, and CouchDB with our channel called `mychannel` we can do that with the following
+
+```bash
+./byfn.sh up -c mychannel -s couchdb -l node
+```
+
 When the network is up and transacting you will see the following
 
 ```raw
@@ -1418,3 +1365,336 @@ CouchDB allows us to store more complex JSON data in a fully queryable format, a
 
 If you need to shoot some trouble you can find some information in the [Fabric Docs](https://hyperledger-fabric.readthedocs.io/en/latest/build_network.html#troubleshooting)
 
+## [Add an Org to a Channel](https://hyperledger-fabric.readthedocs.io/en/latest/channel_update_tutorial.html)
+
+This extends on the network from `byfn` by adding a new Organization to the channel. Chaincode updates are handled by an organization admin and not a chaincode or application developer
+
+### Environment Setup
+
+First we set up the environment by using the `byfn.sh` script, we do this by first clearning up any previous artifacts, generating new artifacts, and launching the network as follows:
+
+```bash
+./byfn.sh down
+./byfn.sh generate
+./byfn.sh up
+```
+
+If you run into a `Permission denied` error, run it again with `sudo`
+
+### Add Org3 to the Channel
+
+Newt we should be able to add Org3 to the channel with the `eyfn.sh` script as follows
+
+```bash
+./eyfn.sh up
+```
+
+We can also make use of the script to configure our network with a few different options with
+
+```bash
+./byfn.sh up -c testchannel -s couchdb -l node
+```
+
+And then
+
+```bash
+./eyfn.sh up -c testchannel -s couchdb -l node
+```
+
+Once we are done, we can look at the logs and then run the following script to bring down the network
+
+```bash
+./eyfn.sh down
+```
+
+### Add Org3 to the Channel Manually
+
+Before starting, modify the `docker-compose-cli.yaml` in the `first-network` directory to set the `FABRIC_LOGGING_SPEC` to  `DEBUG`
+
+```yaml
+cli:
+  container_name: cli
+  image: hyperledger/fabric-tools:$IMAGE_TAG
+  tty: true
+  stdin_open: true
+  environment:
+    - GOPATH=/opt/gopath
+    - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+    #- FABRIC_LOGGING_SPEC=INFO
+    - FABRIC_LOGGING_SPEC=DEBUG
+```
+
+And do the same for the `docker-compose-org3.yaml` file
+
+```yaml
+Org3cli:
+  container_name: Org3cli
+  image: hyperledger/fabric-tools:$IMAGE_TAG
+  tty: true
+  stdin_open: true
+  environment:
+    - GOPATH=/opt/gopath
+    - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+    #- FABRIC_LOGGING_SPEC=INFO
+    - FABRIC_LOGGING_SPEC=DEBUG
+```
+
+Now, bring up the initial network with the following commands:
+
+```bash
+./byfn.sh generate
+./byfn.sh up
+```
+
+This will get us to the same network state as before we executed the `./eyfn.sh up` command
+
+#### Generate the Org3 Crypto Material
+
+In a new terminal cd into the `org3-artifacts` directory and generate the crypto material for Org3 using the `org3-crypto.yaml` and the `configtx.yaml` files
+
+```bash
+../../bin/cryptogen generate --config=./org3-crypto.yaml
+```
+
+This command reads the `org3-crypto.yaml` file and uses `cryptogen` to generate the keys and certificates for an Org3 CA and 2 Peers, the crypto material is then placed into the `orypto-config` subdirectory
+
+Next we use the `configtxgen` tool to create the Org3 config material in JSON as follows
+
+``bash
+export FABRIC_CFG_PATH=$PWD && ../../bin/configtxgen -printOrg Org3MSP > ../channel-artifacts/org3.json
+```
+
+This command creates a JSON file that contains policy definitions for Org3 as well as the following certificates:
+
+- Admin user certificate
+- CA root cert
+- TLS root cert
+
+This JSON file will later be appended to the channel configuration
+
+Next, we'll make a copy of the Orderer's TLS root cert to allow for secure communication between Org3 entities and the Ordering node
+
+```bash
+cd ../ && cp -r crypto-config/ordererOrganizations org3-artifacts/crypto-config/
+```
+
+Now we have all the required material to update the channel
+
+#### Prepare the CLI Environment
+
+We will mak use of the `configtxlator` tool which provides a stateless REST API aside from the SDK as well as allows us to easily convert between different data representations/formats
+
+First `exec` into the CLI container export the following variables
+
+```bash
+docker exec -it cli bash
+```
+
+```bash
+export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+export CHANNEL_NAME=mychannel
+```
+
+> Iy you need to restart the CLI contiiner, you will need to redefine the above variables (obviously)
+
+#### Fetch the Configuration
+
+Now that we have defined the two environment variables we can fetch the most recent config block for the channel. We will then save a binary protobuf channel configuration block to a `config_block.pb` file with the following command
+
+```bash
+peer channel fetch config config_block.pb -o orderer.example.com:7050 -c $CHANNEL_NAME --tls --cafile $ORDERER_CA
+```
+
+The last line of the output should say something like
+
+```
+readBlock -> DEB 011 Received block: 2
+```
+
+From here we can see that the most recent block is from the `byfn` script and it was when the script defined `Org2`, The following are the configurations we have done so far
+
+- Block 0 - Genesis Block
+- Block1 - Org 1 Anchor Peer update
+- Block 2 - Org 2 Anchor Peer update
+
+#### Convert Config to JSON
+
+We will now make use of the `configxlator` tool to decode the channel conifguration blok into JSON as well as strip away any metadata and creator signatures that are irrlevant to us as humans with the `jq` tool
+
+```bash
+configtxlator proto_decode --input config_block.pb --type common.Block | jq .data.data[0].payload.data.config > config.json
+```
+
+#### Add the Org3 Crypto Material
+
+Up until this point the steps for making any config update will be the same, from here the steps are specific to adding a channel
+
+Now that we have the Channel config as JSON we can use `jq` to append the `org3.json` definition and save it as `modified_config.json`
+
+```bash
+jq -s '.[0] * {"channel_group":{"groups":{"Application":{"groups": {"Org3MSP":.[1]}}}}}' config.json ./channel-artifacts/org3.json > modified_config.json
+```
+
+And thereafter we translate the `config.json` and `modified_config.json` to protobufs `config.pb` and `modified_config.pb` respectively so we can calculate the delta between the two configs
+
+```bash
+configtxlator proto_encode --input config.json --type common.Config --output config.pb
+
+configtxlator proto_encode --input modified_config.json --type common.Config --output modified_config.pb
+```
+
+Then we can calculate the deltas
+
+```bash
+configtxlator compute_update --channel_id $CHANNEL_NAME --original config.pb --updated modified_config.pb --output org3_update.pb
+```
+
+The file we just genreated `org3_update.pb` contains the Org3 definitions and is the definition of the deltas
+
+Before submiting to the channel, we need to add some headers and additional content around the JSON file, we can do that by first getting a JSON version of our deltas
+
+```bash
+configtxlator proto_decode --input org3_update.pb --type common.ConfigUpdate | jq . > org3_update.json
+```
+
+And wrapping it in some additional data and adding the meta back with `jq`
+
+```bash
+echo '{"payload":{"header":{"channel_header":{"channel_id":"mychannel", "type":2}},"data":{"config_update":'$(cat org3_update.json)'}}}' | jq . > org3_update_in_envelope.json
+```
+
+Lastly, we will convert the final JSON deltas into a protobuf file as follows
+
+```bash
+configtxlator proto_encode --input org3_update_in_envelope.json --type common.Envelope --output org3_update_in_envelope.pb
+```
+
+#### Sign and Submit the Update
+
+We have the updated proto in the `org3_update_in_envelope.json` file in the conainerm however we need signatures from the required admin users before the conffig change can we written to the ledger
+
+The modification policy is set to the default value of `MAJORITY`, since we have two peers, this means they oth need to sign the change otherwise the ordering service will reject the transaction
+
+We can first sign the update as Org1 Admin as follows (since the CLI is bootstrapped with the Org1 MSP Material) by executing the following command
+
+```bash
+peer channel signconfigtx -f org3_update_in_envelope.pb
+```
+Next we switch to Org2 by changing our environment credentials and running the `peer channel update` command
+
+> Note that realistically a single container would not have all the network's crypto material
+
+Export the Org2 environment variables
+
+```bash
+export CORE_PEER_LOCALMSPID="Org2MSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+export CORE_PEER_ADDRESS=peer0.org2.example.com:7051
+```
+
+And then sign the update with this peer as well
+
+```bash
+peer channel update -f org3_update_in_envelope.pb -c $CHANNEL_NAME -o orderer.example.com:7050 --tls --cafile $ORDERER_CA
+```
+
+### Cofiguring Leader Election
+
+The default leader mode is dynamic for new peers. New peers are bootstrapped with the genesis block that does not contain information about the Org they are in. New peers are unable to verify blocks until they get a channel configuration transaction, they therefore must have a leader mode in order to receive blocks from the Ordering service
+
+Static:
+
+```bash
+CORE_PEER_GOSSIP_USELEADERELECTION=false
+CORE_PEER_GOSSIP_ORGLEADER=true
+```
+
+Dynamic:
+
+```bash
+CORE_PEER_GOSSIP_USELEADERELECTION=true
+CORE_PEER_GOSSIP_ORGLEADER=false
+```
+
+### Join Org3 to the Channel
+
+Until this point the channel config has been updated to include `Org3`, meaning that new peers on `Org3` can jon the channel `mychannel`
+
+We can set up `Org3` by using the docker compose file for it
+
+```bash
+docker-compose-org3-yaml up -d
+```
+
+And then we can `exec` into it with the following
+
+```bash
+docker exec -it Org3cli bash
+```
+
+And export the key variables
+
+```bash
+export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+export CHANNEL_NAME=mychannel
+```
+
+Next we can send a call to the ordering service to retrieve the block we just added
+
+```bash
+peer channel fetch 0 mychannel.block -o orderer.example.com:7050 -c $CHANNEL_NAME --tls --cafile $ORDERER_CA
+```
+
+Note that the `0` we pass to the above command will retrieve the Genesis block and not the latest block in the chain
+
+Next we can join the peer to the channel using the genesis block as follows
+
+```bash
+peer channel join -b mychannel.block
+```
+
+We can then add a second peer to the block with:
+
+
+```bash
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.example.com/peers/peer1.org3.example.com/tls/ca.crt
+export CORE_PEER_ADDRESS=peer1.org3.example.com:7051
+
+peer channel join -b mychannel.block
+```
+
+### Upgrade and Invoke Chaincode
+
+The new chaincode policy has been put in place to include Org3, we can install the updated chaincode on Org3 with the following:
+
+```bash
+peer chaincode install -n mycc -v 2.0 -p github.com/chaincode/chaincode_example02/go/
+```
+
+And then from the original CLI container we can install the chaincode onto `peer0.org1` and `peer0.org2` with the following
+
+```bash
+peer chaincode install -n mycc -v 2.0 -p github.com/chaincode/chaincode_example02/go/
+
+export CORE_PEER_LOCALMSPID="Org1MSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+export CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+
+peer chaincode install -n mycc -v 2.0 -p github.com/chaincode/chaincode_example02/go/
+```
+
+Now that the chaincode has been installed we can upgrade the chaincode and specify the new endorsement policy for transactions. Furthermore we can see that we are passing the initialize command with a few arguments
+
+```bash
+peer chaincode upgrade -o orderer.example.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -v 2.0 -c '{"Args":["init","a","90","b","210"]}' -P "OR ('Org1MSP.peer','Org2MSP.peer','Org3MSP.peer')"
+```
+
+Next we can query the chaincode, invoke it, and query it again to see that it works as follows
+
+```bash
+peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
+peer chaincode invoke -o orderer.example.com:7050  --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}'
+peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
+```
