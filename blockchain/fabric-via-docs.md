@@ -1698,3 +1698,16 @@ peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
 peer chaincode invoke -o orderer.example.com:7050  --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}'
 peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
 ```
+
+## Chaincode for Developers
+
+Chaincode is a program in Go, Node or Java that implements the prescribed Chaincode Interface. It runs in a secured docker container isolated from the peer process and intiializes and manages ledger state by way of transactions
+
+Chaincode handles business logic agreed by members of a network, similar to a smart contract. Chaincode can be invoked to update or query the ledger, and with the correct permissions even invoke other chaincode
+
+### The Chaincode API
+
+Any chaincode program must implement the `Chaincode` interface, whose methods are called in response to received transactions. Particularly the `Init` method is called when a chaincode receives an `instantiate` or `upgrade` transaction
+
+The other interface available is the `ChaincodeStubInterface` and allows chaincodes to access and modify the ledger and make invocations to other chaincode
+
