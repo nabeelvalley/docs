@@ -1711,3 +1711,293 @@ Any chaincode program must implement the `Chaincode` interface, whose methods ar
 
 The other interface available is the `ChaincodeStubInterface` and allows chaincodes to access and modify the ledger and make invocations to other chaincode
 
+### Simple Asset Chaincode
+
+We will make use of a simple chaincode built with Go (I will look at implementing this with Node as well, but the documentation uses Go for the time being)
+
+Firstly, you will need to install Go and create the following directories (For more info on Go and how the Go file system needs to look - check out the notes on that [here](../go/basics.md)
+
+The Go Installation Instructions for Fabric can be found [here](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html#golang)
+
+Make the directory in your Go workspace `go/src/sacc`. You can easily `cd` to this by using the `$GOPATH` environment variable, in the Go workspace, make the directory `src/sacc` in which we can add the chaincode
+
+### Housekeeping
+
+The chaincode file will need to import the necessary packages and have a struct which can define the asset
+
+```go
+package main
+
+import (
+  "fmt"
+
+  "github.com/hyperledger/fabric/core/chaincode/shim"
+  "github.com/hyperledger/fabric/protos/peer"
+)
+
+// SimpleAsset implements a simple chaincode to manage an asset
+type SimpleAsset struct {
+}
+```
+
+### Initialization
+
+We need to provide the `Init` function, this is called when te chaincode is initialized or when chaincode is upgraded. When writing a chaincode upgrade be sure to modify the `Init` function to be empty if there is no migration that needs to be done
+
+Our `Init` function will be defined as follows:
+```go
+// Init is called during chaincode instantiation to initialize any data.
+func (t *SimpleAsset) Init(stub shim.ChaincodeStubInterface) peer.Response {
+
+}
+```
+
+It will make use of the `GetStringArgs` function, since we are expecting a key-value pair, we will need to have two arguments so we will check for that
+
+```go
+// Init is called during chaincode instantiation to initialize any
+// data. Note that chaincode upgrade also calls this function to reset
+// or to migrate data, so be careful to avoid a scenario where you
+// inadvertently clobber your ledger's data!
+func (t *SimpleAsset) Init(stub shim.ChaincodeStubInterface) peer.Response {
+  // Get the args from the transaction proposal
+  args := stub.GetStringArgs()
+  if len(args) != 2 {
+    return shim.Error("Incorrect arguments. Expecting a key and a value")
+  }
+}
+```
+
+Then we will store the state in the ledger using the `PutState` function with the key and value, and if that went well we will return a `peer.Response`
+
+```go
+// Init is called during chaincode instantiation to initialize any
+// data. Note that chaincode upgrade also calls this function to reset
+// or to migrate data, so be careful to avoid a scenario where you
+// inadvertently clobber your ledger's data!
+func (t *SimpleAsset) Init(stub shim.ChaincodeStubInterface) peer.Response {
+  // Get the args from the transaction proposal
+  args := stub.GetStringArgs()
+  if len(args) != 2 {
+    return shim.Error("Incorrect arguments. Expecting a key and a value")
+  }
+
+  // Set up any variables or assets here by calling stub.PutState()
+
+  // We store the key and the value on the ledger
+  err := stub.PutState(args[0], []byte(args[1]))
+  if err != nil {
+    return shim.Error(fmt.Sprintf("Failed to create asset: %s", args[0]))
+  }
+  return shim.Success(nil)
+}
+```
+
+### Invoking the Chaincode
+
+`Invoke` is called per transaction, and may either be a `get` or `set` method. `set` will create a new asset by specifying the key-value pair
+
+```go
+// Invoke is called per transaction on the chaincode. Each transaction is
+// either a 'get' or a 'set' on the asset created by Init function. The 'set'
+// method may create a new asset by specifying a new key-value pair.
+func (t *SimpleAsset) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
+
+}
+```
+
+Once again, we need to extract the argumets from the `ChaincodeStubInterface`, our application has a `get` and a `set` function that allow the value of an asset to be set, or its current value to be retrieved. We first call the `GetFunctionAndParameters` to get the function name and params
+
+```go
+// Invoke is called per transaction on the chaincode. Each transaction is
+// either a 'get' or a 'set' on the asset created by Init function. The Set
+// method may create a new asset by specifying a new key-value pair.
+func (t *SimpleAsset) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
+    // Extract the function and args from the transaction proposal
+    fn, args := stub.GetFunctionAndParameters()
+
+}
+```
+
+Next, we will identify if the function is `get` or `set` and will call the respective functions, we do this simply as follows
+
+```go
+// Invoke is called per transaction on the chaincode. Each transaction is
+// either a 'get' or a 'set' on the asset created by Init function. The Set
+// method may create a new asset by specifying a new key-value pair.
+func (t *SimpleAsset) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
+    // Extract the function and args from the transaction proposal
+    fn, args := stub.GetFunctionAndParameters()
+
+    var result string
+    var err error
+    if fn == "set" {
+            result, err = set(stub, args)
+    } else {
+            result, err = get(stub, args)
+    }
+    if err != nil {
+            return shim.Error(err.Error())
+    }
+
+    // Return the result as success payload
+    return shim.Success([]byte(result))
+}
+```
+
+### Implementing the Chaincode Functionality
+
+Next we can define the chaincode implementation by defining the `get` and `set` functions. We will make use of the `PutState` and `GetState` functions to do this
+
+```go
+// Set stores the asset (both key and value) on the ledger. If the key exists,
+// it will override the value with the new one
+func set(stub shim.ChaincodeStubInterface, args []string) (string, error) {
+    if len(args) != 2 {
+            return "", fmt.Errorf("Incorrect arguments. Expecting a key and a value")
+    }
+
+    err := stub.PutState(args[0], []byte(args[1]))
+    if err != nil {
+            return "", fmt.Errorf("Failed to set asset: %s", args[0])
+    }
+    return args[1], nil
+}
+
+// Get returns the value of the specified asset key
+func get(stub shim.ChaincodeStubInterface, args []string) (string, error) {
+    if len(args) != 1 {
+            return "", fmt.Errorf("Incorrect arguments. Expecting a key")
+    }
+
+    value, err := stub.GetState(args[0])
+    if err != nil {
+            return "", fmt.Errorf("Failed to get asset: %s with error: %s", args[0], err)
+    }
+    if value == nil {
+            return "", fmt.Errorf("Asset not found: %s", args[0])
+    }
+    return string(value), nil
+}
+```
+
+### Starting the Chaincode
+
+Lastly, we need to implement the `main` method that will call the `shim.Start` function
+
+```go
+// main function starts up the chaincode in the container during instantiate
+func main() {
+    if err := shim.Start(new(SimpleAsset)); err != nil {
+            fmt.Printf("Error starting SimpleAsset chaincode: %s", err)
+    }
+}
+```
+
+### Final Chaincode
+
+The overall chaincode will be as follows
+
+```go
+package main
+
+import (
+    "fmt"
+
+    "github.com/hyperledger/fabric/core/chaincode/shim"
+    "github.com/hyperledger/fabric/protos/peer"
+)
+
+// SimpleAsset implements a simple chaincode to manage an asset
+type SimpleAsset struct {
+}
+
+// Init is called during chaincode instantiation to initialize any
+// data. Note that chaincode upgrade also calls this function to reset
+// or to migrate data.
+func (t *SimpleAsset) Init(stub shim.ChaincodeStubInterface) peer.Response {
+    // Get the args from the transaction proposal
+    args := stub.GetStringArgs()
+    if len(args) != 2 {
+            return shim.Error("Incorrect arguments. Expecting a key and a value")
+    }
+
+    // Set up any variables or assets here by calling stub.PutState()
+
+    // We store the key and the value on the ledger
+    err := stub.PutState(args[0], []byte(args[1]))
+    if err != nil {
+            return shim.Error(fmt.Sprintf("Failed to create asset: %s", args[0]))
+    }
+    return shim.Success(nil)
+}
+
+// Invoke is called per transaction on the chaincode. Each transaction is
+// either a 'get' or a 'set' on the asset created by Init function. The Set
+// method may create a new asset by specifying a new key-value pair.
+func (t *SimpleAsset) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
+    // Extract the function and args from the transaction proposal
+    fn, args := stub.GetFunctionAndParameters()
+
+    var result string
+    var err error
+    if fn == "set" {
+            result, err = set(stub, args)
+    } else { // assume 'get' even if fn is nil
+            result, err = get(stub, args)
+    }
+    if err != nil {
+            return shim.Error(err.Error())
+    }
+
+    // Return the result as success payload
+    return shim.Success([]byte(result))
+}
+
+// Set stores the asset (both key and value) on the ledger. If the key exists,
+// it will override the value with the new one
+func set(stub shim.ChaincodeStubInterface, args []string) (string, error) {
+    if len(args) != 2 {
+            return "", fmt.Errorf("Incorrect arguments. Expecting a key and a value")
+    }
+
+    err := stub.PutState(args[0], []byte(args[1]))
+    if err != nil {
+            return "", fmt.Errorf("Failed to set asset: %s", args[0])
+    }
+    return args[1], nil
+}
+
+// Get returns the value of the specified asset key
+func get(stub shim.ChaincodeStubInterface, args []string) (string, error) {
+    if len(args) != 1 {
+            return "", fmt.Errorf("Incorrect arguments. Expecting a key")
+    }
+
+    value, err := stub.GetState(args[0])
+    if err != nil {
+            return "", fmt.Errorf("Failed to get asset: %s with error: %s", args[0], err)
+    }
+    if value == nil {
+            return "", fmt.Errorf("Asset not found: %s", args[0])
+    }
+    return string(value), nil
+}
+
+// main function starts up the chaincode in the container during instantiate
+func main() {
+    if err := shim.Start(new(SimpleAsset)); err != nil {
+            fmt.Printf("Error starting SimpleAsset chaincode: %s", err)
+    }
+}
+```
+
+### Build the Chaincode
+
+We can compile the code with the following
+
+```bash
+go get -u github.com/hyperledger/fabric/core/chaincode/shim
+go build
+```
+

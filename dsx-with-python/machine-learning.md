@@ -1,4 +1,3 @@
-
 # Machine Learning with Python
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/machine-learning-with-python/)

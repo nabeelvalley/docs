@@ -1,4 +1,4 @@
-# Intro to GO
+# Intro to Go
 
 - [YouTube Video](https://www.youtube.com/watch?v=SqrbIlUwR0U)
 - [GitHub](https://github.com/bradtraversy/go_crash_course)

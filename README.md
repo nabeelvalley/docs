@@ -30,8 +30,8 @@
 
 ## Dsx With Python 
 
-* [](dsx-with-python/data-analysis.md)
-* [](dsx-with-python/machine-learning.md)
+* [Data Analysis With Python](dsx-with-python/data-analysis.md)
+* [Machine Learning with Python](dsx-with-python/machine-learning.md)
 * [Python Basics](dsx-with-python/python-basics.md)
 
 ## Dsx With R 
@@ -44,6 +44,10 @@
 ## Gitlab 
 
 * [CI Pipelines](gitlab/ci-pipelines.md)
+
+## Go 
+
+* [Intro to GO](go/basics.md)
 
 ## Ibm Cloud 
 
