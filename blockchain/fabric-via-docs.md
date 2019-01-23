@@ -1761,7 +1761,7 @@ It will make use of the `GetStringArgs` function, since we are expecting a key-v
 // inadvertently clobber your ledger's data!
 func (t *SimpleAsset) Init(stub shim.ChaincodeStubInterface) peer.Response {
   // Get the args from the transaction proposal
-  args := stub.GetStringArgs()
+  _, args := stub.GetFunctionAndParameters()
   if len(args) != 2 {
     return shim.Error("Incorrect arguments. Expecting a key and a value")
   }
@@ -1777,7 +1777,7 @@ Then we will store the state in the ledger using the `PutState` function with th
 // inadvertently clobber your ledger's data!
 func (t *SimpleAsset) Init(stub shim.ChaincodeStubInterface) peer.Response {
   // Get the args from the transaction proposal
-  args := stub.GetStringArgs()
+  _, args := stub.GetFunctionAndParameters()
   if len(args) != 2 {
     return shim.Error("Incorrect arguments. Expecting a key and a value")
   }
@@ -1917,7 +1917,7 @@ type SimpleAsset struct {
 // or to migrate data.
 func (t *SimpleAsset) Init(stub shim.ChaincodeStubInterface) peer.Response {
     // Get the args from the transaction proposal
-    args := stub.GetStringArgs()
+    _, args := stub.GetFunctionAndParameters()
     if len(args) != 2 {
             return shim.Error("Incorrect arguments. Expecting a key and a value")
     }
@@ -2001,3 +2001,44 @@ go get -u github.com/hyperledger/fabric/core/chaincode/shim
 go build
 ```
 
+### Test the Code
+
+We can test the chaincode with the `fabric-samples/docker-devmode` folder. For this we will need 3 terminals
+
+#### Terminal 1 - Start the Network
+```bash
+docker-compose -f docker-compose-simple.yaml up
+```
+
+#### Terminal 2 - Build and Start the Chaincode
+
+```bash
+docker exec -it chaincode bash
+```
+
+```bash
+cd sacc
+go build
+```
+
+Then run the chaincode with
+
+```bash
+CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
+```
+
+#### Terminal 3 - Use the Chaincode
+
+```bash
+docker exec -it cli bash
+```
+```bash
+peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0
+peer chaincode instantiate -n mycc -v 0 -c '{"Args":["init","a","10"]}' -C myc
+peer chaincode invoke -n mycc -c '{"Args":["set", "a", "20"]}' -C myc
+peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
+```
+
+### Note on the Instantiation Method
+
+Note that the instantiation method in the official documentation for this tutorial does not make us of the `init` argument that should be passed in (This may result in it failing when using something like IBM Cloud Blockchain which by default passes in the `init` argument), for a better example of an Instantiation take a look at [this page](https://github.com/hyperledger/fabric-samples/blob/release-1.4/chaincode/chaincode_example02/go/chaincode_example02.go)
