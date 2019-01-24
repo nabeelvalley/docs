@@ -1,12 +1,28 @@
 # Foundation
 
-### --- Temporarily Discontinued --
+- [Foundation](#foundation)
+  - [Prerequisites](#prerequisites)
+  - [Hyperledger Composer](#hyperledger-composer)
+    - [Introduction](#introduction)
+    - [Components and Structure](#components-and-structure)
+    - [The Toolset](#the-toolset)
+  - [Fabric](#fabric)
+    - [Participants and Components](#participants-and-components)
+      - [Participants](#participants)
+      - [Components](#components)
+      - [Developer Considerations](#developer-considerations)
+    - [Administrator Considerations](#administrator-considerations)
+    - [Consensus](#consensus)
+    - [Public vs Private](#public-vs-private)
+    - [Architect Considerations](#architect-considerations)
+    - [Network Consensus Considerations](#network-consensus-considerations)
+    - [Transaction Process](#transaction-process)
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/ibm-blockchain-foundation-dev/)
 
 ## Prerequisites
 
-For Windows you need \(in this order\):
+For Windows you need (in this order), Note that I cannot seem to get this to work on Windows, however there is information on running this with Ubuntu on [this page](./fabric-via-docs.md)
 
 * Python 2.7
 * Docker
@@ -53,72 +69,158 @@ We make use of a variety of open source tools such as
 * Web Playground
 * LoopBack/Swagger
 
-### Lab 1
+## Fabric
 
-We can look at the Hyperledger composer home page to view tutorials and the [prerequisite ](https://hyperledger.github.io/composer/latest/installing/installing-prereqs)and [installation guide](https://hyperledger.github.io/composer/latest/installing/development-tools)
+### Participants and Components
 
-#### Setting up the Dev Environment
+#### Participants
 
-Before we can get started we need to install the windows build tools in **Powershell** as an administrator
+- Regulator to regulate the industry
+- Blockchain architect
+- Blockchain developer
+- Blockchain network operator
+- Traditional processing systems
+- Traditional data sources
+- Membership services
+- Blockchain user
 
-```text
-npm install -g --production windows-build-tools
-```
+#### Components
 
-If you are using Ubuntu, using your terminal you can easily install all the prerequisites with
+- Ledger
+  - Stores world state
+- Smart contract 
+  - Encode business logic
+- Peer network 
+  - eCerts for identity 
+  - tCerts for transactions
+- Events 
+  - Pub/Sub event based system
+- Wallet
+  - Stores membership certificates/identity
+- Integrations
+  - Means of working with existing systems
 
-```text
-curl -O https://hyperledger.github.io/composer/latest/prereqs-ubuntu.sh
-chmod u+x prereqs-ubuntu.sh
-./prereqs-ubuntu.sh
-```
+#### Developer Considerations
 
-Then install the required node packages
+Developers will be really interested in aspects like the Application and Smart Contracts, not things like Peers, Consensus and Security
 
-```text
-npm install -g composer-cli@0.20
-npm install -g composer-rest-server@0.20
-npm install -g generator-hyperledger-composer@0.20
-npm install -g yo
-```
+A ledger consists of two different data structures, a blockchain which is a series of transactions and the world state which is a representation of the current state of assets
 
-We can also install playground to edit and test Business Networks
+The application submits a transaction to a smart contract. This works synchronously across the network
 
-```text
-npm install -g composer-playground@0.20
-```
+The World state will change over time, but the Blocks will store transactions and thus be immutable
 
-Next up we need to log in to run docker as an administrator and log in before we can do much else
+There are a variety of ways that we can integrate with existing system
 
-```text
-docker login
-```
+We can make use of the Event Pub/Sub system to allow us to communicate between events, furthermore an external system can submit requests as a user
 
-Then Install the Hyperledger Fabric via **Bash** \(if on Windows as well as an administrator\) as to download Fabric as well as some other configurations
+Smart contracts can also call out directly to existing systems, however this can very easily cause problems within the blockchain and if we are querying different information we may lead to a lack in consensus due to them all calling for the information at different times
 
-```text
-mkdir ~/fabric-dev-servers && cd ~/fabric-dev-servers
+### Administrator Considerations
 
-curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.tar.gz
-tar -xvf fabric-dev-servers.tar.gz
+A blockchain operator needs to look at the
 
-cd ~/fabric-dev-servers
-export FABRIC_VERSION=hlfv12
-./downloadFabric.sh
+- Peers
+- Consensus
+- Security
 
-cd ~/fabric-dev-servers
-export FABRIC_VERSION=hlfv12
-./startFabric.sh
-./createPeerAdminCard.sh
-```
+They will typically not care about application code, smart contracts, events, and integration
 
-Note that when using Windows Hyper-V needs to be enabled in order for Docker to work
+Consensus is the method of getting agreement and helps us to keep peers up to date and reach consensus while quarantining any malicious nodes
 
-Next up we can look at the [Developer Tutorial](https://hyperledger.github.io/composer/latest/tutorials/developer-tutorial) for Hyperledger Composer and follow the process
+### Consensus
 
-### --- Stopping here for now due to Technical Issues --
+1. Application submits a request
+2. Request is distributed throughout network
+3. Designator creates a block containing a transaction
+4. Runs blocks against ruleset
+5. Network attempts to reach consensus
+6. Once agreement is reached the block is added to th chain
 
-### 
+There are many ways that consensus can be reached such as:
 
+- Proof of work
+  - Good when we do not know who we are working for
+  - Very power intensive
+  - Bitcoin, Ethereum
+- Proof of stake
+  - Works in untrusted network
+  - Requires intrinsic cryptocurrency, "Nothing at stake" problem
+  - Nxt
+- Solo
+  - Well suited for development
+  - No consensus
+  - Used in Hyperledger 1.0
+- Kafka/Zookeeper
+  - Efficient and fault tolerant
+  - Does not guard against malicious activity
+  - Used in Hyperledger 1.0
+- Proof of Elapsed Time
+  - Efficient
+  - Tailored towards one vendor
+  - Sawtooth-Lake
+- PBFT based
+  - Efficient and tolerent against malicious peers
+  - Validators are known and totally connected
+  - Used in Hyperledger 0.6
 
+### Public vs Private
+
+- Public
+  - Transactions are viewable by anyone
+  - Participant identity is unknown
+- Private
+  - Transactions are secret
+  - Participants are known
+
+Private blockchains make use of Identity Certificates and a Certificate Authority that issues certificates into a user's wallet and they submit their transactions using their certificates to submit transactions
+
+### Architect Considerations
+
+An architect will need to look at a variety of things such as
+
+- Performance
+- Security
+- Resiliency
+
+### Network Consensus Considerations
+
+We have two different types of systems in a network
+
+- Peers
+  - Committing
+    - Maintain ledger and state
+    - Commits transactions
+    - **May** hold chaincode
+  - Endorsing
+    - Specialized comitting peer
+    - Endorses transaction proposals
+    - Grants or denies endorsement
+    - **Must** hold chaincode
+- Ordering Service
+  - Approves inclusion of transaction blocks into the ledger
+  - Communicates with commiting and endorsing peer nodes
+  - Does not hold smart contract or ledger
+
+### Transaction Process
+
+1. Propose transaction
+   -  Application will submit a proposed transaction to target peers
+   -  Nodes will need to endorse the policy
+2. Execute Proposal
+    - Each Endorser node will carry out the transaction
+3. Proposal Response
+    - The Endorser will send back the original transaction
+    - Additionally will send the read/write state
+    - Transaction Signature
+4. Order Transaction
+    - Verified transaction will be sent to the orderer
+    - Orderer will group transactions into a block
+5. Deliver Transaction
+    - The orderer will then distribute the block to all the peers
+6. Validate Transaction
+    - Peers will then verify that the transaction is correct
+    - The block will then be added to the chain
+8. Notify Transaction
+    - Send an event to say that the block has been added to the chain
 
