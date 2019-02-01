@@ -20,6 +20,7 @@
   - [Deep Learning Libraries](#deep-learning-libraries)
     - [Theano](#theano)
     - [Caffe](#caffe)
+    - [Tensorflow](#tensorflow)
 
 ## Introduction to Deep Learning
 
@@ -259,4 +260,18 @@ The Blocks library allows to build on top of Theano, and the Lasagne/Keras libra
 Libraries like Passage are also useful for RNN training for textual analysis
 
 ### Caffe
+
+Caffe is a deep learning library for machine vision and forecasting which allows you to train custom nets as well as use prebuilt nets via the community
+
+Caffe is well suited for CNN's among other types of nets and is written in C++ and can be accessed with Matlab and Python. It provides the user an ability to very flexibly define nets and net parameters as needed. CaffeNets are uploaded to what is called the Model Zoo
+
+### Tensorflow
+
+Tensorflow is a library built by Google for building Commercial Deep Learning applications. The goal was to build a Machine Learning model that can be deployed on a variety of end devices
+
+Tensorflow is based on the concept of a Computational Graph in which Tensors flow along graph connections
+
+If Hyperparameter interfaces are available by way of the Keras library
+
+Tensorboard allows you to view visualizations about the network with methods such as Network architecture as well as model progression
 
