@@ -2,13 +2,21 @@
 
 ## Script
 
+Before running the below script, ensure that you are in Administrator Powershell and that your Execution Policy is set to Remote Signed, if not then first run the following command
+
+```powershell
+Set-ExecutionPolicy RemoteSigned
+```
+
+Then run the script below
+
 ```powershell
 cd ~
 choco install python2 docker-desktop docker-compose golang nodejs git -y
 npm install --global windows-build-tools
 npm install --global grpc
 mkdir .\go\src\github.com\hyperledger
-cd go/src/github.com/hyperledger
+cd go\src\github.com\hyperledger
 git clone https://github.com/hyperledger/fabric.git
 ```
 
