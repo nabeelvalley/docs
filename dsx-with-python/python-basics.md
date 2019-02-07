@@ -115,6 +115,7 @@
       - [Accessing Values](#accessing-values)
       - [Slicing](#slicing-2)
       - [Mathematical Operations](#mathematical-operations)
+  - [Dancing Man](#dancing-man)
 
 
 ## Labs
@@ -1340,3 +1341,21 @@ a[0:2,2] # array([13, 23])
 
 We can perform the usual mathematical operations with 2D arrays as with 1D
 
+## Dancing Man
+
+The following Script will make a dancing man if run in Jupyter > because why not
+
+```python
+from IPython.display import display, clear_output
+import time
+
+val1 = '(•_•)\n<)   )╯\n/    \\'
+val2 = '\(•_•)\n(   (>\n/    \\'
+val3 = '(•_•)\n<)   )>\n/    \\'
+
+while True:
+    for pos in [val1, val2, val3]:
+        clear_output(wait=True)
+        print(pos)
+        time.sleep(0.6)
+```
