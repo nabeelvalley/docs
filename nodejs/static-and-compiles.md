@@ -8,6 +8,8 @@ This is a library that will look through code and extract only the minimum requi
 
 I have not yet used it, but it is a fairly small project and I'd just like to keep a note of it
 
+> Contribution Idea, ensure that CSS classes in javascript are rendered as well - such as the ones in eventhandlers, etc.
+
 ## [React Static](https://github.com/stereobooster/react-snap)
 
 This also uses the Minimal CSS package above, it's useful for compiling single page apps into static sites with multiple pages and makes use of route-crawling to get all the pages
