@@ -2,9 +2,35 @@
 
 [From this Module](https://learn.chef.io/modules/learn-the-basics)
 
+```
+Infrastructure Automation > Learn the Basics > Ubuntu > Docker
+``` 
+
+- [Basics of Chef](#basics-of-chef)
+  - [Note About Environment](#note-about-environment)
+  - [Set Up a Docker Container to Manage](#set-up-a-docker-container-to-manage)
+    - [Make a Working Directory](#make-a-working-directory)
+    - [Start the Docker Container](#start-the-docker-container)
+    - [From the Container](#from-the-container)
+      - [Install Chef in Container](#install-chef-in-container)
+      - [Set Up the Working Directory](#set-up-the-working-directory)
+      - [Delete MOTD file](#delete-motd-file)
+    - [Summary](#summary)
+  - [Configure a Package and Service](#configure-a-package-and-service)
+    - [Update Apt Cache](#update-apt-cache)
+    - [Install the Apache Package](#install-the-apache-package)
+    - [Start and Enable the Apache Service](#start-and-enable-the-apache-service)
+    - [Add a Home Page](#add-a-home-page)
+    - [Summary](#summary-1)
+  - [Making Recipes More Managable](#making-recipes-more-managable)
+    - [Create a Cookbook](#create-a-cookbook)
+    - [Create a Template](#create-a-template)
+    - [Update the Recipe](#update-the-recipe)
+    - [Run the Cookbook](#run-the-cookbook)
+
 ## Note About Environment
 
-I am running a VM with access to a Shared Drive using VirtualBox, this can be found at `root/media/sf_name` on my Ubuntu VM
+I am running a VM with access to a Shared Drive using VirtualBox, this can be found at `root/media/sf_name` on the Ubuntu VM
 
 ## Set Up a Docker Container to Manage
 
@@ -165,3 +191,232 @@ Resources describe the what, not the how. A recipe is a file that describes what
 Resources have actions, such as `:delete` which is a process by which a desired state is reached. Every resource has a default action, such as *create a file* or *install a package*. `:create` is the defult action for a `file` resource
 
 Recipes are an ordered list of configuration states and typically contain related states
+
+## Configure a Package and Service
+
+Packages and services, like files, are also resource types
+
+For this portion we will be managing an Apache HTTP Server Package and its associated Service
+
+### Update Apt Cache
+
+We can run the `apt-get update` command manually every time we bring up an instance, but chef provides us with an `apt_update` resource to automate the process
+
+Chef allows us to periodically carry out a specific task, in this case we can update our apt cache every 24 hours (86 400 seconds)
+
+In the `chef-repo` directory create a `webserver.rb` file with the instructions to periodically update the cache as follows
+
+```rb
+apt_update 'Update the apt cache daily' do
+  frequency 86_400
+  action :periodic
+end
+```
+
+Instead of `:periodic` we can also use the `:update` action to update each time chef runs
+
+### Install the Apache Package
+
+Next we can install the `apache2` package, modify the `webserver.rb` package to do this
+
+```rb
+apt_update 'Update the apt cache daily' do
+  frequency 86_400
+  action :periodic
+end
+
+package 'apache2'
+```
+
+We don't need to specify the `:install` action as this is the default
+
+
+Now run the recipe with
+
+```bash
+chef-client --local-mode webserver.rb
+```
+
+Typically (if not the `root` user) we need to run Chef with `sudo`
+
+### Start and Enable the Apache Service
+
+Update the `webserver.rb` file to enable the Apache service when the server boots and then start the service, this is one by way of the `action` list given in which the following actions on a resource will be carried out
+
+```rb
+apt_update 'Update the apt cache daily' do
+  frequency 86_400
+  action :periodic
+end
+
+package 'apache2'
+
+service 'apache2' do
+  supports status: true
+  action [:enable, :start]
+end
+```
+
+Now re-run the recipe in order to start the service
+
+```bash
+chef-client --local-mode webserver.rb
+```
+
+### Add a Home Page
+
+We can use the `file` resource to create a homepage for our site at `/var/www/html/index.html` with a basic hello world message. This can be added to the `webserver.rb` recipe as follows
+
+```rb
+apt_update 'Update the apt cache daily' do
+  frequency 86_400
+  action :periodic
+end
+
+package 'apache2'
+
+service 'apache2' do
+  supports status: true
+  action [:enable, :start]
+end
+
+file '/var/www/html/index.html' do
+  content '<html>
+  <body>
+    <h1>hello world</h1>
+  </body>
+</html>'
+end
+```
+
+And we can run `chef-client` to apply it
+
+```bash
+chef-client --local-mode webserver.rb
+```
+
+If we do not see any errors we can continue and make an HTTP request with `curl` inside the container, making a `curl` to `localhost` will by default hit port `80`, we can do this from the container as follows
+
+```bash
+curl localhost
+```
+
+Or
+
+```bash
+curl localhost:80
+```
+
+Furthermore we can view this on the host machine's browser due to the port forwarding we initially set up for the container `-p 8100:80 ` on which maps port `80` on the container to `8100` on the host. We can do this simply by visiting `localhost:8100` from the host or making an HTTP request from the terminal
+
+### Summary
+
+Chef allows us to automate and configure multiple resource types as well as carry out tasks periodically, manage installed packages, and specify actions for those packages
+
+## Making Recipes More Managable
+
+The problem with the recipe we are currently using is that the HTML for the webpage was embedded in the recipe, this is not practical. In order to more easily reference external files we can make use of a Cookbook
+
+### Create a Cookbook
+
+From the `chef-repo` directory create a `cookbooks` directory, in this run the use Chef to generate a Cookbook named `learn_chef_apache2`
+
+```bash
+mkdir cookbooks
+chef generate cookbook cookbooks/learn_chef_apache2
+```
+
+The `cookbooks/learn_chef_apache2` part tells chef to create a new Cookbook in the `cookbooks` directory called `learn_chef_apache2`
+
+Thereafter install `tree` on the container so that we can view the directory structure and then look at the `cookbooks` directory
+
+```bash
+apt-get install tree -y
+tree cookbooks
+```
+
+The file structure can be seen to be:
+
+```
+cookbooks
+`-- learn_chef_apache2
+    |-- Berksfile
+    |-- CHANGELOG.md
+    |-- LICENSE
+    |-- README.md
+    |-- chefignore
+    |-- metadata.rb
+    |-- recipes
+    |   `-- default.rb
+    |-- spec
+    |   |-- spec_helper.rb
+    |   `-- unit
+    |       `-- recipes
+    |           `-- default_spec.rb
+    `-- test
+        `-- integration
+            `-- default
+                `-- default_test.rb
+```
+
+The default recipe is in the `recipes/default.rb` file, our recipe will be written in there
+
+### Create a Template
+A new template file can be generated with the `chef generate` command, generate a new template called `index.html` as follows
+
+```bash
+chef generate template cookbooks/learn_chef_apache2 index.html
+```
+
+Move the `index.html` content we made previously to a `template` file which will be added as `templates/index.html.erb` into which we must add the following
+
+```html
+<html>
+  <body>
+    <h1>hello cookbook</h1>
+  </body>
+</html>
+```
+
+> We have added the content directly into the cookbook for the purpose of the tutorial, but realstically the application would be some set of build artifacts that will then be pulled from a build server to be deployed
+
+### Update the Recipe
+
+Now update the recipe in the `default.rb` file to once again update the apt cache, start the Apache Web Server, and reference the HTML template with the following
+
+```rb
+apt_update 'Update the apt cache daily' do
+  frequency 86_400
+  action :periodic
+end
+
+package 'apache2'
+
+service 'apache2' do
+  supports status: true
+  action [:enable, :start]
+end
+
+template '/var/www/html/index.html' do
+  source 'index.html.erb'
+end
+```
+
+### Run the Cookbook
+
+`chef-client` can be used to run the Cookbook, we will again use the `--local-mode` flag and specify the required recipes with the `--runlist` flag
+
+```bash
+chef-client --local-mode --runlist 'recipe[learn_chef_apache2]'
+```
+
+Note the `recipe[learn_chef_apache2]` which specifies that we want to run the `learn_chef_apache2`'s `default.rb` recipe. This is the same as `recipe[learn_chef_apache2::default]`
+
+We can check that the file was updated with
+
+```bash
+curl localhost
+```
+
+And by visiting `localhost:8100` on the Host
+
