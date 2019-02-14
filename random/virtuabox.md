@@ -30,3 +30,26 @@ reboot
 
 And then **Resinstall the Guest Additions CD**
 
+## SSH into Guest from Host
+
+The instructions are from [this Stackoverflow post](https://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-externally-through-a-host)
+
+On your Host, go to `VM > Settings > Network` and ensure that it is set to NAT, then click on `Advanced > Port Forwarding` and add a new **Rule**, make the rule **Name** `ssh` and set the **Host Port** to `3022`, leave the rest blank
+
+Also be sure to install an SSH server on the VM with
+
+```bash
+sudo apt-get install openssh-server
+```
+
+And finally SSH into the VM with
+
+```bash
+ssh -p 3022 user@127.0.0.1
+```
+
+where `user` is the VM username
+
+## Port Forwarding
+
+VirtualBox lets you do Port Forwarding simply by going to `VM > Settings > Network > Advanced > Port Forwarding`
