@@ -333,6 +333,8 @@ class App extends React.Component {
 ReactDOM.render(<App />, document.getElementById("app"));
 ```
 
+> It is important to note that React makes use of two input types: 'controlled' and 'uncontrolled'. In order to make an input 'controlled' you need to ensure that the value is initialized - e.g. if `value={name}` you need to be sure that upon initialization, `name` is defined and not null. If you're assigning `state` in the `constructor` note that you will be overwriting state that is defined at a class level
+
 ## React CLI
 
 ### Creating a React App
