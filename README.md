@@ -46,8 +46,8 @@
 ## Design Patterns 
 
 * [OOP Review - [Part 1](https://www.youtube.com/watch?v=vNHpsC5ng_E&list=PLF206E906175C7E07&index=1) and [Part 2](https://www.youtube.com/watch?v=yRJ1rRoMnIM&list=PLF206E906175C7E07&index=2)](design-patterns/introduction.md)
-* [[Observer Design Pattern](https://www.youtube.com/watch?v=wiQdrH2YpT4&list=PLF206E906175C7E07&index=4)](design-patterns/observer.md)
-* [[Strategy Design Pattern](https://www.youtube.com/watch?v=-NCgRD9-C6o&list=PLF206E906175C7E07&index=3)](design-patterns/strategy.md)
+* [Observer Design Pattern](design-patterns/observer.md)
+* [Strategy Design Pattern](design-patterns/strategy.md)
 
 ## Dsx With Python 
 
