@@ -136,20 +136,6 @@ int newNum = myArray[2];
 
 In C++ an array is simply a pointer to a memory location and accessing an index that is not in the range of the array will return some random value - the next value in memory
 
-## For Loops
-
-For loops look like this:
-
-```cpp
-int oldNumbers[] = {1,2,3,4,5};
-for (int i = 0; i < 5; i++)
-{
-    int currentNumber = oldNumbers[i]
-}
-```
-
-That's about all I'm going to say about for-loops for now
-
 ## Strings
 
 Strings are an array of characters, a string must end with the `\0` (`null`) character in order to tell the compiler where it ends
@@ -243,4 +229,401 @@ Or we can start at 1 and have each day be the human number
 enum Day {Sunday = 1, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday};
 
 Day sadDay = Monday; // 2
+```
+
+## Operators
+
+The available mathematical operators are as follows
+
+```
++ - * / % =+ -= ++ -- *= /=
+== != > < >= <= && || !
+```
+
+### Conditional Operators
+
+COnditional Operators in C++ (aka Ternary Operators) take three values, the first of which is a condition, and the second or third are evaluated based on the result of the condition
+
+```cpp
+int i = 1, j = 2;
+cout << ( i > j ? i : j ) << " is greater." << endl;
+```
+
+## Flow Control
+
+### If Statements
+
+C++ makes use of boolean operators in order to build `if` statements
+
+```cpp
+char test = 'y';
+if (test == 'y')
+{
+    out << "test is y" << endl;
+}
+```
+
+If there is only a single statement we can leave out the curly brackets
+
+```cpp
+char test = 'y'
+if (test == 'y')
+    out << "test is y" << endl;
+```
+
+We can also use `else if` and `else`
+
+```cpp
+char test = 'y';
+if (test == 'y')
+{
+    out << "test is y" << endl;
+}
+else if (test == 'n')
+{
+    out << "test is n" << endl;
+}
+else
+{
+    out << "test is something else" << endl;
+}
+```
+
+### Switch Statements
+
+We can use these when the case of complex `if-else` statements
+
+```cpp
+char test = 'y';
+switch (test)
+{
+    case 'y':
+        out << "test is y" << endl;
+        break;
+    case 'N':
+        out << "test is N" << endl;
+        break
+    case 'n':
+        out << "test is n" << endl;
+        break;
+    default:
+        out << "test is something else" << endl;
+        break
+}
+```
+
+Switch operators support `intrisic` data types and `enums`
+
+### For Loops
+
+For loops look like this:
+
+```cpp
+int oldNumbers[] = {1,2,3,4,5};
+for (int i = 0; i < 5; i++)
+{
+    int currentNumber = oldNumbers[i]
+}
+```
+
+The loop is made of the general structure of:
+
+```cpp
+for (initialization; continueCondition; iterator)
+{
+    // stuff to do
+}
+```
+
+### While Loops
+
+While loops follow the traditional `C-type` syntax
+
+```cpp
+while (condition)
+{
+    // do some stuff
+}
+```
+
+For example:
+
+```cpp
+int i {0};
+while (i < 5)
+{
+    i ++;
+    // do stuff
+}
+```
+
+If the condition is not initally met, the loop will not run
+
+### Do-While Loops
+
+A `do-while` loop is like a `while` loop but the condition is checked at the end of the loop, and will hence always run at least once
+
+```cpp
+do
+{
+    // do some stuff
+} while (condition);
+```
+
+> Note the semicolon at the end
+
+## Functions
+
+Functions are defined by Name, Return Type, and Arguments. Functions with the same Name and Return type but different numbers arguments are allowed, the compiler will figure out which one you are trying to use based on the number of arguments
+
+The compiler must know about a function before it can be called
+
+```cpp
+int Sum(int x, int y)
+{
+    int sum {x + y}
+    return sum
+}
+```
+
+### Prototypes
+
+A complete function signature/prototype consists of the following
+
+- Storage class
+- Return type
+- Name
+- Parameters
+
+Function prototypes need to be defined in a header file, Header files are imported into source code files so that the compiler can ensure proper use of functions, etc.
+
+The prototype does not consist of the function implementation code
+
+A function prorotype is defined as follows
+
+```cpp
+int Sum(int x, int y);
+```
+
+By default data is passed to functions by value and not by reference
+
+### Inline Functions
+
+Inline functions are functions that are are essentially pieces of code that the compiler will inject into the place where it is being called instead of making a function call
+
+This can be used to reduce some of the overhead that would be associated with using a normal function
+
+These are better suited for small functions that are used frequeltly and make use of the `inline` keyword
+
+```cpp
+inline void swap(int & a, int & b)
+{
+    int temp = a;
+    a = b;
+    b = temp;
+}
+```
+
+### Storage Classes and Scope
+
+> "A storage class in the context of C++ variable declarations is a type specifier that governs the lifetime, linkage, and memory location of objects"
+
+This means that it governs how long an object remains in memory, in what scopes it is visible and whether it should be located in a stack or heap
+
+Some keywords that apply to storage classes are:
+
+- `static`
+- `extern`
+- `thread_local`
+
+If we do not state the function prototype on the file we try to use it we will get a **compiler** error, if we state the prototype but that function cannot be found we will get a **linker** error
+
+The reason for this is because each individual file is compiled separately
+
+In order to avoid declaring prototypes in each file, you can create a `header` file and define shared prototypes there, and include the header file, this can be done simply as follows
+
+`Math.cpp`
+
+```cpp
+int AddTwo(int i)
+{
+    return i + 2;
+}
+```
+
+`Utilities.h`
+
+```cpp
+int AddTwo(int i);
+```
+
+`Main.cpp`
+
+```cpp
+#include "Utilities.h"
+
+int main()
+{
+    int i { addTwo(1) };
+    return 0;
+}
+```
+
+## Classes
+
+### Definition
+
+Classes are definitions for custom types and defines the behaviour and characteristics of a type
+
+We can define a Rectangle with the `class` keyword
+
+```cpp
+class Rectangle
+{
+    public:
+        int _width;
+        int _height;
+};
+```
+
+> Class definitions must end with a `;`
+
+Members can be accessed with `dot` notation
+
+### Initialization
+
+We can create a new instance of a class using a few different methods
+
+```cpp
+void main()
+{
+    Rectangle aShape; // Uninitialized - don't do this
+
+    myShape._width = 5;
+    myShape._height = 3;
+
+    Rectangle defaultShape{} // Default initialized
+
+    Rectangle myRectangle {0, 0} // Specific initalized
+}
+```
+
+> Uninitialized values will have junk data, don't do this
+
+### Encapsulation
+
+Encapsulation is used to describe accesibility of class members, this is used to restrict the way in which class data can be manipulated
+
+Functions in a class have access to the instance of the class `this` which is a pointer. `this` is used to remove ambiguity betwen member variables and is not always necessary
+
+We cannot directly access private members from outside of a class
+
+A class can be defined in a header file or have some aspects of it's functionality (or all) be placed into separate `.cpp` files
+
+`Rectangle.h`
+
+```cpp
+class Rectangle
+{
+public:
+	int GetWidth() { return _width; }
+	int GetHeight() { return _height; }
+
+private:
+	int _width;
+	int _height;
+};
+```
+
+### Constructors
+
+Muliple constructors can be created with different parameters, the compiler will figure out which one to use for a specific instance based on the input arguments, we can see a lot of different examples [here](https://docs.microsoft.com/en-us/cpp/cpp/constructors-cpp?view=vs-2019)
+
+```cpp
+class Rectangle
+{
+public:
+	Rectangle() : _width{ 1 }, _height{ 1 } {}
+	Rectangle(int width, int height) : _width{ width }, _height{ height } {}
+
+	int GetWidth() { return _width; }
+	int GetHeight() { return _height; }
+
+private:
+	int _width;
+	int _height;
+};
+```
+
+If a default constructor is not define the compuler will provide an implicit `inline` instance
+
+Additionally we can add default values for the properties of a class
+
+```cpp
+class Rectangle
+{
+public:
+	Rectangle() : _width{ 1 }, _height{ 1 } {}
+	Rectangle(int width, int height) : _width{ width }, _height{ height } {}
+
+	int GetWidth() { return _width; }
+	int GetHeight() { return _height; }
+
+private:
+	int _width{ 1 };
+	int _height{ 1 };
+};
+```
+
+We can also remove some parts of functionality away from our class definition into a `.cpp` file
+
+`Rectangle.h`
+
+```cpp
+class Rectangle
+{
+public:
+	Rectangle();
+	Rectangle(int width, int height);
+
+	int GetWidth();
+	int GetHeight();
+
+private:
+	int _width{ 1 };
+	int _height{ 1 };
+};
+```
+
+`Rectangle.cpp`
+
+```cpp
+#include "Rectangle.h"
+
+Rectangle::Rectangle() : _width{ 1 }, _height{ 1 } {}
+Rectangle::Rectangle(int width, int height) : _width{ width }, _height{ height } {}
+
+int Rectangle::GetWidth() { return _width; }
+int Rectangle::GetHeight() { return _height; }
+```
+
+## Immutable Objects
+
+We can create `const` objects but we need to also explicitly define member functions that will not modify the object as `const` as well
+
+```cpp
+int Rectangle::GetArea() const
+{
+    //implementation
+}
+```
+
+And then create Rectangles and use the function as normal
+
+```cpp
+int main()
+{
+    const Rectangle myRectangle{};
+    const area = myRectangle.GetArea();
+}
 ```
