@@ -45,7 +45,7 @@
 
 ## Design Patterns 
 
-* [OOP Review - [Part 1](https://www.youtube.com/watch?v=vNHpsC5ng_E&list=PLF206E906175C7E07&index=1) and [Part 2](https://www.youtube.com/watch?v=yRJ1rRoMnIM&list=PLF206E906175C7E07&index=2)](design-patterns/introduction.md)
+* [OOP Review](design-patterns/introduction.md)
 * [Observer Design Pattern](design-patterns/observer.md)
 * [Strategy Design Pattern](design-patterns/strategy.md)
 
