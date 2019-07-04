@@ -10,6 +10,19 @@ npm config set python /path/to/executable/python2.7
 
 For more information you can also look at the [`Node on Windows` Guidelines](https://github.com/Microsoft/nodejs-guidelines/blob/master/windows-environment.md)
 
+Alternatively an easier solution is to just run things in a Docker container if possible
+
 # MSBuild
 
 If you run into the `MSBuild version` error, let me know how you fixed it otherwise just switch to Ubuntu and start over
+
+# EAI_AGAIN Error
+
+If when running `npm install` you see the following error
+
+```
+npm ERR! code EAI_AGAIN
+npm ERR! errno EAI_AGAIN
+```
+
+It means there is a problem with your internet connection, not NPM (or Docker)
