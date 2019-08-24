@@ -1,4 +1,4 @@
-# ASP.NET Boilerplate Setup
+# C# ASP.NET Boilerplate Setup
 
 [Refer to](https://github.com/aodendaal/aspnetboilerplate-core-ng)
 

@@ -37,11 +37,6 @@
 * [Istio with Kubernetes](containers-and-microservices/istio-with-kubernetes.md)
 * [Microservices with Istio](containers-and-microservices/microservices-with-istio.md)
 
-## Csharp 
-
-* [ASP.NET Boilerplate Setup](csharp/abp-setup.md)
-* [CFor Absolute Beginners](csharp/introduction.md)
-
 ## Data Science 
 
 * [Introduction](data-science/introduction.md)
@@ -56,6 +51,8 @@
 
 ## Dotnet 
 
+* [CASP.NET Boilerplate Setup](dotnet/abp-setup.md)
+* [Introduction to C](dotnet/intro-to-cs.md)
 * [Introduction to F](dotnet/intro-to-fs.md)
 
 ## Dsx With Python 

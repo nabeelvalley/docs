@@ -1,5 +1,7 @@
 # Introduction to F
 
+Mostly based on the content [here](https://fsharpforfunandprofit.com)
+
 - [Introduction to F](#introduction-to-f)
   - [Syntax](#syntax)
     - [Variables](#variables)

@@ -1,4 +1,4 @@
-# C# For Absolute Beginners
+# Introduction to C
 
 From the Microsoft Virtual Academy
 
