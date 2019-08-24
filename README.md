@@ -52,8 +52,8 @@
 ## Dotnet 
 
 * [CASP.NET Boilerplate Setup](dotnet/abp-setup.md)
-* [Introduction to C](dotnet/intro-to-cs.md)
-* [Introduction to F](dotnet/intro-to-fs.md)
+* [Introduction to C-Sharp](dotnet/intro-to-cs.md)
+* [Introduction to F-Sharp](dotnet/intro-to-fs.md)
 
 ## Dsx With Python 
 
