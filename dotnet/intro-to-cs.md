@@ -1,4 +1,4 @@
-# Introduction to C
+# Introduction to C-Sharp
 
 From the Microsoft Virtual Academy
 
@@ -238,7 +238,7 @@ namespace WhileIteration
 
 ## Arrays
 
-```
+```cs
 using System;
 using System.Collections.Generic;
 using System.Linq;

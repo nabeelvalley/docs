@@ -1,8 +1,8 @@
-# Introduction to F
+# Introduction to F-Sharp
 
 Mostly based on the content [here](https://fsharpforfunandprofit.com)
 
-- [Introduction to F](#introduction-to-f)
+- [Introduction to F-Sharp](#introduction-to-f-sharp)
   - [Syntax](#syntax)
     - [Variables](#variables)
     - [Functions](#functions)
