@@ -1,5 +1,22 @@
 # Introduction to F
 
+- [Introduction to F](#introduction-to-f)
+  - [Syntax](#syntax)
+    - [Variables](#variables)
+    - [Functions](#functions)
+    - [Switch Statements](#switch-statements)
+  - [Complex Data Types](#complex-data-types)
+  - [Tuples](#tuples)
+    - [Record Types](#record-types)
+    - [Union Types](#union-types)
+  - [Printing](#printing)
+  - [Key Concepts](#key-concepts)
+    - [Function Oriented](#function-oriented)
+    - [Expressions over Statements](#expressions-over-statements)
+    - [Algebraic Types](#algebraic-types)
+    - [Flow Control with Matching](#flow-control-with-matching)
+    - [Pattern Matching with Union Types](#pattern-matching-with-union-types)
+
 > Foreword: When creating a new F# project from Visual Studio do not check the `Dockerfile` option, this will result in the following error when trying to run the application in some cases `A function labeled with the 'EntryPointAttribute' attribute must be the last declaration in the last file in the compilation sequence.`
 
 F# is a functional language that runs in the .NET Core ecosystem. It's a weird language.

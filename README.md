@@ -54,6 +54,10 @@
 * [Observer Design Pattern](design-patterns/observer.md)
 * [Strategy Design Pattern](design-patterns/strategy.md)
 
+## Dotnet 
+
+* [Introduction to F](dotnet/intro-to-fs.md)
+
 ## Dsx With Python 
 
 * [Data Analysis With Python](dsx-with-python/data-analysis.md)
@@ -96,10 +100,22 @@
 
 * [MQTT Messaging with Mosquitto](iot/mqtt-message-broker-with-mosquitto.md)
 
+## Javascript 
+
+* [Web Components](javascript/web-components.md)
+* [Real Time Communication with WebRTC](javascript/web-rtc.md)
+
+## Linux 
+
+* [Configure Jenkins](linux/configure-jenkins.md)
+* [Server Setup](linux/setup-ubuntu-server.md)
+
 ## Nodejs 
 
+* [Handling Cors](nodejs/cors.md)
 * [Startover NPM Package](nodejs/creating-a-file-watching-application.md)
 * [Express Application with Typescript](nodejs/express-application-with-typescript.md)
+* [Introduction to SQLite with Node.js](nodejs/intro-to-sqlite.md)
 * [Basic Modules](nodejs/module1.md)
 * [Play audio from a Javascript XHR Request](nodejs/play-audio-from-xhr.md)
 * [Static Generator and Compilers](nodejs/static-and-compiles.md)
@@ -131,8 +147,5 @@
 ## Tj Bot 
 
 * [Setting up a Bot](tj-bot/setting-up-a-bot.md)
-
-## Web Components 
-
 
 
