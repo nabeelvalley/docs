@@ -3,6 +3,7 @@
 Mostly based on the content [here](https://fsharpforfunandprofit.com)
 
 - [Introduction to F-Sharp](#introduction-to-f-sharp)
+  - [Install and Run](#install-and-run)
   - [Syntax](#syntax)
     - [Variables](#variables)
     - [Mutable and Reference Values](#mutable-and-reference-values)
@@ -24,6 +25,10 @@ Mostly based on the content [here](https://fsharpforfunandprofit.com)
 > Foreword: When creating a new F# project from Visual Studio do not check the `Dockerfile` option, this will result in the following error when trying to run the application in some cases `A function labeled with the 'EntryPointAttribute' attribute must be the last declaration in the last file in the compilation sequence.`
 
 F# is a functional language that runs in the .NET Core ecosystem. It's a weird language.
+
+## Install and Run
+
+Before you can get started with F# you will need to install it, there are a few different options available depending on your choice of operating system and editor, these instructions can be found [here](https://docs.microsoft.com/en-us/dotnet/fsharp/get-started/install-fsharp?tabs=windows#install-f-with-visual-studio)
 
 There are a few different styles that we can use to run F#, the simplest would be an F# script, which uses the `.fsx` extension
 
