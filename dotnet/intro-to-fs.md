@@ -5,7 +5,9 @@ Mostly based on the content [here](https://fsharpforfunandprofit.com)
 - [Introduction to F-Sharp](#introduction-to-f-sharp)
   - [Syntax](#syntax)
     - [Variables](#variables)
+    - [Mutable and Reference Values](#mutable-and-reference-values)
     - [Functions](#functions)
+    - [Modules](#modules)
     - [Switch Statements](#switch-statements)
   - [Complex Data Types](#complex-data-types)
   - [Tuples](#tuples)
@@ -60,6 +62,27 @@ let list2 = 1 :: list1 // [1;2;3;4;5]
 let list3 = [0;1] @ list1 //[0;1;2;3;4;5]
 ```
 
+### Mutable and Reference Values
+
+You can create Mutable variables which would allow the value to be changed, this can be done using the `mutable` keyword as follows
+
+```fs
+let mutable changeableValue = 1
+changeableValue <- 4
+```
+
+Note that in the above case the `<-` operator is used to assign values to a mutable varia
+
+Reference values are sort of like wrappers around mutable value. Defining them makes use of the `ref` keyword, modifying them makes use of the`:=` operator to assign values and `!` to access values
+
+```fs
+let refValue = ref 4
+
+refValue := 1
+
+let plus1 = !refValue + 1
+```
+
 ### Functions
 
 Functions are defined with the `let` keyword as well and the parameters are written after the name
@@ -86,6 +109,15 @@ add5 4 // 11
 ```
 
 Which sets `x` as `5` and returns a function for `5 + y`
+
+If a function does not have any input parameters, it should be defined using `()` to indicate that it is a function and must also be used with the `()` to actually apply the function and not just reference the variable
+
+```fs
+let greet () =
+    printfn "Hello"
+
+greet()
+```
 
 A function that returns only even numbers can be defined using the following function within a function and the `List.filter` function which takes in a `predicate` and a `list` as inputs
 
@@ -150,6 +182,88 @@ let sumOfSquaresLambda list =
     |> List.sum
 
 sumOfSquaresLambda [1..10]
+```
+
+### Modules
+
+Functions can be grouped as Modules using the `module` keyword, with additional functions/variables defined inside of them using the `let`
+
+```fs
+module LocalModule =
+    let age = 5
+    let printName name =
+        printfn "My name is %s" name
+
+    module Math =
+        let add x y =
+            x + y
+
+LocalModule.printName "John"
+printfn "%i" (LocalModule.Math.add 1 3)
+printfn "Age is %i" LocalModule.age
+```
+
+Modules can also include `private` properties and methods, these can be defined with the `private` keyword
+
+```fs
+module PrivateStuff =
+    let private age = 5
+    let printAge () =
+        printfn "Age is: %i" age
+
+// PrivateStuff.age // this will not work
+PrivateStuff.printAge()
+```
+
+You can define a module in a different file and can then import this into another file using the `open` keyword. Note that there needs to be a top-level module which does not make use of the `=` sign, but other internal modules do
+
+```fs
+module ExternalModule
+
+let printName name =
+    printfn "My name is %s, - from ExternalModule" name
+
+module Math =
+    let add x y =
+        x + y
+
+module MoreMath =
+    let subtract x y =
+        x - y
+```
+
+If using a script, you will need to first `load` the module to make the contents available, you can then use the values from the `Module` using the name as an accessor. This will now essentially function as if the
+
+```fs
+#load "ExternalModule.fs"
+
+ExternalModule.printName "Jeff"
+ExternalModule.Math.add 1 3
+```
+
+If you want to expose the module contents you can do this with the `open` keyword
+
+```fs
+open ExternalModule
+
+printName "John"
+Math.add 1 5
+```
+
+You can also do the same as above to open internal modules
+
+```fs
+open ExternalModule.Math
+add 1 6
+
+open MoreMath
+subtract 5 1
+```
+
+Modules in which submodules/types make use of one another need to have the parent module defined using the `rec` keyword as well
+
+```
+module rec RecursiveModule
 ```
 
 ### Switch Statements
