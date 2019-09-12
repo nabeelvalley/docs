@@ -5,7 +5,7 @@
 To remove files that are in your `.gitignore` but are not ignored by your repo, you can do the following: 
 
 ```bash
-git rm -r --cached
+git rm -r --cached .
 ```
 
 Which will clean out the repo, and then you can restage and commit all the files that should be tracked with
