@@ -4,7 +4,9 @@
 
 To deploy a static site we make use of the `pages` object. Our script will make a new `public` directory and copy our site files to this directory. The `only` lists the branch from which we want our deployments to run from
 
+Also note that for GitLab Pages Deployments you need to ensure that the deployment arifacts end up in the public directory because Pages cannot deploy from anywhere else
 
+Hence the `cp .public`, `mv .public` stuff
 
 ```yaml
 pages:
