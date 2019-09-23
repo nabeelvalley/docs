@@ -1,4 +1,4 @@
-## Generating a PWA for a React App
+# Generating a PWA for a React App
 
 ## Automatically
 
@@ -21,8 +21,8 @@ export function register(config) {
   if ('serviceWorker' in navigator) {
     // Use the window load event to keep the page load performant
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js');
-    });
+      navigator.serviceWorker.register('/sw.js')
+    })
   }
 }
 ```
@@ -79,7 +79,7 @@ if (workbox) {
   )
 
   // Cache the Google Fonts stylesheets with a stale-while-revalidate strategy.
-  
+
   workbox.routing.registerRoute(
     /^https:\/\/fonts\.googleapis\.com/,
     workbox.strategies.staleWhileRevalidate({
