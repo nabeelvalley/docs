@@ -1085,6 +1085,14 @@ df.describe(include = "all")
 We can also use `df.info` to see the top and bottom thirty rows of the dataframe
 
 
+If we would like to get a more complete report of the dataset however, we can make use of the `pandas_profiling` library which will output a full overall data visualisation
+
+```python
+import pandas as pd
+import pandas_profiling
+pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/planets.csv').profile_report()
+```
+
 ## Preprocessing Data
 
 Data preprocessing is the process of cleaning the data in order to get data from its raw form to a more usable format
