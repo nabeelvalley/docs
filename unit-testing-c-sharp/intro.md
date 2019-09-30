@@ -1,6 +1,6 @@
 # Introduction to Testing
 
-[Past 1](https://www.youtube.com/watch?v=HhRvW1b4IwM)
+[Part 1](https://www.youtube.com/watch?v=HhRvW1b4IwM)
 
 Unit testing is about testing code to do what it is expected to do
 
