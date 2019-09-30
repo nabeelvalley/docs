@@ -15,6 +15,15 @@ Create a new Console App and add the following packages from Nuget:
 - `xunit`
 - `xunit.runner.visualstudio`
 
+> You will also need to enter the following into your `.csproj` file so that the tests, or if you get the `CS0017 Program has more than one entry point defined. Compile with /main to specify the type that contains the entry point.` error:
+
+```xml
+<PropertyGroup>
+    ...
+    <GenerateProgramFile>false</GenerateProgramFile>
+</PropertyGroup>
+```
+
 ## Writing a Test
 
 When we are talking about unit tests we make use of the following three stages:
