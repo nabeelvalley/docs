@@ -82,3 +82,22 @@ public class CatController : Controller
 ```
 
 Note that the `MyCat` service is injected into our controller simply by us defining it in the constructor as a dependency
+
+
+## Different ConnectedServices by Environment
+
+Using the above approach combined with the Visual Studio Connected Services / `svcutil` functionality you can set up a different service instance based on your environment configuration with something like this:
+
+```cs
+services.AddScoped(serviceProvider => {
+  var endpoint = serviceProvider
+    .GetRequiredService<Iconfiguration>()
+    .GetValue<string>("WSDLEndpoint");
+    
+  var endpointConfig = ServiceName.ClientName.EndpointConfig.ConfigValue;
+  
+  var myClient = new ServiceName.ClientName(endpointConfig, endpoint);
+  
+  reutrn myClient
+});
+```
