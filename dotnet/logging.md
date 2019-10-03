@@ -7,7 +7,7 @@ Logging can be done in a bunch of different ways, but the best one I've found th
 You will need to add the following dependencies to your application from NuGet
 
 1. `Serilog`
-2. `Serilog;.Sinks.Console`
+2. `Serilog.Sinks.Console`
 3. `Serilog.Sinks.File`
 4. `Serilog.Settings.Configuration`
 
