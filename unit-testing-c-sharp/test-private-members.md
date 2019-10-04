@@ -17,3 +17,33 @@ private CastType GetPrivateProperty<BaseType, CastType>(object sut, string field
     .GetValue(sut);
 }
 ```
+
+## Abastract Testing Class
+
+Additionally the Testing Class can inherit from the following base abstract 
+
+```cs
+public abstract class AccessPrivateMemberBase
+{
+  internal CastType GetPrivateField<BaseType, CastType>(object sut, string fieldName)
+  {
+    return (CastType)typeof(BaseType)
+      .GetField(fieldName, BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance)
+      .GetValue(sut);
+  }
+
+  internal CastType GetPrivateProperty<BaseType, CastType>(object sut, string fieldName)
+  {
+    return (CastType)typeof(BaseType)
+      .GetField("_endpoint", BindingFlags.NonPublic | BindingFlags.GetProperty | BindingFlags.Instance)
+      .GetValue(sut);
+  }
+}
+```
+
+
+And then the testing class simply needs to be defined as:
+
+```cs
+public class MyTestingClass : AccessPrivateMemberBase
+```
