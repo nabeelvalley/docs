@@ -9,7 +9,7 @@ In order to consume a WCF Service from a .NET client you can make use of the `Co
 You first need to install the `svcutil` with:
 
 ```
-
+dotnet tool install --global dotnet-svcutil
 ```
 
 To create a new service reference you can run the following command with your service endpoint
