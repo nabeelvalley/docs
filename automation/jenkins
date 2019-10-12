@@ -1,0 +1,157 @@
+# Getting Started with Jenkins
+
+The Guide for getting started can be found [here](https://jenkins.io/doc/pipeline/tour/getting-started/) along with the DOT Guide [here](https://git.daimler.com/DHC/DOT-Academy/blob/master/md-tutorials/tutorials/03-jenkins-tutorial.md)
+
+## Setup
+
+### Prerequisites
+
+1. Docker 
+2. Java 8
+3. Download Jenkins [here](http://mirrors.jenkins.io/war-stable/latest/jenkins.war)
+
+Place your `jenkins.war` file in the project root directory
+
+### Running
+
+Run jenkins with the following command from the project root
+
+```bash
+java -jar jenkins.war --httpPort=8080
+```
+
+Navigate to `http://localhost:8080` in your browser and complete the setup
+
+> You may need to configure the proxy, do this using the version without the `http://` part - for some reason it doesn't work otherwise. The Jenkins install will be at `C:\Users\USERNAME\.jenkins`
+
+You can find the Admin Password at `C:\Users\USERNAME\.jenkins\secrets\initialAdminPassword`
+
+### Adding a Local Repo
+
+We can add a local repository by simply linking to it with `file://C:/Users/USERNAME/source/repos/jenkins-getting-started`
+
+## Setting Up a Build
+
+I'm using the BlueOcean Plugin to build the pipellines as the visual editor is easier, the documentation on using that can be found [here](https://jenkins.io/doc/book/blueocean/getting-started/)
+
+> When configuring the pipeline on BlueOcean, you may run into an error when running a bash script on a Windows host, use Powershell Instead
+
+# Docker Registry
+
+Creating a local docker registry to store applications can be done by simply running the registry container, and then adding stage after the build to push the content to that registry and then run that as opposed to the "local" version of the container
+
+Start a local registry with
+
+```bash
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+```
+
+We will push the content to the Docker Registry using the following command
+
+```bash
+docker push localhost:5000/node-hello-world
+```
+
+> If having issues with the above use `127.0.0.1:5000` instead of `localhost:5000` 
+
+The image can be removed from the build server with
+
+```bash
+docker image remove 127.0.0.1:5000/node-hello-world
+```
+
+Stop current running application and clean environment on target machine
+
+```bash
+docker stop node-app
+docker container prune -f
+```
+
+Note that with the above you need to be sure to check if there is a container with that name currently running or else it will throw an error. This is handled using the following script in the pipeline:
+
+```powershell
+if (((docker container ls) | Out-String).Contains('node-app')) { docker container stop node-app; echo "Application Stopped" } else {echo "Application not running"} docker container prune -f
+```
+
+The final Docker image will be run on the client with
+
+```bash
+docker run -d -p 3001:3000 --name node-app 127.0.0.1:5000/node-hello-world
+```
+
+## Build Kickoff Automation
+
+Ensure your git proxy is set up correctly with:
+
+```bash
+git config --global http.proxy ....
+```
+
+You need to make use of a `post-commit` hook in your `.git/hooks/post-commit` file with the following content, note that you need to make sure to bypass the proxy
+
+```bash
+#!/bin/sh
+curl --proxy "" --location http://localhost:8080/git/notifyCommit?url=file://C:/Users/USER/source/repos/jenkins-getting-started
+```
+
+## Running a Build Slave
+
+Ther are multiple methods for configuring a Jenkins Build Slave, usually using JNLP or SSH
+
+You can run a slave instance for JNLP with docker using:
+
+```
+docker run jenkins/jnlp-slave -url http://jenkins-server:80 agentSecret jnlp-slave
+```
+
+Or an SSH Slave with:
+
+```
+docker run jenkinsci/ssh-slave "<public key>"
+```
+
+You will need to get your SSH key from the slave though, you can do this with:
+
+```
+ssh-keygen -t rsa
+```
+
+
+### DIY SSH Build Slave? Sure
+
+First creat the `sshUbuntu.Dockerfile` so we have something to run
+
+```dockerfile
+FROM ubuntu:16.04
+
+RUN apt-get update && apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+RUN echo 'root:THEPASSWORDYOUCREATED' | chpasswd
+RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+ENV NOTVISIBLE "in users profile"
+RUN echo "export VISIBLE=now" >> /etc/profile
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
+```
+
+And then build and run that image with:
+
+```
+docker build -t ssh-ubuntu -f sshUbuntu.Dockerfile .
+docker run -d -p 22:22 ssh-ubuntu
+```
+
+You can then log into this instance using SSH to test the connection (this is built into bash on Windows)
+
+```
+ssh roo@localhost
+
+> password : THEPASSWORDYOUCREATED
+```
+
+Thereafter you can make use of the setup steps from here [here](https://www.howtoforge.com/tutorial/ubuntu-jenkins-master-slave/) to configure the slave instance to be able to do Jenkins things
