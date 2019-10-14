@@ -1,7 +1,6 @@
 # Getting Started with Jenkins
 
-The Guide for getting started can be found [here](https://jenkins.io/doc/pipeline/tour/getting-started/) along with the DOT Guide [here](https://git.daimler.com/DHC/DOT-Academy/blob/master/md-tutorials/tutorials/03-jenkins-tutorial.md)
-
+The Guide for getting started can be found [here](https://jenkins.io/doc/pipeline/tour/getting-started/)
 ## Setup
 
 ### Prerequisites
@@ -107,7 +106,7 @@ docker run jenkins/jnlp-slave -url http://jenkins-server:80 agentSecret jnlp-sla
 Or an SSH Slave with:
 
 ```
-docker run jenkinsci/ssh-slave "<public key>"
+docker run -p 22:22 jenkinsci/ssh-slave YOURPASSPHRASE
 ```
 
 You will need to get your SSH key from the slave though, you can do this with:
@@ -116,17 +115,21 @@ You will need to get your SSH key from the slave though, you can do this with:
 ssh-keygen -t rsa
 ```
 
+## DIY Docker SSH Build Slave
 
-### DIY SSH Build Slave? Sure
+This is probably not a good idea but it works fine for testing your connections
 
-First creat the `sshUbuntu.Dockerfile` so we have something to run
+First create the `sshUbuntu.Dockerfile` so we have something to run
 
 ```dockerfile
 FROM ubuntu:16.04
 
-RUN apt-get update && apt-get install -y openssh-server
+RUN apt-get update
+RUN apt-get install -y openssh-server
+RUN apt-get install -y default-jdk
+
 RUN mkdir /var/run/sshd
-RUN echo 'root:THEPASSWORDYOUCREATED' | chpasswd
+RUN echo 'root:YOURPASSKEY123' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # SSH login fix. Otherwise user is kicked off after login
@@ -135,6 +138,22 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
+# if not already created
+WORKDIR /root
+RUN mkdir .ssh
+WORKDIR /root/.ssh
+
+# # when generating the key you can just leave the passphrase blank
+RUN ssh-keygen -t rsa -f for_jenkins_key -N ""
+
+# # add the jenkins key to the authorized keys
+RUN cat for_jenkins_key.pub > authorized_keys
+RUN cat authorized_keys
+
+# # print out and copy the private `for_jenkins_key` file contents to the Jenkins Setup - not the `.pub`
+RUN cat for_jenkins_key
+
+WORKDIR /
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
 ```
@@ -148,10 +167,60 @@ docker run -d -p 22:22 ssh-ubuntu
 
 You can then log into this instance using SSH to test the connection (this is built into bash on Windows)
 
-```
+```bash
+# clear existing keys for the host
+# ssh-keygen -R yourhostname
+ssh-keygen -R localhost
+
 ssh roo@localhost
 
-> password : THEPASSWORDYOUCREATED
+> password : YOURPASSKEY123
+
+# check the generated key with:
+cd  ~/.ssh
+cat for_jenkins_key
+
+# after you have tested the SSH connection you can disconnect with
+exit
 ```
 
-Thereafter you can make use of the setup steps from here [here](https://www.howtoforge.com/tutorial/ubuntu-jenkins-master-slave/) to configure the slave instance to be able to do Jenkins things
+Then copy the entire key from the previous script and move to your Jenkins Setup
+
+## Jenkins Slave Config
+
+### Credentials 
+
+First go to your Jenkins Instance and Navigate to `Jenkins > Credentials > System > Global` or the following route in your browser `/credentials/store/system/domain/_/`
+
+And click `Add Credential`, select the type as `SSH Username with private key` and set the username as `root` (or your actual user if you're doing this for real) and Select `Private Key: Enter Directly` and paste in the Key you copied from your slave container instance, if you created a Passphase for the key (the Docker one above does not) you will need to enter that in as well
+
+### Node
+
+Then navigate to `Jenkins > Manage > Manage Nodes` or `/computer/` in your browser and click `New Node`. Give this a name, e.g. `ubuntudockerssh`, use the `Permanent Agent` option. Thereafter set the Launch Method to be `Launch Agents via SSH` , the host should be `localhost` or whatever your actual host is, and be sure to use the Credentials we just created. Lastly the Host Key Verification Strategy should be `Manually Trusted key verification strategy` and click save
+
+### Test Build
+
+A simple Pipeline can be built using the following. Note that the `agent.label` value is the name of the Node set up in the previous step
+
+```jenkinsfile
+pipeline {
+  agent {label 'ubuntudockerssh'}
+  stages {
+    stage('Check Running') {
+      steps {
+        sh 'echo "I am running"'
+      }
+    }
+    stage('Get Random') {
+      steps {
+        sh 'echo $((1 + RANDOM % 10))'
+      }
+    }
+    stage('Complete') {
+      steps {
+        sh 'echo "Pipeline Done"'
+      }
+    }
+  }
+}
+```
