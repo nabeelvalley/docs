@@ -4,7 +4,7 @@ So we're going to be taking a bit of a look on how you can go about building you
 
 Along the way I'm also going to go through some important concepts that I feel are maybe not that clear from a documentation perspective that are actually super relevant to using this F# in a real-life context
 
-> If you're totally new to F# though you may want to take a look at [F# for Fun and Profit](https://fsharpforfunandprofit.com/) or my personal quick reference documentation over on [GitHub](https://github.com/nabeelvalley/Docs/blob/master/dotnet/intro-to-fs.md)
+> If you're totally new to F# though you may want to take a look at <a href="https://fsharpforfunandprofit.com/">F# for Fun and Profit</a> or my personal quick reference documentation over on <a href="https://github.com/nabeelvalley/Docs/blob/master/dotnet/intro-to-fs.md">GitHub</a>
 
 # Getting Started
 
@@ -303,4 +303,8 @@ And that's really all that's needed
 
 # Conclusion
 
-So yeah
+So yeah, that's pretty much it - Not that bad right? I feel like there are a couple of things that feel a little bit weird because of the pieces of OOP running around from C# that add a bit more overhead than I'd like, but it's .NET, that's inevitable
+
+Still a few more to posts on F# to come, so stay in tuned
+
+> Nabeel Valley
