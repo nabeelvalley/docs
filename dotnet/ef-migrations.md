@@ -45,5 +45,5 @@ dotnet ef migrations script StartMigration EndMigration
 When using the above scripts, the `-i` flag can be used to build a script that will work on a DB with any start-state, and the `-o` flag can be used to output to a file
 
 ```
-dotnet ef migrations script 0 -i -f .\MyOutputFile.sql
+dotnet ef migrations script 0 -i -o .\MyOutputFile.sql
 ```
