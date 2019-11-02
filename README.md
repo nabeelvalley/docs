@@ -2,6 +2,12 @@
 
 * [Nabeel's Docs](README.md)
 
+## Automation 
+
+* [Job Automation with Hangfire](automation/hangfire.md)
+* [Getting Started with Jenkins](automation/jenkins.md)
+* [Browser Automation with Puppeteer](automation/puppeteer.md)
+
 ## Blockchain 
 
 * [Hyperledger Composer Basics](blockchain/composer.md)
@@ -52,8 +58,19 @@
 ## Dotnet 
 
 * [CASP.NET Boilerplate Setup](dotnet/abp-setup.md)
+* [Utilising Basic Auth with .NET Core Identity](dotnet/basic-auth.md)
+* [Configuring Startup Services/Dependencies in WebAPI](dotnet/configure-startup-service.md)
+* [Using WCF Services](dotnet/dotnetusing-wcf-services.md)
+* [Database Migrations with Entity Framework](dotnet/ef-migrations.md)
+* [Entity Framework with F](dotnet/fs-entity-framework.md)
+* [F.NET Core Web API](dotnet/fs-webapi.md)
 * [Introduction to C-Sharp](dotnet/intro-to-cs.md)
 * [Introduction to F-Sharp](dotnet/intro-to-fs.md)
+* [Logging](dotnet/logging.md)
+* [Intro to the SAFE Stack](dotnet/safe-stack-intro.md)
+* [Testing Private Members](dotnet/test-private-members.md)
+* [Introduction to Testing](dotnet/unit-testing-intro.md)
+* [xUnit in Depth](dotnet/xunit-in-depth.md)
 
 ## Dsx With Python 
 
@@ -104,14 +121,15 @@
 
 ## Linux 
 
-* [Configure Jenkins](linux/configure-jenkins.md)
 * [Server Setup](linux/setup-ubuntu-server.md)
 
 ## Nodejs 
 
 * [Handling Cors](nodejs/cors.md)
 * [Startover NPM Package](nodejs/creating-a-file-watching-application.md)
+* [Generating code from a CSV file](nodejs/csv-to-code.md)
 * [Express Application with Typescript](nodejs/express-application-with-typescript.md)
+* [Basic Authentication Middleware with Express.js](nodejs/express-basic-auth.md)
 * [Introduction to SQLite with Node.js](nodejs/intro-to-sqlite.md)
 * [Basic Modules](nodejs/module1.md)
 * [Play audio from a Javascript XHR Request](nodejs/play-audio-from-xhr.md)
@@ -122,10 +140,15 @@
 
 * [Jasmine and Karma](presentations/jasmineandkarma.md)
 
+## Prolog 
+
+* [Introduction to Prolog](prolog/intro-to-prolog.md)
+
 ## Random 
 
 * [Deployment Platforms](random/deployment.md)
 * [Frameworks and App Platforms](random/frameworks.md)
+* [Git ](random/git.md)
 * [Powershell](random/powershell.md)
 * [VirtualBox Bugs](random/virtuabox.md)
 
@@ -135,11 +158,19 @@
 * [Module 1 - JSX and React Components](react/module-1.md)
 * [Module 2 - State, Lifecycle and Event Handlers](react/module-2.md)
 * [Module 3 - Lists and Forms](react/module-3.md)
-* [#Generating a PWA for a React App](react/pwa.md)
+* [Generating a PWA for a React App](react/pwa.md)
 
 ## Slack 
 
 * [Hello World App](slack/hello-world-app.md)
+
+## Sql 
+
+* [SQL Cheatsheet](sql/cheatsheet.md)
+
+## Svelte 
+
+* [Introduction to Svelte](svelte/intro-to-svelte.md)
 
 ## Tj Bot 
 
