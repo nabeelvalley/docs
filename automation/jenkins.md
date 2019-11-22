@@ -224,3 +224,28 @@ pipeline {
   }
 }
 ```
+
+## Checkout
+
+To checkout code from a GitHub repo using the GitHub plugin, the following should work under most circumstances:
+
+```groovy
+stage('clone') {
+  git branch: env.BRANCH_NAME,
+    url: '<GIT URL>.git'
+    credentialsId: 'credentials_id'    
+}
+```
+
+However for more complex repos which result in timeouts or other issues, it may be a better choice to use the `GitSCM` method instead, something more like this:
+
+```groovy
+stage('clone')
+  checkout([
+    $chass: 'GitSCM',
+    branches: [[name: env.BRANCH_NAME]],
+    extensions: [[$class: 'CloneOption', timeout: 30]],
+    gitTool: 'Default',
+    useRemoteConfigs: [[credentialsId: 'credentials_id', url: '<GIT URL>.git']]
+  ])
+```
