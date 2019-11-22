@@ -242,7 +242,7 @@ However for more complex repos which result in timeouts or other issues, it may 
 ```groovy
 stage('clone')
   checkout([
-    $chass: 'GitSCM',
+    $class: 'GitSCM',
     branches: [[name: env.BRANCH_NAME]],
     extensions: [[$class: 'CloneOption', timeout: 30]],
     gitTool: 'Default',
