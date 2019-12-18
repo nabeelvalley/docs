@@ -167,15 +167,15 @@ public class IntegrationService
     #endregion
 }
 
-    /// <summary>
-    /// Proxy settings, needed for accessing accross tiers
-    /// </summary>
-    public class ProxySettings
-    {
-        public string Endpoint { get; set; }
-        public bool BypassOnLocal { get; set; } = true;
-        public bool EnvironmentHasProxy() => !string.IsNullOrEmpty(Endpoint);
-    }
+/// <summary>
+/// Proxy settings, needed for accessing accross tiers
+/// </summary>
+public class ProxySettings
+{
+    public string Endpoint { get; set; }
+    public bool BypassOnLocal { get; set; } = true;
+    public bool EnvironmentHasProxy() => !string.IsNullOrEmpty(Endpoint);
+}
 ```
 
 ## Confugure the Service
