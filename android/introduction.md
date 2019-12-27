@@ -202,3 +202,146 @@ The resulting layout should be as follows:
             android:layout_marginRight="16dp" android:layout_marginEnd="16dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
+
+### Handling Events
+
+We can handle the click event on the `Submit` button by using an event handler in our `MainActivity.kt` file, we just need to add a handler function to the class
+
+We can add something like:
+
+```kotlin
+/** Called when the user taps the submit button */
+fun handleSubmit(view: View) {
+    // Do stuff
+}
+```
+
+We can then bind this to the `onClick` event on the Attributes list for the button. For a method to be compatible with the `android:onClick` attribute it must:
+
+1. Be publicly accessible
+2. Return `unit` or `void`
+3. Have a `View` as its only parameter
+
+Next, from the function we defined we can use the following to get the `text` value from the `EditText` 
+
+```kotlin
+val editText = findViewById<EditText>(R.id.editText)
+val message = editText.text.toString()
+```
+
+> Note that you can click `Alt + Enter` to resolve missing references
+
+Next we can create an `Intent` for a second activity for which we will send the `message` to using the following code
+
+```kotlin
+val intent = Intent(this, DisplayMessageActivity::class.java).apply {
+    putExtra(EXTRA_MESSAGE_KEY, message)
+}
+```
+
+From the above we have the `DisplayMessageActivity` class that is not yet defined, this is the class for the activity we will create next. The `putExtra` function is used to store intent data as a key-value pair
+
+The `EXTRA_MESSAGE_KEY` is defined above out class as a `const`
+
+```kotlin
+const val EXTRA_MESSAGE_KEY = "com.example.myfirstapp.MESSAGE"
+```
+
+And then we can start an activity with the intent using:
+
+```kotlin
+startActivity(intent)
+```
+
+The overall `MainActivity.kt` file should now be as follows
+
+```kotlin
+package com.nabeelvalley.myfirstapp
+
+import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import android.widget.EditText
+
+const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    /** Called when the user taps the submit button */
+    fun handleSubmit(view: View) {
+        val editText = findViewById<EditText>(R.id.editText)
+        val message = editText.text.toString()
+        val intent = Intent(this, DisplayMessageActivity::class.java).apply {
+            putExtra(EXTRA_MESSAGE, message)
+        }
+        startActivity(intent)
+    }
+}
+```
+
+Lastly from the design view from the `activity_main.xml` you should be able to select the `handleSubmit` option in the `onClick` dropdown which will set the handler to the function we created
+
+### Create a New Activity
+
+From the Project Window right click on the `app` folder and select `New > Activity > Empty Activity` and call it `DisplayMessageActivity`
+
+On the new activity add a `TextField` and change the `id` to `messageDisplay` 
+
+Now using the `onCreate` function we can add the following code to set the `TextView` to display the data we have from the `EditText` on the main screen
+
+```kotlin
+// Get the Intent that started this activity and extract the string
+val message = intent.getStringExtra(EXTRA_MESSAGE)
+
+// Capture the layout's TextView and set the string as its text
+val textView = findViewById<TextView>(R.id.messageDisplay).apply {
+    text = message
+}
+```
+
+This leaves the resulting `DisplayMessageActivity.kt` file as follows:
+
+```kotlin
+package com.nabeelvalley.myfirstapp
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.TextView
+
+class DisplayMessageActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_display_message)
+
+        // Get the Intent that started this activity and extract the string
+        val message = intent.getStringExtra(EXTRA_MESSAGE)
+
+        // Capture the layout's TextView and set the string as its text
+        val textView = findViewById<TextView>(R.id.messageDisplay).apply {
+            text = message
+        }
+    }
+}
+```
+
+Lastly we need to add a button from the `DisplayMessageActivity` back to the `MainActivity`, we can do this from the `AndroidManifest.xml` by replacing the `<activity>` tag for the `DisplayMessageActivity` with the following to indicate the parent activity:
+
+```xml
+<activity android:name=".DisplayMessageActivity"
+          android:parentActivityName=".MainActivity">
+    <!-- The meta-data tag is required if you support API level 15 and lower -->
+    <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".MainActivity" />
+</activity>
+```
+
+Lastly we can run the application and we should be able to pass data between as well as navigate the two activities
+
