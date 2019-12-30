@@ -99,6 +99,33 @@ myVariable?.doThing() ?: 0
 
 If `myVariable` is `null` then it will return `0` otherwise it will return the function result
 
+### Constants
+
+We can create constants using `const val` at a top level and classes declared using `object` because these are evaluated at compile time
+
+Constants can be created at the top level of a file with:
+
+```kotlin
+const CONSTANT1= 1
+```
+
+Or as `object` singleton properties
+
+```kotlin
+object Constants {
+    const val CONSTANT2 = 2
+}
+```
+
+Or wrapped in a `companion object` within a class
+
+```kotlin
+class MyClass {
+    companion object {
+        const val CONSTANT3 = 3
+    }
+}
+
 ## Strings
 
 We can define strings using the `"..."` as normal, additionally we can use the `$` sign in a string to display a value inline
@@ -220,6 +247,66 @@ Which will result in a 10 item array with each element being `1000^index`
 ### Sequences
 
 Kotlin also has a datatype known as a `Sequence` which is like a lazy list, the values in this are only evaluated when read and not calculated immediately when operated on
+
+### Maps 
+
+Maps are essentially key-value pairs that make use of `pairs` (see later)
+
+We can create a Map of some data with `mapOf`
+
+```kotlin
+val colours = mapOf(
+    "sky" to "blue", 
+    "fire" to "red", 
+    "grass" to "green"
+)
+```
+
+We can then access the elements of the map with:
+
+```kotlin
+colours.get("sky")
+colours["sky"]
+```
+
+If we want to retrieve a value and provide a default value if the key does not exist we can use `getOrElse` with a default value as a lambda
+
+```kotlin
+colours.getOrElse("sad") { "no colour found" }
+```
+
+Maps are immutable by default, we can make a mutable map with `mutableMapOf`
+
+
+## Pairs
+
+Pairs allow us to define a pair of data that are mapped to each other in some way, these can also be chained
+
+We can create aa pair with the `to` keyword
+
+```kotlin
+val pair = "val1" to "val2"
+```
+
+This results in the pair `(val1, val2)`, we can access the first and second elements with `pair.first` and `pair.second`
+
+We can chain them as well, which is the equivalent of wrapping them in parenthesis
+
+```kotlin
+val chained = "val1" to "val2" to "val3"
+```
+
+This is equal to:
+
+```kotlin
+val chained = ("val1" to "val2") to "val3"
+```
+
+Which yields a pair within a pair `((val1, val2), val3)`. We can also destructure these the same as we would with a `data` object
+
+These are useful for returning multiple pieces of data from a function and destructuring it on the receiving end
+
+> You also have triples that can be created with `Triple(el1, el2, el3)`
 
 ## Functions
 
@@ -689,3 +776,148 @@ enum class Suburb {
 ### Sealed Class
 
 A sealed class is a class that can only be used within the same file. These classes are static at compile time as well as all its references this means that the compiler can do additional safety checking that wouldn't otherwise be possible
+
+
+## Extenstion Methods
+
+Extension methods are functions that extend functionality of a class without modifying the class itself. Inside of the function `this` refers to the current object instance
+
+We can declare the function using the dot notation for a function name. For example we can create an extension of `String` with:
+
+```kotlin
+fun String.hasSpaces(): Boolean {
+    return this.find { it == ' ' } != null
+}
+
+"Hello World".hasSpaces() // true
+```
+
+We can also leave out the `this` if there is no ambiguity in the scope, as well as make this a single line
+
+```kotlin
+fun String.hasSpaces() = find { it == ' ' } != null
+```
+
+These functions don't have access to private members and are based on only on private members
+
+Extension functions can also be used on getters and setters for properties, for example:
+
+```kotlin
+val String.isApple: Boolean
+    get() = this == "Apple"
+```
+
+### Generic Classes
+
+Kotlin also allows us to create generics using a similar notation to other languages, such as `MyClass<T>` which is a generic Class of `T`, we can also do the same for function arguments
+
+```kotlin
+class MyClass<T>(val propKey: String, val propVal: T)
+```
+
+We can create an instance of the class with:
+
+```kotlin
+val myData = MyClass<Int>("hello", 12)
+```
+
+Additionally we can also create Generic Function with:
+
+```kotlin
+fun <T> printAndReturn(data: T): T {
+    println(data)
+    return data
+}
+```
+
+And the function can be called with either an inferred or explicit type:
+
+```kotlin
+printAndReturn("hello")
+printAndReturn<String>("hello")
+```
+
+By default T is nullable, if we want to be non-nullable we can specify it with the `Any` type:
+
+```kotlin
+class MyClass<T: Any>(val propKey: String, val propVal: T: Any)
+```
+
+We can alternatively specify a base class to use as well, for example say we have a class `MyClass` that other elemens have extended, we can do something more like:
+
+```kotlin
+class MyNewClass<T: MyClass>(
+    val propKey: String, val propVal: T: MyClass
+)
+```
+
+We can also define `in` which can only be passed into something and `out` types which can only be returned as a result of a function or passed into a constructor.
+
+```kotlin
+class MyNewClass<in T: MyClass>( ... )
+```
+
+We can also define an `out` type using the same kind of notation
+
+> The IDE should point out when these are needed though
+
+Sometimes you may need to tell the compiler that a type is a real type, this does something with the runtime that I don't completely understand but essentially you need to use `inline` before the function and `reified` before the types if you want to access the types themselves:
+
+```kotlin
+inline fun <reified T: MyClass> isTypeValid(data: MyClass)
+    = data is T
+``` 
+
+We can use generics for extension methods as well
+
+## Annotations
+
+Annotations are used by the compiler and many are supplied with the language itself and are generally used when interoperating with Java
+
+Annotations come before the thing that is annotated
+
+Below we can see a class definition for the most basic annotation. It doesn't do much other than be annotated
+
+```kotlin
+annotation class ImAnnotated
+
+@ImAnnotated
+class MyClass
+```
+
+If an annotation is targeting a property we can specify if it is only allowed to be used on getters or setters
+
+```kotlin
+annotation class ImAnnotated
+
+@Target(AnnotationTarget.PROPERTY_GETTER)
+annotation class OnGet
+
+@Target(AnnotationTarget.PROPERTY_SETTER)
+annotation class OnSet
+
+@ImAnnotated
+class MyClass {
+    @get: OnGet
+    val data1: Int = 0
+
+    @set: OnSet
+    var data2: Int = 0
+}
+```
+
+## Labelled Breaks
+
+These allow us to break out of a loop in a more controlled manner by breaking out to the block outside of the label, they are defined with `@labelName`
+
+```kotlin
+mainLoop@for (i in 1..100) {
+    for (j in 1..10) {
+        if (i > 10) break@mainLoop
+        else println("i: $i, j: $j")
+    }
+}
+```
+
+The code above will run until `i > 10` and then completely exit both for loops, normally we would do something like this with two breaks for example to break out of each loop individually
+
