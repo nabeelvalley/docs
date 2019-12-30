@@ -141,8 +141,9 @@ val cows = 12
 
 "I have $(fish + cows) animals in total"
 ```
+## Conditions
 
-## Condition Checking
+### If-Else
 
 We can use `If-Else` as follows:
 
@@ -172,6 +173,8 @@ Additionally we can also make use of ranges in our `If` conditions using the `..
 if (fish in 1..20)
     println("Wow")
 ```
+
+### Switch / When
 
 Kotlin also has switch statements, which make use of the `when` keyword:
 
@@ -278,7 +281,7 @@ colours.getOrElse("sad") { "no colour found" }
 Maps are immutable by default, we can make a mutable map with `mutableMapOf`
 
 
-## Pairs
+### Pairs
 
 Pairs allow us to define a pair of data that are mapped to each other in some way, these can also be chained
 
@@ -429,10 +432,12 @@ val minusFive: (Int) -> Int = { x: Int -> x - 5 }
 val addAny: (Int,Int) -> Int = { x: Int, y: Int ->  x + y }
 ```
 
-Higher Order Functions are functions that can take other functions, for example we can create a function that takes another function as an operator:
+### Higher Order Functions
+
+Higher Order Functions are functions that can take other functions, an example of this is the built-in `with` function. We can create a function that takes another function as an operator, we usually use `block` to reference the function we are receiving:
 
 ```kotlin
-fun operate(x: Int, operator: (Int) -> Int) = operator(x)
+fun operate(x: Int, block: (Int) -> Int) = blobk(x)
 
 val addResult = operate(12, addFive)
 val minusResult = operate(12, minusFive)
@@ -451,6 +456,53 @@ ans = addTwelve(10)
 ```
 
 There are a lot of other cool things about functions and small syntactical changes that can be used when mixing them together but this should be relatively straightforward
+
+We can make use for the above idea to create the HOCs as extension functions
+
+```kotlin
+fun operate (
+    additive: Int, block: Int.() -> Int
+) {
+    int.block()
+}
+```
+
+Some other built-in HOC's are `run` which runs a lambda and returns the result and `apply` which calls a function on an object and returns the updated object, and `let` which is used for chaingin functions and getting their results
+
+```kotlin
+val newHouse = House(isFancy = true)
+        .apply {
+            garages = 2
+            extend(4, 1)
+        }
+
+print("${ newHouse.price } ${ newHouse.size } ${ newHouse.garages }")
+
+val priceWithTax = newHouse
+        .let { it.price }
+        .let { it * 1.2 }
+
+```
+
+You can see that `apply` is really useful for initializing an object and `let` is useful for essentially summarizing an object or doing some operations with it
+
+### Inlines
+
+Every time we call a lambda Kotlin creates a new lambda object instance, there can be a lot of overhead to create the function instance. We can instead use `inline` to tell the compiler to inline a function call where it is used (similar to C++)
+
+We can define an inline function by simply adding the `inline` keyword before `fun`:
+
+```kotlin
+inline fun addStuff(x: Int, y: Int): Int {
+    return x + y
+}
+```
+
+## Single Abstract Method (SAM)
+
+SAMs are essentially interfaces with a single methods on them
+
+In Kotlin we can pass lambdas to Java functions that require SAMs
 
 ## OOP
 
@@ -704,7 +756,7 @@ The house class now has the `population` property as well as a result of the inh
 
 We can specify the inherited classes as parameters to functions where we would like to use some specific functionality, for example in a function where we want to use the `extend` function we can just ask for `ICanRenovate`
 
-``kotlin
+```kotlin
 fun extendItem(item: ICanRenovate) = item.extend(1, 1)
 ```
 
@@ -920,4 +972,3 @@ mainLoop@for (i in 1..100) {
 ```
 
 The code above will run until `i > 10` and then completely exit both for loops, normally we would do something like this with two breaks for example to break out of each loop individually
-
