@@ -365,3 +365,327 @@ ans = addTwelve(10)
 
 There are a lot of other cool things about functions and small syntactical changes that can be used when mixing them together but this should be relatively straightforward
 
+## OOP
+
+### Create a Class
+
+We typically organize classes into packages. `Right Click on src > New Package` then you can fill in the package name. Thereafter create a new Kotlin file in the package directory
+
+You can define a new class with the `class` keyword. A class name typically defines the class name. A function does not need to have a body to be valid:
+
+```kotlin
+package Functionality
+
+class House
+```
+
+We can add properties to the `House` class with:
+
+```kotlin
+package Functionality
+
+class House {
+    val size = 1200
+    val rooms = 3
+    val garages = 2
+}
+```
+
+Using this means that the properties in our class are constants
+
+We can then create an instance of a house and read its properties with:
+
+```kotlin
+val house = House()
+val size = house.size
+```
+
+Kotlin automatically creates getters and setters for properties
+
+To make properties changeable we can change `val` to `var`
+
+We can also create a custom getter like so:
+
+```kotlin
+val price : Int
+    get() = size + rooms + garages
+```
+
+By default everything is public
+
+We can also create a default constructor which will set the initial values in the parenthesis of the class declaration
+
+```kotlin
+class House (
+    val size: Int = 1200, 
+    val rooms: Int = 3, 
+    val garages: Int = 2
+) {
+    val price : Int
+        get() = size + rooms + garages
+}
+```
+
+Additional constructors can be created as well using the    `constructor` keyword in the class,  such as this one:
+
+```kotlin
+class House (
+    var size: Int = 1200,
+    var rooms: Int = 3,
+    var garages: Int = 2
+) {
+    val price : Int
+        get() = size + rooms + garages
+
+    constructor(kind: Int): this() {
+        size = kind * 3
+        rooms = kind * 2
+        garages = kind
+    }
+}
+```
+
+The new constructor must make a call a constructor with `this()`, we can also set the parameters like so:
+
+```kotlin
+class House (
+    val size: Int = 1200,
+    val rooms: Int = 3,
+    val garages: Int = 2
+) {
+    val price : Int
+        get() = size + rooms + garages
+
+    constructor(kind: Int): this(
+        kind * 3,
+        kind * 2,
+        kind
+    )
+}
+```
+
+We can also place logic for a default constructor in the `init` block, for example:
+
+```kotlin
+class House (
+    val rooms: Int = 3,
+    val garages: Int = 2,
+    isFancy: Boolean
+) {
+    val size: Int
+    init {
+        size = if (isFancy) rooms * 1000
+               else rooms * 500
+    }
+
+    val price : Int
+        get() = size + rooms + garages
+
+    constructor(kind: Int): this(
+        kind * 3,
+        kind * 2,
+        false
+    )
+}
+```
+
+We can have multiple `init` blocks they are executed in the order they are defined in the class
+
+```kotlin
+class MyClass {
+    init {
+        println("I run before any properties are initiailzed")
+    }
+
+    val size = 12
+
+    init {
+        println("I run after size is initialized")
+    }
+
+    val height = 14
+
+    init {
+        println("I'll run last")
+    }
+}
+```
+
+> In Kotlin we typically try to avoid using multiple constructors, if we need to do something like that we will create a helper function outside our class that we can use to set up a constructor
+
+### Inheritence
+
+The default class inherits from `Any`, however to inherit from a class we use the word `open` to say that a class or property can be inherited or overriden
+
+```kotlin
+open class House (...) {
+    ...
+
+    open val price : Int
+        get() = size + rooms + garages
+
+    ...
+}
+
+```
+
+We can create a new class called `FancyHouse` like:
+
+```kotlin
+class FancyHouse(
+    val pools: Int = 1,
+    rooms: Int,
+    garages: Int
+): House(rooms, garages, isFancy = true) {
+    override val price: Int
+        get() = (size + rooms + garages + pools) * 2
+}
+```
+
+### Interfaces
+
+Kotlin allows us two forms of inheritence: Interfaces and Abstracts. Interfaces cannot have a constructor or any logic
+
+Interfaces use the `interface` keyword and can essentially only define the signatures for the different properties
+
+```kotlin
+interface ICanRenovate {
+    var rooms: Int
+    var garages: Int
+    fun extend(roomsToAdd: Int, garagesToAdd: Int)
+}
+```
+
+Next we can inherit from the `ICanRenovate` class in our `House` class. this requires us to set implementations for the `rooms`, `garages`, and `extend` properties and add `ICanRenovate` after the constructor params
+
+```kotlin
+open class House (
+    override var rooms: Int = 3,
+    override var garages: Int = 2,
+    isFancy: Boolean
+): ICanRenovate {
+    val size: Int
+    init {
+        size = if (isFancy) rooms * 1000
+               else rooms * 500
+    }
+
+    override fun extend(roomsToAdd: Int, garagesToAdd: Int) {
+        rooms += roomsToAdd
+        garages += garagesToAdd
+    }
+
+    open val price : Int
+        get() = size + rooms + garages
+
+    constructor(kind: Int): this(
+        kind * 3,
+        kind * 2,
+        false
+    )
+}
+```
+
+### Abstract
+
+We can add an abstract class for some predefined functionality, let's create one called `Livable` with a population
+
+```kotlin
+abstract class Livable() {
+    abstract val population: Int
+}
+```
+
+The `abstract` keyword for the `population` property allows it to be overriden when inherited
+
+We can then update our `House` class to include this with:
+
+```kotlin
+open class House (
+    override var rooms: Int = 3,
+    override var garages: Int = 2,
+    isFancy: Boolean
+): Livable(), ICanRenovate {
+    override val population: Int = 4
+    ...
+}
+```
+
+The house class now has the `population` property as well as a result of the inheritance
+
+### Using Inherited Classes
+
+We can specify the inherited classes as parameters to functions where we would like to use some specific functionality, for example in a function where we want to use the `extend` function we can just ask for `ICanRenovate`
+
+``kotlin
+fun extendItem(item: ICanRenovate) = item.extend(1, 1)
+```
+
+Kotlin also allows you to define preset classes that can be delegated for inheritence which allows us to implement certain functionality in an instance that can be reused
+
+### Singletons
+
+We can create a class that can only have a single instance with the `object` keyword -> AKA singleton
+
+We can create an Interface called `IHasColour` with a `colour` property
+
+```kotlin
+interface IHasColour {
+    val colour: String
+}
+```
+
+An object called `HouseColour` can then implement that interface and set the implementation for it
+
+```kotlin
+object HouseColour: IHasColour {
+    override val colour: String = "Beige"
+}
+```
+
+We can then update a class to implement this functionality using the `Interface by Singleton` structure in the definition
+
+```kotlin
+open class House (
+    ...
+): Livable(), ICanRenovate, IHasColour by HouseColour {
+    ...
+}
+```
+
+Interface delegation allows us to use composition to plug in select functionality and should be considered for the kinds of usecases that we would use abstract classes for in other languages
+
+### Data Classes
+
+Often we have classes that are defined just for storing data, we can use a `data` class in Kotlin for doing that
+
+```kotlin
+data class Address(val number: Int, val street: String)
+```
+
+The `data` class has an automatic `toString` and `equals` method for proper equality checking as well as the `copy` method which can copy objects
+
+We can also decompose the values from the class using the following syntax:
+
+```kotlin
+val postal = Address(24, "Fun Street")
+val ( postalNumber, postalStreet ) = postal
+```
+
+> The number of values in the decomposition must match the number of properties and are defined based on the order they are in the class
+
+### Enums
+
+In Kotlin Enums are defined using the `enum` keyword and they can haver properties and methods
+
+```kotlin
+enum class Suburb {
+    SUB_1,
+    SUB_2,
+    SUB_3
+}
+```
+
+### Sealed Class
+
+A sealed class is a class that can only be used within the same file. These classes are static at compile time as well as all its references this means that the compiler can do additional safety checking that wouldn't otherwise be possible
