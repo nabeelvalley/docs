@@ -92,3 +92,53 @@ SET [FirstName] = 'John', [LastName] = 'Smith'
 WHERE [PersonId] = 1
 GO
 ```
+
+## Testing Statements
+
+When running SQL queries it may sometimes be necessary to check if your query will work as expected before you actually run it you can wrap your query in:
+
+```sql
+BEGIN TRANSACTION
+    ... DO STUFF
+ROLLBACK
+```
+
+> `ROLLBACK` will roll back to the DB status before the query was carried out
+
+And once you have verified that the query did what you expected, you can change the `ROLLBACK` to `COMMIT`
+
+```sql
+BEGIN TRANSACTION
+    ... DO STUFF
+COMMIT
+```
+
+We can test a deletion of a `Person` and view the result with:
+
+```sql
+BEGIN TRANSACTION
+
+SELECT * FROM [TestDatabase].[dbo].[Persons]
+
+DELETE FROM [TestDatabase].[dbo].[Persons] 
+	WHERE [LastName] = 'Person2'
+
+SELECT * FROM [TestDatabase].[dbo].[Persons]
+
+ROLLBACK
+```
+
+And we can then `COMMIT` this when we are sure it works
+
+```sql
+BEGIN TRANSACTION
+
+SELECT * FROM [TestDatabase].[dbo].[Persons]
+
+DELETE FROM [TestDatabase].[dbo].[Persons] 
+	WHERE [LastName] = 'Person2'
+
+SELECT * FROM [TestDatabase].[dbo].[Persons]
+
+COMMIT
+```
