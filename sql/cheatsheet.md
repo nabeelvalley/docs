@@ -43,6 +43,14 @@ WHERE [TABLE_TYPE] = 'BASE TABLE'
 GO
 ```
 
+### List Columns in Table
+
+```sql
+SELECT * FROM [TestDatabase].[INFORMATION_SCHEMA].[COLUMNS]
+ WHERE [TABLE_NAME] = 'Persons'
+GO
+```
+
 ### Create Table
 
 ```sql
