@@ -56,6 +56,37 @@ CREATE TABLE [TestDatabase].[dbo].[Persons] (
 GO
 ```
 
+### Update Column Data Type
+
+```sql
+ALTER Table [TestDatabase].[dbo].[Persons]
+	ALTER COLUMN [PersonId] int NOT NULL
+GO
+```
+
+### Add Column Constraint
+
+```sql
+ALTER Table [TestDatabase].[dbo].[Persons]
+	ADD CONSTRAINT PK_Person PRIMARY KEY ([PersonId])
+GO
+```
+
+### Create Table with Links
+
+```sql
+CREATE TABLE [TestDatabase].[dbo].[Items]
+   (
+      ItemId int NOT NULL, 
+	  PersonId int NOT NULL, 
+	  Name nvarchar(50),
+      CONSTRAINT PK_Items PRIMARY KEY (ItemId),
+      CONSTRAINT FK_Items_Person FOREIGN KEY ([PersonId])
+      REFERENCES [Persons] ([PersonId])
+   )
+GO
+```
+
 ### Drop Table
 
 ```sql
