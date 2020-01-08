@@ -1,5 +1,3 @@
-# SQL Cheatsheet
-
 > Mostly applies to SQL server and SQLExpress
 
 ## Log Into Instance
