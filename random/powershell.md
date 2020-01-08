@@ -1,6 +1,4 @@
-# Powershell
-
-## [Modify function prompt](https://superuser.com/questions/446827/configure-the-windows-powershell-to-display-only-the-current-folder-name-in-the)
+## [Modify Prompt](https://superuser.com/questions/446827/configure-the-windows-powershell-to-display-only-the-current-folder-name-in-the)
 
 Open **Powershell** and type
 

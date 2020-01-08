@@ -1,5 +1,3 @@
-# Git 
-
 ## Submodules
 
 Submodules allow you to include one git repository in another, for instance if we want to include a library in our codebase
