@@ -87,6 +87,14 @@ Alternatively if you are cloning the project for the first time you should be ab
 git clone --recurse-submodules https://github.com/nabeelvalley/MyNewRepository.git
 ```
 
+## Pull Latest Changes from Submodule
+
+To pull the latest changes from a submodule into the repository you can make use of the following command:
+
+```bash
+git submodule update --remote --merge
+```
+
 There's a lot more you can do with submodules but these are the basics, more information is in [the Git docs](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
 
 It's also relevant to note that when working on submodules you can kind of treat them as a normal git repository and work on them like you would if they were such
