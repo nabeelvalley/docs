@@ -2,5 +2,5 @@
 
 ## Miscellaneous
 
-- [Git](/random/git)
-- [Powershell](/random/powershell)
+- [Git](random/git)
+- [Powershell](random/powershell)
