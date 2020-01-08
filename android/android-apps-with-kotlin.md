@@ -10,7 +10,7 @@ To get started you will need to first install Android Studio and an Emulator if 
 
 To get started create a new Android Studio Project with the following settings, select the `Empty Activity` and name the application DiceRoller with the Root Package `com.example.DiceRoller`. Select the `API Level 19` and 
 
-| Name              | My First App                      |
+| Name              | Dice Roller                       |
 | ----------------- | --------------------------------- |
 | Package           | com.nabeelvalley.diceroller       |
 | Save Location     | C:\Repos\AndroidStudio\DiceRoller |
@@ -390,3 +390,139 @@ If we want to be more correct about how we're handling the Image view we can als
 lateinit var diceImage: AppCompatImageView
 ```
 
+## Developing Layouts
+
+All visual elements are views and are children of the `View` class and have some common properties like height, width, background, and interactivity
+
+Units for expressing dimensions are `dp` which are Density Independent Pixels which allow size to be consistent over different device sizes
+
+Views are organised as a heirarchy and `ViewGroup`s are views that are used to contain other views, some view groups are:
+
+- `LinearLayout` Horizontal or Vertial layouts
+- `ScrollView` for scrollable content
+
+Deeper view heirarchies are more complex to render and can impact performance, the `ConstraintLayout` helps you to arrange more complex layouts without deep nesting of Views
+
+### Create Project
+
+Create a new project called `About Me` with an Empty Activity
+
+| Name              | About Me                          |
+| ----------------- | --------------------------------- |
+| Package           | com.nabeelvalley.aboutme          |
+| Save Location     | C:\Repos\AndroidStudio\DiceRoller |
+| Language          | Kotlin                            |
+| Minimum API Level | API Level 19: Android 4.4         |
+|                   | Use `androidx.*` artifacts        |
+
+### Set up Linear Layout
+
+Replace the existing layout for `activity_main.xml` and set the Root element to be a `LinearLayout`
+
+To get started let's use the following layout:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity" android:id="@+id/linearLayout">
+
+        <TextView
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Hello World"/>
+
+</LinearLayout>
+```
+
+> Will be using a mixture of the layout editor and the XML view, you can drag and edit elements using the layout editore
+
+We'll also create a `dimension` and `string` resource for the text element size and content using the refactorings (light bulb) in the Android Studio XML view for the layout
+
+The final layout should be like:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity" android:id="@+id/linearLayout">
+
+        <TextView
+                android:textSize="@dimen/text_size"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@string/text_name" android:id="@+id/nameText" android:textAlignment="center"
+                android:textColor="@android:color/black"/>
+
+</LinearLayout>
+```
+
+With the following in the:
+
+`values/strings.xml`
+
+```xml
+<resources>
+    <string name="app_name">About Me</string>
+    <string name="text_name">Nabeel Valley</string>
+</resources>
+```
+
+`values/dimens.xml`
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size">20sp</dimen>
+</resources>
+```
+
+### View Styling
+
+We can modify the styles for a component, for spacing on a view we have the following:
+
+- Padding
+- Border
+- Margin
+
+We can update the text view to add some spacing (using a `dimension`) and select the `Roboto` font. We can then use Android studio to extract the styling to a `style` with the following steps:
+
+1. Right click text view > Refactor > Extract Style
+2. Keep margins, colour, and font
+3. The style should be created and applied:
+
+In the `styles.xml` file you can see the created style:
+
+```xml
+<style name="text_body">
+    <item name="android:textSize">@dimen/text_size</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:textColor">@android:color/black</item>
+    <item name="android:layout_marginTop">@dimen/layout_margin</item>
+    <item name="android:fontFamily">@font/roboto</item>
+</style>
+```
+
+And we can apply it to a View using the `style` attribute:
+
+```xml
+<TextView
+        android:text="@string/text_name"
+        android:id="@+id/nameText"
+        android:textAlignment="center"
+        style="@style/text_body"/>
+```
+
+Checkpoint:
+
+https://classroom.udacity.com/courses/ud9012/lessons/4f6d781c-3803-4cb9-b08b-8b5bcc318d1c/concepts/6efde730-a337-4d8e-b295-659d116fe9b8
