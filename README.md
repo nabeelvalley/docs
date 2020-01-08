@@ -2,6 +2,13 @@
 
 * [Nabeel's Docs](README.md)
 
+## Android 
+
+* [Building Android Apps with Kotlin](android/android-apps-with-kotlin.md)
+* [Building a Custom Android Launcher](android/build-a-launcher.md)
+* [Introduction to Android Development](android/introduction-to-android.md)
+* [Introduction to Kotlin](android/introduction-to-kotlin.md)
+
 ## Automation 
 
 * [Job Automation with Hangfire](automation/hangfire.md)
@@ -64,8 +71,10 @@
 * [Database Migrations with Entity Framework](dotnet/ef-migrations.md)
 * [Entity Framework with F](dotnet/fs-entity-framework.md)
 * [F.NET Core Web API](dotnet/fs-webapi.md)
+* [Multi-Tier Integration Service](dotnet/integration-service.md)
 * [Introduction to C-Sharp](dotnet/intro-to-cs.md)
 * [Introduction to F-Sharp](dotnet/intro-to-fs.md)
+* [Getting Started with LINQ to SQL](dotnet/linq-to-sql.md)
 * [Logging](dotnet/logging.md)
 * [Intro to the SAFE Stack](dotnet/safe-stack-intro.md)
 * [Testing Private Members](dotnet/test-private-members.md)
