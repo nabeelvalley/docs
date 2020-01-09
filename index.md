@@ -1,6 +1,12 @@
+## Android
+
+- [Android Basics](android/introduction-to-android)
+- [Kotlin Basics](android/introduction-to-kotlin)
+
 ## .NET
 
 - [Multi-Tier Integration Service](dotnet/integration-service)
+- [Entity Framework with F#](dotnet/fs-entity-framework)
 
 ## SQL
 

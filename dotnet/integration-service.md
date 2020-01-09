@@ -1,6 +1,16 @@
+<details>
+  <summary>Contents</summary>
+
+- [Service Definition](#service-definition)
+- [Confugure the Service](#confugure-the-service)
+- [Using the Service](#using-the-service)
+
+</details>
+
+
 For applications that span multiple tiers or make use of a separate data accesss and web application layers a generic integration service can be used to communicate between tiers
 
-## Service Definition
+# Service Definition
 
 The service enables you to call controllers on the underlying tier by their route, provided that complex objects are supplied in the request body where needed
 
@@ -176,7 +186,7 @@ public class ProxySettings
 }
 ```
 
-## Confugure the Service
+# Confugure the Service
 
 You can configure the service in your `startup.cs` as follows:
 
@@ -207,7 +217,7 @@ You can configure the service in your `startup.cs` as follows:
 
 The above is a bit overkill as it does the proxy checking too, but you don't need that if you know your proxy configuration beforehand or are not using a proxy
 
-## Using the Service
+# Using the Service
 
 To use the service you need to request it in a controller constructor via Dependency Injection
 

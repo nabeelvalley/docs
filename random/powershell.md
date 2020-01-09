@@ -1,4 +1,18 @@
-## [Modify Prompt](https://superuser.com/questions/446827/configure-the-windows-powershell-to-display-only-the-current-folder-name-in-the)
+<details>
+  <summary>Contents</summary>
+
+- [Modify Prompt](#modify-prompt)
+- [Adding Aliases](#adding-aliases)
+- [Git Status for Sub-Directories](#git-status-for-sub-directories)
+- [Zip and Unzip a File](#zip-and-unzip-a-file)
+- [Copy and Paste Files](#copy-and-paste-files)
+- [Send an Email](#send-an-email)
+
+</details>
+
+# Modify Prompt
+
+> Based on [this](https://superuser.com/questions/446827/configure-the-windows-powershell-to-display-only-the-current-folder-name-in-the)
 
 Open **Powershell** and type
 
@@ -27,7 +41,9 @@ function prompt {
 }
 ```
 
-## [Adding Aliases](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/set-alias?view=powershell-6)
+# Adding Aliases
+
+> Based on [this](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/set-alias?view=powershell-6)
 
 We can add persistent aliases in our **profile** by defining functions for them, we can open our Powershell Profile
 
@@ -43,7 +59,7 @@ function repo {
 }
 ```
 
-## Git Status for Sub-Directories
+# Git Status for Sub-Directories
 
 Check which folders have modified files (only goes one level deep)
 

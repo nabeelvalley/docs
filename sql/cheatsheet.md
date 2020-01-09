@@ -1,38 +1,61 @@
-> Mostly applies to SQL server and SQLExpress
+<details>
+  <summary>Contents</summary>
 
-## Log Into Instance
+- [Log Into Instance](#log-into-instance)
+- [Instance Level Operations](#instance-level-operations)
+  - [List Instance Databases](#list-instance-databases)
+  - [Create Database](#create-database)
+- [Drop Database](#drop-database)
+- [Database Level Operations](#database-level-operations)
+  - [List Database Tables](#list-database-tables)
+  - [List Columns in Table](#list-columns-in-table)
+  - [Create Table](#create-table)
+  - [Update Column Data Type](#update-column-data-type)
+  - [Add Column Constraint](#add-column-constraint)
+  - [Create Table with Links](#create-table-with-links)
+  - [Drop Table](#drop-table)
+  - [Insert Item into Table](#insert-item-into-table)
+  - [Retrieve Table Values](#retrieve-table-values)
+  - [Update Table Item](#update-table-item)
+- [Testing Statements](#testing-statements)
+
+</details>
+
+> Mostly applies to SQL Server and SQL Express
+
+# Log Into Instance
 
 ```bash
 #sqlcmd -S <YOUR DATABASE NAME> -E
 sqlcmd -S localhost\SQLEXPRESS -E
 ```
 
-## Instance Level Operations
+# Instance Level Operations
 
-### List Instance Databases
+## List Instance Databases
 
 ```sql
 SELECT [name] FROM [master].[dbo].[sysdatabases]
 GO
 ```
 
-### Create Database
+## Create Database
 
 ```sql
 CREATE DATABASE [TestDatabase]
 GO
 ```
 
-## Drop Database
+# Drop Database
 
 ```sql
 DROP DATABASE TestDatabase
 GO
 ```
 
-## Database Level Operations
+# Database Level Operations
 
-### List Database Tables
+## List Database Tables
 
 ```sql
 SELECT [TABLE_NAME]
@@ -41,7 +64,7 @@ WHERE [TABLE_TYPE] = 'BASE TABLE'
 GO
 ```
 
-### List Columns in Table
+## List Columns in Table
 
 ```sql
 SELECT * FROM [TestDatabase].[INFORMATION_SCHEMA].[COLUMNS]
@@ -49,7 +72,7 @@ SELECT * FROM [TestDatabase].[INFORMATION_SCHEMA].[COLUMNS]
 GO
 ```
 
-### Create Table
+## Create Table
 
 ```sql
 CREATE TABLE [TestDatabase].[dbo].[Persons] (
@@ -62,7 +85,7 @@ CREATE TABLE [TestDatabase].[dbo].[Persons] (
 GO
 ```
 
-### Update Column Data Type
+## Update Column Data Type
 
 ```sql
 ALTER Table [TestDatabase].[dbo].[Persons]
@@ -70,7 +93,7 @@ ALTER Table [TestDatabase].[dbo].[Persons]
 GO
 ```
 
-### Add Column Constraint
+## Add Column Constraint
 
 ```sql
 ALTER Table [TestDatabase].[dbo].[Persons]
@@ -78,7 +101,7 @@ ALTER Table [TestDatabase].[dbo].[Persons]
 GO
 ```
 
-### Create Table with Links
+## Create Table with Links
 
 ```sql
 CREATE TABLE [TestDatabase].[dbo].[Items]
@@ -93,14 +116,14 @@ CREATE TABLE [TestDatabase].[dbo].[Items]
 GO
 ```
 
-### Drop Table
+## Drop Table
 
 ```sql
 DROP TABLE [Persons]
 GO
 ```
 
-### Insert Item into Table
+## Insert Item into Table
 
 ```sql
 INSERT INTO [TestDatabase].[dbo].[Persons]
@@ -109,7 +132,7 @@ VALUES (1, 'Name', 'Surname', 'Home', 'Place')
 GO
 ```
 
-### Retrieve Table Values
+## Retrieve Table Values
 
 ```sql
 SELECT TOP (10) [PersonId]
@@ -121,7 +144,7 @@ SELECT TOP (10) [PersonId]
 GO
 ```
 
-### Update Table Item
+## Update Table Item
 
 ```sql
 UPDATE [TestDatabase].[dbo].[Persons]
@@ -130,7 +153,7 @@ WHERE [PersonId] = 1
 GO
 ```
 
-## Testing Statements
+# Testing Statements
 
 When running SQL queries it may sometimes be necessary to check if your query will work as expected before you actually run it you can wrap your query in:
 

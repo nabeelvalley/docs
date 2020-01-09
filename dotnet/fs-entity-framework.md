@@ -1,4 +1,17 @@
-# Entity Framework with F
+<details>
+  <summary>Contents</summary>
+
+- [Create the Database](#create-the-database)
+- [Console App](#console-app)
+  - [Adding the Types](#adding-the-types)
+  - [Using the Context](#using-the-context)
+- [Web API](#web-api)
+  - [Set Up the Types](#set-up-the-types)
+  - [Service Configuration](#service-configuration)
+  - [Usage](#usage)
+
+</details>
+
 
 > Foreword, migrations don't work with F# (maybe some time but no hopes)
 

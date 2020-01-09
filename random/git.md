@@ -1,8 +1,20 @@
-## Submodules
+<details>
+  <summary>Contents</summary>
+
+- [Submodules](#submodules)
+	- [Set Up a Test Repo](#set-up-a-test-repo)
+	- [Add a Submodule](#add-a-submodule)
+	- [Cloning a Project with Submodules](#cloning-a-project-with-submodules)
+- [Pull Latest Changes from Submodule](#pull-latest-changes-from-submodule)
+- [Clean Ignored Files](#clean-ignored-files)
+
+</details>
+
+# Submodules
 
 Submodules allow you to include one git repository in another, for instance if we want to include a library in our codebase
 
-### Set Up a Test Repo
+## Set Up a Test Repo
 
 We can get started on a new test repository, just create a folder with some files and other folders in it and run:
 
@@ -17,7 +29,7 @@ git add .
 git commit -m "initial commit"
 ```
 
-### Add a Submodule
+## Add a Submodule
 
 Next, from the directory into which you want the submodule to be cloned into, you can run the following command:
 
@@ -54,7 +66,7 @@ git add .
 git commit -m "add submodules"
 ```
 
-### Cloning a Project with Submodules
+## Cloning a Project with Submodules
 
 When cloning a project that has submodules you can do either of the following:
 
@@ -87,7 +99,7 @@ Alternatively if you are cloning the project for the first time you should be ab
 git clone --recurse-submodules https://github.com/nabeelvalley/MyNewRepository.git
 ```
 
-## Pull Latest Changes from Submodule
+# Pull Latest Changes from Submodule
 
 To pull the latest changes from a submodule into the repository you can make use of the following command:
 
@@ -99,7 +111,7 @@ There's a lot more you can do with submodules but these are the basics, more inf
 
 It's also relevant to note that when working on submodules you can kind of treat them as a normal git repository and work on them like you would if they were such
 
-## [Clean Ignored Files](http://www.codeblocq.com/2016/01/Untrack-files-already-added-to-git-repository-based-on-gitignore/)
+# [Clean Ignored Files](http://www.codeblocq.com/2016/01/Untrack-files-already-added-to-git-repository-based-on-gitignore/)
 
 To remove files that are in your `.gitignore` but are not ignored by your repo, you can do the following: 
 
