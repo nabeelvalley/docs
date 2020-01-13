@@ -134,6 +134,8 @@ GO
 
 ## Retrieve Table Values
 
+We can retrieve all values from a table with:
+
 ```sql
 SELECT TOP (10) [PersonId]
       ,[LastName]
@@ -142,6 +144,22 @@ SELECT TOP (10) [PersonId]
       ,[City]
   FROM [TestDatabase].[dbo].[Persons]
 GO
+```
+
+We can get a specific set of values with a condition
+
+```sql
+SELECT *
+FROM [TestDatabase].[dbo].[Persons]
+WHERE [FirstName] = 'John'
+```
+
+Or search for a pattern in a field with `LIKE`:
+
+```sql
+SELECT *
+FROM [TestDatabase].[dbo].[Persons]
+WHERE [FirstName] LIKE '%John%'
 ```
 
 ## Update Table Item
