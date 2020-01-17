@@ -563,3 +563,221 @@ export const query = graphql`
   }
 `
 ```
+
+## Create Pages Programatically
+
+Using Gatsby we can create pages using the data output from a query
+
+### Generate Page Slugs
+
+We can make use of the `onCreateNode` and `createPages` API's that Gatsby exposes. To implement an API we need to export the function in the `gatsby-node.js` file
+
+The `onCreateNode` function is run every time a new node is created or updated
+
+We can add the following into the `gatsby-node.js` file and can see each node that has been created
+
+`gatsby-node.js`
+
+```js
+exports.onCreateNode = ({ node }) => {
+  console.log(node.internal.type)
+}
+```
+
+We can then check when a node is the `MarkdownRemark` and use the `gatsby-source-filesystem` plugin to generate a slug for the file
+
+```js
+const { createFilePath } = require(`gatsby-source-filesystem`)
+
+exports.onCreateNode = ({ node, getNode }) => {
+  if (node.internal.type === `MarkdownRemark`) {
+    slug = createFilePath({ node, getNode, basePath: `pages` })
+    console.log(slug)
+  }
+}
+```
+
+Using the above, we can update a node with the `createNodeField` function which is part of the `actions` object that's passed into the `onCreateNode` field
+
+```js
+const { createFilePath } = require(`gatsby-source-filesystem`)
+
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions
+  if (node.internal.type === `MarkdownRemark`) {
+    const slug = createFilePath({ node, getNode, basePath: `pages` })
+    createNodeField({
+      node,
+      name: `slug`,
+      value: slug
+    })
+  }
+}
+```
+
+We can then run the following query in the GraphiQL editor to see the slugs that were generated
+
+```
+query {
+  allMarkdownRemark {
+    edges {
+      node {
+        fields {
+          slug
+        }
+      }
+    }
+  }
+}
+```
+
+Gatsby uses the `createPages` API from plugins to create pages, we can additionally export the `createPages` function from our `gatsby-node.js` file. To create a page programatically we need to:
+
+1. Query the data
+
+`gatsby-node.js`
+
+```js
+...
+exports.createPages = async ({ graphql, actions }) => {
+  // **Note:** The graphql function call returns a Promise
+  // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise for more info
+  const result = await graphql(`
+    query {
+      allMarkdownRemark {
+        edges {
+          node {
+            fields {
+              slug
+            }
+          }
+        }
+      }
+    }
+  `)
+  console.log(JSON.stringify(result, null, 4))
+}
+```
+
+2. Map the query resilt to a page
+
+We can first update the `createPages` function to set the slug route to resolve to a specific component, in this case the `src/templates/blog-post.js`
+
+```js
+const path = require(`path`)
+
+...
+
+exports.createPages = async ({ graphql, actions }) => {
+    const { createPage } = actions
+    const result = await graphql(`
+    query {
+      allMarkdownRemark {
+        edges {
+          node {
+            fields {
+              slug
+            }
+          }
+        }
+      }
+    }
+  `)
+    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+        createPage({
+            path: node.fields.slug,
+            component: path.resolve(`./src/templates/blog-post.js`),
+            context: {
+                // Data passed to context is available
+                // in page queries as GraphQL variables.
+                slug: node.fields.slug,
+            },
+        })
+    })
+}
+```
+
+We can then create the `src/templates/blog-post.js` file to render the new data:
+
+```js
+import React from "react"
+import { graphql } from "gatsby"
+import Container from "../components/container"
+
+export default ({ data }) => {
+  const post = data.markdownRemark
+  return (
+    <Container>
+      <div>
+        <h1>{post.frontmatter.title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+      </div>
+    </Container>
+  )
+}
+
+export const query = graphql`
+  query($slug: String!) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      html
+      frontmatter {
+        title
+      }
+    }
+  }
+`
+```
+
+You should be able to view any created pages by navigating to a random route on your site which should open the development server's 404 page which has a listing of the available pages
+
+We can then also update the `blog.js` file to query for the slug and create a `Link` to the new page based on the `slug`
+
+`blog.js`
+
+```js
+import React from "react"
+import { graphql, Link } from "gatsby"
+import Container from "../components/container"
+
+export default ({ data }) => {
+  console.log(data)
+  return (
+    <Container>
+      <div>
+        <h1>Amazing Pandas Eating Things</h1>
+        <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
+        {data.allMarkdownRemark.edges.map(({ node }) => (
+          <div key={node.id}>
+            <h3>
+              {node.frontmatter.title} <span>— {node.frontmatter.date}</span>
+            </h3>
+            <p>{node.excerpt}</p>
+            <Link to={node.fields.slug}>Read More</Link>
+          </div>
+        ))}
+      </div>
+    </Container>
+  )
+}
+
+export const query = graphql`
+  query {
+    allMarkdownRemark {
+      totalCount
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            date(formatString: "DD MMMM, YYYY")
+          }
+          fields {
+            slug
+          }
+          excerpt
+        }
+      }
+    }
+  }
+`
+```
