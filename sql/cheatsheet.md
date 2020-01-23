@@ -220,3 +220,23 @@ SELECT * FROM [TestDatabase].[dbo].[Persons]
 
 COMMIT
 ```
+
+# Table Joining
+
+## Inner Join
+
+To use an Inner Join based on two tables we can use the `INNER JOIN` keywords and then get the fields from the tables we want to use for our output table:
+
+```sql
+SELECT
+a.FirstName as FirstName,
+a.Email as Email,
+a.ID as ID,
+
+b.Vehicle as Vehicle,
+b.Registered as IsRegistered
+
+FROM Table_1 as a 
+INNER JOIN Table_2 as b
+ON a.ID = b.UserId
+```
