@@ -1,5 +1,7 @@
 # Getting Started with LINQ to SQL
 
+> Note that you can follow this entire process or skip to the [Shortcut](#Shortcut) section at the end
+
 Using the Microsoft [docs on LINQ to SQL](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/) and the [sample database setup script](https://raw.githubusercontent.com/microsoft/sql-server-samples/master/samples/databases/northwind-pubs/instnwnd.sql)
 
 > You will also need Visual Studio installed
@@ -389,3 +391,11 @@ You can modify and update information in this view although I would suggest doin
 
 Creating Methods from Stored Procedures can be done by pulling them in from the `Stored Procedures` folder on the DB to the `methods` section on the designer view
 
+## Shortcut
+
+You don't need to do all the above manually. From Visual Studio do the following:
+
+1. Create the project
+2. Open the database in the Server Explorer
+3. Add a LinqToSQL Class file (`.dbml`)
+4. Drag in the tables you would like to work and it will generate the 
