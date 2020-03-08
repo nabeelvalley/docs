@@ -1,5 +1,7 @@
 # Generating Typescript using AST's
 
+> Some parsers other that the Typescript ones is [Esprima](https://esprima.org/demo/parse.html), [Acorn](https://github.com/acornjs/acorn), these are Javascript Parsers> Other languages also have parsers as well as tools called `Parser Generators` that enable you to generate a parser for a given language or usecase
+
 Using the typescript compiler you are able to parse TS into an AST as well as build code using the TS AST
 
 > You can also generate the `ts.` code using the [Typescript to AST Converter](https://ts-ast-viewer.com/)
