@@ -1,10 +1,6 @@
-# Using WCF Services
-
 In order to consume a WCF Service from a .NET client you can make use of the `Connected Services` section in Visual Studio, or using the `svcutil` tool in the `dotnet cli`
 
-## Setup
-
-### [SVCUtil](https://docs.microsoft.com/en-us/dotnet/core/additional-tools/dotnet-svcutil-guide?tabs=dotnetsvcutil2x)
+# [SVCUtil](https://docs.microsoft.com/en-us/dotnet/core/additional-tools/dotnet-svcutil-guide?tabs=dotnetsvcutil2x)
 
 You first need to install the `svcutil` with:
 
@@ -20,7 +16,7 @@ dotnet-svcutil http://myservice/service.svc
 
 Which will create a `ServiceReference.cs` file which contains your service references
 
-### Visual Studio
+# Visual Studio
 
 From the `Connected Services` item under the relevant project in the Visual Studio Solution Explorer, double click on Connected Services and then `Microsoft WCF Web Service Reference Provider` and input your URL and click `Go`
 
