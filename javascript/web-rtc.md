@@ -1,8 +1,6 @@
-# Real Time Communication with WebRTC
-
 [From this CodeLab](https://codelabs.developers.google.com/codelabs/webrtc-web/#0)
 
-## Getting the Code
+# Getting the Code
 
 The code can be found [here](https://github.com/googlecodelabs/webrtc-web)
 
@@ -10,11 +8,11 @@ The code can be found [here](https://github.com/googlecodelabs/webrtc-web)
 git clone https://github.com/googlecodelabs/webrtc-web
 ```
 
-## Running the Website
+# Running the Website
 
 Run the application in the 'work' directory using an HTTP server
 
-## Stream video from webcam
+# Stream video from webcam
 
 In the `index.html` file add a `video` element as well as links to the relevant `css` and `js` files
 
@@ -98,7 +96,7 @@ Also if you do not make use of `autoplay` on the video you will only see a singl
 
 More examples of constraints [here](https://webrtc.github.io/samples/src/content/peerconnection/constraints/)
 
-## Streaming Video with RTCPeerConnection
+# Streaming Video with RTCPeerConnection
 
 We will now update the application to consist of a `local` and `remote` video in which the page will connect to itself
 
