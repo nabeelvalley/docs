@@ -147,3 +147,5 @@ this.draw = () =>  {
 }
 ```
 
+We cal also do something like the above using a 3D canvas
+
