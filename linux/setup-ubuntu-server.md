@@ -1,8 +1,4 @@
-# Server Setup
-
-Okay, so I'm using elementary instead of Ubuntu because of UI, but the steps should be the same
-
-[Lil ref](https://linuxize.com/post/how-to-enable-ssh-on-ubuntu-18-04/)
+# Dev Server Setup
 
 ## SSH Serup
 
@@ -12,6 +8,9 @@ Okay, so I'm using elementary instead of Ubuntu because of UI, but the steps sho
 sudo apt update
 sudo apt install openssh-server
 ```
+
+> Note using this SSH server you also connect for remote development using VSCode Remote Development,
+> Additionally you can install the VSCode docker extension to work with docker on the server
 
 ### 2. Check SSH Status
 
@@ -73,10 +72,26 @@ sudo ufw status
 
 ## VS Code Server Setup
 
+> Leaving this here for reference but just note that if you are using the VSCODE
+> Remote development extension this will be automatically installed on the server
+> IDK how it connects though ~ I think using SSH (who knows)
+
 You can run [`code-server`]() using a Docker Image with the following command
 
 ```bash
 docker run -it -p 8443:8443 --name vscode -v "${PWD}/repos:/home/coder/project" -d codercom/code-server --allow-http --no-auth
+```
+
+## Docker
+
+I have not tested this installation method but it looks like docker provides an
+installation script that you can use on [GitHub](https://github.com/docker/docker-install)
+
+To use it you can run the following:
+
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
 ```
 
 ## Jenkins
