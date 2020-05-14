@@ -32,7 +32,7 @@ After creating the app there should be a gradle download which may take a while
 
 # Generated Files and Structure
 
-There are a couple of different files that are generated in the application directory that we created. The files relevant to the application development are contained in the `app/src`  directory
+There are a couple of different files that are generated in the application directory that we created. The files relevant to the application development are contained in the `app/src` directory
 
 1. The first relevant file is the `MainActivity.kt` file which is the application's entrypoint and is in the `app/java/com.nabeelvalley.myfirstapp` directory, the code in this file can be seen below:
 
@@ -109,6 +109,9 @@ To run the application on a device you will need to do the following:
 
 1. Enable USB Debugging on your device
 2. Install your device drivers, [information here](https://developer.android.com/studio/run/oem-usb.html)
+
+> Note if using a Huawei you need to use HiSuite which should show up as a drive when your device is plugged in, you may then neeed to run
+
 3. On Android Studio click on `File > Sync Project with Gradle Files`, this will ensure that the correct debugging options show up in the debug toolbar
 4. In the Debuging toolbar click on the Run button, this should show a list of devices and you can select your device from here
 
@@ -128,7 +131,7 @@ A `ConstraintLayout` is a layout that defines the positioning of each child base
 
 We can add a Text Box with the following steps
 
-1. Remove the current `TextView` element by clicking on the Component Tree and  then clicking Delete
+1. Remove the current `TextView` element by clicking on the Component Tree and then clicking Delete
 2. From the `Text` section of the component list drag an `EditText` component onto the screen, this is a text box that accepts plain text input
 3. Click and drag the anchors (or dots) in the middle of the top edge to the top of the screen and the left to the left edge of the screen to create a constraint
 4. In the `Layout` section of the attributes (should be on the right) set the margins to `16dp`
@@ -141,10 +144,10 @@ Next add a `Button` onto the screen and then do the following
 
 > You should notice the different attributes of the elements on the right side of the screen, these can be edited
 
-Now let's make the text box responsive: 
+Now let's make the text box responsive:
 
-1. `Shift + Cick` to select the two elements 
-2. `Right Click` to open the menu and select `Chains > Create Horizontal Chain` 
+1. `Shift + Cick` to select the two elements
+2. `Right Click` to open the menu and select `Chains > Create Horizontal Chain`
 
 > A chain is a bidirectional constraint that allows you to lay out children in a group
 
@@ -229,7 +232,7 @@ We can then bind this to the `onClick` event on the Attributes list for the butt
 2. Return `unit` or `void`
 3. Have a `View` as its only parameter
 
-Next, from the function we defined we can use the following to get the `text` value from the `EditText` 
+Next, from the function we defined we can use the following to get the `text` value from the `EditText`
 
 ```kotlin
 val editText = findViewById<EditText>(R.id.editText)
@@ -298,7 +301,7 @@ Lastly from the design view from the `activity_main.xml` you should be able to s
 
 From the Project Window right click on the `app` folder and select `New > Activity > Empty Activity` and call it `DisplayMessageActivity`
 
-On the new activity add a `TextField` and change the `id` to `messageDisplay` 
+On the new activity add a `TextField` and change the `id` to `messageDisplay`
 
 Now using the `onCreate` function we can add the following code to set the `TextView` to display the data we have from the `EditText` on the main screen
 
@@ -351,4 +354,3 @@ Lastly we need to add a button from the `DisplayMessageActivity` back to the `Ma
 ```
 
 Lastly we can run the application and we should be able to pass data between as well as navigate the two activities
-

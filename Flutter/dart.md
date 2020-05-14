@@ -117,6 +117,24 @@ The list as defined above does not have a defined type, usually we want to speci
 List<String> names = ['john', 'jeff', 'johnny'];
 ```
 
+We also have methods available for lists such as the `map` function which will return an `IEnumerable`:
+
+```dart
+myList.map((el){
+  // do stuff
+  return el;
+})
+```
+
+And additionally the `toList` method which will allow us to convert the above back into a list
+
+```dart
+myList.map((el){
+  // do stuff
+  return el;
+}).toList()
+```
+
 # Classes
 
 Classes are defined using the `class` keyword, with the properties defined within the class. The `new` keyword is not needed
@@ -202,3 +220,38 @@ final Person myPerson = Person(name, age);
 ```
 
 You can also create constant instances of objects but that requres a `const` constructor
+
+If we have a class with a constructor but we want to use it as a const constructor, we can do so by using the `final` keyword for our property, and the below notation for the constructor:
+
+```dart
+class QuoteCard extends StatelessWidget {
+
+  final Quote quote;
+  QuoteCard({this.quote});
+  ...
+}
+```
+
+We can then create an instance of this like so:
+
+```dart
+var myCard =  QuoteCard(quote: myQuote)
+```
+
+# Maps
+
+Maps are like dictionaries/key-value pairs
+
+To create a map we use the `Map` data type and the `[]` accessor:
+
+```dart
+Map person = {
+  "name": "Jeff Smith",
+  "age": 64
+};
+
+
+print(person["name"])
+```
+
+This is used in flutter when doing routing for pages

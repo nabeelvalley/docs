@@ -276,6 +276,21 @@ class Home extends StatelessWidget {
 
 One of the benefits of creating custom widgets is that we are able to re use certain components. In this widget we need to return a `Widget` from the `build` function. We can simply move our application's `Scaffold` as the return of this widget
 
+We can also have data for a stateless widget but this will be data that does not change. We can define a widget like this:
+
+```dart
+class QuoteCard extends StatelessWidget {
+  final Quote quote;
+  final String label;
+
+  QuoteCard({this.quote, this.label});
+
+  ...//widget implementation
+}
+```
+
+The use of `final` says that this property will not be reassigned after the first assignment
+
 > To setup automatic hot reloading we need to make use of a `StatelessWidget` which is a widget that can be hot reloaded, this only works when running the application in `Debug` mode via an IDE and not from the terminal. For VSCode this can be done with the Flutter Extensions and same for Android Studio
 
 Our component now looks something like this:
@@ -669,3 +684,120 @@ class _CardState extends State<NinjaCard> {
 We can then use call the `_incrementLevel` from the `onPressed` handler from a button, and simply render the `_level` variable anywhere we want to use it
 
 > The state of the component can be updated independendently of the `setState` call, but this will not trigger a re-render of the component
+
+## Card Widget
+
+We can use the `Card` widget to render a card:
+
+```dart
+Card(
+  margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
+  color: Colors.grey[900],
+  elevation: 4,
+  child: Padding(
+    padding: const EdgeInsets.all(15),
+    child: Column(
+      ...// widget content
+    ),
+  ),
+);
+```
+
+## SafeArea
+
+If we are not using a layout that is designed to keep the content in the screen we can use a `SafeArea` widget which will ensure that whatever content we have on the screen does not end up under the time area, etc. See the usage below:
+
+```dart
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(child: Text("HOME")),
+    );
+  }
+}
+```
+
+## Routing
+
+Routes in flutter make use of a `Map` and a function that makes use of the current app `context` which is used so that Widgets can get information about the app state and returns a Widget for the given route
+
+To configure our application to use some routes we can do the following:
+
+```dart
+void main() {
+  runApp(MaterialApp(
+    routes: {
+      '/': (context) => Loading(),
+      '/home': (context) => Home(),
+      '/select-location': (context) => SelectLocation(),
+    },
+  ));
+}
+```
+
+By default when our application loads it will start at the `/` route but we can specify a different route using the `initialRoute` property
+
+```dart
+void main() {
+  runApp(MaterialApp(
+    initialRoute: "/home",
+    routes: {
+      '/': (context) => Loading(),
+      '/home': (context) => Home(),
+      '/select-location': (context) => SelectLocation(),
+    },
+  ));
+}
+```
+
+To navigate to a new route we can use the `Navigator` class and the methods available on that.
+
+To push a new page on top of our existing page we can do:
+
+```dart
+Navigator.pushNamed(context, "/select-location")
+```
+
+And to go back to the previouse route we can do:
+
+```dart
+Navigator.pop(context),
+```
+
+We can use the above to make out `/home` route navigate to the `/select-location` route like so:
+
+```dart
+import 'package:flutter/material.dart';
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+          child: Column(children: <Widget>[
+        FlatButton.icon(
+            onPressed: () => Navigator.pushNamed(context, "/select-location"),
+            icon: Icon(Icons.edit_location),
+            label: Text("Select Location"))
+      ])),
+    );
+  }
+}
+```
+
+Where clicking the button will cause a navigation.
+
+Additionally, in our `/select-location` route we use a layout with an `AppBar`, what we get with this is a button that will automatically do the `Navigator.pop` functioning for navigating backwards
+
+The routing process works by adding screens on top of one another, routing allows us to navigate up and down this route. The problem with is that we may end up with a large stack of routes and we need to be careful about how we manage the stack
