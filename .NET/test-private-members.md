@@ -65,3 +65,53 @@ And then the testing class simply needs to be defined as:
 ```cs
 public class MyTestingClass : AccessPrivateMemberBase
 ```
+
+# Inherited Members
+
+A more generic version of the above is also able to test for members that are in inherited classes (which the above will fail at):
+
+```cs
+/// <summary>
+/// Get a Private Member from the given object.throws a KeyNotFound
+/// Exception if the member could not be found
+/// </summary>
+/// <typeparam name="BaseType">Type of the Input Object</typeparam>
+/// <typeparam name="CastType">Type of the Output Field</typeparam>
+/// <param name="obj"></param>
+/// <param name="fieldName">Name of the Field to get</param>
+/// <returns></returns>
+public static CastType GetPrivateMember<CastType>(
+    object obj, string fieldName, int searchDepth = 1
+)
+{
+    BindingFlags bindingFlags = BindingFlags.NonPublic
+                                | BindingFlags.GetField
+                                | BindingFlags.GetProperty
+                                | BindingFlags.Instance;
+
+    CastType result;
+
+    result = (CastType)obj
+      ?.GetType()
+      ?.GetField(fieldName, bindingFlags)
+      ?.GetValue(obj);
+
+    int depth = 1;
+    while (result == null && depth <= searchDepth)
+    {
+        depth ++;
+        result = (CastType)obj
+            ?.GetType()
+            ?.BaseType
+            ?.GetField(fieldName, bindingFlags)
+            ?.GetValue(obj);
+
+    }
+
+    if (result == null)
+        throw new KeyNotFoundException("The required member could not be found");
+
+    return result;
+}
+```
+
