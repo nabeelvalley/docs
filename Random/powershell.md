@@ -7,6 +7,7 @@
 - [Zip and Unzip a File](#zip-and-unzip-a-file)
 - [Copy and Paste Files](#copy-and-paste-files)
 - [Send an Email](#send-an-email)
+- [Troubleshooting Path Commands](#troubleshooting-path-commands)
 
 </details>
 
@@ -149,18 +150,48 @@ Function Send-EMail {
         [String]$Password
     )
 
-        $SMTPServer = "smtp.gmail.com" 
+        $SMTPServer = "smtp.gmail.com"
         $SMTPMessage = New-Object System.Net.Mail.MailMessage($EmailFrom,$EmailTo,$Subject,$Body)
         if ($attachment -ne $null) {
             $SMTPattachment = New-Object System.Net.Mail.Attachment($attachment)
             $SMTPMessage.Attachments.Add($SMTPattachment)
         }
-        $SMTPClient = New-Object Net.Mail.SmtpClient($SmtpServer, 587) 
-        $SMTPClient.EnableSsl = $true 
-        $SMTPClient.Credentials = New-Object System.Net.NetworkCredential($EmailFrom.Split("@")[0], $Password); 
+        $SMTPClient = New-Object Net.Mail.SmtpClient($SmtpServer, 587)
+        $SMTPClient.EnableSsl = $true
+        $SMTPClient.Credentials = New-Object System.Net.NetworkCredential($EmailFrom.Split("@")[0], $Password);
         $SMTPClient.Send($SMTPMessage)
         Remove-Variable -Name SMTPClient
         Remove-Variable -Name Password
 
-} 
+}
 ```
+
+# Troubleshooting Path Commands
+
+If a command is not running the application/version of the application you'd expect you can try the following steps:
+
+1. Refresh your path and try the command again, it may just not be up-to-date. You can use the following function to do that:
+
+```ps1
+function refresh {
+  $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+}
+```
+
+2. If you command is just generally being weird in some way it may be because it is defined/part of another path than the one you expect
+
+To see where a command is being run from, you can try the following:
+
+```ps1
+Get-Command <command>
+```
+
+e.g. for node:
+
+```ps1
+Get-Command node
+```
+
+> e.g my `node` command was being problematic because it was running the one in my Anaconda path entry (because apparently Anaconda comes with Node)
+
+1. In order to ensure that the correct application/command takes precedence move it higher up your path
