@@ -255,3 +255,85 @@ print(person["name"])
 ```
 
 This is used in flutter when doing routing for pages
+
+## Async
+
+Async code is code that finishes some time after being called but is not blocking. We use a combination of `async`, `await`, and `Futures`
+
+### Futures
+
+A function that makes use of a Future that simply does a delay looks like this:
+
+```dart
+void getData(){
+  Future.delayed(Duration(seconds: 3), (){
+    // callback function
+    print("Callback activated")
+  });
+}
+```
+
+The callback is run when the future completes. This is similar to `Promise` in JavaScript
+
+We can then call the above function from our `initState` function. A complete example would be something like this:
+
+```dart
+class _SelectLocationState extends State<SelectLocation> {
+  String name = "FETCHING NAME";
+
+  void getData() {
+    Future.delayed(Duration(seconds: 2), () {
+      // callback function, will run after 2 seconds
+      setState(() {
+        name = "Johnny";
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.purple,
+      appBar: AppBar(
+        title: Text("Select Location"),
+        elevation: 0,
+        backgroundColor: Colors.purple,
+      ),
+      body: Text(name),
+    );
+  }
+}
+```
+
+### Async/Await
+
+Sometimes however we have some asynchronous code that needs to run sequentially we can make use of `async` and `await`
+
+Similar to other languages, `Futures` (promises) can be awaited within an `async` function. If we wanted to make our `getData` function run more sequentially we can do something like this (note we also added `async` to the function definition):
+
+```dart
+String name = "FETCHING NAME";
+String bio = "FETCHING BIO";
+
+void getData() async {
+  String userName = await Future.delayed(Duration(seconds: 2), () {
+    // callback function
+    return "Johnny";
+  });
+
+  String userBio = await Future.delayed(Duration(seconds: 2), () {
+    return "$userName's Bio. Here are more things about $userName";
+  });
+
+  setState(() {
+    name = userName;
+    bio = userBio;
+  });
+}
+```

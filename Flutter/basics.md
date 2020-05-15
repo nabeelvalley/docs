@@ -801,3 +801,107 @@ Where clicking the button will cause a navigation.
 Additionally, in our `/select-location` route we use a layout with an `AppBar`, what we get with this is a button that will automatically do the `Navigator.pop` functioning for navigating backwards
 
 The routing process works by adding screens on top of one another, routing allows us to navigate up and down this route. The problem with is that we may end up with a large stack of routes and we need to be careful about how we manage the stack
+
+## Widget Lifecycles
+
+In Flutter we have two kinds of widgets:
+
+- Stateless
+  - Does not have state that changes over time
+  - `Build` function only runs once
+- Stateful
+  - Can have state which changes over time
+  - `setState` is used to change the state
+  - `Build` function is called after the state has been changes
+  - `initState` lifecycle method is called when the widget is created
+    - Useful for subscribing to streams that can change our data
+  - `Dispose` is triggered when the widget is removed
+
+In a `StatefulWidger` we can override the `initState` function like this:
+
+```dart
+@override
+void initState() {
+  super.initState();// call the parent init state
+  // do whatever setup is needed
+  // only runs once at the start of a lifecycle method
+}
+```
+
+## Packages
+
+Flutter packages can be found at [pub,dev](https://pub.dev/). The [`http` package](https://pub.dev/packages/http) can be used to make HTTP requests
+
+To use the package we need to do the following:
+
+1. Add it to our `pubspec.yml` file
+
+`pubspec.yml`
+
+```yml
+dependencies:
+  http: ^0.12.1
+```
+
+2. Install it with:
+
+```
+flutter pub get
+```
+
+## Fetching Data (http package)
+
+We can make use of the `http` package to fetch some data from an API. for now we'll use the `JSONPlaceholder` API. To get data we can use the `get` function of the `http` package
+
+```dart
+ToDo data;
+bool hasError = false;
+bool isLoading = true;
+
+void getData() async {
+  Response res = await get("https://jsonplaceholder.typicode.com/todos/1");
+
+  print(res.body);
+
+  if (res.statusCode == 200) {
+    // no error
+    setState(() {
+      Map<String, dynamic> json = jsonDecode(res.body);
+      data = ToDo.fromJson(json);
+      isLoading = false;
+    });
+  } else {
+    // there was an error
+    print("Error");
+    setState(() {
+      hasError = true;
+      isLoading = true;
+    });
+  }
+}
+```
+
+The data that comes from the API is a JSON Map, we need to parse this into a Dart object manually, we can do this from the class that we want to parse the object into:
+
+```dart
+class ToDo {
+  final int userId;
+  final int id;
+  final String title;
+  final bool completed;
+
+  ToDo({this.userId, this.id, this.title, this.completed});
+
+  // this is the function we call to parse the object from the JSON result
+  factory ToDo.fromJson(Map<String, dynamic> json) {
+    return ToDo(
+      userId: json["userId"],
+      id: json["id"],
+      title: json["title"],
+      completed: json["completed"],
+    );
+  }
+}
+```
+
+Note that it is also possible for us to make use of more automatic means of doing this (such as with Code Generation), more information on this can be found [in the Flutter documentation](https://flutter.dev/docs/development/data-and-backend/json)
