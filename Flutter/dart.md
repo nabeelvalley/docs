@@ -1,3 +1,16 @@
+- [Hello World](#hello-world)
+- [Variables](#variables)
+- [Functions](#functions)
+- [Lists](#lists)
+- [Classes](#classes)
+- [Const and Final](#const-and-final)
+- [Maps](#maps)
+- [Async](#async)
+  - [Futures](#futures)
+  - [Async/Await](#asyncawait)
+- [Exceptions](#exceptions)
+  - [Cascade operator](#cascade-operator)
+
 > Notes from the [The Net Ninja Youtube Series](https://www.youtube.com/watch?v=1ukSR1GRtMU&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ)
 
 To get started with Dart you can use [DartPad](https://dartpad.dev/)
@@ -256,11 +269,11 @@ print(person["name"])
 
 This is used in flutter when doing routing for pages
 
-## Async
+# Async
 
 Async code is code that finishes some time after being called but is not blocking. We use a combination of `async`, `await`, and `Futures`
 
-### Futures
+## Futures
 
 A function that makes use of a Future that simply does a delay looks like this:
 
@@ -311,7 +324,7 @@ class _SelectLocationState extends State<SelectLocation> {
 }
 ```
 
-### Async/Await
+## Async/Await
 
 Sometimes however we have some asynchronous code that needs to run sequentially we can make use of `async` and `await`
 
@@ -336,4 +349,71 @@ void getData() async {
     bio = userBio;
   });
 }
+```
+
+# Exceptions
+
+To handle exceptions in dart we can use a `try-catch`:
+
+```dart
+try {
+  // do some stuff
+} catch(e) {
+  // handle the exception
+}
+```
+
+We can also use an optional `finally`
+
+```dart
+try {
+  doStuff();
+  setState(() {
+    hasError = false;
+  });
+} catch (e) {
+  setState(() {
+    hasError = true;
+  });
+} finally {
+  setState(() {
+    isLoading = false;
+  });
+}
+```
+
+## Cascade operator
+
+Dart has a cascade operator `..` which allows a function to return the instance of the initial object and not the result of a function call:
+
+```dart
+void main() {
+  var person = Person();
+
+  // normal function call returns result
+  print(person.haveBirthday());  // out: 1
+
+  // cascaded function call returns person
+  print(person..haveBirthday()); // out: Instance of 'Person'
+
+}
+
+class Person {
+  int age = 0;
+  int haveBirthday() {
+    age ++;
+    return age;
+  }
+}
+```
+
+Or from [the documentation](https://dart.dev/guides/language/language-tour):
+
+> "Cascades (..) allow you to make a sequence of operations on the same object. In addition to function calls, you can also access fields on that same object. This often saves you the step of creating a temporary variable and allows you to write more fluid code."
+
+```dart
+querySelector('#confirm') // Get an object.
+  ..text = 'Confirm' // Use its members.
+  ..classes.add('important')
+  ..onClick.listen((e) => window.alert('Confirmed!'));
 ```

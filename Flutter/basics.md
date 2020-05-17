@@ -764,6 +764,12 @@ To push a new page on top of our existing page we can do:
 Navigator.pushNamed(context, "/select-location")
 ```
 
+To replace the current route instead of add a new page above it we can do:
+
+```dart
+Navigator.pushReplacementNamed(context, "/home");
+```
+
 And to go back to the previouse route we can do:
 
 ```dart

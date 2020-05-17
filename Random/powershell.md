@@ -8,6 +8,8 @@
 - [Copy and Paste Files](#copy-and-paste-files)
 - [Send an Email](#send-an-email)
 - [Troubleshooting Path Commands](#troubleshooting-path-commands)
+- [Create Drive Aliases](#create-drive-aliases)
+- [My Current \$PROFILE](#my-current-profile)
 
 </details>
 
@@ -194,4 +196,139 @@ Get-Command node
 
 > e.g my `node` command was being problematic because it was running the one in my Anaconda path entry (because apparently Anaconda comes with Node)
 
-1. In order to ensure that the correct application/command takes precedence move it higher up your path
+3. In order to ensure that the correct application/command takes precedence move it higher up your path
+
+# Create Drive Aliases
+
+On Windows you can alias specific folders as virtual drives (for easy reference or to get around file length restrictions)
+
+To view your aliases/drives you can run:
+
+```
+> substr
+R:\: => C:\repos
+```
+
+To create a new drive you can use:
+
+```
+> substr X: C:\path\to\folder
+```
+
+Where `X` is the drive you would like to map to. Be sure not to have the trailing `\` in your folder name
+
+> The path to the folder can also be relative: `.\my\rel\path`
+
+To remove a drive run the following command:
+
+```
+> subst R: /D
+```
+
+# My Current \$PROFILE
+
+Yout Powershell is a script that runs whenever you open a new powershell instance, the functions available in it become part of your session so you can just call them from the terminal. The path to this file is stored in every Powershell instance as the `$PROFILE` variable
+
+To open your `$PROFILE` in notepad you can run:
+
+```ps1
+notepad $PROFILE
+```
+
+My current profile which has some common commands is here:
+
+```ps1
+# POWERSHELL CONFIGURATION FUNCTIONS
+# ==================================
+# THESE ARE CALLED BY POWERSHELL ITSELF
+
+# SETS CUSTOM PROMPT, THIS FUNCTION GETS CALLED ON PS SETUP
+function prompt {
+  $p = Get-Location
+  "$p
+!"
+}
+
+# ENVIRONMENT FUNCTIONS
+# =====================
+# CONFIGURE ENVIRONMENT
+
+# REFRESH SESSION ENVIRONMENT VARIABLES
+function _refresh {
+  $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+}
+
+# GENERAL UTILITIES
+# =================
+
+# NAVIGATION
+# ^^^^^^^^^^
+
+# CD TO MY REPOSITORIES
+function _repo {
+  Set-Location c:\repos
+}
+
+# CD TO MY DOCS
+function _docs {
+  Set-Location C:\repos\PersonalSite\static\content\docs
+}
+
+# GIT
+# ^^^
+
+# MERGE GIT "DEVELOP" TO "MASTER"
+function _quickmerge {
+  git push
+  git checkout master
+  git merge develop
+  git push
+  git checkout develop
+}
+
+# FILE MANIPULATION
+# ^^^^^^^^^^^^^^^^^
+
+# COPY SOMETHING TO YOUR CLIPBOARD
+function _copy {
+  param(
+    [string]$fileToCopy
+  )
+
+  Get-Item $fileToCopy | Set-Clipboard
+}
+
+# PASTE WHAT'S ON YOUR CLIPBOARD
+function _paste {
+  Get-Clipboard -Format FileDropList | Copy-Item
+}
+
+# RENAME A FILE
+function _rename {
+  param(
+    [string]$currentFile,
+    [string]$newName
+  )
+
+  Rename-Item -Path $currentFile $newName
+}
+
+# COPY AND RENAME FILE
+function _dupe {
+   param(
+    [string]$currentFile,
+    [string]$newName
+  )
+  $tempDir = ".temp_nvdupe"
+
+  nvcopy $currentFile
+  mkdir $tempDir
+  cd $tempDir
+  nvpaste
+  nvrename $currentFile $newName
+  nvcopy $newName
+  cd ..
+  nvpaste
+  rm -r $tempDir
+}
+```
