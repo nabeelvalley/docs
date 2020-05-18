@@ -299,7 +299,7 @@ function _updatesub  {
   git commit -m $commitMessage
   git push
   cd ..
-  git add $submoduleNameInParent
+  git add $submoduleFolder
   git commit -m $commitMessage
   git push
   cd $submoduleFolder
