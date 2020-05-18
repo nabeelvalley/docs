@@ -10,6 +10,9 @@
   - [Async/Await](#asyncawait)
 - [Exceptions](#exceptions)
   - [Cascade operator](#cascade-operator)
+- [Conditionals](#conditionals)
+  - [If-Else](#if-else)
+  - [Ternary](#ternary)
 
 > Notes from the [The Net Ninja Youtube Series](https://www.youtube.com/watch?v=1ukSR1GRtMU&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ)
 
@@ -416,4 +419,46 @@ querySelector('#confirm') // Get an object.
   ..text = 'Confirm' // Use its members.
   ..classes.add('important')
   ..onClick.listen((e) => window.alert('Confirmed!'));
+```
+
+# Conditionals
+
+## If-Else
+
+```dart
+if (isCar) {
+  print("Car");
+} else {
+  print("Not Car");
+}
+```
+
+With multiple conditions:
+
+```dart
+int age = 12;
+
+if (age > 35) {
+  // do stuff
+} else if (age > 20) {
+  // do stuff
+} else if (age > 10) {
+  // do stuff
+} else {
+  // do stuff
+}
+```
+
+## Ternary
+
+We can use a ternary operator like so:
+
+```dart
+bool isCar = thing == "Car" ? true : false
+```
+
+The ternary operator doesn't have to return a boolean, it can pretty much be anything
+
+```dart
+String carGoes = thing == "Car" ? "Vroom Vroom" : "Pew Pew Pew"
 ```

@@ -808,6 +808,101 @@ Additionally, in our `/select-location` route we use a layout with an `AppBar`, 
 
 The routing process works by adding screens on top of one another, routing allows us to navigate up and down this route. The problem with is that we may end up with a large stack of routes and we need to be careful about how we manage the stack
 
+We can also pass data through to routes as well as use Static routenames that are associated with the widgets for the screen they use, for example if we have a `Home` widget defined like so:
+
+```dart
+class Home extends StatefulWidget {
+  static const routeName = "/home";
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+
+class _HomeState extends State<Home> {
+  Timezone data = Timezone();
+  ...
+}
+```
+
+And the class for the data we would like to pass to the screen like this:
+
+```dart
+class HomeArgs {
+  final Timezone data;
+  HomeArgs({this.data});
+}
+```
+
+We can call load this screen with the relevant arguments like this:
+
+```dart
+Navigator.pushReplacementNamed(
+  context,
+  Home.routeName,
+  arguments: HomeArgs(data: data),
+);
+```
+
+Or just using a map. Note that if we use a map then the class itself needs to be adapted to accept the `Map` type input:
+
+```dart
+Navigator.pushReplacementNamed(
+  context,
+  "/home",
+  arguments: {data: Timezone()},
+);
+```
+
+We can then access the data that was passed using the `context` object in our build function
+
+```dart
+class _HomeState extends State<Home> {
+  Timezone data = Timezone();
+
+  @override
+  Widget build(BuildContext context) {
+    HomeArgs args = ModalRoute.of(context).settings.arguments;
+    data = args.data;
+    ... // do the stuff like build the widget, etc
+  }
+}
+```
+
+### Using Route Changes to Get User Data
+
+We can make use of a Navigator push action to open a screen to allow for user input/load some data, and then we can pop back to the initial screen witht the data that was recieved. By doing this we can view the process of this input (from the intial route's perspective) as an `async` action that spans multipls routes
+
+For example, consider something like the following flow:
+
+1. User clicks on a button like "update data" from the Home page which routes to a Data updating component
+
+```dart
+onPressed: () async {
+  dynamic result = await Navigator.pushNamed(context, "/get-data");
+  // will do stuff with the data
+}
+```
+
+2. Data component loads data/does whatever it does
+3. When the Data component is completed it pops back to the Home page passing the data
+
+```dart
+Navigator.pop(context, { ... data });
+```
+
+4. The Home page uses that data to update it's state, using `setState`
+
+```dart
+onPressed: () async {
+  dynamic result = await Navigator.pushNamed(context, "/get-data");
+
+  setState((){
+    this.data = result;
+  });
+}
+```
+
 ## Widget Lifecycles
 
 In Flutter we have two kinds of widgets:
@@ -911,3 +1006,18 @@ class ToDo {
 ```
 
 Note that it is also possible for us to make use of more automatic means of doing this (such as with Code Generation), more information on this can be found [in the Flutter documentation](https://flutter.dev/docs/development/data-and-backend/json)
+
+## ListViews
+
+We can build list views using a `ListView.builder` which allows us to output a template for each item in a list automatically instead of us doing the data-template conversion on our own
+
+The `ListView.builder` widget takes an `itemCount` which is the number of items in the list, and a `itemBuilder` which takes the `context` and `index` and uses it to then render a given element
+
+```
+ListView.builder(
+  itemCount: data.length,
+  itemBuilder: (context, index) => Card(
+    child: Text(data[index]),
+  ),
+);
+```
