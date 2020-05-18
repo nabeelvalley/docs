@@ -286,6 +286,25 @@ function _quickmerge {
   git checkout develop
 }
 
+# COMMIT ALL SUBMODULE'S FILES AND RUN SAME COMMIT ON PARENT REPO
+# FOR THE UPDATED SUBMODULE. RUN FROM SUBMODULE DIRECOTRY
+function _updatesub  {
+  param(
+    [string]$commitMessage
+  )
+
+  $submodulePath = pwd
+
+  git add .
+  git commit -m $commitMessage
+  git push
+  cd ..
+  git add $submoduleNameInParent
+  git commit -m $commitMessage
+  git push
+  cd $submodulePath
+}
+
 # FILE MANIPULATION
 # ^^^^^^^^^^^^^^^^^
 
