@@ -293,7 +293,7 @@ function _updatesub  {
     [string]$commitMessage
   )
 
-  $submodulePath = pwd
+  $submoduleFolder = Split-Path (Get-Location) -Leaf
 
   git add .
   git commit -m $commitMessage
@@ -302,7 +302,7 @@ function _updatesub  {
   git add $submoduleNameInParent
   git commit -m $commitMessage
   git push
-  cd $submodulePath
+  cd $submoduleFolder
 }
 
 # FILE MANIPULATION
