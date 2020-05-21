@@ -1,14 +1,12 @@
-# Docker
-
 [Based on this Cognitive Class Course](https://courses.cognitiveclass.ai/courses/course-v1:IBMDeveloperSkillsNetwork+CO0101EN+v1/info)
 
-## Prerequisites
+# Prerequisites
 
-* Docker
+- Docker
 
-## Run a Container
+# Run a Container
 
-### Introduction
+## Introduction
 
 Containers are a group of processes that run in isolation, these processes must all be able to run on a shared kernel
 
@@ -16,7 +14,7 @@ Virtual machines are heavy and include an entire operating system, whereas with 
 
 Docker is a toolset to manage containers and integrate into our CI/CD pipelines. This allows us to ensure that all our running environments are identical. Furthermore Docker provides a standard interface for developers to work with
 
-### Running a Container
+## Running a Container
 
 To run a container on our local machine we use the Docker CLI
 
@@ -61,9 +59,9 @@ docker container exec -it be81304e2786 bash
 
 Where
 
-* `-it` states that we want to interact with the shell
-* `be81304e2786` is the container ID
-* `bash` is the tool we want to use to inspect our container
+- `-it` states that we want to interact with the shell
+- `be81304e2786` is the container ID
+- `bash` is the tool we want to use to inspect our container
 
 Now that we are in the container we can view our running processes with
 
@@ -77,17 +75,17 @@ To get out of our container and back to our host we run
 exit
 ```
 
-### Running Multiple Containers
+## Running Multiple Containers
 
 Just run another container, basically
 
-#### Ngix
+### Ngix
 
 ```bash
 docker container run --detach --publish 8080:80 --name nginx nginx
 ```
 
-#### Mongo
+### Mongo
 
 ```bash
 docker container run --detach --publish 8081:27017 --name mongo mongo:3.4
@@ -97,7 +95,7 @@ If you run into the following error, simply restart Docker
 
 ```
 Error response from daemon: driver failed programming external connectivity on endpoint xenodochial_spence (d2836ffdcd649ba692d504e34af61c9aab57bf3a135587875db3c88ca0baa070): Error starting userland proxy: mkdir /port/tcp:0.0.0.0:8080:tcp:172.17.0.2:80: input/output error.
-``` 
+```
 
 We can list running containers and inspect one that we chose with
 
@@ -110,7 +108,7 @@ It is important to remember that each container includes all the dependencies th
 
 A list of available Docker images can be found [here](https://store.docker.com/search?type=image&source=community)
 
-### Remove Containers
+## Remove Containers
 
 We can stop containers with
 
@@ -120,15 +118,15 @@ docker container stop <CONTAINER IDs>
 docker container stop jn4 es3 fe3
 ```
 
-Then remove all stopped containers with 
+Then remove all stopped containers with
 
 ```bash
 docker system prune
 ```
 
-## CI/CD with Docker Images
+# CI/CD with Docker Images
 
-### Introduction
+## Introduction
 
 A Docker image is an archive of a container that can be shared and containers can be created from them
 
@@ -138,7 +136,7 @@ To create an image we use a Dockerfile which has instructions on how to build ou
 
 Docker is made of layers, image layers are build on top of the layers before them, based on this we only need to update or rebuild layers that are changed or need to be updated, based on this we try to keep the area where we are making modifications to the bottom of our Dockerfile in order to prevent unnecessary layers from being rebuilt constantly
 
-### Create a Python App
+## Create a Python App
 
 Make a simple python app in a directory that you want your app to be in which contains the following
 
@@ -159,7 +157,7 @@ This app will simply use Flask to expose a web server on port 5000 \(the default
 
 > Note that the concepts used for this app can be used for any application in any language
 
-### Create and Build the Docker Image
+## Create and Build the Docker Image
 
 Create a file named `Dockerfile` in the same directory with the following contents
 
@@ -172,15 +170,15 @@ COPY app.py /app.py
 
 So, what does this file do?
 
-* `FROM python:3.6.1-alpine` is the starting point for our `Dockerfile`, each Dockerfile needs this to select the base layer we want for our application, we use the `-alpine` tag to ensure that changes to the parent dependency are controlled
-* `RUN pip install flask` is executing a command that is necessary to set up our image for our application, in this case installing a package
-* `CMD ["python","app.py"]` is what is run when our container is started, this is only run once for a container, we are using it here to run our app.py we can leave this here even though it will only be run once all the other lines are as this will not yield any changes to layers
-* `COPY app.py /app.py` says that docker should copy the file in the local directory to our image, this is at the end as it is our source code which changes frequently and hence should affect as few layers as possible
+- `FROM python:3.6.1-alpine` is the starting point for our `Dockerfile`, each Dockerfile needs this to select the base layer we want for our application, we use the `-alpine` tag to ensure that changes to the parent dependency are controlled
+- `RUN pip install flask` is executing a command that is necessary to set up our image for our application, in this case installing a package
+- `CMD ["python","app.py"]` is what is run when our container is started, this is only run once for a container, we are using it here to run our app.py we can leave this here even though it will only be run once all the other lines are as this will not yield any changes to layers
+- `COPY app.py /app.py` says that docker should copy the file in the local directory to our image, this is at the end as it is our source code which changes frequently and hence should affect as few layers as possible
 
 From the directory of our application we can build our image
 
 ```bash
-docker image build -t python-hello-world . 
+docker image build -t python-hello-world .
 ```
 
 If you run into the following error you may need to ensure that your encoding is UTF 8
@@ -203,7 +201,7 @@ docker run -p 5001:5000 -d python-hello-world
 
 The `-p` option maps port 5001 on our host to port 5000 of our container
 
-Navigating to `http://localhost:5001` with our browser we should see 
+Navigating to `http://localhost:5001` with our browser we should see
 
 ```bash
 hello world!
@@ -211,13 +209,13 @@ hello world!
 
 If we do not get a response from our application, and if our application is not shown under the list of running containers we can view our logs for information, we use the string that was output when we did `docker run` as this is the container ID we tried to run
 
-We can view our container logs with 
+We can view our container logs with
 
 ```bash
 docker container logs <CONTAINER ID>
 ```
 
-### Push to a Central Registry
+## Push to a Central Registry
 
 We can push our docker images to Docker Hub by logging in, tagging our image with our username, and then pushing the image
 
@@ -233,7 +231,7 @@ Thereafter we can log into Docker Hub via our browser and see the image
 
 ![Image on Docker Hub](../.gitbook/assets/image%20%287%29.png)
 
-### Deploy a Change
+## Deploy a Change
 
 We can modify our `app.py` file and simply rebuild and push our update
 
@@ -248,7 +246,7 @@ We can view the history of our image with
 docker image history python-hello-world
 ```
 
-### Removing Containers
+## Removing Containers
 
 We can remove containers the same as before
 
@@ -257,19 +255,19 @@ docker container stop <CONTAINER IDS>
 docker system prune
 ```
 
-## Container Orchestration with Swarm
+# Container Orchestration with Swarm
 
-### Introduction
+## Introduction
 
 Orchestration addresses issues like scheduling and scaling, service discovery, server downtime, high availibility, A/B testing
 
 Orchestration solutions work by us declaring our desired state and it maintaining that state
 
-### Create a Swarm
+## Create a Swarm
 
 We will be using [Play-With-Docker](https://labs.play-with-docker.com/) for this part
 
-Click on **Add  a new instance** to add three nodes
+Click on **Add a new instance** to add three nodes
 
 ![Play With Docker](../.gitbook/assets/image%20%2833%29.png)
 
@@ -299,7 +297,7 @@ docker node ls
 
 ![Complete Swarm](../.gitbook/assets/image%20%2830%29.png)
 
-### Deploy a Service
+## Deploy a Service
 
 On node 1 we can create an ngix service
 
@@ -313,7 +311,7 @@ We can then list the services we have created with
 docker service ls
 ```
 
-We can check the running container of a service with 
+We can check the running container of a service with
 
 ```bash
 docker service ps <SERVICE ID>
@@ -325,7 +323,7 @@ Because of the way the swarm works, if we send a request for a specific service,
 curl localhost:80
 ```
 
-### Scale the Service
+## Scale the Service
 
 If we want to replicate our service instances we can do so with
 
@@ -353,7 +351,7 @@ We can view our service logs with
 docker service logs ngix1
 ```
 
-### Rolling Updates
+## Rolling Updates
 
 We can do a rolling update of a service with
 
@@ -363,8 +361,8 @@ docker service update --image nginx:1.13 --detach=true nginx1
 
 We can fine-tune our update process with
 
-*  `--update-parallelism` specifies the number of containers to update immediately
-*  `--update-delay` specifies the delay between finishing updating a set of containers before moving on to the next set
+- `--update-parallelism` specifies the number of containers to update immediately
+- `--update-delay` specifies the delay between finishing updating a set of containers before moving on to the next set
 
 After a while we can view our ngix service instances to see that they have been updated
 
@@ -372,23 +370,18 @@ After a while we can view our ngix service instances to see that they have been 
 docker service ps nginx1
 ```
 
-### Reconciliation
+## Reconciliation
 
 Docker Swarm will automatically manage the state we tell it to, for example if a node goes down it will automatically create a new one to replace it
 
-### How Many Nodes?
+## How Many Nodes?
 
-We typically aim to have between three and seven manager nodes,  in order to correctly apply the consensus algorithm, which requires more than half our nodes to be in agreement of state, the following is advised
+We typically aim to have between three and seven manager nodes, in order to correctly apply the consensus algorithm, which requires more than half our nodes to be in agreement of state, the following is advised
 
-* Three manager nodes tolerate one node failure
-* Five manager nodes tolerate two node failures
-* Seven manager nodes tolerate three node failures
+- Three manager nodes tolerate one node failure
+- Five manager nodes tolerate two node failures
+- Seven manager nodes tolerate three node failures
 
 It is possible to have an even number of manager nodes but this adds no additional value in terms of consensus
 
 However we can have as many worker nodes as we like, this is inconsequential
-
-
-
-
-
