@@ -1,6 +1,4 @@
-# Database Migrations with Entity Framework
-
-## Creating Migrations
+# Creating Migrations
 
 When using Entity Framework database updates are defined by the application models available. In order to generate a migration script you would need to run the following command from your project directore
 
@@ -14,7 +12,7 @@ This will create a new migration, you can also remove the last created migration
 dotnet ef migrations remove
 ```
 
-## Database Updates
+# Database Updates
 
 In order to update a database with the updated migration you can make use of the following command
 

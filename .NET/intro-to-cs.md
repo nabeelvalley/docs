@@ -1,8 +1,6 @@
-# Introduction to C-Sharp
+> From the Microsoft Virtual Academy
 
-From the Microsoft Virtual Academy
-
-## Hello World
+# Hello World
 
 ```cs
 using System;
@@ -24,7 +22,7 @@ namespace HelloWorld
 }
 ```
 
-## Variables
+# Variables
 
 ```cs
 using System;
@@ -69,7 +67,7 @@ namespace Variables
 }
 ```
 
-## Decisions
+# Decisions
 
 ```cs
 using System;
@@ -125,7 +123,7 @@ namespace Decisions
 }
 ```
 
-## For Loops
+# For Loops
 
 ```cs
 using System;
@@ -155,7 +153,7 @@ namespace ForIteration
 }
 ```
 
-## While Loop
+# While Loop
 
 ```cs
 using System;
@@ -236,7 +234,7 @@ namespace WhileIteration
 }
 ```
 
-## Arrays
+# Arrays
 
 ```cs
 using System;
@@ -293,7 +291,7 @@ namespace Arrays
 }
 ```
 
-## Functions
+# Functions
 
 ```cs
 using System;
