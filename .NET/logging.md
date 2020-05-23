@@ -1,8 +1,6 @@
-# Logging
-
 Logging can be done in a bunch of different ways, but the best one I've found this far is `Serilog`, and the setup is as follows:
 
-## Install Serilog
+# Install Serilog
 
 You will need to add the following dependencies to your application from NuGet
 
@@ -11,7 +9,7 @@ You will need to add the following dependencies to your application from NuGet
 3. `Serilog.Sinks.File`
 4. `Serilog.Settings.Configuration`
 
-## Basic Logger
+# Basic Logger
 
 Setting up a basic logger that will log to a file or console can be done as follows, using rolling log files and logger instances that can be shared between processes. There are a lot of other config options but these are the main ones
 
@@ -31,7 +29,7 @@ var logger = new LoggerConfiguration()
 logger.Information("Hello World!");
 ```
 
-## Using Configuration
+# Using Configuration
 
 Additionally you can set the loggers up using the `appsettings.json` file as well, for which the `Serilog` parts will be as follows
 
@@ -59,7 +57,7 @@ Additionally you can set the loggers up using the `appsettings.json` file as wel
           "restrictedToMinimumLevel": "Warning"
         }
       }
-      
+
     ]
   },
  ...
@@ -68,12 +66,11 @@ Additionally you can set the loggers up using the `appsettings.json` file as wel
 
 This can then be loaded into a logger instance with:
 
-
 ```cs
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();
-    
+
 var logger = new LoggerConfiguration()
                 .WriteTo.Console()
                 .ReadFrom
@@ -81,7 +78,7 @@ var logger = new LoggerConfiguration()
                 .CreateLogger();
 ```
 
-## Logging Service
+# Logging Service
 
 Lastly, you can also make use of a logger service in Web Application using the `Startup.cs/ConfigureServices` function with the following:
 
@@ -111,3 +108,4 @@ public string TestLog()
 {
   _logger.Information("Some Log Stuff");
 }
+```

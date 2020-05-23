@@ -1,27 +1,24 @@
-# Hyperledger Composer Basics
+- [Overview](#overview)
+  - [Models](#models)
+    - [CTO Language](#cto-language)
+      - [Namespaces](#namespaces)
+      - [Classes](#classes)
+      - [Enums](#enums)
+      - [Concepts](#concepts)
+      - [Primitive Types](#primitive-types)
+      - [Arrays](#arrays)
+      - [Relationships](#relationships)
+      - [Field Validation](#field-validation)
+      - [Imports](#imports)
+    - [Example](#example)
+  - [Logic](#logic)
+    - [Example](#example-1)
+  - [Queries](#queries)
+  - [Access Control](#access-control)
+    - [Example](#example-2)
+  - [Deployment](#deployment)
 
-- [Hyperledger Composer Basics](#hyperledger-composer-basics)
-  - [Overview](#overview)
-    - [Models](#models)
-      - [CTO Language](#cto-language)
-        - [Namespaces](#namespaces)
-        - [Classes](#classes)
-        - [Enums](#enums)
-        - [Concepts](#concepts)
-        - [Primitive Types](#primitive-types)
-        - [Arrays](#arrays)
-        - [Relationships](#relationships)
-        - [Field Validation](#field-validation)
-        - [Imports](#imports)
-      - [Example](#example)
-    - [Logic](#logic)
-      - [Example](#example-1)
-    - [Queries](#queries)
-    - [Access Control](#access-control)
-      - [Example](#example-2)
-    - [Deployment](#deployment)
-
-## Overview
+# Overview
 
 A business Network, defined in a **Business Network Archive** `.bna` File
 
@@ -32,13 +29,13 @@ A business Network, defined in a **Business Network Archive** `.bna` File
 
 In order to update a network, we simply upload the Archive `.bna` file to the network, this can either be done from the command line or from the Blockchain UI if using IBM Cloud
 
-### Models
+## Models
 
 Models are files that define Assets, Participants and Transactions using the Hyperledger Composer Modelling Language
 
 Models are defined in `.cto` files, and are written using the **Hyperledger Composer Modelling Language**
 
-#### CTO Language
+### CTO Language
 
 [CTO Language](https://hyperledger.github.io/composer/v0.19/reference/cto_language.html)
 
@@ -52,7 +49,7 @@ A `.cto` file is composed of the following elements
    - Events
 3. Optional import declarations than import resources from other namespaces
 
-##### Namespaces
+#### Namespaces
 
 Resources are organized by namespaces, this is defined by first line in a `.cto` file which can be as follows
 
@@ -62,7 +59,7 @@ namespace org.example.mynetwork
 
 All other resources defined in the same file will be part of this namespace
 
-##### Classes
+#### Classes
 
 A resource definition has the following properties
 
@@ -120,7 +117,7 @@ asset Field identified by fieldId {
 }
 ```
 
-##### Enums
+#### Enums
 
 Enumerables can be defined as follows
 
@@ -144,7 +141,7 @@ participant Farmer identified by farmerId {
 }
 ```
 
-##### Concepts
+#### Concepts
 
 Concepts are abstract classes that are not assets, participants or transactions. They are contained by another resource and do not have an identifier and cannot be directly stored in registries or referenced in relationships
 
@@ -173,7 +170,7 @@ participant Farmer identified by farmerId {
 }
 ```
 
-##### Primitive Types
+#### Primitive Types
 
 Composer has a few primitive types, namely
 
@@ -184,7 +181,7 @@ Composer has a few primitive types, namely
 - DateTime
 - Boolean
 
-##### Arrays
+#### Arrays
 
 Arrays can simply be defined with `[]`
 
@@ -196,7 +193,7 @@ o Integer[] integerArray
 --> Animal[] myAnimals
 ```
 
-##### Relationships
+#### Relationships
 
 A relationship is a tuple composed of
 
@@ -210,7 +207,7 @@ For example
 org.example.Vehicle#23451
 ```
 
-##### Field Validation
+#### Field Validation
 
 Attributes may include a default value, string fields may include a regex validation, numerical values may include a range, these can be seen below
 
@@ -230,7 +227,7 @@ asset Vehicle extends Base {
 }
 ```
 
-##### Imports
+#### Imports
 
 We can also import a type from a different namespace with the following
 
@@ -239,7 +236,7 @@ import org.example.MyAsset
 import org.example2.*
 ```
 
-#### Example
+### Example
 
 We can define a trading network consisting of the following models
 
@@ -259,12 +256,13 @@ We can define a trading network consisting of the following models
   - Last Name
 - Transaction
   - Name: Trade
-  - Commodity (Commodity *Asset*)
-  - New Owner (Trader *Participant*)
+  - Commodity (Commodity _Asset_)
+  - New Owner (Trader _Participant_)
 
 The model file for the above network can be defined as follows
 
 `models.cto`
+
 ```js
 namespace org.example.mynetwork
 asset Commodity identified by tradingSymbol {
@@ -285,15 +283,16 @@ transaction Trade {
 }
 ```
 
-### Logic
+## Logic
 
 Logic is defined in **Script Files** `.js` which define transaction logic
 
-#### Example
+### Example
 
 The logic for a transaction can be defined by a javascript function, in this example, for example, if a transaction occurs in which a Commodity changes Ownership from one Owner to a New Owner, the function can be defined as follows
 
 `trade.js`
+
 ```js
 /**
  * Track the trade of a commodity from one trader to another
@@ -301,24 +300,24 @@ The logic for a transaction can be defined by a javascript function, in this exa
  * @transaction
  */
 async function tradeCommodity(trade) {
-    // Assign the commodity owner to the new owner
-    trade.commodity.owner = trade.newOwner;
+  // Assign the commodity owner to the new owner
+  trade.commodity.owner = trade.newOwner
 
-    // Persist updated asset in asset registry
-    let assetRegistry = await getAssetRegistry('org.example.mynetwork.Commodity');
-    await assetRegistry.update(trade.commodity);
+  // Persist updated asset in asset registry
+  let assetRegistry = await getAssetRegistry("org.example.mynetwork.Commodity")
+  await assetRegistry.update(trade.commodity)
 }
 ```
 
-### Queries
+## Queries
 
 Queries are defined in **Query File** `.qry` file, note that a single `.bna` file can only have one query
 
-### Access Control
+## Access Control
 
 Access Control Files `.acl` define what permissions different users have, a single network can only have one access control file
 
-#### Example
+### Example
 
 Access control files look like the following
 
@@ -343,7 +342,7 @@ rule SystemACL {
 }
 ```
 
-### Deployment
+## Deployment
 
 We can package our code into a `.bna` file by running the following command in our directory
 

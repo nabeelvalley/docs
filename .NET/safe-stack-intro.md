@@ -1,8 +1,6 @@
-# Intro to the SAFE Stack
-
 An F# stack for everywhere, [here's the docs](https://safe-stack.github.io)
 
-## Prereqs
+# Prereqs
 
 To get started you will need:
 
@@ -13,7 +11,7 @@ To get started you will need:
 - Yarn/NPM
 - An F# IDE
 
-## Getting Started
+# Getting Started
 
 1. Install the `FAKE` CLI with
 
@@ -49,7 +47,7 @@ fake build --target run
 
 If you're using VSCode the relevant configs are already there for you to use under the debug options
 
-## The Stack
+# The Stack
 
 The Safe Stack consists of the following technologies
 
@@ -58,7 +56,7 @@ The Safe Stack consists of the following technologies
 - Fable for running F# in Browser, F# to JS compiler powered by Babel
 - Elmish for client-side UI, based on React
 
-## Code Sharing
+# Code Sharing
 
 SAFE makes use of code sharing between the client and the server, this includes shared types as well as behaviour (such as validation)
 
@@ -70,9 +68,9 @@ Messages are sent between the client and server using a few different methods:
 
 Code that is shared between the client and server is contianed in the `Shared.fs` file and is referenced in the client and server
 
-### Communication
+## Communication
 
-## HTTP
+# HTTP
 
 First, create a customer type in your `Shared.fs` file
 

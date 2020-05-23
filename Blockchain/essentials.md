@@ -1,24 +1,22 @@
-# Essentials
-
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/blockchain-course/)
 
-## Discover Blockchain
+# Discover Blockchain
 
-### The Business Backdrop
+## The Business Backdrop
 
 Businesses are always operating with external organizations and markets. These business networks are fundamental to the operation of blockchain in this environment
 
 These networks consist of transferring of different types of assets
 
-* Tangible
-* Intangible
-* Cash
+- Tangible
+- Intangible
+- Cash
 
 Ledgers are the key to recording the flow of assets through an organisational network, and these flows are governed by contracts which can be simple or complex
 
 At a very high level Blockchain is a distributed ledger with a shared set of business processes across the network
 
-### The Problem Area
+## The Problem Area
 
 Every member of the business network has their own copy of the ledger, and this is updated each time an asset flows through the network, this system is inefficient, expensive, and vulnerable to mistakes or even fraud
 
@@ -26,48 +24,48 @@ By utilising Blockchain, each member utilises a shared ledger, but we just speci
 
 When we use this we end up with
 
-* Consensus
-* Provenance
-* Immutability
-* Finality
+- Consensus
+- Provenance
+- Immutability
+- Finality
 
 Based on this we have a single source of truth for all parties and transactions within the network
 
-### Requirements in a Business Environment
+## Requirements in a Business Environment
 
 Blockchain in a business environment requires four main components
 
-* Shared Ledger
-* Smart Contract
-* Privacy
-* Trust
+- Shared Ledger
+- Smart Contract
+- Privacy
+- Trust
 
-#### Shared Ledger
+### Shared Ledger
 
 Each participant has their own copy which is shared between them, this is based on permission and control. This becomes the shared system within the network
 
-#### Smart contracts
+### Smart contracts
 
 Encoded version of business contracts. These are verifiable, and signed. Once these are distributed the contract will execute one the conditions are met.
 
-#### Privacy
+### Privacy
 
 Participants need confidentiality within the blockchain, as well as a system in which transactions must be authenticated and immutable
 
-#### Trust
+### Trust
 
 Selected members endorse or validate transactions, once these are endorsed they are added to the blockchain. This gives us a verifiable audit trail, transactions cannot be modified in any way once they have been added
 
-## Benefits of Blockchain
+# Benefits of Blockchain
 
-* Save Time
-* Remove Costs
-* Reduce Risk
-* Increase Trust
+- Save Time
+- Remove Costs
+- Reduce Risk
+- Increase Trust
 
-## Asset Transfer Lab
+# Asset Transfer Lab
 
-### [Set up Hyperledger Composer Playground](https://github.com/hyperledger/composer)
+## [Set up Hyperledger Composer Playground](https://github.com/hyperledger/composer)
 
 Go to the [Composer Playground](https://composer-playground-unstable.mybluemix.net/login)
 
@@ -81,7 +79,7 @@ Then Create a Business Network
 
 We can click on _Connect Now_ and start making transactions such as creating participants and vehicles
 
-### Creating Transactions
+## Creating Transactions
 
 Create some members by navigating to the **Test** Section \(at the top\) and then **Members** from the Menu and clicking on **Create New** **Participant**
 
@@ -97,15 +95,13 @@ We can look at the transactions made from the **All Transactions** page
 
 ![Transaction History](../.gitbook/assets/image%20%286%29.png)
 
-### Explore the Definitions
+## Explore the Definitions
 
 Head over to the editor screen and you will be able to see the different configuration available in our blockchain
 
 ![Define View - README](../.gitbook/assets/image-10.png)
 
 The different elements of our blockchain are defined with the following structures and rules
-
-
 
 ```javascript
 namespace org.acme.vehicle.auction
@@ -155,59 +151,65 @@ transaction CloseBidding {
 }
 ```
 
-
 ```javascript
-async function closeBidding(closeBidding) {  // eslint-disable-line no-unused-vars
-    const listing = closeBidding.listing;
-    if (listing.state !== 'FOR_SALE') {
-        throw new Error('Listing is not FOR SALE');
+async function closeBidding(closeBidding) {
+  // eslint-disable-line no-unused-vars
+  const listing = closeBidding.listing
+  if (listing.state !== "FOR_SALE") {
+    throw new Error("Listing is not FOR SALE")
+  }
+  // by default we mark the listing as RESERVE_NOT_MET
+  listing.state = "RESERVE_NOT_MET"
+  let highestOffer = null
+  let buyer = null
+  let seller = null
+  if (listing.offers && listing.offers.length > 0) {
+    // sort the bids by bidPrice
+    listing.offers.sort(function (a, b) {
+      return b.bidPrice - a.bidPrice
+    })
+    highestOffer = listing.offers[0]
+    if (highestOffer.bidPrice >= listing.reservePrice) {
+      // mark the listing as SOLD
+      listing.state = "SOLD"
+      buyer = highestOffer.member
+      seller = listing.vehicle.owner
+      // update the balance of the seller
+      console.log("### seller balance before: " + seller.balance)
+      seller.balance += highestOffer.bidPrice
+      console.log("### seller balance after: " + seller.balance)
+      // update the balance of the buyer
+      console.log("### buyer balance before: " + buyer.balance)
+      buyer.balance -= highestOffer.bidPrice
+      console.log("### buyer balance after: " + buyer.balance)
+      // transfer the vehicle to the buyer
+      listing.vehicle.owner = buyer
+      // clear the offers
+      listing.offers = null
     }
-    // by default we mark the listing as RESERVE_NOT_MET
-    listing.state = 'RESERVE_NOT_MET';
-    let highestOffer = null;
-    let buyer = null;
-    let seller = null;
-    if (listing.offers && listing.offers.length > 0) {
-        // sort the bids by bidPrice
-        listing.offers.sort(function(a, b) {
-            return (b.bidPrice - a.bidPrice);
-        });
-        highestOffer = listing.offers[0];
-        if (highestOffer.bidPrice >= listing.reservePrice) {
-            // mark the listing as SOLD
-            listing.state = 'SOLD';
-            buyer = highestOffer.member;
-            seller = listing.vehicle.owner;
-            // update the balance of the seller
-            console.log('#### seller balance before: ' + seller.balance);
-            seller.balance += highestOffer.bidPrice;
-            console.log('#### seller balance after: ' + seller.balance);
-            // update the balance of the buyer
-            console.log('#### buyer balance before: ' + buyer.balance);
-            buyer.balance -= highestOffer.bidPrice;
-            console.log('#### buyer balance after: ' + buyer.balance);
-            // transfer the vehicle to the buyer
-            listing.vehicle.owner = buyer;
-            // clear the offers
-            listing.offers = null;
-        }
-    }
+  }
 
-    if (highestOffer) {
-        // save the vehicle
-        const vehicleRegistry = await getAssetRegistry('org.acme.vehicle.auction.Vehicle');
-        await vehicleRegistry.update(listing.vehicle);
-    }
+  if (highestOffer) {
+    // save the vehicle
+    const vehicleRegistry = await getAssetRegistry(
+      "org.acme.vehicle.auction.Vehicle"
+    )
+    await vehicleRegistry.update(listing.vehicle)
+  }
 
-    // save the vehicle listing
-    const vehicleListingRegistry = await getAssetRegistry('org.acme.vehicle.auction.VehicleListing');
-    await vehicleListingRegistry.update(listing);
+  // save the vehicle listing
+  const vehicleListingRegistry = await getAssetRegistry(
+    "org.acme.vehicle.auction.VehicleListing"
+  )
+  await vehicleListingRegistry.update(listing)
 
-    if (listing.state === 'SOLD') {
-        // save the buyer
-        const userRegistry = await getParticipantRegistry('org.acme.vehicle.auction.Member');
-        await userRegistry.updateAll([buyer, seller]);
-    }
+  if (listing.state === "SOLD") {
+    // save the buyer
+    const userRegistry = await getParticipantRegistry(
+      "org.acme.vehicle.auction.Member"
+    )
+    await userRegistry.updateAll([buyer, seller])
+  }
 }
 
 /**
@@ -215,25 +217,24 @@ async function closeBidding(closeBidding) {  // eslint-disable-line no-unused-va
  * @param {org.acme.vehicle.auction.Offer} offer - the offer
  * @transaction
  */
-async function makeOffer(offer) {  // eslint-disable-line no-unused-vars
-    let listing = offer.listing;
-    if (listing.state !== 'FOR_SALE') {
-        throw new Error('Listing is not FOR SALE');
-    }
-    if (!listing.offers) {
-        listing.offers = [];
-    }
-    listing.offers.push(offer);
+async function makeOffer(offer) {
+  // eslint-disable-line no-unused-vars
+  let listing = offer.listing
+  if (listing.state !== "FOR_SALE") {
+    throw new Error("Listing is not FOR SALE")
+  }
+  if (!listing.offers) {
+    listing.offers = []
+  }
+  listing.offers.push(offer)
 
-    // save the vehicle listing
-    const vehicleListingRegistry = await getAssetRegistry('org.acme.vehicle.auction.VehicleListing');
-    await vehicleListingRegistry.update(listing);
+  // save the vehicle listing
+  const vehicleListingRegistry = await getAssetRegistry(
+    "org.acme.vehicle.auction.VehicleListing"
+  )
+  await vehicleListingRegistry.update(listing)
 }
 ```
-
-
-
-
 
 ```javascript
 rule Auctioneer {
@@ -294,6 +295,3 @@ rule NetworkAdminSystem {
     action: ALLOW
 }
 ```
-
-
-
