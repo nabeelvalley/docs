@@ -1,9 +1,7 @@
-# Intro to Go
-
 - [YouTube Video](https://www.youtube.com/watch?v=SqrbIlUwR0U)
 - [GitHub](https://github.com/bradtraversy/go_crash_course)
 
-## Workspace
+# Workspace
 
 Go is very specific in the way we set up our folders by making use of a specific structure for our workspace folders
 
@@ -28,7 +26,7 @@ In my case I'm using `C:\repos\go`
 
 Next make the necessary directories
 
-## Install Package
+# Install Package
 
 Install a package with the `go get` command, for example the `aws` package:
 
@@ -36,7 +34,7 @@ Install a package with the `go get` command, for example the `aws` package:
 go get github.com/aws/aws-sdk-go/aws
 ```
 
-## Hello World
+# Hello World
 
 Make a new project directory with a file called `main.go` with the following content
 
@@ -58,7 +56,7 @@ We can run this with the following command from the project dir
 go run main.go
 ```
 
-## Build and Run
+# Build and Run
 
 We can build binaries for an application with `go install` which can then be executed from the terminal
 
@@ -74,7 +72,7 @@ And then from the `bin` directory
 ./01_hello.exe
 ```
 
-## Variables and Data Types
+# Variables and Data Types
 
 Go has the following data types
 
@@ -89,19 +87,19 @@ Go has the following data types
 
 There are a few different ways to create variables, note that if we create a variable and do not use it we will get an error
 
-### Var
+## Var
 
 ```go
 var name string = "John"
 ```
 
-### Type Inference
+## Type Inference
 
 ```go
 var name = "John"
 ```
 
-### Get Type
+## Get Type
 
 We can make use of the following function to get the type of a variable
 
@@ -109,7 +107,7 @@ We can make use of the following function to get the type of a variable
 fmt.Printf("%T",name)
 ```
 
-### Constants
+## Constants
 
 We can define constants with the `const` keyword
 
@@ -117,11 +115,11 @@ We can define constants with the `const` keyword
 const name = "John"
 ```
 
-### Global Variables
+## Global Variables
 
 We can declare global variables by defining them outside of the main function
 
-### Shorthand Method
+## Shorthand Method
 
 Inside of a function we can declare variables using the assignment operator with the following 
 
@@ -129,7 +127,7 @@ Inside of a function we can declare variables using the assignment operator with
 name := "John
 ```
 
-### Multiple Assignments
+## Multiple Assignments
 
 We can do multiple assignments as follows
 
@@ -137,9 +135,9 @@ We can do multiple assignments as follows
 name, age := "John", 15
 ```
 
-## Packages
+# Packages
 
-### Importing Packages
+## Importing Packages
 
 We can import multiple packages by declaring each package in the `import` statement on a different line
 
@@ -150,7 +148,7 @@ import (
 )
 ```
 
-### Creating Packages
+## Creating Packages
 
 Create a new folder and in it you can define the package name and some functions in it
 
@@ -164,7 +162,7 @@ func myfunction() {
 
 And then import the package by referring to its path in the import function
 
-## Functions
+# Functions
 
 Functions are defined with the `func` keyword, the function name, inputs, and return types and values
 
@@ -174,11 +172,11 @@ func greet(name string) string {
 }
 ```
 
-## Arrays and Slices
+# Arrays and Slices
 
 In Go arrays are fixed length, and a slice is an array without a fixed size
 
-### Arrays
+## Arrays
 
 Arrays are fixed in size and can be defined with
 
@@ -195,7 +193,7 @@ Or with initial values
 myArr := [2]string{"Hello", "World"}
 ```
 
-### Slices
+## Slices
 
 A slice is essentially an array that does not have a fixed size
 
@@ -209,11 +207,11 @@ We can also make slices by using the same notation as other languages
 newSlice := mySlice[2:5]
 ```
 
-## Conditionals
+# Conditionals
 
 Conditionals do not require parenthesis, however they can be used
 
-### If Else
+## If Else
 
 ```go
 if x < y {
@@ -225,7 +223,7 @@ if x < y {
 }
 ```
 
-### Swtich/Case
+## Swtich/Case
 
 ```go
 switch x {
@@ -238,7 +236,7 @@ switch x {
 }
 ```
 
-## Loops
+# Loops
 
 There are two methods for building for loops
 
@@ -256,7 +254,7 @@ for i := 1; i <= 10; i++ {
 }
 ```
 
-## Maps
+# Maps
 
 Maps are key-value pairs and can be defined and accessed with
 
@@ -279,7 +277,7 @@ We can also declare a map with initial values
 emails := map[string]int{"Bob":35, "John":5}
 ```
 
-## Range
+# Range
 
 Range is used for looping through values
 
@@ -307,7 +305,7 @@ for k, v := range emails {
 }
 ```
 
-## Pointers
+# Pointers
 
 A pointer allows us to point to the memory address of a specific value, we can get the pointer for a value with the `&` sign
 
@@ -332,7 +330,7 @@ a == 10 // true
 
 The reason to use pointers can be more efficient when passing values
 
-## Closures
+# Closures
 
 We can define anonymous functions to declare anonymous functions that can be used as closures
 
@@ -354,7 +352,7 @@ func main() {
 }
 ```
 
-## Structs
+# Structs
 
 Structs are like classes
 
@@ -386,7 +384,7 @@ func main() {
 }
 ```
 
-## Interfaces
+# Interfaces
 
 ```go
 type Shape interface {
@@ -414,7 +412,7 @@ func getArea(s Shape) float64 {
 }
 ```
 
-## Web
+# Web
 
 To work with HTTP requests we can use the`net/http` package which allows us to define a function to handle a specific route
 

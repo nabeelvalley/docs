@@ -1,15 +1,13 @@
-# Istio with Kubernetes
-
-## Prerequisites
+# Prerequisites
 
 1. Trial IBM Cloud Account
 2. Kubrenetes Cluster
 3. Kubernetes 1.9.x or later
 4. IBM Cloud CLI with Kubernetes
 
-## Setting Up The Environment
+# Setting Up The Environment
 
-### Access Your Cluster
+## Access Your Cluster
 
 List your available clusters and then download the config and set an environment variable to point to it with
 
@@ -34,7 +32,7 @@ kubectl get node
 kubectl get node,svc,deploy,po --all-namespaces
 ```
 
-### Clone the Lab Repo
+## Clone the Lab Repo
 
 You can clone the lab repo from `https://github.com/IBM/istio101` and then navigate to the `workshop` directory
 
@@ -43,7 +41,7 @@ git clone https://github.com/IBM/istio101
 cd istio101/workshop
 ```
 
-### Install Istio on IBM Cloud Kubernetes Service
+## Install Istio on IBM Cloud Kubernetes Service
 
 Download Istio from [here](https://github.com/istio/istio/releases) and extract to your root directory
 
@@ -69,9 +67,9 @@ Once that is done, check that the istio services are running on the cluster with
 kubectl get svc -n istio-system
 ```
 
-### Download the App and Create the Database
+## Download the App and Create the Database
 
-#### Get the App
+### Get the App
 
 Clone the app from the GitHub repo
 
@@ -80,7 +78,7 @@ git clone https://github.com/IBM/guestbook.git
 cd guestbook/v2
 ```
 
-#### Create the Database
+### Create the Database
 
 Next we can create a Redis Database with the following master and slave deployments and services from the Yaml files in the Guestbook project
 
@@ -91,7 +89,7 @@ kubectl create -f redis-slave-deployment.yaml
 kubectl create -f redis-slave-service.yaml
 ```
 
-### Install the Guestbook App with Manual Sidecar Injection
+## Install the Guestbook App with Manual Sidecar Injection
 
 Sidecars are utility containers that support the main container, we can inject the Istio sidecar in two ways
 
@@ -123,7 +121,7 @@ Then create the Guestbook Service
 kubectl create -f guestbook-service.yaml
 ```
 
-### Adding the Tone Analyzer
+## Adding the Tone Analyzer
 
 Create a Tone Analyzer Service and get the credentials, then add these to the `analyzer-deployment.yaml` file
 
@@ -144,15 +142,15 @@ kubectl apply -f .\istioanalyzer.yaml
 kubectl apply -f analyzer-service.yaml
 ```
 
-## Service Telemetry and Tracing
+# Service Telemetry and Tracing
 
-### Challenges with Microservices
+## Challenges with Microservices
 
 One of the difficulties when using microservices is identifying issues and process bottlenecks as well as debugging
 
 Istio comes with tracing built in for this exact purpose
 
-### Configure Istio for Telemetry Data
+## Configure Istio for Telemetry Data
 
 In the v2 directory, do the following
 
@@ -160,7 +158,7 @@ In the v2 directory, do the following
 istioctl create -f guestbook-telemetry.yaml
 ```
 
-### Generate a Load on the Application
+## Generate a Load on the Application
 
 Then we can then generate a small load on our application from the worker's IP and Port
 
@@ -182,9 +180,9 @@ We can get our telemetry data at intervals with the following in Bash
 while sleep 0.5; do curl http://<WORKER'S PUBLIC IP>:<NODE PORT>/; done
 ```
 
-### View Data
+## View Data
 
-#### Jaeger
+### Jaeger
 
 We can find the external port for our tracing service and visit it based on that
 
@@ -192,7 +190,7 @@ We can find the external port for our tracing service and visit it based on that
 kubectl get svc tracing -n istio-system
 ```
 
-#### Grafana
+### Grafana
 
 We can establish port forwarding for Grafana and view the dashboard on `localhost:3000` 
 
@@ -200,7 +198,7 @@ We can establish port forwarding for Grafana and view the dashboard on `localhos
 kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000
 ```
 
-#### Prometheus
+### Prometheus
 
 We can view the Prometheus dashboard at `localhost:9090`  
 
@@ -208,7 +206,7 @@ We can view the Prometheus dashboard at `localhost:9090`
 kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090
 ```
 
-#### Service Graph
+### Service Graph
 
 Can view this at `http://localhost:8088/dotviz`
 
@@ -216,15 +214,15 @@ Can view this at `http://localhost:8088/dotviz`
 kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=servicegraph -o jsonpath='{.items[0].metadata.name}') 8088:8088
 ```
 
-## Expose the Service Mesh with Ingress
+# Expose the Service Mesh with Ingress
 
-### Ingress Controller
+## Ingress Controller
 
 Istio components are by default not exposed outside the cluster, an Ingress is a collection of rules that allow connections to reach a cluster
 
 Navigate to the `istio101\workshop\plans` directory
 
-#### Using a Lite Account
+### Using a Lite Account
 
 Configure the Guestbook App with Ingress
 
@@ -241,14 +239,14 @@ ibmcloud cs workers <CLUSTER NAME>
 
 In my case, I have the endpoint `159.122.179.103:31380` which is bound to port 80
 
-#### Using a Paid Account
+### Using a Paid Account
 
 ```bash
 istioctl create -f guestbook-gateway.yaml
 kubectl get service istio-ingress -n istio-system
 ```
 
-### Set up a Controller to work with IBM Cloud Kubernetes Service
+## Set up a Controller to work with IBM Cloud Kubernetes Service
 
 
 This will only work with a paid cluster
@@ -267,9 +265,9 @@ kubectl apply -f guestbook-frontdoor.yaml
 kubectl get ingress guestbook-ingress  -o yaml
 ```
 
-## Traffic Management
+# Traffic Management
 
-### Traffic Management Rules
+## Traffic Management Rules
 
 The core component for traffic management in istio is Pilot. This manages and configures all the Envoy proxy instances in a service mesh
 
@@ -279,7 +277,7 @@ Pilot translates high level rules into low level configurations by means of the 
 * Destination Rules - Defines policies that apply to traffic intended for a service after routing has occurred, specifications for load balancing, connection pool size, outlier detection, etc
 * Service Entries - Enables services to access a service not necessarily managed by Istio
 
-### A/B Testing
+## A/B Testing
 
 Previously we had created two versions of the Guestbook app, v1 and v2. If we do not have any rules, istio will distribute requests evenly between the instances
 
@@ -289,7 +287,7 @@ To prevent Istio from using the default routing method we can do the following t
 istioctl replace -f virtualservice-all-v1.yaml
 ```
 
-### Incrementally roll our changes
+## Incrementally roll our changes
 
 We can incrementally roll our changes by changing the weighting of our different versions
 
@@ -297,13 +295,13 @@ We can incrementally roll our changes by changing the weighting of our different
 istioctl replace -f virtualservice-80-20.yaml
 ```
 
-### Circuit Breakers and Destination Rules
+## Circuit Breakers and Destination Rules
 
 Istio lets us configure settings for destination rules as well as implementing circuit breakers for Envoys
 
-## Securing Services
+# Securing Services
 
-### Mutual Auth with Transport Layer Security
+## Mutual Auth with Transport Layer Security
 
 Istio can enable secure communication between app services without the need for application code changes. We can delegate service control to Istio instead of implementing it on each service
 
@@ -311,7 +309,7 @@ Citadel is the Istio component that provides sidecar proxies with an identity ce
 
 When a microservice connects to another microservice communication between them is redirected through the Envoys
 
-### Setting up a Certificate Authority
+## Setting up a Certificate Authority
 
 First check that Citadel is running
 
@@ -365,7 +363,7 @@ spec:
 EOF
 ```
 
-### Verify Authenticated Connection
+## Verify Authenticated Connection
 
 We can ssh into a pod by getting the pod name and opening the terminal
 
@@ -380,9 +378,9 @@ Then we should be able to view the certificate `pem` files as follows
 ls etc/certs/
 ```
 
-## Enforcing Isolation
+# Enforcing Isolation
 
-### Service Isolation with Adapters
+## Service Isolation with Adapters
 
 Back-end systems typically integrate with services in a way that creates a hard coupling
 
@@ -395,7 +393,7 @@ Mixer makes use of adapters to interface between code and back-ends
 * Memquota
 * Stackdriver
 
-### Using the Denier Adapter
+## Using the Denier Adapter
 
 Block access to the Guestbook service with
 

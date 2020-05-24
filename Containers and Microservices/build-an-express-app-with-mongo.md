@@ -1,11 +1,9 @@
-# Build an Express Application that uses MongoDB
-
 Built with tons of help from:
 
 -   [Getting started with Node and Mongo DB](https://closebrace.com/tutorials/2017-03-02/the-dead-simple-step-by-step-guide-for-front-end-developers-to-getting-up-and-running-with-nodejs-express-and-mongodb)
 -   [Dockerise a Node-Mongo App](https://medium.com/statuscode/dockerising-a-node-js-and-mongodb-app-d22047e2806f)
 
-## Contents
+#  Contents
 
 - [Build an Express Application that uses MongoDB](#build-an-express-application-that-uses-mongodb)
   - [Contents](#contents)
@@ -29,9 +27,9 @@ Built with tons of help from:
   - [Running Locally](#running-locally)
 
 
-## Setting up Mongo
+#  Setting up Mongo
 
-### Adding Mongo to your PATH
+# # Adding Mongo to your PATH
 
 If you have just downloaded and installed MongoDB, it may not be defined as a system variable in your PATH, you can do that finding the Mongo installation directory and adding this as a system environment variable, the directory should be like the following for Windows
 
@@ -41,7 +39,7 @@ C:\Program Files\MongoDB\Server\4.0\bin\
 
 This will give us access to both `mongo` and `monod` commands
 
-### Create a Data Directory
+# # Create a Data Directory
 
 Next we will need a place to store our data, we can create this directory anywhere we want, in this case I'll make it inside of my app directory
 
@@ -52,7 +50,7 @@ cd mongodata
 mkdir data
 ```
 
-### Running the DB Server
+# # Running the DB Server
 
 Next we can run our database server with the following command inside of our `mongo` directory that we just created
 
@@ -72,7 +70,7 @@ If we see an output with
 
 We know that the server is running
 
-### Creating and Viewing Elements
+# # Creating and Viewing Elements
 
 In a new terminal window we open the Mongo Shell with
 
@@ -80,7 +78,7 @@ In a new terminal window we open the Mongo Shell with
 mongo
 ```
 
-### Connect to a Database
+# # Connect to a Database
 
 Next we need to connect to our database to access data, we can do this from the Mongo Shell with
 
@@ -94,7 +92,7 @@ If successful we will see the output
 switched to db mongodata
 ```
 
-### Insert Data
+# # Insert Data
 
 Next we can try to insert an element with the following
 
@@ -111,7 +109,7 @@ newstuff = [{"name":"Nabeel Valley","comment":"Hello Nabeel. Weather good today"
 db.comments.insert(newstuff)
 ```
 
-### View Data
+# # View Data
 
 We can view our inserted data with
 
@@ -135,7 +133,7 @@ Which will output the following
 }
 ```
 
-## Building the Express App
+#  Building the Express App
 
 This can all be found in the `server.js` file
 
@@ -145,7 +143,7 @@ The Express app will do a few things:
 -   Get and Insert data into Mongo
 -   Build and send the Mongo content to the frontend
 
-### Importing the Necessary Libraries
+# # Importing the Necessary Libraries
 
 I'm making use of the following libraries to
 
@@ -163,7 +161,7 @@ const port = process.env.PORT || 8080
 const bodyParser = require('body-parser')
 ```
 
-### Configure the Database
+# # Configure the Database
 
 I'm using monk to easily interface with our database
 
@@ -181,7 +179,7 @@ I've used the default value of `mongo:27017` for when the application is run in 
 MONGO_ENDPOINT=localhost:27017
 ```
 
-### Middleware
+# # Middleware
 
 Configure express middleware for the following
 
@@ -200,7 +198,7 @@ app.use((req, res, next) => {
 })
 ```
 
-### View Comments
+# # View Comments
 
 Next I define a `/comments` that will retrieve content from the `comments` collection, render it with the `base.card` and `base.content` functions and send that as a response
 
@@ -222,7 +220,7 @@ app.get('/comments', function(req, res) {
 })
 ```
 
-### Creeate Comment
+# # Creeate Comment
 
 To create a comment I've used a simple form in the frontend, which can be seen below
 
@@ -288,11 +286,11 @@ app.post('/submit', (req, res) => {
 })
 ```
 
-## Deploy on k8s
+#  Deploy on k8s
 
 Once we are done we can push this as a Docker image and deploy it on a Kubernetes Cluster as follows
 
-### Building the Image
+# # Building the Image
 
 From the application directory run
 
@@ -301,7 +299,7 @@ docker build -t <USERNAME>/comments-app
 docker push
 ```
 
-### Deploying on Kubernetes
+# # Deploying on Kubernetes
 
 Once logged into a kubernetes cluster we can make use of the `express.yaml` to deploy the express app, and the `mongo.yaml` file to deploy Mongo
 
@@ -391,6 +389,6 @@ spec:
          - containerPort: 27017
 ```
 
-## Running Locally
+#  Running Locally
 
 If you'd like to run this application on a local Kubernetes cluster, take a look at the page on [Deploying an Express App that Uses Mongo on k8s Locally](deploy-an-express-app-with-mongo-on-k8s-locally.md)

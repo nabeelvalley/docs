@@ -1,5 +1,3 @@
-# Foundation
-
 - [Foundation](#foundation)
   - [Prerequisites](#prerequisites)
   - [Hyperledger Composer](#hyperledger-composer)

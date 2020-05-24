@@ -3,6 +3,7 @@
 # Prerequisites
 
 - Docker
+- WSL2 for Windows (ideally) (if using Windows)
 
 # Run a Container
 

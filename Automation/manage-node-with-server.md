@@ -1,5 +1,3 @@
-# Manage a Node with Chef Server
-
 [From this Module](https://learn.chef.io/modules/manage-a-node-chef-server/ubuntu/bring-your-own-system#/)
 
 ```
@@ -26,7 +24,7 @@ Infrastructure Automation > Manage a node > Ubuntu > On premises
     - [Verify the Setup](#verify-the-setup)
 
 
-## Overview
+# Overview
 
 Chef typically comprises of three different parts
 
@@ -36,33 +34,33 @@ Chef typically comprises of three different parts
 
 For this section we will need to have all of the above set up
 
-## Set Up Your Workstation
+# Set Up Your Workstation
 
-### Download Chef
+## Download Chef
 
 You will first need to download the Chef for your workstation from [here](https://downloads.chef.io/chef-workstation/)
 
-### Open Chef Workstation
+## Open Chef Workstation
 
 On Windows open the Chef Workstation Powershell app (CW Powershell), on Mac and Ubuntu open a terminal as usual
 
 > Be sure to use CW Powershell for the remainder of steps being carried out on Windows
 
-### Create a Working Directory
+## Create a Working Directory
 
 We'll use our `learn-chef` directory that we set up earlier
 
-### Install Git
+## Install Git
 
 > How do you not have this??
 
-### Verify SSH
+## Verify SSH
 
 If you need to connect to your Chef Server with SSH, verify that you have SSH installed by running `ssh` in your terminal. For Windows an SSH client is included with Git and Chef Workstation
 
-## Install Chef Server
+# Install Chef Server
 
-### Install and Configure
+## Install and Configure
 
 On the server, create a file `/tmp/install-chef-server.sh` with the following contents
 
@@ -115,11 +113,11 @@ And then run it
 sudo /tmp/install-chef-server.sh
 ```
 
-### Configure Ports
+## Configure Ports
 
 Ensure that ports 22, 80, and 443 are exposed on the Chef Server - On VirtualBox I just used port forwarding to map these to my local 22, 80, and 443 ports 
 
-## Configure the Workstation
+# Configure the Workstation
 
 `kife` is the command line tool that provides the interface between the your Workstation and the Chef Server, `knife` requires two files to authenticate with the Chef Server:
 
@@ -130,7 +128,7 @@ Both of these are usually located in a `.chef` directory
 
 `knife` provides a a way for you to download the necessary files as a starter kit, but that resets all keys for all users in the account, hence we will do so manually by following the instructions [here](https://docs.chef.io/chefdk_setup.html#without-webui)
 
-### Create an Organization
+## Create an Organization
 
 > Do not do this now, the setup script already has configured this for us
 
@@ -140,7 +138,7 @@ We can create an organization with the `chef-server-ctl org-create` command, the
  chef-server-ctl org-create ORG_NAME ORG_FULL_NAME -f FILE_NAME
 ```
 
-### Create a User
+## Create a User
 
 > Do not do this now, the setup script already has configured this for us
 
@@ -150,7 +148,7 @@ Similar to the process above, use `chef-server-ctl user-create` to create a user
 chef-server-ctl user-create USER_NAME FIRST_NAME LAST_NAME EMAIL PASSWORD -f FILE_NAME
 ```
 
-### Move the `.pem` Files
+## Move the `.pem` Files
 
 Move the `.pem` files we just created to our `chef-repo` with the following command
 
@@ -158,11 +156,11 @@ Move the `.pem` files we just created to our `chef-repo` with the following comm
 cp /path/to/ORGANIZATION-validator.pem ~/chef-repo/.chef
 ```
 
-### Copy the  Private Key to Workstation
+## Copy the  Private Key to Workstation
 
 Copy the `chefadmin.pem` file to your Workstation's `learn-chef/.chef` directory
 
-### Create Knife Config File
+## Create Knife Config File
 
 Create a `knife` config file `learn-chef/.chef/knife.rb` and replace the `chef_server_url` with your Chef server's FQDN
 
@@ -176,7 +174,7 @@ chef_server_url           "http://localhost/organizations/4thcoffee"
 cookbook_path             ["#{current_dir}/../cookbooks"]
 ```
 
-### Verify the Setup
+## Verify the Setup
 
 From the `learn-chef` directory, with CW Powershell (or bash on another OS) run the following commands
 

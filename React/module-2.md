@@ -1,6 +1,4 @@
-# Module 2 - State, Lifecycle and Event Handlers
-
-[Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
+> [Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
 
 - [Module 2 - State, Lifecycle and Event Handlers](#module-2---state-lifecycle-and-event-handlers)
   - [React Components](#react-components)
@@ -17,9 +15,9 @@
   - [Passing State to Parents](#passing-state-to-parents)
   - [Demo App](#demo-app)
 
-## React Components
+# React Components
 
-### Class Components
+## Class Components
 
 React components can also be written as ES6 classes instead of functions. This can be done by extending the `React.Component` class
 
@@ -51,7 +49,7 @@ ReactDOM.render(
 )
 ```
 
-### State
+## State
 
 The `constructor` is called before a React component is mounted and is used to set up the initial component state. It is important to call the `super(props)` function otherwise the constructor may not work correctly
 
@@ -85,7 +83,7 @@ class Counter extends React.Component{
 }
 ```
 
-#### Previous State
+### Previous State
 
 The `setState` will update the component when React reaches it in the update queue in order to be more efficient. The method updates the state asynchronously and has a `componentDidMount` method that is called when that happens, thereby allowing us to update a component based on previous state
 
@@ -110,7 +108,7 @@ class Counter extends React.Component{
 }
 ```
 
-#### Future State
+### Future State
 
 Since the state updates asynchronously, we cannot immediately use the new state after calling the `setState` function
 
@@ -129,7 +127,7 @@ this.setState({count:42}, () = {
 })
 ```
 
-#### State is Immutable
+### State is Immutable
 
 State is immutable and hence should not be manipulated directly. For example, we cannot do the following
 
@@ -137,18 +135,18 @@ State is immutable and hence should not be manipulated directly. For example, we
 this.state.message = "New message"
 ```
 
-## Lifecycle Methods
+# Lifecycle Methods
 
 Each class component goes through a lifecycle which contains multiple phases and methods that can be defined
 
-### Mounting
+## Mounting
 
 1. `constructor(props)` is called when a component is initialized. This is only called once
 2. `componentWillMount()` is called just before a component mounts
 3. `render()` is called when a component is rendered
 4. `componentDidMount()` is called when a component has been mounted - we will typically make network requests in this phase
 
-### Updating
+## Updating
 
 These methods happen when a component's state changes
 
@@ -158,11 +156,11 @@ These methods happen when a component's state changes
 4. `render()`
 5. `componentDidUpdate(prevProps, prevState)` is called after a component has updated
 
-### Unmounting
+## Unmounting
 
 The `componentWillUNmount()` function is called just before a component is removed from the DOM and is used for any cleanup such as cancelling timers and network requests
 
-## Event Handlers
+# Event Handlers
 
 Events are handled similar to the way they are handled in HTML, aside from the fact that they are defined in camelCase and use the `{}` instead of `""` when attaching them to an element
 
@@ -211,7 +209,7 @@ Or with the `ES6` arrow function to pass forward the context
 <button onClick={{() => this.clickHandler()}} >{this.state.count}</button>
 ```
 
-## Passing State to Parents
+# Passing State to Parents
 
 At times it may be necessary to pass state from a child to a parent in order to change some other state elsewhere (either in the parent or in siblings by way of the parent), this can be done by passing the event handler down to the children components through their props, such as can be seen in the `Button` class below which attaches the `clickHandler` function defined in the `App` class
 
@@ -273,6 +271,6 @@ ReactDOM.render(
 )
 ```
 
-## Demo App
+# Demo App
 
 We can make a Demo App that makes use of all the above, the code can be found on [This CodePen](https://codepen.io/benjlin/pen/WOZwbV?editors=1011)

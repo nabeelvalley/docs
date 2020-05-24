@@ -1,12 +1,10 @@
-# MQTT Messaging with Mosquitto
-
 MQTT makes use of a publish/subscribe model in which a client will either publish messages to a topic or subscribe to messages on the topic
 
-## Help
+# Help
 
 We can run the following to get the `mosquitto` help menus
 
-### General
+## General
 
 ```powershell
 > mosquitto --help
@@ -28,7 +26,7 @@ Usage: mosquitto [-c config_file] [-d] [-h] [-p port]
 See http://mosquitto.org/ for more information.
 ```
 
-### Publisher
+## Publisher
 
 ```powershell
 > mosquitto_pub --help
@@ -54,7 +52,7 @@ Usage: mosquitto_pub {[-h host] [-p port] [-u username [-P password]] -t topic |
 ...
 ```
 
-### Subscriber
+## Subscriber
 
 ```powershell
 > mosquitto_sub --help
@@ -79,7 +77,7 @@ Usage: mosquitto_sub {[-h host] [-p port] [-u username [-P password]] -t topic |
 ...
 ```
 
-## Starting a Server
+# Starting a Server
 
 We can start an MQTT Broker Server with `mosquitto` in verbose mode as follows
 
@@ -89,7 +87,7 @@ mosquitto -v
 
 This will allow us to publish and subscribe message
 
-## Subscribe to a Topic
+# Subscribe to a Topic
 
 We can subscribe to a topic with the following
 
@@ -97,7 +95,7 @@ We can subscribe to a topic with the following
 mosquitto_sub -t "hello" -v
 ```
 
-## Publish to a Topic
+# Publish to a Topic
 
 We can publish messages to a topic with the following
 

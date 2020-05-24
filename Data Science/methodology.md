@@ -1,5 +1,3 @@
-# Methodology
-
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/data-science-methodology-2/)
 
 - [Methodology](#methodology)
@@ -38,7 +36,7 @@
 		- [Deployment](#deployment)
 		- [Feedback](#feedback)
 
-## The Methodology
+# The Methodology
 
 The data science methodology described here is as outlined by John Rollins of IBM
 
@@ -47,32 +45,32 @@ The Methodology can be seen in the following steps
 ![Data Science Methodology (Cognitive Class)](../.gitbook/assets/datascience_methodology_flowchart.png "Data Science Methodology (Cognitive Class)")
 
 
-## The Questions
+# The Questions
 
 The Data Science methodology aims to answer ten main questions
 
-### From Problem to Approach
+## From Problem to Approach
 
 1. What is the problem you are trying to solve?
 2. How can you use data to answer the question?
 
-### Working with the Data
+## Working with the Data
 
 3. What data do you need to answer the question?>
 4. Where is the data coming from and how will you get it?
 5. Is the data that you collected representative of the problem to be solved?
 6. What additional work is required to manipulate and work with the data
 
-### Deriving the Answer
+## Deriving the Answer
 
 7. In what way can the data be visualized to get to the answer that is required?
 8. Does the model used really answer the initial question or does it need to be adjusted?
 9. Can you put the model into practice?
 10. Can you get constructive feedback into answering the question?
 
-## Problem and Approach
+# Problem and Approach
 
-### Business Understanding
+## Business Understanding
 
 > What is the problem you are trying to solve?
 
@@ -84,13 +82,13 @@ In order to understand a question, it is important to understand the goal of the
 
 Based on this we will break down objectives and prioritize them
 
-### Analytic Approach
+## Analytic Approach
 
 > How can you use data to answer the question?
 
 The second step in the methodology is electing the correct approach involves the specific problem being addressed, this points to the purpose of business understanding and helps us to identify what methods we should use in order to address the problem
 
-#### Approach to be Used
+### Approach to be Used
 
 When we have a strong understanding of the problem, wwe can pick an analytical approach to be used
 
@@ -105,7 +103,7 @@ When we have a strong understanding of the problem, wwe can pick an analytical a
 - Prescriptive
   - How do we solve it?
 
-#### Question Types
+### Question Types
 
 We have a few different types of questions that can direct our modelling
 
@@ -116,11 +114,11 @@ We have a few different types of questions that can direct our modelling
 - Question requires a binary answer
   - Classification Model
 
-#### Machine Learning
+### Machine Learning
 
 Machine learning allows us to identify relationships and trends that cannot otherwise be established
 
-#### Decision Trees
+### Decision Trees
 
 Decision trees are a machine learning algorithm that allow us to classify nodes while also giving us some information as to how the information is classified
 
@@ -143,15 +141,15 @@ Some of the characteristics of decision trees are summarized below
 | Can be used on very large or small datasets |
 
 
-### Labs
+## Labs
 
 The Lab notebooks have been added in the `labs` folder, and are released under the MIT License
 
 The Lab for this section is `1-From-Problem-to-Approach.ipynb`
 
-## Requirements and Collection
+# Requirements and Collection
 
-### Data Requirements
+## Data Requirements
 
 > What data do you need to answer the question?
 
@@ -165,7 +163,7 @@ We typically make use of the following steps
 2. Content format and representation of data was defined
 3. It is important to look ahead when transforming our data to a form that would be most suitable for us
 
-### Data Collection
+## Data Collection
 
 > Where is the data coming from and how will you get it?
 
@@ -175,13 +173,13 @@ We then make use of descriptive statistics and visuals in order to define the qu
 
 Collecting data requires that we know the data source and where to find the required data
 
-### Labs
+## Labs
 
 The lab documents for this section are in both Python and R, and can be found in the `labs` folder as `2-Requirements-to-Collection-py.ipynb` and `2-Requirements-to-Collection-R.ipynb`
 
 These labs will simply read in a dataset from a remote source as a CSV and display it
 
-#### Python
+### Python
 
 In Python we will use Pandas to read data as DataFrames
 
@@ -203,7 +201,7 @@ recipes.head()
 recipes.shape
 ```
 
-#### R
+### R
 
 We do the same aas the above in R as follows
 
@@ -231,9 +229,9 @@ nrow(recipes)
 ncol(recipes)
 ```
 
-## Understanding and Preparation
+# Understanding and Preparation
 
-### Data Understanding
+## Data Understanding
 
 > Is the data that you collected representative of the problem to be solved?
 
@@ -254,7 +252,7 @@ We also make use of these to understand data quality and values such as Missing 
 
 
 
-### Data Preparation
+## Data Preparation
 
 > What additional work is required to manipulate and work with the data
 
@@ -273,13 +271,13 @@ Another part of data preparation is feature engineering which is when we use dom
 
 The data preparation will support the remainder of the project
 
-### Labs
+## Labs
 
 The lab documents for this section are in both Python and R, and can be found in the `labs` folder as `3-Understanding-to-Preparation-py.ipynb` and `3-Understanding-to-Preparation-R.ipynb`
 
 These labs will continue to analyze the data that was imported from the previous lab
 
-#### Python
+### Python
 
 First, we check if the ingredients exist in our dataframe
 
@@ -497,7 +495,7 @@ create_cuisines_profiles = cuisines.apply(print_top_ingredients, axis=1)
 # wheat (39%) butter (38%) egg (35%) onion (34%) 
 ```
 
-#### R
+### R
 
 First, we check if the ingredients exist in our dataframe
 
@@ -691,9 +689,9 @@ for(nation in by_cuisine_norm$cuisine){
 }
 ```
 
-## Modeling and Evaluation
+# Modeling and Evaluation
 
-### Modeling
+## Modeling
 
 > In what way can the data be visualized to get to the answer that is required?
 
@@ -703,7 +701,7 @@ Data modeling either tries to get to a predictive or descriptive model
 
 Data scientists use a training set for predictive modeling, this is historical data that acts as a way to test that the data we are using is suitable for the problem we are tryig to solve
 
-### Evaluation
+## Evaluation
 
 > Does the model used really answer the initial question or does it need to be adjusted?
 
@@ -720,13 +718,13 @@ Two phases are considered when evaluating a model
 
 We can make use of the ROC curve to evaluate models and determine the optimal model for a binary classification model by plotting the True-Positive vs False-Positive rate for the model
 
-### Labs
+## Labs
 
 The lab documents for this section are in both Python and R, and can be found in the `labs` folder as `4-Modeling-to-Evaluation-py.ipynb` and `4-Modeling-to-Evaluation-R.ipynb`
 
 These labs will continue from where the last lab left off and build a decision Tree Model for the recipe data
 
-#### Python
+### Python
 
 First we will need to import some libraries for modelling
 
@@ -900,7 +898,7 @@ The resulting confusion matrix can be seen below
 
 The squares along the top-left to bottom-right diagonal are those that the model correctly classified
 
-#### R
+### R
 
 We can follow a similar process as above using R
 
@@ -1006,9 +1004,9 @@ Which will result in
   thai_true              3.3        20.0           0.0        33.3      43.3
 ```
 
-## Deployment and Feedback
+# Deployment and Feedback
 
-### Deployment
+## Deployment
 
 > Can you put the model into practice?
 
@@ -1018,7 +1016,7 @@ When the model is evaluated and we are confident in the model we deploy it, typi
 
 Deployment also consists of developing a suitable method to enable our users to interact with and use the model as well as looking to ways to improve the model with a feedback system
 
-### Feedback
+## Feedback
 
 > Can you get constructive feedback into answering the question?
 

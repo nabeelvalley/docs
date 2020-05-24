@@ -1,10 +1,8 @@
-# Handling Cors
-
 There are two parts to making a response, the request and the response
 
 We need to handle `CORS` on each end
 
-## Browser
+# Browser
 
 In the browser, we can make cross-origin requests using `fetch` with `mode:no-cors` which will make an opaque response which has some limitations
 
@@ -24,7 +22,7 @@ console.log(res) // {type: "basic", url: "https://my-other-url.com/hello-world/"
 
 Note that this response has a lot more data included
 
-## Node.js
+# Node.js
 
 When using `express` we simply need to set the response header to enable CORS. We can do this using a simple middlewear, in this case a simple function which takes in an array of origins (or even a single origin) and returns a `cors` middlewear function
 

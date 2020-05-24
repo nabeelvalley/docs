@@ -1,10 +1,8 @@
-# Generating a PWA for a React App
-
-## Automatically
+# Automatically
 
 The PWA can be built automatically using the [**PWABuilder**](https://www.pwabuilder.com)
 
-## Manually
+# Manually
 
 To build our app as a PWA we will need to do the following:
 

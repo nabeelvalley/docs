@@ -1,17 +1,16 @@
-# Getting Started with Jenkins
-
 The Guide for getting started can be found [here](https://jenkins.io/doc/pipeline/tour/getting-started/)
-## Setup
 
-### Prerequisites
+# Setup
 
-1. Docker 
+## Prerequisites
+
+1. Docker
 2. Java 8
 3. Download Jenkins [here](http://mirrors.jenkins.io/war-stable/latest/jenkins.war)
 
 Place your `jenkins.war` file in the project root directory
 
-### Running
+## Running
 
 Run jenkins with the following command from the project root
 
@@ -25,11 +24,11 @@ Navigate to `http://localhost:8080` in your browser and complete the setup
 
 You can find the Admin Password at `C:\Users\USERNAME\.jenkins\secrets\initialAdminPassword`
 
-### Adding a Local Repo
+## Adding a Local Repo
 
 We can add a local repository by simply linking to it with `file://C:/Users/USERNAME/source/repos/jenkins-getting-started`
 
-## Setting Up a Build
+# Setting Up a Build
 
 I'm using the BlueOcean Plugin to build the pipellines as the visual editor is easier, the documentation on using that can be found [here](https://jenkins.io/doc/book/blueocean/getting-started/)
 
@@ -51,7 +50,7 @@ We will push the content to the Docker Registry using the following command
 docker push localhost:5000/node-hello-world
 ```
 
-> If having issues with the above use `127.0.0.1:5000` instead of `localhost:5000` 
+> If having issues with the above use `127.0.0.1:5000` instead of `localhost:5000`
 
 The image can be removed from the build server with
 
@@ -78,7 +77,7 @@ The final Docker image will be run on the client with
 docker run -d -p 3001:3000 --name node-app 127.0.0.1:5000/node-hello-world
 ```
 
-## Build Kickoff Automation
+# Build Kickoff Automation
 
 Ensure your git proxy is set up correctly with:
 
@@ -93,7 +92,7 @@ You need to make use of a `post-commit` hook in your `.git/hooks/post-commit` fi
 curl --proxy "" --location http://localhost:8080/git/notifyCommit?url=file://C:/Users/USER/source/repos/jenkins-getting-started
 ```
 
-## Running a Build Slave
+# Running a Build Slave
 
 Ther are multiple methods for configuring a Jenkins Build Slave, usually using JNLP or SSH
 
@@ -115,7 +114,7 @@ You will need to get your SSH key from the slave though, you can do this with:
 ssh-keygen -t rsa
 ```
 
-## DIY Docker SSH Build Slave
+# DIY Docker SSH Build Slave
 
 This is probably not a good idea but it works fine for testing your connections
 
@@ -186,19 +185,19 @@ exit
 
 Then copy the entire key from the previous script and move to your Jenkins Setup
 
-## Jenkins Slave Config
+# Jenkins Slave Config
 
-### Credentials 
+## Credentials
 
 First go to your Jenkins Instance and Navigate to `Jenkins > Credentials > System > Global` or the following route in your browser `/credentials/store/system/domain/_/`
 
 And click `Add Credential`, select the type as `SSH Username with private key` and set the username as `root` (or your actual user if you're doing this for real) and Select `Private Key: Enter Directly` and paste in the Key you copied from your slave container instance, if you created a Passphase for the key (the Docker one above does not) you will need to enter that in as well
 
-### Node
+## Node
 
 Then navigate to `Jenkins > Manage > Manage Nodes` or `/computer/` in your browser and click `New Node`. Give this a name, e.g. `ubuntudockerssh`, use the `Permanent Agent` option. Thereafter set the Launch Method to be `Launch Agents via SSH` , the host should be `localhost` or whatever your actual host is, and be sure to use the Credentials we just created. Lastly the Host Key Verification Strategy should be `Manually Trusted key verification strategy` and click save
 
-### Test Build
+## Test Build
 
 A simple Pipeline can be built using the following. Note that the `agent.label` value is the name of the Node set up in the previous step
 
@@ -225,7 +224,7 @@ pipeline {
 }
 ```
 
-## Checkout
+# Checkout
 
 To checkout code from a GitHub repo using the GitHub plugin, the following should work under most circumstances:
 
@@ -233,7 +232,7 @@ To checkout code from a GitHub repo using the GitHub plugin, the following shoul
 stage('clone') {
   git branch: env.BRANCH_NAME,
     url: '<GIT URL>.git'
-    credentialsId: 'credentials_id'    
+    credentialsId: 'credentials_id'
 }
 ```
 

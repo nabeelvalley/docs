@@ -133,6 +133,24 @@ Options/settings for Vim can be set using the `:set` command followed by the opt
 - To ignore case for a single search you can use `/searchterm\c`
 - `:nohlsearch` will clear the search highlighting
 
+# Multiple Windows
+
+To split your screen into multiple windows you can use:
+
+- `:sp` followed by the file path for a horizontal split
+- `:vsp` followed by the filepath for a vertical split
+- `ctrl + w` **twice** to toggle focus between windows
+- `:wa` to save all windows
+- `:wqa` to save all windows and quit
+- `:qa` to quit all windows
+
+Also for resizing windows you can make use of some of the following commands:
+
+- `ctrl + W =` to make all windows equal sizes
+- `:res n` to resize windows by `n`
+
+And `ctrl + W r` to rotate the windows
+
 # Help
 
 To get help you can use the `:help` command, to search for a specfic topic you can just add it after the help command like `:help nohlsearch`, you can then type `:q` to close the help menu

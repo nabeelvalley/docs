@@ -1,8 +1,6 @@
-# Startover NPM Package
+Essentially I'm trying to do something like `nodemon` and `forever` but just a lot simpler and that will suit my needs better
 
-Hey, this is fresh, but essentially I'm trying to do something like `nodemon` and `forever` but just a lot simpler and that will suit my needs better
-
-## Running Dev
+# Running Dev
 
 Clone the GitHub Repo, and then install the app dependencies and install the application globally
 
@@ -17,9 +15,9 @@ Next we can link NPM to our actual package instead of the global version with
 npm link
 ```
 
-## What's Happening Here 
+# What's Happening Here 
 
-### Getting Started  
+## Getting Started  
 
 We have a simple node app that is running globally, but linked to our application's `index.js` file with the following 
 
@@ -28,7 +26,7 @@ npm i -g
 npm link 
 ``` 
 
-### Define Run Command 
+## Define Run Command 
 
 Next we the `startover` command linked in our `package.json` as follows 
 
@@ -52,7 +50,7 @@ This will allow us to run th `index.js` file which is done by simply running the
 startover 
 ```
 
-### Parsing Command Line Arguments 
+## Parsing Command Line Arguments 
 
 We make use of the `commander` package to parse CLI arguments, we do this from the 	`index.js` file and parses the various parameters
 
@@ -102,7 +100,7 @@ We can also get help and information on the commands with
 startover -h 
 ```
 
-## Watcher Events
+# Watcher Events
 
 I then defined the events for the file watcher as well as the configuration
 
@@ -167,7 +165,7 @@ const execute = () => {
 }
 ```
 
-## Run Startover 
+# Run Startover 
 
 We can run startover once it is installed with the following command
 
@@ -176,13 +174,13 @@ startover -d myapp -f hello.js,"bye world.html" -e css,md -c "npm run build" -D 
 ```
 It is important to remember that the command/commands we are running from the `-c` option must be compatible with the system/shell we are running `startover` in and they will run one after the other
 
-## Resources 
+# Resources 
 
 I've made use of a few different resources for the application as follows
 
-### Articles 
+## Articles 
 - [Building command line tools with Node.js](https://developer.atlassian.com/blog/2015/11/scripting-with-node/) by Tim Pettersen
 
-### Libraries 
+## Libraries 
 - Parsing Commands : [Commander](https://npmjs.org/package/commander)
 - Watching File System : [Chokidar](https://www.npmjs.com/package/chokidar)

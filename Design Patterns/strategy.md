@@ -1,17 +1,15 @@
-# Strategy Design Pattern
+> [From this video](https://www.youtube.com/watch?v=-NCgRD9-C6o&list=PLF206E906175C7E07&index=3)
 
-[From this video](https://www.youtube.com/watch?v=-NCgRD9-C6o&list=PLF206E906175C7E07&index=3)
-
-## Composition
+# Composition
 
 - Objects can be defined by using composition to change the behaviour of that object
 
-## Starategy Pattern
+# Starategy Pattern
 
 - Positive - We use the strategy pattern when we want a class to be able to choose from different behaviours - Or use one of several behaviours dynamically - Reduces long lists of conditionals - Avoids duplicate code - Keeps class from forcing other class changes - Hide complicated code from user
 - Negative - Increases the number of objects and classes that are needed
 
-## Code
+# Code
 
 `Animal.java`
 

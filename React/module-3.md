@@ -1,5 +1,3 @@
-# Module 3 - Lists and Forms
-
 [Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
 
 - [Module 3 - Lists and Forms](#module-3---lists-and-forms)
@@ -17,11 +15,11 @@
     - [Multiple Inputs](#multiple-inputs)
     - [Tutorial](#tutorial)
 
-## Lists
+# Lists
 
 We can render a list of react elements using a few different methods
 
-### Loop
+## Loop
 
 ```jsx
 var elements = []
@@ -37,7 +35,7 @@ ReactDOM.render(
 )
 ```
 
-### Map
+## Map
 
 ```jsx
 var array = [
@@ -56,7 +54,7 @@ ReactDOM.render(
 )
 ```
 
-### Map in JSX
+## Map in JSX
 
 ```jsx
 var array = [
@@ -75,7 +73,7 @@ ReactDOM.render(
 )
 ```
 
-### Using Keys
+## Using Keys
 
 We can also use unique keys to render items quicker with the following
 
@@ -114,7 +112,7 @@ ReactDOM.render(
 )
 ```
 
-### List Component
+## List Component
 
 It can be useful to define a component that specifically renders lists as follows
 
@@ -157,7 +155,7 @@ ReactDOM.render(
 )
 ```
 
-## Controlled Components
+# Controlled Components
 
 HTML form elements can be modified from the DOM as well as from the code, we use React to manage the state of these with what's called *Controlled Components*
 
@@ -168,7 +166,7 @@ This is done with the following steps
 1. When an input value is changed, call an event handler to update the value
 2. Re-render the element with its new value
 
-### Input Fields
+## Input Fields
 
 ```jsx
 class ControlledText extends React.Component {
@@ -188,7 +186,7 @@ class ControlledText extends React.Component {
 }
 ```
 
-### Checkboxes
+## Checkboxes
 
 ```jsx
 class ControlledCheckbox extends React.Component {
@@ -208,7 +206,7 @@ class ControlledCheckbox extends React.Component {
 }
 ```
 
-### Text Areas
+## Text Areas
 
 ```jsx
 class ControlledText extends React.Component {
@@ -228,7 +226,7 @@ class ControlledText extends React.Component {
 }
 ```
 
-### Selects
+## Selects
 
 ```jsx
 class ControlledSelect extends React.Component {
@@ -278,7 +276,7 @@ class ControlledSelect extends React.Component {
 }
 ```
 
-### Multiple Inputs
+## Multiple Inputs
 
 ```jsx
 class ControlledMultiple extends React.Component{
@@ -310,7 +308,7 @@ class ControlledMultiple extends React.Component{
 }
 ```
 
-### Tutorial
+## Tutorial
 
 The Codepen for the Tutorial can be found [here](https://codepen.io/benjlin/pen/rwGKjW)
 

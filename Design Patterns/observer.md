@@ -1,14 +1,12 @@
-# Observer Design Pattern
+> [From this video](https://www.youtube.com/watch?v=wiQdrH2YpT4&list=PLF206E906175C7E07&index=4)
 
-[From this video](https://www.youtube.com/watch?v=wiQdrH2YpT4&list=PLF206E906175C7E07&index=4)
-
-## Oserver Pattern
+# Oserver Pattern
 
 - Positive - When you need many objects to receive an update on the change of another object - Publisher - Subscriber - Lose coupling between objects
 
 - Negative - The subject may send updates that observers don't need
 
-## Code
+# Code
 
 `Subject.java`
 

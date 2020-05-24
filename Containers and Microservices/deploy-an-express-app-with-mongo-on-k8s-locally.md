@@ -1,12 +1,10 @@
-# Deploy an Express Application that uses MongoDB on k8s Locally
-
 Before reading through this, you may want to read the page about the application being deployed on the [Build an Express App that uses MongoDB](./build-an-express-app-with-mongo.md) page
 
 - [Ketting started with Minicube](https://docs.bitnami.com/kubernetes/get-started-kubernetes/#option-1-install-minikube)
 - [Installing Minicube on Windows](https://medium.com/@JockDaRock/minikube-on-windows-10-with-hyper-v-6ef0f4dc158c)
 - [Dockerise a Node-Mongo App](https://medium.com/statuscode/dockerising-a-node-js-and-mongodb-app-d22047e2806f)
 
-## Contents
+# Contents
 - [Deploy an Express Application that uses MongoDB on k8s Locally](#deploy-an-express-application-that-uses-mongodb-on-k8s-locally)
   - [Contents](#contents)
   - [Prerequisites](#prerequisites)
@@ -20,7 +18,7 @@ Before reading through this, you may want to read the page about the application
     - [Deploying on Kubernetes](#deploying-on-kubernetes)
     - [Use the App](#use-the-app)
 
-## Prerequisites
+# Prerequisites
 
 - Docker
 - Minicube
@@ -28,11 +26,11 @@ Before reading through this, you may want to read the page about the application
 - `kubectl` installed
 - Helm and Tiller
 
-## Installation
+# Installation
 
-### Minikube
+## Minikube
 
-#### Hyper-V
+### Hyper-V
 
 Using minikube with Windows requires us to use Hyper-V as a driver, we can follow the instructions on [Jock Reed's Blog](https://medium.com/@JockDaRock/minikube-on-windows-10-with-hyper-v-6ef0f4dc158c) on how configure a new virtual switch, then we can start minikube using this switch as follows:
 
@@ -51,14 +49,14 @@ Enable Dynamic Memory from Hyper-V Manager, and then start minikube with:
 ```bash
 minikube start 
 ```
-### VirtualBox
+## VirtualBox
 
 We can use VirtualBox as our driver as well with the following
 
 ```bash
 minikbe start --vm-driver virtualbox
 ```
-#### Running Minikube
+### Running Minikube
 
 ```bash
 minikube start
@@ -97,7 +95,7 @@ Next we can view our minikube dashboard with
 minikube dashboard
 ```
 
-## Creating a Deployment
+# Creating a Deployment
 
 We can create a deployment based on a deployment yaml file
 
@@ -107,7 +105,7 @@ To see how the app is constructed and how it communicates with the DB, read the 
 
 The Express App is exposed on port `8080` and will speak to the Mongo instance on `mongo:27017`
 
-### Building the Image
+## Building the Image
 
 Before we can deploy our application we need to build it as a Docker image and push it to a repository, in the case of the Comments App, this will be as follows
 
@@ -120,7 +118,7 @@ docker push
 
 If we do not wish to redeploy our
 
-### Deploying on Kubernetes
+## Deploying on Kubernetes
 
 Once logged into a kubernetes cluster we can make use of the `express.yaml` to deploy the express app, and the `mongo.yaml` file to deploy Mongo
 
@@ -211,7 +209,7 @@ spec:
          - containerPort: 27017
 ```
 
-### Use the App
+## Use the App
 
 We can use minikube to View the application
 

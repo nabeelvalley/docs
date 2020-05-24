@@ -1,6 +1,4 @@
-# Play audio from a Javascript XHR Request
-
-## Play the Audio
+# Play the Audio
 
 In order to play audio from the result of an XHR request we can make use of the following code (in this case using the IBM Watson Text to Speech Service), this will make the request, store the response audio as a `Blob`, assign that to an Audio Element, and then play the audio.
 
