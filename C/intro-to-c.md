@@ -93,8 +93,6 @@ char name[] = "Nabeel";
 
 If we want to define a character array without knowing the number of characters needed in advance we need to state the length of the string. We need to make sure we give it one more character than we need as it needs a character to store the "string end" character
 
-
-
 ```c
 char name[11]; // note this will only store 10 characters
 ```
@@ -154,3 +152,18 @@ printf("Hello, %s!\n", name);
 ```
 
 > When taking in a string like above we cannot receive spaces using `scanf`
+
+# Comments
+
+Commenting code can be dome using `//` for single line comments or `/* ..... */` for multi line comments
+
+# Data Types
+
+Some of the data types in C are:
+
+- `int` - whole numbers
+- `double` - double prevision decimal number, usually use this
+- `float` - decimal number, use less memory, can explicitly define this with the `f` at the end of the number
+- `char` - denoted by a single quote
+
+Arrays allow us to store groups of data and are identified using `[]`. The `string` data type in C is based on a `char[]` which use double quotes when defining. It needs to be noted that the string needs a termination character which is a `\0` (you don't have to type this yourself)
