@@ -9,6 +9,7 @@
 - [Send an Email](#send-an-email)
 - [Troubleshooting Path Commands](#troubleshooting-path-commands)
 - [Create Drive Aliases](#create-drive-aliases)
+- [What Process is Using a Port](#what-process-is-using-a-port)
 - [My Current \$PROFILE](#my-current-profile)
 
 </details>
@@ -223,6 +224,14 @@ To remove a drive run the following command:
 
 ```
 > subst R: /D
+```
+
+# What Process is Using a Port
+
+To view what process is using a specific port you can run the following command:
+
+```ps1
+Get-Process -Id (Get-NetTCPConnection -LocalPort 5000).OwningProcess
 ```
 
 # My Current \$PROFILE
