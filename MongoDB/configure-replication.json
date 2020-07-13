@@ -1,0 +1,4 @@
+{
+  "title": "Replication with MongoDB",
+  "subtitle": "Configure MongoDB ReplicaSets using Mongo on a Server or via Docker Compose"
+}
