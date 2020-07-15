@@ -21,16 +21,25 @@ This will create the folders for three database nodes
 You can start three DB services in different terminals with the following:
 
 ```bash
-mongod --replSet rs0 --port 37100 --bind_ip localhost,localhost:37101,localhost:37102 --dbpath ./rs0-0  --oplogSize 128
+mongod --replSet rs0 --port 37100 --bind_ip localhost --dbpath ./rs0-0  --oplogSize 128
 ```
 
 ```bash
-mongod --replSet rs0 --port 37101 --bind_ip localhost,localhost:37100,localhost:37102 --dbpath ./rs0-1  --oplogSize 128
+mongod --replSet rs0 --port 37101 --bind_ip localhost --dbpath ./rs0-1  --oplogSize 128
 ```
 
 ```bash
-mongod --replSet rs0 --port 37102 --bind_ip localhost,localhost:37100,localhost:37101  --dbpath ./rs0-2  --oplogSize 128
+mongod --replSet rs0 --port 37102 --bind_ip localhost --dbpath ./rs0-2  --oplogSize 128
 ```
+
+Note that you can also configure an instance to startup with replication by using the `mongod.cfg` file (for a normal instance). To enable replication you can use the following:
+
+```yml
+replication:
+  replSetName: rs0
+```
+
+You can thereafter go on to configure the replicaset, additionally it's helpful to note that any of the other options we passed in via the command line can be set-up including the Port, IPs, Oplog Size and DB Path
 
 ## Configure the Replica Set
 
