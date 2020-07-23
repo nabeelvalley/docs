@@ -91,6 +91,13 @@ db.createUser(
 )
 ```
 
+At this point you may also want to give your admin root access, you can do this with the following:
+
+```js
+use admin
+db.grantRolesToUser("myUserAdmin", [{ role: "root", db: "admin" }])
+```
+
 > If you get a `passwordPrompt is not defined` error then just use the plaintext password
 
 3. Shut down the instance:
