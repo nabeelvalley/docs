@@ -7,6 +7,7 @@
 	- [Cloning a Project with Submodules](#cloning-a-project-with-submodules)
 - [Pull Latest Changes from Submodule](#pull-latest-changes-from-submodule)
 - [Clean Ignored Files](#clean-ignored-files)
+- [Using Git from Another Tool](#using-git-from-another-tool)
 
 </details>
 
@@ -124,4 +125,35 @@ Which will clean out the repo, and then you can restage and commit all the files
 ```bash
 git add .
 git commit -m ".gitignore fix"
+```
+
+# Using Git from Another Tool
+
+Sometimes it's useful to use git from another tool/application. To get a more standard/parseable output from git commands you can add the `--porcelain` flag. For example, with `git status` below:
+
+```sh
+> git status --porcelain
+
+ M Random/git.md
+?? Random/wsl.json
+?? Random/wsl.md
+```
+
+As opposed to:
+
+```
+> git status
+
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   git.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        wsl.json
+        wsl.md
 ```

@@ -11,7 +11,7 @@ npm i -g
 
 Next we can link NPM to our actual package instead of the global version with
 
-```powershell 
+```powershell
 npm link
 ```
 
