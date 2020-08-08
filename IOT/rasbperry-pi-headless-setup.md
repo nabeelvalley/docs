@@ -1,5 +1,7 @@
 # Get the OS Ready
 
+> These notes mostly apply to Raspberry OS, for Ubuntu take a look [here]
+
 To setup a headless Pi you need to do the following:
 
 1. Download the [Raspberry Pi Imager](https://www.raspberrypi.org/downloads/)
