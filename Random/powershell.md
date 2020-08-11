@@ -360,3 +360,11 @@ function _dupe {
   rm -r $tempDir
 }
 ```
+
+# Search for Devices on Network
+
+To view the IP's of the different devices that are currently connected to your network you can use the following command:
+
+```ps1
+arp -a
+```

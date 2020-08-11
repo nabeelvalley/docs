@@ -40,7 +40,7 @@ Next, you will want to configure SSH, you just need to add an empty file named `
 > [Docs](https://www.raspberrypi.org/documentation/remote-access/ip-address.md)
 
 1. Get your current PC's IP
-2. Run ` sudo nmap -sn <YOUR IP>/24` to view all the IP's of devices on your network
+2. Run `sudo nmap -sn <YOUR IP>/24` to view all the IP's of devices on your network
 3. Check if any have the hostname `raspberrypi` and check the IP. If none of them have the hostname just wing it and try a few, idk.
 4. Next use `ssh pi@<RaspberryPi IP>` and log in with the password `raspberry`
 
@@ -79,3 +79,39 @@ sudo reboot
 ```
 
 And then SSH using your new IP Address that you assigned above. This is to ensure that you can always find the Pi on your network easily. You will now be prompted to login - be sure to use the updated password that you configured
+
+# Add Node.js
+
+Installing Node involves getting the installation script and running the script, you can do this by running the following command:
+
+```sh
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+```
+
+Then:
+
+```sh
+sudo apt-get install -y nodejs
+```
+
+Finally, you can check the version with:
+
+```sh
+node --version
+npm --version
+```
+
+# Add Yarn
+
+Similar to Node, you need to install Yarn using a setup script:
+
+```sh
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+```
+
+And then:
+
+```sh
+sudo apt update && sudo apt install yarn
+```
