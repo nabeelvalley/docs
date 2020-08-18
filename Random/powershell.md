@@ -234,6 +234,20 @@ To view what process is using a specific port you can run the following command:
 Get-Process -Id (Get-NetTCPConnection -LocalPort 5000).OwningProcess
 ```
 
+# Zipping Files
+
+To zip all the files in a directory you can use the following:
+
+```ps1
+Compress-Archive -Path ./* -DestinationPath ./output_file.zip
+```
+
+To zip a directory, including the root directory in the Zip use the following:
+
+```ps1
+Compress-Archive -Path ./dir_to_zip -DestinationPath Compress-Archive -Path ./* -DestinationPath ./output_file.zip
+```
+
 # My Current \$PROFILE
 
 Yout Powershell is a script that runs whenever you open a new powershell instance, the functions available in it become part of your session so you can just call them from the terminal. The path to this file is stored in every Powershell instance as the `$PROFILE` variable
