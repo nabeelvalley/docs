@@ -248,6 +248,28 @@ To zip a directory, including the root directory in the Zip use the following:
 Compress-Archive -Path ./dir_to_zip -DestinationPath Compress-Archive -Path ./* -DestinationPath ./output_file.zip
 ```
 
+# Search for Devices on Network
+
+To view the IP's of the different devices that are currently connected to your network you can use the following command:
+
+```ps1
+arp -a
+```
+
+# Connect to RDP
+
+To use an RDP file you can make use of the `mstsc` command with a path to the RDP file you want to connec with:
+
+```ps1
+mstsc ./my-cool-server.rdp
+```
+
+Which will then open the RDP file
+
+# Switch to Home Directory
+
+You can switch to your home directory on Powershell with `cd ~`, the `~` directory represents the user's home, same as in other OS's and shells
+
 # My Current \$PROFILE
 
 Yout Powershell is a script that runs whenever you open a new powershell instance, the functions available in it become part of your session so you can just call them from the terminal. The path to this file is stored in every Powershell instance as the `$PROFILE` variable
@@ -373,12 +395,4 @@ function _dupe {
   nvpaste
   rm -r $tempDir
 }
-```
-
-# Search for Devices on Network
-
-To view the IP's of the different devices that are currently connected to your network you can use the following command:
-
-```ps1
-arp -a
 ```
