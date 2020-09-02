@@ -157,3 +157,7 @@ Untracked files:
         wsl.json
         wsl.md
 ```
+
+# Locate your SSH Key on Windows
+
+When using `git` with SSH you may have difficulties finding the location for the SSH keys to use, to find the SSH Key you need to navigate to `%HOMEDRIVE%%HOMEPATH%\.ssh\` To figure out where this folder is you can do the following: `start > run > %HOMEDRIVE%%HOMEPATH%`. The SSH Keys being used should be located in here
