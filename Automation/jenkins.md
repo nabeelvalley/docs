@@ -248,3 +248,22 @@ stage('clone')
     useRemoteConfigs: [[credentialsId: 'credentials_id', url: '<GIT URL>.git']]
   ])
 ```
+
+# Powershell Plugin Issues
+
+The Powershell plugin often does not exit correctly when using it inside of a Jenkinsfile, a step may have a function like so:
+
+```groovy
+powershell """
+  cd ./idontexist
+"""
+```
+
+Which would throw an error. Jenkins sometimes ignores errors in Powershell scripts, to exit with this correctly, the most reliable way I've found is to check if there a non-null `$error` in the powershell script, and exit with `1` if there is:
+
+```groovy
+powershell """
+  cd ./idontexist
+  if($error) { exit 1 }
+"""
+```
