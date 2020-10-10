@@ -1,226 +1,80 @@
-> [From this video](https://www.youtube.com/watch?v=-NCgRD9-C6o&list=PLF206E906175C7E07&index=3)
+> The strategy pattern is about using composition instead of inheritence
 
-# Composition
+The strategy pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. The algorithm can vary independent of clients using it
 
-- Objects can be defined by using composition to change the behaviour of that object
+> Algorithm/implementation is decoupled from its clients
 
-# Starategy Pattern
+This works by creating an object which wraps the behaviour we want to implement in a family of classes, allowing clients to choose which behaviour they would like to implement by referencing the interface that these behaviours implement.
 
-- Positive - We use the strategy pattern when we want a class to be able to choose from different behaviours - Or use one of several behaviours dynamically - Reduces long lists of conditionals - Avoids duplicate code - Keeps class from forcing other class changes - Hide complicated code from user
-- Negative - Increases the number of objects and classes that are needed
+# Example
 
-# Code
+## Definition of Classes
 
-`Animal.java`
+```cs
+namespace DesignPatterns.Strategy
+{
+    public class User {
+        // strategy to be used for logging in a user
+        // this is what we want to change depending on an implementation
+        private ILoginStrategy _loginStrategy { get; set; }
 
-```java
-public class Animal {
+        public string Username { get; set; }
+        public string Password { get; set; }
 
-	private String name;
-	private double height;
-	private int weight;
-	private String favFood;
-	private double speed;
-	private String sound;
+        // we set the behaviour when instantiating
+        public User(ILoginStrategy loginStrategy)
+        {
+            this._loginStrategy = loginStrategy;
+        }
 
-	// Instead of using an interface in a traditional way
-	// we use an instance variable that is a subclass
-	// of the Flys interface.
+        // we can possibly change the strategy later
+        public void SetLoginStrategy(ILoginStrategy loginStrategy)
+        {
+            this._loginStrategy = loginStrategy;
+        }
 
-	// Animal doesn't care what flyingType does, it just
-	// knows the behavior is available to its subclasses
+        // login function that can be called by a consumer of this class
+        public bool Login() => _loginStrategy.Execute(Username, Password);
+    }
 
-	// This is known as Composition : Instead of inheriting
-	// an ability through inheritance the class is composed
-	// with Objects with the right ability
+    // interface to define login strategies
+    public interface ILoginStrategy
+    {
+        public bool Execute(string username, string password);
+    }
 
-	// Composition allows you to change the capabilities of
-	// objects at run time!
+    // login strategy for logging in from a local service
+    public class LocalLoginStrategy: ILoginStrategy
+    {
+        public bool Execute(string username, string password) => true;
+    }
 
-	public Flys flyingType;
-
-	public void setName(String newName){ name = newName; }
-	public String getName(){ return name; }
-
-	public void setHeight(double newHeight){ height = newHeight; }
-	public double getHeight(){ return height; }
-
-	public void setWeight(int newWeight){
-		if (newWeight > 0){
-			weight = newWeight;
-		} else {
-			System.out.println("Weight must be bigger than 0");
-		}
-	}
-	public double getWeight(){ return weight; }
-
-	public void setFavFood(String newFavFood){ favFood = newFavFood; }
-	public String getFavFood(){ return favFood; }
-
-	public void setSpeed(double newSpeed){ speed = newSpeed; }
-	public double getSpeed(){ return speed; }
-
-	public void setSound(String newSound){ sound = newSound; }
-	public String getSound(){ return sound; }
-
-	/* BAD
-	* You don't want to add methods to the super class.
-	* You need to separate what is different between subclasses
-	* and the super class
-	public void fly(){
-
-		System.out.println("I'm flying");
-
-	}
-	*/
-
-	// Animal pushes off the responsibility for flying to flyingType
-
-	public String tryToFly(){
-
-		return flyingType.fly();
-
-	}
-
-	// If you want to be able to change the flyingType dynamically
-	// add the following method
-
-	public void setFlyingAbility(Flys newFlyType){
-
-		flyingType = newFlyType;
-
-	}
-
+    // login strategy for logging in from a remote service
+    public class RemoteLoginStrategy : ILoginStrategy
+    {
+        public bool Execute(string username, string password) => false;
+    }
 }
 ```
 
-`Dog.java`
+## Usage
 
-```java
-public class Dog extends Animal{
+```cs
+var user = new User(new LocalLoginStrategy()) {
+    Username = "user",
+    Password = "Password"
+};
 
-	public void digHole(){
+// calling this uses the LocalLoginStrategy
+user.Login();
 
-		System.out.println("Dug a hole");
+user.SetLoginStrategy(new RemoteLoginStrategy());
 
-	}
-
-	public Dog(){
-
-		super();
-
-		setSound("Bark");
-
-		// We set the Flys interface polymorphically
-		// This sets the behavior as a non-flying Animal
-
-		flyingType = new CantFly();
-
-	}
-
-	/* BAD
-	* You could override the fly method, but we are breaking
-	* the rule that we need to abstract what is different to
-	* the subclasses
-	*
-	public void fly(){
-
-		System.out.println("I can't fly");
-
-	}
-	*/
-
-}
+// calling this uses the RemoteLoginStrategy
+user.Login();
 ```
 
-`Bird.java`
+# References
 
-```java
-public class Bird extends Animal{
-
-	// The constructor initializes all objects
-
-	public Bird(){
-
-		super();
-
-		setSound("Tweet");
-
-		// We set the Flys interface polymorphically
-		// This sets the behavior as a non-flying Animal
-
-		flyingType = new ItFlys();
-
-	}
-
-}
-```
-
-`Flys.java`
-
-```java
-// The interface is implemented by many other
-// subclasses that allow for many types of flying
-// without effecting Animal, or Flys.
-
-// Classes that implement new Flys interface
-// subclasses can allow other classes to use
-// that code eliminating code duplication
-
-// I'm decoupling : encapsulating the concept that varies
-
-public interface Flys {
-
-   String fly();
-
-}
-
-// Class used if the Animal can fly
-
-class ItFlys implements Flys{
-
-	public String fly() {
-
-		return "Flying High";
-
-	}
-
-}
-
-//Class used if the Animal can't fly
-
-class CantFly implements Flys{
-
-	public String fly() {
-
-		return "I can't fly";
-
-	}
-
-}
-```
-
-`AnimalPlay.java`
-
-```java
-public class AnimalPlay{
-
-	public static void main(String[] args){
-
-		Animal sparky = new Dog();
-		Animal tweety = new Bird();
-
-		System.out.println("Dog: " + sparky.tryToFly());
-
-		System.out.println("Bird: " + tweety.tryToFly());
-
-		// This allows dynamic changes for flyingType
-
-		sparky.setFlyingAbility(new ItFlys());
-
-		System.out.println("Dog: " + sparky.tryToFly());
-
-	}
-
-}
-```
+- [Strategy Pattern - Christopher Okhravi](https://www.youtube.com/watch?v=v9ejT8FO-7I&list=PLrhzvIcii6GNjpARdnO4ueTUAVR9eMBpc)
+- [Strategy in C# - Refactoring Guru](https://refactoring.guru/design-patterns/strategy/csharp/example#:~:text=Strategy%20is%20a%20behavioral%20design,delegates%20it%20executing%20the%20behavior.)

@@ -13,7 +13,7 @@
 
 - What classes have in common
 - Abstracted features
-- Ovrride or extend methods
+- Override or extend methods
 - Avoid duplicate
 - Anything in superclass will be reflected in all subclasses
 
