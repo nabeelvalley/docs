@@ -1,0 +1,1 @@
+> [Based on this CognitiveClass learning path](https://cognitiveclass.ai/learn/reactive-architecture-advanced)
