@@ -12,7 +12,7 @@ Signal R is a way to add real-time functionality to a .NET Web API, it makes use
 
 ```bash
 mkdir SignalRTypeScript
-``
+```
 
 2. Create a new .NET Web App and add it to the solution
 
