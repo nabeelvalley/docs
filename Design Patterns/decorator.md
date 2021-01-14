@@ -31,6 +31,8 @@ public abstract class AbstractLogin
 // base class for concrete decorator classes
 public abstract class LoginDecorator : AbstractLogin
 {
+    // reference to the inner login that we are decorating
+    // this could be private, public here for the sake of example
     public abstract AbstractLogin InnerLogin { get; }
 }
 ```
@@ -72,6 +74,7 @@ public class EmailPinLoginDecorator : LoginDecorator
 
 
     // handle login by first making call to InnerLogin's process
+    // a decorator should in some way make use of component method as well
     public override bool Login()
     {
         System.Console.WriteLine("Email Pin Verification process");
@@ -80,7 +83,7 @@ public class EmailPinLoginDecorator : LoginDecorator
 
         if (innerLoginResult)
         {
-            System.Console.WriteLine("Inner login successful");
+            System.Console.WriteLine("Email's Inner login successful");
             return true;
         }
         else
