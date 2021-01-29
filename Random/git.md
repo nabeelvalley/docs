@@ -11,6 +11,58 @@
 
 </details>
 
+# Revert Commits
+
+> From [StackOverflow](https://stackoverflow.com/questions/1463340/how-to-revert-multiple-git-commits)
+
+## Revert Single Commit
+
+Say we have a commit with id `b` below, and we would like undo changes that were introduced in that commit but still retain our history as is, something like:
+
+We want to go from this state:
+
+```
+a -> b -> c -> d -> e
+```
+
+To this state:
+
+```
+a -> b -> c -> d -> e -> b'
+```
+
+Such that `b'` undoes the changes introduced by `b`, then we can use the following git command:
+
+```
+git revert --no-commit HEAD~4
+```
+
+Where `HEAD~4` means the 4th last commit from the current `HEAD` (latest commit)
+
+## Revert Multiple Commits
+
+Say we have a commit with id `b` below, and we would like undo changes that were introduced in that all changes since that commit but still retain our history as is, something like:
+
+We want to go from this state:
+
+```
+a -> b -> c -> d -> e
+```
+
+To this state:
+
+```
+a -> b -> c -> d -> e -> (bcde)'
+```
+
+Such that `(bcde)'` undoes the changes introduced by all commits from `b` to `e`, then we can use the following git command:
+
+```
+git revert --no-commit HEAD~4..
+```
+
+Where `HEAD~4` means the 4th last commit from the current `HEAD` (latest commit) and the `..` means a commit range till the latest commit
+
 # Submodules
 
 Submodules allow you to include one git repository in another, for instance if we want to include a library in our codebase
