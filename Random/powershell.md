@@ -3,6 +3,8 @@
 
 - [Modify Prompt](#modify-prompt)
 - [Adding Aliases](#adding-aliases)
+- [View File Tree](#view-file-tree)
+- [Symlinks](#symlinks)
 - [Git Status for Sub-Directories](#git-status-for-sub-directories)
 - [Zip and Unzip a File](#zip-and-unzip-a-file)
 - [Copy and Paste Files](#copy-and-paste-files)
@@ -62,6 +64,73 @@ function repo {
   set-location c:\Users\NabeelValley\Documents\DevEx\Repos
 }
 ```
+
+# View File Tree
+
+You can view the folder and file tree in powershell using the `tree` command.
+
+To view the Folders only in the current directory:
+
+```powershell
+tree
+```
+
+Which will output something like:
+
+```
+C:.
+└───main
+```
+
+Or from another directory you can use:
+
+```powershell
+tree ./path/to/dir
+```
+
+> To refer to the current directory you can use `tree` without any directory, or `tree .` to refer to the current directory. Both ways are almost identical in terms of the output. Note that including the directory in the command results in the full directory path being written in the command's output
+
+And to view the tree with files included, you can use:
+
+```powershell
+tree /f
+```
+
+Which will output something like:
+
+```
+C:.
+└───main
+        data.txt
+```
+
+And for another directory:
+
+```powershell
+tree ./path/to/dir /f
+```
+
+# Symlinks
+
+> Support for `mklink` only exists on newer versions of Windows, otherwise you may need to use `New-Item`
+
+Creating symlinks can be done with the `mklink` command which is an alias for the `New-Item -ItemType SymbolicLink` command
+
+Using the base `New-Item` version, a symlink can be created with the below command where `data.txt` is the linked file we want to create and `./main/data.txt/ is the path to the existing file:
+
+```powershell
+New-Item -ItemType SymbolicLink -Name data.txt -Target ./main/data.txt
+```
+
+Which creates a file called `data.txt` which is linked to `./main/data.txt`
+
+The `mklink` version of this is:
+
+```powershell
+mklink data.txt ./main/data.txt
+```
+
+> For more info see [this page](https://superuser.com/questions/1307360/how-do-you-create-a-new-symlink-in-windows-10-using-powershell-not-mklink-exe_
 
 # Git Status for Sub-Directories
 
