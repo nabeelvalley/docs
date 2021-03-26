@@ -4,8 +4,9 @@
 
 The Pi has 40 General-Purpose Input-Output (GPIO) pins configured in the following way:
 
-![Raspberry Pi Pinout Diagram from The Docs](./rpi-gpio-pinout-voltages.png)
-
+<center>
+![Raspberry Pi Pinout Diagram from The Docs](/content/docs/iot/rpi-gpio-pinout-voltages.png =60%x60%)
+</center>
 
 - 2x 5V Pins
 - 2x 3.3V Pins
@@ -15,7 +16,9 @@ The rest of the pins are general purpose and can be assigned to either High (3.3
 
 In addition to basic Input/Output, the pins are able to perform specific functions as follows: 
 
-![Raspberry Pi Pinout Diagram](./rpi-gpio-pinout.png)
+<center>
+![Raspberry Pi Pinout Diagram](/content/docs/iot/rpi-gpio-pinout.png)
+</center>
 
 > Note that GPIO 0 (pin 27) and GPIO 1 (pin 28) are available on the board but reserved for special use (EEPROM)
 
@@ -32,4 +35,6 @@ Some useful information on the different pinouts and their functions can be foun
 
 THe more detailed pinout diagram depicting this can be seen below:
 
-![Pinout diagram from pinout.xyz](./rpi-gpio-pinout-detailed.png)
+<center>
+![Pinout diagram from pinout.xyz](/content/docs/iot/rpi-gpio-pinout-detailed.png =60%x60%)
+</center>
