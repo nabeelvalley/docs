@@ -35,12 +35,20 @@ network={
 
 Next, you will want to configure SSH, you just need to add an empty file named `ssh` to the filesystem directory, note that when you SSH in later, the default username is `pi` and the password is `raspberry`
 
+You can wait a few minutes and try to reach the pi with `ping rasberrypi.local`, if this responds then you can possibly just skip the IP stuff if you don't need it to be static and you can SSH with:
+
+```sh
+ssh pi@raspberrypi.local
+```
+
+If you're not able to do so you may need to look around and try to find the IP some other way
+
 # Get the PI IP
 
 > [Docs](https://www.raspberrypi.org/documentation/remote-access/ip-address.md)
 
 1. Get your current PC's IP
-2. Run `sudo nmap -sn <YOUR IP>/24` to view all the IP's of devices on your network
+2. Run `sudo nmap -sn <YOUR IP>/24` (linux) or `arp -a` (windows) to view the IP's of devices on your network
 3. Check if any have the hostname `raspberrypi` and check the IP. If none of them have the hostname just wing it and try a few, idk.
 4. Next use `ssh pi@<RaspberryPi IP>` and log in with the password `raspberry`
 
