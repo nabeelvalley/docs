@@ -11,6 +11,7 @@
   - [Cloning a Project with Submodules](#cloning-a-project-with-submodules)
 - [Pull Latest Changes from Submodule](#pull-latest-changes-from-submodule)
 - [Clean Ignored Files](#clean-ignored-files)
+- [Create an Orphan/Unrelated Branch](#create-an-orphanunrelated-branch)
 - [Using Git from Another Tool](#using-git-from-another-tool)
 - [Consistent Line Endings](#consistent-line-endings)
 - [Locate your SSH Key on Windows](#locate-your-ssh-key-on-windows)
@@ -195,6 +196,26 @@ git add .
 git commit -m ".gitignore fix"
 ```
 
+# Create an Orphan/Unrelated Branch
+
+> Information from [this Stack Overflow Answer](https://stackoverflow.com/a/4288660)
+
+Sometimes it's useful to start a completely fresh segment of work without carrying around previous changes, e.g. to test out a totally new application architecture
+
+We can do this by using the following:
+
+```bash
+git checkout --orphan NEW_BRANCH_NAME
+git rm -rf .
+```
+
+Then you can remove all old files, or do whatever work is required and then:
+
+```bash
+git add .
+git commit -m 'Initial commit on new branch'
+```
+
 # Using Git from Another Tool
 
 Sometimes it's useful to use git from another tool/application. To get a more standard/parseable output from git commands you can add the `--porcelain` flag. For example, with `git status` below:
@@ -225,6 +246,8 @@ Untracked files:
         wsl.json
         wsl.md
 ```
+
+
 
 # Consistent Line Endings
 
