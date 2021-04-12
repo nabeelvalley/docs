@@ -12,6 +12,7 @@
 - [Pull Latest Changes from Submodule](#pull-latest-changes-from-submodule)
 - [Clean Ignored Files](#clean-ignored-files)
 - [Create an Orphan/Unrelated Branch](#create-an-orphanunrelated-branch)
+- [Using Git Flow](#using-git-flow)
 - [Using Git from Another Tool](#using-git-from-another-tool)
 - [Consistent Line Endings](#consistent-line-endings)
 - [Locate your SSH Key on Windows](#locate-your-ssh-key-on-windows)
@@ -215,6 +216,96 @@ Then you can remove all old files, or do whatever work is required and then:
 git add .
 git commit -m 'Initial commit on new branch'
 ```
+
+# Using Git Flow
+
+To init Git Flow in a repo use `git flow` for the help menu:
+
+```sh
+> git flow                                                                                                
+ 
+usage: git flow <subcommand>
+
+Available subcommands are:
+   init      Initialize a new git repo with support for the branching model.
+   feature   Manage your feature branches.
+   bugfix    Manage your bugfix branches.
+   release   Manage your release branches.
+   hotfix    Manage your hotfix branches.
+   support   Manage your support branches.
+   version   Shows version information.
+   config    Manage your git-flow configuration.
+   log       Show log deviating from base branch.
+
+Try 'git flow <subcommand> help' for details.
+```
+
+To init a new Git Flow project:
+
+```sh
+git flow init
+```
+
+This will then ask you to update the naming convention for your branching system, it uses the defaults as listed in the help menu above
+
+The full log when runing the above command will look something like this:
+
+```sh
+> git flow init
+
+Initialized empty Git repository in C:/Users/NVALLEY/source/repos/gitglow/.git/
+No branches exist yet. Base branches must be created now.
+Branch name for production releases: [master]
+Branch name for "next release" development: [develop]
+
+How to name your supporting branch prefixes?
+Feature branches? [] feature/
+Bugfix branches? [] bugfix/
+Release branches? [] release/
+Hotfix branches? [] hotfix/
+Support branches? [] support/
+Version tag prefix? []
+Hooks and filters directory? [<REPO PATH/.git/hooks]   
+```
+
+> When using `init` you will also automatically be switched to the `develop` branch if you're working on an existing project
+
+
+Now you can use the `git flow <BRANCH TYPE> start <FUNCTION NAME>` command to start a new feature branch for something like so:
+
+```sh
+> git flow feature start save-user
+
+Switched to a new branch 'feature/save-user'
+
+Summary of actions:
+- A new branch 'feature/save-user' was created, based on 'develop'
+- You are now on branch 'feature/save-user'                                                                                                                                                                                                     
+Now, start committing on your feature. When done, use:                                                                                                                                                                                               
+git flow feature finish save-user  
+
+```
+
+The above will then add you to a feature called `feature/save-user` and you can then make some changes and commits on this branch
+
+When you're done with that you can use `git flow <BRANCH TYPE> finish <FUNCTION NAME>` to merge the work to develop
+
+```sh
+>  git flow feature finish save-user 
+
+Switched to branch 'develop'
+Updating 012cac2..ecfd049
+Fast-forward
+ stuff.txt | Bin 0 -> 28 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 stuff.txt
+Deleted branch feature/save-user (was ecfd049).
+
+Summary of actions:
+- The feature branch 'feature/save-user' was merged into 'develop'
+```
+
+You can then continue to use the above methodology to manage branching, releases, etc.
 
 # Using Git from Another Tool
 
