@@ -275,14 +275,14 @@ On Windows you can alias specific folders as virtual drives (for easy reference 
 To view your aliases/drives you can run:
 
 ```
-> substr
+> subst
 R:\: => C:\repos
 ```
 
 To create a new drive you can use:
 
 ```
-> substr X: C:\path\to\folder
+> subst X: C:\path\to\folder
 ```
 
 Where `X` is the drive you would like to map to. Be sure not to have the trailing `\` in your folder name
