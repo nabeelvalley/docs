@@ -8,7 +8,7 @@ To create a Kotlin/Maven project you can use the following command, provided:
 - Archetype Group ID: `org.jetbrains.kotlin`
 - Archetype Version: `1.4.32`
 - Project Group ID: `com.mycompany`
-- Artiface ID: `demo`
+- Artifact ID: `demo`
 - Output Directory: `.`
 
 ```sh
@@ -48,6 +48,15 @@ To ensure your code builds to a self-contained JAR and that the main function is
 </plugin>
 ```
 
+You'll also need to set the `main.class` property in your `properties` section so that the build knows what to set it as in the above plugin we defined, this is made up of the Project Group ID + the name of the file with `Kt` appended to refer to the compiled Kotlin class, so in the starter app it will be `com.mycompany.HelloKt`:
+
+```xml
+<properties>
+    ... other stuff
+    <main.class>com.mycompany.HelloKt</main.class>
+</properties>
+```
+
 # Verify
 
 The `verify` command will run through all the build workflows that are configured, you can run:
@@ -71,5 +80,13 @@ mvn package
 Once you've packaged your application, you can use the following to run it:
 
 ```sh
-java -jar target/compiled-output-name.jar
+java -jar target/appname-jar-with-dependencies.jar
+```
+
+# Clean
+
+Lastly, to clean all build artifacts you can just use:
+
+```sh
+mvn clean
 ```
