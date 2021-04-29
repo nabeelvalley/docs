@@ -1,4 +1,4 @@
 {
-  "title": "Coding Train",
-  "subtitle": "Notes from Coding Train Videos"
+  "title": "Debug TypeScript in VSCode",
+  "subtitle": "Debug TypeScript Files in VSCode without compiling using ts-node"
 }
