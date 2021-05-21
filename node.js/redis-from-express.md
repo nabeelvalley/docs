@@ -222,10 +222,79 @@ services:
     entrypoint: redis-server --appendonly yes
 ```
 
+# Access Redis from Within Network
+
+Now, it should be possible for us to access the redis instance using Service Discovery within the compose network, to do this we'll use the `REDIS_URL` environment variable we defined above which will make a connection to `redis://redis:6379` which will be resolved within the docker network that our application will run in
+
+We can modify our client app by updating the connection to Redis as follows:
+
+`index.js`
+
+```js
+const redisUrl = process.env.REDIS_URL
+
+// other stuff
+
+const client = redis.createClient({
+  url: redisUrl
+});
+```
+
+So the final file will now be:
+
+`index.js`
+
+```js
+
+const express = require('express')
+const redis = require("redis");
+
+const port = process.env.PORT || 8080
+const redisUrl = process.env.REDIS_URL
+
+const app = express()
+
+app.use(express.text())
+
+const client = redis.createClient({
+  url: redisUrl
+});
+
+client.on("error", function(error) {
+  console.error(error);
+});
+
+app.get("/", (req, res) => {
+  console.log("request at URL")
+  res.send("hello nabeeel from port " + port)
+})
+
+app.get("/:key", (req, res) => {
+  const key = req.params.key
+  client.get(key, (error, reply) => {
+    if (error) res.send("Error")
+    else res.send(reply)
+  })
+})
+
+app.post("/:key", (req, res) => {
+  const key = req.params.key
+  const data = req.body
+  client.set(key, data, (error, reply) => {
+    if (error) res.send("Error")
+    else res.send(reply)
+  })
+})
+
+app.listen(port, () => {
+  console.log("app is listening on port " + port)
+})
+```
+
 And you should be able to run this all with: 
 
 ```sh
 docker-compose up
 ```
 
-And this will run Redis as well as your Application, and you are pretty much good to use the application exactly as we did before addding the compose setup
+And this will run Redis as well as your Application, and you are pretty much good to use the application exactly as we did before addding the compose setup and will connect our application to Redis from within the docker network
