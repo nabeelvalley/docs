@@ -16,6 +16,7 @@
 - [Using Git from Another Tool](#using-git-from-another-tool)
 - [Consistent Line Endings](#consistent-line-endings)
 - [Locate your SSH Key on Windows](#locate-your-ssh-key-on-windows)
+- [Delete All Branches other than Master](#delete-all-branches-other-than-master)
 
 </details>
 
@@ -338,8 +339,6 @@ Untracked files:
         wsl.md
 ```
 
-
-
 # Consistent Line Endings
 
 You can setup consistent line endings for repositories that are shared between Windows and *nix systems by adding the following to a `.gitattributes` file
@@ -355,3 +354,11 @@ You can setup consistent line endings for repositories that are shared between W
 # Locate your SSH Key on Windows
 
 When using `git` with SSH you may have difficulties finding the location for the SSH keys to use, to find the SSH Key you need to navigate to `%HOMEDRIVE%%HOMEPATH%\.ssh\` To figure out where this folder is you can do the following: `start > run > %HOMEDRIVE%%HOMEPATH%`. The SSH Keys being used should be located in here
+
+# Delete All Branches other than Master
+
+Using `grep` and `xargs` you can do this using:
+
+```sh
+git branch | grep -v "master" | xargs git branch -D
+```
