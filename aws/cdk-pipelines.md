@@ -390,6 +390,53 @@ const appStage = new AppStage(this, "Dev");
 pipeline.addApplicationStage(appStage);
 ```
 
+Once all that's been added, the final `pipeline-stack.ts` file will have the following:
+
+```ts
+import * as cdk from "@aws-cdk/core";
+import { Artifact } from "@aws-cdk/aws-codepipeline";
+import { CdkPipeline, SimpleSynthAction } from "@aws-cdk/pipelines";
+import { GitHubSourceAction } from "@aws-cdk/aws-codepipeline-actions";
+import { AppStage } from "./app-stage";
+
+export class PipelineStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+    
+    const sourceArtifact = new Artifact();
+    const cloudAssemblyArtifact = new Artifact();
+
+    // clone repo from GtiHub using token from secrets manager
+    const sourceAction = new GitHubSourceAction({
+      actionName: "GitHubSource",
+      output: sourceArtifact,
+      oauthToken: cdk.SecretValue.secretsManager("github-token"),
+      owner: "username",
+      repo: "repository",
+      branch: "main",
+    });
+
+    // will run yarn install --frozen-lockfile, and then the buildCommand
+    const synthAction = SimpleSynthAction.standardYarnSynth({
+      sourceArtifact,
+      cloudAssemblyArtifact,
+      buildCommand: "yarn build",
+    });
+
+    const pipeline = new CdkPipeline(this, "Pipeline", {
+      cloudAssemblyArtifact,
+      sourceAction,
+      synthAction,
+    });
+
+    const app = new AppStage(this, "Dev");
+    
+    pipeline.addApplicationStage(app);
+  }
+}
+
+```
+
 ## App Stack
 
 Since our app will use a Docker container we need to install the `@aws-cdk/aws-ecs`, `@aws-cdk/aws-ec2` and `@aws-cdk/aws-ecs-patterns` packages:
