@@ -125,6 +125,21 @@ You can then just run the web server with:
 node index.js
 ```
 
+The `Dockerfile` for the above app is so:
+
+```Dockerfile
+FROM node:14
+
+COPY package.json .
+COPY package-lock.json .
+RUN npm ci
+
+COPY . .
+
+EXPOSE 8080
+CMD ["npm", "start"]
+```
+
 # Test the App
 
 And you should then be able to make requests to the application from something like Postman for creating and retreiving a record
@@ -193,7 +208,7 @@ So the overall compose file will now be:
 
 `docker-compose.yml`
 
-```yml  
+```yml
 version: '3.4'
 
 services:
