@@ -1,0 +1,16 @@
+@font-face {
+  font-family: main;
+  src: url(../fonts/TTF/atkinson-hyperlegible-regular-102.ttf);
+}
+
+html {
+  font-family: main;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+code {
+  font-family: monospace;
+}

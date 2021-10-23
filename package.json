@@ -1,0 +1,14 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/nabeelvalley/docs",
+  "author": "Nabeel Valley",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npx @11ty/eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^0.12.1"
+  }
+}
