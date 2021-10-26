@@ -16,18 +16,10 @@
       <h2>{{ subtitle }}</h2>
 
       <article>
-        {{ content }}
+        {% for page in pages.docs %}
+        <a href="{{ page.path }}">{{ page.title }}</a>
+        {% endfor %}
       </article>
-
-      <!-- hljs -->
-      <link
-        rel="stylesheet"
-        href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/agate.min.css"
-      />
-      <script src="//unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js"></script>
-      <script>
-        hljs.highlightAll()
-      </script>
     </main>
   </body>
 </html>
