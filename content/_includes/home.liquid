@@ -1,25 +1,3 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/assets/style/main.css" />
-    <title>{{ title }}</title>
-  </head>
-  <body>
-    {% include navbar %}
-    <main
-      class="App"
-      style="max-width: 800px; margin-left: auto; margin-right: auto"
-    >
-      <h1>{{ title }}</h1>
-      <h2>{{ subtitle }}</h2>
-
-      <article>
-        {% for page in pages.meta %}
-        <a href="{{ page.path }}">{{ page.title }}</a>
-        {% endfor %}
-      </article>
-    </main>
-  </body>
-</html>
+---
+layout: base.liquid
+---
