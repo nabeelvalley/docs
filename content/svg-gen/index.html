@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVG Generator</title>
+  </head>
+  <body>
+    <main id="main"></main>
+    <script>
+      const createCircle = (x, y, r, fill) => {
+        const circle = document.createElement('circle')
+        circle.setAttribute('cx', x)
+        circle.setAttribute('cy', y)
+        circle.setAttribute('r', r)
+        circle.setAttribute('fill', fill)
+
+        return circle
+      }
+
+      const createRectangle = (x, y, r, fill) => {
+        const rect = document.createElement('rect')
+        rect.setAttribute('x', x)
+        rect.setAttribute('y', y)
+        rect.setAttribute('width', r)
+        rect.setAttribute('height', r)
+        rect.setAttribute('fill', fill)
+
+        return rect
+      }
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      svg.setAttribute('viewBox', '0 0 100 100')
+
+      const group = document.createElement('g')
+
+      group.style.transformOrigin = 'center'
+      group.style.transform = 'rotate(225deg)'
+
+      const radius = 5
+
+      for (let i = -1; i < 11; i++) {
+        for (let j = -1; j < 11; j++) {
+          const c = createCircle(
+            i * radius * 2 * 1.2,
+            j * radius * 2 * 1.2,
+            radius,
+            'lightblue'
+          )
+
+          const r = createRectangle(
+            i * radius * 2 * 1.2,
+            j * radius * 2 * 1.2,
+            radius,
+            'lightblue'
+          )
+
+          group.appendChild(c)
+          group.appendChild(r)
+        }
+      }
+
+      svg.appendChild(group)
+
+      console.log(svg.outerHTML)
+
+      // for some reason .appendChild does not work when inserting SVG
+      document.getElementById('main').innerHTML += svg.outerHTML
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/style/main.css" />
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <main class="main">
+      <h1>{{ title }}</h1>
+      <h2>{{ subtitle }}</h2>
+
+      {{ content }}
+    </main>
+
+    <!-- hljs -->
+    <link
+      rel="stylesheet"
+      href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/agate.min.css"
+    />
+    <script src="//unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll()
+    </script>
+  </body>
+</html>
