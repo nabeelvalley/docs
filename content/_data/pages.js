@@ -2,9 +2,7 @@ const { readFile } = require('fs').promises
 const glob = require('glob')
 const { resolve } = require('path')
 const _ = require('lodash')
-
-const ipynb = require('ipynb2html')
-const jsdom = require('jsdom')
+const { convertJupyterToHtml } = require('../../lib/markdown')
 
 const getFiles = (ext) => {
   const g = `content/**/*.${ext}`
@@ -36,23 +34,7 @@ const readNotebook = async (path) => {
   const fullPath = resolve(__dirname, '../../', path)
   const content = await readFile(fullPath)
 
-  const window = new jsdom.JSDOM().window
-  const document = window.document
-
-  const renderNotebook = ipynb.createRenderer(document)
-  const notebook = JSON.parse(content)
-
-  const renderedContent = renderNotebook(notebook)
-
-  renderedContent
-    .querySelectorAll('style')
-    .forEach((el) => el.parentNode.removeChild(el))
-
-  const html = renderedContent.innerHTML
-    .replace(/class="dataframe"/g, '')
-    .replace(/border="1"/g, '')
-
-  return html
+  return convertJupyterToHtml(content)
 }
 
 module.exports = async function () {
@@ -82,8 +64,6 @@ module.exports = async function () {
     })
 
   const notebooks = await Promise.all(nbPromises)
-
-  console.log(docs)
 
   return { pages, meta, docs, stdout, blog, notebooks }
 }
