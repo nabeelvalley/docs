@@ -9,65 +9,73 @@
   <body>
     <main id="main"></main>
     <script>
+      const ns = 'http://www.w3.org/2000/svg'
+
       const createCircle = (x, y, r, fill) => {
-        const circle = document.createElement('circle')
-        circle.setAttribute('cx', x)
-        circle.setAttribute('cy', y)
-        circle.setAttribute('r', r)
-        circle.setAttribute('fill', fill)
+        const circle = document.createElementNS(ns, 'circle')
+        circle.setAttributeNS(null, 'cx', x)
+        circle.setAttributeNS(null, 'cy', y)
+        circle.setAttributeNS(null, 'r', r)
+        circle.setAttributeNS(null, 'fill', fill)
 
         return circle
       }
 
-      const createRectangle = (x, y, r, fill) => {
-        const rect = document.createElement('rect')
-        rect.setAttribute('x', x)
-        rect.setAttribute('y', y)
-        rect.setAttribute('width', r)
-        rect.setAttribute('height', r)
-        rect.setAttribute('fill', fill)
-
-        return rect
+      const setPosition = (circle, x = 0, y = 0) => {
+        circle.setAttributeNS(null, 'cx', x)
+        circle.setAttributeNS(null, 'cy', y)
       }
 
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-      svg.setAttribute('viewBox', '0 0 100 100')
+      const createSvg = () => {
+        const svg = document.createElementNS(ns, 'svg')
+        svg.setAttributeNS(null, 'viewBox', '0 0 100 100')
 
-      const group = document.createElement('g')
-
-      const radius = 5
-
-      for (let i = -1; i < 11; i++) {
-        for (let j = -1; j < 11; j++) {
-          const scalePos = radius * 2 * 1.2
-
-          const c = createCircle(
-            i * scalePos,
-            j * scalePos,
-            radius,
-            'lightblue'
-          )
-          const r = createRectangle(
-            i * scalePos,
-            j * scalePos,
-            radius,
-            'lightblue'
-          )
-
-          group.appendChild(c)
-          group.appendChild(r)
-        }
+        return svg
       }
 
-      group.style.transformOrigin = 'center'
-      group.style.transform = 'rotate(225deg)'
+      const container = document.getElementById('main')
+      const svg = createSvg()
 
-      svg.appendChild(group)
+      let pt = svg.createSVGPoint()
 
-      console.log(svg.outerHTML)
+      // Get point in global SVG space
+      function cursorPoint(evt) {
+        pt.x = evt.clientX
+        pt.y = evt.clientY
+        return pt.matrixTransform(svg.getScreenCTM().inverse())
+      }
 
-      // for some reason .appendChild does not work when inserting SVG
-      document.getElementById('main').innerHTML += svg.outerHTML
+      const c = createCircle(50, 50, 2, 'salmon')
+      c.addEventListener('mousedown', () => {
+        svg.addEventListener('mousemove', (e) => {
+          requestAnimationFrame(() => {
+            const loc = cursorPoint(e)
+            setPosition(c, loc.x, loc.y)
+          })
+        })
+      })
+
+      // c.addEventListener('mouseup', () => {
+      //   c.removeEventListener('mousemove')
+      //   c.removeEventListener('mouseup')
+      //   c.removeEventListener('mousedown')
+      // })
+
+      // c.addEventListener('mouseleave', () => {
+      //   c.removeEventListener('mousemove')
+      //   c.removeEventListener('mouseup')
+      //   c.removeEventListener('mousedown')
+      // })
+
+      const step = (t) => {
+        // setPosition(c, t / 500, t / 500)
+        // requestAnimationFrame(step)
+      }
+
+      svg.appendChild(c)
+      container.appendChild(svg)
+
+      requestAnimationFrame(step)
     </script>
   </body>
 </html>

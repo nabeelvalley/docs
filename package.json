@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "glob": "^7.2.0",
+    "ipynb2html": "^0.3.0",
+    "jsdom": "^18.0.1",
     "lodash": "^4.17.21"
   }
 }
