@@ -37,6 +37,13 @@ const readNotebook = async (path) => {
   return convertJupyterToHtml(content)
 }
 
+const sortByDate = (a, b) => {
+  const dateA = new Date(a.subtitle)
+  const dateB = new Date(b.subtitle)
+
+  return dateA - dateB
+}
+
 module.exports = async function () {
   const md = await getFiles('md')
   const ipynb = await getFiles('ipynb')
@@ -50,8 +57,13 @@ module.exports = async function () {
   const meta = await Promise.all(pages.map(readMeta))
 
   const docs = meta.filter((m) => m.route.startsWith('/docs'))
-  const stdout = meta.filter((m) => m.route.startsWith('/stdout'))
-  const blog = meta.filter((m) => m.route.startsWith('/blog'))
+
+  const stdout = meta
+    .filter((m) => m.route.startsWith('/stdout'))
+    .sort(sortByDate)
+
+  const blog = meta.filter((m) => m.route.startsWith('/blog')).sort(sortByDate)
+
   const nbPromises = meta
     .filter((m) => m.path.endsWith('.ipynb'))
     .map(async (m) => {

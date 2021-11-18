@@ -1,0 +1,11 @@
+---
+layout: base.liquid
+---
+
+{{ content }}
+
+<article>
+  {% for page in pages.stdout %}
+  <a href="{{ page.route }}">{{ page.title }}</a>
+  {% endfor %}
+</article>

@@ -1,0 +1,5 @@
+{
+  "title": "Debug POSTs using an Express App",
+  "subtitle": "04 December 2020",
+  "description": "Create an express.js app with an endpoint that logs and returns a request's JSON body"
+}

@@ -1,0 +1,11 @@
+---
+layout: base.liquid
+---
+
+{{ content }}
+
+<article>
+  {% for page in pages.blog %}
+  <a href="{{ page.route }}">{{ page.title }}</a>
+  {% endfor %}
+</article>
