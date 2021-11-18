@@ -6,12 +6,11 @@
   "author": "Nabeel Valley",
   "license": "MIT",
   "scripts": {
-    "dev": "npx @11ty/eleventy --serve"
-  },
-  "devDependencies": {
-    "@11ty/eleventy": "^0.12.1"
+    "dev": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy"
   },
   "dependencies": {
+    "@11ty/eleventy": "^0.12.1",
     "glob": "^7.2.0",
     "ipynb2html": "^0.3.0",
     "jsdom": "^18.0.1",
