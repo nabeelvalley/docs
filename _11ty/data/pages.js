@@ -2,7 +2,7 @@ const { readFile } = require('fs').promises
 const glob = require('glob')
 const { resolve } = require('path')
 const _ = require('lodash')
-const { convertJupyterToHtml } = require('../../lib/markdown')
+const { convertJupyterToHtml } = require('../lib/markdown')
 
 const getFiles = (ext) => {
   const g = `content/**/*.${ext}`
@@ -22,8 +22,10 @@ const getFiles = (ext) => {
   })
 }
 
+const cwd = process.cwd()
+
 const readMeta = async (data) => {
-  const fullPath = resolve(__dirname, '../', './' + data.route + '.json')
+  const fullPath = resolve(cwd, './content' + data.route + '.json')
   const content = await readFile(fullPath)
 
   const meta = JSON.parse(content.toString())

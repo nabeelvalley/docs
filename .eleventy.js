@@ -1,5 +1,5 @@
 const showdown = require('showdown')
-const { convertMarkdownToHtml } = require('./lib/markdown')
+const { convertMarkdownToHtml } = require('./_11ty/lib/markdown')
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('assets')
@@ -21,6 +21,8 @@ module.exports = function (eleventyConfig) {
   return {
     dir: {
       input: 'content',
+      includes: '../_11ty/includes',
+      data: '../_11ty/data',
     },
   }
 }
