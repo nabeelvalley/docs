@@ -4,6 +4,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- normalize -->
+    <link
+      rel="stylesheet"
+      href="https://classic.yarnpkg.com/en/package/normalize.css"
+    />
+
+    <!-- hljs -->
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme: light)"
+      href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/atom-one-light.min.css"
+    />
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme: dark)"
+      href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/atom-one-dark.min.css"
+    />
+
+    <!-- app -->
     <link rel="stylesheet" href="/assets/style/main.css" />
     <title>{{ title }}</title>
   </head>
@@ -40,14 +59,14 @@
       </main>
     </div>
 
-    <!-- hljs -->
-    <link
-      rel="stylesheet"
-      href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/agate.min.css"
-    />
-    <script src="//unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js"></script>
+    <script src="/assets/js/highlight.min.js"></script>
     <script>
-      hljs.highlightAll()
+      document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((el) => {
+          console.log(el)
+          hljs.highlightElement(el)
+        })
+      })
     </script>
 
     <!-- katex -->

@@ -220,7 +220,7 @@ The `.devcontainer/devcontainer.json` file that was created will contain the fol
 
 `devcontainer.json`
 
-```jsonc
+```js
 // For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.128.0/containers/docker-existing-dockerfile
 {
@@ -257,7 +257,7 @@ Once we make the above changes we should have this:
 
 `devcontainer.json`
 
-```jsonc
+```js
 {
     "name": "My Workspace",
 
@@ -327,7 +327,7 @@ If we look at the `devcontainer.json` file we will see something similar to what
 
 `devcontainer.json`
 
-```jsonc
+```js
 {
     "name": "Node.js 12",
     "dockerFile": "Dockerfile",
@@ -352,7 +352,7 @@ We can go ahead and change the name if we want, we should also add the `forwardP
 
 `devcontainer.json`
 
-```jsonc
+```js
 {
     ...
 
