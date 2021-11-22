@@ -8,46 +8,36 @@
     <title>{{ title }}</title>
   </head>
   <body>
-    <main class="main">
-      <h1>{{ title }}</h1>
-      <h2>{{ subtitle }}</h2>
-
-      {{ content }}
-    </main>
-
-    <!-- hljs -->
-    <link
-      rel="stylesheet"
-      href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/agate.min.css"
-    />
-    <script src="//unpkg.com/@highlightjs/cdn-assets@11.3.1/highlight.min.js"></script>
-    <script>
-      hljs.highlightAll()
-    </script>
-
-    <!-- katex -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
-      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs"
-      crossorigin="anonymous"
-    />
-
-    <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
-      integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
-      integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
-      crossorigin="anonymous"
-      onload="renderMathInElement(document.body);"
-    ></script>
+    <div class="page">
+      <nav class="nav">
+        <ul>
+          <li><a href="/">Nabeel Valley</a></li>
+          <li><a href="/about">About Me</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li>
+            <details>
+              <summary>Photography</summary>
+              <ul>
+                <li><a href="/vibes">Vibes</a></li>
+                <li><a href="/portraits">Portraits</a></li>
+                <li><a href="/nature">Nature</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>Programming</summary>
+              <ul>
+                <li><a href="/docs">Docs</a></li>
+                <li><a href="/stdout">stdout</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+      <main class="main">
+        {{ content }}
+      </main>
+    </div>
   </body>
 </html>

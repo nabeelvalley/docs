@@ -1,5 +1,5 @@
 # Home Page
 
-- [Docs](docs)
-- [Blog](blog)
-- [Stdout](stdout)
+- [Docs](./docs)
+- [Blog](./blog)
+- [Stdout](./stdout)
