@@ -4,13 +4,13 @@ layout: base.liquid
 
 {{ content }}
 
-<article class="post__grid">
+<article class="link__grid">
   {% for page in pages.stdout %}
-    <a href="{{ page.route }}" class="post__link">
-      <div class="post__card">
-        <h2 class="post__title">{{ page.title }}</h2>
-        <h3 class="post__subtitle">{{ page.subtitle }}</h3>
-        <p class="post__description">{{ page.description }}</p>
+    <a href="{{ page.route }}" class="link__link">
+      <div class="link__card">
+        <h2 class="link__title">{{ page.title }}</h2>
+        <h3 class="link__subtitle">{{ page.subtitle }}</h3>
+        <p class="link__description">{{ page.description }}</p>
       </div>
     </a>
   {% endfor %}

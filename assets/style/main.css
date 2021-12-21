@@ -121,23 +121,23 @@ h3 {
   white-space: nowrap;
 }
 
-.post__card {
+.link__card {
   padding: 24px;
   background-color: var(--color-code-bg);
   border-radius: 4px;
   height: 100%;
 }
 
-.post__link {
+.link__link {
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
 
-.post__link:hover {
+.link__link:hover {
   transform: scale(1.01);
 }
 
-.post__grid {
+.link__grid {
   display: grid;
   margin-top: 48px;
   grid-template-columns: repeat(1, 1fr);
@@ -145,22 +145,22 @@ h3 {
   gap: 12px 12px;
 }
 
-.post__title {
+.link__title {
   margin: 0;
 }
 
-.post__subtitle {
+.link__subtitle {
   margin: 0;
   margin-top: 12px;
 }
 
-.post__description {
+.link__description {
   margin: 0;
   margin-top: 24px;
 }
 
 @media (min-width: 1000px) {
-  .post__grid {
+  .link__grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }

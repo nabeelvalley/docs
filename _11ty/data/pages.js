@@ -13,6 +13,14 @@ const getDirectoryName = (dir) => {
     .join(' ')
 }
 
+const populatePaging = (meta, index, arr) => {
+  return {
+    ...meta,
+    previous: arr[index - 1],
+    next: arr[index + 1],
+  }
+}
+
 const getFiles = (ext) => {
   const g = `content/**/*.${ext}`
 
@@ -25,6 +33,7 @@ const getFiles = (ext) => {
           .map((m) => ({
             path: m,
             directory: getDirectoryName(m),
+            url: m.replace('content', '').replace(extRx, '') + '/',
             route: m.replace('content', '').replace(extRx, ''),
           }))
           .filter((m) => !m.route.endsWith('index'))
@@ -70,14 +79,20 @@ module.exports = async function () {
 
   const meta = await Promise.all(pages.map(readMeta))
 
-  const docs = meta.filter((m) => m.route.startsWith('/docs'))
+  const docs = meta
+    .filter((m) => m.route.startsWith('/docs'))
+    .map(populatePaging)
   const groupedDocs = Object.values(_.groupBy(docs, 'directory'))
 
   const stdout = meta
     .filter((m) => m.route.startsWith('/stdout'))
     .sort(sortByDate)
+    .map(populatePaging)
 
-  const blog = meta.filter((m) => m.route.startsWith('/blog')).sort(sortByDate)
+  const blog = meta
+    .filter((m) => m.route.startsWith('/blog'))
+    .sort(sortByDate)
+    .map(populatePaging)
 
   const nbPromises = meta
     .filter((m) => m.path.endsWith('.ipynb'))
@@ -92,5 +107,7 @@ module.exports = async function () {
 
   const notebooks = await Promise.all(nbPromises)
 
-  return { pages, meta, docs, stdout, blog, notebooks, groupedDocs }
+  const allPages = [...stdout, ...blog, ...docs]
+
+  return { pages, meta, docs, stdout, blog, notebooks, groupedDocs, allPages }
 }
