@@ -5,7 +5,12 @@ layout: base.liquid
 {{ content }}
 
 <article>
-  {% for page in pages.docs %}
-  <a href="{{ page.route }}">{{ page.title }}</a>
+  {% for group in pages.groupedDocs %}
+    <h2>{{ group[0].directory }}</h2>
+    <ul>
+    {% for page in group %}
+      <li><a href="{{ page.route }}">{{ page.title }} {{ page.directory }}</a></li>
+    {% endfor %}
+    </ul>
   {% endfor %}
 </article>

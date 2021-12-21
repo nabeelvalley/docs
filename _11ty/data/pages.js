@@ -4,6 +4,15 @@ const { resolve } = require('path')
 const _ = require('lodash')
 const { convertJupyterToHtml } = require('../lib/markdown')
 
+const getDirectoryName = (dir) => {
+  const split = dir.split('/')
+  const directory = split[split.length - 2]
+  return directory
+    .split('-')
+    .map((d) => _.upperFirst(d))
+    .join(' ')
+}
+
 const getFiles = (ext) => {
   const g = `content/**/*.${ext}`
 
@@ -12,10 +21,13 @@ const getFiles = (ext) => {
       if (err) rej(err)
       else {
         const extRx = new RegExp(`\.${ext}$`)
-        const result = matches.map((m) => ({
-          path: m,
-          route: m.replace('content', '').replace(extRx, ''),
-        }))
+        const result = matches
+          .map((m) => ({
+            path: m,
+            directory: getDirectoryName(m),
+            route: m.replace('content', '').replace(extRx, ''),
+          }))
+          .filter((m) => !m.route.endsWith('index'))
         res(result)
       }
     })
@@ -43,7 +55,7 @@ const sortByDate = (a, b) => {
   const dateA = new Date(a.subtitle)
   const dateB = new Date(b.subtitle)
 
-  return dateA - dateB
+  return dateB - dateA
 }
 
 module.exports = async function () {
@@ -59,6 +71,7 @@ module.exports = async function () {
   const meta = await Promise.all(pages.map(readMeta))
 
   const docs = meta.filter((m) => m.route.startsWith('/docs'))
+  const groupedDocs = Object.values(_.groupBy(docs, 'directory'))
 
   const stdout = meta
     .filter((m) => m.route.startsWith('/stdout'))
@@ -79,5 +92,5 @@ module.exports = async function () {
 
   const notebooks = await Promise.all(nbPromises)
 
-  return { pages, meta, docs, stdout, blog, notebooks }
+  return { pages, meta, docs, stdout, blog, notebooks, groupedDocs }
 }

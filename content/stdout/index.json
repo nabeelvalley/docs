@@ -1,3 +1,4 @@
 {
-  "layout": "stdout.liquid"
+  "layout": "stdout.liquid",
+  "title": "stdout"
 }
