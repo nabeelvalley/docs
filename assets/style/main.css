@@ -116,6 +116,9 @@ h3 {
 .nav__list {
   display: flex;
   flex-direction: row;
+  max-width: 98vw;
+  flex-wrap: wrap;
+  justify-content: center;
   margin: 0;
   padding: 0;
 }
@@ -174,6 +177,10 @@ h3 {
 .link__description {
   margin: 0;
   margin-top: 24px;
+}
+
+.link__description--no-margin {
+  margin: 0;
 }
 
 .link__tags {

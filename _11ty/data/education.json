@@ -1,0 +1,16 @@
+[
+  {
+    "school": "University of Pretoria",
+    "location": "Pretoria, South Africa",
+    "qualification": "BEng(Mech)",
+    "description": "Bachelor's degree in mechanical engineering with a final year specialization in mechatronics and a research project focused on renewable energy, I also tutored engineering programming in python to second year students",
+    "period": "Jan '14 - Dec '17"
+  },
+  {
+    "school": "Al Ghazali College",
+    "location": "Pretoria, South Africa",
+    "qualification": "National Senior Certificate",
+    "description": "National senior certificate with mathematics, physical sciences, life sciences, and information technology along with English as my primary language and Afrikaans as the second",
+    "period": "Dec '13"
+  }
+]
