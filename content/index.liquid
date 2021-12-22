@@ -69,7 +69,7 @@
 
 <section class="link__grid">
   {% for post in pages.blog offset: 1 limit: 4 %}
-  <a href="docs" class="link__link">
+  <a href="{{ post.route }}" class="link__link">
     <div class="link__card">
       <h2 class="link__title">{{ post.title }}</h2>
       <p class="link__subtitle">{{ post.subtitle }}</p>

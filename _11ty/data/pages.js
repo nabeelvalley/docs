@@ -107,7 +107,7 @@ module.exports = async function () {
 
   const notebooks = await Promise.all(nbPromises)
 
-  const allPages = [...stdout, ...blog, ...docs]
+  const allPages = [...blog, ...stdout, ...docs]
 
   return { pages, meta, docs, stdout, blog, notebooks, groupedDocs, allPages }
 }
