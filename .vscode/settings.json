@@ -1,4 +1,4 @@
 {
   "eslint.enable": false,
-  "cSpell.words": ["eleventy", "ipynb"]
+  "cSpell.words": ["eleventy", "ipynb", "noopener", "noreferrer", "Shortcode"]
 }

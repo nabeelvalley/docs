@@ -279,7 +279,9 @@ export default Home
 The same applies for the `blog` and `404` pages
 
 <details>
-<summary>`blog.js`</summary>
+<summary>Blog</summary>
+
+`blog.js`
 
 ```js
 import React from "react"
@@ -307,7 +309,10 @@ export default Blog
 </details>
 
 <details>
-<summary>`404.js`</summary>
+<summary>404</summary>
+
+`404.js`
+
 
 ```js
 import React from "react"

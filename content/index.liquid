@@ -1,0 +1,87 @@
+{% assign recent_post = pages.blog[0] %}
+{% assign recent_stdout = pages.stdout[0] %}
+
+<section class="link__grid">
+  <image src="assets/images/home/landing/landing.jpg" />
+  <div>
+    <a href="{{ recent_post.route }}" class="link__link">
+      <h2 class="link__title">{{ recent_post.title }}</h2>
+      <p class="link__subtitle">{{ recent_post.subtitle }}</p>
+      <p class="link__description">{{ recent_post.description }}</p>
+      <p class="link__cta">Read more</p>
+    </a>
+  </div>
+</section>
+
+{% title "What's new" %}
+
+<section class="link__grid">
+  <a href="docs" class="link__link">
+    <div class="link__card">
+      <h2 class="link__title">Docs</h2>
+      <p class="link__subtitle">{{ meta.buildDate }}</p>
+      <p class="link__description">My personal notes on software development and related topics</p>
+
+      <div class="link__cta-wrapper">
+        <p class="link__cta">Go to docs</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="{{ recent_stdout.route }}" class="link__link">
+    <div class="link__card">
+      <h2 class="link__title">{{ recent_stdout.title }}</h2>
+      <p class="link__subtitle">{{ recent_stdout.subtitle }}</p>
+      <ul class="link__tags">
+        {% for tag in recent_stdout.tags %}
+        <li class="link__tag">{{ tag }}</li>
+        {% endfor %}
+      </ul>
+      <div class="link__cta-wrapper">
+        <p class="link__cta">Read more</p>
+      </div>
+    </div>
+  </a>
+</section>
+
+{% title "Projects" %}
+
+<section class="link__grid">
+  {% for project in projects offset: 1 limit: 4 %}
+  <a href="{{ project.link }}" class="link__link">
+    <div class="link__card">
+      <h2 class="link__title">{{ project.title }}</h2>
+      <p class="link__subtitle">{{ project.description }}</p>
+      <ul class="link__tags">
+        {% for tag in project.tags %}
+        <li class="link__tag">{{ tag }}</li>
+        {% endfor %}
+      </ul>
+      <div class="link__cta-wrapper">
+        <p class="link__cta">{{ project.cta }}</p>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</section>
+
+{% title "From the blog" %}
+
+<section class="link__grid">
+  {% for post in pages.blog offset: 1 limit: 4 %}
+  <a href="docs" class="link__link">
+    <div class="link__card">
+      <h2 class="link__title">{{ post.title }}</h2>
+      <p class="link__subtitle">{{ post.subtitle }}</p>
+      <ul class="link__tags">
+        {% for tag in post.tags %}
+        <li class="link__tag">{{ tag }}</li>
+        {% endfor %}
+      </ul>
+      <div class="link__cta-wrapper">
+        <p class="link__cta">Read more</p>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</section>

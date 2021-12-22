@@ -89,7 +89,9 @@ export default Blog
 Additionally we have the `Home.js` and `NotFound.js` files which are similar to the `Blog.js` file we created
 
 <details>
-<summary>`Home.js`</summary>
+<summary>Home</summary>
+
+`Home.js`
 
 ```js
 import React from "react"
@@ -107,7 +109,9 @@ export default Home
 </details>
 
 <details>
-<summary>`NotFound.js`</summary>
+<summary>Not Found</summary>
+
+`NotFound.js`
 
 ```js
 import React from "react"
@@ -203,7 +207,9 @@ The way we are rendering the `Post` component with a parameter for `match`. The 
 The two data files we have to pull content from in the `public/posts` directory are `post-1.json` and `post-2.json`
 
 <details>
-<summary>`post-1.json`</summary>
+<summary>Post 1 - JSON</summary>
+
+`post-1.json`
 
 ```json
 {
@@ -216,7 +222,9 @@ The two data files we have to pull content from in the `public/posts` directory 
 </details>
 
 <details>
-<summary>`post-2.json`</summary>
+<summary>Post 2 - JSON</summary>
+
+`post-2.json`
 
 ```json
 {

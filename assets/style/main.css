@@ -57,13 +57,24 @@ a {
   --width-scrollbar: 5px;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #2d2d2d;
+    --color-fg: #ffffff;
+    --color-code-bg: #222222;
+    --color-brand: #c5a8eb;
+  }
+}
+
 body {
   color: var(--color-fg);
   background-color: var(--color-bg);
 }
 
 a:hover,
-summary:hover {
+a:focus,
+summary:hover,
+summary:focus {
   color: var(--color-brand);
 }
 
@@ -74,7 +85,7 @@ pre {
 
 h1 {
   font-weight: 400;
-  font-size: 1.2em;
+  font-size: 1.3em;
 }
 
 h2 {
@@ -122,6 +133,8 @@ h3 {
 }
 
 .link__card {
+  display: flex;
+  flex-direction: column;
   padding: 24px;
   background-color: var(--color-code-bg);
   border-radius: 4px;
@@ -129,12 +142,16 @@ h3 {
 }
 
 .link__link {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
+  backface-visibility: hidden;
 }
 
-.link__link:hover {
-  transform: scale(1.01);
+.link__link:hover,
+.link__link:focus {
+  transform: scale(1.02);
 }
 
 .link__grid {
@@ -159,10 +176,66 @@ h3 {
   margin-top: 24px;
 }
 
-@media (min-width: 1000px) {
+.link__tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  margin-top: 12px;
+}
+
+.link__tag {
+  list-style-position: inside;
+  list-style-type: none;
+  margin-right: 12px;
+  color: var(--color-brand);
+}
+
+.link__tag:before {
+  content: '#';
+}
+
+.link__cta-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.link__cta {
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+@media (min-width: 800px) {
   .link__grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.title__text {
+  background: var(--color-bg);
+  padding: 0 15px;
+}
+
+.title__wrapper {
+  position: relative;
+  text-align: center;
+  margin-top: 48px;
+}
+
+.title__wrapper:before {
+  border-top: 1px solid var(--color-brand);
+  content: '';
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
 }
 
 /* markdown styles */
