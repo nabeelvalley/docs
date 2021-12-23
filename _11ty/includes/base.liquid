@@ -36,7 +36,22 @@
 
     <!-- app -->
     <link rel="stylesheet" href="/assets/style/main.css" />
-    <title>{{ title }}</title>
+    
+    <title>{{ title | default: "Nabeel Valley"}}</title>
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@not_nabeel" />
+    
+    <meta name="description" content="{{ description }}" />
+    <meta name="twitter:description" content="{{ description }}" />
+    <meta name="og:description" content="{{ description }}" />
+
+    <meta name="twitter:image" content="https://nabeelvalley.co.za/assets/images/home/code.jpg"></meta>
+    <meta name="og:image" content="https://nabeelvalley.co.za/assets/images/home/code.jpg"></meta>
+    
+    <meta name="twitter:title" content="{{ title }}" />
+    <meta name="og:title" content="{{ title }}" />
+
   </head>
   <body>
     <div class="page">
