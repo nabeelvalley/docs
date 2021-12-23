@@ -1,11 +1,5 @@
 [
   {
-    "company": "Me",
-    "description": "My name is Nabeel Valley, born in 1995 - Pretoria, South Africa\nI'm passionate about solving challenging problems in beautiful ways\nMy daily-doings involve writing code, graphic and ui design, taking pictures, and a bit of reading",
-    "location": "Pretoria, South Africa",
-    "period": "'95"
-  },
-  {
     "company": "Quro Medical",
     "subtitle": "Senior Software Engineer",
     "description": "Developing web and mobile applications powered by scalable cloud native architectures and the internet of things",
