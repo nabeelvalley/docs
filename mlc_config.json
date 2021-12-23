@@ -1,24 +1,9 @@
 {
   "replacementPatterns": [
     {
-      "pattern": "^/docs",
-      "replacement": "/content/docs"
-    },
-    {
-      "pattern": "^/blog",
-      "replacement": "/content/blog"
-    },
-    {
-      "pattern": "^/about",
-      "replacement": "/content/about"
-    },
-    {
-      "pattern": "^/code",
-      "replacement": "/content/code"
-    },
-    {
-      "pattern": "^/stdout",
-      "replacement": "/content/stdout"
+      "pattern": "^/",
+      "replacement": "{{BASEURL}}/"
     }
-  ]
+  ],
+  "projectBaseUrl": ""
 }

@@ -18,13 +18,13 @@
 
 # Introduction
 
-In the [last post](../21-01/gatsby-migration-1) we looked setting up an application with a few basic routes. These routes were all assigned to Components in the `src/pages` directory.
+In the [last post](/blog/2020/21-01/gatsby-migration-1) we looked setting up an application with a few basic routes. These routes were all assigned to Components in the `src/pages` directory.
 
 This post will be going throught the Gatsby Setup necessary in order to migrate our current site to Gatsby, we will be looking at the second step in the process that was outlined in the last post:
 
-1. [Creating the initial React App](../21-01/gatsby-migration-1)
+1. [Creating the initial React App](/blog/2020/21-01/gatsby-migration-1)
 2. **Rendering the "Dumb" pages with Gatsby** (This post)
-3. [Rendering the "Smart" page with Gatsby](../15-03/gatsby-migration-3)
+3. [Rendering the "Smart" page with Gatsby](/blog/2020/15-03/gatsby-migration-3)
 
 # Getting Ready
 

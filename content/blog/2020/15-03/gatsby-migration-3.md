@@ -18,8 +18,8 @@
 
 So far we've created the initial react application as with a few routes for our `Home`, `Blog`, and `404` pages. In this post we'll look at how we can set up our `Post` component to render our pages dynamically based on the JSON data we have. We'll also extend this so that we can have some more content in a markdown file that we'll parse and add to our Gatsby data  
 
-1. [Creating the initial React App](../21-01/gatsby-migration-1)
-2. [Rendering the "Dumb" pages with Gatsby](../01-02/gatsby-migration-2)
+1. [Creating the initial React App](/blog/2020/21-01/gatsby-migration-1)
+2. [Rendering the "Dumb" pages with Gatsby](/blog/2020/01-02/gatsby-migration-2)
 3. **Rendering the "Smart" page with Gatsby** (This post)
 
 # Setting Up

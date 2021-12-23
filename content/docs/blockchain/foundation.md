@@ -1,26 +1,25 @@
-- [Foundation](#foundation)
-  - [Prerequisites](#prerequisites)
-  - [Hyperledger Composer](#hyperledger-composer)
-    - [Introduction](#introduction)
-    - [Components and Structure](#components-and-structure)
-    - [The Toolset](#the-toolset)
-  - [Fabric](#fabric)
-    - [Participants and Components](#participants-and-components)
-      - [Participants](#participants)
-      - [Components](#components)
-      - [Developer Considerations](#developer-considerations)
-    - [Administrator Considerations](#administrator-considerations)
-    - [Consensus](#consensus)
-    - [Public vs Private](#public-vs-private)
-    - [Architect Considerations](#architect-considerations)
-    - [Network Consensus Considerations](#network-consensus-considerations)
-    - [Transaction Process](#transaction-process)
+- [Prerequisites](#prerequisites)
+- [Hyperledger Composer](#hyperledger-composer)
+  - [Introduction](#introduction)
+  - [Components and Structure](#components-and-structure)
+  - [The Toolset](#the-toolset)
+- [Fabric](#fabric)
+  - [Participants and Components](#participants-and-components)
+    - [Participants](#participants)
+    - [Components](#components)
+    - [Developer Considerations](#developer-considerations)
+  - [Administrator Considerations](#administrator-considerations)
+  - [Consensus](#consensus)
+  - [Public vs Private](#public-vs-private)
+  - [Architect Considerations](#architect-considerations)
+  - [Network Consensus Considerations](#network-consensus-considerations)
+  - [Transaction Process](#transaction-process)
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/ibm-blockchain-foundation-dev/)
 
 ## Prerequisites
 
-For Windows you need (in this order), Note that I cannot seem to get this to work on Windows, however there is information on running this with Ubuntu on [this page](./fabric-via-docs.md)
+For Windows you need (in this order), Note that I cannot seem to get this to work on Windows, however there is information on running this with Ubuntu on [this page](/content/docs/blockchain/fabric-via-docs-1)
 
 * Python 2.7
 * Docker

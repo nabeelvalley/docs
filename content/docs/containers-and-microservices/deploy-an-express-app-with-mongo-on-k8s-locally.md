@@ -1,22 +1,21 @@
-Before reading through this, you may want to read the page about the application being deployed on the [Build an Express App that uses MongoDB](./build-an-express-app-with-mongo.md) page
+Before reading through this, you may want to read the page about the application being deployed on the [Build an Express App that uses MongoDB](/docs/containers-and-microservices/build-an-express-app-with-mongo) page
 
 - [Ketting started with Minicube](https://docs.bitnami.com/kubernetes/get-started-kubernetes/#option-1-install-minikube)
 - [Installing Minicube on Windows](https://medium.com/@JockDaRock/minikube-on-windows-10-with-hyper-v-6ef0f4dc158c)
 - [Dockerise a Node-Mongo App](https://medium.com/statuscode/dockerising-a-node-js-and-mongodb-app-d22047e2806f)
 
 # Contents
-- [Deploy an Express Application that uses MongoDB on k8s Locally](#deploy-an-express-application-that-uses-mongodb-on-k8s-locally)
-  - [Contents](#contents)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-    - [Minikube](#minikube)
-      - [Hyper-V](#hyper-v)
-    - [VirtualBox](#virtualbox)
-      - [Running Minikube](#running-minikube)
-  - [Creating a Deployment](#creating-a-deployment)
-    - [Building the Image](#building-the-image)
-    - [Deploying on Kubernetes](#deploying-on-kubernetes)
-    - [Use the App](#use-the-app)
+- [Contents](#contents)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+  - [Minikube](#minikube)
+    - [Hyper-V](#hyper-v)
+  - [VirtualBox](#virtualbox)
+    - [Running Minikube](#running-minikube)
+- [Creating a Deployment](#creating-a-deployment)
+  - [Building the Image](#building-the-image)
+  - [Deploying on Kubernetes](#deploying-on-kubernetes)
+  - [Use the App](#use-the-app)
 
 # Prerequisites
 
@@ -99,9 +98,9 @@ minikube dashboard
 
 We can create a deployment based on a deployment yaml file
 
-For the purpose of this, we will make use of the deployment configurations that are defined in the [Build an Express App that uses MongoDB](./build-an-express-app-with-mongo.md) at the [Comments App GitHub Repository](https://github.com/nabeelvalley/CommentsApp)
+For the purpose of this, we will make use of the deployment configurations that are defined in the [Build an Express App that uses MongoDB](/docs/containers-and-microservices/build-an-express-app-with-mongo) at the [Comments App GitHub Repository](https://github.com/nabeelvalley/CommentsApp)
 
-To see how the app is constructed and how it communicates with the DB, read the page on [Building an Express App that uses Mongo](./build-an-express-app-with-mongo.md)
+To see how the app is constructed and how it communicates with the DB, read the page on [Building an Express App that uses Mongo](/docs/containers-and-microservices/build-an-express-app-with-mongo)
 
 The Express App is exposed on port `8080` and will speak to the Mongo instance on `mongo:27017`
 

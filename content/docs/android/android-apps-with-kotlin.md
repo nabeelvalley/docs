@@ -22,7 +22,7 @@ To get started create a new Android Studio Project with the following settings, 
 2. Once the Emulator is downloaded you can select it
 3. Click Okay and the app should build and open on your Emulator
 
-> To use an app on your device configure the debugging [See Intro To Android Notes](./introduction-to-android.md#Running-the-App)
+> To use an app on your device configure the debugging [See Intro To Android Notes](/docs/android/introduction-to-androidd#Running-the-App)
 
 ## What's in an App
 
