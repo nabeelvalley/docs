@@ -45,27 +45,6 @@
   </a>
 </section>
 
-{% title "Projects" %}
-
-<section class="link__grid">
-  {% for project in projects offset: 1 limit: 4 %}
-  <a href="{{ project.link }}" class="link__link">
-    <div class="link__card">
-      <h2 class="link__title">{{ project.title }}</h2>
-      <p class="link__subtitle">{{ project.description }}</p>
-      <ul class="link__tags">
-        {% for tag in project.tags %}
-        <li class="link__tag">{{ tag }}</li>
-        {% endfor %}
-      </ul>
-      <div class="link__cta-wrapper">
-        <p class="link__cta">{{ project.cta }}</p>
-      </div>
-    </div>
-  </a>
-  {% endfor %}
-</section>
-
 {% title "From the blog" %}
 
 <section class="link__grid">
@@ -81,6 +60,27 @@
       </ul>
       <div class="link__cta-wrapper">
         <p class="link__cta">Read more</p>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</section>
+
+{% title "Projects" %}
+
+<section class="link__grid">
+  {% for project in projects offset: 1 limit: 4 %}
+  <a href="{{ project.link }}" class="link__link">
+    <div class="link__card">
+      <h2 class="link__title">{{ project.title }}</h2>
+      <p class="link__subtitle">{{ project.description }}</p>
+      <ul class="link__tags">
+        {% for tag in project.tags %}
+        <li class="link__tag">{{ tag }}</li>
+        {% endfor %}
+      </ul>
+      <div class="link__cta-wrapper">
+        <p class="link__cta">{{ project.cta }}</p>
       </div>
     </div>
   </a>
