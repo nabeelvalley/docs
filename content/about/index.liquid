@@ -23,7 +23,9 @@
 </section>
 
 <section>
-  {% title "Experience" %} {% for exp in experience %}
+  {% title "Experience" %} 
+  
+  {% for exp in experience %}
   <div class="link__grid">
     <div>
       <h2 class="link__title">{{ exp.company }}</h2>
@@ -39,5 +41,27 @@
       {% endfor %}
     </div>
   </div>
+  {% endfor %}
 </section>
-{% endfor %}
+
+<section>
+  {% title "Education" %} 
+  
+  {% for edu in education %}
+  <div class="link__grid">
+    <div>
+      <h2 class="link__title">{{ edu.school }}</h2>
+      <h3 class="link__subtitle">{{ edu.qualification}}</h3>
+      <p class="link__subtitle">{{ edu.period }}</p>
+    </div>
+    {% assign ps = edu.description | newline_to_br | split: '<br />' %}
+    <div>
+      {% for p in ps %}
+      <p class="link__description">
+        {{ p }}
+      </p>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</section>
