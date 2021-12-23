@@ -123,7 +123,7 @@ It's important to note that this file must be added below the `Library.fs` file 
 
 # Test Files
 
-> More detailed information on XUnit can be found in [Unit Testing notes](../../../../docs/dotnet/unit-testing-intro)
+> More detailed information on XUnit can be found in [Unit Testing notes](/docs/dotnet/unit-testing-intro)
 
 Since we've configured XUnit it may be useful to understand how these tests work in the context of F#. XUnit tests are organized into modules. Regardless of which of the two methods above you're using the test files work the same
 
@@ -222,10 +222,10 @@ Alternatively, tests can also be run from your IDE or Visual Studio Code with th
 
 If you'd like a deeper look into F# or XUnit here are some of my other posts which cover those:
 
-- [Introduction to F# Web APIs](../../../2019/30-10/fsharp-webapi)
-- [Introduction to F#](../../../../docs/dotnet/intro-to-fs)
-- [Entity Framework with F#](../../../../docs/dotnet/fs-entity-framework)
-- [Introduction to Unit Testing](../../../../docs/dotnet/unit-testing-intro)
-- [Testing Private Members](../../../../docs/dotnet/test-private-members)
+- [Introduction to F# Web APIs](/blog/2019/30-10/fsharp-webapi)
+- [Introduction to F#](/docs/dotnet/intro-to-fs)
+- [Entity Framework with F#](/docs/dotnet/fs-entity-framework)
+- [Introduction to Unit Testing](/docs/dotnet/unit-testing-intro)
+- [Testing Private Members](/docs/dotnet/test-private-members)
 
 > Nabeel Valley

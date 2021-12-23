@@ -1,8 +1,24 @@
 {
   "replacementPatterns": [
     {
-      "pattern": "^/",
-      "replacement": "{{env.DEPLOYMENT_URL}}/"
+      "pattern": "^/docs",
+      "replacement": "/content/docs"
+    },
+    {
+      "pattern": "^/blog",
+      "replacement": "/content/blog"
+    },
+    {
+      "pattern": "^/about",
+      "replacement": "/content/about"
+    },
+    {
+      "pattern": "^/code",
+      "replacement": "/content/code"
+    },
+    {
+      "pattern": "^/stdout",
+      "replacement": "/content/stdout"
     }
   ]
 }
