@@ -32,6 +32,7 @@ const titleShortcode = (title, headingLevel = 1) => {
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('assets')
+  eleventyConfig.addPassthroughCopy('content', '.')
   // eleventyConfig.setLibrary('md', { render: convertMarkdownToHtml })
 
   eleventyConfig.addCollection('search', (collection) => {

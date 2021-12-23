@@ -27,7 +27,7 @@ At a simplified level, the way we work with colour in a B&W picture is by manipu
 Over the remainder of this post I'll be discussing a lot of this in the context of the following image:
 
 <center>
-![Colour Version of Discussion Image](/content/blog/2020/07-04/images/colour.jpg =60%x60%)
+![Colour Version of Discussion Image](/blog/2020/07-04/images/colour.jpg)
 </center>
 
 For our discussion there are a few important aspects of this image to note:
@@ -39,7 +39,7 @@ For our discussion there are a few important aspects of this image to note:
 If we were to simply convert this image to a B&W one we get the following:
 
 <center>
-![Neutral Version of Discussion Image](/content/blog/2020/07-04/images/neutral.jpg =60%x60%)
+![Neutral Version of Discussion Image](/blog/2020/07-04/images/neutral.jpg)
 </center>
 
 From the above we see that the distinction between our red and green elements isn't really visible anymore, this is because of the impact that colour mixing has on our image. Mixing allows us to control the way the different colours are seen in the image and most photo editing tools have some version of a Black and White Mixer that allows us to apply a colour filter to a Black and White image
@@ -51,7 +51,7 @@ This is the "natural" way that a B&W conversion works, using this method for any
 If we look at the neutral version of our image we can observe that the brightness across our image is fairly consistent with that of the colour version with a darker background and brighter foreground. We can also see that there is very little differentiation between the red and green elements in our image
 
 <center>
-![Neutral Version of Discussion Image](/content/blog/2020/07-04/images/neutral.svg =60%x60%)
+![Neutral Version of Discussion Image](/blog/2020/07-04/images/neutral.svg)
 </center>
 
 In photography, there are few well-known colour filters which can be placed in front of your lens to achieve what we are doing here digitally. Commonly we have red, green, blue, and yellow filters. We'll just be looking at the red and green filters that were used to edit this image
@@ -63,7 +63,7 @@ In a picture like this where our subject is red, we can use a red filter to incr
 Additionally, I've also made the green slightly darker to add some additional contrast. We can see the result of doing so along with the changes made to the brightness of the respective colours below:
 
 <center>
-![Red Filtered Version of Discussion Image](/content/blog/2020/07-04/images/red.svg =60%x60%)
+![Red Filtered Version of Discussion Image](/blog/2020/07-04/images/red.svg)
 </center>
 
 Using a method like this we can draw our focus back to the red elements a little more than if we had left the brightnesses as they were in the Neutral image while pushing down the brightness of our green elements so we don't have the two competing for focus

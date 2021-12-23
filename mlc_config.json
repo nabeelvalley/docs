@@ -2,8 +2,7 @@
   "replacementPatterns": [
     {
       "pattern": "^/",
-      "replacement": "{{BASEURL}}/"
+      "replacement": "{{BASEURL}}/content/"
     }
-  ],
-  "projectBaseUrl": "https://nabeel-docs.netlify.app"
+  ]
 }
