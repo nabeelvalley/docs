@@ -69,13 +69,13 @@ Selected members endorse or validate transactions, once these are endorsed they 
 
 Go to the [Composer Playground](https://composer-playground-unstable.mybluemix.net/login)
 
-![Hyperledger Composer Playground](../.gitbook/assets/image-29.png)
+![Hyperledger Composer Playground](/docs/assets/image-29.png)
 
 Then Create a Business Network
 
-![Business Network Create Screen](../.gitbook/assets/image-12.png)
+![Business Network Create Screen](/docs/assets/image-12.png)
 
-![Business Network has been created](../.gitbook/assets/image-14.png)
+![Business Network has been created](/docs/assets/image-14.png)
 
 We can click on _Connect Now_ and start making transactions such as creating participants and vehicles
 
@@ -83,23 +83,23 @@ We can click on _Connect Now_ and start making transactions such as creating par
 
 Create some members by navigating to the **Test** Section \(at the top\) and then **Members** from the Menu and clicking on **Create New** **Participant**
 
-![Participant Creation Screen](../.gitbook/assets/image-13.png)
+![Participant Creation Screen](/docs/assets/image-13.png)
 
 We can see our created Participants on the Member Screen
 
-![Participant Listing](../.gitbook/assets/image-17.png)
+![Participant Listing](/docs/assets/image-17.png)
 
 Once this has been done we can do the same for **Vehicles** and **Vehicle** **Listings**
 
 We can look at the transactions made from the **All Transactions** page
 
-![Transaction History](../.gitbook/assets/image%20%286%29.png)
+![Transaction History](/docs/assets/image%20%286%29.png)
 
 ## Explore the Definitions
 
 Head over to the editor screen and you will be able to see the different configuration available in our blockchain
 
-![Define View - README](../.gitbook/assets/image-10.png)
+![Define View - README](/docs/assets/image-10.png)
 
 The different elements of our blockchain are defined with the following structures and rules
 

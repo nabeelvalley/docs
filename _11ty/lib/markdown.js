@@ -27,12 +27,6 @@ const codeTab = {
     `<p class="code-tab"><code>${text.slice(1, -1)}</code></p>`,
 }
 
-const codeSummary = {
-  type: 'output',
-  regex: /<summary>`([^`]*)`<\/summary>/gm,
-  replace: (text) => `${text.replace('`', '<code>').replace('`', '</code>')}`,
-}
-
 const convertMarkdownToHtml = (text) => {
   const converter = new Converter({
     headerLevelStart: 2,
@@ -41,7 +35,6 @@ const convertMarkdownToHtml = (text) => {
       codeTab,
       externalLinksInNewWindow,
       scrollableTables,
-      codeSummary,
     ],
     simplifiedAutoLink: true,
     tables: true,

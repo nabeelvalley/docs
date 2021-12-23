@@ -355,7 +355,7 @@ The other interface available is the `ChaincodeStubInterface` and allows chainco
 
 We will make use of a simple chaincode built with Go (I will look at implementing this with Node as well, but the documentation uses Go for the time being)
 
-Firstly, you will need to install Go and create the following directories (For more info on Go and how the Go file system needs to look - check out the notes on that [here](../go/basics.md)
+Firstly, you will need to install Go and create the following directories (For more info on Go and how the Go file system needs to look - check out the notes on that [here](/docs/go/basics)
 
 The Go Installation Instructions for Fabric can be found [here](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html#golang)
 

@@ -73,13 +73,13 @@ Using a method like this we can draw our focus back to the red elements a little
 We can also do something like the above using a filter that brightens the green and darkens the red
 
 <center>
-![Green Filtered Version of Discussion Image](/content/blog/2020/07-04/images/green.svg =60%x60%)
+![Green Filtered Version of Discussion Image](/content/blog/2020/07-04/images/green.svg)
 </center>
 
 In the resulting image above we can see that the greens are now much brighter and the reds are almost black - however we still maintain a good level of contrast between our too resulting elements. We can see a comparison of the impact the different colour filters have on our image below. These are ordered from left to right as red, neutral and green
 
 <center>
-![Comparison of Filtered Versions of Discussion Image](/content/blog/2020/07-04/images/comparison.jpg =100%x100%)
+![Comparison of Filtered Versions of Discussion Image](/content/blog/2020/07-04/images/comparison.jpg)
 </center>
 
 Using what we've looked at in the above we can see that the way we choose to filter a black and white image has a huge impact on how we direct the viewer's attention in our image as well as how clearly we can differentiate between different elements

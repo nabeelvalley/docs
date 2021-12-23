@@ -1,3 +1,4 @@
 {
-  "layout": "post.liquid"
+  "layout": "post.liquid",
+  "liquid": false
 }

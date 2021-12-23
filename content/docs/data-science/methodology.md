@@ -1,40 +1,39 @@
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/data-science-methodology-2/)
 
-- [Methodology](#methodology)
-	- [The Methodology](#the-methodology)
-	- [The Questions](#the-questions)
-		- [From Problem to Approach](#from-problem-to-approach)
-		- [Working with the Data](#working-with-the-data)
-		- [Deriving the Answer](#deriving-the-answer)
-	- [Problem and Approach](#problem-and-approach)
-		- [Business Understanding](#business-understanding)
-		- [Analytic Approach](#analytic-approach)
-			- [Approach to be Used](#approach-to-be-used)
-			- [Question Types](#question-types)
-			- [Machine Learning](#machine-learning)
-			- [Decision Trees](#decision-trees)
-		- [Labs](#labs)
-	- [Requirements and Collection](#requirements-and-collection)
-		- [Data Requirements](#data-requirements)
-		- [Data Collection](#data-collection)
-		- [Labs](#labs-1)
-			- [Python](#python)
-			- [R](#r)
-	- [Understanding and Preparation](#understanding-and-preparation)
-		- [Data Understanding](#data-understanding)
-		- [Data Preparation](#data-preparation)
-		- [Labs](#labs-2)
-			- [Python](#python-1)
-			- [R](#r-1)
-	- [Modeling and Evaluation](#modeling-and-evaluation)
-		- [Modeling](#modeling)
-		- [Evaluation](#evaluation)
-		- [Labs](#labs-3)
-			- [Python](#python-2)
-			- [R](#r-2)
-	- [Deployment and Feedback](#deployment-and-feedback)
-		- [Deployment](#deployment)
-		- [Feedback](#feedback)
+- [The Methodology](#the-methodology)
+- [The Questions](#the-questions)
+  - [From Problem to Approach](#from-problem-to-approach)
+  - [Working with the Data](#working-with-the-data)
+  - [Deriving the Answer](#deriving-the-answer)
+- [Problem and Approach](#problem-and-approach)
+  - [Business Understanding](#business-understanding)
+  - [Analytic Approach](#analytic-approach)
+    - [Approach to be Used](#approach-to-be-used)
+    - [Question Types](#question-types)
+    - [Machine Learning](#machine-learning)
+    - [Decision Trees](#decision-trees)
+  - [Labs](#labs)
+- [Requirements and Collection](#requirements-and-collection)
+  - [Data Requirements](#data-requirements)
+  - [Data Collection](#data-collection)
+  - [Labs](#labs-1)
+    - [Python](#python)
+    - [R](#r)
+- [Understanding and Preparation](#understanding-and-preparation)
+  - [Data Understanding](#data-understanding)
+  - [Data Preparation](#data-preparation)
+  - [Labs](#labs-2)
+    - [Python](#python-1)
+    - [R](#r-1)
+- [Modeling and Evaluation](#modeling-and-evaluation)
+  - [Modeling](#modeling)
+  - [Evaluation](#evaluation)
+  - [Labs](#labs-3)
+    - [Python](#python-2)
+    - [R](#r-2)
+- [Deployment and Feedback](#deployment-and-feedback)
+  - [Deployment](#deployment)
+  - [Feedback](#feedback)
 
 # The Methodology
 
@@ -42,7 +41,7 @@ The data science methodology described here is as outlined by John Rollins of IB
 
 The Methodology can be seen in the following steps
 
-![Data Science Methodology (Cognitive Class)](../.gitbook/assets/datascience_methodology_flowchart.png "Data Science Methodology (Cognitive Class)")
+![Data Science Methodology (Cognitive Class)](/docs/assets/datascience_methodology_flowchart.png)
 
 
 # The Questions
@@ -126,9 +125,9 @@ It makes use of a tree structure with *recursive partitioning* to classify data,
 
 A decision tree for classifying data can result in leaf nodes of varying purity, as seen below which will provide us with different ammounts of information
 
-![Pure Decision Tree (Cognitive Class)](../.gitbook/assets/decision_tree_5.png "Pure Decision Tree (Cognitive Class)")
+![Pure Decision Tree (Cognitive Class)](/docs/assets/decision_tree_5.png)
 
-![Impure Decision Tree (Cognitive Class)](../.gitbook/assets/decision_tree_2.png "Impure Decision Tree (Cognitive Class)")
+![Impure Decision Tree (Cognitive Class)](/docs/assets/decision_tree_2.png)
 
 Some of the characteristics of decision trees are summarized below
 
@@ -779,7 +778,7 @@ with open("bamboo_tree.dot") as bamboo_tree_image:
 graphviz.Source(bamboo_tree_graph)
 ```
 
-![Decision Tree (Cognitive Class)](../.gitbook/assets/bamboo_tree.PNG "Decision Tree (Cognitive Class)")
+![Decision Tree (Cognitive Class)](/docs/assets/bamboo_tree.PNG)
 
 Now we can go back and rebuild our model, however this time retaining some data so we can evaluate the model
 
@@ -894,7 +893,7 @@ The rows on a confusion matrix epresent the actual values, and the rows are the 
 
 The resulting confusion matrix can be seen below
 
-![Confusion Matrix (Cognitive Class)](../.gitbook/assets/confusion_matrix.png "Confusion Matrix (Cognitive Class)")
+![Confusion Matrix (Cognitive Class)](/docs/assets/confusion_matrix.png)
 
 The squares along the top-left to bottom-right diagonal are those that the model correctly classified
 
@@ -935,7 +934,7 @@ And view it with the following
 rpart.plot(bamboo_tree, type=3, extra=2, under=TRUE, cex=0.75, varlen=0, faclen=0, Margin=0.03)
 ```
 
-![Decision Tree (Cognitive Class)](../.gitbook/assets/bamboo_tree_R.PNG "Decision Tree (Cognitive Class)")
+![Decision Tree (Cognitive Class)](/docs/assets/bamboo_tree_R.PNG)
 
 Now we can redefine our dataframe to only include the Asian and Indian cuisine
 
@@ -980,7 +979,7 @@ rpart.plot(bamboo_train_tree, type=3, extra=0, under=TRUE, cex=0.75, varlen=0, f
 
 It can be seen that by removing elements we get a more complex decision tree, this is the same as in the Python case
 
-![Decision Tree (Cognitive Class)](../.gitbook/assets/bamboo_tree_R2.PNG "Decision Tree (Cognitive Class)")
+![Decision Tree (Cognitive Class)](/docs/assets/bamboo_tree_R2.PNG)
 
 We can then view the confusion matrix as follows
 

@@ -5,26 +5,25 @@ Built with tons of help from:
 
 #  Contents
 
-- [Build an Express Application that uses MongoDB](#build-an-express-application-that-uses-mongodb)
-  - [Contents](#contents)
-  - [Setting up Mongo](#setting-up-mongo)
-    - [Adding Mongo to your PATH](#adding-mongo-to-your-path)
-    - [Create a Data Directory](#create-a-data-directory)
-    - [Running the DB Server](#running-the-db-server)
-    - [Creating and Viewing Elements](#creating-and-viewing-elements)
-    - [Connect to a Database](#connect-to-a-database)
-    - [Insert Data](#insert-data)
-    - [View Data](#view-data)
-  - [Building the Express App](#building-the-express-app)
-    - [Importing the Necessary Libraries](#importing-the-necessary-libraries)
-    - [Configure the Database](#configure-the-database)
-    - [Middleware](#middleware)
-    - [View Comments](#view-comments)
-    - [Creeate Comment](#creeate-comment)
-  - [Deploy on k8s](#deploy-on-k8s)
-    - [Building the Image](#building-the-image)
-    - [Deploying on Kubernetes](#deploying-on-kubernetes)
-  - [Running Locally](#running-locally)
+- [Contents](#contents)
+- [Setting up Mongo](#setting-up-mongo)
+- [# Adding Mongo to your PATH](#-adding-mongo-to-your-path)
+- [# Create a Data Directory](#-create-a-data-directory)
+- [# Running the DB Server](#-running-the-db-server)
+- [# Creating and Viewing Elements](#-creating-and-viewing-elements)
+- [# Connect to a Database](#-connect-to-a-database)
+- [# Insert Data](#-insert-data)
+- [# View Data](#-view-data)
+- [Building the Express App](#building-the-express-app)
+- [# Importing the Necessary Libraries](#-importing-the-necessary-libraries)
+- [# Configure the Database](#-configure-the-database)
+- [# Middleware](#-middleware)
+- [# View Comments](#-view-comments)
+- [# Creeate Comment](#-creeate-comment)
+- [Deploy on k8s](#deploy-on-k8s)
+- [# Building the Image](#-building-the-image)
+- [# Deploying on Kubernetes](#-deploying-on-kubernetes)
+- [Running Locally](#running-locally)
 
 
 #  Setting up Mongo
@@ -391,4 +390,4 @@ spec:
 
 #  Running Locally
 
-If you'd like to run this application on a local Kubernetes cluster, take a look at the page on [Deploying an Express App that Uses Mongo on k8s Locally](deploy-an-express-app-with-mongo-on-k8s-locally.md)
+If you'd like to run this application on a local Kubernetes cluster, take a look at the page on [Deploying an Express App that Uses Mongo on k8s Locally](/docs/ibm-cloud/deploy-a-kubernetes-app-on-icp)
