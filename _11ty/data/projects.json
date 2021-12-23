@@ -1,4 +1,11 @@
-[
+[ 
+  {
+    "title": "Photography Gallery Template",
+    "description": "A configurable Gatsby site for quickly spinning up photo galleries with lightbox and download functionality built-in",
+    "tags": ["js", "gatsby"],
+    "cta": "Go to repo",
+    "link": "https://github.com/nabeelvalley/gallery-template/"
+  },
   {
     "title": "All the Greens",
     "description": "My plant journal",
