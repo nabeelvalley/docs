@@ -49,7 +49,7 @@ a {
   --color-bg: #ffffff;
   --color-fg: #2d2d2d;
   --color-code-bg: #f3f3f3;
-  --color-brand: #684693;
+  --color-brand: #e44d90;
   --space-gutter: 24px;
   --space-padding-codeblock: 1em;
   --space-padding-main: 36px;
@@ -62,7 +62,7 @@ a {
     --color-bg: #2d2d2d;
     --color-fg: #ffffff;
     --color-code-bg: #222222;
-    --color-brand: #c5a8eb;
+    --color-brand: #f7c9dd;
   }
 }
 
@@ -96,6 +96,11 @@ h2 {
 h3 {
   font-size: 1em;
   text-decoration-color: var(--color-brand);
+}
+
+p a,
+li a {
+  color: var(--color-brand);
 }
 
 /* page styles */
