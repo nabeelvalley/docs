@@ -1,5 +1,7 @@
+const { format } = require('date-fns')
+
 module.exports = () => {
   return {
-    buildDate: new Date().toDateString(),
+    buildDate: format(new Date(), 'dd MMMM yyyy'),
   }
 }
