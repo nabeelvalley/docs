@@ -94,6 +94,11 @@ module.exports = async function () {
     .sort(sortByDate)
     .map(populatePaging)
 
+  const random = meta
+    .filter((m) => m.route.startsWith('/random'))
+    .sort(sortByDate)
+    .map(populatePaging)
+
   const nbPromises = meta
     .filter((m) => m.path.endsWith('.ipynb'))
     .map(async (m) => {
@@ -109,5 +114,15 @@ module.exports = async function () {
 
   const allPages = [...blog, ...stdout, ...docs]
 
-  return { pages, meta, docs, stdout, blog, notebooks, groupedDocs, allPages }
+  return {
+    pages,
+    meta,
+    docs,
+    stdout,
+    blog,
+    notebooks,
+    groupedDocs,
+    allPages,
+    random,
+  }
 }
