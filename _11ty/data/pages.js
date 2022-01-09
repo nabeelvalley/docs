@@ -1,6 +1,6 @@
 const { readFile } = require('fs').promises
 const glob = require('glob')
-const { resolve } = require('path')
+const { resolve, format } = require('path')
 const _ = require('lodash')
 const { convertJupyterToHtml } = require('../lib/markdown')
 
@@ -99,6 +99,11 @@ module.exports = async function () {
     .sort(sortByDate)
     .map(populatePaging)
 
+  const photography = meta
+    .filter((m) => m.route.startsWith('/photography'))
+    .sort(sortByDate)
+    .map(populatePaging)
+
   const nbPromises = meta
     .filter((m) => m.path.endsWith('.ipynb'))
     .map(async (m) => {
@@ -112,7 +117,7 @@ module.exports = async function () {
 
   const notebooks = await Promise.all(nbPromises)
 
-  const allPages = [...blog, ...stdout, ...docs]
+  const allPages = [...blog, ...stdout, ...docs, ...photography]
 
   return {
     pages,
@@ -124,5 +129,6 @@ module.exports = async function () {
     groupedDocs,
     allPages,
     random,
+    photography,
   }
 }

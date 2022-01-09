@@ -1,0 +1,59 @@
+---
+layout: base.liquid
+---
+
+{% title "Photography" %}
+
+<article>
+  
+  <section class="link__grid">
+    <a href="https://photography.nabeelvalley.co.za" class="link__link">
+      <div class="link__card">
+        <h2 class="link__title">Portfolio</h2>
+
+        <div class="link__cta-wrapper">
+          <p class="link__cta">Open Gallery</p>
+        </div>
+      </div>
+    </a>
+    <a href="https://instagram.com/nabeelvalley" class="link__link">
+      <div class="link__card">
+        <h2 class="link__title">Instagram</h2>
+
+        <div class="link__cta-wrapper">
+          <p class="link__cta">View Profile</p>
+        </div>
+      </div>
+    </a>
+
+  </section>
+
+  <h1>{{ title }}</h1>
+  <h2>{{ subtitle }}</h2>
+
+  <article>{{ content }}</article>
+
+  <nav class="link__grid">
+    {% for p in pages.allPages %} {% if p.url == page.url %} {% assign next_ind
+    = forloop.index0 | minus: 1 %} {% assign prev_ind = forloop.index0 | plus: 1
+    %} {% unless forloop.last == true %} {% assign prev_page =
+    pages.allPages[prev_ind] %}
+
+    <a href="{{ prev_page.route }}" class="link__link">
+      <div class="link__card">
+        <h2 class="link__title">Previous</h2>
+        <h3 class="link__subtitle">{{ prev_page.title }}</h3>
+      </div>
+    </a>
+    {% endunless %} {% unless forloop.first == true %} {% assign next_page =
+    pages.allPages[next_ind] %}
+
+    <a href="{{ next_page.route }}" class="link__link">
+      <div class="link__card">
+        <h2 class="link__title">Next</h2>
+        <h3 class="link__subtitle">{{ next_page.title }}</h3>
+      </div>
+    </a>
+    {% endunless %} {% endif %} {% endfor %}
+  </nav>
+</article>
