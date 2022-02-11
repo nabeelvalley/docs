@@ -510,7 +510,7 @@ export const Fruit: React.FC = ({}) => {
 
 ### Ticks and Grid Lines
 
-> Note that D3 includes a `d3-axis` package but that doesn't quite work given that we're manually creating the SVG using React and not D3
+> Note that D3 includes a `d3-axis` package but that doesn't quite work given that we're manually creating the SVG using React and not D3's string-based rendering
 
 We may want to add Ticks and Grid Lines on the X-Axis, we can do this using the scale's `ticks` method like so:
 
