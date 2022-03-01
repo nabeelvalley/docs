@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="eqR9vdsWmb7gglH0R4CilWu8iysUMq1-AII0eotV6JM" />
+    
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&family=Lato:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- hljs -->
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme: light)"
+      href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/atom-one-light.min.css"
+    />
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme: dark)"
+      href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/atom-one-dark.min.css"
+    />
+
+    <!-- katex -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs"
+      crossorigin="anonymous"
+    />
+
+    <!-- app -->
+    <link rel="stylesheet" href="/assets/style/main.css" />
+    
+    <title>{{ title | default: "Nabeel Valley"}}</title>
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@not_nabeel" />
+    
+    <meta name="description" content="{{ description }}" />
+    <meta name="twitter:description" content="{{ description }}" />
+    <meta name="og:description" content="{{ description }}" />
+
+    <meta name="twitter:image" content="https://nabeelvalley.co.za/assets/images/home/code.jpg"></meta>
+    <meta name="og:image" content="https://nabeelvalley.co.za/assets/images/home/code.jpg"></meta>
+    
+    <meta name="twitter:title" content="{{ title }}" />
+    <meta name="og:title" content="{{ title }}" />
+
+  </head>
+  <body>
+    <div class="page">
+      <nav class="nav">
+        <div class="nav__title"><a href="/">Nabeel Valley</a></div>
+        <div class="nav__subtitle">Engineer, Developer, Photographer</div>
+        <ul class="nav__list">
+          <li class="nav__item"><a href="/">Home</a></li>
+          <li class="nav__item"><a href="/blog">Blog</a></li>
+          <li class="nav__item"><a href="/stdout">Stdout</a></li>
+          <li class="nav__item"><a href="/docs">Docs</a></li>
+          <li class="nav__item"><a href="/code">Code</a></li>
+          <li class="nav__item"><a href="/photography">Photography</a></li>
+          <li class="nav__item"><a href="/about">Me</a></li>
+        </ul>
+      </nav>
+      <main class="main">
+        {{ content }}
+      </main>
+    </div>
+
+    <script src="/assets/js/highlight.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((el) => {
+          console.log(el)
+          hljs.highlightElement(el)
+        })
+      })
+    </script>
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+      integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+      integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({ startOnLoad: true })
+    </script>
+  </body>
+</html>

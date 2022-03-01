@@ -1,0 +1,34 @@
+---
+layout: base.liquid
+---
+
+<article>
+  <h1>{{ title }}</h1>
+  <h2>{{ subtitle }}</h2>
+
+  {{ content }}
+
+  <nav class="link__grid">
+    {% for p in pages.allPages %} {% if p.url == page.url %} {% assign next_ind
+    = forloop.index0 | minus: 1 %} {% assign prev_ind = forloop.index0 | plus: 1
+    %} {% unless forloop.last == true %} {% assign prev_page =
+    pages.allPages[prev_ind] %}
+
+    <a href="{{ prev_page.route }}" class="link__link">
+      <div class="link__card">
+        <h2 class="link__title">Previous</h2>
+        <h3 class="link__subtitle">{{ prev_page.title }}</h3>
+      </div>
+    </a>
+    {% endunless %} {% unless forloop.first == true %} {% assign next_page =
+    pages.allPages[next_ind] %}
+
+    <a href="{{ next_page.route }}" class="link__link">
+      <div class="link__card">
+        <h2 class="link__title">Next</h2>
+        <h3 class="link__subtitle">{{ next_page.title }}</h3>
+      </div>
+    </a>
+    {% endunless %} {% endif %} {% endfor %}
+  </nav>
+</article>

@@ -1,0 +1,6 @@
+{
+  "title": "Code in a Container",
+  "subtitle": "25 July 2020",
+  "description": "Using a Docker Container as a development container using the Visual Studio Code Remote-Containers Extension",
+  "image": "images/zwartkops/image16.jpg"
+}

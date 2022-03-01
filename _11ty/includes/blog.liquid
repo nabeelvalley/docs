@@ -1,0 +1,22 @@
+---
+layout: base.liquid
+---
+
+<nav></nav>
+
+<article>{{ content }}</article>
+
+<section class="link__grid">
+  {% for page in pages.blog %}
+  <a href="{{ page.route }}" class="link__link">
+    <div class="link__card">
+      <h2 class="link__title">{{ page.title }}</h2>
+      <h3 class="link__subtitle">{{ page.subtitle }}</h3>
+      <p class="link__description">{{ page.description }}</p>
+      <div class="link__cta-wrapper">
+        <p class="link__cta">Read post</p>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</section>

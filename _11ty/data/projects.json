@@ -1,0 +1,86 @@
+[ 
+  {
+    "title": "Photography Gallery Template",
+    "description": "A configurable Gatsby site for quickly spinning up photo galleries with lightbox and download functionality built-in",
+    "tags": ["js", "gatsby"],
+    "cta": "Go to repo",
+    "link": "https://github.com/nabeelvalley/gallery-template/"
+  },
+  {
+    "title": "All the Greens",
+    "description": "My plant journal",
+    "tags": ["js", "gatsby", "mdx", "tailwindcss"],
+    "cta": "Go to site",
+    "link": "https://all-the-greens.netlify.app/"
+  },
+  {
+    "title": "Waddle.js",
+    "description": "A collection of general-purpose javascript and typescript libraries",
+    "tags": ["ts", "js"],
+    "cta": "View project",
+    "link": "https://github.com/nabeelvalley/waddle.js"
+  },
+  {
+    "title": "Project init",
+    "description": "A cli for setting up codebases using preconfigured starter templates for different frameworks, languages, and configurations",
+    "tags": ["js", "npm", "npx"],
+    "cta": "View project",
+    "link": "https://github.com/nabeelvalley/project-init"
+  },
+  {
+    "title": "Pi Manager",
+    "description": "A lightweight process and application manager for raspberry pi",
+    "tags": ["ts", "js", "raspberry-pi", "pm2"],
+    "cta": "View project",
+    "link": "https://github.com/nabeelvalley/pi-manager"
+  },
+  {
+    "title": "Rak'ah",
+    "description": "Information on the number of rak'ah for different salaat. essentially a fork of 'form and structure' with different content",
+    "tags": ["svelte", "js", "netlify"],
+    "cta": "Go to site",
+    "link": "https://rakah.netlify.com/"
+  },
+  {
+    "title": "Form and Structure",
+    "description": "Website about poetic form and structure built with svelte, one of those 'always-a-work-in-progress' kind of things",
+    "tags": ["svelte", "js", "netlify"],
+    "cta": "Go to site",
+    "link": "https://formandstructure.netlify.com/"
+  },
+  {
+    "title": "Salaah Times",
+    "description": "Web app to enable masaajid to manage and publish their salaah times for a given area. built with strapicms, mongo and react and an unnecessarily complicated docker build",
+    "tags": ["react", "strapi", "docker", "mongo-db"],
+    "cta": "Go to GitHub",
+    "link": "https://github.com/nabeelvalley/SalaahTimesApp"
+  },
+  {
+    "title": "Twit List",
+    "description": "application that allows you to bookmark tweets and save them to your account simply by sharing that tweet with an app host user's account, works in tandem with the webhooks project",
+    "tags": ["node.js", "express", "twitter", "mongo-db"],
+    "cta": "Go to GitHub",
+    "link": "https://github.com/nabeelvalley/TwitList"
+  },
+  {
+    "title": "Instagram backup",
+    "description": "A github-actions powered instagram backup using f# and the instagram graph api to retreive and backup a user's instgram posts automatically",
+    "tags": ["f#", "graphql", "github", "cron"],
+    "cta": "Go to GitHub",
+    "link": "https://github.com/nabeelvalley/RTCWithMQTT"
+  },
+  {
+    "title": "Machine learning web services",
+    "description": "Get data and train a model to deploy as a web service on cloud foundry",
+    "tags": ["python", "machine-learning", "cloud-foundry", "docker"],
+    "cta": "Go to article",
+    "link": "https://developer.ibm.com/tutorials/deploy-a-python-machine-learning-model-as-a-web-service/"
+  },
+  {
+    "title": "Angular continuous deployment",
+    "description": "Deploy an angular app to cloud foundry with a continuous delivery pipeline and node.js custom builds",
+    "tags": ["node.js", "angular", "ibm-cloud", "cloud-foundry", "cloud"],
+    "cta": "Go to article",
+    "link": "https://developer.ibm.com/tutorials/deploy-angular-apps-cloud-foundry-devops/"
+  }
+]

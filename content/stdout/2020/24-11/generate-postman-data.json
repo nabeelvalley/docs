@@ -1,0 +1,5 @@
+{
+  "title": "Generate data for a Postman request",
+  "subtitle": "24 November 2020",
+  "description": "Using Pre-Request Scripts and Environment variables to generate data in Postman"
+}

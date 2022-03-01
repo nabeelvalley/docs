@@ -1,0 +1,5 @@
+{
+  "title": "Highlight Specific Elements",
+  "subtitle": "29 September 2020",
+  "description": "Add a border around all HTML Elements that match a CSS Selector to aid in debugging"
+}

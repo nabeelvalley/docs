@@ -1,0 +1,22 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/nabeelvalley/docs",
+  "author": "Nabeel Valley",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy-img": "^1.0.0",
+    "date-fns": "^2.28.0",
+    "glob": "^7.2.0",
+    "ipynb2html": "^0.3.0",
+    "jsdom": "^18.0.1",
+    "lodash": "^4.17.21",
+    "showdown": "^1.9.1"
+  }
+}
