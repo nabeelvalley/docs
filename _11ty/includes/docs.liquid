@@ -9,7 +9,7 @@ layout: base.liquid
   <h2>{{ group[0].directory }}</h2>
   <ul>
   {% for page in group %}
-    <li><a href="{{ page.route }}">{{ page.title }} {{ page.directory }}</a></li>
+    <li><a href="{{ page.route }}">{{ page.title }}</a></li>
   {% endfor %}
   </ul>
 {% endfor %}
