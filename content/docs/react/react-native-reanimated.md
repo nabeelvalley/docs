@@ -118,6 +118,44 @@ const w = delay(100, withSpring(width.value))
 
 # Gestures
 
+Gesture handling in React Native is usually done using the `react-native-gesture-handler` library. At the top-level the library exposes `gestureHandlerRootHOC` and `GestureHandlerRootView`. Before your application will be able to register gestures you have to wrap your application with either the `HOC` or `RootView` mentioned above
+
+This would be done at the top-level of your app like so
+
+Using the `gestureHandlerRootHOC`:
+
+`App.tsx`
+
+```tsx
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler'
+// ...
+
+function App() {
+  // app component stuff
+}
+
+export default gestureHandlerRootHOC(App)
+```
+
+Or using `GestureHandlerRootView`:
+
+`App.tsx`
+
+```tsx
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+// ...
+
+export default function App() {
+  // app component stuff
+
+  return (
+    <GestureHandlerRootView>
+      {/* rest of app */}
+    </GestureHandlerRootView>
+  )
+}
+```
+
 When handling gestures we have a `useAnimatedGestureHandler` which can take an object of method handlers, for example setting an `onActive` handler like below
 
 ```tsx

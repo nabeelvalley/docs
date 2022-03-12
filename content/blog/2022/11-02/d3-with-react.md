@@ -420,7 +420,7 @@ And the final SVG:
 The code for the entire file/graph can be seen below:
 
 <details>
-<summary>`Fruit.tsx`</summary>
+<summary>Fruit.tsx</summary>
 
 ```tsx
 import React from "react";
@@ -768,7 +768,7 @@ The final code can be seen below:
 
 
 <details>
-<summary>`Temperature.tsx`</summary>
+<summary>Temperature.tsx</summary>
 
 ```tsx
 import React from "react";
