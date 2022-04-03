@@ -1,7 +1,5 @@
 # Get the OS Ready
 
-> These notes mostly apply to Raspberry OS, for Ubuntu take a look [here]
-
 To setup a headless Pi you need to do the following:
 
 1. Download the [Raspberry Pi Imager](https://www.raspberrypi.org/downloads/)
@@ -12,7 +10,22 @@ To setup a headless Pi you need to do the following:
 
 > [Docs](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md)
 
-Since you won't be able to ineract with the Pi (because it's headless) you will want to configure the WiFi if you will be using it through that
+## With Raspberry Pi Imager
+
+> Information on using th Raspberry Pi Imager advanced options can be found on [the Raspberry Pi website](https://www.raspberrypi.com/news/raspberry-pi-imager-update-to-v1-6/)
+
+Using Raspberry Pi Imager, you can click on the advanced options icon (cog) at the bottom right of the UI or type `ctrl + shift + x` to open the menu. In this menu be sure to configure the following options
+
+- Enable SSH
+- WiFi SSID and Password
+- Optional: Change Username and Password
+- Optional: Set Hostname
+
+## Without Raspberry Pi Imager
+
+Since you won't be able to interact with the Pi (because it's headless) you will want to configure the WiFi if you will be using it through that
+
+### Setup WiFi
 
 Create a `wpa_supplicant.conf` in your Pi's root directory in your SD Card, this will be copied to the correct place when starting up. The file should have the following contents:
 
@@ -29,7 +42,7 @@ network={
 }
 ```
 
-# Configure SSH
+### Enable SSH
 
 > [Docs](https://www.raspberrypi.org/documentation/remote-access/ssh/README.md)
 
