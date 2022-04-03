@@ -1,6 +1,6 @@
 # Overview
 
-Bluetooth devices make use of a few different concepts for reading and writing data. At a high level, bluetooth data is organized as follows:
+Bluetooth Low Energy (BLE) devices make use of a few different concepts for reading and writing data. At a high level, bluetooth data is organized as follows:
 
 ![GATT Data hierarchy](./bluetooth-data-hierarchy.png)
 
@@ -221,3 +221,7 @@ An approach for reverse engineering the data structure for a simple bluetooth de
 ## List of Bluetooth IDs
 
 A database of bluetooth numbers can be found in the [Bluetooth numbers database](https://github.com/NordicSemiconductor/bluetooth-numbers-database) as well as the previously mentioned {Bluetooth specifications document}(https://btprodspecificationrefs.blob.core.windows.net/assigned-values/16-bit%20UUID%20Numbers%20Document.pdf)
+
+# Next Ideas
+
+It may be worth looking into creating a Bluetooth Server. The library installed on Raspberry Pi is Bluez and it looks it supports creating a Bluetooth Server. The documentation for Bluez can be found [here](http://www.bluez.org/). Additionally, there's also the [Bluetooth for Linux developers](https://www.bluetooth.com/bluetooth-resources/bluetooth-for-linux/) which goes through creating a device that acts as a Bluetooth LE peripheral which could be useful in simulating a BLE device
