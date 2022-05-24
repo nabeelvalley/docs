@@ -292,4 +292,4 @@ Below is a link to the runnable Repl.it that has the above code defined
 
 [Repl.it link](https://replit.com/@nabeelvalley/TypesScript-Playground?v=1)
 
-<iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@nabeelvalley/TypesScript-Playground?v=1"></iframe>
+<iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@nabeelvalley/TypesScript-Playground?embed=true"></iframe>
