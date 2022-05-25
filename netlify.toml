@@ -1,15 +1,96 @@
 [build]
-  command = "yarn build"
-  publish="_site"
-  base = ""
+command = "yarn build"
+publish="_site"
+base = ""
 
 [[redirects]]
-  from = "https://nabeelvalley.netlify.app/*"
-  to = "https://nabeelvalley.co.za/:splat"
-  status = 301
-  force = true
+from = "https://nabeelvalley.netlify.app/*"
+to = "https://nabeelvalley.co.za/:splat"
+status = 301
+force = true
 
 [[redirects]]
-  from = "/home"
-  to = "/"
-  status = 301
+from = "/home"
+to = "/"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/basics"
+to = "/docs/javascript/node-basics"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/cors"
+to = "/docs/javascript/cors"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/creating-a-file-watching-application"
+to = "/docs/javascript/creating-a-file-watching-application"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/csv-to-code"
+to = "/docs/javascript/csv-to-code"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/debug-typescript-vscode"
+to = "/docs/javascript/debug-typescript-vscode"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/express-application-with-typescript"
+to = "/docs/javascript/express-application-with-typescript"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/express-basic-auth"
+to = "/docs/javascript/express-basic-auth"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/feathersjs"
+to = "/docs/javascript/feathersjs"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/intro-to-sqlite"
+to = "/docs/javascript/intro-to-sqlite"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/knex"
+to = "/docs/javascript/knex"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/play-audio-from-xhr"
+to = "/docs/javascript/play-audio-from-xhr"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/redis-from-express"
+to = "/docs/javascript/redis-from-express"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/static-and-compiles"
+to = "/docs/javascript/static-and-compiles"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/troubleshooting"
+to = "/docs/javascript/troubleshooting"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/typescript-ast"
+to = "/docs/javascript/typescript-ast"
+status = 301
+
+[[redirects]]
+from = "/docs/node.js/typescript-basics"
+to = "/docs/javascript/typescript-basics"
+status = 301
+force = false
