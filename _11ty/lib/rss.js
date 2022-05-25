@@ -1,4 +1,5 @@
 const { Feed } = require('feed')
+const { resolve } = require('path')
 const { writeFile, mkdir, rm } = require('fs').promises
 
 const link = 'https://nabeelvalley.co.za'
@@ -52,11 +53,11 @@ const createRssFeed = async (posts) => {
   }
 
   try {
-    await rm('_site/feed', {
+    await rm(resolve('_site/feed'), {
       force: true,
       recursive: true,
     })
-    await mkdir('_site/feed', {
+    await mkdir(resolve('_site/feed'), {
       recursive: true,
     })
   } catch {
@@ -64,13 +65,13 @@ const createRssFeed = async (posts) => {
   }
 
   const rss = feed.rss2()
-  await writeFile('_site/feed/rss.xml', rss)
+  await writeFile(resolve('_site/feed/rss.xml'), rss)
 
   const atom = feed.atom1()
-  await writeFile('_site/feed/atom.xml', atom)
+  await writeFile(resolve('_site/feed/atom.xml'), atom)
 
   const json = feed.json1()
-  await writeFile('_site/feed/feed.json', json)
+  await writeFile(resolve('_site/feed/feed.json'), json)
 }
 
 module.exports = { createRssFeed }
