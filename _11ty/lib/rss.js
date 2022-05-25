@@ -53,15 +53,6 @@ const createRssFeed = async (posts) => {
   }
 
   try {
-    await rm(resolve('_site/feed'), {
-      force: true,
-      recursive: true,
-    })
-  } catch (err) {
-    console.error(err)
-  }
-
-  try {
     await mkdir(resolve('_site/feed'), {
       recursive: true,
     })
