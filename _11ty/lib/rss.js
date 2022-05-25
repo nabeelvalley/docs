@@ -1,6 +1,5 @@
 const { Feed } = require('feed')
-const { writeFile, mkdir, rm } = require('fs/promises')
-const { convertMarkdownToHtml } = require('../lib/markdown')
+const { writeFile, mkdir, rm } = require('fs').promises
 
 const link = 'https://nabeelvalley.co.za'
 const me = 'Nabeel Valley'
