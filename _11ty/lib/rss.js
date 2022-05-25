@@ -38,9 +38,9 @@ const createRssFeed = async (posts) => {
     }
 
     const prefix = post.url.startsWith('/blog')
-      ? 'Blog: '
+      ? 'blog: '
       : post.url.startsWith('/stdout')
-      ? 'Stdout: '
+      ? 'stdout: '
       : ''
 
     try {
