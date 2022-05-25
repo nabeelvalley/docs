@@ -56,7 +56,9 @@ const createRssFeed = async (posts) => {
       force: true,
       recursive: true,
     })
-    await mkdir('_site/feed')
+    await mkdir('_site/feed', {
+      recursive: true,
+    })
   } catch {
     // okay then
   }
