@@ -33,11 +33,15 @@ const createRssFeed = async (posts) => {
 
     const date = new Date(post.subtitle)
 
-    const { content, next, previous, ...d } = post
-
     if (isNaN(date)) {
       return
     }
+
+    const prefix = post.url.startsWith('/blog')
+      ? 'Blog: '
+      : post.url.startsWith('/stdout')
+      ? 'Stdout: '
+      : ''
 
     try {
       feed.addItem({
@@ -45,7 +49,7 @@ const createRssFeed = async (posts) => {
         id: post.url,
         author: [author],
         link: `${link}${post.url}`,
-        title: post.title,
+        title: `${prefix}${post.title}`,
         description: post.description,
         content: post.html,
       })
