@@ -57,11 +57,16 @@ const createRssFeed = async (posts) => {
       force: true,
       recursive: true,
     })
+  } catch (err) {
+    console.error(err)
+  }
+
+  try {
     await mkdir(resolve('_site/feed'), {
       recursive: true,
     })
-  } catch {
-    // okay then
+  } catch (err) {
+    console.error(err)
   }
 
   const rss = feed.rss2()
