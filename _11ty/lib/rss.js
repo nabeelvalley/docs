@@ -42,7 +42,7 @@ const createRssFeed = async (posts) => {
         date,
         id: post.url,
         author: [author],
-        link: post.url,
+        link: `${link}${post.url}`,
         title: post.title,
         description: post.description,
         content: post.html,
