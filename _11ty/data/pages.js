@@ -2,7 +2,11 @@ const { readFile } = require('fs').promises
 const glob = require('glob')
 const { resolve, format } = require('path')
 const _ = require('lodash')
-const { convertJupyterToHtml } = require('../lib/markdown')
+const {
+  convertJupyterToHtml,
+  convertMarkdownToHtml,
+} = require('../lib/markdown')
+const { createRssFeed } = require('../lib/rss')
 
 const getDirectoryName = (dir) => {
   const split = dir.split('/')
@@ -57,7 +61,14 @@ const readNotebook = async (path) => {
   const fullPath = resolve(__dirname, '../../', path)
   const content = await readFile(fullPath)
 
-  return convertJupyterToHtml(content)
+  return convertJupyterToHtml(content.toString())
+}
+
+const readMarkdown = async (path) => {
+  const fullPath = resolve(__dirname, '../../', path)
+  const content = await readFile(fullPath)
+
+  return convertMarkdownToHtml(content.toString())
 }
 
 const sortByDate = (a, b) => {
@@ -118,6 +129,19 @@ module.exports = async function () {
   const notebooks = await Promise.all(nbPromises)
 
   const allPages = [...blog, ...stdout, ...docs, ...photography]
+
+  const rssPageTasks = [...blog, ...stdout].sort(sortByDate).map(async (m) => {
+    const html = await readMarkdown(m.path)
+
+    return {
+      ...m,
+      html,
+    }
+  })
+
+  const rssPages = await Promise.all(rssPageTasks)
+
+  await createRssFeed(rssPages)
 
   return {
     pages,

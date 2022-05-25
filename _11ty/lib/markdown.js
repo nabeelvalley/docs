@@ -31,11 +31,7 @@ const convertMarkdownToHtml = (text) => {
   const converter = new Converter({
     headerLevelStart: 2,
     parseImgDimensions: true,
-    extensions: [
-      codeTab,
-      externalLinksInNewWindow,
-      scrollableTables,
-    ],
+    extensions: [codeTab, externalLinksInNewWindow, scrollableTables],
     simplifiedAutoLink: true,
     tables: true,
     ghCompatibleHeaderId: true,
