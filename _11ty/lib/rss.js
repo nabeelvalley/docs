@@ -16,6 +16,8 @@ const createRssFeed = async (posts) => {
     author,
     id: link,
     title: me,
+    image: `${link}/assets/images/home/code.jpg`,
+    favicon: `${link}/assets/favicon.png`,
     copyright: 'All rights reserved, Nabeel Valley',
     description: 'Personal website, blog, and code snippets',
     language: 'en',
