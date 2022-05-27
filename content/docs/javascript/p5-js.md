@@ -1,3 +1,5 @@
+[[toc]]
+
 > Notes from [`p5.js`](https://p5js.org/) and [The Nature of Code](https://natureofcode.com/book/introduction/)
 
 # Random Walk

@@ -2,6 +2,7 @@ const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
 const markdownItHljs = require('markdown-it-highlightjs')
 const markdownItKatex = require('markdown-it-katex')
+const markdownItToc = require('markdown-it-table-of-contents')
 
 const jsdom = require('jsdom')
 const ipynb = require('ipynb2html')
@@ -12,8 +13,10 @@ const lib = markdownIt({
   .use(markdownItAnchor.default)
   .use(markdownItHljs)
   .use(markdownItKatex)
-  .use((md) => {
-    md.inline.State
+  .use(markdownItToc, {
+    includeLevel: [1, 2, 3, 4],
+    containerHeaderHtml: `<details><summary>Contents</summary>`,
+    containerFooterHtml: `</details>`,
   })
 
 const convertMarkdownToHtml = (markdown) => {

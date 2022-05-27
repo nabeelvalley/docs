@@ -1,3 +1,5 @@
+[[toc]]
+
 > [Microsoft Documentation](https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-typescript-webpack?view=aspnetcore-3.1&tabs=visual-studio-code)
 
 Signal R is a way to add real-time functionality to a .NET Web API, it makes use of a Server and Client side connection enabling two way transfer of data between them

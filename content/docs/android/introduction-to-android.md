@@ -1,15 +1,4 @@
-<details>
-  <summary>Contents</summary>
-
-- [Creating a Project](#creating-a-project)
-- [Generated Files and Structure](#generated-files-and-structure)
-- [Running the App](#running-the-app)
-- [Editing the UI](#editing-the-ui)
-- [String Localization](#string-localization)
-- [Handling Events](#handling-events)
-- [Create a New Activity](#create-a-new-activity)
-
-</details>
+[[toc]]
 
 > From the [Android Docs](https://developer.android.com/guide) and [this section](https://developer.android.com/training/basics/firstapp/index.html)
 

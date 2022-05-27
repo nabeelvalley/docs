@@ -4,24 +4,7 @@ The Remote Containers extension allows us to write code and develop applications
 
 In this post, I'll take a look at what a Docker container is, why we would want to use one as a development environment, and how we can go about setting one up for VSCode
 
-<details>
-<summary>Contents</summary>
-
-- [Prerequisites](#prerequisites)
-- [Docker Containers](#docker-containers)
-- [Docker Images](#docker-images)
-  - [Create an Application](#create-an-application)
-  - [Create a Dockerfile](#create-a-dockerfile)
-- [Development Containers](#development-containers)
-  - [Why Develop in a Container](#why-develop-in-a-container)
-  - [How to Develop in a Container](#how-to-develop-in-a-container)
-    - [Use an Existing Dockerfile](#use-an-existing-dockerfile)
-    - [Using a Preconfigured Dockerfile](#using-a-preconfigured-dockerfile)
-  - [Which Method to Use](#which-method-to-use)
-- [Summary](#summary)
-  - [Further Reading](#further-reading)
-
-</details>
+[[toc]]
 
 # Prerequisites
 

@@ -1,18 +1,4 @@
-<details>
-<summary>Contents</summary>
-
-- [Introduction](#introduction)
-- [Setting Up](#setting-up)
-- [Gatsby Plugins](#gatsby-plugins)
-  - [Reading the File Metadata](#reading-the-file-metadata)
-  - [Processing the Files](#processing-the-files)
-- [Create Pages](#create-pages)
-  - [Setting Up](#setting-up-1)
-  - [Create Pages Dynamically](#create-pages-dynamically)
-  - [Render the Page Data](#render-the-page-data)
-- [Summary](#summary)
-
-</details>
+[[toc]]
 
 # Introduction
 

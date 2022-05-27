@@ -1,14 +1,4 @@
-<details>
-<summary>Contents</summary>
-
-- [Introduction](#introduction)
-- [The React App](#the-react-app)
-- [Hard Coded Pages](#hard-coded-pages)
-- [Dynamic Post Page](#dynamic-post-page)
-- [App Layout and Routes](#app-layout-and-routes)
-- [Summary](#summary)
-
-</details>
+[[toc]]
 
 # Introduction
 

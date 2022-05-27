@@ -1,20 +1,4 @@
-<details>
-<summary>Contents</summary>
-
-- [Introduction](#introduction)
-- [Getting Ready](#getting-ready)
-  - [Update Folder Structure](#update-folder-structure)
-  - [Install Gatsby](#install-gatsby)
-  - [Create Config Files](#create-config-files)
-- [Page Setup](#page-setup)
-  - [Fix the Blog Error Message](#fix-the-blog-error-message)
-  - [Fix the Routes](#fix-the-routes)
-  - [Fix the Layout](#fix-the-layout)
-  - [Use the Layout](#use-the-layout)
-  - [Fix the CSS](#fix-the-css)
-- [Summary](#summary)
-
-</details>
+[[toc]]
 
 # Introduction
 

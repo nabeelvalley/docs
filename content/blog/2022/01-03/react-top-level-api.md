@@ -1,5 +1,6 @@
 > For a reference on the React Top-Level API you can take a look at [the React Docs](https://reactjs.org/docs/react-api.html)
 
+[[toc]]
 
 # Introduction
 

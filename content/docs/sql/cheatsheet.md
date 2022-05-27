@@ -1,25 +1,4 @@
-<details>
-  <summary>Contents</summary>
-
-- [Log Into Instance](#log-into-instance)
-- [Instance Level Operations](#instance-level-operations)
-  - [List Instance Databases](#list-instance-databases)
-  - [Create Database](#create-database)
-- [Drop Database](#drop-database)
-- [Database Level Operations](#database-level-operations)
-  - [List Database Tables](#list-database-tables)
-  - [List Columns in Table](#list-columns-in-table)
-  - [Create Table](#create-table)
-  - [Update Column Data Type](#update-column-data-type)
-  - [Add Column Constraint](#add-column-constraint)
-  - [Create Table with Links](#create-table-with-links)
-  - [Drop Table](#drop-table)
-  - [Insert Item into Table](#insert-item-into-table)
-  - [Retrieve Table Values](#retrieve-table-values)
-  - [Update Table Item](#update-table-item)
-- [Testing Statements](#testing-statements)
-
-</details>
+[[toc]]
 
 > Mostly applies to SQL Server and SQL Express
 

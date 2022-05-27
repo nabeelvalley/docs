@@ -1,24 +1,4 @@
-<details>
-  <summary>Contents</summary>
-
-- [Stage Files Using Glob](#stage-files-using-glob)
-- [Revert Commits](#revert-commits)
-  - [Revert Single Commit](#revert-single-commit)
-  - [Revert Multiple Commits](#revert-multiple-commits)
-- [Submodules](#submodules)
-  - [Set Up a Test Repo](#set-up-a-test-repo)
-  - [Add a Submodule](#add-a-submodule)
-  - [Cloning a Project with Submodules](#cloning-a-project-with-submodules)
-- [Pull Latest Changes from Submodule](#pull-latest-changes-from-submodule)
-- [Clean Ignored Files](#clean-ignored-files)
-- [Create an Orphan/Unrelated Branch](#create-an-orphanunrelated-branch)
-- [Using Git Flow](#using-git-flow)
-- [Using Git from Another Tool](#using-git-from-another-tool)
-- [Consistent Line Endings](#consistent-line-endings)
-- [Locate your SSH Key on Windows](#locate-your-ssh-key-on-windows)
-- [Delete All Branches other than Master](#delete-all-branches-other-than-master)
-
-</details>
+[[toc]]
 
 # Stage Files Using Glob
 
