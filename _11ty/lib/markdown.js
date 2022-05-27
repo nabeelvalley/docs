@@ -1,46 +1,15 @@
-const Converter = require('showdown').Converter
+const markdownIt = require('markdown-it')
+const markdownItAnchor = require('markdown-it-anchor')
+
 const jsdom = require('jsdom')
 const ipynb = require('ipynb2html')
 
-const externalLinksInNewWindow = {
-  type: 'output',
-  regex: /<a\shref[^>]+>/g,
-  replace: (text) => {
-    var url = text.match(/"(.*?)"/)[1]
-    if (url.includes('http://') || url.includes('https://')) {
-      return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">'
-    }
-    return text
-  },
-}
+const markdownLibrary = markdownIt({
+  html: true,
+}).use(markdownItAnchor.default)
 
-const scrollableTables = {
-  type: 'output',
-  regex: /<table[^>]*>(?:.|\n)*?<\/table>/,
-  replace: (text) => `<div class="scrollable">${text}</div>`,
-}
-
-const codeTab = {
-  type: 'lang',
-  regex: /^`([^`]*)`$/gm,
-  replace: (text) =>
-    `<p class="code-tab"><code>${text.slice(1, -1)}</code></p>`,
-}
-
-const convertMarkdownToHtml = (text) => {
-  const converter = new Converter({
-    headerLevelStart: 2,
-    parseImgDimensions: true,
-    extensions: [codeTab, externalLinksInNewWindow, scrollableTables],
-    simplifiedAutoLink: true,
-    tables: true,
-    ghCompatibleHeaderId: true,
-    disableForced4SpacesIndentedSublists: true,
-  })
-
-  const html = converter.makeHtml(text)
-
-  return html
+const convertMarkdownToHtml = (markdown) => {
+  return markdownLibrary.render(markdown)
 }
 
 const convertJupyterToHtml = (content) => {
@@ -64,4 +33,8 @@ const convertJupyterToHtml = (content) => {
   return html
 }
 
-module.exports = { convertMarkdownToHtml, convertJupyterToHtml }
+module.exports = {
+  convertMarkdownToHtml,
+  convertJupyterToHtml,
+  markdownLibrary,
+}

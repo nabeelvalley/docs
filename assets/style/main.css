@@ -366,3 +366,11 @@ blockquote {
 blockquote p {
   padding: 12px 24px;
 }
+
+/* mermaid */
+
+/* center mermaid diagrams */
+code.mermaid[data-processed='true'] {
+  display: flex;
+  justify-content: center;
+}

@@ -18,6 +18,9 @@
     "ipynb2html": "^0.3.0",
     "jsdom": "^18.0.1",
     "lodash": "^4.17.21",
-    "showdown": "^1.9.1"
+    "markdown-it": "^13.0.1",
+    "markdown-it-anchor": "^8.6.4",
+    "showdown": "^1.9.1",
+    "slugify": "^1.6.5"
   }
 }

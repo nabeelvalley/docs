@@ -1,3 +1,5 @@
+const { markdownLibrary } = require('./_11ty/lib/markdown')
+
 const linkGridShortcode = (content, columns = 2) => {
   return `<section class="link__grid" style="grid-template-colums: repeat(${columns}, 1fr);"> 
     ${content}
@@ -51,6 +53,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPairedShortcode('link', linkShortcode)
   eleventyConfig.addShortcode('linkTag', linkTagShortcode)
   eleventyConfig.addShortcode('title', titleShortcode)
+
+  eleventyConfig.setLibrary('md', markdownLibrary)
 
   return {
     dir: {
