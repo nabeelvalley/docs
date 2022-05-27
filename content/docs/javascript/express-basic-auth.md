@@ -1,3 +1,5 @@
+[[toc]]
+
 In a new file, define the middleware using the following:
 
 ```js

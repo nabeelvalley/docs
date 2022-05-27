@@ -1,3 +1,5 @@
+[[toc]]
+
 `Power Query` is query language which makes use of the `M` langauge to transform, manipulate, and query data and is used in different MS data applications such as PowerBI and Excel
 
 # Primitives and Operators

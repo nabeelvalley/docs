@@ -1,3 +1,5 @@
+[[toc]]
+
 Something i often find myself needing is a way to create a range in javascript, similar to what python has
 
 Here's a basic implementation of something that works like that:

@@ -1,26 +1,6 @@
-# Deep Learning Fundamentals
+[[toc]]
 
-- [Deep Learning Fundamentals](#deep-learning-fundamentals)
-  - [Introduction to Deep Learning](#introduction-to-deep-learning)
-    - [What is a Neural Network](#what-is-a-neural-network)
-    - [Why Deep Learning?](#why-deep-learning)
-    - [Different Deep Nets](#different-deep-nets)
-    - [The Vanishing Gradient](#the-vanishing-gradient)
-  - [Deep Learning Models](#deep-learning-models)
-    - [Restricted Boltzmann Machines](#restricted-boltzmann-machines)
-    - [Deep Belief Nets](#deep-belief-nets)
-    - [Convolutional Nets](#convolutional-nets)
-    - [Recurrent Nets](#recurrent-nets)
-    - [Autoencoders](#autoencoders)
-    - [Recursive Neural Tensor Nets](#recursive-neural-tensor-nets)
-    - [Uses for Deep Learning](#uses-for-deep-learning)
-  - [Deep Learning Platforms](#deep-learning-platforms)
-    - [H2O.ai](#h2oai)
-    - [Data Graphlab](#data-graphlab)
-  - [Deep Learning Libraries](#deep-learning-libraries)
-    - [Theano](#theano)
-    - [Caffe](#caffe)
-    - [Tensorflow](#tensorflow)
+# Deep Learning Fundamentals
 
 ## Introduction to Deep Learning
 

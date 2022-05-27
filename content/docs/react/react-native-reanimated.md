@@ -1,3 +1,5 @@
+[[toc]]
+
 References:
 - [the Reanimated docs](https://docs.swmansion.com/react-native-reanimated/docs/)
 - [the Release Intro Blog Post](https://blog.swmansion.com/introducing-reanimated-2-752b913af8b3)

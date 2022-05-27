@@ -1,28 +1,10 @@
+[[toc]]
+
 [From this Module](https://learn.chef.io/modules/manage-a-node-chef-server/ubuntu/bring-your-own-system#/)
 
 ```
 Infrastructure Automation > Manage a node > Ubuntu > On premises
 ``` 
-
-- [Manage a Node with Chef Server](#manage-a-node-with-chef-server)
-  - [Overview](#overview)
-  - [Set Up Your Workstation](#set-up-your-workstation)
-    - [Download Chef](#download-chef)
-    - [Open Chef Workstation](#open-chef-workstation)
-    - [Create a Working Directory](#create-a-working-directory)
-    - [Install Git](#install-git)
-    - [Verify SSH](#verify-ssh)
-  - [Install Chef Server](#install-chef-server)
-    - [Install and Configure](#install-and-configure)
-    - [Configure Ports](#configure-ports)
-  - [Configure the Workstation](#configure-the-workstation)
-    - [Create an Organization](#create-an-organization)
-    - [Create a User](#create-a-user)
-    - [Move the `.pem` Files](#move-the-pem-files)
-    - [Copy the Private Key to Workstation](#copy-the-private-key-to-workstation)
-    - [Create Knife Config File](#create-knife-config-file)
-    - [Verify the Setup](#verify-the-setup)
-
 
 # Overview
 

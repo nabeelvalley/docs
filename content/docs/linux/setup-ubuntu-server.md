@@ -1,3 +1,5 @@
+[[toc]]
+
 # SSH Setup
 
 ## 1. Install SSH

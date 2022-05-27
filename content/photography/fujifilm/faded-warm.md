@@ -1,3 +1,5 @@
+[[toc]]
+
 ![](/photography/images/fuji-faded-warm.jpg)
 
 | Setting               | Value          |

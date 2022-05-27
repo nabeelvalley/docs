@@ -1,3 +1,5 @@
+[[toc]]
+
 > From the Microsoft Virtual Academy
 
 # Hello World

@@ -1,3 +1,5 @@
+[[toc]]
+
 # Run a Database Migration on RDS with CDK Custom Resources
 
 > Refer to [Custom cloud infrastructure as code with AWS CDK - CloudFormation Custom Resources Lambda Backend](https://www.youtube.com/watch?v=u7FdDFta2XI)

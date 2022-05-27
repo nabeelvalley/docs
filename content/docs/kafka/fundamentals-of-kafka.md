@@ -1,13 +1,4 @@
-- [Introduction](#introduction)
-- [Fundamentals](#fundamentals)
-  - [Producer](#producer)
-  - [Broker](#broker)
-  - [Consumer](#consumer)
-  - [Architecture](#architecture)
-  - [Topics, Partitions, and Segments](#topics-partitions-and-segments)
-  - [Records](#records)
-  - [Broker Replication](#broker-replication)
-- [General Comparisons with other Tech:](#general-comparisons-with-other-tech)
+[[toc]]
 
 > Based on [this](https://www.youtube.com/watch?v=-DyWhcX3Dpc&list=PLa7VYi0yPIH2PelhRHoFR5iQgflg-y6JA) series
 

@@ -1,3 +1,5 @@
+[[toc]]
+
 [From this CodeLab](https://codelabs.developers.google.com/codelabs/webrtc-web/#0)
 
 # Getting the Code

@@ -1,3 +1,5 @@
+[[toc]]
+
 > [Based on this Medium Article](https://medium.com/@gardikoury/typescript-with-node-and-express-js-why-when-and-how-eb6bc73edd5d)
 
 # Introduction

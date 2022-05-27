@@ -1,3 +1,5 @@
+[[toc]]
+
 When creating a multi-module project for Python, especially when coming from another language ecosystem, you may encounter issues importing code from other files, let's take a look at this
 
 # The Modules

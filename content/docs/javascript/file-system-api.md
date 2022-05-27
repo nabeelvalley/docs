@@ -1,3 +1,5 @@
+[[toc]]
+
 The `FileSystemApi` is a browser API that allows us to read and write to files and folders using JavaScript
 
 A simple example of listing the files in a folder can be seen below:

@@ -1,3 +1,5 @@
+[[toc]]
+
 # Docker Configuration Scripts
 
 ## Ubuntu

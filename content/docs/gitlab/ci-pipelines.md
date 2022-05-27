@@ -1,3 +1,5 @@
+[[toc]]
+
 # CI Pipelines
 
 ## Static Site

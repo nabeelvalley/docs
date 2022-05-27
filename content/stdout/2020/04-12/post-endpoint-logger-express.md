@@ -1,3 +1,5 @@
+[[toc]]
+
 Sometimes it's useful to have an endpoint that you can use to debug data that's being `POST`ed to an application
 
 You can make use of the following `express.js` app to log your application's POST requests:

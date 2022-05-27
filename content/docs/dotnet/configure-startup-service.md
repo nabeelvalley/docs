@@ -1,3 +1,5 @@
+[[toc]]
+
 You can think of a service simply as a reusable class instance that can be reused in different controllers. This can be injected via dependency injection where it is needed
 
 # Define a Service

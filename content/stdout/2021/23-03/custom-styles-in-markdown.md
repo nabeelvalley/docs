@@ -1,3 +1,5 @@
+[[toc]]
+
 When working with markdown it can often be useful to be able to style elements using custom CSS
 
 We can accomplish this by including a `style` tag. An example to illustrate this is changing the way a table renders in a specific document by changing the style of table rows to be striped, you would include the following CSS:

@@ -1,3 +1,5 @@
+[[toc]]
+
 # Python Data Science Cheatsheet
 
 General Information from here:

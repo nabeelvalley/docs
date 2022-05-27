@@ -1,3 +1,5 @@
+[[toc]]
+
 > More information [here](https://kb.objectrocket.com/mongo-db/use-mongodb-to-run-javascript-957)
 
 JavaScript can be used to manipulate a MongoDB Database from within the `mongo` shell. To do this you can make use of the `mongo` shell

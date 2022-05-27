@@ -1,3 +1,5 @@
+[[toc]]
+
 # Deploy a Python Machine Learning Model as a CF Web Service
 
 An important part of machine learning is model deployment, deploying a machine learning mode so that other applications can consume the model in production.

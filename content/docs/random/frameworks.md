@@ -1,3 +1,5 @@
+[[toc]]
+
 # Frameworks and App Platforms
 
 A couple of things I'd like to work with:

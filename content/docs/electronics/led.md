@@ -1,3 +1,5 @@
+[[toc]]
+
 LED is short for Light Emitting Diode
 
 # Symbol

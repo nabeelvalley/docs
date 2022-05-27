@@ -1,19 +1,6 @@
-> [Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
+[[toc]]
 
-- [Module 2 - State, Lifecycle and Event Handlers](#module-2---state-lifecycle-and-event-handlers)
-  - [React Components](#react-components)
-    - [Class Components](#class-components)
-    - [State](#state)
-      - [Previous State](#previous-state)
-      - [Future State](#future-state)
-      - [State is Immutable](#state-is-immutable)
-  - [Lifecycle Methods](#lifecycle-methods)
-    - [Mounting](#mounting)
-    - [Updating](#updating)
-    - [Unmounting](#unmounting)
-  - [Event Handlers](#event-handlers)
-  - [Passing State to Parents](#passing-state-to-parents)
-  - [Demo App](#demo-app)
+> [Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
 
 # React Components
 

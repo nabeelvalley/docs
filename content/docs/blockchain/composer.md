@@ -1,22 +1,4 @@
-- [Overview](#overview)
-  - [Models](#models)
-    - [CTO Language](#cto-language)
-      - [Namespaces](#namespaces)
-      - [Classes](#classes)
-      - [Enums](#enums)
-      - [Concepts](#concepts)
-      - [Primitive Types](#primitive-types)
-      - [Arrays](#arrays)
-      - [Relationships](#relationships)
-      - [Field Validation](#field-validation)
-      - [Imports](#imports)
-    - [Example](#example)
-  - [Logic](#logic)
-    - [Example](#example-1)
-  - [Queries](#queries)
-  - [Access Control](#access-control)
-    - [Example](#example-2)
-  - [Deployment](#deployment)
+[[toc]]
 
 # Overview
 

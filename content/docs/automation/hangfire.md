@@ -1,3 +1,5 @@
+[[toc]]
+
 So I've been playing around a bit with Hangfire and Entity Framework thinking about how I can go about building some interesting task automation, and I thought I'd like to explore this concept a bit, at least at a more basic level with F#. So here goes
 
 # Prerequisites

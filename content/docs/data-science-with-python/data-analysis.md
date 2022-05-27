@@ -1,3 +1,5 @@
+[[toc]]
+
 # Data Analysis With Python
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/data-analysis-python/)

@@ -1,3 +1,5 @@
+[[toc]]
+
 # What is Dapr?
 
 > Abbreivation for "Distributed Application Runtime"

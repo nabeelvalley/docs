@@ -1,3 +1,5 @@
+[[toc]]
+
 > Notes from [The Coding Train YouTube Channel](https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw)
 
 # Intelligence and Learning

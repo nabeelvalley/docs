@@ -1,3 +1,5 @@
+[[toc]]
+
 # Basic Modules
 
 ## Installing Prerequisites

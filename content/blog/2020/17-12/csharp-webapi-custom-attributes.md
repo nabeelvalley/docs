@@ -2,13 +2,7 @@ Implementing an attribute for a WebAPI or class in C# can help to reduce duplica
 
 In this post I'm going to cover the following:
 
-- [Attribute Types and Execution Order](#attribute-types-and-execution-order)
-  - [IActionFilter](#iactionfilter)
-  - [IAuthorizationFilter](#iauthorizationfilter)
-- [Modify Response Data](#modify-response-data)
-- [Attribute on a Class](#attribute-on-a-class)
-- [Attributes with Input Parameters](#attributes-with-input-parameters)
-- [Attribute Setting at Class and Method Level](#attribute-setting-at-class-and-method-level)
+[[toc]]
 
 # Attribute Types and Execution Order
 

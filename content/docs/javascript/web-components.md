@@ -1,3 +1,5 @@
+[[toc]]
+
 [Basics from CSS Tricks](https://css-tricks.com/an-introduction-to-web-components/)
 
 > Most code snippets used here are from the above series

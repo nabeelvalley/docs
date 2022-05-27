@@ -1,19 +1,6 @@
-[Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
+[[toc]]
 
-- [Module 3 - Lists and Forms](#module-3---lists-and-forms)
-  - [Lists](#lists)
-    - [Loop](#loop)
-    - [Map](#map)
-    - [Map in JSX](#map-in-jsx)
-    - [Using Keys](#using-keys)
-    - [List Component](#list-component)
-  - [Controlled Components](#controlled-components)
-    - [Input Fields](#input-fields)
-    - [Checkboxes](#checkboxes)
-    - [Text Areas](#text-areas)
-    - [Selects](#selects)
-    - [Multiple Inputs](#multiple-inputs)
-    - [Tutorial](#tutorial)
+[Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
 
 # Lists
 

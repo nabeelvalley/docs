@@ -1,3 +1,5 @@
+[[toc]]
+
 .NET Core Identity using Local Users can be used natively on application endpoints, this however makes use of a few additional layers of abstracting which can make using it with a WebAPI kind of troublesome
 
 In order to add your own custom authentication which makes use of Basic Auth and the UserManager Dependency provided by Identity, you can do the following

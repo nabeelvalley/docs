@@ -1,3 +1,5 @@
+[[toc]]
+
 # Configuration File
 
 > [The Docs](https://docs.mongodb.com/manual/reference/configuration-options/)

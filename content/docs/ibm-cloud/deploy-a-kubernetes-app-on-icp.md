@@ -1,3 +1,5 @@
+[[toc]]
+
 # Deploy a Kubernetes App on ICP
 
 You can do any of the following

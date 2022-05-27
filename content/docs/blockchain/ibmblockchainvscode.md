@@ -1,3 +1,5 @@
+[[toc]]
+
 > Note: Just use Ubuntu, you shouldn't run into all the build issues that you will with Windows for Node
 
 # VSCode Extension

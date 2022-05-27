@@ -1,3 +1,5 @@
+[[toc]]
+
 # Automatically
 
 The PWA can be built automatically using the [**PWABuilder**](https://www.pwabuilder.com)

@@ -1,3 +1,5 @@
+[[toc]]
+
 > Most info and diagrams from the [RaspberryPi documentation](https://www.raspberrypi.org/documentation/usage/gpio/) or [pinout.xyz](https://pinout.xyz)
 
 # GPIO Pins

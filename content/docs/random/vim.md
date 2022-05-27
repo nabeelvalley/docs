@@ -1,3 +1,5 @@
+[[toc]]
+
 To start using Vim, first install it from [here](https://www.vim.org/download.php#pc)
 
 > To get some quick tips and information you can use the Vim tutor application, this can be launched from CMD using the `vimtutor` command. For some reason this doesn't work right from Powershell

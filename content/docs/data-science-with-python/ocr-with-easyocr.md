@@ -1,3 +1,5 @@
+[[toc]]
+
 A simple application to use EasyOCR and Flask to create a WebApp that is able to process images and return the relevant text
 
 # Requirements/Dependencies

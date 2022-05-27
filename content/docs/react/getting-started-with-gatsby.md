@@ -1,3 +1,5 @@
+[[toc]]
+
 # Introduction
 
 Gatsby.js is a Static Site Generator that makes use of React and can plug into a headless CMS to generate a Static Site with SPA support and functionality

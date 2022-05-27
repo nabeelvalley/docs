@@ -1,3 +1,5 @@
+[[toc]]
+
 # Overview
 
 Bluetooth Low Energy (BLE) devices make use of a few different concepts for reading and writing data. At a high level, bluetooth data is organized as follows:

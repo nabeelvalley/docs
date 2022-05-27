@@ -1,3 +1,5 @@
+[[toc]]
+
 # Introduction to Svelte
 
 [Notes from this video](https://www.youtube.com/watch?v=Bfi96LUebXo)

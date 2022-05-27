@@ -1,3 +1,5 @@
+[[toc]]
+
 > Notes from [this Coding Garden Series](https://www.youtube.com/watch?v=eXnKKnaoA08&list=PLM_i0obccy3uvP4ZMI6NwTzM0BvYBQ7Xd&index=1) on FeathersJS
 
 # Simple Feathers Service

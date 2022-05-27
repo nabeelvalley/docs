@@ -1,18 +1,4 @@
-- [Hello World](#hello-world)
-- [Variables](#variables)
-- [Functions](#functions)
-- [Lists](#lists)
-- [Classes](#classes)
-- [Const and Final](#const-and-final)
-- [Maps](#maps)
-- [Async](#async)
-  - [Futures](#futures)
-  - [Async/Await](#asyncawait)
-- [Exceptions](#exceptions)
-  - [Cascade operator](#cascade-operator)
-- [Conditionals](#conditionals)
-  - [If-Else](#if-else)
-  - [Ternary](#ternary)
+[[toc]]
 
 > Notes from the [The Net Ninja Youtube Series](https://www.youtube.com/watch?v=1ukSR1GRtMU&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ)
 

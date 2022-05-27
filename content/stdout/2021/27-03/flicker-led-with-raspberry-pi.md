@@ -1,3 +1,5 @@
+[[toc]]
+
 # Circuit Diagram
 
 This script will make use of the GPIO Pins to flicker an LED

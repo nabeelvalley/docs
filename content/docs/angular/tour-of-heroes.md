@@ -1,3 +1,5 @@
+[[toc]]
+
 # Setup 
 
 # Angular CLI

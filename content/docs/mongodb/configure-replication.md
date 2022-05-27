@@ -1,3 +1,5 @@
+[[toc]]
+
 Using a single MongoDB instance is cool, but you know what's cooler? Using more than one. Sometimes we need to set up a couple of different database replicas, this is a general method of how this can be done
 
 # On a Development Machine

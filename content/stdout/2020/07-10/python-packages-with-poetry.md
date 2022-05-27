@@ -1,3 +1,5 @@
+[[toc]]
+
 > [Poetry Docs](https://python-poetry.org/docs/)
 
 Python package management is typically quite a mess. Managing packages with `pip` often requires additional management of things like virtual environments and python version management

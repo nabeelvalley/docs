@@ -1,29 +1,9 @@
+[[toc]]
+
 Built with tons of help from:
 
 -   [Getting started with Node and Mongo DB](https://closebrace.com/tutorials/2017-03-02/the-dead-simple-step-by-step-guide-for-front-end-developers-to-getting-up-and-running-with-nodejs-express-and-mongodb)
 -   [Dockerise a Node-Mongo App](https://medium.com/statuscode/dockerising-a-node-js-and-mongodb-app-d22047e2806f)
-
-#  Contents
-
-- [Contents](#contents)
-- [Setting up Mongo](#setting-up-mongo)
-- [# Adding Mongo to your PATH](#-adding-mongo-to-your-path)
-- [# Create a Data Directory](#-create-a-data-directory)
-- [# Running the DB Server](#-running-the-db-server)
-- [# Creating and Viewing Elements](#-creating-and-viewing-elements)
-- [# Connect to a Database](#-connect-to-a-database)
-- [# Insert Data](#-insert-data)
-- [# View Data](#-view-data)
-- [Building the Express App](#building-the-express-app)
-- [# Importing the Necessary Libraries](#-importing-the-necessary-libraries)
-- [# Configure the Database](#-configure-the-database)
-- [# Middleware](#-middleware)
-- [# View Comments](#-view-comments)
-- [# Creeate Comment](#-creeate-comment)
-- [Deploy on k8s](#deploy-on-k8s)
-- [# Building the Image](#-building-the-image)
-- [# Deploying on Kubernetes](#-deploying-on-kubernetes)
-- [Running Locally](#running-locally)
 
 
 #  Setting up Mongo

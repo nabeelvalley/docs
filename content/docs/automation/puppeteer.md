@@ -1,3 +1,5 @@
+[[toc]]
+
 To get started with Puppeteer you will need to install it to your package `npm i puppeteer` this will install the required packages as well as a Google Chrome instance for Puppeteer
 
 In general, you will create a new `browser` instance, and interact with that instance using the `puppeteer api`. A basic example of using Puppeteer to take a screenshot can be seen below which will run a headless browser instance

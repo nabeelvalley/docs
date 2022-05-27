@@ -1,3 +1,5 @@
+[[toc]]
+
 # Types
 
 A `type` is the most basic thing in typescript and is an object structure

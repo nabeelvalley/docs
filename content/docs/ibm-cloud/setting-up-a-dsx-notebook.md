@@ -1,3 +1,5 @@
+[[toc]]
+
 # Setting up a DSX Notebook
 
 ## 1. Configure an Apache Spark Instance

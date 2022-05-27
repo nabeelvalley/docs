@@ -1,3 +1,5 @@
+[[toc]]
+
 ![](/photography/images/fuji-faded-mono.jpg)
 
 | Setting               | Value          |

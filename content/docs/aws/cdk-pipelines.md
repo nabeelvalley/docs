@@ -1,16 +1,4 @@
-- [Create CDK App](#create-cdk-app)
-- [Add our Application Files](#add-our-application-files)
-- [Setup](#setup)
-  - [Pipeline Stack](#pipeline-stack)
-  - [Pipeline Account Permissions](#pipeline-account-permissions)
-  - [GitHub Repo Permissions](#github-repo-permissions)
-  - [Develop the Pipeline](#develop-the-pipeline)
-    - [Add App to Deployment](#add-app-to-deployment)
-  - [App Stack](#app-stack)
-- [Test the App](#test-the-app)
-  - [Set Data](#set-data)
-  - [Get Data](#get-data)
-- [References](#references)
+[[toc]]
 
 > Prior to doing any of the below you will require your `~/.aws/credentials` file to be configured with the credentials for your AWS account
 

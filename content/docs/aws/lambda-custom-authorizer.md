@@ -1,3 +1,5 @@
+[[toc]]
+
 # Custom Authorizers
 
 API Gateway allows us to handle auth by way of a lambda. AWS has two types of authorization lambdas we can use, namely:

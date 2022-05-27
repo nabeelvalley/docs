@@ -1,3 +1,5 @@
+[[toc]]
+
 # Watson API's and ML
 
 ## Cognitive Solution Overview

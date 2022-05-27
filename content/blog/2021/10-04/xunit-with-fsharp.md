@@ -1,16 +1,9 @@
+
 An important part of writing any software is testing. Unit testing is an automated testing method in which we test individual components of our software to verify that their behaviour aligns with our expectations
 
 This post will take a look at the process of setting up a new F# library and two methods of configuring XUnit to test your project's code
 
-- [Create a Project](#create-a-project)
-- [Adding Tests](#adding-tests)
-  - [Method 1: Create Tests in Separate Project](#method-1-create-tests-in-separate-project)
-  - [Method 2: Create Tests Alongside Lib Files](#method-2-create-tests-alongside-lib-files)
-- [Test Files](#test-files)
-  - [Fact](#fact)
-  - [Theory](#theory)
-- [Running Tests](#running-tests)
-- [Additional Resources](#additional-resources)
+[[toc]]
 
 # Create a Project
 

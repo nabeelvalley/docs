@@ -1,3 +1,5 @@
+[[toc]]
+
 > [Based on This EdX Course](https://www.edx.org/course/data-science-visualization)
 
 # Configuration

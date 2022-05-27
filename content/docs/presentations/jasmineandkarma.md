@@ -1,3 +1,5 @@
+[[toc]]
+
 # Jasmine
 
 ## What and Why

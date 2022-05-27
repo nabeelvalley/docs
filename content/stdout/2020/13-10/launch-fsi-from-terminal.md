@@ -1,3 +1,5 @@
+[[toc]]
+
 > Before you can use the following, you will need the [.NET Core SDK installed](https://dotnet.microsoft.com/download)   
 
 # Open the F# Interactive Console

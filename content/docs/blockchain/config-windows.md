@@ -1,3 +1,5 @@
+[[toc]]
+
 # Script
 
 Before running the below script, ensure that you are in Administrator Powershell and that your Execution Policy is set to Remote Signed, if not then first run the following command

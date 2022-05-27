@@ -1,3 +1,5 @@
+[[toc]]
+
 An F# stack for everywhere, [here's the docs](https://safe-stack.github.io)
 
 # Prereqs

@@ -1,3 +1,5 @@
+[[toc]]
+
 # My Current VSCode Setup
 
 

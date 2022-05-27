@@ -1,12 +1,4 @@
-<details>
-  <summary>Contents</summary>
-
-- [Service Definition](#service-definition)
-- [Confugure the Service](#confugure-the-service)
-- [Using the Service](#using-the-service)
-
-</details>
-
+[[toc]]
 
 For applications that span multiple tiers or make use of a separate data accesss and web application layers a generic integration service can be used to communicate between tiers
 

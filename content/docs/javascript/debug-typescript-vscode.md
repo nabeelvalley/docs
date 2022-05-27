@@ -1,3 +1,5 @@
+[[toc]]
+
 It's possible to debuge any TS file without compiling using `ts-node` from VSCode
 
 First, init a new npm project with typescript (normally you should already have one):

@@ -1,3 +1,5 @@
+[[toc]]
+
 # Deployment Platforms
 
 This note is here just so I can remember everything

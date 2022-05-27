@@ -1,3 +1,5 @@
+[[toc]]
+
 [Based on this EdX Course](https://courses.edx.org/courses/course-v1:Microsoft+DEV210x+1T2019a/course/)
 
 # Basic Structure

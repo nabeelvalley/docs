@@ -1,9 +1,4 @@
-- [Working with Fabric - Part 2](#working-with-fabric---part-2)
-  - [Add an Org to a Channel](#add-an-org-to-a-channel)
-    - [Environment Setup](#environment-setup)
-    - [Add Org3 to the Channel](#add-org3-to-the-channel)
-    - [Add Org3 to the Channel Manually](#add-org3-to-the-channel-manually)
-      - [Generate the Org3 Crypto Material](#generate-the-org3-crypto-material)
+[[toc]]
 
 # [Add an Org to a Channel](https://hyperledger-fabric.readthedocs.io/en/latest/channel_update_tutorial.html)
 

@@ -1,3 +1,5 @@
+[[toc]]
+
 An localhost HTTP proxy is useful for debugging and can be easily defined using Node.js by installing `http-proxy`
 
 ```sh

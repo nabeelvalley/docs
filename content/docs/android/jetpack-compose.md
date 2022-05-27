@@ -1,3 +1,5 @@
+[[toc]]
+
 # Jetpack Compose
 
 > Based on the [Jetpack Compose Learning Path](https://developer.android.com/courses/pathways/compose#article-https://developer.android.com/jetpack/compose/tutorial)

@@ -4,18 +4,7 @@ Before reading through this, you may want to read the page about the application
 - [Installing Minicube on Windows](https://medium.com/@JockDaRock/minikube-on-windows-10-with-hyper-v-6ef0f4dc158c)
 - [Dockerise a Node-Mongo App](https://medium.com/statuscode/dockerising-a-node-js-and-mongodb-app-d22047e2806f)
 
-# Contents
-- [Contents](#contents)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-  - [Minikube](#minikube)
-    - [Hyper-V](#hyper-v)
-  - [VirtualBox](#virtualbox)
-    - [Running Minikube](#running-minikube)
-- [Creating a Deployment](#creating-a-deployment)
-  - [Building the Image](#building-the-image)
-  - [Deploying on Kubernetes](#deploying-on-kubernetes)
-  - [Use the App](#use-the-app)
+[[toc]]
 
 # Prerequisites
 

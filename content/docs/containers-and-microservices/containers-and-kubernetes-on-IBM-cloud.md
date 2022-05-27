@@ -1,3 +1,5 @@
+[[toc]]
+
 [Based on this Cognitive Class Learning Path](https://cognitiveclass.ai/learn/containers-k8s-and-istio-on-ibm-cloud/)
 
 #  Prerequisites

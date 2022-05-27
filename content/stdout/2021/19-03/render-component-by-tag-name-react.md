@@ -1,3 +1,5 @@
+[[toc]]
+
 When using React it can sometimes be useful to render a standard HTML element given the element name dynamically as a prop
 
 React allows us to do this provided we store the element name in a variable that starts with a capital letter, as JSX requires this to render a custom element

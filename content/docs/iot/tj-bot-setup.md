@@ -1,3 +1,5 @@
+[[toc]]
+
 # Setting up a Bot
 
 ## Build the Bot

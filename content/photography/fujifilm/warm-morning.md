@@ -1,3 +1,5 @@
+[[toc]]
+
 ![](/photography/images/fuji-warm-morning.jpg)
 
 | Setting               | Value         |

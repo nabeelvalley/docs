@@ -1,20 +1,4 @@
-<details>
-  <summary>Contents</summary>
-
-- [Modify Prompt](#modify-prompt)
-- [Adding Aliases](#adding-aliases)
-- [View File Tree](#view-file-tree)
-- [Symlinks](#symlinks)
-- [Git Status for Sub-Directories](#git-status-for-sub-directories)
-- [Zip and Unzip a File](#zip-and-unzip-a-file)
-- [Copy and Paste Files](#copy-and-paste-files)
-- [Send an Email](#send-an-email)
-- [Troubleshooting Path Commands](#troubleshooting-path-commands)
-- [Create Drive Aliases](#create-drive-aliases)
-- [What Process is Using a Port](#what-process-is-using-a-port)
-- [My Current \$PROFILE](#my-current-profile)
-
-</details>
+[[toc]]
 
 # Modify Prompt
 

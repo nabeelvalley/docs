@@ -1,3 +1,5 @@
+[[toc]]
+
 I often find myself writing a function to `JSON.stringify` some data to log in either a pretty or flat structure
 
 It's just more of a convenience method, and it's pretty much the same as doing `console.log(JSON.stringify(data))` and looks like this:

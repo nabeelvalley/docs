@@ -1,3 +1,5 @@
+[[toc]]
+
 An HOC in React is a component that wraps another component to provide additional props or functionality to the wrapped component
 
 Here's a simple example of how we can create an HOC using Typescript:

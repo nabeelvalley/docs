@@ -1,3 +1,5 @@
+[[toc]]
+
 # Setup Project
 
 Init an NPM project with Redis and Express:

@@ -1,3 +1,5 @@
+[[toc]]
+
 # VirtualBox Bugs
 
 ## Guest Additions

@@ -1,3 +1,5 @@
+[[toc]]
+
 When making requests with Postman to test an API it is often useful to have generated data, for example when creating users in a backend system you may want the ability to get custom user data
 
 The method we will use to do this is by setting Postman environment variables in the Pre-request Script of a Postman request

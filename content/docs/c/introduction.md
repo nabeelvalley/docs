@@ -1,3 +1,5 @@
+[[toc]]
+
 > Notes from [this YouTube Series](https://www.youtube.com/watch?v=CPjZKsUYSXg)
 
 # Prerequisites

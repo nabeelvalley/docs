@@ -1,3 +1,5 @@
+[[toc]]
+
 Node.js has a few methods by which we can get the directory in which we are currently executing, and get paths relative to it
 
 # Get the Current Directory

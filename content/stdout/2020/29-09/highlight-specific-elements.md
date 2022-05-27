@@ -1,3 +1,5 @@
+[[toc]]
+
 You can highlight all HTML elements which respond to a specific CSS selector with the following. This can be useful for debugging purposes:
 
 ```js

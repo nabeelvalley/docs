@@ -1,20 +1,6 @@
-> [Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
+[[toc]]
 
-- [Module 1 - JSX and React Components](#module-1---jsx-and-react-components)
-  - [Setting Up ReactJs](#setting-up-reactjs)
-  - [What is ReactJs](#what-is-reactjs)
-  - [React Elements](#react-elements)
-  - [JSX](#jsx)
-    - [Embed JS](#embed-js)
-    - [Element Attributes](#element-attributes)
-    - [Empty Tags](#empty-tags)
-    - [Style Objects](#style-objects)
-    - [Nested Elements](#nested-elements)
-  - [React Components](#react-components)
-    - [Functional Components](#functional-components)
-      - [Component Properties](#component-properties)
-    - [Component Composition](#component-composition)
-    - [Conditional Rendering](#conditional-rendering)
+> [Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
 
 # Setting Up ReactJs
 

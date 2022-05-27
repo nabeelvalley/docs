@@ -1,3 +1,5 @@
+[[toc]]
+
 To install ANTLR in a VSCode DevContainer you need to:
 
 1. Select a container with Java

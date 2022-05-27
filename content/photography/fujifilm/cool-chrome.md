@@ -1,3 +1,5 @@
+[[toc]]
+
 ![](/photography/images/fuji-cool-chrome.jpg)
 
 | Setting               | Value          |

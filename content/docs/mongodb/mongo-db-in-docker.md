@@ -1,3 +1,5 @@
+[[toc]]
+
 # Considerations
 
 To run MongDB in a Docker Container there are a few things to take note of:

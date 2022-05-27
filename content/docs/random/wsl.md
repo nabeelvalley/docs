@@ -1,3 +1,5 @@
+[[toc]]
+
 # Troubleshooting
 
 When using WSL, you may occasionally see the following error message:

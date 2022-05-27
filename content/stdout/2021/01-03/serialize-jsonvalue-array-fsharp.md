@@ -1,3 +1,5 @@
+[[toc]]
+
 When working with the `FSharp.Data.JsonProvider` type provider you may encounter a need to serialize a `JsonValue array`
 
 Let's take a look at an example where this may be necessary:

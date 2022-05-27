@@ -1,3 +1,5 @@
+[[toc]]
+
 # Basics of Chef
 
 [From this Module](https://learn.chef.io/modules/learn-the-basics)
@@ -5,28 +7,6 @@
 ```
 Infrastructure Automation > Learn the Basics > Ubuntu > Docker
 ``` 
-
-- [Basics of Chef](#basics-of-chef)
-  - [Note About Environment](#note-about-environment)
-  - [Set Up a Docker Container to Manage](#set-up-a-docker-container-to-manage)
-    - [Make a Working Directory](#make-a-working-directory)
-    - [Start the Docker Container](#start-the-docker-container)
-    - [From the Container](#from-the-container)
-      - [Install Chef in Container](#install-chef-in-container)
-      - [Set Up the Working Directory](#set-up-the-working-directory)
-      - [Delete MOTD file](#delete-motd-file)
-    - [Summary](#summary)
-  - [Configure a Package and Service](#configure-a-package-and-service)
-    - [Update Apt Cache](#update-apt-cache)
-    - [Install the Apache Package](#install-the-apache-package)
-    - [Start and Enable the Apache Service](#start-and-enable-the-apache-service)
-    - [Add a Home Page](#add-a-home-page)
-    - [Summary](#summary-1)
-  - [Making Recipes More Managable](#making-recipes-more-managable)
-    - [Create a Cookbook](#create-a-cookbook)
-    - [Create a Template](#create-a-template)
-    - [Update the Recipe](#update-the-recipe)
-    - [Run the Cookbook](#run-the-cookbook)
 
 ## Note About Environment
 

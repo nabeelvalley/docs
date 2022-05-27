@@ -1,19 +1,4 @@
-- [Prerequisites](#prerequisites)
-- [Hyperledger Composer](#hyperledger-composer)
-  - [Introduction](#introduction)
-  - [Components and Structure](#components-and-structure)
-  - [The Toolset](#the-toolset)
-- [Fabric](#fabric)
-  - [Participants and Components](#participants-and-components)
-    - [Participants](#participants)
-    - [Components](#components)
-    - [Developer Considerations](#developer-considerations)
-  - [Administrator Considerations](#administrator-considerations)
-  - [Consensus](#consensus)
-  - [Public vs Private](#public-vs-private)
-  - [Architect Considerations](#architect-considerations)
-  - [Network Consensus Considerations](#network-consensus-considerations)
-  - [Transaction Process](#transaction-process)
+[[toc]]
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/ibm-blockchain-foundation-dev/)
 

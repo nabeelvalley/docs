@@ -1,3 +1,5 @@
+[[toc]]
+
 # Prerequisites
 
 1. Trial IBM Cloud Account

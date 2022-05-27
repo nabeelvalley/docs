@@ -1,14 +1,8 @@
+[[toc]]
+
 # Data Science Tools
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/data-science-hands-open-source-tools-2/)
-
-- [Data Science Tools](#data-science-tools)
-	- [Cognitive Class Labs](#cognitive-class-labs)
-	- [Jupyter Notebooks](#jupyter-notebooks)
-	- [Zeppelin Notebooks](#zeppelin-notebooks)
-	- [RStudio IDE](#rstudio-ide)
-	- [Seahorse](#seahorse)
-	- [OpenRefine](#openrefine)
 
 
 ## Cognitive Class Labs

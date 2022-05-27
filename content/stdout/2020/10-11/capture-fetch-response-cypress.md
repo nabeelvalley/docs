@@ -1,3 +1,5 @@
+[[toc]]
+
 To capture the result of a `fetch` request with Cypress you will need to make use of `cy.route2`
 
 # Setup

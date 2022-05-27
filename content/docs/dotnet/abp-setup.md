@@ -1,3 +1,5 @@
+[[toc]]
+
 [Refer to](https://github.com/aodendaal/aspnetboilerplate-core-ng)
 
 # Infrastructure Layer

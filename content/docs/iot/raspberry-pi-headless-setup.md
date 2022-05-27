@@ -1,3 +1,5 @@
+[[toc]]
+
 # Get the OS Ready
 
 To setup a headless Pi you need to do the following:
