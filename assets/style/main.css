@@ -59,6 +59,8 @@ a {
   --space-padding-main: 36px;
   --size-page-width: 1000px;
   --width-scrollbar: 5px;
+  --table-padding-vertical: 8px;
+  --table-padding-horizontal: 16px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -66,6 +68,7 @@ a {
     --color-bg: #2d2d2d;
     --color-fg: #ffffff;
     --color-code-bg: #222222;
+    --color-table-bg: #222222;
     --color-brand: #f7c9dd;
   }
 }
@@ -293,27 +296,36 @@ table {
   border-spacing: 10px 5px;
   border-collapse: collapse;
   width: 100%;
-  --table-padding: 3px;
 }
 
+table,
+tbody,
 thead,
-tbody {
-  border-bottom: solid 1px var(--color-primary-l);
+th,
+td,
+tr {
+  border: none;
+}
+
+thead tr {
+  background-color: var(--color-brand);
+  color: var(--color-bg);
+}
+
+tbody tr:nth-of-type(odd) {
+  background-color: var(--color-table-bg);
 }
 
 th {
   text-align: left;
-  padding: var(--table-padding);
+  padding: 12px 20px;
+  white-space: nowrap;
 }
 
-tr:nth-child(even) {
-  background-color: var(--color-primary-l);
-}
-
-td {
-  vertical-align: top;
-  padding: var(--table-padding);
-  min-width: 50px;
+td,
+th {
+  vertical-align: middle;
+  padding: var(--table-padding-vertical) var(--table-padding-horizontal);
 }
 
 blockquote {

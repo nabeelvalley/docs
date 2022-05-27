@@ -83,35 +83,6 @@
       </footer>
     </div>
 
-    <script src="/assets/js/highlight.min.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', (event) => {
-        document.querySelectorAll('pre code').forEach((el) => {
-          console.log(el)
-          hljs.highlightElement(el)
-          if (el.classList.contains('language-mermaid')) {
-            el.classList.add('mermaid')
-          }
-        })
-      })
-    </script>
-
-    <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
-      integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
-      integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"
-      crossorigin="anonymous"
-      onload="renderMathInElement(document.body);"
-    ></script>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
   </body>
