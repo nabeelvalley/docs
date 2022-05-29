@@ -182,6 +182,10 @@ li a {
   gap: 12px 12px;
 }
 
+.link__image--horizontal {
+  aspect-ratio: 3/2;
+}
+
 .link__title {
   margin: 0;
 }
