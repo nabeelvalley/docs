@@ -70,12 +70,12 @@ module.exports = (plop) => {
     actions: [
       {
         type: 'add',
-        path: 'src/content/docs/{{folder}}/{{slug}}.md',
+        path: 'content/docs/{{folder}}/{{slug}}.md',
         template: mdTemplate,
       },
       {
         type: 'add',
-        path: 'src/content/docs/{{folder}}/{{slug}}.json',
+        path: 'content/docs/{{folder}}/{{slug}}.json',
         template: jsonTemplate,
       },
     ],
@@ -87,12 +87,12 @@ module.exports = (plop) => {
     actions: [
       {
         type: 'add',
-        path: `src/content/stdout/${year}/${day}-${month}/{{slug}}.md`,
+        path: `content/stdout/${year}/${day}-${month}/{{slug}}.md`,
         template: mdTemplate,
       },
       {
         type: 'add',
-        path: `src/content/stdout/${year}/${day}-${month}/{{slug}}.json`,
+        path: `content/stdout/${year}/${day}-${month}/{{slug}}.json`,
         template: jsonTemplate,
       },
     ],
@@ -104,12 +104,12 @@ module.exports = (plop) => {
     actions: [
       {
         type: 'add',
-        path: `src/content/blog/${year}/${day}-${month}/{{slug}}.md`,
+        path: `content/blog/${year}/${day}-${month}/{{slug}}.md`,
         template: mdTemplate,
       },
       {
         type: 'add',
-        path: `src/content/blog/${year}/${day}-${month}/{{slug}}.json`,
+        path: `content/blog/${year}/${day}-${month}/{{slug}}.json`,
         template: jsonTemplate,
       },
     ],
