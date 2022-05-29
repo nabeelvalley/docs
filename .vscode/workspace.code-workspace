@@ -1,0 +1,21 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": ".."
+    },
+    {
+      "name": "blog",
+      "path": "../content/blog"
+    },
+    {
+      "name": "stdout",
+      "path": "../content/stdout"
+    },
+    {
+      "name": "docs",
+      "path": "../content/docs"
+    }
+  ],
+  "settings": {}
+}
