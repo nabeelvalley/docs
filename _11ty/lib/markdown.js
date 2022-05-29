@@ -15,7 +15,7 @@ const lib = markdownIt({
   .use(markdownItKatex)
   .use(markdownItToc, {
     includeLevel: [1, 2, 3, 4],
-    containerHeaderHtml: `<details open><summary>Contents</summary>`,
+    containerHeaderHtml: `<details><summary>Contents</summary>`,
     containerFooterHtml: `</details>`,
   })
 
