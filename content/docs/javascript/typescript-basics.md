@@ -269,7 +269,7 @@ interface Repository<TData, TID = ID> {
 
 A class can use that interface like so
 
-```
+```ts
 class PersonRepository implements Repository<Person, ID> {
   ids = [1, 2, 3]
 
@@ -295,3 +295,8 @@ Below is a link to the runnable Repl.it that has the above code defined
 [Repl.it link](https://replit.com/@nabeelvalley/TypesScript-Playground?v=1)
 
 <iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@nabeelvalley/TypesScript-Playground?embed=true"></iframe>
+
+## Other Relevant Docs
+
+- [Template Literal Types](../../stdout/2021/16-08/typescript-template-literal-types)
+- [Type Guards](../../stdout/2022/31-05/type-guard)
