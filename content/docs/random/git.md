@@ -342,3 +342,39 @@ Using `grep` and `xargs` you can do this using:
 ```sh
 git branch | grep -v "master" | xargs git branch -D
 ```
+
+# Get File From Specific Branch or Commit
+
+> From this [StackOverflow](https://stackoverflow.com/questions/307579/how-do-i-copy-a-version-of-a-single-file-from-one-git-branch-to-another) answer
+
+To basically copy a version of a file from one branch or commit to another you can use `git checkout` with either providing the branch name or commit from which you want to get the file
+
+```sh
+git checkout branch_or_commit_sha path/to/file
+```
+
+So to get a specific file from a `develop` branch
+
+```sh
+git checkout develop src/my-file.ts
+```
+
+Or from a specific commit
+
+```sh
+git checkout 211512 src/my-file.ts
+```
+
+# Get Commit Changes from another Branch (Cherry Picking)
+
+Cherry picking allows us to get a specific commit from one branch and bring it into our current branch
+
+```sh
+git cherry-pick commit_sha
+```
+
+For example, if we want to take the changes from commit `211512` into our branch you can use
+
+```sh
+git cherry-pick 211512
+```
