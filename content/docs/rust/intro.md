@@ -734,7 +734,7 @@ Ownership keeps track of what data is on the heap, reduces duplication, and clea
 
 ## Variable Scope
 
-We cna see the scope of a variable `s` in a given block below:
+We can see the scope of a variable `s` in a given block below:
 
 ```rs
 // ❌ not in scope
@@ -919,7 +919,7 @@ The restriction above ensures that mutation of a variable is controlled and help
 
 Race conditions occur when the following behaviors occur:
 
-- Two o more pointers access the same data at the same time
+- Two or more pointers access the same data at the same time
 - At least one of the pointers is being used to write to the data
 - There's no mechanism to synchronize access to the data
 
@@ -945,5 +945,457 @@ With the following error:
 missing lifetime specifier
 
 expected named lifetime parameter
+
+...
+
+= help: this function's return type contains a borrowed value, but there is no value for it to be borrowed from
+
 ```
+
+What's happpening in the above code can be seen below:
+
+```rs
+fn main() {
+    let reference_to_nothing = dangle();
+}
+
+fn dangle() -> &String { // dangle returns a reference to a String
+    let s = String::from("hello"); // s is a new String
+
+    &s // we return a reference to the String, s
+} // Here, s goes out of scope, and is dropped. Its memory goes away.
+  // Danger!
+```
+
+Since in the above code, `s` is created inside of the function it will go out of scope when the function is completed. This leads to the value for `s` being dropped which means that the result will be a reference to a value that is no longer valid
+
+In order to avoid this, we need to return `s` so that we can pass ownership back to the caller
+
+```rs
+fn main() {
+    let result = dangle();
+}
+
+fn dangle() -> String {
+    let s = String::from("hello");
+
+    s
+}
+```
+
+Though the code is now valid, we stil get a warning because `result` is not used, however this will not prevent compilation and the above code will still run
+
+### Rules of References
+
+The following are the basic rules for working with references
+
+- You can either have onme mutatble reference or any number of immuatable references to a variable simultaneously
+- References must always be valid
+
+## The Slice Type
+
+The slice type is a reference to a sequence of elements in a collection instead of the collection itself. Since a slice is a kind of reference in itself it doesn't have ownership of the original collection
+
+To understand the usecase for a slice type, take the following example of a function that needs to get the first word in a string
+
+Since we don't want to create a copy of the string, we can maybe try something that lets us get the index of the space in the string
+
+```rs
+fn first_word(s: &String) -> usize {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return i;
+        }
+    }
+
+    return s.len()
+}
+```
+
+Next, say we want to use the above function in our code:
+
+```rs
+fn main() {
+    let mut s = String::from("Hello World");
+    let result = first_word(&s);
+
+    s.clear(); // clear the string
+
+    // result is still defined but the value can't be used to access the string
+    println!("the first word is: {}", result)
+}
+```
+
+However, we may run into a problem where the position no longer can be used to index the input string
+
+In order to mitigate this, we can make use of a Slice that references a part of this string
+
+The syntax for slicing is to use a range within the brackets of a collection. So for a string:
+
+```rs
+let s = String::from("Hello World");
+
+let hello = &s[0..5];
+let world = &s[6..11];
+```
+
+In the above, since the `0` is the start and `11` is the end of the string, we can also leave these out of the range to automatically get the start and end parts of the collection
+
+```rs
+let hello = &s[..5];
+let world = &s[6..];
+```
+
+The `hello` and `world` variables not contain a reference to the specific parts of the `String` without creating a new value
+
+We can also use the following to refer to the full string:
+
+```rs
+let ref_s = &[..]
+```
+
+The type of `hello` can also be seen to be `&str` which is an immutable reference to a string
+
+Using this, we can redefine the `first_word` function like this:
+
+```rs
+```
+
+Using the functin now will give us an error:
+
+```
+error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
+ --> src\main.rs:5:5
+  |
+3 |     let result = first_word(&s);
+  |                             -- immutable borrow occurs here
+4 | 
+5 |     s.clear(); // clear the string
+  |     ^^^^^^^^^ mutable borrow occurs here
+...
+8 |     println!("the first word is: {}", result)
+  |                                       ------ immutable borrow later used here
+
+For more information about this error, try `rustc --explain E0502`.
+```
+
+Something else to note is that string literals are stored as slices. If we try to use a string literal with our function like so:
+
+```rs
+fn main() {
+    let s = "Hello World";
+    let result = first_word(&s);
+
+    println!("the first word is: {}", result)
+}
+```
+
+We will get a `mismatched types` error:
+
+```
+error[E0308]: mismatched types
+ --> src\main.rs:3:29
+  |
+3 |     let result = first_word(&s);
+  |                             ^^ expected struct `String`, found `&str`
+  |
+  = note: expected reference `&String`
+             found reference `&&str`
+```
+
+This is because our function requires `&String`, we can change our function instead to use `&str` which will work on string references as well as slices:
+
+```rs
+fn first_word(s: &str) -> &str { // take a slice
+```
+
+The above will work with refernecs to `String` and `str`
+
+### Other Slice Types
+
+Slices apply to general collections, so we can use it with an array like so:
+
+```rs
+let a = [1, 2, 3, 4, 5];
+
+let slice = &a[1..3];
+// slice is type &[i32]
+```
+
+Slices can also be used by giving them a start element and a length, like so:
+
+```rs
+let slice = &a[2, 3];
+```
+
+## Summary
+
+Ownership, borrowing, and slices help us ensure memory safety and control as we have seen above
+
+# Structs
+
+A struct is a data type used for packaging and naming related values. 
+
+Structs are similar to tuples in that they can hold multiple pieces of data
+
+## Defining a Struct
+
+We can define structs using the `struct` keyword:
+
+```rs
+struct User {
+    active: bool,
+    username: String,
+    email: String,
+    sign_in_count: u64,
+}
+```
+
+We can create a struct be defining a concrete instance like so:
+
+```rs
+fn main() {
+    let user = User {
+        active: true,
+        username: String::from("bob"),
+        email: String::from("bob@email.com"),
+        sign_in_count: 1,
+    };
+}
+```
+
+Struct instances can also be mutable which will allow us to modify properties:
+
+```rs
+fn main() {
+    let mut user = User {
+        active: true,
+        username: String::from("bob"),
+        email: String::from("bob@email.com"),
+        sign_in_count: 1,
+    };
+
+    user.email = String::from("bobnew@email.com");
+}
+```
+
+We can also return structs from functions, as well as using the shorthand struct syntax:
+
+```rs
+fn create_user(email: String, username: String) -> User {
+    User {
+        username,
+        email,
+        active: true,
+        sign_in_count: 1,
+    }
+}
+```
+
+We can also use the struct update syntax to create a new struct based on an existing one:
+
+```rs
+let user = create_user(email, username);
+
+let inactive_user = User {
+    active: false,
+    sign_in_count: 2,
+    ..user
+}; // we can't refer to user anymore
+```
+
+It should also be noted that when creating a struct like this, we can no longer refer to values in the original `user` as this will give us an error:
+
+```rs
+let a = user.email; // moved error
+```
+
+This is because the value has been moved to the new struct
+
+### Tuple Structs
+
+Tuple structs can be defined using the following syntax:
+
+```rs
+struct Point(i32, i32, i32);
+```
+
+And can then be used like:
+
+```rs
+let origin = Point(0, 0, 0); 
+```
+
+### Unit Type Structs
+
+You can also define a struct that has no data (is unit) by using this syntax:
+
+```rs
+struct NothingReally;
+
+fn main() {
+    let not_much = NothingReally;
+}
+```
+
+Unit structs are useful when we want to define a type that implements a trait or some other type but doesn't have any data on the type itself
+
+### Printing Structs
+
+In order to make a struct printable we can use a `Debug` attribute with a debugging print specifier of `{:?}` like this:
+
+```rs
+#[derive(Debug)]
+struct Rectangle {
+    length: u32,
+    height: u32,
+}
+
+fn main() {
+    let rect = Rectangle {
+        height: 20,
+        length: 10,
+    };
+
+    println!("This is a rectangle: {:?}", rect);
+}
+```
+
+Also, instead of the `println!` macro, we can use `dbg!` like so:
+
+```rs
+dbg!(&rect);
+```
+
+The `dbg!` macro will also return ownership of the input, which means that we can use it while instantiating a `Rectangle` as well as when trying to view the entire data:`
+
+```rs
+fn main() {
+    let rect = Rectangle {
+        height: dbg!(2 * 10),
+        length: 10,
+    };
+
+    dbg!(&rect);
+}
+```
+
+And the output:
+
+```rs
+[src\main.rs:9] 2 * 10 = 20
+[src\main.rs:13] &rect = Rectangle {
+    length: 10,
+    height: 20,
+}
+```
+
+We can see that the value assigned to `height` is logged as well as assigned to the `rect` struct
+
+## Method Syntax
+
+Methods aan be added to structs using the `impl` block. Everything in this block is a part of the `Rectangle` struct
+
+The first value passed to a struct method is always a reference to the struct itself. We can add an `area` method to the `Rectangle` struct like so:
+
+```rs
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.length * self.width
+    }
+}
+```
+
+And we can then use this method on our `rect` like so:
+
+```rs
+let a = rect.area();
+```
+
+Note that in the `area` function, `&self` is shorthand for `self: &Self` which is a reference to the current instance
+
+We can also define methods that have the same name as a struct field, these methods can then return something different if called vs when accessed
+
+```rs
+impl Rectangle {
+    fn width(&self) -> bool {
+        self.width > 0
+    }
+}
+
+fn main() {
+    let rect = Rectangle {
+        width: 20,
+        length: 10,
+    };
+
+    if rect.width() { // call the width function
+        println!("Rect has a width of {}", rect.width) // access width value
+    }
+}
+```
+
+### Multiple Parameters
+
+We can give methods multiple parameters by defining them after `self`
+
+```rs
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.length
+    }
+
+    fn add(&self, other: &Rectangle) -> u32 {
+        self.area() + other.area()
+    }
+}
+
+fn main() {
+    let rect1 = Rectangle {
+        width: 20,
+        length: 10,
+    };
+
+    let rect2 = Rectangle {
+        width: 20,
+        length: 20,
+    };
+
+    let total_area = rect1.add(&rect2);
+}
+```
+
+### Associated Functions
+
+Functions defined in an `impl` block are called associated functions because they're associated with the type named in the `impl` block
+
+We can also define associated functions that don't have `self` as their first param (and are therefore not methods) like so:
+
+
+```rs
+impl Rectangle {
+    fn create(size: u32) -> Rectangle {
+        Rectangle {
+            length: size,
+            width: size,
+        }
+    }
+}
+```
+
+We can use these functions with the `::` syntax:
+
+```rs
+fn main() {
+    let rect = Rectangle::create(20);
+}
+```
+
+The above syntax tells us that the function is namespaced by the struct. This syntax is used for associated functions as well as namespaces created by modules
+
+### Multiple Impl Blocks
+
+Note that it is also allowed for us to have multiple `impl` blocks for a struct, though not necessary in the cases we've done here
 
