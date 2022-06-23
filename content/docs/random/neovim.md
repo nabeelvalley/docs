@@ -27,6 +27,19 @@ call plug#begin(stdpath('data') . '/plugged')
 call plug#end()
 ```
 
+After adding a plugin and saving (`:w`), you will need to reload the nvim config:
+
+```vim
+:source path/to/nvim.init
+```
+
+And then install the plugins again with:
+
+```vim
+:PlugInstall
+```
+
+
 ## CoC
 
 > [CoC GitHub](https://github.com/neoclide/coc.nvim)
@@ -54,7 +67,7 @@ Alternatively, you can add the CoC extensions into the `init.vim` file like so:
 let g:coc_global_extensions = [ 'coc-tsserver', 'coc-eslint', 'coc-prettier', 'coc-json' ]
 ```
 
-The relevant extensions will be automatically installed the next time you open an editor if they aren't already
+The relevant CoC extensions will be automatically installed the next time you open an editor if they aren't already
 
 ## Key Bindings/Mappings
 
@@ -243,20 +256,54 @@ set expandtab
 set number
 ```
 
+## Themes
+
+You can use Vim themes by downliading them and adding to the `~/.config/nvim/colors` folder. For example, you can use the [Molokai Theme](https://github.com/tomasr/molokai/blob/master/colors/molokai.vim)
+
+Then, use the `:Colors` command to select at theme - this should automatically load any themes in the `colors` directory as available
+
+## FZF
+
+> [FZF.vim GitHub](https://github.com/junegunn/fzf.vim)
+
+FZF Is a Command Line Fuzzy Search and can be installed in the `init.vim` file like so:
+
+```vim
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+```
+
+After that, resource and install plugins, and then you can use the following commands:
+
+| Command | Description |
+| ---------- | ---------------------------- |
+| `:Files`   | Search all Files             |
+| `:GFiles`  | Search all Git Tracked Files | 
+| `:Buffers` | View Open Buffers            |
+| `:Rg`      | Search in Files (see below)  |
+
+You can then search for files and press enter to open a file
+
+Adding a `!` to the end of the FZF Command will open the search window in full screen
+
+Additionally, we can use [ripgrep](https://github.com/BurntSushi/ripgrep) via the `:Rg` command to search for text content inside of files
+
+It should also be noted that unless [`bat`](https://github.com/sharkdp/bat) is installed, you will not have syntax highlighting in the FZF search results
+
 # Useful Keybindings
 
 | Shortcut      | Description                 | 
 | ------------- | --------------------------- |
-| [space] c     | View Commands w/ Search     |
-| [space] a     | View Language Server Errors |
-| \f [enter]    | Format File                 |
-| \rn           | Rename Symbol               |
-| gd            | Go to Definition            |
-| gr            | Go to References            |
-| \a            | Code Action                 |
-| [g            | Previous Error              |
-| ]g            | Next Error                  |
-| qf            | Code Fix                    |
-| [ctr] [space] | View Suggestions            |
-| [shift] k     | View Code Doc               |
-| [space] o     | View Symbols                |
+| `[space] c`     | View Commands w/ Search     |
+| `[space] a`     | View Language Server Errors |
+| `\f [enter]`    | Format File                 |
+| `\rn`           | Rename Symbol               |
+| `gd`            | Go to Definition            |
+| `gr`            | Go to References            |
+| `\a`            | Code Action                 |
+| `[g`            | Previous Error              |
+| `]g`            | Next Error                  |
+| `qf`            | Code Fix                    |
+| `[ctr] [space]` | View Suggestions            |
+| `[shift] k`     | View Code Doc               |
+| `[space] o`     | View Symbols                |
