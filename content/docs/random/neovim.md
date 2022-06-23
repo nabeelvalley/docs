@@ -262,6 +262,13 @@ You can use Vim themes by downliading them and adding to the `~/.config/nvim/col
 
 Then, use the `:Colors` command to select at theme - this should automatically load any themes in the `colors` directory as available
 
+You can also set a default theme like so:
+
+```vim
+" Molokai theme options
+colorscheme molokai
+```
+
 ## FZF
 
 > [FZF.vim GitHub](https://github.com/junegunn/fzf.vim)
@@ -271,6 +278,14 @@ FZF Is a Command Line Fuzzy Search and can be installed in the `init.vim` file l
 ```vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+```
+
+I'm using this along with the below settings:
+
+```vim
+" FZF settings
+" Open at bottom 40% of screen
+let g:fzf_layout = { 'down': '~40%' } 
 ```
 
 After that, resource and install plugins, and then you can use the following commands:
