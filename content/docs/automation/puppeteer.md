@@ -93,7 +93,7 @@ To connect to a chrome instance, you can start chrome from your terminal and pas
 chrome.exe --remote-debugging-port=9222
 ```
 
-The above will work on MacOS or linux, using the following for MacOS
+The above will work on Windows, use the following for MacOS
 
 ```sh
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome  --remote-debugging-port=9222
