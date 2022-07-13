@@ -1883,7 +1883,7 @@ use std::collections::*;
 
 The Glob operator is often used when writing tests to bring a specific module into scope
 
-# Common COllections
+# Common Collections
 
 Collections allow us to store data that can grow and shrink in size
 
@@ -2054,3 +2054,4 @@ We can use the `pop` method to remove the last element from the vector
 ```rs
 let popped = users.pop();
 ```
+
