@@ -1,3 +1,5 @@
+[[toc]]
+
 > These notes are based on working through [The Rust Programming Language Book](https://doc.rust-lang.org/book/title-page.html)
 
 # Getting Started
