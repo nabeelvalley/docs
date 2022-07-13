@@ -1061,9 +1061,20 @@ The type of `hello` can also be seen to be `&str` which is an immutable referenc
 Using this, we can redefine the `first_word` function like this:
 
 ```rs
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
 ```
 
-Using the functin now will give us an error:
+Using the function now will give us an error:
 
 ```
 error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
@@ -1399,3 +1410,645 @@ The above syntax tells us that the function is namespaced by the struct. This sy
 
 Note that it is also allowed for us to have multiple `impl` blocks for a struct, though not necessary in the cases we've done here
 
+# Enums and Pattern Matching
+
+Enums in Rust are most like algebraic data types in functional languages like F#
+
+## Defining an Enum
+
+Enums can be defined using the `enum` keyword:
+
+```rs
+enum Person {
+    Employee,
+    Customer,
+}
+```
+
+We can also associate a value with an enum like so:
+
+```rs
+enum Person {
+    Employee(String),
+    Customer(String),
+}
+
+fn main() {
+    let bob = Person::Customer(String::from("bob"));
+    let charlie = Person::Employee(String::from("charlie"));
+}
+```
+
+We can further make it such that each of the enum values are of a different type
+
+```rs
+struct CustomerData {
+    name: String,
+}
+
+struct EmployeeData {
+    name: String,
+    employee_number: u32,
+}
+
+enum Person {
+    Employee(EmployeeData),
+    Customer(CustomerData),
+}
+
+fn main() {
+    let bob = Person::Customer(CustomerData {
+        name: String::from("Bob"),
+    });
+
+    let charlie = Person::Employee(EmployeeData {
+        employee_number: 1,
+        name: String::from("Charlie"),
+    });
+}
+```
+
+Enums can also be defined with their data inline:
+
+
+```rs
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+```
+
+The `impl` keyword can also be used to define methods on enums like with structs:
+
+```rs
+impl Message {
+    fn call(&self) {
+        // do stuff
+    }
+}
+```
+
+### The Option Enum
+
+The Option Enum defined in the standard library and is defined like so:
+
+```rs
+enum Option<T> {
+    None,
+    Some(T),
+}
+```
+
+The `Option` enum is also included by default and can be used without specifying the namespace
+
+Option types help us avoid null values and ensure that we correctly handle for when we do or don't have data
+
+In general, in order to handle an `Option` value we need to ensure that we handle the `None` and `Some` values
+
+## The Match Control Flow Construct
+
+The `match` construct allows us to compare a value against a set of patterns and then execute based on that, it's used like this:
+
+```rs
+enum Answer {
+    Yes,
+    No,
+}
+
+fn is_yes(answer: Answer) -> bool {
+    match answer {
+        Answer::Yes => true,
+        Answer::No => false,
+    }
+}
+```
+
+We can also have a more complex body for the match body:
+
+```rs
+fn is_yes(answer: Answer) -> bool {
+    match answer {
+        Answer::Yes => true,
+        Answer::No => {
+            println!("Oh No");
+            false
+        }
+    }
+}
+```
+
+We can also use patterns to handle the data from a match, for example:
+
+```rs
+enum Answer {
+    Yes,
+    No,
+    Maybe(String),
+}
+
+fn is_yes(answer: Answer) -> bool {
+    match answer {
+        Answer::Yes => true,
+        Answer::No => {
+            println!("Oh No");
+            false
+        }
+        Answer::Maybe(comment) => {
+            println!("Comment: {}", comment);
+            false
+        }
+    }
+}
+```
+
+The `match` can also use an `_` to handle all other cases:
+
+```rs
+fn is_yes(answer: Answer) -> bool {
+    match answer {
+        Answer::Yes => true,
+        _ => {
+            println!("Oh No");
+            false
+        }
+    }
+}
+```
+
+Or, can also capture the value like this:
+
+```rs
+match answer {
+    Answer::Yes => true,
+    answer => {
+        println!("Oh No");
+        false
+    }
+}   
+```
+
+If we would like to do nothing, we can also return unit:`
+
+```rs
+fn nothing(answer: Answer) -> () {
+    match answer {
+        Answer::Yes => {
+            println!("Yes!");
+        }
+        _ => (),
+    }
+}
+```
+
+## If-Let Control Flow
+
+In Rust, something that's commonly done is to do something based on a single pattern match, the previous example can be done like this using `if let` which is a little cleaner
+
+```rs
+fn nothing(answer: Answer) -> () {
+    if let Answer::Yes = answer {
+        println!("Yes!")
+    }
+}
+```
+
+We can also use `if let` with an else, for example in the below snippet we return a boolean value:
+
+```rs
+fn is_yes(answer: Answer) -> bool {
+    if let Answer::Yes = answer {
+        true
+    } else {
+        false
+    }
+}
+```
+
+# Packages, Crates, and Modules
+
+As programs grow, there becomes a need to organize and separate code to make it easier to manage
+
+- Packages: A cargo feature for building, testing, and sharing crates
+- Crates: A tree of modules that produces a library or executable
+- Modules and Use: Let you control organization, scope, and privacy
+- Paths: A way of naming an item such as a struct, function, or module
+
+## Packages and Crates
+
+A package is one or more crate that provide a set of functionality. A package contains a `Cargo.toml` file that describes ho to build a crate
+
+Crates can either be a binary or library. Binary crates must have a `main` which will run the binary
+
+Libraries don't have a `main` and can't be executed
+
+Cargo follows a convention that `src/main.rs` is a binary crate with the name of the package, and `src/lib.rs` is the library crate root
+
+A package can have additional binary crates by placing them in the `src/bin` directory. Each file in here will be a separate binary crate
+
+## Defining Modules to Control Scope and Privacy
+
+- Starts from the crate root, either `src/main.rs` or `src/lib.rs`
+- Modules are declared in the root file using the `mod` keyword. The compiler will look for the module in the following locations. For example, a module called `garden`
+  - If using `mod garden` followed by curly brackets: inline directly following the declaration
+  - If using `mod garden;` then in the file `src/garden.rs` or `src/garden/mod.rs`
+- Submodules can be declared in other files and the compiler will follow the similar pattern as above, for example a module `vegetables` in the `garden` module:
+  - `mod vegetables {...}` as inline
+  - `mod vegetables;` as `src/garden/vegetables.rs` or `src/garden/vegetables/mod.rs`
+- Paths can refer to code from a module. For example, a type `Carrot` in the `vegetables` submodule would be used with: `crate::garden::vegetables::Carrot` (as long as privacy rules allow it to be used)
+- Modules are private by default, and can be made by adding `pub` when declaring the module, for example `pub mod vegetables`
+- The `use` keyword allows us to create a shorthand for an item, for example doing `use crate::garden::vegetables::Carrot` we can just use `Carrot` in a file without the full path
+
+We can create modules using `cargo new --lib <LIB NAME>`
+
+The `src/lib.rs` and `src/main.rs` are called crate roots and things accessed relative to here are accessed by the `crate` module
+
+## Referencing Items by Paths
+
+Paths can ee referenced in one of two ways:
+
+- An absolute path using `crate`
+- A relative path using `self`, `super`, or an identifier in the current module
+
+For example, referencing `add_to_waitlist` in the below file may look like this:
+
+```rs
+mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+pub fn eat_at_restaurant() {
+    // Absolute path
+    crate::front_of_house::hosting::add_to_waitlist();
+
+    // Relative path
+    front_of_house::hosting::add_to_waitlist();
+}
+```
+
+Also note the `pub` keyword which allows us to access the relevant submodules and function
+
+### Best Practices for Packages with a Binary and Library
+
+When a package has a binary `src/main.rs` crate root and a `src/lib.rs` crate root, both crates will have the package name by default, in this case you should have the minimum necessary code in the `main.rs` to start the binary, while keeping the public API in the `lib.rs` good so that it can be used by other consumers easily. Like this, the binary crate uses the library crate and allows it to be a client of the library
+
+### Relative Paths with Super
+
+Modules can use the `super` path to access items from a higher level module:
+
+```rs
+fn deliver_order() {}
+
+mod back_of_house {
+    pub fn fix_incorrect_order() {
+        cook_order();
+        super::deliver_order();
+    }
+
+    fn cook_order() {}
+}
+```
+
+## Bring Paths into Scope
+
+We can bring paths into scope using the `use` keyword, this makes it easier to access an item from a higher level scope
+
+For example, say we wanted to add a method `undo_order_fix` at the top level of our module file, and we need to us a method from the `back_of_house` module, we can do this like so:
+
+```rs
+fn deliver_order() {}
+
+mod back_of_house {
+    pub fn fix_incorrect_order() {
+        cook_order();
+        super::deliver_order();
+    }
+
+    fn cook_order() {}
+}
+
+use back_of_house::fix_incorrect_order;
+
+pub fn undo_order_fix() {
+    fix_incorrect_order();
+}
+```
+
+Note that if we were to try to use the top-level `use` in another submodule this would not work and we would need to import it within the scope of that module
+
+For example, the following will fail:
+
+```rs
+pub mod private_module {
+    pub fn do_stuff() {
+        fix_incorrect_order();
+    }
+}
+```
+
+But this will work:
+
+```rs
+pub mod private_module {
+    use super::back_of_house::fix_incorrect_order;
+
+    pub fn do_stuff() {
+        fix_incorrect_order();
+    }
+}
+```
+
+### Idiomatic Paths
+
+In the above examples, we're importing paths to functions and using them directly, however, this isn't the preferred way to do this in rust, it's instead preferred to keep the last-level of the path in order to identify that the path is part of another module. So for example, instead of the above use this instead:
+
+```rs
+pub mod private_module {
+    use super::back_of_house;
+
+    pub fn do_stuff() {
+        back_of_house::fix_incorrect_order();
+    }
+}
+```
+
+The exception to this rule is when importing structs or enums into scope, we prefer to use the full name, for example:
+
+```rs
+use std::collections::HashMap;
+
+fn main() {
+    let mut map = HashMap::new();
+    map.insert(1, 2);
+}
+```
+
+The exception to this is when bringing two items with the same name into scope:
+
+```rs
+use std::fmt;
+use std::io;
+
+fn function1() -> fmt::Result {
+    // --snip--
+}
+
+fn function2() -> io::Result<()> {
+    // --snip--
+}
+```
+
+This is to ensure that we refer to the correct value
+
+### Renaming Imports
+
+In order to get around naming issues, we can also use `as` to rename a specific import - so the above example can be written like:
+
+```rs
+use std::fmt::Result;
+use std::io::Result as IoResult;
+
+fn function1() -> Result {
+    // --snip--
+}
+
+fn function2() -> IoResult<()> {
+    // --snip--
+}
+```
+
+### Re-exporting Names
+
+We can re-export an item with `pub use`, like so:
+
+```rs
+mod front_of_house {
+    pub mod hosting {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+pub use crate::front_of_house::hosting;
+
+pub fn eat_at_restaurant() {
+    hosting::add_to_waitlist();
+}
+```
+
+This is often useful to restructure the imports from a client perspective when our internal module organization is different than what we want to make the public API
+
+
+### Nested Paths
+
+When importing a lo of stuff from a similar path, you can join the imports together in a few ways
+
+For modules under the same parent:
+
+```rs
+use std::cmp::Ordering;
+use std::io;
+```
+
+Can become:
+
+```rs
+use std::{cmp::Ordering, io};
+```
+
+For using the top-level as well as some items under a path:
+
+```rs
+use std::io;
+use std::io::Write;
+```
+
+Can become:
+
+```rs
+use std::io::{self, Write};
+```
+
+And for importing all items under a specific path using a glob:
+
+```rs
+use std::collections::*;
+```
+
+> Note that using globbing can make it difficult to identify where a specific item has been imported from
+
+The Glob operator is often used when writing tests to bring a specific module into scope
+
+# Common COllections
+
+Collections allow us to store data that can grow and shrink in size
+
+- Vectors store a variable number of values next to each other
+- Strings are collections of characters
+- Hash Maps allow us to store a value with a particular key association
+
+## Vectors
+
+Vectors allow us to store a list of a single data type. 
+
+### Creating a Vector
+
+When creating a vector without initial items you need to provide a type annotation:
+
+```rs
+let a: Vec<i32> = Vec::new();
+```
+
+Or using `Vec::from` if we have an initial list of items
+
+```rs
+let c = Vec::from([1, 2, 3]);
+```
+
+The above can also be using the `vec!` macro
+
+```rs
+let b = vec![1, 2, 3];
+```
+
+### Updating Values
+
+In order to update the values of a vector we must first define it as mutable, thereafter we can add items to it using the `push` method
+
+```rs
+let mut c: Vec<i32> = Vec::new();
+c.push(1);
+c.push(2);
+c.push(3);
+```
+
+### Dropping a Vector Drops its Elements
+
+When a vector gets dropped, all of it's contents are dropped - which means that if there are references to an element we will have a compiler error
+
+```rs
+{
+    let v = vec![1, 2, 3, 4];
+
+    // do stuff with v
+} // <- v goes out of scope and is freed here
+```
+
+### Reading Elements
+
+We can read elements using either `[]` notation or the `.get` method:
+
+```rs
+let mut d = vec![1, 2, 3, 4, 5];
+
+let d1 = &d[1];
+let d2 = d.get(2);
+```
+
+The difference int he two access methods above is that `d1` is an `&i32` whereas `d2` is an `Option<$i32>`
+
+This is an important distinction since when running the code, the first reference will panic with index out of bounds 
+
+```
+thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 100', src\main.rs:12:15
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtraceerror: process didn't exit successfully: `target\debug\rust_intro.exe` (exit code: 101)   
+```
+
+Note that as long as we have a borrowed, immutable reference to an item we can't also use the mutable reference to do stuff, for example we can't push an item into `d` while `d1` is still in scope:
+
+```rs
+let mut d = vec![1, 2, 3, 4, 5];
+
+let d1 = &d[1];
+let d2 = d.get(2);
+
+d.push(6);
+println!("The first element is: {}", d1);
+```
+
+The above will not compile with the following error:
+
+```
+error[E0502]: cannot borrow `d` as mutable because it is also borrowed as immutable
+  --> src\main.rs:15:5
+   |
+12 |     let d1 = &d[1];
+   |               - immutable borrow occurs here
+...
+15 |     d.push(6);
+   |     ^^^^^^^^^ mutable borrow occurs here
+16 |     println!("The first element is: {}", d1);
+   |                                          -- immutable borrow later used here
+
+For more information about this error, try `rustc --explain E0502`.
+```
+
+The reason for the above error is that vectors allocate items in memory next to one another, which means that adding a new element to a vector may result in the entire vector being reallocated, which would impact any existing references
+
+### Looping over Elements
+
+We can use a `for in` loop to iterate over elements in a vector, like so:
+
+```rs
+let e = vec![41, 62, 92];
+for i in &e {
+    println!("{}", i);
+}
+```
+
+We can also use the `*` dereference operator to modify the elements in the vector:
+
+```rs
+let mut e = vec![41, 62, 92];
+for i in &mut e {
+    *i = *i + 10;
+}
+```
+
+Which is equivalent to:
+
+```rs
+let mut e = vec![41, 62, 92];
+for i in &mut e {
+    *i += 10;
+}
+```
+
+And will add 10 to each item in the list
+
+### Using Enums to Store Multiple Types
+
+Vectors can only store values that are the same type. In order to store multiple types of data we can store them as enums with specific values. For example, if we want to store a list of users
+
+```rs
+struct UserData {
+    name: String,
+    age: i32,
+}
+
+enum User {
+    Data(UserData),
+    Name(String),
+}
+
+fn main() {
+    let mut users: Vec<User> = Vec::new();
+
+    users.push(User::Data(UserData {
+        name: String::from("Bob"),
+        age: 32,
+    }));
+
+    users.push(User::Name(String::from("Jeff")));
+}
+```
+
+### Additional Vector Functionality
+
+We can use the `pop` method to remove the last element from the vector
+
+```rs
+let popped = users.pop();
+```
