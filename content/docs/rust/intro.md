@@ -2047,7 +2047,7 @@ fn main() {
 }
 ```
 
-### The Pop Method
+### Remove the Last Element
 
 We can use the `pop` method to remove the last element from the vector
 
