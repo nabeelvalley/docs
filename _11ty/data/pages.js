@@ -1,3 +1,4 @@
+const matter = require('gray-matter');
 const { readFile } = require('fs').promises
 const glob = require('glob')
 const { resolve, format } = require('path')
@@ -50,11 +51,31 @@ const getFiles = (ext) => {
 const cwd = process.cwd()
 
 const readMeta = async (data) => {
-  const fullPath = resolve(cwd, './content' + data.route + '.json')
-  const content = await readFile(fullPath)
+  const jsonPath = resolve(cwd, './content' + data.route + '.json')
+  const mdPath = resolve(cwd, './content' + data.route + '.md')
+  
+  try {
+    const content = await readFile(jsonPath)
+    const meta = JSON.parse(content.toString())
+    // if we have a json file then assume published
+    return { ...meta, ...data, published: true }
+  } catch {
+    // do nothing
+  }
 
-  const meta = JSON.parse(content.toString())
-  return { ...meta, ...data }
+  try {
+    const content = await readFile(mdPath)
+    const meta = matter(content)
+    if(Object.keys(meta.data)<1){
+      throw 'no meta'
+    }
+    // if we have frontmatter then assume published
+    return { ...meta.data, ...data, published: true }
+  } catch {
+    // do nothing
+  }
+
+  return {...data, published: false}
 }
 
 const readNotebook = async (path) => {
@@ -84,11 +105,8 @@ module.exports = async function () {
 
   const content = [...md, ...ipynb]
 
-  const json = await getFiles('json')
-
-  const pages = content.filter((c) => json.find((j) => j.route === c.route))
-
-  const meta = await Promise.all(pages.map(readMeta))
+  const parsed = await Promise.all(content.map(readMeta))
+  const meta = parsed.filter(f => f.published)
 
   const docs = meta
     .filter((m) => m.route.startsWith('/docs'))
@@ -144,7 +162,7 @@ module.exports = async function () {
   await createRssFeed(rssPages)
 
   return {
-    pages,
+    pages:meta,
     meta,
     docs,
     stdout,
