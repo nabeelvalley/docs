@@ -951,7 +951,6 @@ expected named lifetime parameter
 ...
 
 = help: this function's return type contains a borrowed value, but there is no value for it to be borrowed from
-
 ```
 
 What's happpening in the above code can be seen below:
@@ -1386,7 +1385,6 @@ Functions defined in an `impl` block are called associated functions because the
 
 We can also define associated functions that don't have `self` as their first param (and are therefore not methods) like so:
 
-
 ```rs
 impl Rectangle {
     fn create(size: u32) -> Rectangle {
@@ -1471,7 +1469,6 @@ fn main() {
 ```
 
 Enums can also be defined with their data inline:
-
 
 ```rs
 enum Message {
@@ -1842,7 +1839,6 @@ pub fn eat_at_restaurant() {
 
 This is often useful to restructure the imports from a client perspective when our internal module organization is different than what we want to make the public API
 
-
 ### Nested Paths
 
 When importing a lo of stuff from a similar path, you can join the imports together in a few ways
@@ -2089,7 +2085,6 @@ let mut s = String::from("hello");
 s.push_str(" world");
 ```
 
-
 Strings can be updated by using concatenation (`+`) or the `format!` marco:
 
 ```rs
@@ -2156,9 +2151,222 @@ We can also create items using a list of keys and a list of values along with th
 let emails = vec!["bob@email.com", "john@email.com"];
 let names = vec!["Bob Smith", "John Smith"];
 
-let users: HashMap<_, _> = emails.into_iter().zip(names.into_iter()).collect();
+let mut users: HashMap<_, _> = emails.into_iter().zip(names.into_iter()).collect();
 ```
 
 The `zip` method gathers data into an iterator of tuples, and the `collect` method gathers data into different collection types. In our case, a `HashMap`
 
 We specify `HashMap<_,_>` to tell the collect method that we want a hash map back and not someother kind of collection. We use the `_` because rust can still infer the type of the key and value
+
+### Get a Value by Key
+
+We can get a value by key using the `.entry` method
+
+```rust
+let mut users: HashMap<_, _> = ...
+let bob = users.entry("bob@email.com");
+
+println!("{:?}", bob);
+```
+
+> Note that `users` needs to be defined as mutable in order for the us to use the `.entry` method
+
+### Update Item
+
+We can update an item by just setting the key and value like when we added them initially:
+
+```rust
+users.insert("bob@email.com", "Bob's New Name");
+
+let new_bob = users.entry("bob@email.com");
+```
+
+### Update Item if Exists
+
+Another usecase is updating a value in a map only if the value does not exist, this can be done using the `.or_insert` method. We can see that here the entry for bob is not updated: 
+
+```rust
+users.entry("bob@email.com").or_insert("Bob's New Name");
+
+let new_bob = users.entry("bob@email.com");
+
+println!("{:?}", new_bob);
+```
+
+# Error Handling
+
+Rust uses the `Result<T,E>` type for recoverable errors, and `panic!` for errors that should stop execution
+
+### Unrecoverable Errors with `panic!`
+
+We can panic like so:
+
+```rust
+fn main() {
+ panic!("at the disco"); 
+}
+```
+
+We can also create a panic by doing something that yields an undefined behaviour:
+
+```rust
+let v = vec![1, 2, 3];
+v[10];
+```
+
+Which will result in:
+
+```
+   Compiling my-project v0.1.0 (/home/runner/Rust-Playground)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.03s
+     Running `target/debug/my-project`
+thread 'main' panicked at 'index out of bounds: the len is 3 but the index is 10', src/main.rs:3:1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+exit status 101
+```
+
+## Recoverable Errors with Result
+
+Usually if we encounter an error that we can handle, we should return a `Result`
+
+The `Result` type is an enum defined in the standard library as follows:
+
+```rust
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
+
+> The result type is always in scope, so it doesn't need to be imported
+
+The `Result` type is usually used with a match expression, for example:
+
+```rust
+let file = File::open("./sample.txt");
+
+let result = match file {
+    Ok(f) => f,
+    Err(e) => panic!("Error reading file: {:?}", e),
+};
+```
+
+We can also do further specific checks on the type of the error based on the`Result` value
+
+ The shortcut to panic on error is the `.unwrap` method which can be used like so:
+
+```rust
+let file = File::open("./sample.txt");
+
+let result = file.unwrap();
+```
+
+Or we can unwrap with a specific error message:
+
+```rust
+let file = File::open("./sample.txt");
+
+let result = file.expect("Error reading file");
+```
+
+We can also choose to handle only `Ok` values by using the `?` operator, and then have the error automatically propagated like so:
+
+```rust
+use std::fs::File;
+use std::io::Error;
+
+fn read_file() -> Result<File, Error> {
+    let file = File::open("./sample.txt")?;
+    print!("{:?}", file);
+
+    return Ok(file);
+}
+
+fn main() {
+    let result = read_file().expect("Could not read file");
+}
+```
+
+The `?` operator will do an early return in the result of an `Err` in the above case. The `?` operator can only be used for types that implement `FromResidual` like  `Result` or `Option`
+
+## When to Panic
+
+Generally, we use `unwrap` or `expect` when prototyping or writing tests,  but other than this it can be okay to use `.unwrap` in a case where the compiler thinks that we may have a `Result` but due to the specific circumstance we know that we won't have an error
+
+An example of when we know that the data will definitely not be an error can be seen below:
+
+```rust
+fn main() {
+    use std::net::IpAddr;
+
+    let home: IpAddr = "127.0.0.1".parse().unwrap();
+}
+```
+
+Otherwise it is advisable to panic when  it's possible that code could end up in a bad state, for example if a user enters data in an incorrect format 
+
+# Generics, Traits, and Lifetimes
+
+### Generic Functions
+
+We can define generic functons using the following structure:
+
+```rust
+fn my_func<T>(input: T) -> T 
+```
+
+For example, a function that finds the first vue in a slice would be defined like so:
+
+```rust
+fn first<T>(list: &[T]) -> T
+```
+
+### Generic Structs
+
+We can use a generic in a struct like so:
+
+```rust
+struct Datum<X,Y> {
+    x: X,
+    y: Y,
+}
+```
+
+### Generic Enums
+
+Enums work the same as structs, for example the `Option` enum:
+
+```rust
+enum Option<T> {
+    Some(T),
+    None,
+}
+```
+
+Or for the `Result` enum:
+
+```rust
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
+
+### Method Definitions
+
+methods can also be implemented on generic structs and enums, for example
+
+```rust
+struct Datum<X,Y> {
+  x: X,
+  y: Y,
+}
+
+impl<X,Y> Datum<X,Y> {
+  fn get_x(self) -> X {
+    self.x
+  }
+}
+```
+
+## Traits
