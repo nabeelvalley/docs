@@ -2113,3 +2113,52 @@ let s3 = format!("{}-{}", s1, s2);
 
 println!("{}, {}, {}", s1, s2, s3);
 ```
+
+### Indexing into Strings
+
+Rust doesn't support string indexing. This is due to how `String` is implemented internally and that the resulting string value may not always be the expected value in the string
+
+This is especially relevant with non-numeric characters - since rust supports all UTF-8 Characters, something that seems like a simple string may be encoded as a non-trivial sequence of characters
+
+### Slicing Strings
+
+Since indexing isn't a good idea in rust since the return value can be unexpected - it's usually more appropriate to create a slice:
+
+```rs
+let s1 = String::from("💻");
+println!("{}", s1.len()); // len is 4
+```
+
+## Hash Maps
+
+Hash maps store key-value pairs as `HashMap<K, V>`. This is bsically a map/object/dictionary and works like so:
+
+### Importing
+
+To use a hash map, we need to import it:
+
+```rs
+use std::collections::HashMap;
+```
+
+### Adding Items
+
+```rs
+let mut users = HashMap::new();
+
+users.insert("bob@email.com", "Bob Smith");
+users.insert("john@email.com", "John Smith");
+```
+
+We can also create items using a list of keys and a list of values along with the iterators and the collect method
+
+```rs
+let emails = vec!["bob@email.com", "john@email.com"];
+let names = vec!["Bob Smith", "John Smith"];
+
+let users: HashMap<_, _> = emails.into_iter().zip(names.into_iter()).collect();
+```
+
+The `zip` method gathers data into an iterator of tuples, and the `collect` method gathers data into different collection types. In our case, a `HashMap`
+
+We specify `HashMap<_,_>` to tell the collect method that we want a hash map back and not someother kind of collection. We use the `_` because rust can still infer the type of the key and value
