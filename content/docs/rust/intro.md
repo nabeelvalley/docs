@@ -2055,3 +2055,61 @@ We can use the `pop` method to remove the last element from the vector
 let popped = users.pop();
 ```
 
+## UTF-8 Encoded Text as Strings
+
+The `String` type differs from `str` in that it is growable, mutable, and owned
+
+### Creating a String
+
+Strings are created using the `new` function:
+
+```rs
+let mut s = String::new();
+```
+
+When we have some initial data for the string, we can use the `.to_string` method:
+
+```rs
+let s = "hello".to_string();
+```
+
+An alternative to the above is:
+
+```rs
+let s = String::from("hello");
+```
+
+### Updating a String
+
+We can use functions like `push_str` to add to a string:
+
+```rs
+let mut s = String::from("hello");
+
+s.push_str(" world");
+```
+
+
+Strings can be updated by using concatenation (`+`) or the `format!` marco:
+
+```rs
+let s1 = String::from("hello");
+let s2 = String::from(" world");
+// concatenation requires an owned string first, other strings should be borrowed
+let s3 = s1 + &s2;
+// can no longer use `s1` from this point since it's ownership has moved to s3
+
+println!("{}", s3);
+```
+
+If we want to create a new string from a concatenation of multiple other strings then we can use the `format!` marco:
+
+```rs
+let s1 = String::from("hello");
+let s2 = String::from(" world");
+let s3 = format!("{}-{}", s1, s2);
+
+// s1, s2, s3 can all still be used since ownership is not given
+
+println!("{}, {}, {}", s1, s2, s3);
+```
