@@ -1,6 +1,6 @@
 [[toc]]
 
-> These notes are based on working through [The Rust Programming Language Book](https://doc.rust-lang.org/book/title-page.html)
+> These notes are based on working through [The Rust Programming Language Book](https://doc.rust-lang.org/book/title-page.html). It can also be accessed using `rustup docs --book`
 
 # Getting Started
 
@@ -2476,4 +2476,172 @@ impl<T: Display> ToString for T {
 }
 ```
 
-### 
+## Validate References with Lifetimes
+
+Lifetimes are a kind of generic that ensures that a reference's data is valid for as long as we need them to be
+
+### Prevent Dangling References
+
+Lifetimes aim to prevent dangling references
+
+If we try to run the below code we will have a compiler error:
+
+```rs
+fn main() {
+    { // 'a
+        let r;
+
+        { // 'b
+            let x = 5;
+            r = &x;
+        } // end 'b
+
+        println!("r: {}", r);
+    } // end 'a
+}
+```
+
+This is because the reference to `x` doesn't live as long as `r` which is in the outer scope
+
+In the above example, we would say that the lifetime of `r` is `'a` and the lifetime of `x` is `'b`. We can also see that the `'a` block extends beyond the `'b` block, so `'a` outlives `'b` and so `r` will not be able to reference `x` in the outer scope
+
+Given the following function `longest`:
+
+```rs
+fn main() {
+    let string1 = String::from("abcd");
+    let string2 = "xyz";
+
+    let result = longest(string1.as_str(), string2);
+    println!("The longest string is {}", result);
+}
+
+fn longest(x: &str, y: &str) -> &str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+```
+
+Rust will not be able to compile since it can't tell whether the returned value refers to `x` or `y`, and therefore can't tell which value the result refers to. In this case, when compiling we will get the following error:
+
+```
+   Compiling my-project v0.1.0 (/home/runner/Rust-Playground)
+    Building [                             ] 0/1: my-project(bin)    
+error[E0106]: missing lifetime specifier
+ --> src/main.rs:9:33
+  |
+9 | fn longest(x: &str, y: &str) -> &str {
+  |               ----     ----     ^ expected named lifetime parameter
+  |
+  = help: this function's return type contains a borrowed value, but the signature does not say whether it is borrowed from `x` or `y`
+help: consider introducing a named lifetime parameter
+  |
+9 | fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+  |           ++++     ++          ++          ++
+
+    Building [                             ] 0/1: my-project(bin)    
+For more information about this error, try `rustc --explain E0106`.
+    Building [                             ] 0/1: my-project(bin)    
+error: could not compile `my-project` due to previous error
+exit status 101
+```
+
+In this context, the compuler is telling us that we need to specify the lifetime value and it shows us how we need to do that:
+
+```rs
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+```
+
+Using lifetime values helps the compiler identify issues more easily
+
+The above also prevents us from using `result` outside of the `'b` scope since it's not valid due to the lifetime value:
+
+```rs
+fn main() {
+    let string1 = String::from("long string is long");
+    let result;
+
+    {
+        let string2 = String::from("xyz");
+        result = longest(string1.as_str(), string2.as_str());
+    }
+    println!("The longest string is {}", result);
+}
+```
+
+We'll get the following error:
+
+```rs
+   Compiling my-project v0.1.0 (/home/runner/Rust-Playground)
+    Building [                             ] 0/1: my-project(bin)    
+error[E0597]: `string2` does not live long enough
+ --> src/main.rs:7:44
+  |
+7 |         result = longest(string1.as_str(), string2.as_str());
+  |                                            ^^^^^^^ borrowed value does not live long enough
+8 |     }
+  |     - `string2` dropped here while still borrowed
+9 |     println!("The longest string is {}", result);
+  |                                          ------ borrow later used here
+
+    Building [                             ] 0/1: my-project(bin)    
+For more information about this error, try `rustc --explain E0597`.
+    Building [                             ] 0/1: my-project(bin)    
+error: could not compile `my-project` due to previous error
+exit status 101
+```
+
+This is because of the lifetime of the `result` value being longer than `'b`, and due to the lifetime constraing the value of `result` is only valid for the shortest lifetime parameter
+
+Using the concept of lifetimes we can also specify a lifetime parameter that shows that the return type of a function is not dependant on a specific value, for example in the following function, we only care about the lifetime of `x`:
+
+```rs
+fn longest<'a>(x: &'a str, y: &str) -> &'a str {
+    x
+}
+```
+
+### Lifetimes in Structs
+
+We can define structs to hold refernces, however if this is done then it becomes necessary to have a lifetime annotation to each reference in the struct's definition. Struct lifetime definitions look like so:
+
+```rs
+struct ImportantExcerpt<'a> {
+    part: &'a str,
+}
+```
+
+### Lifetime Elision
+
+Often in rust we have cases where the compiler can identify a lifetime rule based on patterns in a function's body, in this case we don't necessarily need to specify the lifetime. The rules that the compiler uses to identify these are called _lifetime elision rules_
+
+### Lifetimes on Method Definitions
+
+Lifetimes on methods are specified like so:
+
+```rs
+impl<'a> ImportantExcerpt<'a> {
+    fn level(&self) -> i32 {
+        3
+    }
+}
+```
+
+By default, the lifetime of the result is always the same as the lifetime ofthe struct, which means that we don't need to specify it in the input or output values
+
+### The Static Lifetime
+
+The `'static` lifetime is a lifetime of a value that's stored in the program's inary and is always available. All string literals are `'static`
+
+# Automated Tests
+
+
