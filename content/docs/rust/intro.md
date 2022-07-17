@@ -2370,3 +2370,110 @@ impl<X,Y> Datum<X,Y> {
 ```
 
 ## Traits
+
+A trait defines funcionality that a specific type can have and share with other types. This helps us define shared behaviour in an abstract way
+
+We can use traits to enforce constriants on generics so that we can specify that it meets a specific requirement
+
+### Defining a Trait
+
+A trait can be defined usnig the `trait` keyword, for example, we can define a trait called `Identifier` with a `get_id` method:
+
+```rust
+pub trait Identifier {
+  pub fn get_id(&self) -> String;
+}
+```
+
+### Implement a Trait
+
+We then create a type that implements this like so:
+
+```rust
+struct User {
+  id: i32,
+  name: String,
+}
+
+impl Identifier for User {
+  fn get_id(&self) -> String {
+    String::from(&self.id.to_string())
+  }
+}
+```
+
+### Default Implementations
+
+Traits can also have a default implementation, for example we can have a `Validity` trait which looks like this:
+
+```rust
+pub trait Validity {
+  pub fn is_valid(&self) -> bool {
+    false
+  }
+}
+
+impl Validity for User {
+  fn is_valid(&self) -> bool {
+    &self.id > &0
+  }
+}
+```
+
+### Traits as Parameters
+
+We can specify a trait as a function parameter like so:
+
+```rust
+pub fn id(value: &impl Identifier) -> String {
+  value.get_id()
+}
+```
+
+The above is syntax sugar for a something known as a _trait bound_
+
+```rust
+pub fn id<T: Identifier>(value: &T) -> String {
+  value.get_id()
+}
+```
+
+We can also specify that a value needs to implement multiple traits, as well as nultiple different generics:
+
+```rust
+fn valid_id<T: Identifier + Validity, U: Validity>(value: &T, other: U) -> Option<String> {
+    if value.is_valid() {
+        Some(value.get_id())
+    } else {
+        None
+    }
+}
+```
+
+Trait bounds can also be speficied using the `where` clause when we have multiple bounds:
+
+```rust
+fn valid_id<T, U>(value: &T, other: U) -> Option<String>
+where
+    T: Identifier + Validity,
+    U: Validity,
+{
+    if value.is_valid() {
+        Some(value.get_id())
+    } else {
+        None
+    }
+}
+```
+
+### Conditional Trait Implementation
+
+Traits can also be generically implemented for a generic, like so:
+
+```rust
+impl<T: Display> ToString for T {
+    // --snip--
+}
+```
+
+### 
