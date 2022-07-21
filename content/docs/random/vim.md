@@ -153,6 +153,10 @@ Also for resizing windows you can make use of some of the following commands:
 
 And `ctrl + W r` to rotate the windows
 
+# Opening a Terminal
+
+You can open a terminal using the `:term` command, and you can exit terminal mode using `ctrl + \ ctrl + n`, thereafter using `:q` to close the terminal window
+
 # Help
 
 To get help you can use the `:help` command, to search for a specfic topic you can just add it after the help command like `:help nohlsearch`, you can then type `:q` to close the help menu

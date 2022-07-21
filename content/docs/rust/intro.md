@@ -2644,4 +2644,168 @@ The `'static` lifetime is a lifetime of a value that's stored in the program's i
 
 # Automated Tests
 
+## How to Write Tests
+
+### File Structure
+
+A test file should contain tests in their own isolated module using the `#[cfg(test)]` attribute, and each test having the `#[test]` attribute on it. We usually also want our test to make use of code from a module we want to test, we can do this by using the `super:**` import which would be the module exported from the file we're in
+
+### Writing Tests
+
+In the `src/lib.rs` file add the following content implementing what was discussed above:
+
+```rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn larger_can_hold_smaller() {
+        let larger = Rectangle {
+            width: 8,
+            height: 7,
+        };
+        let smaller = Rectangle {
+            width: 5,
+            height: 1,
+        };
+
+        assert!(larger.can_hold(&smaller));
+    }
+}
+```
+
+In the above test, we can also see the `assert!` macro which will cause a panic if the test fails
+
+The following are some of the other test macros we can use:
+
+| Macro        | Use                                 |
+| ------------ | ----------------------------------- |
+| `assert!`    | Check that a boolean is `true`      |
+| `assert_eq!` | Check that two values are equal     | 
+| `assert_neq` | Check that two values are not equal |
+
+### Running Tests
+
+To run tests, use `cargo test` which will automatically run all tests within the project using:
+
+```sh
+cargo run
+```
+
+### Testing for Panics
+
+We can also state that a test should panic by using the `#[should_panic]` attribute on a specific test:
+
+```rust
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic]
+    fn greater_than_100() {
+        Guess::new(200);
+    }
+}
+```
+
+In the above example it's also possible for us to specify the exact panic message for the test:
+
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic(expected = "Guess value must be less than or equal to 100")]
+    fn greater_than_100() {
+        Guess::new(200);
+    }
+}
+```
+
+### Return `Result` from a Test
+
+Instead of panicking we can also get a test to return a `Result`, for example:
+
+```rust
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() -> Result<(), String> {
+        if 2 + 2 == 4 {
+            Ok(())
+        } else {
+            Err(String::from("two plus two does not equal four"))
+        }
+    }
+}
+```
+
+## Controlling Test Runs
+
+By default, the test runner will compile and run all tests in parallel, but we can control this more specifically
+
+### Consecutive Test Runs
+
+We can limit the number of threads to get tests to run sequentially
+
+```sh
+cargo test -- --test-threads=1
+```
+
+### Show Test Output
+
+By default, any prints from within a test will not be shown, if we want to see these we can instead use:
+
+```sh
+cargo test -- --show-output
+```
+
+### Running Tests by Name
+
+We can specify a set of tests to run like so:
+
+```sh
+cargo test <SEARCH>
+```
+
+So if we want to run all tests with the word `hello`:
+
+```sh
+cargo test hello
+```
+
+### Ignoring a Test Unless Specified
+
+We can make the default test runner ignore a specific test with the `#[ignore]` attribute. The test runnner will then only run it if we specify that it should:
+
+```sh
+cargo test -- --ignored
+```
+
+## Conventions
+
+### Unit Tests
+
+Unit tests are usually contained in the same file as the code being tested in a module called `tests`
+
+### Integration Tests
+
+Integration tests are stored in a `tests` directory, cargo knows to find integration tests here
+
+Additionally, for code we want to share between integration tests we can create a module in the `tests` directory and import it from there
+
 
