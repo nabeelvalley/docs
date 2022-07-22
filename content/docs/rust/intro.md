@@ -2808,4 +2808,130 @@ Integration tests are stored in a `tests` directory, cargo knows to find integra
 
 Additionally, for code we want to share between integration tests we can create a module in the `tests` directory and import it from there
 
+# Functional Language Features
+
+## Closures
+
+Closures are anonymous functions that can capture their outer scope
+
+
+### Defining Closures
+
+Closures can be defined in the following ways:
+
+```rust
+// with type annotations
+let add_one_v2 = |x: u32| -> u32 { x + 1 };
+
+// with a multi line body
+let add_one_v3 = |x| { x + 1 };
+
+// with a single line body
+let add_one_v4 = |x| x + 1  ;
+```
+
+### Capturing the Environment
+
+A simple closure which immutably borrows `a` which is defined externally can be created and used like so:
+
+```rust
+fn main() {
+    let a = "Hello";
+    
+    let c = || println!("{}", a);
+    
+    c();
+}
+```
+
+### Borrowing Mutably
+
+Closures can also make use of mutable borrows. For example, the below closure will add an item to a `Vec`:
+
+```rust
+fn main() {
+    let mut a = Vec::new();
+    let mut c = || a.push("Hello");
+    
+    c();
+    
+    println!("{:?}", a);
+}
+```
+
+### Types of Closures
+
+There are three traits that closures can implement, depending on which ones they have the compiler will enforce their usage in certain places:
+
+- `FnOnce` - Can only be called once - Applies if it moves captured values out of its body
+- `FnMut` - Does not move captured values out of its body but may mutate captured values. Can be called more than once
+- `Fn` - Pure closures, don't move captured values or mutate them, can be called more than once
+
+## Iterators
+
+Iterators allow us to perform a sequence of operations over a sequence.
+
+Iterators in Rust are lazy and are not computed until a method that consumes the iterator is called
+
+### The Iterator Trait
+
+All iterators implement the `Iterator` trait along with a `next` method and `Item` type:
+
+```rust
+pub trait Iterator {
+    type Item;
+
+    fn next(&mut self) -> Option<Self::Item>;
+
+    // methods with default implementations elided
+}
+```
+
+### Consuming Adaptors
+
+Methods that call the `next` method are called _comsuming adaptors_ because calling them uses up the iterator
+
+These methods take ownership of the iterator which means that after they are called we can't use the iterator 
+
+Examples of this are the `sum` or `collect` methods
+
+### Iterator Adaptors
+
+Methods that transform the iterator are called _iterator adaptors_ and they turn the iterator from one type of iterator into another. These can be chainged in order to handle more complex iterator processes
+
+Since iterator adaptors are lazy we need to call a consuming adaptor in order to evaluate a final values
+
+Examples of this are the `map` or `filter` methods
+
+## Example of Closures and Iterator
+
+An example using iterators with closures can be seen below:
+
+```rust
+pub fn search<'a>(contents: &'a str, query: &str) -> Vec<&'a str> {
+    let lines: Vec<&str> = contents
+        .lines()
+        .filter(|line| line.to_lowercase().contains(&query.to_lowercase()))
+        .collect();
+
+    return lines
+}
+```
+
+# Smart Pointers
+
+A pointer is a general concept for a varaible that contains an addres in memory
+
+_Smart pointers_ act like pointers but have some additional functionality. Smart pointers also differ from references in that they usually own the data
+
+Some smart pointers in the standard library include `String` and `Vec`
+
+Smart pointers are implemented as structs that implement `Deref` and `Drop`. `Deref` allows smart pointer to behave like a reference, and `Drop` allows customization of code that gets run when a smart pointer goes out of scope
+
+Some other smart pointers in the standard library include:
+
+- `Box<T>` - allocating values on the heap
+- `Rc<T> - counting references to allow for multiple ownership
+- `Ref<T>`, `RefMut<T>` - enforce borrowing rules ar runtime
+
 
