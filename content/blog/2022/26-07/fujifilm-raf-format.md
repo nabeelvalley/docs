@@ -7,4 +7,5 @@ published: false
 
 # References
 
+- [rawloader docs](https://docs.rs/rawloader/latest/rawloader/index.html)
 - [libopenraw RAF Format](https://libopenraw.freedesktop.org/formats/raf/)
