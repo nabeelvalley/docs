@@ -8,3 +8,4 @@ Below is a list of some websites and platforms that provide free application hos
 - [Render](https://render.com/)
 - [Fleek](https://fleek.co/)
 - [Railway](https://railway.app/)
+- [Prisma](https://www.prisma.io/)
