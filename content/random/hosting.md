@@ -1,5 +1,6 @@
 Below is a list of some websites and platforms that provide free application hosting and dev services
 
+- [Firebase](http://firebase.google.com)
 - [Netlify](https://www.netlify.com/)
 - [Heroku](https://www.heroku.com/)
 - [MongoDB Atlas](https://www.mongodb.com/atlas/database)
