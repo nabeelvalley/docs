@@ -53,16 +53,14 @@ module.exports = (plop) => {
   const monthName = months[date.getMonth()]
   const year = date.getFullYear()
 
-  const mdTemplate = '[[toc]]'
-  const jsonTemplate = JSON.stringify(
-    {
-      title: '{{title}}',
-      subtitle: `${day} ${monthName} ${year}`,
-      description: '{{description}}',
-    },
-    null,
-    2
-  )
+  const mdTemplate = `---
+title: {{title}}
+subtitle: ${day} ${monthName} ${year}
+description: {{description}}
+published: true
+---
+
+[[toc]]`
 
   plop.setGenerator('docs', {
     description: 'Create a new docs page',
@@ -72,11 +70,6 @@ module.exports = (plop) => {
         type: 'add',
         path: 'content/docs/{{folder}}/{{slug}}.md',
         template: mdTemplate,
-      },
-      {
-        type: 'add',
-        path: 'content/docs/{{folder}}/{{slug}}.json',
-        template: jsonTemplate,
       },
     ],
   })
@@ -90,11 +83,6 @@ module.exports = (plop) => {
         path: `content/stdout/${year}/${day}-${month}/{{slug}}.md`,
         template: mdTemplate,
       },
-      {
-        type: 'add',
-        path: `content/stdout/${year}/${day}-${month}/{{slug}}.json`,
-        template: jsonTemplate,
-      },
     ],
   })
 
@@ -106,11 +94,6 @@ module.exports = (plop) => {
         type: 'add',
         path: `content/blog/${year}/${day}-${month}/{{slug}}.md`,
         template: mdTemplate,
-      },
-      {
-        type: 'add',
-        path: `content/blog/${year}/${day}-${month}/{{slug}}.json`,
-        template: jsonTemplate,
       },
     ],
   })
