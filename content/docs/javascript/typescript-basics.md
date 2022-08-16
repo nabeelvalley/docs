@@ -298,5 +298,5 @@ Below is a link to the runnable Repl.it that has the above code defined
 
 ## Other Relevant Docs
 
-- [Template Literal Types](../../stdout/2021/16-08/typescript-template-literal-types)
-- [Type Guards](../../stdout/2022/31-05/type-guard)
+- [Template Literal Types](../../blog/2021/16-08/typescript-template-literal-types)
+- [Type Guards](../../blog/2022/31-05/type-guard)

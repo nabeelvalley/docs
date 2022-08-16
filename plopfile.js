@@ -74,18 +74,6 @@ published: true
     ],
   })
 
-  plop.setGenerator('stdout', {
-    description: 'Create a new stdout page',
-    prompts: [slug, title, description],
-    actions: [
-      {
-        type: 'add',
-        path: `content/stdout/${year}/${day}-${month}/{{slug}}.md`,
-        template: mdTemplate,
-      },
-    ],
-  })
-
   plop.setGenerator('blog', {
     description: 'Create a new blog page',
     prompts: [slug, title, description],

@@ -113,11 +113,6 @@ module.exports = async function () {
     .map(populatePaging)
   const groupedDocs = Object.values(_.groupBy(docs, 'directory'))
 
-  const stdout = meta
-    .filter((m) => m.route.startsWith('/stdout'))
-    .sort(sortByDate)
-    .map(populatePaging)
-
   const blog = meta
     .filter((m) => m.route.startsWith('/blog'))
     .sort(sortByDate)
@@ -146,9 +141,9 @@ module.exports = async function () {
 
   const notebooks = await Promise.all(nbPromises)
 
-  const allPages = [...blog, ...stdout, ...docs, ...photography]
+  const allPages = [...blog, ...docs, ...photography]
 
-  const rssPageTasks = [...blog, ...stdout].sort(sortByDate).map(async (m) => {
+  const rssPageTasks = blog.sort(sortByDate).map(async (m) => {
     const html = await readMarkdown(m.path)
 
     return {
@@ -165,7 +160,6 @@ module.exports = async function () {
     pages: meta,
     meta,
     docs,
-    stdout,
     blog,
     notebooks,
     groupedDocs,

@@ -1,6 +1,6 @@
 [build]
 command = "yarn build"
-publish="_site"
+publish = "_site"
 base = ""
 
 [[redirects]]
@@ -93,4 +93,8 @@ status = 301
 from = "/docs/node.js/typescript-basics"
 to = "/docs/javascript/typescript-basics"
 status = 301
-force = false
+
+[[redirects]]
+from = "/stdout/*"
+to = "/blog/:splat"
+status = 301

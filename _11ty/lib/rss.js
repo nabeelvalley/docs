@@ -37,19 +37,13 @@ const createRssFeed = async (posts) => {
       return
     }
 
-    const prefix = post.url.startsWith('/blog')
-      ? 'blog: '
-      : post.url.startsWith('/stdout')
-      ? 'stdout: '
-      : ''
-
     try {
       feed.addItem({
         date,
         id: post.url,
         author: [author],
         link: `${link}${post.url}`,
-        title: `${prefix}${post.title}`,
+        title: post.title,
         description: post.description,
         content: post.html,
       })

@@ -27,28 +27,8 @@
       </div>
     </div>
   </a>
-
-  <a href="{{ recent_stdout.route }}" class="link__link">
-    <div class="link__card">
-      <h2 class="link__title">{{ recent_stdout.title }}</h2>
-      <p class="link__subtitle">{{ recent_stdout.subtitle }}</p>
-      <p class="link__description">{{ recent_stdout.description }}</p>
-      <ul class="link__tags">
-        {% for tag in recent_stdout.tags %}
-        <li class="link__tag">{{ tag }}</li>
-        {% endfor %}
-      </ul>
-      <div class="link__cta-wrapper">
-        <p class="link__cta">Read more</p>
-      </div>
-    </div>
-  </a>
-</section>
-
-{% title "From the blog" %}
-
-<section class="link__grid">
-  {% for post in pages.blog offset: 1 limit: 4 %}
+  
+  {% for post in pages.blog offset: 1 limit: 3 %}
   <a href="{{ post.route }}" class="link__link">
     <div class="link__card">
       <h2 class="link__title">{{ post.title }}</h2>
