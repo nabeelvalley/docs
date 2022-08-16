@@ -3,6 +3,9 @@ command = "yarn build"
 publish = "_site"
 base = ""
 
+[functions]
+directory = "functions/"
+
 [[redirects]]
 from = "https://nabeelvalley.netlify.app/*"
 to = "https://nabeelvalley.co.za/:splat"
