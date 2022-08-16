@@ -87,15 +87,18 @@
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.js"></script>
-    <script type="text/javascript">
-      // algoliasearchNetlify({
-      //   appId: 'VBIRJM3IB8',
-      //   apiKey: 'bcd6cac3b0c945770a14e2e8723023ae',
-      //   siteId: 'bbb6a0ec-0d93-4731-8968-72126a32e526',
-      //   branch: 'master',
-      //   selector: 'div#search',
-      // });
+    <script src="https://unpkg.com/@supabase/supabase-js"></script>
+    <script>
+    const url = window.location.href;
+
+    const client = supabase.createClient("https://aumvrxylnzhqpzbokbtj.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1bXZyeHlsbnpocXB6Ym9rYnRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjA2Njc0MjksImV4cCI6MTk3NjI0MzQyOX0.UIin765LPkrhTdSEyes71PgwbmMVXsgWuEX2yOLKZCA");
+
+    client
+        .from('hits')
+        .insert([{ url }])
+        .then(console.log)
+        .catch(console.error)
     </script>
+
   </body>
 </html>
