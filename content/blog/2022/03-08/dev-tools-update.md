@@ -17,7 +17,15 @@ For Rust, the [Rust Book](https://doc.rust-lang.org/book/) along with the [No Bo
 
 The current version of my website is built using [11ty](https://www.11ty.dev) which is a static site generator which uses Javascript and templates for generating HTML from a variety of data sources - in my case just JSON and Markdown files
 
-A lot of the work I do still revolves around the React ecosystem, however I've moved on from Gatsby due to the slow build times as a static site builder - for now I'm just using 11ty since I tend to keep my static sites pretty light on Javascript. But other than that I would like to give the [Remix Framework](https://remix.run) a shot and will probably be using it on my next big personal project
+A lot of the professional work I do revolves around the React and React-Native ecosystem, but I've made some changes to my stack for personal projects due to the overhead that comes with using React
+
+For now I'm using 11ty for my website as well as [Hugo](https://gohugo.io/) for some smaller projects
+
+I've moved on from Gatsby for my site due to the slow build times as a static site builder - and the unnecessary complexity of graphql for this purpose along with the overall burden of node modules that comes with it
+
+For other projects I'd like to give the [Remix Framework](https://remix.run) a shot for full stack apps. Remix is a full stack framework for building React applications with a pretty cool looking data fetching and project structure
+
+I've also been playing around with [Tauri](https://tauri.app/) for building desktop applications. Tauri uses a Rust backend with a bring-your-own client approach and pretty much uses any client side javascript framework - I'm looking towards [Svelte](https://svelte.dev/) for this since it keeps things a lot more vanilla which is a good break from working with the other major frameworks
 
 # Code Editor
 
