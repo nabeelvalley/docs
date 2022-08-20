@@ -7,7 +7,7 @@ published: true
 
 # Introduction
 
-Computers works with data stored in binary formats. Reading and interpreting binary data is an important part in understanding file formats so their data can be read and interpreted
+Computers work with data stored in binary formats. Reading and interpreting binary data is an important part of understanding file formats so their data can be read and interpreted
 
 # Bits and Bytes, and Binary
 
@@ -55,7 +55,7 @@ total:                  1
 
 Where the position for 2^0 is the only bit with a value (1)
 
-Similary, 2 is represented as:
+Similarly, 2 is represented as:
 
 ```
 0 0 0 0 0 0 2 0
@@ -122,13 +122,13 @@ When substituting the powers of 2:
 2 + 8 + 32 + 64 + 128 = total = 234
 ```
 
-The numbers discussed above are all 1-byte (8-bit) numbers, which have a range between 0 and 255, adding bits to the value will allow the representation of bigger numbers, for example a 2-byte (16-bit) number can have a value from 0 to 65,535
+The numbers discussed above are all 1-byte (8-bit) numbers, which have a range between 0 and 255, adding bits to the value will allow the representation of bigger numbers, for example, a 2-byte (16-bit) number can have a value from 0 to 65,535
 
 # Hexadecimal (Hex)
 
 In the above example, numbers are represented in binary format (e.g. `000000020`), or decimal format (e.g. 2)
 
-When looking at binary data, it can be a bit easier to navigate around by representing data in hexadecimal (hex) format - which represents each 4 bits as a values ranging from 0-15, so, similar to the byte example above, but instead using 4-bits:
+When looking at binary data, it can be a bit easier to navigate around by representing data in hexadecimal (hex) format - which represents every 4 bits as a value ranging from 0-15, so, similar to the byte example above, but instead using 4-bits:
 
 ```
 0 0 0 0
@@ -162,16 +162,15 @@ Hex numbers additionally convert each of these values into a value from 0-9 or A
 | 14      | `1110` | `E` |
 | 15      | `1111` | `F` |
 
-Using the binary representation, a byte can be represented using 2 Hex values which is taken by using the first 4-bits as the first hex value, and the second 4-bits as the second hex value
+Using the binary representation, a byte can be represented using 2 Hex values which are taken by using the first 4-bits as the first hex value, and the second 4-bits as the second hex value
 
-For example the value for 234, represented as bits: `11101010` can be split into 2 sets of 4-bits `1110 1010`, using the table above, this becomes `EA` in hex
+For example, the value for 234, represented as bits: `11101010` can be split into 2 sets of 4-bits `1110 1010`, using the table above, this becomes `EA` in hex
 
 ## Binary Files
 
-Binary files encode data using bits, when viewing them, it's convenient to
-view the data in them using bytes represented as a hex values as was shown above
+Binary files encode data using bits, when viewing them, it's convenient to view the data in them using bytes represented as hex values as was shown above
 
-Binary files usually require some knowledge on how their data is structured in order to correctly interpret the information. This is usually described in specification for the file format
+Binary files usually require some knowledge of how their data is structured to correctly interpret the information. This is usually described in the specification for the file format
 
 # Text Files
 
