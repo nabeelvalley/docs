@@ -112,15 +112,15 @@ total:                  234
 
 The calculation for the above value is:
 
-$$
+```
 2^1 + 2^3 + 2^5 + 2^6 + 2^7 = total = 234
-$$
+```
 
 When substituting the powers of 2:
 
-$$
+```
 2 + 8 + 32 + 64 + 128 = total = 234
-$$
+```
 
 The numbers discussed above are all 1-byte (8-bit) numbers, which have a range between 0 and 255, adding bits to the value will allow the representation of bigger numbers, for example a 2-byte (16-bit) number can have a value from 0 to 65,535
 
