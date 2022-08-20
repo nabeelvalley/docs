@@ -17,7 +17,7 @@ A bit can be either a 1 or 0. When working with bit-data, it's useful to group t
 
 A byte is a sequence of 8-bits which can contain a value ranging from `0` to `255` - these are referred to as the decimal representation
 
-Bytes consist of 8-bit, with each position representing a power of 2 from $2^{0}$ to $2^{7}$, as seen below:
+Bytes consist of 8-bit, with each position representing a power of 2 from 2^0 to 2^7, as seen below:
 
 ```
 0 0 0 0 0 0 0 0
@@ -53,7 +53,7 @@ Using the above explanation, the number 1 is represented using the following:
 total:                  1
 ```
 
-Where the position for $2^{0}$ is the only bit with a value (1)
+Where the position for 2^0 is the only bit with a value (1)
 
 Similary, 2 is represented as:
 
@@ -72,9 +72,9 @@ Similary, 2 is represented as:
 total:                  2
 ```
 
-Where the bit for $2^{1}$ has a value
+Where the bit for 2^1 has a value
 
-Or the number 5 with bits $2^{0}$ and $2^{2}$ having a value:
+Or the number 5 with bits 2^0 and 2^2 having a value:
 
 ```
 0 0 0 0 0 1 0 1
@@ -91,7 +91,7 @@ Or the number 5 with bits $2^{0}$ and $2^{2}$ having a value:
 total:                  5
 ```
 
-Which is calculated by adding $2^{0} + 2^{2} = 1 + 4 = 5$
+Which is calculated by adding 2^0} + 2^{2} = 1 + 4 = 5$
 
 A larger number, like 234 is:
 
