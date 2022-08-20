@@ -91,7 +91,7 @@ Or the number 5 with bits 2^0 and 2^2 having a value:
 total:                  5
 ```
 
-Which is calculated by adding 2^0} + 2^{2} = 1 + 4 = 5$
+Which is calculated by adding 2^0 + 2^2 = 1 + 4 = 5
 
 A larger number, like 234 is:
 
@@ -113,7 +113,7 @@ total:                  234
 The calculation for the above value is:
 
 $$
-2^{1} + 2^{3} + 2^{5} + 2^{6} + 2^{7} = total = 234
+2^1 + 2^3 + 2^5 + 2^6 + 2^7 = total = 234
 $$
 
 When substituting the powers of 2:
