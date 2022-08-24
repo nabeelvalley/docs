@@ -229,8 +229,6 @@ The format value is a 16-bit unsigned integer, the same as the Tag, though this 
 | 11           | Single Float      | 4                   | f32       | floating point/decimal                        |
 | 12           | Double Float      | 8                   | f64       | double precision floating point               |
 
-The 
-
 The above table is implemented in code by first defining a type that states all the possible format types:
 
 ```rs
