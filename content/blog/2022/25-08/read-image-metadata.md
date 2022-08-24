@@ -2,20 +2,20 @@
 title: Read Metadata from Images using Rust
 subtitle: 20 August 2022
 description: Using Rust to parse EXIF metadata from image files
-published: false
+published: true
 ---
 
 > The complete Rust code discussed in this post can be found in the [exiflib GitHub repo](https://github.com/nabeelvalley/exiflib)
 
 # Introduction
 
-Image files, such a JPEG, PNG, and RAW formats from digital cameras and software, contain metadata about the image. This metadata can contain information ranging from the make and model of the camera used to the specific shooting conditions under which a picture was taken
+Image files, such as JPEG, PNG, and RAW formats from digital cameras and software, contain metadata about the image. This metadata can contain information ranging from the make and model of the camera used to the specific shooting conditions under which a picture was taken
 
 Reading this data depends on the image format used. This post looks at specifically reading metadata from images that use the Exchangeable Image File Format (EXIF) for storing metadata
 
 # The Rust Programming Language
 
-The [Rust programming language](https://www.rust-lang.org/) is used to read and process the image files. Rust is a general purpose programming language with an emphasis on performance and type safety
+The [Rust programming language](https://www.rust-lang.org/) is used to read and process the image files. Rust is a general-purpose programming language with an emphasis on performance and type safety
 
 While this post doesn't cover the specifics of programming in Rust, any code samples are accompanied by a description of what the code does but it's useful to have a basic understanding of programming for understanding exactly what the code is doing
 
@@ -23,9 +23,9 @@ It's also worth noting that this post covers a lot of bit-level processing of im
 
 # The Exchangeable Image File Format (EXIF)
 
-The Exchangeable Image File Format (EXIF) is based on the Tag Image File Format (TIFF) specificiation for storing metadata. This data is organizaed into Image File Directories (IFDs) within an image file
+The Exchangeable Image File Format (EXIF) is based on the Tag Image File Format (TIFF) specification for storing metadata. This data is organised into Image File Directories (IFDs) within an image file
 
-The EXIF section in an image file is structured structured as follows:
+The EXIF section in an image file is structured as follows:
 
 | Section                 | Subsection            | Number of Bytes             |
 |-------------------------|-----------------------|-----------------------------|
@@ -65,11 +65,11 @@ FF D8 FF E1 57 FE 45 78 69 66 00 00 49 49 2A 00    . . . . W . E x i f . . I I *
 01 00 00 00 48 00 00 00 01 00 00 00 44 69 67 69    . . . . H . . . . . . . D i g i    |
 ```
 
-The above snippet shows the hex data, in here the EXIF marker can be found on the first line - `45 78 69 66 00 00` which decodes to `EXIF\0\`, followed by the byte order `49 49` - `II` which means that the byte order for the file is Little Endian - which means that the smallest value in a sequence is the first byte - this can be used to decode `2A 00` to `42`, if the byte order was Big endian the bytes representing `42` would be flipped
+The above snippet shows the hex data, in here the EXIF marker can be found on the first line - `45 78 69 66 00 00` which decodes to `EXIF\0\`, followed by the byte order `49 49` - `II` which means that the byte order for the file is Little Endian - which means that the smallest value in a sequence is the first byte - this can be used to decode `2A 00` to `42` if the byte order was Big endian the bytes representing `42` would be flipped
 
-The byte order secion is the most important thing to note on this first line as it tells an application how to read the data in the IFD as well as it is what any byte offsets should be calculated relative to
+The byte order section is the most important thing to note on this first line as it tells an application how to read the data in the IFD as well as it is what any byte offsets should be calculated relative to
 
-Additionally, the data entries section and the additional data section are broadly marked off, in order to understand where data is located in this file
+Additionally, the data entries section and the additional data section are broadly marked off, to understand where data is located in this file
 
 ## Reading a File as Bytes
 
@@ -115,7 +115,7 @@ const EXIF_MARKER: &[u8] = "Exif\0\0".as_bytes();
 let exif_range = get_sequence_range(file, EXIF_MARKER)?;
 ```
 
-Note that in the above function the `EXIF_MARKER` is defined as the `Exif\0\0` text converted to bytes, this is passed as the the search pattern to the `get_sequence_range` function. This gets the EXIF header location which is used to find the Byte order (Endian) marker
+Note that in the above function the `EXIF_MARKER` is defined as the `Exif\0\0` text converted to bytes, this is passed as the search pattern to the `get_sequence_range` function. This gets the EXIF header location which is used to find the Byte order (Endian) marker
 
 ## Getting the Byte Order
 
@@ -149,7 +149,7 @@ fn get_endian(endian_bytes: &[u8]) -> Option<Endian> {
 }
 ```
 
-The above function takes the bytes which start at the endian location and convert them to a string (text) value
+The above function takes the bytes which start at the endian location and converts them to a string (text) value
 
 These values are then compared using a `match`. If it is `II` or `MM` the function returns Big Endian (`Endian::Big`) or Little Endian (`Endian::Little`) respectively. If no matching value is found, then `None` is returned instead
 
@@ -159,9 +159,9 @@ Following the Endian bytes are 2 bytes which specify the Magic Number (42) as me
 
 ## Getting the IFD Data Start Location and Count
 
-Immediately after the Magic Number are four bytes that specify where the IFD data starts, in the snippet above, these bytes are `08 00 00 00` which convert to the value of `8`, this informs us that the IFD data starts from 8 bytes from the Endian marker
+Immediately after the Magic Number is four bytes that specify where the IFD data starts, in the snippet above, these bytes are `08 00 00 00` which convert to the value of `8`, this informs us that the IFD data starts from 8 bytes from the Endian marker
 
-By following the offset value, the number of entries in the IFD can be found at the 8 bytes from the Endian marker, in this case bytes `0C 00` which convert to the value of `12`, which indicates that there are 12 entries in the IFD
+By following the offset value, the number of entries in the IFD can be found at the 8 bytes from the Endian marker, in this case, bytes `0C 00` which convert to the value of `12`, which indicates that there are 12 entries in the IFD
 
 The code applying the above logic can be seen below:
 
@@ -178,7 +178,7 @@ The function which gets the `ifd0_offset` does the lookup of bytes from the rang
 
 As a reference example, the bytes for the first entry in the IFD above will be used to understand the data and how it's stored
 
-After the bytes indicating the count, the next section consists of the entries. Each entry consists of 12 bytes and is structured like so:
+After the bytes indicate the count, the next section consists of the entries. Each entry consists of 12 bytes and is structured like so:
 
 | Tag     | Data Format | Component Length | Data          |
 | ------- | ----------- | ---------------- | ------------- |
@@ -188,11 +188,11 @@ After the bytes indicating the count, the next section consists of the entries. 
 - The Tag is an identifier that specifies what the value of the entry represents
 - The Data format states how the data should be read
 - The Component Length states how many bytes the data for the entry consists of
-- The data can either be the actual data, or a value that give the offset to the data, depending on the Component Lenght
+- The data can either be the actual data, or a value that gives the offset to the data, depending on the Component Lenght
 
 ### Tag ID
 
-Reading the Tag is done by parsing the first two bytes of an entry - This convers the value into a 16-bit unsigned integer (a positive integer)
+Reading the Tag is done by parsing the first two bytes of an entry - This converts the value into a 16-bit unsigned integer (a positive integer)
 
 The TagID is read like so:
 
@@ -202,7 +202,7 @@ let tag = u16::from_endian_bytes(endian, entry)?;
 
 The value of the tag is a 16-bit unsigned integer, but it's more commonly represented as Hex value in the tag lookup tables, a lookup table for these can be found at the [EXIF Tool Tag Names Doc](https://exiftool.org/TagNames/EXIF.html)
 
-The value of the tag above `0F 01`  can be converted to hex with respect to the Little Endian notation results in `0x010F`, the lookup table states that this tag identifies the `Make` property in the Exif data
+The value of the tag above `0F 01`  can be converted to hex for the Little Endian notation resulting in `0x010F`, the lookup table states that this tag identifies the `Make` property in the Exif data
 
 ### Data Format
 
@@ -212,7 +212,7 @@ The data stored in an entry can be of 12 different formats, each of these associ
 let format_value = u16::from_offset_endian_bytes(endian, entry, 2)?;
 ```
 
-The format value is a 16-bit unsigned integer, same as the Tag, though this is used as an integer value and not hex. Each integer value maps to a specific format type, as seen in the below table:
+The format value is a 16-bit unsigned integer, the same as the Tag, though this is used as an integer value and not hex. Each integer value maps to a specific format type, as seen in the below table:
 
 | Format Value | Format            | Bytes per Component | Data Type | Description                                   |
 | ------------ | ----------------- | ------------------- | --------- | --------------------------------------------- |
@@ -337,7 +337,7 @@ fn get_bytes_per_component(format: &TagFormat) -> u32 {
 
 This is based on the table shown previously on component formats
 
-Next, the total length can be defined as the component length multiplied by the bytes per component which can be seen in code below:
+Next, the total length can be defined as the component length multiplied by the bytes per component which can be seen in the code below:
 
 ```rs
 let component_length = u32::from_offset_endian_bytes(endian, entry, 4)?;
@@ -412,9 +412,15 @@ Putting all the above together, reading the tag above will give:
 | `0F 01`  | `02 00`      | `09 00 00 00`    | `9E 00 00 00` | 
 | `0x010f` | ASCII String | 9                | FUJIFILM\0    |
 
+### Reading Additional Entries
+
+Once a single entry can be read - reading additional entries follows the same pattern. Since the bytes per entry is fixed - always 12 - and the number of entries is known from the IFD count, each entry can be iterated over by going 12 bytes at a time and reading their data individually. A more detailed implementation of this as well as the rest of the code can be found on the [exiflib GitHub repo](https://github.com/nabeelvalley/exiflib)
+
 # Conclusion
 
+This post provides a basic outline on reading EXIF data from an image, as well as covers the byte structure for reading EXIF entries from an image file. There's a lot more to reading EXIF data from images, but at a high level the parsing covered here should form a basic grounding in how reading this data works
 
+For further reference and inspiration take a look a the reference list at the end of this post as well as the [exiflib GitHub repo](https://github.com/nabeelvalley/exiflib) mentioned previously
 
 # References
 
