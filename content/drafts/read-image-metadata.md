@@ -206,7 +206,7 @@ The value of the tag above `0F 01`  can be converted to hex with respect to the 
 
 ### Data Format
 
-The data stored in an entry can be of 12 different formats, each of these associated with a format value - the format value can be read by reading the third and fourth byte in the entry, like so:
+The data stored in an entry can be of 12 different formats, each of these associated with a format value - the format value can be read by reading from byte index 2 in the entry, like so:
 
 ```rs
 let format_value = u16::from_offset_endian_bytes(endian, entry, 2)?;
@@ -250,6 +250,25 @@ pub enum TagFormat {
 }
 ```
 
+Each type of value can also be described in terms of the data type it stores as follows:
+
+```rs
+pub enum ExifValue<'a> {
+    UnsignedByte(u8),
+    AsciiString(String),
+    UnsignedShort(u16),
+    UnsignedLong(u32),
+    UnsignedRational(u32, u32),
+    SignedByte(i8),
+    Undefined(&'a [u8]),
+    SignedShort(i16),
+    SignedLong(i32),
+    SignedRational(i32, i32),
+    SingleFloat(f32),
+    DoubleFloat(f64),
+}
+```
+
 Thereafter, a function to go from the given Format Value to the type of the tag being used:
 
 ```rs
@@ -272,11 +291,30 @@ fn get_tag_format(value: &u16) -> Option<TagFormat> {
 }
 ```
 
-As done previously
+As done previously, if the correct value can't be found, the function returns `None`
+
+So, adding to the above code, the code for reading the tag value is:
+
+```rs
+let format_value = u16::from_offset_endian_bytes(endian, entry, 2)?;
+let format = get_tag_format(&format_value)?;
+```
 
 ### Component Length
 
-Since each of the different tag formats have a different number of bytes needed to store their relevant data, a function is needed that can resolve the number of bytes per component for each value, this can be seen below:
+The Component length specifies the number of components for the tag format being read - for most tag formats this will be 1, however, for specific values like `AsciiString` or `Undefined`, this may be different in which case it specifies the length of the string or how many bytes are required respectively 
+
+The value for the component length can be found by reading the relevant bytes in the entry and converting them to a 32-bit unsigned integer, starting from byte index 4, like so:
+
+```rs
+let component_length = u32::from_offset_endian_bytes(endian, entry, 4)?;
+```
+
+### Data
+
+Once the component length is known, getting the total length of the data to be read is done by multiplying the component length by the bytes per component - since different components need different amounts of data
+
+A function that gets the bytes per component for a given tag format can be seen below:
 
 ```rs
 fn get_bytes_per_component(format: &TagFormat) -> u32 {
@@ -296,6 +334,87 @@ fn get_bytes_per_component(format: &TagFormat) -> u32 {
     }
 }
 ```
+
+This is based on the table shown previously on component formats
+
+Next, the total length can be defined as the component length multiplied by the bytes per component which can be seen in code below:
+
+```rs
+let component_length = u32::from_offset_endian_bytes(endian, entry, 4)?;
+
+let bytes_per_component = get_bytes_per_component(&format);
+
+let total_length = component_length * bytes_per_component;
+```
+
+The data can be read from the data bytes, which start at index 8 of the entry
+
+```rs
+let data = entry.get(8..12)?;
+```
+
+The data value must be the raw bytes because depending on the resulting length it needs to be processed differently
+
+If the `total_length` is less than or equal to 4, the data can be read directly from the data bytes, this can be done using a function that converts a `TagFormat` and `data` to the relevant value as defined in the table:
+
+```rs
+fn parse_tag_value<'a>(
+    format: &TagFormat,
+    endian: &'a Endian,
+    bytes: &'a [u8],
+) -> Option<ExifValue<'a>> {
+    match format {
+        TagFormat::UnsignedByte => parsing::bytes_to_unsigned_byte(endian, bytes),
+        TagFormat::AsciiString => parsing::bytes_to_ascii_string(bytes),
+        TagFormat::UnsignedShort => parsing::bytes_to_unsigned_short(endian, bytes),
+        TagFormat::UnsignedLong => parsing::bytes_to_unsigned_long(endian, bytes),
+        TagFormat::UnsignedRational => parsing::bytes_to_unsigned_rational(endian, bytes),
+        TagFormat::SignedByte => parsing::bytes_to_signed_byte(endian, bytes),
+        TagFormat::Undefined => parsing::bytes_to_undefined(bytes),
+        TagFormat::SignedShort => parsing::bytes_to_signed_short(endian, bytes),
+        TagFormat::SignedLong => parsing::bytes_to_signed_long(endian, bytes),
+        TagFormat::SignedRational => parsing::bytes_to_signed_rational(endian, bytes),
+        TagFormat::SingleFloat => parsing::bytes_to_single_float(endian, bytes),
+        TagFormat::DoubleFloat => parsing::bytes_to_double_float(endian, bytes),
+    }
+}
+```
+
+And the data value can be obtained using the function above like so:
+
+```rs
+let value = parse_tag_value(&format, endian, data)
+```
+
+However, if the `total_length` is greater than 4, the data value needs to be read as an offset from the IFD which is then converted, again, using the `parse_tag_value` function above
+
+```rs
+// the value needs to be checked at the offset and used from there
+let offset = u32::from_endian_bytes(endian, data)?;
+
+let start = (offset) as usize;
+let end = start + (length) as usize;
+
+let range = start..end;
+
+let value_bytes = bytes.get(range)?;
+
+let result = parse_tag_value(&format, endian, value_bytes)
+```
+
+
+Putting all the above together, reading the tag above will give:
+
+
+| Tag      | Data Format  | Component Length | Data          |
+| -------- | ------------ | ---------------- | ------------- |
+| 2 bytes  | 2 Bytes      | 4 Bytes          | 4 Bytes       |
+| `0F 01`  | `02 00`      | `09 00 00 00`    | `9E 00 00 00` | 
+| `0x010f` | ASCII String | 9                | FUJIFILM\0    |
+
+# Conclusion
+
+
 
 # References
 
