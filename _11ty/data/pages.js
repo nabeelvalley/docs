@@ -74,7 +74,7 @@ const readMeta = async (data) => {
       throw 'no meta'
     }
     // if we have frontmatter then assume published unless overwritten
-    return { published: true, ...meta.data, ...data, content: replaceYamlHeader(content) }
+    return { published: true, ...meta.data, ...data }
   } catch {
     // do nothing
   }
