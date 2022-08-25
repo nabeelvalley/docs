@@ -5,6 +5,8 @@ description: Using Rust to parse EXIF metadata from image files
 published: true
 ---
 
+[[toc]]
+
 > The complete Rust code discussed in this post can be found in the [exiflib GitHub repo](https://github.com/nabeelvalley/exiflib)
 
 # Introduction
