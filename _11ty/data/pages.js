@@ -26,6 +26,10 @@ const populatePaging = (meta, index, arr) => {
   }
 }
 
+const replaceYamlHeader = (content) => {
+  content.replace(/^---(.|\n)*?---/gm, '')
+}
+
 const getFiles = (ext) => {
   const g = `content/**/*.${ext}`
 
@@ -69,8 +73,8 @@ const readMeta = async (data) => {
     if (Object.keys(meta.data) < 1) {
       throw 'no meta'
     }
-    // if we have frontmatter then assume published
-    return { published: true, ...meta.data, ...data }
+    // if we have frontmatter then assume published unless overwritten
+    return { published: true, ...meta.data, ...data, content: replaceYamlHeader(content) }
   } catch {
     // do nothing
   }
