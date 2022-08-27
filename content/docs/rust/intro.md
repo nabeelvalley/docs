@@ -45,9 +45,9 @@ cargo new rust_intro
 This should create a rust project in a `rust_intro` directory with the following structure:
 
 ```
-│   .gitignore 
-│   Cargo.toml   // cargo config file 
-│   
+│   .gitignore
+│   Cargo.toml   // cargo config file
+│
 └───src
         main.rs  // program entrypoint
 ```
@@ -137,7 +137,7 @@ To add a dependency we need to add a new line to the `Cargo.toml` file with the 
 rand = "0.8.3"
 ```
 
-Then, run `cargo build` to update dependencies and build the application. Next, you can use `cargo update` 
+Then, run `cargo build` to update dependencies and build the application. Next, you can use `cargo update`
 
 ## Generating a Random Number
 
@@ -426,7 +426,7 @@ Tuples are groups of values. They have a fixed length once declared. Tuples can 
 
 ```rs
 let t1 = (500, 'H', 1.3);
-let t2: (i32, char, f64) = (500, 'H', 1.3); 
+let t2: (i32, char, f64) = (500, 'H', 1.3);
 ```
 
 Tuples can also be destructured as you'd expect:
@@ -449,7 +449,7 @@ let a = tup.2;
 
 #### Arrays
 
-Arrays can hold a collection of the same type of value. 
+Arrays can hold a collection of the same type of value.
 
 Arrays are also fixed-length once defined but other than that they're pretty much the same as in most other languages. When defining the type of an array we us the syntax of `[type; size]` though this can also usually be inferred
 
@@ -540,7 +540,7 @@ Comments make use of `//` and is required at the start of each line a comment is
 ```rs
 let a = 5; // comment after statement
 
-// this is a 
+// this is a
 // multiline
 // comment
 ```
@@ -1083,7 +1083,7 @@ error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immuta
   |
 3 |     let result = first_word(&s);
   |                             -- immutable borrow occurs here
-4 | 
+4 |
 5 |     s.clear(); // clear the string
   |     ^^^^^^^^^ mutable borrow occurs here
 ...
@@ -1148,7 +1148,7 @@ Ownership, borrowing, and slices help us ensure memory safety and control as we 
 
 # Structs
 
-A struct is a data type used for packaging and naming related values. 
+A struct is a data type used for packaging and naming related values.
 
 Structs are similar to tuples in that they can hold multiple pieces of data
 
@@ -1237,7 +1237,7 @@ struct Point(i32, i32, i32);
 And can then be used like:
 
 ```rs
-let origin = Point(0, 0, 0); 
+let origin = Point(0, 0, 0);
 ```
 
 ### Unit Type Structs
@@ -1585,7 +1585,7 @@ match answer {
         println!("Oh No");
         false
     }
-}   
+}
 ```
 
 If we would like to do nothing, we can also return unit:`
@@ -1889,7 +1889,7 @@ Collections allow us to store data that can grow and shrink in size
 
 ## Vectors
 
-Vectors allow us to store a list of a single data type. 
+Vectors allow us to store a list of a single data type.
 
 ### Creating a Vector
 
@@ -1947,11 +1947,11 @@ let d2 = d.get(2);
 
 The difference int he two access methods above is that `d1` is an `&i32` whereas `d2` is an `Option<$i32>`
 
-This is an important distinction since when running the code, the first reference will panic with index out of bounds 
+This is an important distinction since when running the code, the first reference will panic with index out of bounds
 
 ```
 thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 100', src\main.rs:12:15
-note: run with `RUST_BACKTRACE=1` environment variable to display a backtraceerror: process didn't exit successfully: `target\debug\rust_intro.exe` (exit code: 101)   
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtraceerror: process didn't exit successfully: `target\debug\rust_intro.exe` (exit code: 101)
 ```
 
 Note that as long as we have a borrowed, immutable reference to an item we can't also use the mutable reference to do stuff, for example we can't push an item into `d` while `d1` is still in scope:
@@ -2183,7 +2183,7 @@ let new_bob = users.entry("bob@email.com");
 
 ### Update Item if Exists
 
-Another usecase is updating a value in a map only if the value does not exist, this can be done using the `.or_insert` method. We can see that here the entry for bob is not updated: 
+Another usecase is updating a value in a map only if the value does not exist, this can be done using the `.or_insert` method. We can see that here the entry for bob is not updated:
 
 ```rust
 users.entry("bob@email.com").or_insert("Bob's New Name");
@@ -2203,7 +2203,7 @@ We can panic like so:
 
 ```rust
 fn main() {
- panic!("at the disco"); 
+ panic!("at the disco");
 }
 ```
 
@@ -2253,7 +2253,7 @@ let result = match file {
 
 We can also do further specific checks on the type of the error based on the`Result` value
 
- The shortcut to panic on error is the `.unwrap` method which can be used like so:
+The shortcut to panic on error is the `.unwrap` method which can be used like so:
 
 ```rust
 let file = File::open("./sample.txt");
@@ -2287,11 +2287,11 @@ fn main() {
 }
 ```
 
-The `?` operator will do an early return in the result of an `Err` in the above case. The `?` operator can only be used for types that implement `FromResidual` like  `Result` or `Option`
+The `?` operator will do an early return in the result of an `Err` in the above case. The `?` operator can only be used for types that implement `FromResidual` like `Result` or `Option`
 
 ## When to Panic
 
-Generally, we use `unwrap` or `expect` when prototyping or writing tests,  but other than this it can be okay to use `.unwrap` in a case where the compiler thinks that we may have a `Result` but due to the specific circumstance we know that we won't have an error
+Generally, we use `unwrap` or `expect` when prototyping or writing tests, but other than this it can be okay to use `.unwrap` in a case where the compiler thinks that we may have a `Result` but due to the specific circumstance we know that we won't have an error
 
 An example of when we know that the data will definitely not be an error can be seen below:
 
@@ -2303,7 +2303,7 @@ fn main() {
 }
 ```
 
-Otherwise it is advisable to panic when  it's possible that code could end up in a bad state, for example if a user enters data in an incorrect format 
+Otherwise it is advisable to panic when it's possible that code could end up in a bad state, for example if a user enters data in an incorrect format
 
 # Generics, Traits, and Lifetimes
 
@@ -2312,7 +2312,7 @@ Otherwise it is advisable to panic when  it's possible that code could end up in
 We can define generic functons using the following structure:
 
 ```rust
-fn my_func<T>(input: T) -> T 
+fn my_func<T>(input: T) -> T
 ```
 
 For example, a function that finds the first vue in a slice would be defined like so:
@@ -2529,7 +2529,7 @@ Rust will not be able to compile since it can't tell whether the returned value 
 
 ```
    Compiling my-project v0.1.0 (/home/runner/Rust-Playground)
-    Building [                             ] 0/1: my-project(bin)    
+    Building [                             ] 0/1: my-project(bin)
 error[E0106]: missing lifetime specifier
  --> src/main.rs:9:33
   |
@@ -2542,9 +2542,9 @@ help: consider introducing a named lifetime parameter
 9 | fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
   |           ++++     ++          ++          ++
 
-    Building [                             ] 0/1: my-project(bin)    
+    Building [                             ] 0/1: my-project(bin)
 For more information about this error, try `rustc --explain E0106`.
-    Building [                             ] 0/1: my-project(bin)    
+    Building [                             ] 0/1: my-project(bin)
 error: could not compile `my-project` due to previous error
 exit status 101
 ```
@@ -2582,7 +2582,7 @@ We'll get the following error:
 
 ```rs
    Compiling my-project v0.1.0 (/home/runner/Rust-Playground)
-    Building [                             ] 0/1: my-project(bin)    
+    Building [                             ] 0/1: my-project(bin)
 error[E0597]: `string2` does not live long enough
  --> src/main.rs:7:44
   |
@@ -2593,9 +2593,9 @@ error[E0597]: `string2` does not live long enough
 9 |     println!("The longest string is {}", result);
   |                                          ------ borrow later used here
 
-    Building [                             ] 0/1: my-project(bin)    
+    Building [                             ] 0/1: my-project(bin)
 For more information about this error, try `rustc --explain E0597`.
-    Building [                             ] 0/1: my-project(bin)    
+    Building [                             ] 0/1: my-project(bin)
 error: could not compile `my-project` due to previous error
 exit status 101
 ```
@@ -2694,7 +2694,7 @@ The following are some of the other test macros we can use:
 | Macro        | Use                                 |
 | ------------ | ----------------------------------- |
 | `assert!`    | Check that a boolean is `true`      |
-| `assert_eq!` | Check that two values are equal     | 
+| `assert_eq!` | Check that two values are equal     |
 | `assert_neq` | Check that two values are not equal |
 
 ### Running Tests
@@ -2814,7 +2814,6 @@ Additionally, for code we want to share between integration tests we can create 
 
 Closures are anonymous functions that can capture their outer scope
 
-
 ### Defining Closures
 
 Closures can be defined in the following ways:
@@ -2837,9 +2836,9 @@ A simple closure which immutably borrows `a` which is defined externally can be 
 ```rust
 fn main() {
     let a = "Hello";
-    
+
     let c = || println!("{}", a);
-    
+
     c();
 }
 ```
@@ -2852,9 +2851,9 @@ Closures can also make use of mutable borrows. For example, the below closure wi
 fn main() {
     let mut a = Vec::new();
     let mut c = || a.push("Hello");
-    
+
     c();
-    
+
     println!("{:?}", a);
 }
 ```
@@ -2889,9 +2888,9 @@ pub trait Iterator {
 
 ### Consuming Adaptors
 
-Methods that call the `next` method are called _comsuming adaptors_ because calling them uses up the iterator
+Methods that call the `next` method are called _consuming adaptors_ because calling them uses up the iterator
 
-These methods take ownership of the iterator which means that after they are called we can't use the iterator 
+These methods take ownership of the iterator which means that after they are called we can't use the iterator
 
 Examples of this are the `sum` or `collect` methods
 
@@ -2931,7 +2930,105 @@ Smart pointers are implemented as structs that implement `Deref` and `Drop`. `De
 Some other smart pointers in the standard library include:
 
 - `Box<T>` - allocating values on the heap
-- `Rc<T> - counting references to allow for multiple ownership
+- `Rc<T>` - counting references to allow for multiple ownership
 - `Ref<T>`, `RefMut<T>` - enforce borrowing rules ar runtime
 
+## `Box<T>`
 
+A box is the most straightforward smart pointer, it allows us to store data on the heap along with a pointer to the data on the heap
+
+Boxes don't have a performance overhead and don't do lot - often used in the following situations:
+
+- Types that's size can't be known at compile time but we want to use them in places that require an exact size
+- Large amount of data that we want to transfer ownership of but don't want the data to be copied
+- When you want to own a data but don't care about the specific type but rather a trait implementation
+
+### Using `Box<T>` to Store Data on the Heap
+
+Using the `Box::new` we can create a value that will be stored on the heap
+
+```rs
+fn main() {
+    let b = Box::new(5);
+    println!("b = {}", b);
+}
+```
+
+Often it doesn't make sense to store simple values like `i32` on the heap, this is usually used for more complex data
+
+### Recursive Types using Boxes
+
+Recursive types are problematic since rust can't tell the size of the type at compile time. In order to help, we can `Box` a value in the recursive type
+
+For example, take the type below which can be used to represent a person's reporting structure in a company
+
+A `Person` can either be a `Boss` or an `Employee` with a manager who is either another `Employee` or a `Boss`
+
+```rs
+enum Person {
+    Boss(String),
+    Employee(String, Person),
+}
+```
+
+Trying to compile the above will result in the following error:
+
+```
+error[E0072]: recursive type `Person` has infinite size
+ --> .\main.rs:1:1
+  |
+1 | enum Person {
+  | ^^^^^^^^^^^ recursive type has infinite size
+2 |     Boss(String),
+3 |     Employee(String, Person),
+  |                      ------ recursive without indirection
+  |
+help: insert some indirection (e.g., a `Box`, `Rc`, or `&`) to make `Person` representable
+  |
+3 |     Employee(String, Box<Person>),
+  |                      ++++      +
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0072`.
+```
+
+As per the compiler message, we can use a `Box` which will fix the unknown size issue since it's size is known at compile time:
+
+```rs
+enum Person {
+  Boss(String),
+  Employee(String, Box<Person>),
+}
+```
+
+The code can then be used to represent an employee's reporting hierarchy:
+
+```rs
+#[derive(Debug)]
+enum Person {
+    Boss(String),
+    Employee(String, Box<Person>),
+}
+
+fn main() {
+    let reporting = Person::Employee(
+        String::from("John"),
+        Box::new(Person::Employee(
+            String::from("Jack"),
+            Box::new(Person::Boss(String::from("Jane"))),
+        )),
+    );
+
+    println!("{:?}", reporting);
+}
+
+```
+
+Which prints:
+
+```
+Employee("John", Employee("Jack", Boss("Jane")))
+```
+
+Boxes only provide indirection and heap allocation and don't do any other special functions
