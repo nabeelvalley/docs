@@ -1,3 +1,8 @@
+---
+title: Free Application Hosting
+description: Sites for free cloud application hosting
+---
+
 Below is a list of some websites and platforms that provide free application hosting and dev services
 
 - [Firebase](http://firebase.google.com)
@@ -10,3 +15,4 @@ Below is a list of some websites and platforms that provide free application hos
 - [Fleek](https://fleek.co/)
 - [Railway](https://railway.app/)
 - [Prisma](https://www.prisma.io/)
+- [Hasura](http://hasura.io/)
