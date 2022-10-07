@@ -17,4 +17,4 @@ Below is a list of some websites and platforms that provide free application hos
 - [Prisma](https://www.prisma.io/)
 - [Hasura](http://hasura.io/)
 - [Convex](https://www.convex.dev/)
- -[Shuttle](https://www.shuttle.rs/)
+- [Shuttle](https://www.shuttle.rs/)
