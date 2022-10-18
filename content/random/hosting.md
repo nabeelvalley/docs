@@ -18,3 +18,4 @@ Below is a list of some websites and platforms that provide free application hos
 - [Hasura](http://hasura.io/)
 - [Convex](https://www.convex.dev/)
 - [Shuttle](https://www.shuttle.rs/)
+- [Supabase](https://supabase.com/)
