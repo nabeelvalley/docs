@@ -20,3 +20,4 @@ Below is a list of some websites and platforms that provide free application hos
 - [Shuttle](https://www.shuttle.rs/)
 - [Supabase](https://supabase.com/)
 - [Glitch](https://glitch.com/)
+- [Vercel](https://vercel.com/)
