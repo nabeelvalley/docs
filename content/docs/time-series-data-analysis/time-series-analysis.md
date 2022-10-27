@@ -195,9 +195,32 @@ plot_acf(df['Number of Passengers'].tolist(), lags=50, ax=axes[0])
 plot_pacf(df['Number of Passengers'].tolist(), lags=50, ax=axes[1])
 ```
 
-# Lag PLots
+# Lag Plots
 
 A lag plot is a scatter plot of a time series against a lag of itself and is used to check for autocorrelation. If there is any pattern in the series then the series is autocorrelated - if there is no pattern thatn the series is likel to be random
 
 # Granger Causality Test
 
+Used to determine if one time series will be used to forecast another, it's based on the idea that if X causes Y then forecast on Y based on previous values of X should outperform a forecast using only previuos values of Y
+
+# Smoothening a Time Series
+
+Smoothening can be useful to:
+
+- Reduce effect of noise
+- Smootheened data can be used as a feature to explain the original series
+- Visualize underlying trends
+
+Some smoothening methods are:
+
+- Take a moving average
+- Do a LOESS smoothening (Localized regression)
+- Do a LOWESS smoothening (Locally weighted regression)
+
+## Moving Average
+
+An average of the rolling window, a large window will over-smooth a series
+
+## Localized regression
+
+LOESS fits multiple regressions in the local neighborhood of each point
