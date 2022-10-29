@@ -358,10 +358,6 @@ blockquote {
   }
 }
 
-.nb-markdown-cell:first-of-type h1 {
-  display: none;
-}
-
 .katex-display {
   display: block;
   overflow-x: auto;
