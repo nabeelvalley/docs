@@ -378,3 +378,11 @@ For example, if we want to take the changes from commit `211512` into our branch
 ```sh
 git cherry-pick 211512
 ```
+
+# Automatically Set Upstream
+
+When using git it can be annoying when pushing a new branch since it will always request that you setup the upstream/origin. You can configure git to do this automatically using the following command:
+
+```sh
+git config --global push.autoSetupRemote true
+```
