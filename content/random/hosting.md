@@ -29,6 +29,7 @@ Below is a list of some websites and platforms that provide free application hos
 - [MongoDB Atlas](https://www.mongodb.com/atlas/database)
 - [Prisma](https://www.prisma.io/)
 - [Hasura](http://hasura.io/)
+- [Upstash](https://upstash.com/) - Redis and Kafka
 
 # CRON
 
