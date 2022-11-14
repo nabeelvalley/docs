@@ -89,11 +89,19 @@ const readNotebook = async (path) => {
   return convertJupyterToHtml(content.toString())
 }
 
-const readMarkdown = async (path) => {
+const removeYamlHeader = (md) => md.replace(/^---(.|\n)*?---/gm, '')
+
+const readMarkdown = async (path, removeHeader = false) => {
   const fullPath = resolve(__dirname, '../../', path)
   const content = await readFile(fullPath)
+  const contentStr = content.toString()
 
-  return convertMarkdownToHtml(content.toString())
+  if (!removeHeader) {
+    return convertMarkdownToHtml(contentStr)
+  }
+
+  const sanitized = removeYamlHeader(contentStr)
+  return convertMarkdownToHtml(sanitized)
 }
 
 const sortByDate = (a, b) => {
@@ -148,7 +156,7 @@ module.exports = async function () {
   const allPages = [...blog, ...docs, ...photography]
 
   const rssPageTasks = blog.sort(sortByDate).map(async (m) => {
-    const html = await readMarkdown(m.path)
+    const html = await readMarkdown(m.path, true)
 
     return {
       ...m,
