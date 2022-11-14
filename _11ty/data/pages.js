@@ -89,7 +89,7 @@ const readNotebook = async (path) => {
   return convertJupyterToHtml(content.toString())
 }
 
-const removeYamlHeader = (md) => md.replace(/^---(.|\n)*?---/gm, '')
+const removeYamlHeader = (md) => md.replace(/^---(.|\n|(\r\n))*?---/gm, '')
 
 const readMarkdown = async (path, removeHeader = false) => {
   const fullPath = resolve(__dirname, '../../', path)
