@@ -21,7 +21,7 @@ Below is a list of some websites and platforms that provide free application hos
 - [Glitch](https://glitch.com/)
 - [Vercel](https://vercel.com/)
 - [Convex](https://www.convex.dev/)
-- [Fly.io](https://fly.io/)
+- [Fly.io](https://fly.io/) - (needs card)
 
 # Database
 
