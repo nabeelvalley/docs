@@ -11,7 +11,7 @@ Below is a list of some websites and platforms that provide free application hos
 
 # Backend
 
-- [Heroku](https://www.heroku.com/)
+- [Heroku](https://www.heroku.com/) - Free tier shutting down
 - [Deta](https://deta.space/)
 - [Koyeb](https://koyeb.com/)
 - [Render](https://render.com/)
@@ -21,6 +21,7 @@ Below is a list of some websites and platforms that provide free application hos
 - [Glitch](https://glitch.com/)
 - [Vercel](https://vercel.com/)
 - [Convex](https://www.convex.dev/)
+- [Fly.io](https://fly.io/)
 
 # Database
 
