@@ -53,22 +53,9 @@ export const createRssFeed = async (posts) => {
     }
   }
 
-  try {
-    await mkdir(resolve('_site/feed'), {
-      recursive: true,
-    })
-  } catch (err) {
-    console.error(err)
-  }
-
   const rss = feed.rss2()
-  await writeFile(resolve('_site/feed/rss.xml'), rss)
-
   const atom = feed.atom1()
-  await writeFile(resolve('_site/feed/atom.xml'), atom)
-
   const json = feed.json1()
-  await writeFile(resolve('_site/feed/feed.json'), json)
 
   return { rss, atom, json }
 }
