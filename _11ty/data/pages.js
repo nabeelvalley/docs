@@ -185,7 +185,7 @@ export default async function () {
 
   const rssPages = await Promise.all(rssPageTasks)
 
-  await createRssFeed(rssPages)
+  const rss = await createRssFeed(rssPages)
 
   return {
     pages: meta,
@@ -197,5 +197,6 @@ export default async function () {
     allPages,
     random,
     photography,
+    rss,
   }
 }

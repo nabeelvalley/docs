@@ -69,4 +69,6 @@ export const createRssFeed = async (posts) => {
 
   const json = feed.json1()
   await writeFile(resolve('_site/feed/feed.json'), json)
+
+  return { rss, atom, json }
 }
