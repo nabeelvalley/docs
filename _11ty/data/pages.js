@@ -3,13 +3,15 @@ import { promises } from 'fs'
 const { readFile } = promises
 import glob from 'glob'
 import { resolve, format } from 'path'
-import { upperFirst, groupBy } from 'lodash'
+import _ from 'lodash'
 import {
   convertJupyterToHtml,
   convertMarkdownToHtml,
   markdownLibrary,
 } from '../lib/markdown'
 import { createRssFeed } from '../lib/rss'
+
+const { upperFirst, groupBy } = _
 
 const getDirectoryName = (dir) => {
   const split = dir.split('/')
