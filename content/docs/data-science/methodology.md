@@ -8,7 +8,7 @@ The data science methodology described here is as outlined by John Rollins of IB
 
 The Methodology can be seen in the following steps
 
-![Data Science Methodology (Cognitive Class)](/public/docs/assets/datascience_methodology_flowchart.png)
+![Data Science Methodology (Cognitive Class)](/public/content/docs/assets/datascience_methodology_flowchart.png)
 
 # The Questions
 
@@ -91,9 +91,9 @@ It makes use of a tree structure with _recursive partitioning_ to classify data,
 
 A decision tree for classifying data can result in leaf nodes of varying purity, as seen below which will provide us with different ammounts of information
 
-![Pure Decision Tree (Cognitive Class)](/public/docs/assets/decision_tree_5.png)
+![Pure Decision Tree (Cognitive Class)](/public/content/docs/assets/decision_tree_5.png)
 
-![Impure Decision Tree (Cognitive Class)](/public/docs/assets/decision_tree_2.png)
+![Impure Decision Tree (Cognitive Class)](/public/content/docs/assets/decision_tree_2.png)
 
 Some of the characteristics of decision trees are summarized below
 
@@ -741,7 +741,7 @@ with open("bamboo_tree.dot") as bamboo_tree_image:
 graphviz.Source(bamboo_tree_graph)
 ```
 
-![Decision Tree (Cognitive Class)](/public/docs/assets/bamboo_tree.PNG)
+![Decision Tree (Cognitive Class)](/public/content/docs/assets/bamboo_tree.PNG)
 
 Now we can go back and rebuild our model, however this time retaining some data so we can evaluate the model
 
@@ -856,7 +856,7 @@ The rows on a confusion matrix epresent the actual values, and the rows are the 
 
 The resulting confusion matrix can be seen below
 
-![Confusion Matrix (Cognitive Class)](/public/docs/assets/confusion_matrix.png)
+![Confusion Matrix (Cognitive Class)](/public/content/docs/assets/confusion_matrix.png)
 
 The squares along the top-left to bottom-right diagonal are those that the model correctly classified
 
@@ -897,7 +897,7 @@ And view it with the following
 rpart.plot(bamboo_tree, type=3, extra=2, under=TRUE, cex=0.75, varlen=0, faclen=0, Margin=0.03)
 ```
 
-![Decision Tree (Cognitive Class)](/public/docs/assets/bamboo_tree_R.PNG)
+![Decision Tree (Cognitive Class)](/public/content/docs/assets/bamboo_tree_R.PNG)
 
 Now we can redefine our dataframe to only include the Asian and Indian cuisine
 
@@ -942,7 +942,7 @@ rpart.plot(bamboo_train_tree, type=3, extra=0, under=TRUE, cex=0.75, varlen=0, f
 
 It can be seen that by removing elements we get a more complex decision tree, this is the same as in the Python case
 
-![Decision Tree (Cognitive Class)](/public/docs/assets/bamboo_tree_R2.PNG)
+![Decision Tree (Cognitive Class)](/public/content/docs/assets/bamboo_tree_R2.PNG)
 
 We can then view the confusion matrix as follows
 

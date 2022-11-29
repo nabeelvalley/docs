@@ -1,6 +1,6 @@
 [[toc]]
 
-![](/public/photography/images/fuji-warm-morning.jpg)
+![](/public/content/photography/images/fuji-warm-morning.jpg)
 
 | Setting               | Value         |
 | --------------------- | ------------- |

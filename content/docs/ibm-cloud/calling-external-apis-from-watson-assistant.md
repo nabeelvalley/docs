@@ -63,7 +63,7 @@ From our Watson Assistant node we set our response for the node as a JSON respon
 
 Once we have defined our function we need to set the endpoint as a Web Action, and note the the URL
 
-![](/public/docs/assets/image%20%282%29.png)
+![](/public/content/docs/assets/image%20%282%29.png)
 
 We can call a function set as a Web Action with the following
 

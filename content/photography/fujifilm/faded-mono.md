@@ -1,6 +1,6 @@
 [[toc]]
 
-![](/public/photography/images/fuji-faded-mono.jpg)
+![](/public/content/photography/images/fuji-faded-mono.jpg)
 
 | Setting               | Value          |
 | --------------------- | -------------- |

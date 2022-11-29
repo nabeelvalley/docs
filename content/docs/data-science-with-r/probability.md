@@ -202,7 +202,7 @@ We can then use the `sapply` function to apply this function in an element-wise 
 > plot(probabilities)
 ```
 
-![Plot of Estimated Probabilities](/public/docs/assets/birthdays.svg)
+![Plot of Estimated Probabilities](/public/content/docs/assets/birthdays.svg)
 
 We can do this mathematically though with the following:
 
@@ -235,7 +235,7 @@ Thereafter we can use this and plot it comparatively
 > plot(probabilities) lines(exact_probability, col = "red")
 ```
 
-![Monte Carlo Approximation vs Actual Value](/public/docs/assets/birthdays-comparative.svg)
+![Monte Carlo Approximation vs Actual Value](/public/content/docs/assets/birthdays-comparative.svg)
 
 ## Sample size
 

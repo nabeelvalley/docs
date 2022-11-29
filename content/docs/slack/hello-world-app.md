@@ -18,7 +18,7 @@ curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"
 
 Once we are done with that we will see a message in our Slack Channel
 
-![Slack Message](/public/docs/assets/image%20%2821%29.png)
+![Slack Message](/public/content/docs/assets/image%20%2821%29.png)
 
 Once we are done with that, we can go back to our **Basic Information** tab of our app's configuration and follow the instructions to distribute our app \(if for some incomprehensible reason you want to do that now\), but I'll do that later
 
@@ -180,7 +180,7 @@ https://openwhisk.eu-gb.bluemix.net/api/v1/web/nabeel.valley%40ibm.com_dev/Slack
 
 First, on Slack create a new Slash Command for your application and set the relevant fields as follows
 
-![](/public/docs/assets/image%20%2824%29.png)
+![](/public/content/docs/assets/image%20%2824%29.png)
 
 #### Testing it out
 
@@ -192,5 +192,5 @@ Finally, we can try out our Slack App by going to the channel we set it on and c
 
 And we will see the response as a message
 
-![](/public/docs/assets/image%20%2812%29.png)
+![](/public/content/docs/assets/image%20%2812%29.png)
 

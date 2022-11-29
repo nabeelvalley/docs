@@ -20,7 +20,7 @@ I think I have a fair stock of those
 
 The first iteration that I have saved is this one, I had big dreams, there were going to be things moving all over the place, I was going to break the norm with **horizontal scrolling**, and just basically turn the site into a slide-show. But I didn't like the lack of fluidity with the overall design. Regardless, here are the first few screens:
 
-![](/public/blog/2019/12-10/design1.jpg)
+![](/public/content/blog/2019/12-10/design1.jpg)
 
 During this initial phase I had sort figured out what my key goals were:
 
@@ -42,7 +42,7 @@ This version mostly morphed out of the first one, I was trying to address two th
 
 Personally, I hate this design. But It was definitely valuable in telling me what I didn't want this site to be
 
-![](/public/blog/2019/12-10/design2.jpg)
+![](/public/content/blog/2019/12-10/design2.jpg)
 
 I've always disliked cards, and abusing it the way I was in that further deepened my hate. I felt kind of like _"Well if everyone else does it, maybe I should give it a shot?"_, to be fair it's probably not the cards, it's me
 
@@ -52,7 +52,7 @@ This is what you're seeing now (Assuming you're reading this in October 2019) I 
 
 I addressed my remaining goals by sticking to a basic site layout with a fairly aggressive grid to deliver interesting layouts for different devices
 
-![](/public/blog/2019/12-10/design3.jpg)
+![](/public/content/blog/2019/12-10/design3.jpg)
 
 That being said, and my heart being content. It was time to code
 

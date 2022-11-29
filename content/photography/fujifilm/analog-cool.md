@@ -1,6 +1,6 @@
 [[toc]]
 
-![](/public/photography/images/fuji-analog-cool.jpg)
+![](/public/content/photography/images/fuji-analog-cool.jpg)
 
 | Setting               | Value             |
 | --------------------- | ----------------- |

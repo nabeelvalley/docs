@@ -4,7 +4,7 @@
 
 Bluetooth Low Energy (BLE) devices make use of a few different concepts for reading and writing data. At a high level, bluetooth data is organized as follows:
 
-![GATT Data hierarchy](/public/docs/iot/bluetooth-data-hierarchy.png)
+![GATT Data hierarchy](/public/content/docs/iot/bluetooth-data-hierarchy.png)
 
 Each characteristic contains the following attributes:
 
