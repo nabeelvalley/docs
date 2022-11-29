@@ -1,6 +1,6 @@
 [[toc]]
 
-![](/photography/images/fuji-cool-chrome.jpg)
+![](/public/photography/images/fuji-cool-chrome.jpg)
 
 | Setting               | Value          |
 | --------------------- | -------------- |

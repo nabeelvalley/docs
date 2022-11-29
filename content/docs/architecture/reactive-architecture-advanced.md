@@ -20,9 +20,9 @@
 
 To identify what's being measured you can use the following:
 
--  x/second - both
--  x at once - scalability
--  time per x - performance
+- x/second - both
+- x at once - scalability
+- time per x - performance
 
 Scalability has no theoretical limit whereas performance has a lower limit, when building reactive systems we choose to focus on scalability more than performance
 
@@ -79,7 +79,7 @@ A lock is a way we can do this, we introduce a non-distributed element to our sy
 
 > Amdahl's law states that the max improvement gained by parallel processing is limited by contention thereby limiting our overall throughput
 
-![](/docs/architecture/AmdahlsLaw.png)
+![](/public/docs/architecture/AmdahlsLaw.png)
 
 - Improvements are limited to code that can be parallelized
 - Contention limits parallelization and therefore reduces improvements
@@ -95,7 +95,7 @@ If we keep increasing we may see diminishing returns on parallelization
 
 > Gunther's universal scalabiity lay builds on Amdahl's law and states that increasing concurrency can have negative returns due to contention and coherency delay
 
-![](/docs/architecture/GunthersLaw.png)
+![](/public/docs/architecture/GunthersLaw.png)
 
 - Accounts for coherency delay
 - Coherency delay results in negative returns
@@ -107,7 +107,7 @@ If we keep increasing we may see diminishing returns on parallelization
 - Linear scalability requires statelessness and isolation
 - Reactive systems understand these limitations and try to minimize the impact
 
-- Reduce contention by:  
+- Reduce contention by:
   - Isolate locks
   - Elminate transactions
   - Avoid blocking operations
@@ -143,4 +143,3 @@ When a partition occurs a distributed system has two options:
 
 - AP - sacrifice consistency, allow wrties to both sides of the partition, when resolved you will need to merge data
 - CP - sacrifice availability, disable or terminate one side of the partition, during the partition some or all data will be unavailable
-

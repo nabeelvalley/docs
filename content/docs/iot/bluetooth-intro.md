@@ -4,11 +4,11 @@
 
 Bluetooth Low Energy (BLE) devices make use of a few different concepts for reading and writing data. At a high level, bluetooth data is organized as follows:
 
-![GATT Data hierarchy](/docs/iot/bluetooth-data-hierarchy.png)
+![GATT Data hierarchy](/public/docs/iot/bluetooth-data-hierarchy.png)
 
 Each characteristic contains the following attributes:
 
-- **Properties** -  specify the operations allowed on a characteristic, e.g. `read`, `write` 
+- **Properties** - specify the operations allowed on a characteristic, e.g. `read`, `write`
 - **UUID** - A unique ID for this characteristic, this can be a 16-bit, approved UUID from [this list](https://btprodspecificationrefs.blob.core.windows.net/assigned-values/16-bit%20UUID%20Numbers%20Document.pdf) or a custom 128 bit as specified by the device manufacturer
 - **Value** - The actual value contained in a characteristic. How this value is interpreted is based on the UUID and is either a standard value or a custom manufacturer-specific value
 
@@ -76,7 +76,7 @@ async def main(address):
 
     for service in services:
       print('service', service.handle, service.uuid, service.description)
-    
+
 
 if __name__ == "__main__":
   address = sys.argv[1]
@@ -107,7 +107,7 @@ async def main(address):
 
       for char in characteristics:
         print('  characteristic', char.handle, char.uuid, char.description, char.properties)
-        
+
         descriptors = char.descriptors
 
         for desc in descriptors:
@@ -193,7 +193,7 @@ async def main(address):
 
     services = await client.get_services()
 
-    
+
     client.start_notify(heart_rate_char, heart_rate_callback)
     await asyncio.sleep(60)
     await client.stop_notify(heart_rate_char)
@@ -207,14 +207,13 @@ A good overview of how Bluetooth and how GATT (The Generic Attribute Profile) fo
 
 ## Library
 
-A library I've found to be fairly simple for using to play around with Bluetooth is [Bleak]() which is a multi-platform library for Python 
+A library I've found to be fairly simple for using to play around with Bluetooth is [Bleak]() which is a multi-platform library for Python
 
 > I've had some issues using Bleak with Windows so I would recommend a Linux-based OS instead
 
 ## Debugging Tool
 
 A useful and easy to use tool for snooping around for bluetooth activity and exploring bluetooth data is the [nrf Connect Android App](https://play.google.com/store/apps/details?id=no.nordicsemi.android.mcp&hl=en_ZA&gl=US)
-
 
 ## Reverse Engineering
 

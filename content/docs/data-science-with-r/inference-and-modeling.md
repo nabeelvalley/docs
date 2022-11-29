@@ -19,7 +19,7 @@ ds_theme_set()
 take_poll(1000)
 ```
 
-![Sample Election Poll](/docs/assets/voter-poll-sample-1.svg)
+![Sample Election Poll](/public/docs/assets/voter-poll-sample-1.svg)
 
 The goal of statistical inference is to predict the parameter $p$ using the observed data in the sample $n$
 
@@ -286,4 +286,3 @@ This theory tells us that $$Z$$ follows a t-distribution with $$N-1$$ degrees of
 # Chi Squared Test
 
 Aims to calculate how likely it is that we see a deviation as large or larger than identified by chance, in the case of categorical or binary data
-

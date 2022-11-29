@@ -72,9 +72,9 @@ multiplicative_decomposition.plot()
 additive_decomposition.plot()
 ```
 
-![Multiplicative Decomposition](./images/multiplicative-decomposition.png)
+![Multiplicative Decomposition](/public./images/multiplicative-decomposition.png)
 
-![Additive Decomposition](./images/additive-decomposition.png)
+![Additive Decomposition](/public./images/additive-decomposition.png)
 
 In the above series, comparing the additive and multiplicative residuals we can see that the additive one has some pattern left over whereas the risidual in the multiplicative is quite small and random, this tells us that the multiplicative decomposition is more appliccable to the series
 
@@ -86,9 +86,9 @@ Statistical properties like mean, variance, and autocorrelation are constant ove
 
 Stationary serieses are independant of seasonal effects
 
-Below is a comparison of some stationary and non-stationary time series: 
+Below is a comparison of some stationary and non-stationary time series:
 
-![Stationary and Non-Stationary Time Series](./images/stationary-and-non-stationary-time-series.png)
+![Stationary and Non-Stationary Time Series](/public./images/stationary-and-non-stationary-time-series.png)
 
 # Making a Series Stationary
 
@@ -103,7 +103,7 @@ There are a few methods for making a series stationary
 
 ## Differencing
 
-Differencing is simply subtracting the previous value from the current value 
+Differencing is simply subtracting the previous value from the current value
 
 The first difference may not make the series stationary, we can take further differences
 
@@ -118,9 +118,9 @@ The first difference may not make the series stationary, we can take further dif
 - Look at a plot
 - SPlit series into 2 or more contiguous parts and compute summary statistics (mean, variance, autocorrelation) - if these are similar then the series is likely stationary
 - Unit root tests can be done on the series:
-    - Augmented Dickey Fuller (ADF) test
-    - Kwiatkowski-Phillips-Schmidt-Shin (KPSS) test (trend stationary)
-    - Philips Perron (PP) test
+  - Augmented Dickey Fuller (ADF) test
+  - Kwiatkowski-Phillips-Schmidt-Shin (KPSS) test (trend stationary)
+  - Philips Perron (PP) test
 
 ## Stationarity vs White Noise
 
@@ -144,7 +144,6 @@ from scipy import signal
 
 detrended = signal.detrend(df['Number of Passengers'].values)
 ```
-
 
 ## Subtract the decomposition trend
 

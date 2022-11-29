@@ -6,7 +6,7 @@ This script will make use of the GPIO Pins to flicker an LED
 
 The circuit diagram is below:
 
-![Circuit diagram](/content/stdout/2021/27-03/led-circuit.png)
+![Circuit diagram](/public/content/stdout/2021/27-03/led-circuit.png)
 
 I've used a $330\Omega$ resistor for the resistor connected in series $R_LED$, however the resistance for a given LED can be calculated with this equation (From [Circuit Specialists](https://www.circuitspecialists.com/blog/how-to-determine-resistor-value-for-led-lighting/)):
 

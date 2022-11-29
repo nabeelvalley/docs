@@ -10,7 +10,7 @@ The idea selected was to make use of the Twitter API and combine it with Watson 
 
 In order to achieve this the team would have to refine the Movie dataset via Watson Data Refinery and use this to train the model. The other API's are chained together by the use of Cloud Functions to allow a user to receive a recommendation of Movie Directors as per their personality traits with the following
 
-![Sequence of Actions](/docs/assets/image-4.png)
+![Sequence of Actions](/public/docs/assets/image-4.png)
 
 ## Refine the Data
 
@@ -21,7 +21,7 @@ The dataset was uploaded to Watson Studio and was processed with the following g
 3. Keep only movie with a 7.5 rating or upwards
 4. Separate the movie Genres into different columns so as to allow them to be used as different model inputs
 
-![Director Data After Refining](/docs/assets/image-28.png)
+![Director Data After Refining](/public/docs/assets/image-28.png)
 
 Once the data has been satisfactorily refined to the point at which it can be consumed by the Machine Learning Service, we can go on to train the Model
 
@@ -31,7 +31,7 @@ Once the data has been satisfactorily refined to the point at which it can be co
 
 Create the model by adding a new Watson Machine Learning Model in the Assets Panel of Watson Studio with the following options selected
 
-![Configure Watson ML Details](/docs/assets/image-23.png)
+![Configure Watson ML Details](/public/docs/assets/image-23.png)
 
 ### Train the Model
 
@@ -39,11 +39,11 @@ Once the Model has been created we can configure the method and data with which 
 
 Choose the dataset that has been refined and select the model inputs, output and classification. Thereafter select the desired estimators and click **Next**
 
-![Model Configuration](/docs/assets/image-19.png)
+![Model Configuration](/public/docs/assets/image-19.png)
 
 The models will train, once they have been evaluated the results will be displayed
 
-![Model Evaluation](/docs/assets/image-25.png)
+![Model Evaluation](/public/docs/assets/image-25.png)
 
 Based on this we can compare the models for the best results and select as needed. If the results are poor we should go back and reconsider our data input
 
@@ -51,9 +51,9 @@ Based on this we can compare the models for the best results and select as neede
 
 Once you have saved your model you can deploy from the deployments tab. Once that has completed you can test the model as well as view the methods for accessing it from the API.
 
-![Model Implementation](/docs/assets/image-20.png)
+![Model Implementation](/public/docs/assets/image-20.png)
 
-![Model Test](/docs/assets/image-6.png)
+![Model Test](/public/docs/assets/image-6.png)
 
 ## Creating the Functions
 
@@ -61,15 +61,15 @@ Once the model has been created we can move on to creating the various cloud fun
 
 To create a function first navigate to functions from the IBM Cloud main menu on the left and click start creating
 
-![Navigate to Functions](/docs/assets/image-2.png)
+![Navigate to Functions](/public/docs/assets/image-2.png)
 
 Next we will create an **Action** from the Create page
 
-![](/docs/assets/image-26.png)
+![](/public/docs/assets/image-26.png)
 
 This will bring you to the function creation menu where you can name and select the runtime for your function
 
-![Action Creation Page](/docs/assets/image-27.png)
+![Action Creation Page](/public/docs/assets/image-27.png)
 
 ### Twitter API Function
 
@@ -99,13 +99,13 @@ Next we need to create a Watson Personality Insights service and use an action t
 
 Search for "personality insights" in the catalog
 
-![Search Results](/docs/assets/image-24.png)
+![Search Results](/public/docs/assets/image-24.png)
 
 Then create an instance of the service and view your API Keys from the service's Management section
 
-![Personality Insights Service Creation](/docs/assets/image-21.png)
+![Personality Insights Service Creation](/public/docs/assets/image-21.png)
 
-![Service Management Page](/docs/assets/image-3.png)
+![Service Management Page](/public/docs/assets/image-3.png)
 
 #### Action
 
@@ -222,15 +222,15 @@ We can create a sequence for our Actions to follow that will allow the output fr
 
 This time from the Create page we create a **Sequence** instead of an Action, and select a function to start from, in this case the Twitter API Call Function
 
-![Creating a Sequence](/docs/assets/image-8.png)
+![Creating a Sequence](/public/docs/assets/image-8.png)
 
 Once that has been done we can go and add the rest of our functions to the sequence we just created
 
-![Sequence with Functions Added](/docs/assets/image-11.png)
+![Sequence with Functions Added](/public/docs/assets/image-11.png)
 
 We can test the sequence by adding our input data and invoking the sequence
 
-![Running the Sequence](/docs/assets/image-9.png)
+![Running the Sequence](/public/docs/assets/image-9.png)
 
 A sample output from our sequence is as follows which shows a person's director recommendations based on the information determined from their recent tweets
 

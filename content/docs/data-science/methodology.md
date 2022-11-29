@@ -8,8 +8,7 @@ The data science methodology described here is as outlined by John Rollins of IB
 
 The Methodology can be seen in the following steps
 
-![Data Science Methodology (Cognitive Class)](/docs/assets/datascience_methodology_flowchart.png)
-
+![Data Science Methodology (Cognitive Class)](/public/docs/assets/datascience_methodology_flowchart.png)
 
 # The Questions
 
@@ -88,13 +87,13 @@ Machine learning allows us to identify relationships and trends that cannot othe
 
 Decision trees are a machine learning algorithm that allow us to classify nodes while also giving us some information as to how the information is classified
 
-It makes use of a tree structure with *recursive partitioning* to classify data, *predictiveness* is based on decrease in entropy - gain in information or impurity
+It makes use of a tree structure with _recursive partitioning_ to classify data, _predictiveness_ is based on decrease in entropy - gain in information or impurity
 
 A decision tree for classifying data can result in leaf nodes of varying purity, as seen below which will provide us with different ammounts of information
 
-![Pure Decision Tree (Cognitive Class)](/docs/assets/decision_tree_5.png)
+![Pure Decision Tree (Cognitive Class)](/public/docs/assets/decision_tree_5.png)
 
-![Impure Decision Tree (Cognitive Class)](/docs/assets/decision_tree_2.png)
+![Impure Decision Tree (Cognitive Class)](/public/docs/assets/decision_tree_2.png)
 
 Some of the characteristics of decision trees are summarized below
 
@@ -105,7 +104,6 @@ Some of the characteristics of decision trees are summarized below
 | Can handle missing data                     | Large trees can be difficult to interpret |
 | Uses only the most important features       |
 | Can be used on very large or small datasets |
-
 
 ## Labs
 
@@ -149,7 +147,7 @@ These labs will simply read in a dataset from a remote source as a CSV and displ
 
 In Python we will use Pandas to read data as DataFrames
 
-We can use *Pandas* to read data into the data frame 
+We can use _Pandas_ to read data into the data frame
 
 ```py
 import pandas as pd # download library to read data into dataframe
@@ -215,8 +213,6 @@ We run statistical analyses to learn about the data with means such as such as
 - etc.
 
 We also make use of these to understand data quality and values such as Missing values and Invalid or Misleading values
-
-
 
 ## Data Preparation
 
@@ -286,7 +282,7 @@ From here the following can be seen
 
 We can take a few steps to solve these problems
 
-First we fix the *Country* title to be *Cuisine*
+First we fix the _Country_ title to be _Cuisine_
 
 ```py
 column_names = recipes.columns.values
@@ -446,19 +442,19 @@ def print_top_ingredients(row):
 create_cuisines_profiles = cuisines.apply(print_top_ingredients, axis=1)
 
 # AFRICAN
-# onion (53%) olive_oil (52%) garlic (49%) cumin (42%) 
+# onion (53%) olive_oil (52%) garlic (49%) cumin (42%)
 
 # AMERICAN
-# butter (41%) egg (40%) wheat (39%) onion (29%) 
+# butter (41%) egg (40%) wheat (39%) onion (29%)
 
 # ASIAN
-# soy_sauce (49%) ginger (48%) garlic (47%) rice (41%) 
+# soy_sauce (49%) ginger (48%) garlic (47%) rice (41%)
 
 # CAJUN_CREOLE
-# onion (69%) cayenne (56%) garlic (48%) butter (36%) 
+# onion (69%) cayenne (56%) garlic (48%) butter (36%)
 
 # CANADIAN
-# wheat (39%) butter (38%) egg (35%) onion (34%) 
+# wheat (39%) butter (38%) egg (35%) onion (34%)
 ```
 
 ### R
@@ -502,7 +498,7 @@ From here the following can be seen
 
 We can take a few steps to solve these problems
 
-First we fix the *Country* title to be *Cuisine*
+First we fix the _Country_ title to be _Cuisine_
 
 ```r
 colnames(recipes)[1] = "cuisine"
@@ -607,11 +603,11 @@ ingred <- unlist(
 
 # transpose the dataframe so that each row is an ingredient
 ingred <- as.data.frame( t( as.data.frame(ingred) ))
-                
-ing_df <- data.frame("ingredient" = names(ingred), 
+
+ing_df <- data.frame("ingredient" = names(ingred),
                      "count" = as.numeric(ingred[1,])
                     )[-1,]
-                
+
 ing_df
 ```
 
@@ -624,13 +620,13 @@ rownames(ing_df_sort) <- 1:nrow(ing_df_sort)
 ing_df_sort
 ```
 
-We can then create a profile for each cuisine as we did previously 
+We can then create a profile for each cuisine as we did previously
 
 ```r
-# create a dataframe of the counts of ingredients by cuisine, normalized by the number of 
+# create a dataframe of the counts of ingredients by cuisine, normalized by the number of
 # recipes pertaining to that cuisine
-by_cuisine_norm <- aggregate(recipes, 
-                        by = list(recipes$cuisine), 
+by_cuisine_norm <- aggregate(recipes,
+                        by = list(recipes$cuisine),
                         FUN = function(x) round(sum(as.integer(x) == 2)/
                                                 length(as.integer(x)),4))
 # remove the unnecessary column "cuisine"
@@ -638,7 +634,7 @@ by_cuisine_norm <- by_cuisine_norm[,-2]
 
 # rename the first column into "cuisine"
 names(by_cuisine_norm)[1] <- "cuisine"
-                            
+
 head(by_cuisine_norm)
 ```
 
@@ -661,7 +657,7 @@ for(nation in by_cuisine_norm$cuisine){
 
 > In what way can the data be visualized to get to the answer that is required?
 
-Modeling is the stage in which the Data Scientist 
+Modeling is the stage in which the Data Scientist
 
 Data modeling either tries to get to a predictive or descriptive model
 
@@ -745,7 +741,7 @@ with open("bamboo_tree.dot") as bamboo_tree_image:
 graphviz.Source(bamboo_tree_graph)
 ```
 
-![Decision Tree (Cognitive Class)](/docs/assets/bamboo_tree.PNG)
+![Decision Tree (Cognitive Class)](/public/docs/assets/bamboo_tree.PNG)
 
 Now we can go back and rebuild our model, however this time retaining some data so we can evaluate the model
 
@@ -856,11 +852,11 @@ plt.xlabel('Predicted label')
 plt.show()
 ```
 
-The rows on a confusion matrix epresent the actual values, and the rows are the predicted values 
+The rows on a confusion matrix epresent the actual values, and the rows are the predicted values
 
 The resulting confusion matrix can be seen below
 
-![Confusion Matrix (Cognitive Class)](/docs/assets/confusion_matrix.png)
+![Confusion Matrix (Cognitive Class)](/public/docs/assets/confusion_matrix.png)
 
 The squares along the top-left to bottom-right diagonal are those that the model correctly classified
 
@@ -874,7 +870,7 @@ First we import the libraries we will need to build our decision trees as follow
 # load libraries
 library(rpart)
 
-if("rpart.plot" %in% rownames(installed.packages()) == FALSE) {install.packages("rpart.plot", 
+if("rpart.plot" %in% rownames(installed.packages()) == FALSE) {install.packages("rpart.plot",
     repo = "http://mirror.las.iastate.edu/CRAN/")}
 library(rpart.plot)
 
@@ -901,7 +897,7 @@ And view it with the following
 rpart.plot(bamboo_tree, type=3, extra=2, under=TRUE, cex=0.75, varlen=0, faclen=0, Margin=0.03)
 ```
 
-![Decision Tree (Cognitive Class)](/docs/assets/bamboo_tree_R.PNG)
+![Decision Tree (Cognitive Class)](/public/docs/assets/bamboo_tree_R.PNG)
 
 Now we can redefine our dataframe to only include the Asian and Indian cuisine
 
@@ -946,7 +942,7 @@ rpart.plot(bamboo_train_tree, type=3, extra=0, under=TRUE, cex=0.75, varlen=0, f
 
 It can be seen that by removing elements we get a more complex decision tree, this is the same as in the Python case
 
-![Decision Tree (Cognitive Class)](/docs/assets/bamboo_tree_R2.PNG)
+![Decision Tree (Cognitive Class)](/public/docs/assets/bamboo_tree_R2.PNG)
 
 We can then view the confusion matrix as follows
 

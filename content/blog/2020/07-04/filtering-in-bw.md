@@ -30,7 +30,7 @@ Over the remainder of this post I'll be discussing a lot of this in the context 
 
 <center>
 
-![Colour Version of Discussion Image](/blog/2020/07-04/images/colour.jpg)
+![Colour Version of Discussion Image](/public/blog/2020/07-04/images/colour.jpg)
 
 </center>
 
@@ -44,7 +44,7 @@ If we were to simply convert this image to a B&W one we get the following:
 
 <center>
 
-![Neutral Version of Discussion Image](/blog/2020/07-04/images/neutral.jpg)
+![Neutral Version of Discussion Image](/public/blog/2020/07-04/images/neutral.jpg)
 
 </center>
 
@@ -58,7 +58,7 @@ If we look at the neutral version of our image we can observe that the brightnes
 
 <center>
 
-![Neutral Version of Discussion Image](/blog/2020/07-04/images/neutral.svg)
+![Neutral Version of Discussion Image](/public/blog/2020/07-04/images/neutral.svg)
 
 </center>
 
@@ -72,7 +72,7 @@ Additionally, I've also made the green slightly darker to add some additional co
 
 <center>
 
-![Red Filtered Version of Discussion Image](/blog/2020/07-04/images/red.svg)
+![Red Filtered Version of Discussion Image](/public/blog/2020/07-04/images/red.svg)
 
 </center>
 
@@ -84,7 +84,7 @@ We can also do something like the above using a filter that brightens the green 
 
 <center>
 
-![Green Filtered Version of Discussion Image](/content/blog/2020/07-04/images/green.svg)
+![Green Filtered Version of Discussion Image](/public/content/blog/2020/07-04/images/green.svg)
 
 </center>
 
@@ -92,7 +92,7 @@ In the resulting image above we can see that the greens are now much brighter an
 
 <center>
 
-![Comparison of Filtered Versions of Discussion Image](/content/blog/2020/07-04/images/comparison.jpg)
+![Comparison of Filtered Versions of Discussion Image](/public/content/blog/2020/07-04/images/comparison.jpg)
 
 </center>
 
