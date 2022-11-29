@@ -1,4 +1,12 @@
 {
   "eslint.enable": false,
-  "cSpell.words": ["eleventy", "ipynb", "noopener", "noreferrer", "Shortcode"]
+  "cSpell.words": [
+    "astro",
+    "eleventy",
+    "ipynb",
+    "noopener",
+    "noreferrer",
+    "Shortcode",
+    "tsconfigs"
+  ]
 }

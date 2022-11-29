@@ -1,16 +1,16 @@
-const markdownIt = require('markdown-it')
-const markdownItAnchor = require('markdown-it-anchor')
-const markdownItHljs = require('markdown-it-highlightjs')
-const markdownItKatex = require('markdown-it-katex')
-const markdownItToc = require('markdown-it-table-of-contents')
+import markdownIt from 'markdown-it'
+import markdownItAnchor from 'markdown-it-anchor'
+import markdownItHljs from 'markdown-it-highlightjs'
+import markdownItKatex from 'markdown-it-katex'
+import markdownItToc from 'markdown-it-table-of-contents'
 
-const jsdom = require('jsdom')
-const ipynb = require('ipynb2html')
+import { JSDOM } from 'jsdom'
+import { createRenderer } from 'ipynb2html'
 
 const lib = markdownIt({
   html: true,
 })
-  .use(markdownItAnchor.default)
+  .use(markdownItAnchor)
   .use(markdownItHljs)
   .use(markdownItKatex)
   .use(markdownItToc, {
@@ -19,7 +19,7 @@ const lib = markdownIt({
     containerFooterHtml: `</details>`,
   })
 
-const convertMarkdownToHtml = (markdown) => {
+export const convertMarkdownToHtml = (markdown) => {
   const base = lib.render(markdown)
 
   return base
@@ -27,15 +27,15 @@ const convertMarkdownToHtml = (markdown) => {
     .replace(/<\/table> /g, '</table><div>')
 }
 
-const markdownLibrary = {
+export const markdownLibrary = {
   render: convertMarkdownToHtml,
 }
 
-const convertJupyterToHtml = (content) => {
-  const window = new jsdom.JSDOM().window
+export const convertJupyterToHtml = (content) => {
+  const window = new JSDOM().window
   const document = window.document
 
-  const renderNotebook = ipynb.createRenderer(document)
+  const renderNotebook = createRenderer(document)
 
   const notebook = JSON.parse(content)
 
@@ -50,10 +50,4 @@ const convertJupyterToHtml = (content) => {
     .replace(/border="1"/g, '')
 
   return html
-}
-
-module.exports = {
-  convertMarkdownToHtml,
-  convertJupyterToHtml,
-  markdownLibrary,
 }

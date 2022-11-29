@@ -1,0 +1,63 @@
+---
+// Welcome to Astro! Everything between these triple-dash code fences
+// is your "component front matter". It never runs in the browser.
+import Base from '../layouts/Base.astro'
+import getPages from '../../_11ty/data/pages'
+import Title from '../components/Title.astro'
+
+import getMeta from '../../_11ty/data/meta'
+import allProjects from '../../_11ty/data/projects.json'
+import LinkBlock from '../components/LinkBlock.astro'
+
+const { blog } = await getPages()
+
+const meta = getMeta()
+
+console.log('This runs in your terminal, not the browser!')
+
+const recentPost = blog[0]
+const posts = blog.slice(1, 4)
+
+const projects = allProjects.slice(0, 4)
+const docsItem = {
+  title: 'Docs',
+  subtitle: meta.buildDate,
+  description: 'My personal notes on software development and related topics',
+  cta: 'Go to docs',
+  url: '/docs',
+}
+
+console.log(posts)
+---
+
+<Base>
+  <section class="link__grid">
+    <img
+      class="link__image--horizontal"
+      src="assets/images/home/code.jpg"
+      alt="the sky with some clouds"
+    />
+    <div>
+      <a href={recentPost.route} class="link__link">
+        <h2 class="link__title">{recentPost.title}</h2>
+        <p class="link__subtitle">{recentPost.subtitle}</p>
+        <p class="link__description">{recentPost.description}</p>
+        <p class="link__cta">Read more</p>
+      </a>
+    </div>
+  </section>
+
+  <Title title="What's new" />
+
+  <section class="link__grid">
+    <LinkBlock item={docsItem} />
+
+    {posts?.map((post) => <LinkBlock item={post} />)}
+  </section>
+
+  <Title title="Projects" />
+
+  <section class="link__grid">
+    {projects?.map((project) => <LinkBlock item={project} />)}
+  </section>
+</Base>

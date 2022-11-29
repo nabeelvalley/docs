@@ -1,6 +1,7 @@
-const { Feed } = require('feed')
-const { resolve } = require('path')
-const { writeFile, mkdir, rm } = require('fs').promises
+import { Feed } from 'feed'
+import { resolve } from 'path'
+import { promises } from 'fs'
+const { writeFile, mkdir, rm } = promises
 
 const link = 'https://nabeelvalley.co.za'
 const me = 'Nabeel Valley'
@@ -10,7 +11,7 @@ const author = {
   link,
 }
 
-const createRssFeed = async (posts) => {
+export const createRssFeed = async (posts) => {
   const feed = new Feed({
     link,
     author,
@@ -69,5 +70,3 @@ const createRssFeed = async (posts) => {
   const json = feed.json1()
   await writeFile(resolve('_site/feed/feed.json'), json)
 }
-
-module.exports = { createRssFeed }

@@ -1,0 +1,69 @@
+---
+import pages from '../../_11ty/data/pages'
+import getPages from '../../_11ty/data/pages'
+
+import Base from '../layouts/Base.astro'
+
+export const getStaticPaths = async () => {
+  const { allPages, pages } = await getPages()
+
+  const paths = allPages.map((page) => ({
+    params: {
+      path: page.route.replace(/^\/|\/$/g, ''),
+    },
+    props: page,
+  }))
+
+  return paths
+
+  // return [
+  //   {
+  //     params: { path: 'docs/design-patterns/strategy' },
+  //   },
+  //   {
+  //     params: { path: 'bye/john' },
+  //   },
+  // ]
+}
+
+const {
+  title,
+  subtitle,
+  html,
+  next: next_page,
+  previous: prev_page,
+} = Astro.props
+---
+
+<Base>
+  <article>
+    <h1>{title}</h1>
+    <h2>{subtitle}</h2>
+
+    <div set:html={html} />
+
+    <nav class="link__grid">
+      {
+        prev_page && (
+          <a href={prev_page.route} class="link__link">
+            <div class="link__card">
+              <h2 class="link__title">Previous</h2>
+              <h3 class="link__subtitle">{prev_page.title}</h3>
+            </div>
+          </a>
+        )
+      }
+
+      {
+        next_page && (
+          <a href={next_page.route} class="link__link">
+            <div class="link__card">
+              <h2 class="link__title">Next</h2>
+              <h3 class="link__subtitle">{next_page.title}</h3>
+            </div>
+          </a>
+        )
+      }
+    </nav>
+  </article>
+</Base>

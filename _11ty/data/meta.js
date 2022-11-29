@@ -1,6 +1,6 @@
-const { format } = require('date-fns')
+import { format } from 'date-fns'
 
-module.exports = () => {
+export default () => {
   return {
     buildDate: format(new Date(), 'dd MMMM yyyy'),
   }
