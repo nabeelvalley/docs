@@ -6,8 +6,8 @@
   "author": "Nabeel Valley",
   "license": "MIT",
   "scripts": {
-    "dev": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy",
+    "dev": "astro dev",
+    "build": "astro build",
     "plop": "plop",
     "astro": "astro"
   },
