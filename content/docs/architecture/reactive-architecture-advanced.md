@@ -79,7 +79,7 @@ A lock is a way we can do this, we introduce a non-distributed element to our sy
 
 > Amdahl's law states that the max improvement gained by parallel processing is limited by contention thereby limiting our overall throughput
 
-![](/public/content/docs/architecture/AmdahlsLaw.png)
+![](/content/docs/architecture/AmdahlsLaw.png)
 
 - Improvements are limited to code that can be parallelized
 - Contention limits parallelization and therefore reduces improvements
@@ -95,7 +95,7 @@ If we keep increasing we may see diminishing returns on parallelization
 
 > Gunther's universal scalabiity lay builds on Amdahl's law and states that increasing concurrency can have negative returns due to contention and coherency delay
 
-![](/public/content/docs/architecture/GunthersLaw.png)
+![](/content/docs/architecture/GunthersLaw.png)
 
 - Accounts for coherency delay
 - Coherency delay results in negative returns

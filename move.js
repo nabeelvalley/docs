@@ -3,9 +3,9 @@ var fs = require('fs')
 const glob = require('glob')
 
 const move = (path) => {
-  const dir = './public/' + path.split('/').slice(0, -1).join('/')
+  const dir = './' + path.split('/').slice(0, -1).join('/')
 
-  const newPath = './public/' + path
+  const newPath = './' + path
   console.log(dir, newPath)
 
   if (!fs.existsSync(dir)) {

@@ -6,28 +6,28 @@
 
 ## Original
 
-![](/public/content/photography/images/vsco-base-1.jpg)
+![](/content/photography/images/vsco-base-1.jpg)
 
 ## Edited
 
-![](/public/content/photography/images/vsco-a4-1.jpg)
+![](/content/photography/images/vsco-a4-1.jpg)
 
 # Sample 2
 
 ## Original
 
-![](/public/content/photography/images/vsco-base-2.jpg)
+![](/content/photography/images/vsco-base-2.jpg)
 
 ## Edited
 
-![](/public/content/photography/images/vsco-a4-2.jpg)
+![](/content/photography/images/vsco-a4-2.jpg)
 
 # Sample 3
 
 ## Original
 
-![](/public/content/photography/images/vsco-base-3.jpg)
+![](/content/photography/images/vsco-base-3.jpg)
 
 ## Edited
 
-![](/public/content/photography/images/vsco-a4-3.jpg)
+![](/content/photography/images/vsco-a4-3.jpg)

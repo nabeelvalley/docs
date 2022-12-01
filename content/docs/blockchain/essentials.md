@@ -71,13 +71,13 @@ Selected members endorse or validate transactions, once these are endorsed they 
 
 Go to the [Composer Playground](https://composer-playground-unstable.mybluemix.net/login)
 
-![Hyperledger Composer Playground](/public/content/docs/assets/image-29.png)
+![Hyperledger Composer Playground](/content/docs/assets/image-29.png)
 
 Then Create a Business Network
 
-![Business Network Create Screen](/public/content/docs/assets/image-12.png)
+![Business Network Create Screen](/content/docs/assets/image-12.png)
 
-![Business Network has been created](/public/content/docs/assets/image-14.png)
+![Business Network has been created](/content/docs/assets/image-14.png)
 
 We can click on _Connect Now_ and start making transactions such as creating participants and vehicles
 
@@ -85,23 +85,23 @@ We can click on _Connect Now_ and start making transactions such as creating par
 
 Create some members by navigating to the **Test** Section \(at the top\) and then **Members** from the Menu and clicking on **Create New** **Participant**
 
-![Participant Creation Screen](/public/content/docs/assets/image-13.png)
+![Participant Creation Screen](/content/docs/assets/image-13.png)
 
 We can see our created Participants on the Member Screen
 
-![Participant Listing](/public/content/docs/assets/image-17.png)
+![Participant Listing](/content/docs/assets/image-17.png)
 
 Once this has been done we can do the same for **Vehicles** and **Vehicle** **Listings**
 
 We can look at the transactions made from the **All Transactions** page
 
-![Transaction History](/public/content/docs/assets/image%20%286%29.png)
+![Transaction History](/content/docs/assets/image%20%286%29.png)
 
 ## Explore the Definitions
 
 Head over to the editor screen and you will be able to see the different configuration available in our blockchain
 
-![Define View - README](/public/content/docs/assets/image-10.png)
+![Define View - README](/content/docs/assets/image-10.png)
 
 The different elements of our blockchain are defined with the following structures and rules
 
@@ -157,11 +157,11 @@ transaction CloseBidding {
 async function closeBidding(closeBidding) {
   // eslint-disable-line no-unused-vars
   const listing = closeBidding.listing
-  if (listing.state !== "FOR_SALE") {
-    throw new Error("Listing is not FOR SALE")
+  if (listing.state !== 'FOR_SALE') {
+    throw new Error('Listing is not FOR SALE')
   }
   // by default we mark the listing as RESERVE_NOT_MET
-  listing.state = "RESERVE_NOT_MET"
+  listing.state = 'RESERVE_NOT_MET'
   let highestOffer = null
   let buyer = null
   let seller = null
@@ -173,17 +173,17 @@ async function closeBidding(closeBidding) {
     highestOffer = listing.offers[0]
     if (highestOffer.bidPrice >= listing.reservePrice) {
       // mark the listing as SOLD
-      listing.state = "SOLD"
+      listing.state = 'SOLD'
       buyer = highestOffer.member
       seller = listing.vehicle.owner
       // update the balance of the seller
-      console.log("### seller balance before: " + seller.balance)
+      console.log('### seller balance before: ' + seller.balance)
       seller.balance += highestOffer.bidPrice
-      console.log("### seller balance after: " + seller.balance)
+      console.log('### seller balance after: ' + seller.balance)
       // update the balance of the buyer
-      console.log("### buyer balance before: " + buyer.balance)
+      console.log('### buyer balance before: ' + buyer.balance)
       buyer.balance -= highestOffer.bidPrice
-      console.log("### buyer balance after: " + buyer.balance)
+      console.log('### buyer balance after: ' + buyer.balance)
       // transfer the vehicle to the buyer
       listing.vehicle.owner = buyer
       // clear the offers
@@ -194,21 +194,21 @@ async function closeBidding(closeBidding) {
   if (highestOffer) {
     // save the vehicle
     const vehicleRegistry = await getAssetRegistry(
-      "org.acme.vehicle.auction.Vehicle"
+      'org.acme.vehicle.auction.Vehicle'
     )
     await vehicleRegistry.update(listing.vehicle)
   }
 
   // save the vehicle listing
   const vehicleListingRegistry = await getAssetRegistry(
-    "org.acme.vehicle.auction.VehicleListing"
+    'org.acme.vehicle.auction.VehicleListing'
   )
   await vehicleListingRegistry.update(listing)
 
-  if (listing.state === "SOLD") {
+  if (listing.state === 'SOLD') {
     // save the buyer
     const userRegistry = await getParticipantRegistry(
-      "org.acme.vehicle.auction.Member"
+      'org.acme.vehicle.auction.Member'
     )
     await userRegistry.updateAll([buyer, seller])
   }
@@ -222,8 +222,8 @@ async function closeBidding(closeBidding) {
 async function makeOffer(offer) {
   // eslint-disable-line no-unused-vars
   let listing = offer.listing
-  if (listing.state !== "FOR_SALE") {
-    throw new Error("Listing is not FOR SALE")
+  if (listing.state !== 'FOR_SALE') {
+    throw new Error('Listing is not FOR SALE')
   }
   if (!listing.offers) {
     listing.offers = []
@@ -232,7 +232,7 @@ async function makeOffer(offer) {
 
   // save the vehicle listing
   const vehicleListingRegistry = await getAssetRegistry(
-    "org.acme.vehicle.auction.VehicleListing"
+    'org.acme.vehicle.auction.VehicleListing'
   )
   await vehicleListingRegistry.update(listing)
 }

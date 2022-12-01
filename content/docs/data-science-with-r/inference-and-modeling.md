@@ -19,7 +19,7 @@ ds_theme_set()
 take_poll(1000)
 ```
 
-![Sample Election Poll](/public/content/docs/assets/voter-poll-sample-1.svg)
+![Sample Election Poll](/content/docs/assets/voter-poll-sample-1.svg)
 
 The goal of statistical inference is to predict the parameter $p$ using the observed data in the sample $n$
 

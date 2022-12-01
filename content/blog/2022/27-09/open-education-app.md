@@ -8,12 +8,12 @@ published: true
 
 # General App Overview
 
-![](/public/content/blog/2022/27-09/image1.png)
+![](/content/blog/2022/27-09/image1.png)
 
 # Content Creation and Editing Experience
 
-![](/public/content/blog/2022/27-09/image3.png)
+![](/content/blog/2022/27-09/image3.png)
 
 # Alternate Themes
 
-![](/public/content/blog/2022/27-09/image2.png)
+![](/content/blog/2022/27-09/image2.png)
