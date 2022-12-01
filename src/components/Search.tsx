@@ -25,6 +25,18 @@ const baseActions: Action[] = [
     perform: () => window.open('https://twitter.com/not_nabeel'),
   },
   {
+    id: 'instagram',
+    name: 'Instagram',
+    subtitle: '@nabeelvalley',
+    perform: () => window.open('https://instagram.com/nabeelvalley'),
+  },
+  {
+    id: 'photography',
+    name: 'Photography',
+    subtitle: 'My Photography Portfolio',
+    perform: () => window.open('https://photography.nabeelvalley.co.za'),
+  },
+  {
     id: 'home',
     name: 'Home',
     subtitle: 'Nabeel Valley',
