@@ -13,6 +13,18 @@ import summary from '../../_cache/data/summary.json'
 
 const baseActions: Action[] = [
   {
+    id: 'github',
+    name: 'GitHub',
+    subtitle: '@nabeelvalley',
+    perform: () => window.open('https://github.com/nabeelvalley'),
+  },
+  {
+    id: 'twitter',
+    name: 'Twitter',
+    subtitle: '@not_nabeel',
+    perform: () => window.open('https://twitter.com/not_nabeel'),
+  },
+  {
     id: 'home',
     name: 'Home',
     subtitle: 'Nabeel Valley',
