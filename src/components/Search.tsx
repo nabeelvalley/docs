@@ -31,8 +31,8 @@ const baseActions: Action[] = [
     perform: () => window.open('https://instagram.com/nabeelvalley'),
   },
   {
-    id: 'photography',
-    name: 'Photography',
+    id: 'portfolio',
+    name: 'Portfolio',
     subtitle: 'My Photography Portfolio',
     perform: () => window.open('https://photography.nabeelvalley.co.za'),
   },
