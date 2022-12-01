@@ -232,7 +232,7 @@ Note that the `<USERNAME>/python-hello-world` refers to a repository to which we
 
 Thereafter we can log into Docker Hub via our browser and see the image
 
-![Image on Docker Hub](/docs/assets/image%20%287%29.png)
+![Image on Docker Hub](/content/docs/assets/image%20%287%29.png)
 
 ## Deploy a Change
 
@@ -272,7 +272,7 @@ We will be using [Play-With-Docker](https://labs.play-with-docker.com/) for this
 
 Click on **Add a new instance** to add three nodes
 
-![Play With Docker](/docs/assets/image%20%2833%29.png)
+![Play With Docker](/content/docs/assets/image%20%2833%29.png)
 
 Thereafter initialize a swarm on Node 1 with
 
@@ -298,7 +298,7 @@ We can then run the `docker swarm-join` command from the other two nodes, then o
 docker node ls
 ```
 
-![Complete Swarm](/docs/assets/image%20%2830%29.png)
+![Complete Swarm](/content/docs/assets/image%20%2830%29.png)
 
 ## Deploy a Service
 

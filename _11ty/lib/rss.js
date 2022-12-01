@@ -1,6 +1,7 @@
-const { Feed } = require('feed')
-const { resolve } = require('path')
-const { writeFile, mkdir, rm } = require('fs').promises
+import { Feed } from 'feed'
+import { resolve } from 'path'
+import { promises } from 'fs'
+const { writeFile, mkdir, rm } = promises
 
 const link = 'https://nabeelvalley.co.za'
 const me = 'Nabeel Valley'
@@ -10,14 +11,14 @@ const author = {
   link,
 }
 
-const createRssFeed = async (posts) => {
+export const createRssFeed = async (posts) => {
   const feed = new Feed({
     link,
     author,
     id: link,
     title: me,
-    image: `${link}/assets/images/home/code.jpg`,
-    favicon: `${link}/assets/favicon.png`,
+    image: `${link}/images/home/code.jpg`,
+    favicon: `${link}/favicon.png`,
     copyright: 'All rights reserved, Nabeel Valley',
     description: 'Personal website, blog, and code snippets',
     language: 'en',
@@ -52,22 +53,9 @@ const createRssFeed = async (posts) => {
     }
   }
 
-  try {
-    await mkdir(resolve('_site/feed'), {
-      recursive: true,
-    })
-  } catch (err) {
-    console.error(err)
-  }
-
   const rss = feed.rss2()
-  await writeFile(resolve('_site/feed/rss.xml'), rss)
-
   const atom = feed.atom1()
-  await writeFile(resolve('_site/feed/atom.xml'), atom)
-
   const json = feed.json1()
-  await writeFile(resolve('_site/feed/feed.json'), json)
-}
 
-module.exports = { createRssFeed }
+  return { rss, atom, json }
+}

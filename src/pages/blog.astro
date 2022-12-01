@@ -1,0 +1,21 @@
+---
+import summary from '../../_cache/data/summary.json'
+import LinkBlock from '../components/LinkBlock.astro'
+import Title from '../components/Title.astro'
+import Base from '../layouts/Base.astro'
+
+const blog = summary.filter((page) => page.route.startsWith('/blog/'))
+---
+
+<Base>
+  <Title title="Blog" />
+
+  <article>
+    Rants and Ramblings. Random thoughts on Web Development, Photography,
+    Design, and Life
+  </article>
+
+  <section class="link__grid">
+    {blog.map((page) => <LinkBlock item={page} cta="Read post" />)}
+  </section>
+</Base>

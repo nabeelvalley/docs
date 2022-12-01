@@ -6,7 +6,7 @@ LED is short for Light Emitting Diode
 
 LED's are represented with the Diode symbol with 2 arrows added:
 
-![LED Symbol](/docs/electronics/led-symbol.png)
+![LED Symbol](/content/docs/electronics/led-symbol.png)
 
 # Connecting
 
@@ -17,7 +17,7 @@ When connecting an LED in a circuit it must be connected:
 
 Below is an example circuit:
 
-![Circuit example](/docs/electronics/led-circuit.png)
+![Circuit example](/content/docs/electronics/led-circuit.png)
 
 ## Series Resistor
 
@@ -39,4 +39,4 @@ The direction that an LED is connected in is very important, both for functionin
 
 Below is a diagram showing the direction for LED connection, from [Starting Electronics](https://startingelectronics.org/beginners/components/LED/)
 
-![LED Connection Direction](/docs/electronics/led-connection-direction.png)
+![LED Connection Direction](/content/docs/electronics/led-connection-direction.png)

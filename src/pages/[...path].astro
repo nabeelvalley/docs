@@ -1,0 +1,55 @@
+---
+import summary from '../../_cache/data/summary.json'
+
+import Base from '../layouts/Base.astro'
+
+export const getStaticPaths = async () => {
+  const paths = summary.map((page) => ({
+    params: {
+      path: page.route.replace(/^\/|\/$/g, ''),
+    },
+    props: page,
+  }))
+
+  return paths
+}
+
+const fileName = Astro.props.route.replace(/\//g, '__')
+
+const page = await import(`../../_cache/data/${fileName}.json`)
+
+const { title, subtitle, html, next: next_page, previous: prev_page } = page
+---
+
+<Base>
+  <article>
+    <h1>{title}</h1>
+    <h2>{subtitle}</h2>
+
+    <div set:html={html} />
+
+    <nav class="link__grid">
+      {
+        prev_page && (
+          <a href={prev_page.route} class="link__link">
+            <div class="link__card">
+              <h2 class="link__title">Previous</h2>
+              <h3 class="link__subtitle">{prev_page.title}</h3>
+            </div>
+          </a>
+        )
+      }
+
+      {
+        next_page && (
+          <a href={next_page.route} class="link__link">
+            <div class="link__card">
+              <h2 class="link__title">Next</h2>
+              <h3 class="link__subtitle">{next_page.title}</h3>
+            </div>
+          </a>
+        )
+      }
+    </nav>
+  </article>
+</Base>

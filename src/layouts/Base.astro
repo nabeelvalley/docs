@@ -1,0 +1,110 @@
+---
+// Welcome to Astro! Everything between these triple-dash code fences
+// is your "component front matter". It never runs in the browser.
+import { Footer, Header } from '../components'
+
+const { title, description } = Astro.props
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="google-site-verification"
+      content="eqR9vdsWmb7gglH0R4CilWu8iysUMq1-AII0eotV6JM"
+    />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&family=Lato:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- hljs -->
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme: light)"
+      href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/atom-one-light.min.css"
+    />
+    <link
+      rel="stylesheet"
+      media="(prefers-color-scheme: dark)"
+      href="//unpkg.com/@highlightjs/cdn-assets@11.3.1/styles/atom-one-dark.min.css"
+    />
+
+    <!-- katex -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+      integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs"
+      crossorigin="anonymous"
+    />
+
+    <!-- app -->
+    <link rel="stylesheet" href="/style/main.css" />
+
+    <title>{title || 'Nabeel Valley'}</title>
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@not_nabeel" />
+
+    <meta name="description" content={description} />
+    <meta name="twitter:description" content={description} />
+    <meta name="og:description" content={description} />
+
+    <meta
+      name="twitter:image"
+      content="https://nabeelvalley.co.za/images/home/code.jpg"
+    />
+    <meta
+      name="og:image"
+      content="https://nabeelvalley.co.za/images/home/code.jpg"
+    />
+    <meta name="twitter:title" content={title} /><meta
+      name="og:title"
+      content={title}
+    />
+  </head>
+
+  <body>
+    <div class="page">
+      <Header />
+      <main class="main">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.css"
+    />
+    <script src="https://unpkg.com/@supabase/supabase-js"></script>
+    <script>
+      const url = window.location.href
+
+      // the key used below is the public anon key
+      // @ts-ignore consider including supabase via npm instead
+      const client = supabase.createClient(
+        'https://aumvrxylnzhqpzbokbtj.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1bXZyeHlsbnpocXB6Ym9rYnRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjA2Njc0MjksImV4cCI6MTk3NjI0MzQyOX0.UIin765LPkrhTdSEyes71PgwbmMVXsgWuEX2yOLKZCA'
+      )
+
+      client
+        .from('hits')
+        .insert([{ url }])
+        .then(console.log)
+        .catch(console.error)
+    </script>
+  </body>
+</html>

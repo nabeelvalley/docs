@@ -74,8 +74,8 @@ Techniques used to support or imporve analysis
 Used for evaluating results of analysis tasks
 
 - Selection
-    - Model selection
-    - Hyperparameter search
-    - Feature selection
+  - Model selection
+  - Hyperparameter search
+  - Feature selection
 - Metrics and statistical tests
 - Visualization

@@ -17,7 +17,6 @@ The data being analysed will be based on a used-car analysis and how to estimate
 - Importing and Exporting Data
 - Basic Insights from the Data
 
-
 ### Understanding the Data
 
 Thhe Data being used is the Autos dataset from the Machine Learning Database at [archive.ics.uci](https://archive.ics.uci.edu/ml/machine-learning-databases/autos/)
@@ -25,6 +24,7 @@ Thhe Data being used is the Autos dataset from the Machine Learning Database at 
 The first few lines of the file are as follows
 
 [`imports-85.data`](https://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data)
+
 ```
 3,?,alfa-romero,gas,std,two,convertible,rwd,front,88.60,168.80,64.10,48.80,2548,dohc,four,130,mpfi,3.47,2.68,9.00,111,5000,21,27,13495
 3,?,alfa-romero,gas,std,two,convertible,rwd,front,88.60,168.80,64.10,48.80,2548,dohc,four,130,mpfi,3.47,2.68,9.00,111,5000,21,27,16500
@@ -38,43 +38,42 @@ The first few lines of the file are as follows
 
 And the [description of the data can be found here](https://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.names), the attributes are as follows
 
-
-| Column | Attribute          | Attribute Range                                  |
-| ----- | ------------------ | ------------------------------------------------ |
-| 1.    | symboling:         | -3, -2, -1, 0, 1, 2, 3.                          |
-| 2.    | normalized-losses: | continuous from 65 to 256.                       |
-| 3.    | make:              | alfa-romero, audi, bmw, chevrolet, dodge, honda, isuzu, jaguar, mazda, mercedes-benz, mercury, mitsubishi, nissan, peugot, plymouth, porsche, renault, saab, subaru, toyota, volkswagen, volvo |
-| 4.    | fuel-type:         | diesel, gas.                                     |
-| 5.    | aspiration:        | std, turbo.                                      |
-| 6.    | num-of-doors:      | four, two.                                       |
-| 7.    | body-style:        | hardtop, wagon, sedan, hatchback, convertible.   |
-| 8.    | drive-wheels:      | 4wd, fwd, rwd.                                   |
-| 9.    | engine-location:   | front, rear.                                     |
-| 10.   | wheel-base:        | continuous from 86.6 120.9.                      |
-| 11.   | length:            | continuous from 141.1 to 208.1.                  |
-| 12.   | width:             | continuous from 60.3 to 72.3.                    |
-| 13.   | height:            | continuous from 47.8 to 59.8.                    |
-| 14.   | curb-weight:       | continuous from 1488 to 4066.                    |
-| 15.   | engine-type:       | dohc, dohcv, l, ohc, ohcf, ohcv, rotor.          |
-| 16.   | num-of-cylinders:  | eight, five, four, six, three, twelve, two.      |
-| 17.   | engine-size:       | continuous from 61 to 326.                       |
-| 18.   | fuel-system:       | 1bbl, 2bbl, 4bbl, idi, mfi, mpfi, spdi, spfi.    |
-| 19.   | bore:              | continuous from 2.54 to 3.94.                    |
-| 20.   | stroke:            | continuous from 2.07 to 4.17.                    |
-| 21.   | compression-ratio: | continuous from 7 to 23.                         |
-| 22.   | horsepower:        | continuous from 48 to 288.                       |
-| 23.   | peak-rpm:          | continuous from 4150 to 6600.                    |
-| 24.   | city-mpg:          | continuous from 13 to 49.                        |
-| 25.   | highway-mpg:       | continuous from 16 to 54.                        |
-| 26.   | price:             | continuous from 5118 to 45400.                   |
+| Column | Attribute          | Attribute Range                                                                                                                                                                                |
+| ------ | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.     | symboling:         | -3, -2, -1, 0, 1, 2, 3.                                                                                                                                                                        |
+| 2.     | normalized-losses: | continuous from 65 to 256.                                                                                                                                                                     |
+| 3.     | make:              | alfa-romero, audi, bmw, chevrolet, dodge, honda, isuzu, jaguar, mazda, mercedes-benz, mercury, mitsubishi, nissan, peugot, plymouth, porsche, renault, saab, subaru, toyota, volkswagen, volvo |
+| 4.     | fuel-type:         | diesel, gas.                                                                                                                                                                                   |
+| 5.     | aspiration:        | std, turbo.                                                                                                                                                                                    |
+| 6.     | num-of-doors:      | four, two.                                                                                                                                                                                     |
+| 7.     | body-style:        | hardtop, wagon, sedan, hatchback, convertible.                                                                                                                                                 |
+| 8.     | drive-wheels:      | 4wd, fwd, rwd.                                                                                                                                                                                 |
+| 9.     | engine-location:   | front, rear.                                                                                                                                                                                   |
+| 10.    | wheel-base:        | continuous from 86.6 120.9.                                                                                                                                                                    |
+| 11.    | length:            | continuous from 141.1 to 208.1.                                                                                                                                                                |
+| 12.    | width:             | continuous from 60.3 to 72.3.                                                                                                                                                                  |
+| 13.    | height:            | continuous from 47.8 to 59.8.                                                                                                                                                                  |
+| 14.    | curb-weight:       | continuous from 1488 to 4066.                                                                                                                                                                  |
+| 15.    | engine-type:       | dohc, dohcv, l, ohc, ohcf, ohcv, rotor.                                                                                                                                                        |
+| 16.    | num-of-cylinders:  | eight, five, four, six, three, twelve, two.                                                                                                                                                    |
+| 17.    | engine-size:       | continuous from 61 to 326.                                                                                                                                                                     |
+| 18.    | fuel-system:       | 1bbl, 2bbl, 4bbl, idi, mfi, mpfi, spdi, spfi.                                                                                                                                                  |
+| 19.    | bore:              | continuous from 2.54 to 3.94.                                                                                                                                                                  |
+| 20.    | stroke:            | continuous from 2.07 to 4.17.                                                                                                                                                                  |
+| 21.    | compression-ratio: | continuous from 7 to 23.                                                                                                                                                                       |
+| 22.    | horsepower:        | continuous from 48 to 288.                                                                                                                                                                     |
+| 23.    | peak-rpm:          | continuous from 4150 to 6600.                                                                                                                                                                  |
+| 24.    | city-mpg:          | continuous from 13 to 49.                                                                                                                                                                      |
+| 25.    | highway-mpg:       | continuous from 16 to 54.                                                                                                                                                                      |
+| 26.    | price:             | continuous from 5118 to 45400.                                                                                                                                                                 |
 
 Missing Attribute Values: (denoted by "?")
 
-The *Symboling* is an indicator of the vehicle risk level, the lower the level the lower the risk (from an insurance level)
+The _Symboling_ is an indicator of the vehicle risk level, the lower the level the lower the risk (from an insurance level)
 
-The *normalized-losses* is an indicator of the rate at which the vehicle loses value over time
+The _normalized-losses_ is an indicator of the rate at which the vehicle loses value over time
 
-The *price* is the value that we would like to predict given the other features
+The _price_ is the value that we would like to predict given the other features
 
 > Note that this dataset is from 1995 and therefore the prices may seem a little low
 
@@ -116,7 +115,6 @@ Explore data, estimate statistical models, and perform statistical tests
 
 ### Import and Export Data
 
-
 #### Importing
 
 When importing data we need ot take a few things into consideration such as
@@ -128,12 +126,10 @@ In our case the data is CSV (.data), and is located as a remote source
 
 We can import our data as follows
 
-
 ```python
 import pandas as pd
 import numpy as np
 ```
-
 
 ```python
 # read the online file by the URL provides above, and assign it to variable "df"
@@ -146,14 +142,9 @@ print("import done")
 
     import done
 
-
-
 ```python
 df.head(2)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -168,6 +159,7 @@ df.head(2)
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -250,10 +242,7 @@ df.head(2)
 <p>2 rows × 26 columns</p>
 </div>
 
-
-
 We can see that our data comes in without headers, we can assign the headers to our data based on the information in the `imports-85.names` file
-
 
 ```python
 headers = ['symboling','normalized-losses','make','fuel-type','aspiration', 'num-of-doors','body-style',
@@ -263,13 +252,9 @@ headers = ['symboling','normalized-losses','make','fuel-type','aspiration', 'num
 df.columns = headers
 ```
 
-
 ```python
 df.head(10)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -284,6 +269,7 @@ df.head(10)
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -558,8 +544,6 @@ df.head(10)
 <p>10 rows × 26 columns</p>
 </div>
 
-
-
 Next we can remove the missing values from the price column as follows
 
 #### Analyzing Data
@@ -569,16 +553,12 @@ Pandas has a few different methods to undertand the data
 We need to do some basic checks such as
 
 - Data Types
-    - Pandas automatically assigns data types which may not necessarily be correct
-    - This will further allow us to understand what functions we can apply to what columns
-
+  - Pandas automatically assigns data types which may not necessarily be correct
+  - This will further allow us to understand what functions we can apply to what columns
 
 ```python
 df.dtypes
 ```
-
-
-
 
     symboling              int64
     normalized-losses     object
@@ -608,17 +588,11 @@ df.dtypes
     price                 object
     dtype: object
 
-
-
 We can also view the statisitcal summary as follows
-
 
 ```python
 df.describe()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -633,6 +607,7 @@ df.describe()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -759,17 +734,11 @@ df.describe()
 </table>
 </div>
 
-
-
 However, if we want to view a summary including fields that are of type objectm we can do the following
-
 
 ```python
 df.describe(include = "all")
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -784,6 +753,7 @@ df.describe(include = "all")
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1082,10 +1052,7 @@ df.describe(include = "all")
 <p>11 rows × 26 columns</p>
 </div>
 
-
-
 We can also use `df.info` to see the top and bottom thirty rows of the dataframe
-
 
 If we would like to get a more complete report of the dataset however, we can make use of the `pandas_profiling` library which will output a full overall data visualisation
 
@@ -1131,14 +1098,10 @@ We also need to make use of the `inplace=True` parameter to modify the actual da
 
 The `df.replace()` function allows us to replace missing values in the data
 
-
 ```python
 df.replace("?", np.nan, inplace = True)
 df.head(10)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -1153,6 +1116,7 @@ df.head(10)
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1427,18 +1391,12 @@ df.head(10)
 <p>10 rows × 26 columns</p>
 </div>
 
-
-
 Next, we can count the missing value in each column
-
 
 ```python
 missing_data = df.isnull()
 missing_data.head(5)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -1453,6 +1411,7 @@ missing_data.head(5)
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -1607,9 +1566,6 @@ missing_data.head(5)
 <p>5 rows × 26 columns</p>
 </div>
 
-
-
-
 ```python
 for column in missing_data.columns.values.tolist():
     print(column)
@@ -1620,133 +1576,130 @@ for column in missing_data.columns.values.tolist():
     symboling
     False    205
     Name: symboling, dtype: int64
-    
+
     normalized-losses
     False    164
     True      41
     Name: normalized-losses, dtype: int64
-    
+
     make
     False    205
     Name: make, dtype: int64
-    
+
     fuel-type
     False    205
     Name: fuel-type, dtype: int64
-    
+
     aspiration
     False    205
     Name: aspiration, dtype: int64
-    
+
     num-of-doors
     False    203
     True       2
     Name: num-of-doors, dtype: int64
-    
+
     body-style
     False    205
     Name: body-style, dtype: int64
-    
+
     drive-wheels
     False    205
     Name: drive-wheels, dtype: int64
-    
+
     engine-location
     False    205
     Name: engine-location, dtype: int64
-    
+
     wheel-base
     False    205
     Name: wheel-base, dtype: int64
-    
+
     length
     False    205
     Name: length, dtype: int64
-    
+
     width
     False    205
     Name: width, dtype: int64
-    
+
     height
     False    205
     Name: height, dtype: int64
-    
+
     curb-weight
     False    205
     Name: curb-weight, dtype: int64
-    
+
     engine-type
     False    205
     Name: engine-type, dtype: int64
-    
+
     num-of-cylinders
     False    205
     Name: num-of-cylinders, dtype: int64
-    
+
     engine-size
     False    205
     Name: engine-size, dtype: int64
-    
+
     fuel-system
     False    205
     Name: fuel-system, dtype: int64
-    
+
     bore
     False    201
     True       4
     Name: bore, dtype: int64
-    
+
     stroke
     False    201
     True       4
     Name: stroke, dtype: int64
-    
+
     compression-ratio
     False    205
     Name: compression-ratio, dtype: int64
-    
+
     horsepower
     False    203
     True       2
     Name: horsepower, dtype: int64
-    
+
     peak-rpm
     False    203
     True       2
     Name: peak-rpm, dtype: int64
-    
+
     city-mpg
     False    205
     Name: city-mpg, dtype: int64
-    
+
     highway-mpg
     False    205
     Name: highway-mpg, dtype: int64
-    
+
     price
     False    201
     True       4
     Name: price, dtype: int64
-    
-
 
 We'll replace the missing data as follows
 
 - Replace by Mean
-    - "normalized-losses": 41 missing data
-    - "stroke": 4 missing data
-    - "bore": 4 missing data
-    - "horsepower": 2 missing data
-    - "peak-rpm": 2 missing data
+  - "normalized-losses": 41 missing data
+  - "stroke": 4 missing data
+  - "bore": 4 missing data
+  - "horsepower": 2 missing data
+  - "peak-rpm": 2 missing data
 - Replace by Frequency
-    - "num-of-doors": 2 missing data
-        - Becase most cars have 4 doors
+  - "num-of-doors": 2 missing data
+    - Becase most cars have 4 doors
 - Drop the Roe
-    - "price": 4 missing data
-        - Because price is what we want to predict, it does not help if it is not there
+  - "price": 4 missing data
+    - Because price is what we want to predict, it does not help if it is not there
 
 #### Normalized Losses
-
 
 ```python
 avg_1 = df['normalized-losses'].astype('float').mean(axis = 0)
@@ -1755,14 +1708,12 @@ df['normalized-losses'].replace(np.nan, avg_1, inplace = True)
 
 #### Bore
 
-
 ```python
 avg_2=df['bore'].astype('float').mean(axis=0)
 df['bore'].replace(np.nan, avg_2, inplace= True)
 ```
 
 #### Stroke
-
 
 ```python
 avg_3 = df["stroke"].astype("float").mean(axis = 0)
@@ -1771,14 +1722,12 @@ df["stroke"].replace(np.nan, avg_3, inplace = True)
 
 #### Horsepower
 
-
 ```python
 avg_4=df['horsepower'].astype('float').mean(axis=0)
 df['horsepower'].replace(np.nan, avg_4, inplace= True)
 ```
 
 #### Peak RPM
-
 
 ```python
 avg_5=df['peak-rpm'].astype('float').mean(axis=0)
@@ -1789,22 +1738,15 @@ df['peak-rpm'].replace(np.nan, avg_5, inplace= True)
 
 First we need to check which door count is the most common
 
-
 ```python
 df['num-of-doors'].value_counts()
 ```
-
-
-
 
     four    114
     two      89
     Name: num-of-doors, dtype: int64
 
-
-
 And then replace invalid values with that
-
 
 ```python
 df["num-of-doors"].replace(np.nan, "four", inplace = True)
@@ -1813,7 +1755,6 @@ df["num-of-doors"].replace(np.nan, "four", inplace = True)
 #### Price
 
 And then lastly drop the columns with a missing price
-
 
 ```python
 df.dropna(subset=["price"], axis=0, inplace = True)
@@ -1826,13 +1767,9 @@ df.reset_index(drop = True, inplace = True)
 
 The we can view our dataset which has no missing values
 
-
 ```python
 df.head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -1847,6 +1784,7 @@ df.head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2001,8 +1939,6 @@ df.head()
 <p>5 rows × 26 columns</p>
 </div>
 
-
-
 ### Formatting Data
 
 Now we nee to ensure that our data is correctly formatted
@@ -2018,13 +1954,9 @@ Sometimes the incorrect data type may be set by default to the correct type, it 
 
 #### Data Types
 
-
 ```python
 df.dtypes
 ```
-
-
-
 
     symboling              int64
     normalized-losses     object
@@ -2054,12 +1986,9 @@ df.dtypes
     price                 object
     dtype: object
 
-
-
 #### Convert types
 
 We can easily convert our data to the correct types with
-
 
 ```python
 df[['bore', 'stroke']] = df[['bore', 'stroke']].astype('float')
@@ -2070,13 +1999,9 @@ df[['peak-rpm']] = df[['peak-rpm']].astype('float')
 
 And view the corrected types
 
-
 ```python
 df.dtypes
 ```
-
-
-
 
     symboling              int64
     normalized-losses      int64
@@ -2106,21 +2031,15 @@ df.dtypes
     price                float64
     dtype: object
 
-
-
 #### Standardization
 
 Standardization is the process of taking data from one format to another that may be more meaningful for us to use, such as converting our fuel consumption
-
 
 ```python
 # transform mpg to L/100km by mathematical operation (235 divided by mpg)
 df['city-L/100km'] = 235/df['city-mpg']
 df[['city-mpg','city-L/100km']].head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -2135,6 +2054,7 @@ df[['city-mpg','city-L/100km']].head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2174,15 +2094,9 @@ df[['city-mpg','city-L/100km']].head()
 </table>
 </div>
 
-
-
-
 ```python
 df.head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -2197,6 +2111,7 @@ df.head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2351,16 +2266,10 @@ df.head()
 <p>5 rows × 27 columns</p>
 </div>
 
-
-
-
 ```python
 df['highway-L/100km'] = 235/df['highway-mpg']
 df[['highway-mpg','highway-L/100km']].head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -2375,6 +2284,7 @@ df[['highway-mpg','highway-L/100km']].head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2414,15 +2324,9 @@ df[['highway-mpg','highway-L/100km']].head()
 </table>
 </div>
 
-
-
-
 ```python
 df.head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -2437,6 +2341,7 @@ df.head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2591,8 +2496,6 @@ df.head()
 <p>5 rows × 28 columns</p>
 </div>
 
-
-
 #### Renaming Columns
 
 If there is a need for us to rename columns we can do so with `df.rename()`, for example
@@ -2625,7 +2528,6 @@ $$
 x_{new}=\frac{x_{old}-x_{min}}{x_{max}-x_{min}}
 $$
 
-
 ```py
 df['length'] = (df['length']-df['length'].min())/
                (df['length'].max()-df['length'].min())
@@ -2646,7 +2548,7 @@ df['length'] = (df['length']-df['length'].mean())/
 
 #### Normalization
 
-Next we will normalize our values using the *Simple Feature Scaling Method*
+Next we will normalize our values using the _Simple Feature Scaling Method_
 
 We will apply this to the following features
 
@@ -2654,16 +2556,12 @@ We will apply this to the following features
 - 'width'
 - 'height'
 
-
 ```python
 df['length'] = df['length']/df['length'].max()
 df['width'] = df['width']/df['width'].max()
 df['height'] = df['height']/df['height'].max()
 df[["length","width","height"]].head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -2678,6 +2576,7 @@ df[["length","width","height"]].head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2723,14 +2622,11 @@ df[["length","width","height"]].head()
 </table>
 </div>
 
-
-
 ### Binning
 
 Binning is grouping values together into bins, this can sometimes improve accuracy of predictive models and help us to better understand the data distribution
 
 We'll arrange our 'horsepower' column into bins such that we can label cars as having a 'Low', 'Medium', or 'High' horsepower as follows
-
 
 ```python
 df["horsepower"]=df["horsepower"].astype(float, copy=True)
@@ -2739,24 +2635,15 @@ bins = np.arange(min(df["horsepower"]), max(df["horsepower"]), binwidth)
 bins
 ```
 
-
-
-
     array([  48. ,  101.5,  155. ,  208.5])
 
-
-
 We can then use `pd.cut()` to determine what bin each value belongs in
-
 
 ```python
 group_names = ['Low', 'Medium', 'High']
 df['horsepower-binned'] = pd.cut(df['horsepower'], bins, labels=group_names,include_lowest=True )
 df[['horsepower','horsepower-binned']].head(20)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -2771,6 +2658,7 @@ df[['horsepower','horsepower-binned']].head(20)
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2885,12 +2773,9 @@ df[['horsepower','horsepower-binned']].head(20)
 </table>
 </div>
 
-
-
 #### Visualization
 
 We can use `matplotlib` to visualize the number of vehicles in each of our bins with the following
-
 
 ```python
 %matplotlib inline
@@ -2908,9 +2793,7 @@ plt.title("Horsepower Bins")
 plt.show()
 ```
 
-
-![png](images-an/output_57_0.png)
-
+![png](/publicimages-an/output_57_0.png)
 
 ### Categorical to Quantatative
 
@@ -2926,14 +2809,10 @@ dummy_value = pd.get_dummies(df['value'])
 
 We will do this for the 'fuel-type' column in our data
 
-
 ```python
 dummy_fuel = pd.get_dummies(df["fuel-type"])
 dummy_fuel.head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -2948,6 +2827,7 @@ dummy_fuel.head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -2987,18 +2867,12 @@ dummy_fuel.head()
 </table>
 </div>
 
-
-
 Then we will rename our columns for clarity
-
 
 ```python
 dummy_fuel.rename(columns={'gas':'fuel-type-gas', 'diesel':'fuel-type-diesel'}, inplace=True)
 dummy_fuel.head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -3013,6 +2887,7 @@ dummy_fuel.head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3052,26 +2927,19 @@ dummy_fuel.head()
 </table>
 </div>
 
-
-
 Then we will add this column to our dataset
 
-
 ```python
-# merge data frame "df" and "dummy_fuel" 
+# merge data frame "df" and "dummy_fuel"
 df = pd.concat([df, dummy_fuel], axis=1)
 
 # drop original column "fuel-type" from "df"
 df.drop("fuel-type", axis = 1, inplace=True)
 ```
 
-
 ```python
 df.head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -3086,6 +2954,7 @@ df.head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3240,12 +3109,9 @@ df.head()
 <p>5 rows × 30 columns</p>
 </div>
 
-
-
 #### Aspiration
 
 We will do the same as above with our aspiration variable
-
 
 ```python
 # get indicator variables of aspiration and assign it to data frame "dummy_variable_2"
@@ -3257,9 +3123,6 @@ dummy_aspiration.rename(columns={'std':'aspiration-std', 'turbo': 'aspiration-tu
 # show first 5 instances of data frame "dummy_variable_1"
 dummy_aspiration.head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -3274,6 +3137,7 @@ dummy_aspiration.head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3313,24 +3177,17 @@ dummy_aspiration.head()
 </table>
 </div>
 
-
-
-
 ```python
-# merge data frame "df" and "dummy_variable_1" 
+# merge data frame "df" and "dummy_variable_1"
 df = pd.concat([df, dummy_aspiration], axis=1)
 
 # drop original column "fuel-type" from "df"
 df.drop('aspiration', axis = 1, inplace=True)
 ```
 
-
 ```python
 df.head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -3345,6 +3202,7 @@ df.head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3499,12 +3357,9 @@ df.head()
 <p>5 rows × 31 columns</p>
 </div>
 
-
-
 ### Exporting
 
 Then we can export our clean data to a CSV as follows
-
 
 ```python
 df.to_csv('clean_df.csv')
@@ -3539,19 +3394,18 @@ Correlation is a measure to what exctent different vriables are interdependent
 We can make use of Pearson correlation to measure the strength of correlation between two features, this has two values
 
 - Correlation Coeffient
-    - Close to  1: Positive relationship
-    - Close to -1: Negative relationship
-    - Close to  0: No relationship
+  - Close to 1: Positive relationship
+  - Close to -1: Negative relationship
+  - Close to 0: No relationship
 - P-Value
-    - P < 0.001: Strong certainty in the result
-    - P < 0.05 : Moderate certainty in result
-    - P < 0.1  : Weak certainty in result
-    - P > 0.1  : No certainty in result
+  - P < 0.001: Strong certainty in the result
+  - P < 0.05 : Moderate certainty in result
+  - P < 0.1 : Weak certainty in result
+  - P > 0.1 : No certainty in result
 
 We would define a strong correlation when the Correlation Coefficient is around 1 or -1, and the P-Value is less than 0.001
 
-We can find our correlation values for two variables with 
-
+We can find our correlation values for two variables with
 
 ```python
 from scipy import stats
@@ -3559,30 +3413,25 @@ from scipy import stats
 
 ##### Wheel Base and Price
 
-
 ```python
 pearson_coef, p_value = stats.pearsonr(df['wheel-base'], df['price'])
-print("The Pearson Correlation Coefficient is", pearson_coef, " with a P-value of P =", p_value)  
+print("The Pearson Correlation Coefficient is", pearson_coef, " with a P-value of P =", p_value)
 ```
 
     The Pearson Correlation Coefficient is 0.584641822266  with a P-value of P = 8.07648827073e-20
 
-
 ##### Horsepower and Price
-
 
 ```python
 pearson_coef, p_value = stats.pearsonr(df['horsepower'], df['price'])
-print("The Pearson Correlation Coefficient is", pearson_coef, " with a P-value of P =", p_value)  
+print("The Pearson Correlation Coefficient is", pearson_coef, " with a P-value of P =", p_value)
 ```
 
     The Pearson Correlation Coefficient is 0.809574567004  with a P-value of P = 6.36905742826e-48
 
-
 #### Positive Correlation
 
 We can visualize our data using some of the visualizations we described above such as by comparing engine size to price
-
 
 ```python
 import seaborn as sns
@@ -3592,19 +3441,13 @@ plt.ylim(0,)
 plt.show()
 ```
 
-
-![png](images-an/output_78_0.png)
-
+![png](/publicimages-an/output_78_0.png)
 
 We can also view the correlation matrix for these two variables as follows
-
 
 ```python
 df[["engine-size", "price"]].corr()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -3619,6 +3462,7 @@ df[["engine-size", "price"]].corr()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3642,8 +3486,6 @@ df[["engine-size", "price"]].corr()
   </tbody>
 </table>
 </div>
-
-
 
 From this we can see that engine size is a fairly good predictor of price
 
@@ -3651,19 +3493,13 @@ From this we can see that engine size is a fairly good predictor of price
 
 We can also look at the correation between highway mileage and price
 
-
 ```python
 sns.regplot(x="highway-mpg", y="price", data=df)
 plt.show()
 df[['highway-mpg', 'price']].corr()
 ```
 
-
-![png](images-an/output_82_0.png)
-
-
-
-
+![png](/publicimages-an/output_82_0.png)
 
 <div>
 <style scoped>
@@ -3678,6 +3514,7 @@ df[['highway-mpg', 'price']].corr()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3702,14 +3539,11 @@ df[['highway-mpg', 'price']].corr()
 </table>
 </div>
 
-
-
 Where we can note a Negative Linear Relationship
 
 #### Weak Correlation
 
-We can the  compare Peak RPM and price
-
+We can the compare Peak RPM and price
 
 ```python
 sns.regplot(x="peak-rpm", y="price", data=df)
@@ -3717,12 +3551,7 @@ plt.show()
 df[['peak-rpm','price']].corr()
 ```
 
-
-![png](images-an/output_84_0.png)
-
-
-
-
+![png](/publicimages-an/output_84_0.png)
 
 <div>
 <style scoped>
@@ -3737,6 +3566,7 @@ df[['peak-rpm','price']].corr()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3761,12 +3591,9 @@ df[['peak-rpm','price']].corr()
 </table>
 </div>
 
-
-
 Where we can see a weak linear relationship
 
 We can also observe the relationships between stroke and price
-
 
 ```python
 sns.regplot(x="stroke", y="price", data=df)
@@ -3774,12 +3601,7 @@ plt.show()
 df[["stroke","price"]].corr()
 ```
 
-
-![png](images-an/output_86_0.png)
-
-
-
-
+![png](/publicimages-an/output_86_0.png)
 
 <div>
 <style scoped>
@@ -3794,6 +3616,7 @@ df[["stroke","price"]].corr()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -3818,10 +3641,7 @@ df[["stroke","price"]].corr()
 </table>
 </div>
 
-
-
 Next we can look at boxplots of our different categorical values in order to look at their distribution
-
 
 ```python
 sns.boxplot(x="body-style", y="price", data=df)
@@ -3831,11 +3651,7 @@ plt.show()
     /opt/conda/envs/DSX-Python35/lib/python3.5/site-packages/seaborn/categorical.py:462: FutureWarning: remove_na is deprecated and is a private function. Do not use.
       box_data = remove_na(group_data)
 
-
-
-![png](images-an/output_88_1.png)
-
-
+![png](/publicimages-an/output_88_1.png)
 
 ```python
 sns.boxplot(x="engine-location", y="price", data=df)
@@ -3845,11 +3661,7 @@ plt.show()
     /opt/conda/envs/DSX-Python35/lib/python3.5/site-packages/seaborn/categorical.py:462: FutureWarning: remove_na is deprecated and is a private function. Do not use.
       box_data = remove_na(group_data)
 
-
-
-![png](images-an/output_89_1.png)
-
-
+![png](/publicimages-an/output_89_1.png)
 
 ```python
 sns.boxplot(x="drive-wheels", y="price", data=df)
@@ -3859,22 +3671,15 @@ plt.show()
     /opt/conda/envs/DSX-Python35/lib/python3.5/site-packages/seaborn/categorical.py:462: FutureWarning: remove_na is deprecated and is a private function. Do not use.
       box_data = remove_na(group_data)
 
-
-
-![png](images-an/output_90_1.png)
-
+![png](/publicimages-an/output_90_1.png)
 
 #### Descriptive Statistics
 
 Next we can find some descriptive statistics about our data by the following
 
-
 ```python
 df.describe()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -3889,6 +3694,7 @@ df.describe()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4115,15 +3921,9 @@ df.describe()
 <p>8 rows × 22 columns</p>
 </div>
 
-
-
-
 ```python
 df.describe(include=['object'])
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -4138,6 +3938,7 @@ df.describe(include=['object'])
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4202,12 +4003,9 @@ df.describe(include=['object'])
 </table>
 </div>
 
-
-
 ##### Value Counts
 
-We can get an indication as to the frequencies of our categorical values  with the following
-
+We can get an indication as to the frequencies of our categorical values with the following
 
 ```python
 # drive-wheel counts as a variable
@@ -4217,9 +4015,6 @@ drive_wheels_counts
 drive_wheels_counts.index.name = 'drive-wheels'
 drive_wheels_counts
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -4234,6 +4029,7 @@ drive_wheels_counts
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4263,9 +4059,6 @@ drive_wheels_counts
 </table>
 </div>
 
-
-
-
 ```python
 # engine-location as variable
 engine_loc_counts = df['engine-location'].value_counts().to_frame()
@@ -4273,9 +4066,6 @@ engine_loc_counts.rename(columns={'engine-location': 'value_counts'}, inplace=Tr
 engine_loc_counts.index.name = 'engine-location'
 engine_loc_counts.head(10)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -4290,6 +4080,7 @@ engine_loc_counts.head(10)
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4315,37 +4106,25 @@ engine_loc_counts.head(10)
 </table>
 </div>
 
-
-
 #### Grouping Data
 
 It can be helpful to group data in order to see if there is a correlation between a certain categorical data and some other variable
 
 We can get an array of all uniques 'drive-wheel' categories with
 
-
 ```python
 df['drive-wheels'].unique()
 ```
 
-
-
-
     array(['rwd', 'fwd', '4wd'], dtype=object)
 
-
-
 In Pandas we can use `df.groupby()`to do this as such
-
 
 ```python
 df_wheels = df[['drive-wheels','body-style','price']]
 df_wheels = df_wheels.groupby(['drive-wheels'],as_index= False).mean()
 df_wheels
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -4360,6 +4139,7 @@ df_wheels
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4389,10 +4169,7 @@ df_wheels
 </table>
 </div>
 
-
-
 Next we can look at the wheels compared to the body style
-
 
 ```python
 df_external = df[['drive-wheels', 'body-style', 'price']]
@@ -4400,9 +4177,6 @@ df_group = df_external = df_external.groupby(['drive-wheels','body-style'],
                                             as_index=False).mean().round()
 df_group
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -4417,6 +4191,7 @@ df_group
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4510,18 +4285,12 @@ df_group
 </table>
 </div>
 
-
-
 We can view this data a bit more conviniently as a pivot table, we can do this with `df.pivot()` so as to display the data as below
-
 
 ```python
 grouped_pivot = df_group.pivot(index='drive-wheels',columns='body-style')
 grouped_pivot
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -4540,6 +4309,7 @@ grouped_pivot
     .dataframe thead tr:last-of-type th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4593,10 +4363,7 @@ grouped_pivot
 </table>
 </div>
 
-
-
 Next we can use a heatmap to visualize the above relationship, the heatmap plots the target variable as the colour with respect to the drive-wheels and body-style variables
-
 
 ```python
 #use the grouped results
@@ -4622,9 +4389,7 @@ fig.colorbar(im)
 plt.show()
 ```
 
-
-![png](images-an/output_106_0.png)
-
+![png](/publicimages-an/output_106_0.png)
 
 ### Analysis of Variance (ANOVA)
 
@@ -4639,14 +4404,10 @@ ANOVA is a statistical test that hels find the correlation between different gro
 
 ##### Drive Wheels
 
-
 ```python
 grouped_test2=df[['drive-wheels','price']].groupby(['drive-wheels'])
 grouped_test2.head(2)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -4661,6 +4422,7 @@ grouped_test2.head(2)
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -4705,15 +4467,9 @@ grouped_test2.head(2)
 </table>
 </div>
 
-
-
-
 ```python
 grouped_test2.get_group('4wd')['price']
 ```
-
-
-
 
     4      17450.0
     136     7603.0
@@ -4725,60 +4481,50 @@ grouped_test2.get_group('4wd')['price']
     151     8778.0
     Name: price, dtype: float64
 
-
-
 To obtain the ANOVA values, we use the `stats.f_oneway` function from scipy for the correlation between drive wheels and price
 
 ##### Drive Wheels and Price
 
-
 ```python
 # ANOVA
-f_val, p_val = stats.f_oneway(grouped_test2.get_group('fwd')['price'], grouped_test2.get_group('rwd')['price'], grouped_test2.get_group('4wd')['price'])  
- 
-print( "ANOVA results: F=", f_val, ", P =", p_val)   
+f_val, p_val = stats.f_oneway(grouped_test2.get_group('fwd')['price'], grouped_test2.get_group('rwd')['price'], grouped_test2.get_group('4wd')['price'])
+
+print( "ANOVA results: F=", f_val, ", P =", p_val)
 ```
 
     ANOVA results: F= 67.9540650078 , P = 3.39454435772e-23
-
 
 This shows a large F and small P, meaning that there is a strong corelation between the three drive types and the price, however does this apply for each individual comparison of drive type?
 
 ##### FWD and RWD
 
-
 ```python
-f_val, p_val = stats.f_oneway(grouped_test2.get_group('fwd')['price'], grouped_test2.get_group('rwd')['price'])  
- 
+f_val, p_val = stats.f_oneway(grouped_test2.get_group('fwd')['price'], grouped_test2.get_group('rwd')['price'])
+
 print( "ANOVA results: F=", f_val, ", P =", p_val )
 ```
 
     ANOVA results: F= 130.553316096 , P = 2.23553063557e-23
 
-
 ##### 4WD and RWD
 
-
 ```python
-f_val, p_val = stats.f_oneway(grouped_test2.get_group('4wd')['price'], grouped_test2.get_group('rwd')['price'])  
-   
-print( "ANOVA results: F=", f_val, ", P =", p_val)   
+f_val, p_val = stats.f_oneway(grouped_test2.get_group('4wd')['price'], grouped_test2.get_group('rwd')['price'])
+
+print( "ANOVA results: F=", f_val, ", P =", p_val)
 ```
 
     ANOVA results: F= 8.58068136892 , P = 0.00441149221123
 
-
 4WD and FWD
 
-
 ```python
-f_val, p_val = stats.f_oneway(grouped_test2.get_group('4wd')['price'], grouped_test2.get_group('fwd')['price'])  
- 
-print("ANOVA results: F=", f_val, ", P =", p_val)   
+f_val, p_val = stats.f_oneway(grouped_test2.get_group('4wd')['price'], grouped_test2.get_group('fwd')['price'])
+
+print("ANOVA results: F=", f_val, ", P =", p_val)
 ```
 
     ANOVA results: F= 0.665465750252 , P = 0.416201166978
-
 
 ## Model Development
 
@@ -4835,13 +4581,9 @@ The intercept and slope are attributes of the `LinearRegression` object and can 
 
 We can train an SLR model for our data as follows
 
-
 ```python
 df.head()
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -4856,6 +4598,7 @@ df.head()
     .dataframe thead th {
         text-align: right;
     }
+
 </style>
 <table border="1" class="dataframe">
   <thead>
@@ -5010,46 +4753,29 @@ df.head()
 <p>5 rows × 31 columns</p>
 </div>
 
-
-
-
 ```python
 from sklearn.linear_model import LinearRegression
 ```
-
 
 ```python
 X = df[['highway-mpg']]
 Y = df['price']
 ```
 
-
 ```python
 lm = LinearRegression()
 lm.fit(X,Y)
 ```
 
-
-
-
     LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
-
-
-
 
 ```python
 Yhat=lm.predict(X)
 Yhat[0:5]
 ```
 
-
-
-
     array([ 16236.50464347,  16236.50464347,  17058.23802179,  13771.3045085 ,
             20345.17153508])
-
-
-
 
 ```python
 lm_eq = 'yhat = ' + str(lm.intercept_) + ' + ' + str(lm.coef_[0]) + 'x'
@@ -5057,7 +4783,6 @@ print(lm_eq)
 ```
 
     yhat = 38423.3058582 + -821.733378322x
-
 
 #### Multiple Linear Regression
 
@@ -5092,16 +4817,14 @@ The intercept and coefficiencts of the model can once again be found with `lm.in
 
 We can develop a MLR model as follows
 
-
 ```python
 Z = df[['horsepower', 'curb-weight', 'engine-size', 'highway-mpg']]
 lm.fit(Z, df['price'])
 print('intercept: ' + str(lm.intercept_), '\ncoefficients: ' + str(lm.coef_))
 ```
 
-    intercept: -15806.6246263 
+    intercept: -15806.6246263
     coefficients: [ 53.49574423   4.70770099  81.53026382  36.05748882]
-
 
 ### Model Evaluation using Visualization
 
@@ -5129,7 +4852,6 @@ plt.show()
 
 We can visualize SLR as follows
 
-
 ```python
 width = 12
 height = 10
@@ -5139,10 +4861,7 @@ plt.ylim(0,)
 plt.show()
 ```
 
-
-![png](images-an/output_129_0.png)
-
-
+![png](/publicimages-an/output_129_0.png)
 
 ```python
 plt.figure(figsize=(width, height))
@@ -5150,16 +4869,9 @@ sns.regplot(x="peak-rpm", y="price", data=df)
 plt.ylim(0,)
 ```
 
-
-
-
     (0, 47422.919330307624)
 
-
-
-
-![png](images-an/output_130_1.png)
-
+![png](/publicimages-an/output_130_1.png)
 
 #### Residual Plot
 
@@ -5173,7 +4885,6 @@ We can create a residual plot as with `sns.residplot()`
 sns.residplot(df['predictor'], df['target'])
 ```
 
-
 ```python
 width = 12
 height = 10
@@ -5182,9 +4893,7 @@ sns.residplot(df['highway-mpg'], df['price'])
 plt.show()
 ```
 
-
-![png](images-an/output_132_0.png)
-
+![png](/publicimages-an/output_132_0.png)
 
 #### Distribution Plot
 
@@ -5202,11 +4911,9 @@ plt.show()
 
 Using A Distribution Plot is more valuable when looking at MLR model performance
 
-
 ```python
 Y_hat = lm.predict(Z)
 ```
-
 
 ```python
 plt.figure(figsize=(width, height))
@@ -5224,9 +4931,7 @@ plt.show()
 plt.close()
 ```
 
-
-![png](images-an/output_135_0.png)
-
+![png](/publicimages-an/output_135_0.png)
 
 ### Polynomial Regression and Pipelines
 
@@ -5251,7 +4956,6 @@ print(np.polydl(f))
 
 Visualizing Polynomial regression plots is a bit more work but can be done with the function below
 
-
 ```python
 def PlotPolly(model,independent_variable,dependent_variabble, Name):
     x_new = np.linspace(15, 55, 100)
@@ -5270,7 +4974,6 @@ def PlotPolly(model,independent_variable,dependent_variabble, Name):
 
 Next we can do the polynomial fit for our data
 
-
 ```python
 x = df['highway-mpg']
 y = df['price']
@@ -5283,21 +4986,15 @@ print(p)
             3         2
     -1.557 x + 204.8 x - 8965 x + 1.379e+05
 
-
-
 ```python
 PlotPolly(p,x,y, 'highway-mpg')
 ```
 
-
-![png](images-an/output_140_0.png)
-
+![png](/publicimages-an/output_140_0.png)
 
 ### Multi Dimension Polynomial Regression
 
-
 Polynomial regression can also be done in multiple dimensions, for example a second order approximation would look like the following
-
 
 $$
 \hat y=b_0 + b_1x_1 + b_2x_2 + b_3x_1x_2 + b_4x_1^2 + b_5x_2^2
@@ -5313,24 +5010,16 @@ pr = PolynomialFeatures(degree=2)
 x_poly = pr.fit_transform(X, include_bias=False)
 ```
 
-
 ```python
 from sklearn.preprocessing import PolynomialFeatures
 ```
-
 
 ```python
 pr = PolynomialFeatures(degree=2)
 pr
 ```
 
-
-
-
     PolynomialFeatures(degree=2, include_bias=True, interaction_only=False)
-
-
-
 
 ```python
 Z_pr = pr.fit_transform(Z)
@@ -5338,31 +5027,19 @@ Z_pr = pr.fit_transform(Z)
 
 Before the transformation we have 4 features
 
-
 ```python
 Z.shape
 ```
 
-
-
-
     (201, 4)
 
-
-
 After the transformation we have 15 features
-
 
 ```python
 Z_pr.shape
 ```
 
-
-
-
     (201, 15)
-
-
 
 ### Pre-Processing
 
@@ -5418,12 +5095,10 @@ yhat = pipe.predict(X[['feature1','feature2',..., 'featureN']])
 
 The above method will normalize the data, then perform a polynomial transform and output a prediction
 
-
 ```python
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 ```
-
 
 ```python
 Input=[('scale',StandardScaler()),
@@ -5431,45 +5106,27 @@ Input=[('scale',StandardScaler()),
        ('model',LinearRegression())]
 ```
 
-
 ```python
 pipe=Pipeline(Input)
 pipe
 ```
 
-
-
-
     Pipeline(memory=None,
          steps=[('scale', StandardScaler(copy=True, with_mean=True, with_std=True)), ('polynomial', PolynomialFeatures(degree=2, include_bias=False, interaction_only=False)), ('model', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False))])
-
-
-
 
 ```python
 pipe.fit(Z,y)
 ```
 
-
-
-
     Pipeline(memory=None,
          steps=[('scale', StandardScaler(copy=True, with_mean=True, with_std=True)), ('polynomial', PolynomialFeatures(degree=2, include_bias=False, interaction_only=False)), ('model', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False))])
-
-
-
 
 ```python
 ypipe=pipe.predict(Z)
 ypipe[0:4]
 ```
 
-
-
-
     array([ 13102.74784201,  13102.74784201,  18225.54572197,  10390.29636555])
-
-
 
 ### In-Sample Evaluation
 
@@ -5512,7 +5169,6 @@ A negative $R^2$ can be a sign of overfitting
 
 We can evaluate our models with the following
 
-
 ```python
 #highway_mpg_fit
 lm.fit(X, Y)
@@ -5520,107 +5176,63 @@ lm.fit(X, Y)
 lm.score(X, Y)
 ```
 
-
-
-
     0.49659118843391747
-
-
-
 
 ```python
 Yhat = lm.predict(X)
 Yhat[0:4]
 ```
 
-
-
-
     array([ 16236.50464347,  16236.50464347,  17058.23802179,  13771.3045085 ])
-
-
-
 
 ```python
 from sklearn.metrics import mean_squared_error
 ```
-
 
 ```python
 #mean_squared_error(Y_true, Y_predict)
 mean_squared_error(df['price'], Yhat)
 ```
 
-
-
-
     31635042.944639895
 
-
-
-
 ```python
-# fit the model 
+# fit the model
 lm.fit(Z, df['price'])
 # Find the R^2
 lm.score(Z, df['price'])
 ```
 
-
-
-
     0.80935628065774567
-
-
-
 
 ```python
 Y_predict_multifit = lm.predict(Z)
 ```
 
-
 ```python
 mean_squared_error(df['price'], Y_predict_multifit)
 ```
 
-
-
-
     11980366.87072649
 
-
-
 Now we can check what the $R^2$ value for our model is
-
 
 ```python
 from sklearn.metrics import r2_score
 ```
-
 
 ```python
 r_squared = r2_score(y, p(x))
 r_squared
 ```
 
-
-
-
     0.67419466639065173
-
-
-
 
 ```python
 mean_squared_error(df['price'], p(x))
 ```
 
-
-
-
     20474146.426361222
-
-
 
 ### Prediction and Decision Making
 
@@ -5628,60 +5240,47 @@ We should use visualization, numerical evaluation, and model comparison in order
 
 To compare our model to the data we can simply plot the output of our model over the range of our data
 
-
 ```python
 new_input=np.arange(1,100,1).reshape(-1,1)
 ```
-
 
 ```python
 lm.fit(X, Y)
 ```
 
-
-
-
     LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
-
-
-
 
 ```python
 yhat=lm.predict(new_input)
 yhat[0:5]
 ```
 
-
-
-
     array([ 37601.57247984,  36779.83910151,  35958.10572319,  35136.37234487,
             34314.63896655])
-
-
-
 
 ```python
 plt.plot(new_input,yhat)
 plt.show()
 ```
 
-
-![png](images-an/output_171_0.png)
-
+![png](/publicimages-an/output_171_0.png)
 
 #### Conclusion
 
 From the results above (yes, they're a mess but it's all pretty much just from the CC Lab file) we can note the $R^2$ and MSE values are as follows
 
 Simple Linear Regression: Using Highway-mpg as a Predictor Variable of Price.
+
 - R-squared: 0.49659118843391759
 - MSE: 3.16 x10^7
 
 Multiple Linear Regression: Using Horsepower, Curb-weight, Engine-size, and Highway-mpg as Predictor Variables of Price.
+
 - R-squared: 0.80896354913783497
 - MSE: 1.2 x10^7
 
 Polynomial Fit: Using Highway-mpg as a Predictor Variable of Price.
+
 - R-squared: 0.6741946663906514
 - MSE: 2.05 x 10^7
 
@@ -5711,9 +5310,9 @@ Model Evaluation tells us how our model works in the real wold. In-Sample evalua
 
 We typically split our data into a training and testing set and use to build and evaluate our model respectively
 
-- Split into 
-    - 70% Training
-    - 30% Testing
+- Split into
+  - 70% Training
+  - 30% Testing
 - Build and Train with Training Set
 - Use Testing Set to evaluate model performance
 

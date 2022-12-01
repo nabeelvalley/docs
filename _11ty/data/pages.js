@@ -1,20 +1,24 @@
-const matter = require('gray-matter')
-const { readFile } = require('fs').promises
-const glob = require('glob')
-const { resolve, format } = require('path')
-const _ = require('lodash')
-const {
+import matter from 'gray-matter'
+import { promises } from 'fs'
+const { readFile } = promises
+import glob from 'glob'
+import { resolve, format } from 'path'
+import _ from 'lodash'
+import {
   convertJupyterToHtml,
   convertMarkdownToHtml,
-} = require('../lib/markdown')
-const { createRssFeed } = require('../lib/rss')
+  markdownLibrary,
+} from '../lib/markdown'
+import { createRssFeed } from '../lib/rss'
+
+const { upperFirst, groupBy } = _
 
 const getDirectoryName = (dir) => {
   const split = dir.split('/')
   const directory = split[split.length - 2]
   return directory
     .split('-')
-    .map((d) => _.upperFirst(d))
+    .map((d) => upperFirst(d))
     .join(' ')
 }
 
@@ -83,7 +87,7 @@ const readMeta = async (data) => {
 }
 
 const readNotebook = async (path) => {
-  const fullPath = resolve(__dirname, '../../', path)
+  const fullPath = path
   const content = await readFile(fullPath)
 
   return convertJupyterToHtml(content.toString())
@@ -92,7 +96,7 @@ const readNotebook = async (path) => {
 const removeYamlHeader = (md) => md.replace(/^---(.|\n|(\r\n))*?---/gm, '')
 
 const readMarkdown = async (path, removeHeader = false) => {
-  const fullPath = resolve(__dirname, '../../', path)
+  const fullPath = path
   const content = await readFile(fullPath)
   const contentStr = content.toString()
 
@@ -111,7 +115,7 @@ const sortByDate = (a, b) => {
   return dateB - dateA
 }
 
-module.exports = async function () {
+export default async function () {
   const md = await getFiles('md')
   const ipynb = await getFiles('ipynb')
 
@@ -123,7 +127,19 @@ module.exports = async function () {
   const docs = meta
     .filter((m) => m.route.startsWith('/docs'))
     .map(populatePaging)
-  const groupedDocs = Object.values(_.groupBy(docs, 'directory'))
+  const groupedDocs = Object.values(
+    groupBy(
+      docs.map((doc) => ({
+        title: doc.title,
+        subtitle: doc.subtitle,
+        description: doc.description,
+        route: doc.route,
+        url: doc.url,
+        directory: doc.directory,
+      })),
+      'directory'
+    )
+  )
 
   const blog = meta
     .filter((m) => m.route.startsWith('/blog'))
@@ -153,7 +169,22 @@ module.exports = async function () {
 
   const notebooks = await Promise.all(nbPromises)
 
-  const allPages = [...blog, ...docs, ...photography]
+  const allPages = await Promise.all(
+    [...blog, ...docs, ...notebooks, ...photography, ...random].map(
+      async (page) => {
+        if (page.html) {
+          return page
+        }
+
+        const html = await readMarkdown(page.path, true)
+
+        return {
+          ...page,
+          html,
+        }
+      }
+    )
+  )
 
   const rssPageTasks = blog.sort(sortByDate).map(async (m) => {
     const html = await readMarkdown(m.path, true)
@@ -166,7 +197,7 @@ module.exports = async function () {
 
   const rssPages = await Promise.all(rssPageTasks)
 
-  await createRssFeed(rssPages)
+  const rss = await createRssFeed(rssPages)
 
   return {
     pages: meta,
@@ -178,5 +209,6 @@ module.exports = async function () {
     allPages,
     random,
     photography,
+    rss,
   }
 }

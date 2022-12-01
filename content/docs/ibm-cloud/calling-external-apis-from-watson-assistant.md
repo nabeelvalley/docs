@@ -4,7 +4,6 @@
 
 This document will cover the various methods of calling an external API from a Watson Assistant Dialog Node based on the documentation [here](https://console.bluemix.net/docs/services/conversation/configure-workspace.html#configuring-a-watson-assistant-workspace)
 
-
 ## Using Cloud Function as a Proxy
 
 We can use Cloud Functions as a proxy with which we call our external API
@@ -17,23 +16,23 @@ We can create a new Cloud Function Action which will call our external API, we c
 
 ```javascript
 function main(params) {
-    var request = require('request')
+  var request = require('request')
 
-    var options = {
-        method: 'GET',
-        url: '<MY API INPUT>',
-        qs: { xQueryParam: 'value' },
-        headers: {}
-    }
+  var options = {
+    method: 'GET',
+    url: '<MY API INPUT>',
+    qs: { xQueryParam: 'value' },
+    headers: {},
+  }
 
-    console.log('hello')
+  console.log('hello')
 
-    return new Promise((resolve, reject) => {
-        request(options, function(error, response, body) {
-            if (error) throw new Error(error)
-            resolve({ message: JSON.parse(body).messages[0].text })
-        })
+  return new Promise((resolve, reject) => {
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error)
+      resolve({ message: JSON.parse(body).messages[0].text })
     })
+  })
 }
 ```
 
@@ -63,7 +62,7 @@ From our Watson Assistant node we set our response for the node as a JSON respon
 
 Once we have defined our function we need to set the endpoint as a Web Action, and note the the URL
 
-![](/docs/assets/image%20%282%29.png)
+![](/content/docs/assets/image%20%282%29.png)
 
 We can call a function set as a Web Action with the following
 
@@ -129,7 +128,7 @@ The API Key
 
 ```json
 {
-    "api_key": "<USERNAME>:<PASSWORD>"
+  "api_key": "<USERNAME>:<PASSWORD>"
 }
 ```
 
@@ -137,8 +136,8 @@ Or with the Username and Password properties
 
 ```json
 {
-    "user": "<USERNAME>",
-    "password": "<PASSWORD>"
+  "user": "<USERNAME>",
+  "password": "<PASSWORD>"
 }
 ```
 
@@ -174,7 +173,7 @@ Next we can define our dialogue node with the JSON as follows
 }
 ```
 
-Note that if we are using the **Default Package** we neglect the *Package Name* in the `name` property as follows
+Note that if we are using the **Default Package** we neglect the _Package Name_ in the `name` property as follows
 
 ```json
 {

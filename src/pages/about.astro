@@ -1,0 +1,79 @@
+---
+import Title from '../components/Title.astro'
+import experience from '../../_11ty/data/experience.json'
+import education from '../../_11ty/data/education.json'
+import Base from '../layouts/Base.astro'
+---
+
+<Base>
+  <Title title="About me" />
+
+  <section class="link__grid">
+    <div>
+      <h2 class="link__title">Me</h2>
+      <h3 class="link__subtitle">Pretoria, South Africa</h3>
+      <p class="link__subtitle">'95</p>
+    </div>
+    <div>
+      <p class="link__description link__description--no-margin">
+        My name is Nabeel Valley, born in 1995 - Pretoria, South Africa
+      </p>
+
+      <p class="link__description">
+        I'm passionate about solving challenging problems in beautiful ways
+      </p>
+
+      <p class="link__description">
+        I have a Bachelor's of Engineering in Mechanical Engineering and have
+        worked professionally as a Software Engineer since 2018
+      </p>
+
+      <p class="link__description">
+        My daily-doings involve writing code, graphic and ui design, taking
+        pictures, and a bit of reading
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <Title title="Experience" />
+
+    {
+      experience.map((exp) => (
+        <div class="link__grid">
+          <div>
+            <h2 class="link__title">{exp.company}</h2>
+            <h3 class="link__subtitle">{exp.subtitle}</h3>
+            <p class="link__subtitle">{exp.period}</p>
+          </div>
+          <div>
+            {exp.description.split('\n').map((p) => (
+              <p class="link__description">{p}</p>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <section>
+    <Title title="Education" />
+
+    {
+      education.map((edu) => (
+        <div class="link__grid">
+          <div>
+            <h2 class="link__title">{edu.school}</h2>
+            <h3 class="link__subtitle">{edu.qualification}</h3>
+            <p class="link__subtitle">{edu.period}</p>
+          </div>
+          <div>
+            {edu.description.split('\n').map((p) => (
+              <p class="link__description">{p}</p>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+</Base>

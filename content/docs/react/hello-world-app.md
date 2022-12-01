@@ -18,7 +18,7 @@ curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"
 
 Once we are done with that we will see a message in our Slack Channel
 
-![Slack Message](/docs/assets/image%20%2821%29.png)
+![Slack Message](/content/docs/assets/image%20%2821%29.png)
 
 Once we are done with that, we can go back to our **Basic Information** tab of our app's configuration and follow the instructions to distribute our app \(if for some incomprehensible reason you want to do that now\), but I'll do that later
 
@@ -67,9 +67,7 @@ Will become this
 ask <@U012ABCDEF> to bake a birthday cake for <@U345GHIJKL> in <#C012ABCDE>
 ```
 
-
 It is important to note that Slack Commands are not namespaced, and Slack will take preference of the last installed app's command
-
 
 ### Receiving Commands
 
@@ -78,7 +76,7 @@ When a Slack command is invoked it will send an HTTP POST to the Request URL whi
 1. `command` which is the command that was typed, this is useful if we want to use a single service to handle multiple slash commands
 2. `text` is the text part of the command
 3. `response_url` which we can use to respond to the command
-4. And a bunch of different ID types such as `trigger_id` , `user_id` , `team_id`, etc. 
+4. And a bunch of different ID types such as `trigger_id` , `user_id` , `team_id`, etc.
 
 ### Responding to Commands
 
@@ -109,7 +107,7 @@ However this response can also contain some information in the payload response 
 
 Information on composing response messages can be found [here](https://api.slack.com/docs/messages#composing_messages)
 
-It can be valuable to send the initial user's command as a message in the channel as well buy setting the payload's  `response_type` to `in_channel` as follows
+It can be valuable to send the initial user's command as a message in the channel as well buy setting the payload's `response_type` to `in_channel` as follows
 
 ```javascript
 {
@@ -143,30 +141,25 @@ I'm linking my app to a Cloud Function which will handle the requests
 
 Create a new Cloud Function on IBM Cloud, in my case I'm going to make it with `Node.js 8` and the code will be as follows
 
-
-
-```javascript
+````javascript
 function main(params) {
-    let req = JSON.stringify(params, null, 2);
-    req = "```" + req + "```";
-    
-	return {
-        response_type: "in_channel",
-        text: "Hello World!",
-        attachments : [
-            {
-                text: "From Nabeel's App on IBM Cloud Functions, your initial request was"
-            },
-            {
-                text: req
-            }
-        ]       
-    };
+  let req = JSON.stringify(params, null, 2)
+  req = '```' + req + '```'
+
+  return {
+    response_type: 'in_channel',
+    text: 'Hello World!',
+    attachments: [
+      {
+        text: "From Nabeel's App on IBM Cloud Functions, your initial request was",
+      },
+      {
+        text: req,
+      },
+    ],
+  }
 }
-
-```
-
-
+````
 
 The function will simply respond with a `Hello World!` output, along with the original input body as pretty-printed JSON
 
@@ -180,11 +173,11 @@ https://openwhisk.eu-gb.bluemix.net/api/v1/web/nabeel.valley%40ibm.com_dev/Slack
 
 First, on Slack create a new Slash Command for your application and set the relevant fields as follows
 
-![](/docs/assets/image%20%2824%29.png)
+![](/content/docs/assets/image%20%2824%29.png)
 
 #### Testing it out
 
-Finally, we can try out our Slack App by going to the channel we set it on and calling the command \(at this point with any  given input\)
+Finally, we can try out our Slack App by going to the channel we set it on and calling the command \(at this point with any given input\)
 
 ```text
 /nabeel random text here
@@ -192,5 +185,4 @@ Finally, we can try out our Slack App by going to the channel we set it on and c
 
 And we will see the response as a message
 
-![](/docs/assets/image%20%2812%29.png)
-
+![](/content/docs/assets/image%20%2812%29.png)

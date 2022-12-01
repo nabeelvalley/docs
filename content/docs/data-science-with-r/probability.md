@@ -7,7 +7,7 @@
 Before starting the course make sure you install the library with the relevant datasets included
 
 ```r
-install.packages("dslabs") 
+install.packages("dslabs")
 library(dslabs)
 ```
 
@@ -39,7 +39,7 @@ Next we can run this simulation repetively by usimg the replicate function
 > events <- replicate(B, sample(beads, 1))
 > table(events)
     events
-    blue  red 
+    blue  red
     628  372
 ```
 
@@ -51,7 +51,7 @@ The sample function works without replacement, if we want to use it with replace
 > events <- sample(beads, 1000, replace = TRUE)
 > table(events)
 events
-    blue  red 
+    blue  red
     588  412
 ```
 
@@ -96,9 +96,9 @@ We can make use of this to define a deck of cards as follows
 > deck <- paste(grid$number, grid$suit)
 > deck
     [1] "Ace Diamonds"   "Two Diamonds"   "Three Diamonds"
-    [4] "Four Diamonds"  "Five Diamonds"  "Six Diamonds"  
+    [4] "Four Diamonds"  "Five Diamonds"  "Six Diamonds"
     ...
-    [49] "Ten Spades"     "Jack Spades"    "Queen Spades"  
+    [49] "Ten Spades"     "Jack Spades"    "Queen Spades"
     [52] "King Spades"
 ```
 
@@ -124,7 +124,7 @@ This function computes for any list of size `n` all the different ways we can se
  [1,]    1    2
  [2,]    1    3
  [3,]    1    4
-... 
+...
 [19,]    5    3
 [20,]    5    4
 ```
@@ -134,10 +134,10 @@ If we want to use this using a specific vector from which we select our permutat
 ```r
 > hands <- permutations(52, 2, v = deck)
 > hands
-        [,1]             [,2]            
-   [1,] "Ace Clubs"      "Ace Diamonds"  
-   [2,] "Ace Clubs"      "Ace Hearts"    
-   [3,] "Ace Clubs"      "Ace Spades"  
+        [,1]             [,2]
+   [1,] "Ace Clubs"      "Ace Diamonds"
+   [2,] "Ace Clubs"      "Ace Hearts"
+   [3,] "Ace Clubs"      "Ace Spades"
    ...
 ```
 
@@ -171,7 +171,7 @@ We have 50 people and we want to find out the probability of at least two people
 We can simulate this many times with a Monte Carlo Simulation to find the probability numerically
 
 ```r
-> results <- replicate(10000, 
+> results <- replicate(10000,
         any(duplicated(sample(1:365, 50, replace = TRUE))))
 > mean(results)
 [1] 0.9703 # The probabilty of there being two people who share a birthday
@@ -202,7 +202,7 @@ We can then use the `sapply` function to apply this function in an element-wise 
 > plot(probabilities)
 ```
 
-![Plot of Estimated Probabilities](/docs/assets/birthdays.svg)
+![Plot of Estimated Probabilities](/content/docs/assets/birthdays.svg)
 
 We can do this mathematically though with the following:
 
@@ -235,7 +235,7 @@ Thereafter we can use this and plot it comparatively
 > plot(probabilities) lines(exact_probability, col = "red")
 ```
 
-![Monte Carlo Approximation vs Actual Value](/docs/assets/birthdays-comparative.svg)
+![Monte Carlo Approximation vs Actual Value](/content/docs/assets/birthdays-comparative.svg)
 
 ## Sample size
 
@@ -281,10 +281,10 @@ This is useful as it will allow us to generate normally distributed data to mimi
 
 R has other functions available for different distribution types, these are prefixed with the letters
 
-* `d` for Density
-* `q` for Quartile
-* `p` for Probability Desnsity Function
-* `r` for Random
+- `d` for Density
+- `q` for Quartile
+- `p` for Probability Desnsity Function
+- `r` for Random
 
 # Random Variables
 
@@ -323,4 +323,3 @@ The standard error of a set of numbers decreases as the sample size increases, t
 The CLT can be useful even with relatively small data sets, but this is not the norm
 
 In general, the larger the probability of success the smaller our sample size needs to be
-

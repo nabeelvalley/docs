@@ -1,0 +1,34 @@
+---
+import groupedDocs from '../../_cache/data/groupedDocs.json'
+import Title from '../components/Title.astro'
+import Base from '../layouts/Base.astro'
+---
+
+<Base>
+  <Title title="Docs" />
+
+  <p>
+    These are my personal notes on software development and similar topics. If
+    you come across an error you think I should fix, drop an issue on this <a
+      href="https://github.com/nabeelvalley/docs">repo</a
+    >
+  </p>
+
+  <section>
+    {
+      groupedDocs.map((group) => (
+        <div>
+          <h2>{group[0].directory}</h2>
+
+          <ul>
+            {group.map((page) => (
+              <li>
+                <a href={page.route}>{page.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </section>
+</Base>
