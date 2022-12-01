@@ -2,7 +2,7 @@
 const { item, cta = 'Read more' } = Astro.props
 ---
 
-<a href={item.url} class="link__link">
+<a href={item.url || item.link} class="link__link">
   <div class="link__card">
     <h2 class="link__title">{item.title}</h2>
     <p class="link__subtitle">{item.description}</p>
