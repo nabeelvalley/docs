@@ -2,18 +2,16 @@
 // Welcome to Astro! Everything between these triple-dash code fences
 // is your "component front matter". It never runs in the browser.
 import Base from '../layouts/Base.astro'
-import getPages from '../../_11ty/data/pages'
+import summary from '../../_cache/data/summary.json'
 import Title from '../components/Title.astro'
 
 import getMeta from '../../_11ty/data/meta'
 import allProjects from '../../_11ty/data/projects.json'
 import LinkBlock from '../components/LinkBlock.astro'
 
-const { blog } = await getPages()
+const blog = summary.filter((page) => page.route.startsWith('/blog/'))
 
 const meta = getMeta()
-
-console.log('This runs in your terminal, not the browser!')
 
 const recentPost = blog[0]
 const posts = blog.slice(1, 4)

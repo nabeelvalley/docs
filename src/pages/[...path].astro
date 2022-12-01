@@ -1,12 +1,10 @@
 ---
-import getPages from '../../_11ty/data/pages'
+import summary from '../../_cache/data/summary.json'
 
 import Base from '../layouts/Base.astro'
 
 export const getStaticPaths = async () => {
-  const { allPages } = await getPages()
-
-  const paths = allPages.map((page) => ({
+  const paths = summary.map((page) => ({
     params: {
       path: page.route.replace(/^\/|\/$/g, ''),
     },
@@ -16,13 +14,11 @@ export const getStaticPaths = async () => {
   return paths
 }
 
-const {
-  title,
-  subtitle,
-  html,
-  next: next_page,
-  previous: prev_page,
-} = Astro.props
+const fileName = Astro.props.route.replace(/\//g, '__')
+
+const page = await import(`../../_cache/data/${fileName}.json`)
+
+const { title, subtitle, html, next: next_page, previous: prev_page } = page
 ---
 
 <Base>

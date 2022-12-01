@@ -1,10 +1,9 @@
 ---
-import getPages from '../../_11ty/data/pages'
+import summary from '../../_cache/data/summary.json'
 import LinkBlock from '../components/LinkBlock.astro'
 import Base from '../layouts/Base.astro'
 
-const { allPages } = await getPages()
-const pages = allPages.filter((page) => page.route.startsWith('/random'))
+const pages = summary.filter((page) => page.route.startsWith('/random/'))
 ---
 
 <Base>

@@ -1,10 +1,10 @@
 ---
-import getPages from '../../_11ty/data/pages'
+import summary from '../../_cache/data/summary.json'
 import LinkBlock from '../components/LinkBlock.astro'
 import Title from '../components/Title.astro'
 import Base from '../layouts/Base.astro'
 
-const { blog } = await getPages()
+const blog = summary.filter((page) => page.route.startsWith('/blog/'))
 ---
 
 <Base>

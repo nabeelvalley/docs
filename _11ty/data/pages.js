@@ -127,7 +127,19 @@ export default async function () {
   const docs = meta
     .filter((m) => m.route.startsWith('/docs'))
     .map(populatePaging)
-  const groupedDocs = Object.values(groupBy(docs, 'directory'))
+  const groupedDocs = Object.values(
+    groupBy(
+      docs.map((doc) => ({
+        title: doc.title,
+        subtitle: doc.subtitle,
+        description: doc.description,
+        route: doc.route,
+        url: doc.url,
+        directory: doc.directory,
+      })),
+      'directory'
+    )
+  )
 
   const blog = meta
     .filter((m) => m.route.startsWith('/blog'))
