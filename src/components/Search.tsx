@@ -13,6 +13,11 @@ import summary from '../../_cache/data/summary.json'
 
 const baseActions: Action[] = [
   {
+    id: 'posts',
+    name: 'Search posts',
+    subtitle: 'Blog, Docs, and Photography',
+  },
+  {
     id: 'github',
     name: 'GitHub',
     subtitle: '@nabeelvalley',
@@ -76,6 +81,7 @@ const baseActions: Action[] = [
 ]
 
 const routeActions: Action[] = summary.map((page) => ({
+  parent: 'posts',
   id: page.route,
   name: page.title,
   subtitle: page.description || page.subtitle,
