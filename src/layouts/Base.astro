@@ -2,7 +2,6 @@
 // Welcome to Astro! Everything between these triple-dash code fences
 // is your "component front matter". It never runs in the browser.
 import { Footer, Header } from '../components'
-import { Search } from '../components/Search'
 
 const { title, description } = Astro.props
 ---
@@ -107,7 +106,5 @@ const { title, description } = Astro.props
         .then(console.log)
         .catch(console.error)
     </script>
-
-    <Search client:only />
   </body>
 </html>

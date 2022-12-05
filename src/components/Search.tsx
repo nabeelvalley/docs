@@ -7,6 +7,7 @@ import {
   useMatches,
   KBarResults,
   Action,
+  useKBar,
 } from 'kbar'
 
 import summary from '../../_cache/data/summary.json'
@@ -114,8 +115,19 @@ const RenderResults = () => {
   )
 }
 
+const Button = () => {
+  const { query } = useKBar()
+
+  return (
+    <button className="kbar__button" onClick={query.toggle}>
+      Search
+    </button>
+  )
+}
+
 export const Search = () => (
   <KBarProvider actions={actions}>
+    <Button />
     <KBarPortal>
       <KBarPositioner>
         <KBarAnimator>

@@ -440,3 +440,17 @@ code.mermaid[data-processed='true'] {
   margin: 0;
   margin-top: 4px;
 }
+
+.kbar__button {
+  /* remove base button styles */
+  background: none;
+  border: none;
+  padding: 0;
+
+  /* reset text to match links */
+  cursor: pointer;
+  font-weight: 300;
+  font-size: 1em;
+  font-family: Lato;
+  color: var(--color-brand);
+}

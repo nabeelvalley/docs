@@ -1,3 +1,7 @@
+---
+import { Search } from './Search'
+---
+
 <nav class="nav">
   <div class="nav__title"><a href="/">Nabeel Valley</a></div>
   <div class="nav__subtitle">Engineer, Developer, Photographer</div>
@@ -8,5 +12,6 @@
     <li class="nav__item"><a href="/code">Code</a></li>
     <li class="nav__item"><a href="/photography">Photography</a></li>
     <li class="nav__item"><a href="/about">Me</a></li>
+    <li class="nav__item"><Search client:only /></li>
   </ul>
 </nav>
