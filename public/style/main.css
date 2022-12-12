@@ -127,6 +127,10 @@ li a {
   align-items: center;
 }
 
+footer.nav {
+  margin-top: 24px;
+}
+
 .nav__list {
   display: flex;
   flex-direction: row;
@@ -194,6 +198,7 @@ li a {
 }
 
 .education__grid {
+  margin-top: 48px;
   display: flex;
   flex: 1;
   gap: 12px;
