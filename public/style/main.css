@@ -512,13 +512,19 @@ code.mermaid[data-processed='true'] {
     padding: 24px;
   }
 
-  p {
+  p,
+  a {
     font-size: 12px;
+  }
+
+  .nav__title a {
+    font-size: 16px;
   }
 
   h2,
   h3,
-  h4 {
+  h4,
+  .nav__subtitle {
     font-size: 14px;
   }
 
@@ -528,6 +534,11 @@ code.mermaid[data-processed='true'] {
 
   .print {
     display: unset;
+  }
+
+  .nav__icon {
+    height: 14px;
+    width: 14px;
   }
 
   .link__grid {
