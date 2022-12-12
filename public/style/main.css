@@ -148,10 +148,19 @@ li a {
 }
 
 .nav__item {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
   list-style: none;
   padding: 4px 8px;
   white-space: nowrap;
+}
+
+.nav__icon {
+  display: block;
+  height: 20px;
+  width: 20px;
 }
 
 .link__card {
@@ -182,6 +191,17 @@ li a {
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto;
   gap: 12px 12px;
+}
+
+.education__grid {
+  display: flex;
+  flex: 1;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.education__item {
+  flex: 1;
 }
 
 .link__image--horizontal {
@@ -245,6 +265,10 @@ li a {
 @media (min-width: 800px) {
   .link__grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .education__grid {
+    flex-direction: row;
   }
 
   .hidden-mobile {
@@ -471,4 +495,60 @@ code.mermaid[data-processed='true'] {
 .contact p {
   margin: 0;
   margin-bottom: 4px;
+}
+
+/* print settings */
+.print {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  .page {
+    padding: 24px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  h2,
+  h3,
+  h4 {
+    font-size: 14px;
+  }
+
+  .no-print {
+    display: none;
+  }
+
+  .print {
+    display: unset;
+  }
+
+  .link__grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0;
+    margin-top: 12px;
+  }
+
+  .link__subtitle {
+    margin-top: 8px;
+  }
+
+  .link__description {
+    margin-top: 8px;
+  }
+
+  .title__wrapper {
+    margin-top: 12px;
+  }
+
+  .education__grid {
+    flex-direction: row;
+  }
 }

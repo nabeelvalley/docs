@@ -4,10 +4,15 @@ import experience from '../../_11ty/data/experience.json'
 import education from '../../_11ty/data/education.json'
 import Base from '../layouts/Base.astro'
 import { Contact } from '../components/Contact'
+import SocialNav from '../components/SocialNav.astro'
 ---
 
 <Base>
-  <Title title="About me" />
+  <div class="no-print">
+    <Title title="About me" />
+  </div>
+
+  <SocialNav />
 
   <section class="link__grid">
     <div>
@@ -35,7 +40,7 @@ import { Contact } from '../components/Contact'
       </p>
     </div>
 
-    <br class="hidden-mobile" />
+    <br class="hidden-mobile no-print" />
 
     <Contact client:only />
   </section>
@@ -64,21 +69,23 @@ import { Contact } from '../components/Contact'
   <section>
     <Title title="Education" />
 
-    {
-      education.map((edu) => (
-        <div class="link__grid">
-          <div>
-            <h2 class="link__title">{edu.school}</h2>
-            <h3 class="link__subtitle">{edu.qualification}</h3>
-            <p class="link__subtitle">{edu.period}</p>
+    <div class="education__grid">
+      {
+        education.map((edu) => (
+          <div class="education__item">
+            <div>
+              <h2 class="link__title">{edu.school}</h2>
+              <h3 class="link__subtitle">{edu.qualification}</h3>
+              <p class="link__subtitle">{edu.period}</p>
+            </div>
+            <div>
+              {edu.description.split('\n').map((p) => (
+                <p class="link__description no-print">{p}</p>
+              ))}
+            </div>
           </div>
-          <div>
-            {edu.description.split('\n').map((p) => (
-              <p class="link__description">{p}</p>
-            ))}
-          </div>
-        </div>
-      ))
-    }
+        ))
+      }
+    </div>
   </section>
 </Base>
