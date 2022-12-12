@@ -3,6 +3,7 @@ import Title from '../components/Title.astro'
 import experience from '../../_11ty/data/experience.json'
 import education from '../../_11ty/data/education.json'
 import Base from '../layouts/Base.astro'
+import { Contact } from '../components/Contact'
 ---
 
 <Base>
@@ -33,6 +34,10 @@ import Base from '../layouts/Base.astro'
         pictures, and a bit of reading
       </p>
     </div>
+
+    <br class="hidden-mobile" />
+
+    <Contact client:only />
   </section>
 
   <section>

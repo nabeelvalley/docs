@@ -238,9 +238,17 @@ li a {
   margin-bottom: 0;
 }
 
+.hidden-mobile {
+  display: none;
+}
+
 @media (min-width: 800px) {
   .link__grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hidden-mobile {
+    display: unset;
   }
 }
 
@@ -441,11 +449,12 @@ code.mermaid[data-processed='true'] {
   margin-top: 4px;
 }
 
-.kbar__button {
+.button {
   /* remove base button styles */
   background: none;
   border: none;
   padding: 0;
+  margin: 0;
 
   /* reset text to match links */
   cursor: pointer;
@@ -453,4 +462,13 @@ code.mermaid[data-processed='true'] {
   font-size: 1em;
   font-family: Lato;
   color: var(--color-brand);
+}
+
+.contact {
+  margin-bottom: 4px;
+}
+
+.contact p {
+  margin: 0;
+  margin-bottom: 4px;
 }

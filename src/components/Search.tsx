@@ -119,7 +119,7 @@ const Button = () => {
   const { query } = useKBar()
 
   return (
-    <button className="kbar__button" onClick={query.toggle}>
+    <button className="button" onClick={query.toggle}>
       Search
     </button>
   )
