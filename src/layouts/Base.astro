@@ -84,27 +84,5 @@ const { title, description } = Astro.props
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"
     ></script>
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.css"
-    />
-    <script src="https://unpkg.com/@supabase/supabase-js"></script>
-    <script>
-      const url = window.location.href
-
-      // the key used below is the public anon key
-      // @ts-ignore consider including supabase via npm instead
-      const client = supabase.createClient(
-        'https://aumvrxylnzhqpzbokbtj.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1bXZyeHlsbnpocXB6Ym9rYnRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjA2Njc0MjksImV4cCI6MTk3NjI0MzQyOX0.UIin765LPkrhTdSEyes71PgwbmMVXsgWuEX2yOLKZCA'
-      )
-
-      client
-        .from('hits')
-        .insert([{ url }])
-        .then(console.log)
-        .catch(console.error)
-    </script>
   </body>
 </html>
