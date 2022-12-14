@@ -218,6 +218,7 @@ footer.nav {
 }
 
 .link__subtitle {
+  font-weight: 400;
   margin: 0;
   margin-top: 12px;
 }
