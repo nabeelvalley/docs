@@ -107,6 +107,6 @@ I thought the main challenge of this would be implementing the fade-in of the te
 
 I like the overall feel and I think the finicky bits of using the transition are done, but I'd still like to play around a bit more to see how close to the original library I can get it
 
-For now though, here's the REPL with the current working state of the componet:
+For now though, here's the REPL with the current working state of the component:
 
 <iframe height="400px" width="100%" src="https://repl.it/@nabeelvalley/ExpandingBottomNavItems?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
