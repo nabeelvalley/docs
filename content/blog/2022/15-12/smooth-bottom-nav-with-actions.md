@@ -54,7 +54,7 @@ Here's the svelte code below:
   <div class="background" class:expanded class:collapsed={!expanded}>
     <div
       class="slider"
-      style="--left: {(selectedIndex / icons.length) * 100}%;"
+      style="--left: {(selectedIndex / icons.length) * 100}%;--right: {((selectedIndex+1) / icons.length) * 100}%;"
     />
     <div class="content" class:expanded class:collapsed={!expanded}>
       <MusicIcon />
@@ -75,7 +75,7 @@ Here's the svelte code below:
   </div>
 </div>
 
-<style>
+<style global>
   /* uses fixed postion in order to lock it to lock the component to the bototom of the screen */
   .wrapper {
     position: fixed;
@@ -144,10 +144,11 @@ Here's the svelte code below:
 
   .slider {
     position: absolute;
-    left: calc(10px + var(--left));
+    left: calc(var(--left) + 6px);
+    right: va(--left);
     bottom: 6px;
     height: 40px;
-    width: 20%;
+    width: calc(var(--right) - var(--left) - 12px);
     border-radius: 12px;
     background-color: #87b5eb70;
     transition: left 300ms ease-in-out;
@@ -168,6 +169,8 @@ Here's the svelte code below:
   /* select a better default font */
   * {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
   }
 </style>
 ```
