@@ -87,7 +87,7 @@ Here's the svelte code below:
     left: 0px;
     bottom: 20px;
     right: 0px;
-    max-width: 400px;
+    max-width: 80vw;
     margin-left: auto;
     margin-right: auto;
   }
