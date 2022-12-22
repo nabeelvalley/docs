@@ -1,4 +1,4 @@
-import getPages from '../../_11ty/data/pages.js'
+import getPages from '../data/pages.js'
 
 import fs from 'fs'
 

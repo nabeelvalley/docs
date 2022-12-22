@@ -5,8 +5,8 @@ import Base from '../layouts/Base.astro'
 import summary from '../../_cache/data/summary.json'
 import Title from '../components/Title.astro'
 
-import getMeta from '../../_11ty/data/meta'
-import allProjects from '../../_11ty/data/projects.json'
+import getMeta from '../data/meta'
+import allProjects from '../data/projects.json'
 import LinkBlock from '../components/LinkBlock.astro'
 
 const blog = summary.filter((page) => page.route.startsWith('/blog/'))
