@@ -566,6 +566,7 @@ code.mermaid[data-processed='true'] {
   }
 
   .education__grid {
+    margin-top: 12px;
     flex-direction: row;
   }
 }
