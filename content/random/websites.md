@@ -21,3 +21,4 @@ title: Some websites I think are cool
 - https://lu.tiny-universes.net/
 - https://christine.website/
 - https://christianheilmann.com/
+- https://maggieappleton.com/
