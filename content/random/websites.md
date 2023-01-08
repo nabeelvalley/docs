@@ -22,3 +22,4 @@ title: Some websites I think are cool
 - https://christine.website/
 - https://christianheilmann.com/
 - https://maggieappleton.com/
+- https://www.bypaulshen.com/
