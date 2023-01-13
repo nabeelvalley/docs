@@ -3,7 +3,10 @@
 // is your "component front matter". It never runs in the browser.
 import { Footer, Header } from '../components'
 
-const { title, description } = Astro.props
+const {
+  title = 'Nabeel Valley',
+  description = 'Software develpment, Photography and Design',
+} = Astro.props
 ---
 
 <!DOCTYPE html>
@@ -50,7 +53,7 @@ const { title, description } = Astro.props
     <!-- app -->
     <link rel="stylesheet" href="/style/main.css" />
 
-    <title>{title || 'Nabeel Valley'}</title>
+    <title>{title}</title>
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@not_nabeel" />
@@ -67,10 +70,8 @@ const { title, description } = Astro.props
       name="og:image"
       content="https://nabeelvalley.co.za/images/home/code.jpg"
     />
-    <meta name="twitter:title" content={title} /><meta
-      name="og:title"
-      content={title}
-    />
+    <meta name="twitter:title" content={title} />
+    <meta name="og:title" content={title} />
   </head>
 
   <body>
