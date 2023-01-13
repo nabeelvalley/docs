@@ -1,0 +1,22 @@
+---
+const { item } = Astro.props
+---
+
+<a href={item.link} class="image-section">
+  <div class="image-section__image">
+    <img alt={item.title} src={item.image} />
+  </div>
+
+  <div class="image-section__content">
+    <div class="link__link">
+      <h2 class="link__title">{item.title}</h2>
+      <p class="link__decription">{item.description}</p>
+      <ul class="link__tags">
+        {item.tags?.map((tag) => <li class="link__tag">{tag}</li>)}
+      </ul>
+      <div class="link__cta-wrapper">
+        <p class="link__cta">{item.cta}</p>
+      </div>
+    </div>
+  </div>
+</a>

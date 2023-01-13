@@ -508,6 +508,44 @@ code.mermaid[data-processed='true'] {
   display: none;
 }
 
+.image-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 12px;
+}
+
+.image-section__content {
+  border-bottom: solid 1px var(--color-brand);
+  padding-bottom: 12px;
+}
+
+@media (min-width: 800px) {
+  .image-section {
+    flex-direction: row;
+  }
+
+  .image-section:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  .image-section__content {
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .image-section__content .title {
+    display: none;
+  }
+}
+
+.image-section__image,
+.image-section__content {
+  flex: 1;
+  width: 100%;
+  height: auto;
+}
+
 @media print {
   @page {
     size: A4;

@@ -1,14 +1,46 @@
-[ 
+[
+  {
+    "title": "Articly",
+    "description": "A read-it-later app with support for Web Pages, RSS Feeds, Podcasts, and Twitter Threads that sanitizes content and delivers a seamless reading experience with highlights and sharing functionality",
+    "tags": ["svelte", "ts", "supabase"],
+    "cta": "Go to Articly",
+    "link": "https://articly.vercel.app",
+    "image": "/content/projects/articly.png"
+  },
+  {
+    "title": "ExifLib",
+    "description": "A Rust Application and Library for Parsing EXIF Metadata from RAW Images",
+    "tags": ["rust", "cli"],
+    "cta": "Go to repo",
+    "link": "https://github.com/nabeelvalley/exiflib",
+    "image": "/content/projects/exiflib.svg"
+  },
   {
     "title": "Photography Gallery Template",
     "description": "A configurable Gatsby site for quickly spinning up photo galleries with lightbox and download functionality built-in",
     "tags": ["js", "gatsby"],
     "cta": "Go to repo",
-    "link": "https://github.com/nabeelvalley/gallery-template/"
+    "link": "https://github.com/nabeelvalley/gallery-template/",
+    "image": "/content/projects/photography-portfolio.png"
+  },
+  {
+    "title": "Form and Structure",
+    "description": "An experiment in Svelte and Neumorphism. A Website about poetic form and structure, one of those 'always-a-work-in-progress' kind of things",
+    "tags": ["svelte", "js", "netlify"],
+    "cta": "Go to site",
+    "link": "https://formandstructure.netlify.com/",
+    "image": "/content/projects/form-and-structure.png"
+  },
+  {
+    "title": "Salaah Times",
+    "description": "Web app to enable masaajid to manage and publish their salaah times for a given area. built with strapicms, mongo and react and an unnecessarily complicated docker build",
+    "tags": ["react", "strapi", "docker", "mongo-db"],
+    "cta": "Go to GitHub",
+    "link": "https://github.com/nabeelvalley/SalaahTimesApp"
   },
   {
     "title": "All the Greens",
-    "description": "My plant journal",
+    "description": "My plant journal. A playground using MDX and tailwind to create a personal journal aesthetic",
     "tags": ["js", "gatsby", "mdx", "tailwindcss"],
     "cta": "Go to site",
     "link": "https://all-the-greens.netlify.app/"
@@ -40,20 +72,6 @@
     "tags": ["svelte", "js", "netlify"],
     "cta": "Go to site",
     "link": "https://rakah.netlify.com/"
-  },
-  {
-    "title": "Form and Structure",
-    "description": "Website about poetic form and structure built with svelte, one of those 'always-a-work-in-progress' kind of things",
-    "tags": ["svelte", "js", "netlify"],
-    "cta": "Go to site",
-    "link": "https://formandstructure.netlify.com/"
-  },
-  {
-    "title": "Salaah Times",
-    "description": "Web app to enable masaajid to manage and publish their salaah times for a given area. built with strapicms, mongo and react and an unnecessarily complicated docker build",
-    "tags": ["react", "strapi", "docker", "mongo-db"],
-    "cta": "Go to GitHub",
-    "link": "https://github.com/nabeelvalley/SalaahTimesApp"
   },
   {
     "title": "Twit List",

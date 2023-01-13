@@ -62,10 +62,10 @@ const baseActions: Action[] = [
     perform: () => (window.location.pathname = '/docs'),
   },
   {
-    id: 'code',
-    name: 'Code',
+    id: 'projects',
+    name: 'Projects',
     subtitle: "Some projects I'm currently working on",
-    perform: () => (window.location.pathname = '/code'),
+    perform: () => (window.location.pathname = '/projects'),
   },
   {
     id: 'photography',
