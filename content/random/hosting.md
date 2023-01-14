@@ -36,3 +36,7 @@ Below is a list of some websites and platforms that provide free application hos
 # CRON
 
 - [Zeplo](https://www.zeplo.io/)
+
+# CICD
+
+- [Buddy](https://buddy.works/pricing)
