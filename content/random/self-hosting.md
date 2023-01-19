@@ -1,7 +1,7 @@
 ---
 title: Self Hosting
 subtitle: Apps and platforms you can host yourself
-published: false
+published: true
 ---
 
 - [AppWrite](https://appwrite.io) - Basically a host-your-own firebase
