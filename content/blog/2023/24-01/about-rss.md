@@ -13,7 +13,7 @@ Recently I've gotten really into RSS. RSS is short for `Really Simple Syndicatio
 
 # Starter
 
-An RSS Feed is really just an XML file that contains information on a website's content, and depending on the nature of the website this is usually something like a blog or podcast feed, but I've also seem RSS used for things like project statuses or website uptime information 
+An RSS Feed is really just an XML file that contains information on a website's content, and depending on the nature of the website this is usually something like a blog or podcast feed, but I've also seen RSS used for things like project statuses or website uptime information 
 
 # Main Course
 
@@ -56,7 +56,7 @@ In the example, each `item` has the following:
 - `guid`
 - `content:encoded`
 
-The above fields are pretty so-so, but the parts I find intriguing are the `guid` which is any unique identifier for an item in a feed, this doesn't have a specific format but just needs to be unique to the feed. 
+The above fields are pretty so-so, but the part I find intriguing is the `guid` which is any unique identifier for an item in a feed, this doesn't have a specific format but just needs to be unique to the feed. 
 
 Next, is the `content:encoded` section which is what the feed uses to share it's content - this can either be plain text or HTML, and it's up to the client to figure it out - based on this I suppose you could really share any content or data which is a pretty cool concept 
 
