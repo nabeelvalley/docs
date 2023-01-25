@@ -5,6 +5,8 @@ subtitle: 24 January 2023
 published: true
 ---
 
+[[toc]]
+
 # Order Up
 
 Life's busy and disastrous and trying to pop in and talk to myself for a few hours is unattainable most of the time 
