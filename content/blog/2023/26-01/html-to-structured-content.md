@@ -389,7 +389,7 @@ Now, you can probably see a pattern that's going to arise as we add more and mor
 ```ts
 type Block = ParagraphBlock | ImageBlock
 
-const handlers: Partial<Record<TagName, (data: TransformResult): Block[]>> = {
+const handlers: Partial<Record<TagName, (data: TransformResult) => Block[]>> = {
   // content blocks
   'IMG': convertImage,
   'P': convertParagraph,
