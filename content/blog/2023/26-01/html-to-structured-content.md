@@ -480,4 +480,4 @@ If you roll this out for loads of elements you'll eventually have a pretty robus
 
 That's it! We've covered the basics for building a transformer like this, and once you have a good feel for how this works, the concepts can be applied to loads of different usecases
 
-If you'd like to see the completed version of my converted, you can take a look at the [`html-editorjs` GitHub repo](https://github.com/nabeelvalley/html-editorjs) and if you'd like to look at it in action in an application then take a look at [Articly](https://articly.vercel.app)
+If you'd like to see the completed version of my converter, you can take a look at the [`html-editorjs` GitHub repo](https://github.com/nabeelvalley/html-editorjs) and if you'd like to look at it in action in an application then take a look at [Articly](https://articly.vercel.app)
