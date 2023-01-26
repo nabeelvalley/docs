@@ -23,3 +23,4 @@ title: Some websites I think are cool
 - https://christianheilmann.com/
 - https://maggieappleton.com/
 - https://www.bypaulshen.com/
+- https://muted.io/
