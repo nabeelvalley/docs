@@ -100,18 +100,38 @@ export type ArrayReducer<T, U> = (
 
 ```ts
 /**
- * Create a type where the provided keys are optional
- */
-export type WithOptional<T extends {}, O extends keyof T> = Omit<T, O> & Partial<Pick<T, O>>;
-
-/**
- * Create a type where the provided keys are optional
- */
-export type WithRequired<T extends {}, R extends keyof T> = T & Required<Pick<T, R>>;
-
-/**
  * Definition for a type guard that checks if a value is of a specific type
  */
 export type Guard<TResult, TOther = unknown> = (value: TResult | TOther) => value is TResult;
 
+/**
+ * Create a type where the provided keys are optional
+ *
+ * @param T the base type
+ * @param O the keys to make optional
+ */
+export type WithOptional<T extends {}, O extends keyof T> = Omit<T, O> & Partial<Pick<T, O>>;
+
+/**
+ * Create a type where the provided keys are required
+ *
+ * @param T the base type
+ * @param R the keys to make required
+ */
+export type WithRequired<T extends {}, R extends keyof T> = T & Required<Pick<T, R>>;
+
+/**
+ * Create a type where all all properties and sub-properties are recursively partial unless they are
+ * of the type specified in TKeep
+ *
+ * @param T the base type
+ * @param TKeep types to not make partial
+ */
+export type DeepPartial<T, TKeep = never> = T extends TKeep
+  ? TKeep
+  : T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P], TKeep>;
+    }
+  : T;
 ```
