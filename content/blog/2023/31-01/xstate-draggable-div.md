@@ -183,6 +183,14 @@ The above will result in a draggable div like so:
 
 <iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@nabeelvalley/DraggableDiv?embed=true"></iframe>
 
+## Possible Improvements
+
+If you play around with the above example you'll probably notice that it's not perfect. Though the states we've defined are correct,the complexity in mapping the UI events becomes apparent, as well as the various edge cases that may arise around how DOM events fire in response to user interaction
+
+Though I don't aim to solve all of these points for the sake of the example, it's worth pointing out as a source of exploration. Some possible solutions that may help are things like changing where we listen to specific events, for example listening to the `mouseUp` events on only the wrapper and not the draggable component, or changing which specific events we're listening to
+
+The idea is that the handling of the UI events is now separated from the actual state management which should make fixing interaction bugs simpler while also decoupling our state from any specific implementation of the UI
+
 # Further Reading
 
 For more information, you can take a look at the [XState Documentation](https://xstate.js.org/docs/) or the [XState YouTube Course](https://www.youtube.com/playlist?list=PLvWgkXBB3dd4ocSi17y1JmMmz7S5cV8vI)
