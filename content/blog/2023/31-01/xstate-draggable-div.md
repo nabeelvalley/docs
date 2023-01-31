@@ -2,6 +2,7 @@
 title: Draggable Div with XState and React
 subtitle: 31 January 2023
 description: A simple example of using XState with UI Events to build interactivity
+published: true
 ---
 
 # Why State Management
