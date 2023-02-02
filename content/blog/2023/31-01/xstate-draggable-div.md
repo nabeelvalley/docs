@@ -194,3 +194,5 @@ The idea is that the handling of the UI events is now separated from the actual 
 # Further Reading
 
 For more information, you can take a look at the [XState Documentation](https://xstate.js.org/docs/) or the [XState YouTube Course](https://www.youtube.com/playlist?list=PLvWgkXBB3dd4ocSi17y1JmMmz7S5cV8vI)
+
+In addition, I also have a more complex example using XState for building a [Todo App](https://replit.com/@nabeelvalley/XStateTodoApp)
