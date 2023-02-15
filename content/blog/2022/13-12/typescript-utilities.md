@@ -134,4 +134,14 @@ export type DeepPartial<T, TKeep = never> = T extends TKeep
       [P in keyof T]?: DeepPartial<T[P], TKeep>;
     }
   : T;
+
+/**
+ * Returns a specific subset of `keyof T`
+ * 
+ * The resulting types can be used with utilities like `Omit` or `Pick` in a reusable manner
+ * 
+ * @param T the base type
+ * @param K keys of T
+ */
+export type Keys<T, K extends keyof T> = K;
 ```
