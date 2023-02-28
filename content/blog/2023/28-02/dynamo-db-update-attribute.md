@@ -30,9 +30,9 @@ For our example, imagine we have a table of user check-ins with data structured 
 ```ts
 type Item = {
   // partition key
-  username: string
-  // sort key
   group: number
+  // sort key
+  username: string
 
   status: string
   checkIns: {
