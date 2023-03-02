@@ -221,3 +221,7 @@ DynamoDB works with data in the "marshalled" form, which is an object representa
   }
 }
 ```
+
+# Additional Resources
+
+Speaking of DynamoDB updates, it looks like there's a library for building queries which seems promising and may bwe worth taking a look at called [ElectroDB](https://electrodb.dev/en/core-concepts/introduction/)
