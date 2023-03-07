@@ -2,7 +2,7 @@
 
 When linking to a webpage it can be useful to link to a specific part of a page. Using a hash in the URl you can link to the `id` attribute in the HTML of a page
 
-For example, `https://my.website.com#overview` would like to the element with `id="overview"` in the HTML
+For example, `https://my.website.com#overview` would link to the element with `id="overview"` in the HTML
 
 However, it may be useful for us to link to a general piece of text on a page, we can use _text fragments_ to do so. These work similar to the way a hash does, but we can link to any text on a page even if it does not have an `id`. Additionally, the user's browser will highlight the text set to draw the user's attention to it
 
