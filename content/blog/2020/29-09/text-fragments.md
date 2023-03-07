@@ -26,4 +26,4 @@ The link below should link to the first paragraph of this page if opened in a ne
 
 > [ctrl + click me](#:~:text=when%20linking,HTML%20of%20a%20page)
 
-You can read more about text fragments in URLs on <a href="https://web.dev/text-fragments/" rel=”noopener noreferrer” target="_blank">web.dev</a>
+You can read more about text fragments in URLs on [web.dev](https://web.dev/text-fragments/)
