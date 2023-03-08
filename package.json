@@ -13,7 +13,6 @@
     "postdev": "yarn postbuild",
     "dev": "astro dev",
     "build": "astro build",
-    "plop": "plop",
     "astro": "astro"
   },
   "dependencies": {
