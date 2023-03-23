@@ -12,7 +12,7 @@ Flows can be done to DO things but can also be used to SHOW information based on
 
 Below is an example of a Postman Flow that reads the posts from my website and lists/counts them when run from postman
 
-![Postman flow example](/content/blog/2023/31-01/postman-flow-example.png)
+![Postman flow example](/content/blog/2023/23-03/postman-flow-example.png)
 
 Another example of a Postman Flow is of their [Stock dashboard  example](https://www.postman.com/postman/workspace/utility-flows/flow/64123b57c224290033fcb089)
 
