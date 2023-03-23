@@ -19,3 +19,7 @@ Another example of a Postman Flow is of their [Stock dashboard  example](https:/
 # References
 
 For more information on how to build an use a flow you can take a look at the [Postman Flows Overview](https://learning.postman.com/docs/postman-flows/gs/flows-overview/)
+
+Postman flows seems targeted at more technical users. In addition to this I think [IFTTT](http://ifttt.com/) is worth taking a look at if you're interested in doing some small flow-style automations
+
+For a bit of a more self-hosted alernative, you can also take a look at [Node-RED](https://nodered.org)
