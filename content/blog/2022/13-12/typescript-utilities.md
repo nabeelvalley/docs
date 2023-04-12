@@ -144,4 +144,17 @@ export type DeepPartial<T, TKeep = never> = T extends TKeep
  * @param K keys of T
  */
 export type Keys<T, K extends keyof T> = K;
+
+export type Primitive = string | number | boolean | Symbol | Date;
+
+/**
+ * Create a type where all direct properties are optional if they're Primitive otherwise it will be
+ * a partial of the property
+ *
+ * @param T the base type
+ * @param TKeep the types to not partialize
+ */
+export type FlatPartial<T, TKeep = Primitive> = {
+  [K in keyof T]: T[K] extends TKeep ? T[K] | undefined : Partial<T[K]>;
+};
 ```
