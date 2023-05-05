@@ -9,8 +9,8 @@
   "scripts": {
     "prebuild": "node --es-module-specifier-resolution=node src/scripts/prebuild.js",
     "postbuild": "node --es-module-specifier-resolution=node src/scripts/postbuild.js",
-    "predev": "yarn prebuild",
-    "postdev": "yarn postbuild",
+    "predev": "pnpm run prebuild",
+    "postdev": "pnpm run postbuild",
     "dev": "astro dev",
     "build": "astro build",
     "astro": "astro"
