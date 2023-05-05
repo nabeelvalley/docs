@@ -6,6 +6,6 @@ import sitemap from '@astrojs/sitemap'
 // https://astro.build/config
 export default defineConfig({
   outDir: '_site',
-  site: 'https://nabeelvalley.co.za',
+  site: 'https://nabeelvalley.co.za/',
   integrations: [react(), sitemap()],
 })
