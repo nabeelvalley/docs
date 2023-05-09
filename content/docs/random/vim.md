@@ -153,6 +153,15 @@ Also for resizing windows you can make use of some of the following commands:
 
 And `ctrl + W r` to rotate the windows
 
+# File Management
+
+`:Explore` will open the file explorer from the current file's directory, from this view managing files can be done with the following commands:
+
+- Navigation and searching in the context of the directory works as normal, `Enter` will open the file or directory
+- `%` to create a file
+- `d` to create a directory
+- `R` to rename a file
+
 # Opening a Terminal
 
 You can open a terminal using the `:term` command, and you can exit terminal mode using `ctrl + \ ctrl + n`, thereafter using `:q` to close the terminal window
