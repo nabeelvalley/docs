@@ -162,6 +162,11 @@ And `ctrl + W r` to rotate the windows
 - `d` to create a directory
 - `R` to rename a file
 
+In Normal mode, you can use the following:
+
+- `Ctrl + o` to go to previous ("old") file
+- `Ctrl + i` to go to next file
+
 # Opening a Terminal
 
 You can open a terminal using the `:term` command, and you can exit terminal mode using `ctrl + \ ctrl + n`, thereafter using `:q` to close the terminal window
