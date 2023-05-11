@@ -85,3 +85,34 @@ You can kill a process that's listening on a port by first getting the PID of th
 ```sh
 kill $(lsof -t -i:4000)
 ```
+
+## Jobs/Background Processes
+
+Start a process, e.g. `ping`
+
+```sh
+ping google.com
+```
+
+The use `ctrl+z` to suspend the task into the background
+
+You can now use the terminal and start other jobs
+
+Once jobs are running you can use `jobs` to view runnning jobs:
+
+```sh
+jobs
+
+# which outputs
+[1]    suspended  ping google.com
+[2]  - suspended  ping other.com
+[3]  + suspended  ping hello.com
+```
+
+Jobs can be resumed using `fg` for the most recent job, or `fg %<JOB NUMBER>` to resume a specific job
+
+For example, resuming the `ping hello.com` can be done with:
+
+```sh
+fg %3
+```
