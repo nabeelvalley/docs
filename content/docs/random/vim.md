@@ -167,6 +167,18 @@ In Normal mode, you can use the following:
 - `Ctrl + o` to go to previous ("old") file
 - `Ctrl + i` to go to next file
 
+# Focusing Line
+
+- `zz` will center the current line on the screen
+- `zt` will move the current line to the top of the screen
+- `zb` will move the current line to the bottom of the screen
+
+You can also use the `so` setting for keeping this behaviour
+
+- `set so=0` is the default and will not focus to scroll
+- `set so=999` will keep your focus in the center 
+- `set so=5` will keep 5 lines around your focus
+
 # Opening a Terminal
 
 You can open a terminal using the `:term` command, and you can exit terminal mode using `ctrl + \ ctrl + n`, thereafter using `:q` to close the terminal window
@@ -183,4 +195,3 @@ To enable Vim features you can make use of a startup script or a `vimrc` file
 
 - `:set number` to turn on line numbers
 - `:syntax on` to turn on syntax highlighting
-
