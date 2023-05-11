@@ -179,6 +179,10 @@ You can also use the `so` setting for keeping this behaviour
 - `set so=999` will keep your focus in the center 
 - `set so=5` will keep 5 lines around your focus
 
+# Sliding Editor Up
+
+You can slide the editor up by adding padding to the bottom of the current editor with `crtl+e` which is useful when editing a line towards to bottom of the screen
+
 # Opening a Terminal
 
 You can open a terminal using the `:term` command, and you can exit terminal mode using `ctrl + \ ctrl + n`, thereafter using `:q` to close the terminal window
