@@ -291,11 +291,11 @@ let g:fzf_layout = { 'down': '~40%' }
 After that, resource and install plugins, and then you can use the following commands:
 
 | Command | Description |
-| ---------- | ---------------------------- |
-| `:Files`   | Search all Files             |
-| `:GFiles`  | Search all Git Tracked Files | 
-| `:Buffers` | View Open Buffers            |
-| `:Rg`      | Search in Files (see below)  |
+| ---------- | --------------------------------- |
+| `:Files`   | Search all Files                  |
+| `:GFiles`  | Search all Git Tracked Files      | 
+| `:Buffers` | View Open Buffers                 |
+| `:Rg`      | Search in Files (see below)       |
 
 You can then search for files and press enter to open a file
 
@@ -307,18 +307,20 @@ It should also be noted that unless [`bat`](https://github.com/sharkdp/bat) is i
 
 # Useful Keybindings
 
-| Shortcut      | Description                 | 
-| ------------- | --------------------------- |
-| `[space] c`     | View Commands w/ Search     |
-| `[space] a`     | View Language Server Errors |
-| `\f [enter]`    | Format File                 |
-| `\rn`           | Rename Symbol               |
-| `gd`            | Go to Definition            |
-| `gr`            | Go to References            |
-| `\a`            | Code Action                 |
-| `[g`            | Previous Error              |
-| `]g`            | Next Error                  |
-| `qf`            | Code Fix                    |
-| `[ctr] [space]` | View Suggestions            |
-| `[shift] k`     | View Code Doc               |
-| `[space] o`     | View Symbols                |
+| Shortcut        | Description                       | 
+| --------------- | --------------------------------- |
+| `[space] c`     | View Commands w/ Search           |
+| `[space] a`     | View Language Server Errors       |
+| `\f [enter]`    | Format File                       |
+| `\rn`           | Rename Symbol                     |
+| `gd`            | Go to Definition                  |
+| `gr`            | Go to References                  |
+| `\a`            | Code Action                       |
+| `[g`            | Previous Error                    |
+| `]g`            | Next Error                        |
+| `qf`            | Code Fix                          |
+| `[ctr] [space]` | View Suggestions                  |
+| `[shift] k`     | View Code Doc                     |
+| `[space] o`     | View Symbols                      |
+| `[ctrl] t`      | From GFiles View, open in new tab | 
+| `gt` `gT`       | Go to next tab/previous tab       |
