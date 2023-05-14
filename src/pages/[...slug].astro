@@ -11,9 +11,10 @@ export async function getStaticPaths() {
     const entries = await getCollection(name as any)
 
     return entries.map((entry) => {
-      const slug = `${name}/${entry.slug}`
-
-      console.log(entry.slug)
+      const path = entry.slug.endsWith('ipynbout')
+        ? entry.slug.replace('ipynbout', '')
+        : ''
+      const slug = `${name}/${path}`
 
       return {
         params: { slug },
