@@ -52,10 +52,10 @@ await Promise.all(
                 content += `<img src="data:image/png;base64,${data['image/png']}" />`
               }
 
-              return code + content
+              return content
             })
 
-            return output.join('\n\n')
+            return code + output.join('\n\n')
           }
         })
         .join('\n\n')
