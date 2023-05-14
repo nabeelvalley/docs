@@ -7,6 +7,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "convert-nb": "node --es-module-specifier-resolution=node src/scripts/convert-notebook.js",
     "prebuild": "node --es-module-specifier-resolution=node src/scripts/prebuild.js",
     "postbuild": "node --es-module-specifier-resolution=node src/scripts/postbuild.js",
     "predev": "pnpm run prebuild",

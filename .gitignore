@@ -4,3 +4,4 @@ _cache/
 .env
 .yarn
 .astro
+*.out.md
