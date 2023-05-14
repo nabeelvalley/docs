@@ -7,11 +7,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "convert-nb": "node --es-module-specifier-resolution=node src/scripts/convert-notebook.js",
-    "prebuild": "node --es-module-specifier-resolution=node src/scripts/prebuild.js",
-    "postbuild": "node --es-module-specifier-resolution=node src/scripts/postbuild.js",
+    "prebuild": "node --es-module-specifier-resolution=node src/scripts/convert-notebook.js",
     "predev": "pnpm run prebuild",
-    "postdev": "pnpm run postbuild",
     "dev": "astro dev",
     "build": "astro build",
     "astro": "astro"
@@ -42,6 +39,7 @@
     "prettier-plugin-astro": "^0.7.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "sanitize-html": "^2.10.0",
     "slugify": "^1.6.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"

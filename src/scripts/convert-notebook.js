@@ -3,6 +3,8 @@ import { convertJupyterToHtml } from '../lib/markdown.js'
 import { promises } from 'fs'
 const { writeFile, mkdir, rm, readFile } = promises
 
+import sanitize from 'sanitize-html'
+
 const notebooks = await getFiles('ipynb', 'src/content')
 await Promise.all(
   notebooks
@@ -50,13 +52,21 @@ await Promise.all(
                 content += `<img src="data:image/png;base64,${data['image/png']}" />`
               }
 
-              return content
+              return code + content
             })
 
             return output.join('\n\n')
           }
         })
         .join('\n\n')
+
+      const clean = sanitize(markdown || '', {
+        allowedTags: sanitize.defaults.allowedTags.concat(['img']),
+        allowedAttributes: {
+          img: ['src', 'alt'],
+        },
+        allowedSchemes: ['data', 'http', 'https'],
+      })
 
       await writeFile(
         meta.path + '.out.md',
@@ -68,7 +78,7 @@ description: ${meta.description || ''}
 published: ${meta.published || ''}
 ---
 
-${markdown || ''}
+${clean}
 
       `
       )

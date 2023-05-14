@@ -13,9 +13,7 @@ export async function getStaticPaths() {
     return entries.map((entry) => {
       const slug = `${name}/${entry.slug}`
 
-      if (entry.slug.includes('sktime')) {
-        console.log('found', entry.slug)
-      }
+      console.log(entry.slug)
 
       return {
         params: { slug },
