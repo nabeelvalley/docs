@@ -132,7 +132,7 @@ export type WithRequired<T extends {}, R extends keyof T> = T &
  * @param TKeep types to not make partial
  */
 export type DeepPartial<T, TKeep = never> = T extends TKeep
-  ? TKeep
+  ? T 
   : T extends object
   ? {
       [P in keyof T]?: DeepPartial<T[P], TKeep>

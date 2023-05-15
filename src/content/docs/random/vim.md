@@ -157,6 +157,36 @@ Also for resizing windows you can make use of some of the following commands:
 
 And `ctrl + W r` to rotate the windows
 
+# File Management
+
+`:Explore` will open the file explorer from the current file's directory, from this view managing files can be done with the following commands:
+
+- Navigation and searching in the context of the directory works as normal, `Enter` will open the file or directory
+- `%` to create a file
+- `d` to create a directory
+- `R` to rename a file
+
+In Normal mode, you can use the following:
+
+- `Ctrl + o` to go to previous ("old") file
+- `Ctrl + i` to go to next file
+
+# Focusing Line
+
+- `zz` will center the current line on the screen
+- `zt` will move the current line to the top of the screen
+- `zb` will move the current line to the bottom of the screen
+
+You can also use the `so` setting for keeping this behaviour
+
+- `set so=0` is the default and will not focus to scroll
+- `set so=999` will keep your focus in the center
+- `set so=5` will keep 5 lines around your focus
+
+# Sliding Editor Up
+
+You can slide the editor up by adding padding to the bottom of the current editor with `crtl+e` which is useful when editing a line towards to bottom of the screen
+
 # Opening a Terminal
 
 You can open a terminal using the `:term` command, and you can exit terminal mode using `ctrl + \ ctrl + n`, thereafter using `:q` to close the terminal window

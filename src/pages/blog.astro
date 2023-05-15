@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content'
 import LinkBlock from '../components/LinkBlock.astro'
 import Title from '../components/Title.astro'
 import Base from '../layouts/Base.astro'
+import { Debug } from 'astro/components'
 
 const collection = await getCollection('blog')
 const blog = collection

@@ -2,8 +2,9 @@
 import { getCollection } from 'astro:content'
 import Title from '../components/Title.astro'
 import Base from '../layouts/Base.astro'
+import _ from 'lodash'
 
-import { upperFirst, groupBy } from 'lodash'
+const { upperFirst, groupBy } = _
 
 const docs = await getCollection('docs')
 
@@ -27,12 +28,7 @@ const groupedDocs = Object.entries(
 <Base>
   <Title title="Docs" />
 
-  <p>
-    These are my personal notes on software development and similar topics. If
-    you come across an error you think I should fix, drop an issue on this <a
-      href="https://github.com/nabeelvalley/docs">repo</a
-    >
-  </p>
+  <p>These are my personal notes on software development and similar topics</p>
 
   <section>
     {
