@@ -1,3 +1,9 @@
+---
+published: true
+title: p5.js
+subtitle: Introductory p5.js notes
+---
+
 [[toc]]
 
 > Notes from [`p5.js`](https://p5js.org/) and [The Nature of Code](https://natureofcode.com/book/introduction/)

@@ -1,3 +1,9 @@
+---
+published: true
+title: Full stack web apps with F# and Bolero
+subtitle: Using the Elmish Architecture and F# with Bolero to develop full-stack web applications with .NET and Web Assembly
+---
+
 [[toc]]
 
 

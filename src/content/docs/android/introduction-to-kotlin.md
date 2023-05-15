@@ -1,3 +1,10 @@
+---
+published: true
+title: Kotlin Basics
+subtitle: Introduction to the Kotlin language and basic concepts
+description: Introduction to the Kotlin language and basic concepts
+---
+
 [[toc]]
 
 > From [this Udacity course](https://classroom.udacity.com/courses/ud9011)

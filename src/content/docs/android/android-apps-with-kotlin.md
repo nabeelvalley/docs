@@ -1,3 +1,10 @@
+---
+published: true
+title: Building Android Apps with Kotlin
+subtitle: Introduction to building Android apps using the Kotlin Programming Language
+description: Introduction to building Android apps using the Kotlin Programming Language
+---
+
 [[toc]]
 
 > From [this Udacity Corse](https://classroom.udacity.com/courses/ud9012)

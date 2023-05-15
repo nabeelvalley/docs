@@ -1,3 +1,9 @@
+---
+published: true
+title: TJBot Setup
+subtitle: Setting up a Raspberry PI as a TJ Bot
+---
+
 [[toc]]
 
 # Setting up a Bot

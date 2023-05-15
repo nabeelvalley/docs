@@ -1,3 +1,9 @@
+---
+published: true
+title: Hyperledger Fabric Part 1
+subtitle: Intro to Hyperledger Fabric via the Docs
+---
+
 [[toc]]
 
 # Resources

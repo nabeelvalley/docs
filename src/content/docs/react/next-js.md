@@ -1,3 +1,10 @@
+---
+published: true
+title: Next.js
+subtitle: Getting Started with Next.js
+description: Getting Started with Next.js
+---
+
 [[toc]]
 
 # Introduction

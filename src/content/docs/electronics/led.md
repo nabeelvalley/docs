@@ -1,3 +1,9 @@
+---
+published: true
+title: LEDs
+subtitle: General information on using LEDs in electric circuits
+---
+
 [[toc]]
 
 LED is short for Light Emitting Diode

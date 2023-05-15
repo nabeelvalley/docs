@@ -1,5 +1,0 @@
-{
-  "title": "Type Guards and Narrowing in Typescript",
-  "subtitle": "31 May 2022",
-  "description": "Using Type Guards and Narrowing for better handling of dynamic variables in typescript"
-}

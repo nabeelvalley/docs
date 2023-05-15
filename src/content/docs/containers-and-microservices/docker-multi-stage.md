@@ -1,3 +1,8 @@
+---
+published: true
+title: Multi Stage Docker Builds
+---
+
 [[toc]]
 
 A multi stage build is pretty much what it sounds like - It is a docker build which can have multiple stages capable of inheriting material from one another. Using this method an image, while being built, has access to a shared file system from the other image

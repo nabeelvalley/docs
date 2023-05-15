@@ -1,3 +1,9 @@
+---
+published: true
+title: Complex UI
+subtitle: Building and Animating Aomplex UI with Flutter
+---
+
 [[toc]]
 
 > Notes from [this talk](https://www.youtube.com/watch?v=FCyoHclCqc8) by [Marcin Szalek](http://twitter.com/marcin_szalek)

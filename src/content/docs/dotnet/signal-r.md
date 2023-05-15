@@ -1,3 +1,9 @@
+---
+published: true
+title: Signal R
+subtitle: Real-time, two way, server and client communication
+---
+
 [[toc]]
 
 > [Microsoft Documentation](https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-typescript-webpack?view=aspnetcore-3.1&tabs=visual-studio-code)

@@ -1,5 +1,0 @@
-{
-  "title": "Multi-module Python project using an __init__.py file",
-  "subtitle": "06 May 2021",
-  "description": "How to work with modules and handle the 'ModuleNotFoundError: No module named ...' error"
-}

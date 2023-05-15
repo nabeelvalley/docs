@@ -1,3 +1,9 @@
+---
+published: true
+title: Entity Framework with F#
+subtitle: Introduction to using Entity Framework with SQL Express and F# Console Apps and Web APIs
+---
+
 [[toc]]
 
 

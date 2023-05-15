@@ -1,3 +1,9 @@
+---
+published: true
+title: Debug Typescript with VSCode
+subtitle: Typescript Debugging using Visual Studio Code and ts-node
+---
+
 [[toc]]
 
 It's possible to debuge any TS file without compiling using `ts-node` from VSCode

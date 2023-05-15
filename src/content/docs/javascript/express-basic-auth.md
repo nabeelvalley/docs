@@ -1,3 +1,8 @@
+---
+published: true
+title: HTTP Basic Authentication with Express
+---
+
 [[toc]]
 
 In a new file, define the middleware using the following:

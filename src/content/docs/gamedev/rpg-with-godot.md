@@ -1,3 +1,9 @@
+---
+published: true
+title: RPG with Godot
+subtitle: Building an RPG using the Godot Game Engine
+---
+
 [[toc]]
 
 > From the [Action RPG Series by HeartBeast](https://www.youtube.com/watch?v=mAbG8Oi-SvQ&list=PL9FzW-m48fn2SlrW0KoLT4n5egNdX-W9a)

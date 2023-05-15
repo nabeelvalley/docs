@@ -1,3 +1,8 @@
+---
+published: true
+title: Istio with k8s
+---
+
 [[toc]]
 
 # Prerequisites

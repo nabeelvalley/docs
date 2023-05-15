@@ -1,3 +1,9 @@
+---
+published: true
+title: Vim
+subtitle: Introductory Vimming
+---
+
 [[toc]]
 
 To start using Vim, first install it from [here](https://www.vim.org/download.php#pc)

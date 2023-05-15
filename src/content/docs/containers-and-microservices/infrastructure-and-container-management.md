@@ -1,3 +1,8 @@
+---
+published: true
+title: Infrastructure and Container Management
+---
+
 [[toc]]
 
 > Presented by Donovan Marais

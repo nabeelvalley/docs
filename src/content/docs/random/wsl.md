@@ -1,3 +1,10 @@
+---
+published: true
+title: WSL
+subtitle: Miscellaneous WSL Things
+description: WSL tips and tricks
+---
+
 [[toc]]
 
 # Troubleshooting

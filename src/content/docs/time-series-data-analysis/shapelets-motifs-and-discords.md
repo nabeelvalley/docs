@@ -1,4 +1,10 @@
 ---
+published: true
+title: Shapelets, Motifs, and Discords
+description: Using Shapelets, Motifs, and Discords in Time Series Data Analysis
+---
+
+---
 title: Shapelets, Motifs, and Discords
 description: Using Shapelets, Motifs, and Discords in Time Series Data Analysis
 published: true

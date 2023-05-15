@@ -1,5 +1,0 @@
-{
-  "title": "Node.js Dirname vs Resolve",
-  "subtitle": "25 September 2020",
-  "description": "Working with paths using resolve and __dirname in Node.js"
-}

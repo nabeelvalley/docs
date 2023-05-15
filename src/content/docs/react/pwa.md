@@ -1,3 +1,8 @@
+---
+published: true
+title: Progressive Web Apps
+---
+
 [[toc]]
 
 # Automatically

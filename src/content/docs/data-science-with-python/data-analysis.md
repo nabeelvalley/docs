@@ -1,3 +1,8 @@
+---
+published: true
+title: Data Analysis
+---
+
 [[toc]]
 
 # Data Analysis With Python

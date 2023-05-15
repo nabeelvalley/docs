@@ -1,3 +1,8 @@
+---
+published: true
+title: R Basics
+---
+
 [[toc]]
 
 

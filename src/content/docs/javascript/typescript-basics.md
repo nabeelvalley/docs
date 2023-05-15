@@ -1,3 +1,9 @@
+---
+published: true
+title: Typescript Basics
+subtitle: Introduction and cheatsheet for basic Typescript concepts
+---
+
 [[toc]]
 
 # Types

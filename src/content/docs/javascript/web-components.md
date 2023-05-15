@@ -1,3 +1,9 @@
+---
+published: true
+title: Web Components
+subtitle: Notes on Web Components
+---
+
 [[toc]]
 
 [Basics from CSS Tricks](https://css-tricks.com/an-introduction-to-web-components/)

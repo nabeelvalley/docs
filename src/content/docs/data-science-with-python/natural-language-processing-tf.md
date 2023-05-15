@@ -1,3 +1,9 @@
+---
+published: true
+title: NLP with Tensorflow
+subtitle: Natural Language Processing with Tensorflow for Python
+---
+
 [[toc]]
 
 # Natural Language Processing

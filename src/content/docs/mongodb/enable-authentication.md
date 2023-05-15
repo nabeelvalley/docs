@@ -1,3 +1,9 @@
+---
+published: true
+title: Authentication with MongoDB
+subtitle: Configure MongoDB Authentication and Authorization
+---
+
 [[toc]]
 
 # Configuration File

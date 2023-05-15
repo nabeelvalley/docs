@@ -1,3 +1,8 @@
+---
+published: true
+title: Code Generation using CSV Files
+---
+
 [[toc]]
 
 # Generating code from a CSV file

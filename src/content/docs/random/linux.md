@@ -1,3 +1,9 @@
+---
+published: true
+title: Linux
+subtitle: Miscellaneous Linux Concepts
+---
+
 [[toc]]
 
 # Ubuntu

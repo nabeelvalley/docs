@@ -1,4 +1,10 @@
 ---
+published: true
+title: Free Application Hosting
+description: Sites for free cloud application hosting
+---
+
+---
 title: Free Application Hosting
 description: Sites for free cloud application hosting
 ---

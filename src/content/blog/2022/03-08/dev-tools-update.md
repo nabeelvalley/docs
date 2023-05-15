@@ -1,4 +1,11 @@
 ---
+published: true
+title: Dev Tools Update
+subtitle: 03 August 2022
+description: Software development tools and languages I'm using at the moment
+---
+
+---
 title: Dev Tools Update
 subtitle: 03 August 2022
 description: Software development tools and languages I'm using at the moment

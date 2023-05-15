@@ -1,4 +1,11 @@
 ---
+published: true
+title: Structuring HTML Content
+subtitle: 26 January 2023
+description: Transforming HTML into structured data to work with EditorJS
+---
+
+---
 title: Structuring HTML Content
 subtitle: 26 January 2023
 description: Transforming HTML into structured data to work with EditorJS

@@ -1,4 +1,11 @@
 ---
+published: true
+title: Un-editable sections inside of a content editable
+subtitle: 16 November 2022
+description: Block user interactions and editing within a contenteditable or specific parts of it
+---
+
+---
 title: Un-editable sections inside of a content editable
 subtitle: 16 November 2022
 description: Block user interactions and editing within a contenteditable or specific parts of it

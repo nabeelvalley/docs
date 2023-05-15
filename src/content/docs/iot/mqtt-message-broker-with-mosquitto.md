@@ -1,3 +1,9 @@
+---
+published: true
+title: MQTT with Mosquitto
+subtitle: Using Mosquitto as a Message Broker
+---
+
 [[toc]]
 
 MQTT makes use of a publish/subscribe model in which a client will either publish messages to a topic or subscribe to messages on the topic

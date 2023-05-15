@@ -1,3 +1,8 @@
+---
+published: true
+title: Microservices with Istio
+---
+
 [[toc]]
 
 [Based on this Cognitive Class course](https://cognitiveclass.ai/courses/get-started-with-microservices-istio-and-ibm-cloud-container-service/)

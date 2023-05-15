@@ -1,4 +1,10 @@
 ---
+published: true
+title: GitHub CLI
+description: Quick tips for using the GitHub CLI
+---
+
+---
 title: GitHub CLI
 description: Quick tips for using the GitHub CLI
 published: true

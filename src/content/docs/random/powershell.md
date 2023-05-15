@@ -1,3 +1,10 @@
+---
+published: true
+title: Powershell
+subtitle: Tips and Tricks
+description: Powershell tips and tricks
+---
+
 [[toc]]
 
 # Modify Prompt

@@ -1,4 +1,11 @@
 ---
+published: true
+title: Podcast and RSS Reader App Design
+subtitle: 14 December 2022
+description: A design study in building an RSS and Podcasting App in Figma with light and dark mode
+---
+
+---
 title: Podcast and RSS Reader App Design
 subtitle: 14 December 2022
 description: A design study in building an RSS and Podcasting App in Figma with light and dark mode

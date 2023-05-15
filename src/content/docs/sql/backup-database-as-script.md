@@ -1,3 +1,9 @@
+---
+published: true
+title: Backup SQL Server Database as Script
+subtitle: Use the Scripted Backup for a SQL Server Database
+---
+
 [[toc]]
 
 To create a scripted backup of a database on SQL Server do the following:

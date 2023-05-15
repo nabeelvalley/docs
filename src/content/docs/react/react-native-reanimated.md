@@ -1,3 +1,9 @@
+---
+published: true
+title: React Native Reanimated
+subtitle: Declarative Animation in React-Native
+---
+
 [[toc]]
 
 References:

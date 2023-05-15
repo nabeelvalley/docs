@@ -1,4 +1,9 @@
 ---
+published: true
+title: Some websites I think are cool
+---
+
+---
 title: Some websites I think are cool
 ---
 

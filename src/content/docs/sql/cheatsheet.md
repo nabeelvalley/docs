@@ -1,3 +1,10 @@
+---
+published: true
+title: SQL Cheatsheet
+subtitle: Code snippets for common tasks with SQL Server and SQL Express
+description: SQL Cheatsheet for SQL Server and SQL Express
+---
+
 [[toc]]
 
 > Mostly applies to SQL Server and SQL Express

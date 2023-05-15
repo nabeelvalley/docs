@@ -1,3 +1,9 @@
+---
+published: true
+title: Introduction to Bluetooth
+subtitle: Connecting to, and Reading Data from Bluetooth Devices using Python and Bleak
+---
+
 [[toc]]
 
 # Overview

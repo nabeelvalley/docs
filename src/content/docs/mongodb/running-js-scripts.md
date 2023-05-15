@@ -1,3 +1,9 @@
+---
+published: true
+title: JS Scripts
+subtitle: Running JS Scripts on MongoDB
+---
+
 [[toc]]
 
 > More information [here](https://kb.objectrocket.com/mongo-db/use-mongodb-to-run-javascript-957)

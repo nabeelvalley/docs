@@ -1,4 +1,11 @@
 ---
+published: true
+title: Smooth Bottom Navigator with Secondary Actions
+subtitle: 15 December 2022
+description: A Smooth Bottom Navigator using CSS Transitions and Svelte
+---
+
+---
 title: Smooth Bottom Navigator with Secondary Actions
 subtitle: 15 December 2022
 description: A Smooth Bottom Navigator using CSS Transitions and Svelte

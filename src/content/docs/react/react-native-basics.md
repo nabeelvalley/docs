@@ -1,3 +1,9 @@
+---
+published: true
+title: React Native Basics
+subtitle: Based on the NetNinja Course
+---
+
 [[toc]]
 
 > From the Net Ninja's React-Native Course [on YouTube](https://www.youtube.com/watch?v=ur6I5m2nTvk&list=PL4cUxeGkcC9ixPU-QkScoRBVxtPPzVjrQ)

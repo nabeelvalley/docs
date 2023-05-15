@@ -1,3 +1,9 @@
+---
+published: true
+title: Configure Blockchain on Windows
+subtitle: Configuring Windows for Hyperledger
+---
+
 [[toc]]
 
 # Script

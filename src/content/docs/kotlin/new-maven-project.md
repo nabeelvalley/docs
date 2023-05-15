@@ -1,3 +1,9 @@
+---
+published: true
+title: New Maven Project
+subtitle: Basics for developing Kotlin apps with Maven
+---
+
 [[toc]]
 
 Maven is a build tool for Java applications. The creation of maven projects can be done using the CLI and templates called Archetypes

@@ -1,3 +1,10 @@
+---
+published: true
+title: PowerQuery/M-Language Cheatsheet
+subtitle: Cheatsheet for PowerQuery with PowerBI or Excel
+description: Basics of using PowerQuery with PowerBI or Excel for common tasks and operations
+---
+
 [[toc]]
 
 `Power Query` is query language which makes use of the `M` langauge to transform, manipulate, and query data and is used in different MS data applications such as PowerBI and Excel

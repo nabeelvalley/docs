@@ -1,3 +1,9 @@
+---
+published: true
+title: Redis from Express
+subtitle: Using Redis from a Node.js Express App via Docker Compose
+---
+
 [[toc]]
 
 # Setup Project

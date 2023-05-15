@@ -1,3 +1,10 @@
+---
+published: true
+title: Introduction to LINQ to SQL
+subtitle: Basic Introduction to Mapping Entities using LINQ to SQL
+description: Basic Introduction to Mapping Entities using LINQ to SQL
+---
+
 [[toc]]
 
 > Note that you can follow this entire process or skip to the [Shortcut](#Shortcut) section at the end

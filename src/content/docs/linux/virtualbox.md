@@ -1,3 +1,9 @@
+---
+published: true
+title: VirtualBox Setup
+subtitle: Some Personal Preferences and Troubleshooting
+---
+
 [[toc]]
 
 # VirtualBox Bugs

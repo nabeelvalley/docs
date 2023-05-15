@@ -1,3 +1,9 @@
+---
+published: true
+title: Raspberry Pi Hardware Intro
+subtitle: Overview of Raspberry Pi Hardware and GPIO Pins
+---
+
 [[toc]]
 
 > Most info and diagrams from the [RaspberryPi documentation](https://www.raspberrypi.org/documentation/usage/gpio/) or [pinout.xyz](https://pinout.xyz)

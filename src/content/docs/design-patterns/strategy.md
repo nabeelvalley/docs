@@ -1,3 +1,8 @@
+---
+published: true
+title: Strategy
+---
+
 [[toc]]
 
 > The strategy pattern is about using composition instead of inheritence

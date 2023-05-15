@@ -1,3 +1,9 @@
+---
+published: true
+title: Neovim
+subtitle: Neovim setup and general info
+---
+
 [[toc]]
 
 # Installation

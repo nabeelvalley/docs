@@ -1,3 +1,10 @@
+---
+published: true
+title: Package Management with Poetry
+subtitle: 07 October 2020
+description: Manage python packages using poetry
+---
+
 [[toc]]
 
 > [Poetry Docs](https://python-poetry.org/docs/)

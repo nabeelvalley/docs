@@ -1,3 +1,8 @@
+---
+published: true
+title: Faded Warm
+---
+
 [[toc]]
 
 ![](/content/photography/images/fuji-faded-warm.jpg)

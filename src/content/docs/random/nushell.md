@@ -1,4 +1,10 @@
 ---
+published: true
+title: Nushell
+description: Nushell Commands and Usage
+---
+
+---
 title: Nushell
 description: Nushell Commands and Usage
 published: true

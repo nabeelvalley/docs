@@ -1,3 +1,9 @@
+---
+published: true
+title: Blockchain Essentials
+subtitle: Introduction and Overview of Blockchain as a Technology
+---
+
 [[toc]]
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/blockchain-course/)

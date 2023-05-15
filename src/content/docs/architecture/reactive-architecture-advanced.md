@@ -1,3 +1,9 @@
+---
+published: true
+title: Reactive Architecture Advanced
+subtitle: Notes on reactive architecture for microservices
+---
+
 [[toc]]
 
 > [Based on this CognitiveClass learning path](https://cognitiveclass.ai/learn/reactive-architecture-advanced)

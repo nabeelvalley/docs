@@ -1,4 +1,11 @@
 ---
+published: true
+title: Read Metadata from Images using Rust
+subtitle: 25 August 2022
+description: Using Rust to parse EXIF metadata from image files
+---
+
+---
 title: Read Metadata from Images using Rust
 subtitle: 25 August 2022
 description: Using Rust to parse EXIF metadata from image files

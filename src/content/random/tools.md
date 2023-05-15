@@ -1,4 +1,10 @@
 ---
+published: true
+title: Tools
+description: Some interesting web-based, open source tools
+---
+
+---
 title: Tools
 description: Some interesting web-based, open source tools
 published: true

@@ -1,3 +1,9 @@
+---
+published: true
+title: CDK Local Lambdas
+subtitle: Local Development and Testing of AWS CDK Lambdas
+---
+
 [[toc]]
 
 # Introduction

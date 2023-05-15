@@ -1,3 +1,9 @@
+---
+published: true
+title: Introduction to C++
+subtitle: Basic Concepts in the C++ Programming Language
+---
+
 [[toc]]
 
 > Notes from [this YouTube Series](https://www.youtube.com/watch?v=CPjZKsUYSXg)

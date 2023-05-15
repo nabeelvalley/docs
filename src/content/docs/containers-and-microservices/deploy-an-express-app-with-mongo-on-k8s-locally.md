@@ -1,3 +1,8 @@
+---
+published: true
+title: Deploy an Express/MongoDB Application on k8s
+---
+
 Before reading through this, you may want to read the page about the application being deployed on the [Build an Express App that uses MongoDB](/docs/containers-and-microservices/build-an-express-app-with-mongo) page
 
 - [Ketting started with Minicube](https://docs.bitnami.com/kubernetes/get-started-kubernetes/#option-1-install-minikube)

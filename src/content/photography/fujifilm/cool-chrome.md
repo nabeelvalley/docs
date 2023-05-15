@@ -1,3 +1,8 @@
+---
+published: true
+title: Cool Chrome
+---
+
 [[toc]]
 
 ![](/content/photography/images/fuji-cool-chrome.jpg)

@@ -1,3 +1,8 @@
+---
+published: true
+title: Docker Configuration Scripts
+---
+
 [[toc]]
 
 # Docker Configuration Scripts

@@ -1,3 +1,10 @@
+---
+published: true
+title: Real-time Communication with MQTT
+subtitle: 12 November 2019
+description: MQTT and real-time communication with the browser, JavaScript, Web Sockets and a Mosquitto message broker
+---
+
 [[toc]]
 
 # Overview

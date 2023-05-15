@@ -1,4 +1,11 @@
 ---
+published: true
+title: Expanding Bottom Navigation with CSS Transitions
+subtitle: 13 November 2022
+description: A bottom navigation with expanding icons using CSS Transitions and Svelte
+---
+
+---
 title: Expanding Bottom Navigation with CSS Transitions
 subtitle: 13 November 2022
 description: A bottom navigation with expanding icons using CSS Transitions and Svelte

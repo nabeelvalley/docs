@@ -1,3 +1,9 @@
+---
+published: true
+title: Docker Containers with CDK Pipelines
+subtitle: Deploy a Node.js and Redis Container onto ECS with CDK Pipelines
+---
+
 [[toc]]
 
 > Prior to doing any of the below you will require your `~/.aws/credentials` file to be configured with the credentials for your AWS account

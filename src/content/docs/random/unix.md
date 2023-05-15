@@ -1,4 +1,10 @@
 ---
+published: true
+title: Unix Shell
+description: Commands and shortcuts for using the unix based shells
+---
+
+---
 title: Unix Shell
 description: Commands and shortcuts for using the unix based shells
 ---

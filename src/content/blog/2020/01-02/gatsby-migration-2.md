@@ -1,3 +1,10 @@
+---
+published: true
+title: The Gatsby Migration, pt.2 - Dumb Pages
+subtitle: 01 February 2020
+description: Migrating a React.js website to Gatsby.js
+---
+
 [[toc]]
 
 # Introduction

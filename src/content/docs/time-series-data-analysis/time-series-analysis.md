@@ -1,4 +1,10 @@
 ---
+published: true
+title: Time Series Analysis
+description: Basics of time series data analysis using Python
+---
+
+---
 title: Time Series Analysis
 description: Basics of time series data analysis using Python
 ---

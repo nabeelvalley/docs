@@ -1,3 +1,10 @@
+---
+published: true
+title: Intro to Svelte
+subtitle: Basic Info for Using Svelte
+description: Basic Info for Using Svelte
+---
+
 [[toc]]
 
 # Introduction to Svelte

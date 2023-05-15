@@ -1,4 +1,11 @@
 ---
+published: true
+title: Let's talk about Feeds
+subtitle: 24 January 2023
+description: A short introduction to RSS feeds
+---
+
+---
 title: Let's talk about Feeds
 description: A short introduction to RSS feeds
 subtitle: 24 January 2023

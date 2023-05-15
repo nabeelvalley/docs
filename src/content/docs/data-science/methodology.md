@@ -1,3 +1,8 @@
+---
+published: true
+title: Data Science Methodology
+---
+
 [[toc]]
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/data-science-methodology-2/)

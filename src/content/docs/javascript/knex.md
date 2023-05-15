@@ -1,3 +1,8 @@
+---
+published: true
+title: Interacting with SQL using Knex
+---
+
 [[toc]]
 
 Knex is a library for Node.js which supports for a variety of SQL databases and allows us to generate and run queries against them

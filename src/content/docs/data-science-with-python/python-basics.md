@@ -1,3 +1,9 @@
+---
+published: true
+title: Python Basics
+subtitle: General information on using Python for Data Science and Machine Learning
+---
+
 [[toc]]
 
 # Python Basics

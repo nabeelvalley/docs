@@ -1,3 +1,8 @@
+---
+published: true
+title: VSCO C1
+---
+
 [[toc]]
 
 > [Download Lightroom Preset](/photography/lightroomo/presets/nabeel-valley-vsco-c1.xmp)

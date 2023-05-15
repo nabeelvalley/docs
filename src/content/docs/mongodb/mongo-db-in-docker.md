@@ -1,3 +1,9 @@
+---
+published: true
+title: Mongo DB in Docker
+subtitle: Run a MongoDB Instance with Docker or Docker Compose
+---
+
 [[toc]]
 
 # Considerations

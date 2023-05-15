@@ -1,3 +1,9 @@
+---
+published: true
+title: User interfaces with Compose
+subtitle: Building Declarative Android UIs using Jetpack Compose and Kotlin
+---
+
 [[toc]]
 
 # Jetpack Compose

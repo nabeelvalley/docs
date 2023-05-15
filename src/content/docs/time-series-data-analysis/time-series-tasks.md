@@ -1,4 +1,10 @@
 ---
+published: true
+title: Types of Time Series Tasks
+subtitle: Overview of the different types of tasks when analyzing time series data
+---
+
+---
 title: Types of Time Series Tasks
 subtitle: Overview of the different types of tasks when analyzing time series data
 published: true

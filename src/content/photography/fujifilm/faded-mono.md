@@ -1,3 +1,8 @@
+---
+published: true
+title: Faded Mono
+---
+
 [[toc]]
 
 ![](/content/photography/images/fuji-faded-mono.jpg)

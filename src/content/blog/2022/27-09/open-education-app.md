@@ -1,4 +1,11 @@
 ---
+published: true
+title: Education App Design Ideas
+subtitle: 27 September 2022
+description: Some design snips for a learning app
+---
+
+---
 title: Education App Design Ideas
 subtitle: 27 September 2022
 description: Some design snips for a learning app

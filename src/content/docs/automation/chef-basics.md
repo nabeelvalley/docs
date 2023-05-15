@@ -1,3 +1,9 @@
+---
+published: true
+title: Basics
+subtitle: Basic Concepts for using Chef
+---
+
 [[toc]]
 
 # Basics of Chef

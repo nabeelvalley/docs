@@ -1,3 +1,10 @@
+---
+published: true
+title: The Gatsby Migration, pt.3 - Smart Pages
+subtitle: 15 March 2020
+description: Adding dynamic pages to a Gatsby site
+---
+
 [[toc]]
 
 # Introduction

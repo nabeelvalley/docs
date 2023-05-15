@@ -1,3 +1,9 @@
+---
+published: true
+title: Dependency Injection with .NET Core
+subtitle: Configuring Startup Services and in .NET Core Web APIs
+---
+
 [[toc]]
 
 You can think of a service simply as a reusable class instance that can be reused in different controllers. This can be injected via dependency injection where it is needed

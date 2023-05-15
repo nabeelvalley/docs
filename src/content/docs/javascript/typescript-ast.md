@@ -1,3 +1,8 @@
+---
+published: true
+title: Using the TypeScript AST
+---
+
 [[toc]]
 
 # Generating Typescript using AST's

@@ -1,4 +1,0 @@
-{
-  "title": "Docker Containers with CDK Pipelines",
-  "subtitle": "Deploy a Node.js and Redis Container onto ECS with CDK Pipelines"
-}

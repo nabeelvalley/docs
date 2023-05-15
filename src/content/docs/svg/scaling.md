@@ -1,3 +1,9 @@
+---
+published: true
+title: Scaling
+subtitle: Tips for scaling SVGs
+---
+
 [[toc]]
 
 # Scaling an SVG

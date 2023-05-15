@@ -1,3 +1,10 @@
+---
+published: true
+title: Git
+subtitle: Miscellaneous Git Concepts
+description: Git tips and tricks
+---
+
 [[toc]]
 
 # Stage Files Using Glob

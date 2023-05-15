@@ -1,3 +1,8 @@
+---
+published: true
+title: Play Watson Text-to-Speech via XHR
+---
+
 [[toc]]
 
 # Play the Audio

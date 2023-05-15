@@ -1,4 +1,11 @@
 ---
+published: true
+title: Typescript Utilities
+subtitle: 12 December 2022
+description: Some general purpose typescript utilities
+---
+
+---
 title: Typescript Utilities
 subtitle: 12 December 2022
 description: Some general purpose typescript utilities

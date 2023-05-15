@@ -1,4 +1,10 @@
 ---
+published: true
+title: Self Hosting
+subtitle: Apps and platforms you can host yourself
+---
+
+---
 title: Self Hosting
 subtitle: Apps and platforms you can host yourself
 published: true
