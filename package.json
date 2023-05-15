@@ -10,7 +10,7 @@
     "prebuild": "node --es-module-specifier-resolution=node src/scripts/convert-notebook.js",
     "predev": "pnpm run prebuild",
     "dev": "astro dev",
-    "build": "astro build --experimental-static-build",
+    "build": "astro build --experimental-static-build --verbose",
     "astro": "astro"
   },
   "dependencies": {
