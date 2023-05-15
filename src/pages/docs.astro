@@ -43,7 +43,9 @@ const groupedDocs = Object.entries(
           <ul>
             {pages.map((page) => (
               <li>
-                <a href={page.slug}>{page.data.title}</a>
+                <a href={`${page.collection}/${page.slug}`}>
+                  {page.data.title}
+                </a>
               </li>
             ))}
           </ul>

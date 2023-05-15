@@ -24,6 +24,14 @@ const blog = collection
   </article>
 
   <section class="link__grid">
-    {blog.map((page) => <LinkBlock item={page.data} cta="Read post" />)}
+    {
+      blog.map((page) => (
+        <LinkBlock
+          link={`${page.collection}/${page.slug}`}
+          item={page.data}
+          cta="Read post"
+        />
+      ))
+    }
   </section>
 </Base>
