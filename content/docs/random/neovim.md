@@ -305,6 +305,18 @@ Additionally, we can use [ripgrep](https://github.com/BurntSushi/ripgrep) via th
 
 It should also be noted that unless [`bat`](https://github.com/sharkdp/bat) is installed, you will not have syntax highlighting in the FZF search results
 
+# NERDTree
+
+`:NERDTree` provides a file explorer within NVIM
+
+| Command     | Description            |
+| ----------- | ---------------------- |
+| `:NERDTree` | Open the file explorer | 
+| `?`         | View Help              | 
+| `m`         | Open the file manu     | 
+
+Note that `NERDTree` can also be used from the `:Explore` menu by using `:Explore` followed by `x` (special option) which will launch `NERDTree` in place of the explore but will be in the file context so you can do things like create files, etc. more easily
+
 # Useful Keybindings
 
 | Shortcut        | Description                       | 
