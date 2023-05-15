@@ -1,5 +1,5 @@
 [build]
-command = "pnpm run prebuild && pnpm run build"
+command = "pnpm run prebuild && NODE_OPTIONS=--max_old_space_size=4096 pnpm build"
 publish = "_site"
 base = ""
 
