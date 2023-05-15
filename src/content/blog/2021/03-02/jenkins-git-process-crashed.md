@@ -1,6 +1,6 @@
 ---
 published: true
-title: Jenkins: A Git process may have crashed in the repository
+title: 'Jenkins: A Git process may have crashed in the repository'
 subtitle: 03 February 2021
 description: Repair an issue preventing Jenkins from running Git processes
 ---

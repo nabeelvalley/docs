@@ -2,7 +2,7 @@
 published: true
 title: Multi-module Python project using an __init__.py file
 subtitle: 06 May 2021
-description: How to work with modules and handle the 'ModuleNotFoundError: No module named ...' error
+description: "How to work with modules and handle the 'ModuleNotFoundError: No module named ...' error"
 ---
 
 [[toc]]
@@ -80,4 +80,4 @@ So, we need to add two files:
 - `package1/__init__.py`
 - `package2/subpackage1/__init__.py`
 
-Additionally, these files are completely empty, and only serve as information. Note that we don't need to include a file in `package2` directly as this directory does not contain any modules within it so is not really a package in itself and is simply a wrapper  `subpackage1`
+Additionally, these files are completely empty, and only serve as information. Note that we don't need to include a file in `package2` directly as this directory does not contain any modules within it so is not really a package in itself and is simply a wrapper `subpackage1`
