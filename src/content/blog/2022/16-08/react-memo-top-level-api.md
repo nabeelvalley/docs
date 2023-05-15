@@ -6,13 +6,13 @@ description: Using the react top-level API for debouncing and selectively render
 ---
 
 ---
+
 title: Using React.memo for Controlling Component Rendering
 subtitle: 16 August 2022
 description: Using the react top-level API for debouncing and selectively rendering a component for better performance
 published: true
----
 
-[[toc]]
+---
 
 # React Top Level API
 
@@ -43,7 +43,7 @@ const areEqual = (prevProps, nextProps) => {
   */
 }
 
-const MyComponentMemo = React.memo(MyComponent, areEqual);
+const MyComponentMemo = React.memo(MyComponent, areEqual)
 ```
 
 The component `MyComponent` will be rendered whenever props are changed, however, using `React.memo` lets us define a function called `areEqual` that we can can use to tell `React.memo` whether or not the new props would render a different result to the old props
@@ -94,7 +94,10 @@ The `TimeDisplay` component in our case only displays time to the second, so any
 Let's assume for our purpose that it's acceptable for the time to be delayed by about 5 seconds, we then can define a function called `areTimesWithinOneSecond` which compares the next render's props with the previous and returns if they are within 5 seconds of each other:
 
 ```tsx
-const areTimesWithinFiveSeconds = (prev: TimeDisplayProps, next: TimeDisplayProps): boolean => {
+const areTimesWithinFiveSeconds = (
+  prev: TimeDisplayProps,
+  next: TimeDisplayProps
+): boolean => {
   const diff = next.time - prev.time
 
   return diff < 5000
@@ -110,7 +113,6 @@ const TimeDisplayMemo = React.memo(TimeDisplay, areTimesWithinFiveSeconds)
 And it can then be used as a drop-in replacement for the `TimeDisplay` component:
 
 ```tsx
-
 export default function App() {
   const [time, setTime] = useState(Date.now())
 

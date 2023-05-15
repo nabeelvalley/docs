@@ -1,5 +1,3 @@
-[[toc]]
-
 The `FileSystemApi` is a browser API that allows us to read and write to files and folders using JavaScript
 
 A simple example of listing the files in a folder can be seen below:
@@ -8,9 +6,9 @@ A simple example of listing the files in a folder can be seen below:
 let dir
 let entries = []
 
-document.getElementById('open').addEventListener('click', async() => {
+document.getElementById('open').addEventListener('click', async () => {
   dir = await window.showDirectoryPicker()
-  
+
   for await (const entry of dir.values()) {
     entries.push(entry)
   }

@@ -5,12 +5,9 @@ subtitle: 10 April 2021
 description: Configuring and Testing F# applications using XUnit and the .NET Core CLI
 ---
 
-
 An important part of writing any software is testing. Unit testing is an automated testing method in which we test individual components of our software to verify that their behaviour aligns with our expectations
 
 This post will take a look at the process of setting up a new F# library and two methods of configuring XUnit to test your project's code
-
-[[toc]]
 
 # Create a Project
 
@@ -78,7 +75,7 @@ Then we can create a file in our test project called `LibraryTests.fs` which wil
   <ItemGroup>
     <Compile Include="Tests.fs" />
     <!-- Add the next line -->
-    <Compile Include="LibraryTests.fs" /> 
+    <Compile Include="LibraryTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 ...
@@ -154,7 +151,7 @@ open MyProject.Lib.Say
 let ``Say.hello -> "Hello name" `` () =
     let name = "name"
     let expected = "Hello name"
-    
+
     let result = hello name
 
     Assert.Equal(expected, result)
@@ -195,7 +192,7 @@ open MyProject.Lib.Say
 let ``Say.hello -> "Hello name" `` () =
     let name = "name"
     let expected = "Hello name"
-    
+
     let result = hello name
 
     Assert.Equal(expected, result)

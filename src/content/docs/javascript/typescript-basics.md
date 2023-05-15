@@ -4,8 +4,6 @@ title: Typescript Basics
 subtitle: Introduction and cheatsheet for basic Typescript concepts
 ---
 
-[[toc]]
-
 # Types
 
 A `type` is the most basic thing in typescript and is an object structure
@@ -49,7 +47,6 @@ type OfficialData = {
 type FullOfficalPerson = Person & OfficialData
 ```
 
-
 ### Optional types
 
 ```ts
@@ -57,7 +54,6 @@ type MinOfficialPerson = Person | OfficialData | ID
 ```
 
 # Interfaces
-
 
 Next, we have interfaces, it's like a type, but can't be composed like the above types
 
@@ -116,7 +112,7 @@ interface CreateAppUser extends Partial<AppUser> {
 }
 ```
 
-## Required 
+## Required
 
 We can also have the `Required` type, where all top-level props are required
 
@@ -134,7 +130,7 @@ type Contacts = Record<PersonType, ID>
 const myContacts: Contacts = {
   work: 1234,
   social: 'hello',
-  other: 0
+  other: 0,
 }
 ```
 
@@ -144,7 +140,7 @@ We can also have both values be option types
 const associations: Record<PersonType, PersonType> = {
   work: 'other',
   social: 'work',
-  other: 'other'
+  other: 'other',
 }
 ```
 
@@ -162,7 +158,7 @@ And similarly, an interface based implementation
 
 ```ts
 interface BUser<T> {
-  id: T;
+  id: T
 }
 ```
 
@@ -171,7 +167,7 @@ Although we can use `T` for the generic, (or any other letter), we usually give 
 ```ts
 const bUser: BUser<number> = {
   // below, id must be a number
-  id: 1234
+  id: 1234,
 }
 ```
 
@@ -193,11 +189,10 @@ const person: Person = {
   name: 'Bob',
   location: {
     streetName: 'My Street',
-    streetNumber: 24
-  }
+    streetNumber: 24,
+  },
 }
 ```
-
 
 Also note that you cannot log or use a type as data, e.g. the following will be an error
 
@@ -206,7 +201,6 @@ console.log(Person)
 ```
 
 This is because types don't exist at runtime. they're just a developer tool
-
 
 ## Functions
 
@@ -222,7 +216,6 @@ We can also use generics for function definitions like so
 ```ts
 type GetThing<TID, TThing> = (id: TID) => TThing
 ```
-
 
 In the below function, we say that the entire function is of type `GetPerson`
 
@@ -240,8 +233,7 @@ const getPersonAsync = async (id: ID): Promise<Person> => {
 
 ## Classes
 
-
-In  general, we can also implement class properties like so
+In general, we can also implement class properties like so
 
 ```ts
 class MyRespository {
@@ -263,7 +255,6 @@ interface IDRepository {
 }
 ```
 
-
 `TID` below has a defualt value of `ID`
 
 ```ts
@@ -284,8 +275,8 @@ class PersonRepository implements Repository<Person, ID> {
       name: 'Bob',
       location: {
         streetName: 'My Street',
-        streetNumber: 24
-      }
+        streetNumber: 24,
+      },
     }
   }
 

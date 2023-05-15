@@ -4,8 +4,6 @@ title: Database Migrations with Entity Framework
 subtitle: Performing Database Migrations using .NET Core, SQL Server, and Entity Framework
 ---
 
-[[toc]]
-
 # Creating Migrations
 
 When using Entity Framework database updates are defined by the application models available. In order to generate a migration script you would need to run the following command from your project directore

@@ -5,8 +5,6 @@ subtitle: 09 March 2021
 description: Enable a HomeAssistant flashed RaspberryPi to operate over WiFi using config files
 ---
 
-[[toc]]
-
 A short lil guide to setting up Home Assistant on a RaspberryPi using WiFi instead of Ethernet
 
 1. Download Balena Etcher and install from [here](https://www.balena.io/etcher/)

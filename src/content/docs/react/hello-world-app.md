@@ -1,5 +1,3 @@
-[[toc]]
-
 # Hello World App
 
 ## Incoming Webhooks

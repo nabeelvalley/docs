@@ -4,12 +4,8 @@ title: Some websites I think are cool
 ---
 
 ---
-title: Some websites I think are cool
----
 
-
-[[toc]]
-
+## title: Some websites I think are cool
 
 - https://uiw.tf/
 - https://ultra.tf/

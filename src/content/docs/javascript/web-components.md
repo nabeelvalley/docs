@@ -4,8 +4,6 @@ title: Web Components
 subtitle: Notes on Web Components
 ---
 
-[[toc]]
-
 [Basics from CSS Tricks](https://css-tricks.com/an-introduction-to-web-components/)
 
 > Most code snippets used here are from the above series
@@ -37,14 +35,14 @@ We can then create instances of the element by using javascript to use the templ
 const books = [
   { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald' },
   { title: 'A Farewell to Arms', author: 'Ernest Hemingway' },
-  { title: 'Catch 22', author: 'Joseph Heller' }
+  { title: 'Catch 22', author: 'Joseph Heller' },
 ]
 
 // get the template
 const fragment = document.getELementById('book-template')
 
 // loop through data
-books.forEach(book => {
+books.forEach((book) => {
   // create an copy of the template
   const instance = document.importNode(fragment.content, true)
 
@@ -65,7 +63,7 @@ Since templates are regulat HTML Elements, they can contain things like Javascri
 <template id="template">
   <script>
     const button = document.getElementById('click-me')
-    button.addEventListener('click', event => alert(event))
+    button.addEventListener('click', (event) => alert(event))
   </script>
   <style>
     #click-me {

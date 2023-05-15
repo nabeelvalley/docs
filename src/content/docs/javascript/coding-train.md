@@ -1,5 +1,3 @@
-[[toc]]
-
 > Notes from [The Coding Train YouTube Channel](https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw)
 
 # Intelligence and Learning
@@ -146,7 +144,7 @@ And then the search function on the tree as a proxy:
 ```js
 search(val) {
   if (this.root !== null) {
-    return this.root.search(val)        
+    return this.root.search(val)
   }
 }
 ```
@@ -232,16 +230,16 @@ class Node {
   }
 
   visit(parent) {
-    stroke("red")
+    stroke('red')
     strokeWeight(1)
     line(parent.x, parent.y, this.x, this.y)
 
     strokeWeight(0)
-    
+
     ellipse(this.x, this.y, 25)
-    
-    textAlign("CENTER")
-    text(this.value, this.x -6 , this.y + 5)
+
+    textAlign('CENTER')
+    text(this.value, this.x - 6, this.y + 5)
 
     if (this.left !== null) {
       this.left.visit(this)
@@ -276,4 +274,3 @@ class Node {
 ## Breadth-First Search
 
 This is a search algorithm for looking at the nearest node from the start node first and helps us traverse a tree in order to find the shortest number of steps to a specific node
-

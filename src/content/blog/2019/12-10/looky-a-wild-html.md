@@ -5,8 +5,6 @@ subtitle: 01 October 2019
 description: The first blog post, A quick journey through my design and development process for the site
 ---
 
-[[toc]]
-
 # Here at last
 
 So, after far too long, we are here. A mostly-functional website, that I have not tested on a single iOS device which may prove to be problematic

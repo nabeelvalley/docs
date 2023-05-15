@@ -3,12 +3,9 @@ published: true
 title: Data Science Tools
 ---
 
-[[toc]]
-
 # Data Science Tools
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/data-science-hands-open-source-tools-2/)
-
 
 ## Cognitive Class Labs
 
@@ -64,9 +61,9 @@ A way to define Data Science Pipelines without needing to write any code, this m
 
 Seahorse still allows us to write our own python transformations when needed
 
-Seahorse has Apache Spark as a backend and  provides a variety of machine learning and data operations, we can also explore these with Jupyter Notebooks and Deploy as a Spark Application
+Seahorse has Apache Spark as a backend and provides a variety of machine learning and data operations, we can also explore these with Jupyter Notebooks and Deploy as a Spark Application
 
-*The CCL Seahorse instance is not to be used for production*
+_The CCL Seahorse instance is not to be used for production_
 
 ## OpenRefine
 

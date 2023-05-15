@@ -5,8 +5,6 @@ subtitle: 25 September 2020
 description: Working with paths using resolve and __dirname in Node.js
 ---
 
-[[toc]]
-
 Node.js has a few methods by which we can get the directory in which we are currently executing, and get paths relative to it
 
 # Get the Current Directory

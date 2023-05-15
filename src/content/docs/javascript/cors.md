@@ -3,8 +3,6 @@ published: true
 title: CORS with Express
 ---
 
-[[toc]]
-
 There are two parts to making a response, the request and the response
 
 We need to handle `CORS` on each end
@@ -15,7 +13,7 @@ In the browser, we can make cross-origin requests using `fetch` with `mode:no-co
 
 ```js
 var res = await fetch('https://my-other-url.com/hello-world', {
-  mode: 'use-cors'
+  mode: 'use-cors',
 })
 console.log(res) //  {type: "opaque", url: "", redirected: false, status: 0, ok: false, …}
 ```

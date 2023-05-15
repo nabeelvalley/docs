@@ -5,8 +5,6 @@ subtitle: Getting Started with Nuxt.js
 description: Getting Started with Nuxt.js
 ---
 
-[[toc]]
-
 # Introduction
 
 Nuxt.js is server-side framework based on Vue, the content here is kind of from this [DesignCourse Video](https://www.youtube.com/watch?v=IkrbIFZz_IM) and [this video](https://www.youtube.com/watch?v=T4qLTXGvJ7k&t=1901s) but with TypeScript. The overall code from the video can be found [here](https://github.com/designcourse/nuxt-2-tutorial-project)
@@ -79,7 +77,7 @@ For a basic layout we can create a nav section:
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
+  import Vue from 'vue'
 
   export default Vue.extend({})
 </script>
@@ -106,8 +104,8 @@ Next, we can import and use the `Nav` component in our default layout like so:
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import Nav from "./partials/nav.vue"
+  import Vue from 'vue'
+  import Nav from './partials/nav.vue'
 
   export default Vue.extend({
     components: {
@@ -154,7 +152,7 @@ Nuxt makes use of file based routing, based on this our main page for our site w
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
+  import Vue from 'vue'
 
   export default Vue.extend({})
 </script>
@@ -173,13 +171,13 @@ If we would like to provide some metadata we can export a `head` function from o
 `pages/about.vue`
 
 ```ts
-import Vue from "vue"
+import Vue from 'vue'
 
 export default Vue.extend({
   head() {
     return {
-      title: "The About Page",
-      meta: [{ name: "description", content: "this is about the about page" }],
+      title: 'The About Page',
+      meta: [{ name: 'description', content: 'this is about the about page' }],
     }
   },
 })
@@ -202,8 +200,8 @@ Nuxt also has built-in router transitions, these make use of the `page-enter-act
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import Nav from "./partials/nav.vue"
+  import Vue from 'vue'
+  import Nav from './partials/nav.vue'
 
   export default Vue.extend({
     components: {
@@ -261,8 +259,8 @@ The code for our component will look like so:
 `pages/index.vue`
 
 ```ts
-import Vue from "vue"
-import isoFetch from "isomorphic-unfetch"
+import Vue from 'vue'
+import isoFetch from 'isomorphic-unfetch'
 
 type ShowData = {
   id: string
@@ -284,7 +282,7 @@ export default Vue.extend({
     } as TvData
   },
   async fetch() {
-    const res = await isoFetch("https://api.tvmaze.com/search/shows?q=batman")
+    const res = await isoFetch('https://api.tvmaze.com/search/shows?q=batman')
     const data = (await res.json()) as TvResponse
 
     this.shows = data.map((el) => el.show)

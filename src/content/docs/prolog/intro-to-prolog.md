@@ -1,5 +1,3 @@
-[[toc]]
-
 # Introduction to Prolog
 
 [Notes from Derek Banas' Youtube](https://www.youtube.com/watch?v=SykxWpFwMGs)
@@ -141,4 +139,3 @@ dances(alice) :-
 dances(alice) :-
     with_albert(alice).
 ```
-

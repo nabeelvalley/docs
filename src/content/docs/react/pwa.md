@@ -3,8 +3,6 @@ published: true
 title: Progressive Web Apps
 ---
 
-[[toc]]
-
 # Automatically
 
 The PWA can be built automatically using the [**PWABuilder**](https://www.pwabuilder.com)
@@ -51,9 +49,9 @@ if (workbox) {
       plugins: [
         new workbox.expiration.Plugin({
           maxEntries: 50,
-          maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
-        })
-      ]
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+        }),
+      ],
     })
   )
 
@@ -64,9 +62,9 @@ if (workbox) {
       plugins: [
         new workbox.expiration.Plugin({
           maxEntries: 50,
-          maxAgeSeconds: 10 * 24 * 60 * 60
-        })
-      ]
+          maxAgeSeconds: 10 * 24 * 60 * 60,
+        }),
+      ],
     })
   )
 
@@ -77,9 +75,9 @@ if (workbox) {
       plugins: [
         new workbox.expiration.Plugin({
           maxEntries: 50,
-          maxAgeSeconds: 10 * 24 * 60 * 60
-        })
-      ]
+          maxAgeSeconds: 10 * 24 * 60 * 60,
+        }),
+      ],
     })
   )
 
@@ -88,7 +86,7 @@ if (workbox) {
   workbox.routing.registerRoute(
     /^https:\/\/fonts\.googleapis\.com/,
     workbox.strategies.staleWhileRevalidate({
-      cacheName: 'google-fonts-stylesheets'
+      cacheName: 'google-fonts-stylesheets',
     })
   )
 
@@ -99,13 +97,13 @@ if (workbox) {
       cacheName: 'google-fonts-webfonts',
       plugins: [
         new workbox.cacheableResponse.Plugin({
-          statuses: [0, 200]
+          statuses: [0, 200],
         }),
         new workbox.expiration.Plugin({
           maxAgeSeconds: 60 * 60 * 24 * 365,
-          maxEntries: 30
-        })
-      ]
+          maxEntries: 30,
+        }),
+      ],
     })
   )
 } else {

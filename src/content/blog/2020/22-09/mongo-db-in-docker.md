@@ -5,8 +5,6 @@ subtitle: 22 September 2020
 description: Run a MongoDB Instance with Docker or Docker Compose
 ---
 
-[[toc]]
-
 # Considerations
 
 To run MongDB in a Docker Container there are a few things to take note of:

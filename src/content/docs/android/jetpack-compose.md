@@ -4,8 +4,6 @@ title: User interfaces with Compose
 subtitle: Building Declarative Android UIs using Jetpack Compose and Kotlin
 ---
 
-[[toc]]
-
 # Jetpack Compose
 
 > Based on the [Jetpack Compose Learning Path](https://developer.android.com/courses/pathways/compose#article-https://developer.android.com/jetpack/compose/tutorial)
@@ -29,7 +27,6 @@ setContent {
 Compose uses the Kotlin compiler to turn these functions into UI elements
 
 The `Text` element above will therefore render some text to the screen
-
 
 ### Defining a Composable
 
@@ -159,7 +156,6 @@ fun FancyGreeting(user: User) {
 ```
 
 We can further update the above example by adding some modifiers to the text:
-
 
 ```kt
 @Composable

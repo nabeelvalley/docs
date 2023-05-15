@@ -5,8 +5,6 @@ subtitle: Logging and Logging Libraries for .NET
 description: Logging and Logging Libraries for .NET
 ---
 
-[[toc]]
-
 Logging can be done in a bunch of different ways, but the best one I've found this far is `Serilog`, and the setup is as follows:
 
 # Install Serilog

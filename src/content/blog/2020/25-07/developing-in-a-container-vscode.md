@@ -11,8 +11,6 @@ The Remote Containers extension allows us to write code and develop applications
 
 In this post, I'll take a look at what a Docker container is, why we would want to use one as a development environment, and how we can go about setting one up for VSCode
 
-[[toc]]
-
 # Prerequisites
 
 If you intend to follow along with this post you'll need to have the following installed:
@@ -68,19 +66,19 @@ We'll need a simple "hello-world" web server using Node.js, for the sake of exam
 For our purpose, create a file called `index.js` with the following:
 
 ```js
-const http = require("http");
+const http = require('http')
 
 const requestListener = function (req, res) {
-  res.writeHead(200);
-  res.end("Hello, World!");
-};
+  res.writeHead(200)
+  res.end('Hello, World!')
+}
 
 const serverListeningCallback = function () {
-  console.log("Server started");
-};
+  console.log('Server started')
+}
 
-const server = http.createServer(requestListener);
-server.listen(8080, serverListeningCallback);
+const server = http.createServer(requestListener)
+server.listen(8080, serverListeningCallback)
 ```
 
 You can see in the above on the last line that the application will listen on port 8080, just keep this in mind
@@ -306,7 +304,7 @@ We can regenerate the files needed with `ctrl + shift + p`, and searching for `R
 ```text
 working-directory
 |__ .devcontainer
-|   |__ devcontainer.json  
+|   |__ devcontainer.json
 |   |__ Dockerfile         # predefined dev container Dockerfile
 |
 |__ index.js
@@ -385,8 +383,8 @@ In this post, we've covered the basics of using Docker to run your applications 
 For some more in-depth information on Docker and VSCode Development Containers you can look at the following resources:
 
 1. [My General Docker Notes](/docs/)
-    - [Docker Basics](/docs/containers-and-microservices/docker/)
-    - [Express Application with MongoDB](/docs/containers-and-microservices/build-an-express-app-with-mongo/)
-    - [Multi-stage Builds](/docs/containers-and-microservices/docker-multi-stage/)
+   - [Docker Basics](/docs/containers-and-microservices/docker/)
+   - [Express Application with MongoDB](/docs/containers-and-microservices/build-an-express-app-with-mongo/)
+   - [Multi-stage Builds](/docs/containers-and-microservices/docker-multi-stage/)
 2. [Docker's Documentation](https://docs.docker.com/)
 3. [VSCode's Remote Containers Documentation](https://code.visualstudio.com/docs/remote/containers)

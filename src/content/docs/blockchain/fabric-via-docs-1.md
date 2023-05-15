@@ -4,8 +4,6 @@ title: Hyperledger Fabric Part 1
 subtitle: Intro to Hyperledger Fabric via the Docs
 ---
 
-[[toc]]
-
 # Resources
 
 - [Prerequisites](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html)
@@ -17,7 +15,6 @@ subtitle: Intro to Hyperledger Fabric via the Docs
 # [Prerequisites]((https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html)
 
 Before you can really get started you will need to first [install the necessary prerequisites](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html)
-
 
 - Curl
 - Docker and Docker Compose
@@ -33,7 +30,7 @@ Select a directory in which the `fabric-samples` should be downloaded, for simpl
 curl -sSL https://raw.githubusercontent.com/hyperledger/fabric/master/scripts/bootstrap.sh | bash -s 1.3.0
 ```
 
-If you run ito the following error while running the above command 
+If you run ito the following error while running the above command
 
 ```raw
 docker: Got permission denied while trying to connect to the Docker daemon socket at unix
@@ -145,7 +142,7 @@ Queries are how you read data from the ledger, data is stored as key-value pairs
 We can query the ledger to return all cars on it with the `user1` identity. The `query.js` file contains the following line that specifies the signer
 
 ```js
-fabric_client.getUserContext('user1', true);
+fabric_client.getUserContext('user1', true)
 ```
 
 To run the query, from the `fabcar/javascript` folder, run the following command
@@ -175,19 +172,23 @@ The query in the `query.js` file is constructed with the following code
 
 ```js
 // Create a new gateway for connecting to our peer node.
-const gateway = new Gateway();
-await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
+const gateway = new Gateway()
+await gateway.connect(ccp, {
+  wallet,
+  identity: 'user1',
+  discovery: { enabled: false },
+})
 
 // Get the network (channel) our contract is deployed to.
-const network = await gateway.getNetwork('mychannel');
+const network = await gateway.getNetwork('mychannel')
 
 // Get the contract from the network.
-const contract = network.getContract('fabcar');
+const contract = network.getContract('fabcar')
 
 // Evaluate the specified transaction.
 // queryCar transaction - requires 1 argument, ex: ('queryCar', 'CAR4')
 // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
-const result = await contract.evaluateTransaction('queryAllCars');
+const result = await contract.evaluateTransaction('queryAllCars')
 ```
 
 When the query was run, it invoked the `fabcar` chaincode on the peer and ran the `queryAllCars` function within it, we can lok at the `fabric-samples/chaincode/fabcar/javascript/lib/fabcar.js` file to see the function that was evoked, which is the following
@@ -231,13 +232,13 @@ The above pattern of using an application to interface with a smart contract whi
 If we want to modify our query to only search for `CAR4` we can change the following line:
 
 ```js
- const result = await contract.evaluateTransaction('queryAllCars');
+const result = await contract.evaluateTransaction('queryAllCars')
 ```
 
 To be as follows:
 
 ```js
-fabric-samples/chaincode/fabcar/javascript/lib/fabcar.js
+fabric - samples / chaincode / fabcar / javascript / lib / fabcar.js
 ```
 
 Running the query again from the terminal
@@ -261,23 +262,34 @@ The `invoke.js` file will update the ledger by creating a car. The application w
 The request in the `invoke.js` file can be seen below
 
 ```js
-const gateway = new Gateway();
-await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } });
+const gateway = new Gateway()
+await gateway.connect(ccp, {
+  wallet,
+  identity: 'user1',
+  discovery: { enabled: false },
+})
 
 // Get the network (channel) our contract is deployed to.
-const network = await gateway.getNetwork('mychannel');
+const network = await gateway.getNetwork('mychannel')
 
 // Get the contract from the network.
-const contract = network.getContract('fabcar');
+const contract = network.getContract('fabcar')
 
 // Submit the specified transaction.
 // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
 // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
-await contract.submitTransaction('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom');
-console.log('Transaction has been submitted');
+await contract.submitTransaction(
+  'createCar',
+  'CAR12',
+  'Honda',
+  'Accord',
+  'Black',
+  'Tom'
+)
+console.log('Transaction has been submitted')
 
 // Disconnect from the gateway.
-await gateway.disconnect();
+await gateway.disconnect()
 ```
 
 We can run the transaction with
@@ -295,13 +307,20 @@ Transaction has been submitted
 We can now modify the transaction to update `CAR10` by changing
 
 ```js
-await contract.submitTransaction('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom');
+await contract.submitTransaction(
+  'createCar',
+  'CAR12',
+  'Honda',
+  'Accord',
+  'Black',
+  'Tom'
+)
 ```
 
 To
 
 ```js
-await contract.submitTransaction('changeCarOwner', 'CAR10', 'Dave');
+await contract.submitTransaction('changeCarOwner', 'CAR10', 'Dave')
 ```
 
 And run `invoke.js` again
@@ -559,7 +578,7 @@ After running the `cryptogen` tool, the generated certificates and keys will be 
 
 ## Configuration Transaction Generator
 
-The `configtxgen` tool is used to generate four configuration artifacts 
+The `configtxgen` tool is used to generate four configuration artifacts
 
 - Orderer `genisis block`
 - Channel `configuation transaction`
@@ -598,36 +617,35 @@ Which can be seen in the file below
 #
 ################################################################################
 Organizations:
+  # SampleOrg defines an MSP using the sampleconfig.  It should never be used
+  # in production but may be used as a template for other definitions
+  - &OrdererOrg
+    # DefaultOrg defines the organization which is used in the sampleconfig
+    # of the fabric.git development environment
+    Name: OrdererOrg
 
-    # SampleOrg defines an MSP using the sampleconfig.  It should never be used
-    # in production but may be used as a template for other definitions
-    - &OrdererOrg
-        # DefaultOrg defines the organization which is used in the sampleconfig
-        # of the fabric.git development environment
-        Name: OrdererOrg
+    # ID to load the MSP definition as
+    ID: OrdererMSP
 
-        # ID to load the MSP definition as
-        ID: OrdererMSP
+    # MSPDir is the filesystem path which contains the MSP configuration
+    MSPDir: crypto-config/ordererOrganizations/example.com/msp
 
-        # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: crypto-config/ordererOrganizations/example.com/msp
+  - &Org1
+    # DefaultOrg defines the organization which is used in the sampleconfig
+    # of the fabric.git development environment
+    Name: Org1MSP
 
-    - &Org1
-        # DefaultOrg defines the organization which is used in the sampleconfig
-        # of the fabric.git development environment
-        Name: Org1MSP
+    # ID to load the MSP definition as
+    ID: Org1MSP
 
-        # ID to load the MSP definition as
-        ID: Org1MSP
+    MSPDir: crypto-config/peerOrganizations/org1.example.com/msp
 
-        MSPDir: crypto-config/peerOrganizations/org1.example.com/msp
-
-        AnchorPeers:
-            # AnchorPeers defines the location of peers which can be used
-            # for cross org gossip communication.  Note, this value is only
-            # encoded in the genesis block in the Application section context
-            - Host: peer0.org1.example.com
-              Port: 7051
+    AnchorPeers:
+      # AnchorPeers defines the location of peers which can be used
+      # for cross org gossip communication.  Note, this value is only
+      # encoded in the genesis block in the Application section context
+      - Host: peer0.org1.example.com
+        Port: 7051
 
 ################################################################################
 #
@@ -638,10 +656,9 @@ Organizations:
 #
 ################################################################################
 Application: &ApplicationDefaults
-
-    # Organizations is the list of orgs which are defined as participants on
-    # the application side of the network
-    Organizations:
+  # Organizations is the list of orgs which are defined as participants on
+  # the application side of the network
+  Organizations:
 
 ################################################################################
 #
@@ -652,41 +669,39 @@ Application: &ApplicationDefaults
 #
 ################################################################################
 Orderer: &OrdererDefaults
+  # Orderer Type: The orderer implementation to start
+  # Available types are "solo" and "kafka"
+  OrdererType: solo
 
-    # Orderer Type: The orderer implementation to start
-    # Available types are "solo" and "kafka"
-    OrdererType: solo
+  Addresses:
+    - orderer.example.com:7050
 
-    Addresses:
-        - orderer.example.com:7050
+  # Batch Timeout: The amount of time to wait before creating a batch
+  BatchTimeout: 2s
 
-    # Batch Timeout: The amount of time to wait before creating a batch
-    BatchTimeout: 2s
+  # Batch Size: Controls the number of messages batched into a block
+  BatchSize:
+    # Max Message Count: The maximum number of messages to permit in a batch
+    MaxMessageCount: 10
 
-    # Batch Size: Controls the number of messages batched into a block
-    BatchSize:
+    # Absolute Max Bytes: The absolute maximum number of bytes allowed for
+    # the serialized messages in a batch.
+    AbsoluteMaxBytes: 99 MB
 
-        # Max Message Count: The maximum number of messages to permit in a batch
-        MaxMessageCount: 10
+    # Preferred Max Bytes: The preferred maximum number of bytes allowed for
+    # the serialized messages in a batch. A message larger than the preferred
+    # max bytes will result in a batch larger than preferred max bytes.
+    PreferredMaxBytes: 512 KB
 
-        # Absolute Max Bytes: The absolute maximum number of bytes allowed for
-        # the serialized messages in a batch.
-        AbsoluteMaxBytes: 99 MB
+  Kafka:
+    # Brokers: A list of Kafka brokers to which the orderer connects
+    # NOTE: Use IP:port notation
+    Brokers:
+      - 127.0.0.1:9092
 
-        # Preferred Max Bytes: The preferred maximum number of bytes allowed for
-        # the serialized messages in a batch. A message larger than the preferred
-        # max bytes will result in a batch larger than preferred max bytes.
-        PreferredMaxBytes: 512 KB
-
-    Kafka:
-        # Brokers: A list of Kafka brokers to which the orderer connects
-        # NOTE: Use IP:port notation
-        Brokers:
-            - 127.0.0.1:9092
-
-    # Organizations is the list of orgs which are defined as participants on
-    # the orderer side of the network
-    Organizations:
+  # Organizations is the list of orgs which are defined as participants on
+  # the orderer side of the network
+  Organizations:
 
 ################################################################################
 #
@@ -697,33 +712,33 @@ Orderer: &OrdererDefaults
 #
 ################################################################################
 Profiles:
-
-    OneOrgOrdererGenesis:
-        Orderer:
-            <<: *OrdererDefaults
-            Organizations:
-                - *OrdererOrg
-        Consortiums:
-            SampleConsortium:
-                Organizations:
-                    - *Org1
-    OneOrgChannel:
-        Consortium: SampleConsortium
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - *Org1
+  OneOrgOrdererGenesis:
+    Orderer:
+      <<: *OrdererDefaults
+      Organizations:
+        - *OrdererOrg
+    Consortiums:
+      SampleConsortium:
+        Organizations:
+          - *Org1
+  OneOrgChannel:
+    Consortium: SampleConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *Org1
 ```
-
 
 ## Run the Tools
 
 We can make use of the `configtxgen` and `cryptogen` commands to do what we need, alternatively we can also adapt the `byfn.sh` script's `generateCerts` function to meet our requirements
 
 > Before running the remainder of the tools, make sure the previous network is down by running the following
+>
 > ```bash
 > ./byfn.sh down
 > ```
+>
 > If you run into an error that says `cannot remove .... Permission denied` run the command as `sudo`
 
 ### Manually Generate the Artifacts
@@ -870,13 +885,13 @@ CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypt
 
 Nexty we will perform channel updates which will propogate to the definition of the channel, essentially adding configuration deltas for the channel's genesis block to define the anchor peers
 
-We can define the anchor peer for Org1 as `peer.0org1.example.com`, as our environment variables still hold the values for 
+We can define the anchor peer for Org1 as `peer.0org1.example.com`, as our environment variables still hold the values for
 
 ```bash
 peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org1MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 ```
 
-And for Org2 as `peer0.org2.example.com` by updating 
+And for Org2 as `peer0.org2.example.com` by updating
 
 ```bash
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer0.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org2MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem

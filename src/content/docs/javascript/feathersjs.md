@@ -3,8 +3,6 @@ published: true
 title: FeathersJS Basics
 ---
 
-[[toc]]
-
 > Notes from [this Coding Garden Series](https://www.youtube.com/watch?v=eXnKKnaoA08&list=PLM_i0obccy3uvP4ZMI6NwTzM0BvYBQ7Xd&index=1) on FeathersJS
 
 # Simple Feathers Service
@@ -41,18 +39,18 @@ You can then create a service, each service needs to have a class which defines 
 ```js
 class MessageService {
   constructor() {
-    this.messages = [];
+    this.messages = []
   }
 
   async find() {
-    return this.messages;
+    return this.messages
   }
 
   async create(data) {
     const message = {
       id: this.messages.length,
       text: data.text,
-    };
+    }
 
     this.messages.push(message)
     return message
@@ -73,9 +71,9 @@ app.use('messages', new MessageService())
 We can use the `app.service('...').on` method to add a handler to an event on a service which will allow us to react to the service events:
 
 ```js
-app.service("messages").on("created", (message) => {
-  console.log("message created");
-});
+app.service('messages').on('created', (message) => {
+  console.log('message created')
+})
 ```
 
 ## Interact with Service
@@ -84,16 +82,16 @@ We can interact with a service by referencing a method in a service:
 
 ```js
 const main = async () => {
-  await app.service("messages").create({
-    text: "hello world",
-  });
+  await app.service('messages').create({
+    text: 'hello world',
+  })
 
-  const messages = await app.service("messages").find();
+  const messages = await app.service('messages').find()
 
-  console.log("messages: ", messages);
-};
+  console.log('messages: ', messages)
+}
 
-main();
+main()
 ```
 
 ## Expose as REST and Web Socket
@@ -118,18 +116,18 @@ const app = express(feathers());
 Next, add the middleware for `json`, `urlencoded`, and `static` serving:
 
 ```js
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname)); 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(__dirname))
 ```
 
 And then, automatically create the epxress and feathers endpoints for our services:
 
 ```js
-app.configure(express.rest());
-app.configure(socketio());
+app.configure(express.rest())
+app.configure(socketio())
 
-app.use("/messages", new MessageService());
+app.use('/messages', new MessageService())
 ```
 
 > Note that the `messages` from the previous service definition now becomes `/messages` as it's an endpoint definition now
@@ -137,29 +135,28 @@ app.use("/messages", new MessageService());
 Lastly, we add the express error handler:
 
 ```js
-app.use(express.errorHandler());
+app.use(express.errorHandler())
 ```
 
 Now, we will be able to listen to the `connection` event to trigger something each time a client connects and that will give us access to the connection. We can also add any client that connects to a group so that messages can be broadcast to them:
 
 ```js
 // when a user connects
-app.on("connection", (connection) => {
+app.on('connection', (connection) => {
   // join them to the everybody channel
-  app.channel("everybody").join(connection);
-});
-
+  app.channel('everybody').join(connection)
+})
 
 // publish all changes to the everybody channel
-app.publish(() => app.channel("everybody"));
+app.publish(() => app.channel('everybody'))
 ```
 
 Lastly, we start the server:
 
 ```js
-app.listen(3030).on("listening", () => {
-  console.log("app now listening");
-});
+app.listen(3030).on('listening', () => {
+  console.log('app now listening')
+})
 ```
 
 Now, you can start the application with `node app.js` and go to `http://localhost:3030/messages` where you can see the list of messages that are currently in the service
@@ -200,68 +197,66 @@ Then, in the `index.html` we can use the following js to subscribe to the socket
 ```html
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feathers App</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feathers App</title>
-</head>
+  <body>
+    <h1>Feathers App</h1>
 
-<body>
-  <h1>Feathers App</h1>
+    <form onsubmit="sendMessage(event.preventDefault())">
+      <input type="text" id="message-text" />
+      <button type="submit">Add Message</button>
+    </form>
 
-  <form onsubmit="sendMessage(event.preventDefault())">
-    <input type="text" id="message-text" />
-    <button type="submit">Add Message</button>
-  </form>
+    <h2>Messages</h2>
 
-  <h2>Messages</h2>
+    <div id="messages"></div>
 
-  <div id="messages"></div>
+    <script
+      type="text/javascript"
+      src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"
+    ></script>
+    <script src="//unpkg.com/@feathersjs/client@^4.5.0/dist/feathers.js"></script>
+    <script src="//unpkg.com/socket.io-client@^2.3.0/dist/socket.io.js"></script>
 
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
-  <script src="//unpkg.com/@feathersjs/client@^4.5.0/dist/feathers.js"></script>
-  <script src="//unpkg.com/socket.io-client@^2.3.0/dist/socket.io.js"></script>
+    <script>
+      const createMessage = (message) => {
+        document.getElementById('messages').innerHTML += `<div>${message}</div>`
+      }
 
-  <script>
-    const createMessage = (message) => {
-      document.getElementById('messages').innerHTML += `<div>${message}</div>`
-    }
+      const socket = io('/')
+      const app = feathers()
 
-    
-    const socket = io('/');
-    const app = feathers();
-    
-    
-    app.configure(feathers.socketio(socket))
-    
-    const messageService = app.service('messages')
-    
-    messageService.on('created', message => {
-      createMessage(message.text)
-    })
+      app.configure(feathers.socketio(socket))
 
-    const sendMessage = async () => {
-      const messageInput = document.getElementById('message-text');
+      const messageService = app.service('messages')
 
-      await messageService.create({
-        text: messageInput.value
+      messageService.on('created', (message) => {
+        createMessage(message.text)
       })
 
-      messageInput.value = ""
-    }
+      const sendMessage = async () => {
+        const messageInput = document.getElementById('message-text')
 
-    const main = async () => {
-      const messages = await messageService.find()
+        await messageService.create({
+          text: messageInput.value,
+        })
 
-      messages.forEach(m => createMessage(m.text));
-    }
+        messageInput.value = ''
+      }
 
-    main()
+      const main = async () => {
+        const messages = await messageService.find()
 
-  </script>
-</body>
+        messages.forEach((m) => createMessage(m.text))
+      }
 
+      main()
+    </script>
+  </body>
 </html>
 ```
 
@@ -354,7 +349,7 @@ Incoming requests get mapped to a corresponding rest method
 
 Every service automatically becomes an `EventEmitter` which means that every time a certain modification action is created then the service will automatically emit the specific event that can then be subscribed to from other parts of the application
 
-Due to the design of services we are able to have each service exposed by Feathers via REST and Web Sockets 
+Due to the design of services we are able to have each service exposed by Feathers via REST and Web Sockets
 
 > Database adapters are just services which have been implemented to work with specific databases automatically
 
@@ -373,7 +368,7 @@ Which will then allow you to select the DB to be used for the service as well as
 ? Does the service require authentication? Yes
 ```
 
-This will generate a new service in our `services` directory as well as  a `model` in the `models` directory
+This will generate a new service in our `services` directory as well as a `model` in the `models` directory
 
 We are also able to modify a service's class so that it behaves the way we would like it to, for example we can modify the `users` service class so that it generates an avatar url for each user:
 
@@ -383,24 +378,24 @@ We are also able to modify a service's class so that it behaves the way we would
 export class Users extends Service<User> {
   //eslint-disable-next-line @typescript-eslint/no-unused-vars
   constructor(options: Partial<NedbServiceOptions>, app: Application) {
-    super(options);
+    super(options)
   }
 
   async create(data: Partial<User>): Promise<User | User[]> {
     const hash = createHash('md5')
       .update(data.email?.toLowerCase() || '')
-      .digest('hex');
+      .digest('hex')
 
-    const avatar = `${gravatarUrl}/${hash}/?${query}`;
+    const avatar = `${gravatarUrl}/${hash}/?${query}`
 
     const userData: Partial<User> = {
       email: data.email,
       password: data.password,
       githubId: data.githubId,
       avatar,
-    };
+    }
 
-    return super.create(userData);
+    return super.create(userData)
   }
 }
 ```
@@ -424,7 +419,7 @@ export default {
   },
 
   after: {
-    all: [ 
+    all: [
       // Make sure the password field is never sent to the client
       // Always must be the last hook
       protect('password')

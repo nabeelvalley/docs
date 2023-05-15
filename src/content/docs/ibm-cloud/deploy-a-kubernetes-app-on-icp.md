@@ -1,5 +1,3 @@
-[[toc]]
-
 # Deploy a Kubernetes App on ICP
 
 You can do any of the following
@@ -37,11 +35,12 @@ Then we need to get our deployment manifest file and run the deploy command, we 
 We need the service to expose our app on a port, and an ingress rule to expose that externally
 
 `deployment.yaml`
+
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
- name: express-basic
+  name: express-basic
 spec:
   replicas: 1
   template:
@@ -51,48 +50,50 @@ spec:
         version: v2
     spec:
       containers:
-      - image: nabeelvalley/express-basic
-        name: express-basic
-        ports:
-        - containerPort: 8080
+        - image: nabeelvalley/express-basic
+          name: express-basic
+          ports:
+            - containerPort: 8080
 ```
 
 `service.yaml`
+
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
- name: express-basic
- labels:
-   app: express-basic
-   version: v2
+  name: express-basic
+  labels:
+    app: express-basic
+    version: v2
 spec:
- ports:
- - port: 8080
-   name: http
- selector:
-   app: express-basic
-   version: v2
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: express-basic
+    version: v2
 ```
 
 `ingress.yaml`
+
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
- name: express-basic-ingress
+  name: express-basic-ingress
 spec:
   rules:
-  - http:
-      paths:
-      - path: /
-        backend:
-         serviceName: express-basic
-         servicePort: 8080
-      - path: /test
-        backend:
-          serviceName: express-basic
-          servicePort: 8080 
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: express-basic
+              servicePort: 8080
+          - path: /test
+            backend:
+              serviceName: express-basic
+              servicePort: 8080
 ```
 
 We can then deploy these resource definitions on our cluster with
@@ -106,27 +107,28 @@ kubectl apply -f ingress.yaml
 Alternatively we can include all three in a single file and apply it as follows
 
 `deploy.yaml`
+
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
- name: express-basic
- labels:
-   app: express-basic
-   version: v2
+  name: express-basic
+  labels:
+    app: express-basic
+    version: v2
 spec:
- ports:
- - port: 8080
-   name: http
- selector:
-   app: express-basic
-   version: v2
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: express-basic
+    version: v2
 
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
- name: express-basic
+  name: express-basic
 spec:
   replicas: 1
   template:
@@ -136,28 +138,27 @@ spec:
         version: v2
     spec:
       containers:
-      - image: nabeelvalley/express-basic
-        name: express-basic
-        ports:
-        - containerPort: 8080
+        - image: nabeelvalley/express-basic
+          name: express-basic
+          ports:
+            - containerPort: 8080
 ---
-
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
- name: express-basic-ingress
+  name: express-basic-ingress
 spec:
   rules:
-  - http:
-      paths:
-      - path: /
-        backend:
-         serviceName: express-basic
-         servicePort: 8080
-      - path: /test
-        backend:
-          serviceName: express-basic
-          servicePort: 8080 
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: express-basic
+              servicePort: 8080
+          - path: /test
+            backend:
+              serviceName: express-basic
+              servicePort: 8080
 ---
 ```
 

@@ -5,8 +5,6 @@ subtitle: 17 May 2020
 description: An introduction to programming and general programming concepts using JavaScript
 ---
 
-[[toc]]
-
 So I've been meaning to write an introductory post about the basics of JavaScript for quite some time. A few weeks ago I managed to finally get something going on [this Twitter thread (@not_nabeel)](https://twitter.com/not_nabeel/status/1255743195557888000)
 
 Let's get into it
@@ -36,11 +34,11 @@ In a program, we can store different types of data (known as "data types")
 When we store text we use a data type called `string`. In JavaScript a string is just text surrounded in either double quotes, single quotes, or `` `these things` `` (which are known as backticks):
 
 ```js
-"i am text"
+'i am text'
 ```
 
 ```js
-"i am also text"
+'i am also text'
 ```
 
 ```js
@@ -70,9 +68,9 @@ We create a variable using `let` or `const` along with a variable name and the d
 // this code shouldn't do anything if you run it
 // we are just creating some variables
 
-let myText = "Hello World"
+let myText = 'Hello World'
 
-const myOtherText = "Bye World"
+const myOtherText = 'Bye World'
 ```
 
 </details>
@@ -99,10 +97,10 @@ Languages have ways we can show data to a user (or programmer). In JavaScript th
 
 ```js
 // print the data
-console.log("Bob Smith") //prints -> Bob Smith
+console.log('Bob Smith') //prints -> Bob Smith
 
 // print a variable
-const jenny = "Jenny Smith"
+const jenny = 'Jenny Smith'
 console.log(jenny) // prints -> Jenny Smith
 ```
 
@@ -145,7 +143,7 @@ But, JavaScript lets us add do maths with anything. so maybe like - don't do thi
   <summary>View Code</summary>
 
 ```js
-const dontDoThis = "apple" * "pineapple"
+const dontDoThis = 'apple' * 'pineapple'
 
 console.log(dontDoThis) // print -> NaN (Not a Number)
 ```
@@ -236,12 +234,12 @@ If we want to store data that are more complex than the ones we've seen above, w
 ```js
 const jenny = {
   id: 123,
-  name: "Jenny",
-  surname: "Smith",
+  name: 'Jenny',
+  surname: 'Smith',
   age: "idk, can't ask a woman that",
   favouriteBooks: [
-    "To not kill a Mockingbird",
-    "Why are books so voilent, yoh",
+    'To not kill a Mockingbird',
+    'Why are books so voilent, yoh',
   ],
 }
 
@@ -277,24 +275,24 @@ Functions are a way we can group code for a specific set of instructions, usuall
 // using the "function" keyword
 // this creates a variable called "myFunc1"
 function myFunc() {
-  const stuff = "I am Function"
+  const stuff = 'I am Function'
   console.log(stuff)
 }
 
 // we can also create the variable using
 // "let" or "const" like we do for other variables
 const myLetFunc = function () {
-  const stuff = "I am another Function"
+  const stuff = 'I am another Function'
   console.log(stuff)
 }
 
 // fat arrow function
 const myFatFunc = () => {
-  console.log("Phat Funk")
+  console.log('Phat Funk')
 }
 
 // single line fat-arrow functions don't need the {}
-const mySingleLineFunct = () => console.log("single line")
+const mySingleLineFunct = () => console.log('single line')
 ```
 
 </details>
@@ -308,13 +306,13 @@ To use a function we simply write the name of the function and then add `()` at 
 
 ```js
 const sayHello = function () {
-  console.log("Hello")
+  console.log('Hello')
 }
 
 // "call" the function
 sayHello() // prints -> Hello
 
-const sayBye = () => console.log("BYEE")
+const sayBye = () => console.log('BYEE')
 
 // "call" the function
 sayBye() // prints -> BYEE
@@ -331,16 +329,16 @@ Remember earlier I said that functions take data and do stuff? For us to give a 
 
 ```js
 function sayHello(name) {
-  console.log("Hello " + name)
+  console.log('Hello ' + name)
 }
 
 // use the function
-sayHello("Bob") // print -> Hello Bob
+sayHello('Bob') // print -> Hello Bob
 
-const sayBye = (name) => console.log("Bye " + name)
+const sayBye = (name) => console.log('Bye ' + name)
 
 //use the function
-const name = "Jenny"
+const name = 'Jenny'
 sayBye(name) // print -> Bye Jenny
 ```
 
@@ -359,12 +357,12 @@ Functions can also take multiple parameters, this is done by listing the paramet
 
 ```js
 const sayBye = (firstName, lastName) => {
-  console.log("Bye " + firstName + " " + lastName)
+  console.log('Bye ' + firstName + ' ' + lastName)
 }
 
 // use the function
-const jennyName = "Jenny"
-const jennySurname = "Smith"
+const jennyName = 'Jenny'
+const jennySurname = 'Smith'
 sayBye(jennyName, jennySurname) // print -> Bye Jenny Smith
 ```
 

@@ -4,8 +4,6 @@ title: Basics
 subtitle: Notes on the GO Programming language
 ---
 
-[[toc]]
-
 - [YouTube Video](https://www.youtube.com/watch?v=SqrbIlUwR0U)
 - [GitHub](https://github.com/bradtraversy/go_crash_course)
 
@@ -129,7 +127,7 @@ We can declare global variables by defining them outside of the main function
 
 ## Shorthand Method
 
-Inside of a function we can declare variables using the assignment operator with the following 
+Inside of a function we can declare variables using the assignment operator with the following
 
 ```go
 name := "John

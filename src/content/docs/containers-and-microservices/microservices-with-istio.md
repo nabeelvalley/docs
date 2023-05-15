@@ -3,8 +3,6 @@ published: true
 title: Microservices with Istio
 ---
 
-[[toc]]
-
 [Based on this Cognitive Class course](https://cognitiveclass.ai/courses/get-started-with-microservices-istio-and-ibm-cloud-container-service/)
 
 # Twelve Factor App
@@ -13,13 +11,13 @@ title: Microservices with Istio
 
 A methodology for developing SaaS based on
 
-* Declarative automation
-* Clean contract with underlying OS
-* Suitable for deployment on modern cloud platforms
-* Minimize divergence with CD for agility
-* Easily scale without significant changes to tooling or architecture
+- Declarative automation
+- Clean contract with underlying OS
+- Suitable for deployment on modern cloud platforms
+- Minimize divergence with CD for agility
+- Easily scale without significant changes to tooling or architecture
 
-The twelve factor system is a set of best practices that allow us to build applications that are truly cloud native. Furthermore this method has characteristics that are ideal for developing microservices and the cloud infrastructure 
+The twelve factor system is a set of best practices that allow us to build applications that are truly cloud native. Furthermore this method has characteristics that are ideal for developing microservices and the cloud infrastructure
 
 ## The Factors
 
@@ -60,9 +58,9 @@ These are treated as attached resources that can be bound, local and remote reso
 
 Separation of our Build, Release, and Run stages should be done
 
-* In the Build stage we transform the repository into an executable bundle, this stage will get our dependencies and compile the code
-* The Release stage is when the code is combined with our deployment configuration, the resulting build contains our executable code as well as our environmental configurations
-* The Run stage is when the app is actually running, this code should not be modified
+- In the Build stage we transform the repository into an executable bundle, this stage will get our dependencies and compile the code
+- The Release stage is when the code is combined with our deployment configuration, the resulting build contains our executable code as well as our environmental configurations
+- The Run stage is when the app is actually running, this code should not be modified
 
 ### Processes
 
@@ -78,7 +76,7 @@ We should ensure that our applications can be horizontally scaled out such that 
 
 ### Disposability
 
-Processes should start fast and shut down gracefully,  once shut down there should be no residual state information that needs to be cleaned out
+Processes should start fast and shut down gracefully, once shut down there should be no residual state information that needs to be cleaned out
 
 Runtimes should be immutable and be able to be killed and re-instantiated as needed
 
@@ -116,12 +114,12 @@ This revolves around Service Oriented Architecture \(SOA\) which focuses on reus
 
 ## Key Tenets
 
-* Independent services for processes
-* Services optimised for single function
-* Communication through REST and message brokers
-* Avoid tight coupling through communication via a database
-* CI/CD defined per service
-* Availability and Clustering defined per service
+- Independent services for processes
+- Services optimised for single function
+- Communication through REST and message brokers
+- Avoid tight coupling through communication via a database
+- CI/CD defined per service
+- Availability and Clustering defined per service
 
 # Microservice Component Architecture
 
@@ -129,13 +127,13 @@ This revolves around Service Oriented Architecture \(SOA\) which focuses on reus
 
 We have different types of microservices
 
-* Dispatcher
-  * Web
-  * API 
-  * Mobile
-    * IOS
-    * Android
-* Business Service
+- Dispatcher
+  - Web
+  - API
+  - Mobile
+    - IOS
+    - Android
+- Business Service
 
 Out dispatchers are dependent on the types of clients that we have which use out API
 
@@ -147,7 +145,7 @@ Typically we use Node for dispatchers as we can handle a large number of clients
 
 Business services are often done with Java as it handles CPU intensive tasks well and is good at connecting to eternal systems
 
-## Backend for Frontend 
+## Backend for Frontend
 
 BFF enables us to have a single team be in charge of the the client app to the dispatcher as these need to be designed for each other
 
@@ -159,10 +157,10 @@ The standard for communication is JSON/REST with asynchronous integration. Commu
 
 We achieve complete decoupling by
 
-* Messaging whenever possible
-* Service Registries and Discovery
-* Load Balancing
-* Circuit Breaker Patterns
+- Messaging whenever possible
+- Service Registries and Discovery
+- Load Balancing
+- Circuit Breaker Patterns
 
 ## IBM Message Hub
 
@@ -180,7 +178,7 @@ They help us solve a lot of issues that we come across when implementing microse
 
 ## Service Registry
 
-A simple key-value pair of current working service instances and their locations. Services will register themselves with the registry upon starting 
+A simple key-value pair of current working service instances and their locations. Services will register themselves with the registry upon starting
 
 ## Service Discovery and Proxies
 
@@ -202,12 +200,12 @@ An open platform service mesh for connecting, managing, and securing mircoservic
 
 Istio has the following functionality
 
-* Traffic management
-*  Observability
-* Policy enforcement
-* Service identity and security
-* Platform support
-* Integration and customization
+- Traffic management
+- Observability
+- Policy enforcement
+- Service identity and security
+- Platform support
+- Integration and customization
 
 Overall Istio helps us to decouple application code from the running platforms and policy
 
@@ -235,11 +233,8 @@ _Mixer_ is a platform independent component which enforces access control and us
 
 ### Pilot
 
-_Pilot_ provides service discovery for Envoy sidecars, traffic management and intelligent routing 
+_Pilot_ provides service discovery for Envoy sidecars, traffic management and intelligent routing
 
 ### Citadel
 
 _Citadel_ provides string service-to-service authentication with built in identity and credential management and provides the ability to enforce policy that is based on service identity rather than network controls
-
-
-

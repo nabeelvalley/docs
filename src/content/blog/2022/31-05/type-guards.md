@@ -5,10 +5,7 @@ subtitle: 31 May 2022
 description: Using Type Guards and Narrowing for better handling of dynamic variables in typescript
 ---
 
-
 Type guards (also known as Narrowing) allow us create conditions under which an object of one type can be used as if it is of another type. We usually use this in conjunction with union types to allow us to specify different handling of the types based on the resulting value
-
-[[toc]]
 
 ## Using `typeof`
 
@@ -36,16 +33,16 @@ const fetchData = (getData: GetData): Data => {
 Javascript also has the `in` operator which can be used to infer types by us checking a property of an object
 
 ```ts
-type SimpleData = { 
-  name:string;
+type SimpleData = {
+  name: string
 }
 
 type ComplexData = {
   name: {
-    first: string;
-    last: string;
+    first: string
+    last: string
   }
-  isComplex: true;  
+  isComplex: true
 }
 
 type AnyData = SimpleData | ComplexData
@@ -68,7 +65,7 @@ const getComplexName = (data: AnyData): string => {
 
 We can use the typescript `is` keyword to specify that the return of a boolean means that a variable satisfies a specific condition
 
-For example,  we can create a function that basically does what the `in` operator in the above function does:
+For example, we can create a function that basically does what the `in` operator in the above function does:
 
 ```ts
 const isComplex = (data: AnyData): data is ComplexData => {

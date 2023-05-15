@@ -5,8 +5,6 @@ subtitle: C# Service for integrating multi-tier applications
 description: C# Service for integrating multi-tier applications
 ---
 
-[[toc]]
-
 For applications that span multiple tiers or make use of a separate data accesss and web application layers a generic integration service can be used to communicate between tiers
 
 # Service Definition
@@ -198,7 +196,7 @@ You can configure the service in your `startup.cs` as follows:
 
       var intBaseUrl = Configuration.GetValue<string>("IntegrationUrl");
 
-      if (proxySettings.EnvironmentHasProxy()) 
+      if (proxySettings.EnvironmentHasProxy())
       {
           var proxy = new WebProxy(
               proxySettings.Endpoint,
@@ -222,18 +220,18 @@ To use the service you need to request it in a controller constructor via Depend
 
 ```cs
 public class MyController : Controller {
-  
+
   private IntegrationService _integrationService;
- 
+
   public MyController(IntegrationService integrationService)
   {
     _integrationService = integrationService;
   }
-  
+
   public async task<MyObject> MyFunction(ComplexObject data)
   {
     var result = await integrationService.Post<MyObject>("api/DoStuff", data);
-    
+
     return result;
   }
 }

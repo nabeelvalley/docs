@@ -1,10 +1,8 @@
-[[toc]]
-
 # Run a Database Migration on RDS with CDK Custom Resources
 
 > Refer to [Custom cloud infrastructure as code with AWS CDK - CloudFormation Custom Resources Lambda Backend](https://www.youtube.com/watch?v=u7FdDFta2XI)
 
-Cloud Formation Custom Resources are the method by which we can provision resources that cloud formation doesn't have an existing resource definition for but we still need to create. 
+Cloud Formation Custom Resources are the method by which we can provision resources that cloud formation doesn't have an existing resource definition for but we still need to create.
 
 They provide us with a way to provision or modify resources by way of a function
 
@@ -59,30 +57,30 @@ Once that's all done, we can actually create the Lambda which will carry our our
 1. Definition of a `secret` for our DB Credentials, we will want to export this for use by our `MigrateStack` by way of a `public` property on our class
 
 ```ts
-const dbSecret = new sm.Secret(this, "DBCredentials", {
+const dbSecret = new sm.Secret(this, 'DBCredentials', {
   generateSecretString: {
     secretStringTemplate: JSON.stringify({
-      username: "dbAdmin",
+      username: 'dbAdmin',
     }),
     excludePunctuation: true,
-    excludeCharacters: "/@\"' ",
-    generateStringKey: "password",
+    excludeCharacters: '/@"\' ',
+    generateStringKey: 'password',
   },
-});
+})
 ```
 
 2. Creation of a `vpc` for the RDS instance
 
 ```ts
-const vpc = new ec2.Vpc(this, "AppVPC", {
+const vpc = new ec2.Vpc(this, 'AppVPC', {
   maxAzs: 2,
-});
+})
 ```
 
 3. The `instance` for our database:
 
 ```ts
-const dbInstance = new rds.DatabaseInstance(this, "Instance", {
+const dbInstance = new rds.DatabaseInstance(this, 'Instance', {
   vpc,
   engine: rds.DatabaseInstanceEngine.postgres({
     version: rds.PostgresEngineVersion.VER_12_6,
@@ -95,15 +93,15 @@ const dbInstance = new rds.DatabaseInstance(this, "Instance", {
   ),
   credentials: rds.Credentials.fromSecret(dbSecret),
   publiclyAccessible: true,
-});
+})
 ```
 
 4. Some network clearences to allow traffic to our database (We're keeping this simple and allowing all connections, but in practice you would want to use a more secure connection strategy)
 
 ```ts
-dbInstance.connections.allowFromAnyIpv4(ec2.Port.allTraffic());
+dbInstance.connections.allowFromAnyIpv4(ec2.Port.allTraffic())
 
-dbInstance.connections.allowInternally(ec2.Port.allTraffic());
+dbInstance.connections.allowInternally(ec2.Port.allTraffic())
 ```
 
 And lastly, we'll export these to public properties with:
@@ -127,42 +125,42 @@ Putting all this together into a `lib/database-stack.ts` file to define the `Dat
 `lib/database-stack.ts`
 
 ```ts
-import * as cdk from "@aws-cdk/core";
-import * as ec2 from "@aws-cdk/aws-ec2";
-import * as sm from "@aws-cdk/aws-secretsmanager";
-import * as rds from "@aws-cdk/aws-rds";
-import * as cr from "@aws-cdk/custom-resources";
-import * as lambda from "@aws-cdk/aws-lambda";
-import * as iam from "@aws-cdk/aws-iam";
-import * as logs from "@aws-cdk/aws-logs";
-import { NodejsFunction } from "@aws-cdk/aws-lambda-nodejs";
-import { CfnOutput } from "@aws-cdk/core";
+import * as cdk from '@aws-cdk/core'
+import * as ec2 from '@aws-cdk/aws-ec2'
+import * as sm from '@aws-cdk/aws-secretsmanager'
+import * as rds from '@aws-cdk/aws-rds'
+import * as cr from '@aws-cdk/custom-resources'
+import * as lambda from '@aws-cdk/aws-lambda'
+import * as iam from '@aws-cdk/aws-iam'
+import * as logs from '@aws-cdk/aws-logs'
+import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs'
+import { CfnOutput } from '@aws-cdk/core'
 
 export class DatabaseStack extends cdk.Stack {
-  public readonly dbInstance: rds.DatabaseInstance;
-  public readonly dbSecret: sm.Secret;
-  public readonly vpc: ec2.Vpc;
-  public readonly dbName: string = "appdb";
+  public readonly dbInstance: rds.DatabaseInstance
+  public readonly dbSecret: sm.Secret
+  public readonly vpc: ec2.Vpc
+  public readonly dbName: string = 'appdb'
 
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+    super(scope, id, props)
 
-    const dbSecret = new sm.Secret(this, "DBCredentials", {
+    const dbSecret = new sm.Secret(this, 'DBCredentials', {
       generateSecretString: {
         secretStringTemplate: JSON.stringify({
-          username: "dbAdmin",
+          username: 'dbAdmin',
         }),
         excludePunctuation: true,
-        excludeCharacters: "/@\"' ",
-        generateStringKey: "password",
+        excludeCharacters: '/@"\' ',
+        generateStringKey: 'password',
       },
-    });
+    })
 
-    const vpc = new ec2.Vpc(this, "AppVPC", {
+    const vpc = new ec2.Vpc(this, 'AppVPC', {
       maxAzs: 2,
-    });
+    })
 
-    const dbInstance = new rds.DatabaseInstance(this, "Instance", {
+    const dbInstance = new rds.DatabaseInstance(this, 'Instance', {
       vpc,
       engine: rds.DatabaseInstanceEngine.postgres({
         version: rds.PostgresEngineVersion.VER_12_6,
@@ -175,15 +173,15 @@ export class DatabaseStack extends cdk.Stack {
       ),
       credentials: rds.Credentials.fromSecret(dbSecret),
       publiclyAccessible: true,
-    });
+    })
 
-    dbInstance.connections.allowFromAnyIpv4(ec2.Port.allTraffic());
+    dbInstance.connections.allowFromAnyIpv4(ec2.Port.allTraffic())
 
-    dbInstance.connections.allowInternally(ec2.Port.allTraffic());
+    dbInstance.connections.allowInternally(ec2.Port.allTraffic())
 
-    this.vpc = vpc;
-    this.dbInstance = dbInstance;
-    this.dbSecret = dbSecret;
+    this.vpc = vpc
+    this.dbInstance = dbInstance
+    this.dbSecret = dbSecret
   }
 }
 ```
@@ -194,34 +192,34 @@ export class DatabaseStack extends cdk.Stack {
 
 ```ts
 interface StackProps extends cdk.StackProps {
-  dbInstance: rds.DatabaseInstance;
-  dbSecret: sm.Secret;
-  vpc: ec2.Vpc;
-  dbName: string;
+  dbInstance: rds.DatabaseInstance
+  dbSecret: sm.Secret
+  vpc: ec2.Vpc
+  dbName: string
 }
 
 // which can be destructured later with:
-const { dbInstance, dbName, dbSecret, vpc } = props;
+const { dbInstance, dbName, dbSecret, vpc } = props
 ```
 
 2. NodeJS Lambda to run our migration:
 
 ```ts
-const onEventHandler = new NodejsFunction(this, "DatabaseMigrate", {
+const onEventHandler = new NodejsFunction(this, 'DatabaseMigrate', {
   vpc,
   runtime: lambda.Runtime.NODEJS_14_X,
-  entry: "lib/database-migrate-lambda.ts",
-  handler: "handler",
+  entry: 'lib/database-migrate-lambda.ts',
+  handler: 'handler',
   environment: {
     DB_HOST: dbInstance.dbInstanceEndpointAddress,
     DB_PORT: dbInstance.dbInstanceEndpointPort,
-    DB_USERNAME: dbSecret.secretValueFromJson("username").toString(),
-    DB_PASSWORD: dbSecret.secretValueFromJson("password").toString(),
+    DB_USERNAME: dbSecret.secretValueFromJson('username').toString(),
+    DB_PASSWORD: dbSecret.secretValueFromJson('password').toString(),
     DB_NAME: dbName,
   },
   logRetention: logs.RetentionDays.ONE_DAY,
   timeout: Duration.minutes(2),
-});
+})
 ```
 
 3. The `Provider` to be used in the `CustomResource` Creation:
@@ -229,12 +227,12 @@ const onEventHandler = new NodejsFunction(this, "DatabaseMigrate", {
 ```ts
 const databaseMigrationProvider = new cr.Provider(
   this,
-  "DatabaseMigrateProvider",
+  'DatabaseMigrateProvider',
   {
     onEventHandler,
     logRetention: logs.RetentionDays.ONE_DAY,
   }
-);
+)
 ```
 
 4. Lastly, the `CustomResource` itself:
@@ -242,11 +240,11 @@ const databaseMigrationProvider = new cr.Provider(
 ```ts
 const databaseMigrationResource = new cdk.CustomResource(
   this,
-  "DatabaseMigrateResource",
+  'DatabaseMigrateResource',
   {
     serviceToken: databaseMigrationProvider.serviceToken,
   }
-);
+)
 ```
 
 The overall `lib/migrate-stack.ts` file will look like this:
@@ -254,62 +252,62 @@ The overall `lib/migrate-stack.ts` file will look like this:
 `lib/migrate-stack.ts`
 
 ```ts
-import * as cdk from "@aws-cdk/core";
-import * as ec2 from "@aws-cdk/aws-ec2";
-import * as sm from "@aws-cdk/aws-secretsmanager";
-import * as rds from "@aws-cdk/aws-rds";
-import * as cr from "@aws-cdk/custom-resources";
-import * as lambda from "@aws-cdk/aws-lambda";
-import * as iam from "@aws-cdk/aws-iam";
-import * as logs from "@aws-cdk/aws-logs";
-import { NodejsFunction } from "@aws-cdk/aws-lambda-nodejs";
-import { Duration } from "@aws-cdk/core";
+import * as cdk from '@aws-cdk/core'
+import * as ec2 from '@aws-cdk/aws-ec2'
+import * as sm from '@aws-cdk/aws-secretsmanager'
+import * as rds from '@aws-cdk/aws-rds'
+import * as cr from '@aws-cdk/custom-resources'
+import * as lambda from '@aws-cdk/aws-lambda'
+import * as iam from '@aws-cdk/aws-iam'
+import * as logs from '@aws-cdk/aws-logs'
+import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs'
+import { Duration } from '@aws-cdk/core'
 
 interface StackProps extends cdk.StackProps {
-  dbInstance: rds.DatabaseInstance;
-  dbSecret: sm.Secret;
-  vpc: ec2.Vpc;
-  dbName: string;
+  dbInstance: rds.DatabaseInstance
+  dbSecret: sm.Secret
+  vpc: ec2.Vpc
+  dbName: string
 }
 
 export class MigrateStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props: StackProps) {
-    super(scope, id, props);
+    super(scope, id, props)
 
-    const { dbInstance, dbName, dbSecret, vpc } = props;
+    const { dbInstance, dbName, dbSecret, vpc } = props
 
-    const onEventHandler = new NodejsFunction(this, "DatabaseMigrate", {
+    const onEventHandler = new NodejsFunction(this, 'DatabaseMigrate', {
       vpc,
       runtime: lambda.Runtime.NODEJS_14_X,
-      entry: "lib/database-migrate-lambda.ts",
-      handler: "handler",
+      entry: 'lib/database-migrate-lambda.ts',
+      handler: 'handler',
       environment: {
         DB_HOST: dbInstance.dbInstanceEndpointAddress,
         DB_PORT: dbInstance.dbInstanceEndpointPort,
-        DB_USERNAME: dbSecret.secretValueFromJson("username").toString(),
-        DB_PASSWORD: dbSecret.secretValueFromJson("password").toString(),
+        DB_USERNAME: dbSecret.secretValueFromJson('username').toString(),
+        DB_PASSWORD: dbSecret.secretValueFromJson('password').toString(),
         DB_NAME: dbName,
       },
       logRetention: logs.RetentionDays.ONE_DAY,
       timeout: Duration.minutes(2),
-    });
+    })
 
     const databaseMigrationProvider = new cr.Provider(
       this,
-      "DatabaseMigrateProvider",
+      'DatabaseMigrateProvider',
       {
         onEventHandler,
         logRetention: logs.RetentionDays.ONE_DAY,
       }
-    );
+    )
 
     const databaseMigrationResource = new cdk.CustomResource(
       this,
-      "DatabaseMigrateResource",
+      'DatabaseMigrateResource',
       {
         serviceToken: databaseMigrationProvider.serviceToken,
       }
-    );
+    )
   }
 }
 ```
@@ -321,42 +319,42 @@ The Migration Lambda itself is pretty much just a function that will use the Pos
 `lib/database-migrate-lambda.ts`
 
 ```ts
-import { Client } from "pg";
+import { Client } from 'pg'
 
 interface EventType {
-  RequestType: "Create" | string;
+  RequestType: 'Create' | string
 }
 
 export const handler = async (event: EventType): Promise<any> => {
-  const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_NAME } = process.env;
+  const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_NAME } = process.env
 
   // the RequestType that will be sent to us from CloudFormation when the lambda is executed
-  if (event.RequestType == "Create") {
-    const port = +(DB_PORT || 5432);
+  if (event.RequestType == 'Create') {
+    const port = +(DB_PORT || 5432)
 
     const rootClient = new Client({
       port,
       host: DB_HOST,
       user: DB_USERNAME,
       password: DB_PASSWORD,
-      database: "postgres",
-    });
+      database: 'postgres',
+    })
 
     try {
-      await rootClient.connect();
+      await rootClient.connect()
 
       console.log(
         await rootClient.query(`
         CREATE DATABASE ${DB_NAME};
       `)
-      );
+      )
     } catch (error) {
       console.warn(
         `Error creating db ${DB_NAME}, check if due to db existing, move on anyway`
-      );
-      console.warn(error);
+      )
+      console.warn(error)
     } finally {
-      rootClient.end();
+      rootClient.end()
     }
 
     const appClient = new Client({
@@ -365,9 +363,9 @@ export const handler = async (event: EventType): Promise<any> => {
       user: DB_USERNAME,
       password: DB_PASSWORD,
       database: DB_NAME,
-    });
+    })
 
-    await appClient.connect();
+    await appClient.connect()
 
     console.log(
       await appClient.query(`
@@ -377,7 +375,7 @@ export const handler = async (event: EventType): Promise<any> => {
         password VARCHAR ( 50 ) NOT NULL
       );
       `)
-    );
+    )
 
     console.log(
       await appClient.query(`
@@ -385,17 +383,17 @@ export const handler = async (event: EventType): Promise<any> => {
         (id, username, password)
       VALUES (1, 'helloworld', 'securepassword');
     `)
-    );
+    )
 
     console.log(
       await appClient.query(`
       SELECT * FROM users;
       `)
-    );
+    )
 
-    appClient.end();
+    appClient.end()
   }
-};
+}
 ```
 
 # Deploy the App Stacks
@@ -408,21 +406,21 @@ To configure the deployment, we need to edit the `bin/custom-resources.ts` file 
 
 ```ts
 #!/usr/bin/env node
-import "source-map-support/register";
-import * as cdk from "@aws-cdk/core";
-import { DatabaseStack } from "../lib/database-stack";
-import { MigrateStack } from "../lib/migrate-stack";
+import 'source-map-support/register'
+import * as cdk from '@aws-cdk/core'
+import { DatabaseStack } from '../lib/database-stack'
+import { MigrateStack } from '../lib/migrate-stack'
 
-const app = new cdk.App();
+const app = new cdk.App()
 
-const dbStack = new DatabaseStack(app, "CRDatabaseStack");
+const dbStack = new DatabaseStack(app, 'CRDatabaseStack')
 
-const migrateStack = new MigrateStack(app, "CRMigrateStack", {
+const migrateStack = new MigrateStack(app, 'CRMigrateStack', {
   dbInstance: dbStack.dbInstance,
   dbName: dbStack.dbName,
   dbSecret: dbStack.dbSecret,
   vpc: dbStack.vpc,
-});
+})
 ```
 
 Then, use `yarn cdk deploy --all` to build and deploy your application:
@@ -435,4 +433,4 @@ This will take a while to deploy, and the `cdk` CLI will ask you for some confir
 
 # Final Notes
 
-The above setup is just intended to be a starting point for using Lambdas to run custom logic on application deploys. This isn't a database setup I'd recommend but it should allow you 
+The above setup is just intended to be a starting point for using Lambdas to run custom logic on application deploys. This isn't a database setup I'd recommend but it should allow you

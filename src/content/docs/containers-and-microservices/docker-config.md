@@ -3,8 +3,6 @@ published: true
 title: Docker Configuration Scripts
 ---
 
-[[toc]]
-
 # Docker Configuration Scripts
 
 ## Ubuntu
@@ -76,4 +74,3 @@ Lastly in order to tell WSL where your Docker Daemon is running (assuming you've
 ```bash
 docker -H localhost:2375 images
 ```
-

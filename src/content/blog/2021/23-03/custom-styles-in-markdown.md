@@ -5,8 +5,6 @@ subtitle: 23 March 2021
 description: Add styles for specific HTML elements in a markdown document
 ---
 
-[[toc]]
-
 When working with markdown it can often be useful to be able to style elements using custom CSS
 
 We can accomplish this by including a `style` tag. An example to illustrate this is changing the way a table renders in a specific document by changing the style of table rows to be striped, you would include the following CSS:
@@ -36,7 +34,7 @@ tr:nth-child(even) {
 ```md
 # Custom CSS in Markdown Example
 
-This is a document where tables are rendered with every second table row with a specific background and foreground colour 
+This is a document where tables are rendered with every second table row with a specific background and foreground colour
 
 <style>
 tr:nth-child(even) {

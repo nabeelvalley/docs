@@ -3,8 +3,6 @@ published: true
 title: Probability
 ---
 
-[[toc]]
-
 > [Based on this EdX Course](https://www.edx.org/course/data-science-probability)
 
 # Configuration

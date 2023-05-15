@@ -4,8 +4,6 @@ title: Introduction to C++
 subtitle: Basic Concepts in the C++ Programming Language
 ---
 
-[[toc]]
-
 > Notes from [this YouTube Series](https://www.youtube.com/watch?v=CPjZKsUYSXg)
 
 # Prerequisites
@@ -121,7 +119,7 @@ int radius
 scanf("%i", &radius)
 ```
 
-The `&` is the `address of` function, which will allow the function to modify the `radius` variable, here's an example of using `scanf` 
+The `&` is the `address of` function, which will allow the function to modify the `radius` variable, here's an example of using `scanf`
 
 ```c
 #include <stdio.h>
@@ -137,7 +135,7 @@ int main()
   double circumference = 3.14 * 2 * radius;
 
   printf("Your Curcumferance is: %f\n", circumference);
-  
+
   return 0;
 }
 ```
@@ -216,7 +214,7 @@ char myA = 'A';
 printf("%c", myA);
 ```
 
-> The range of `char` values is `0 - 127` 
+> The range of `char` values is `0 - 127`
 
 ## Strings
 
@@ -249,9 +247,9 @@ We can also enable the `true` and `false` keywords as well as the `bool` type by
 
 int main()
 {
-  bool isTrue = true; 
+  bool isTrue = true;
   printf("%i\n", isTrue);
-  
+
   return 0;
 }
 ```
@@ -262,7 +260,7 @@ Some of the basic operators in C are:
 
 ## Arithmetic
 
-- `+` add 
+- `+` add
 - `-` subtract
 - `*` multiply
 - `/` divide
@@ -285,7 +283,7 @@ Some of the basic operators in C are:
 - `||` or
 - `!`
 
-## Assignment 
+## Assignment
 
 - `=` assign
 - `+=` add and assign
@@ -295,4 +293,3 @@ Some of the basic operators in C are:
 - `%=` mod and assign
 
 > And then a bunch of bitwise ones that' I'll likely never use
-

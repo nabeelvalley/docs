@@ -5,8 +5,6 @@ subtitle: Introduction to Unit Testing with XUnit
 description: Introduction to Unit Testing with XUnit
 ---
 
-[[toc]]
-
 [Part 1](https://www.youtube.com/watch?v=HhRvW1b4IwM)
 
 Unit testing is about testing code to do what it is expected to do
@@ -145,7 +143,7 @@ You can then view the `Test Explorer` from the Top Menu `Tests > Test Explorer`
 
 In the Test Explorer you can run the tests by right clicking on the `Tests` group
 
-> If when trying to run the Tests for a Console App you get a `` error, you will need to add the following to your `<PropertyGroup>` section on your `.csproj` file
+> If when trying to run the Tests for a Console App you get a ``error, you will need to add the following to your`<PropertyGroup>`section on your`.csproj` file
 
 ```xml
 <GenerateProgramFile>false</GenerateProgramFile>

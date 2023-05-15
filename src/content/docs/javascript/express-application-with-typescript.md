@@ -3,8 +3,6 @@ published: true
 title: Express with Typescript
 ---
 
-[[toc]]
-
 > [Based on this Medium Article](https://medium.com/@gardikoury/typescript-with-node-and-express-js-why-when-and-how-eb6bc73edd5d)
 
 # Introduction
@@ -100,6 +98,7 @@ After which we can uncomment the `outDir` property in the `tsconfig.json` file t
 }
 
 ```
+
 # Setting Up Server
 
 ## Installing Express
@@ -131,12 +130,11 @@ app.listen(3000, function () {
 });
 ```
 
-
 # Running the App
 
 ## Compile the Application
 
-The App must be compiled before it can be run, we do this with the following command 
+The App must be compiled before it can be run, we do this with the following command
 
 ```bash
 npm run tsc
@@ -183,6 +181,3 @@ And the production server with
 ```bash
 npm run prod
 ```
-
-
-

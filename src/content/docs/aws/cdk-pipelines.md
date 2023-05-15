@@ -4,8 +4,6 @@ title: Docker Containers with CDK Pipelines
 subtitle: Deploy a Node.js and Redis Container onto ECS with CDK Pipelines
 ---
 
-[[toc]]
-
 > Prior to doing any of the below you will require your `~/.aws/credentials` file to be configured with the credentials for your AWS account
 
 A good reference for this is also the [AWS Workshop Docs](https://cdkworkshop.com/20-typescript/70-advanced-topics/200-pipelines.html) and the [AWS Advanced Workshop Docs](https://cdk-advanced.workshop.aws/sample/target-construct.html)
@@ -36,7 +34,6 @@ yarn
 
 Now, do `git init` and push the application up to GitHub as the pipeline will source the code from there
 
-
 # Add our Application Files
 
 Before we jump right into the CDK and pipeline setup, we need an application to containerize. We're going to create a simple Node.js app which uses `express` and `redis`
@@ -64,49 +61,49 @@ Then, add an `index.js` file with the following:
 `app/index.js`
 
 ```js
-const express = require("express");
-const redis = require("redis");
+const express = require('express')
+const redis = require('redis')
 
-const port = process.env.PORT || 8080;
-const redisUrl = process.env.REDIS_URL || "redis://redis:6379";
+const port = process.env.PORT || 8080
+const redisUrl = process.env.REDIS_URL || 'redis://redis:6379'
 
-const app = express();
+const app = express()
 
-app.use(express.text());
+app.use(express.text())
 
 const client = redis.createClient({
   url: redisUrl,
-});
+})
 
-client.on("error", function (error) {
-  console.error(error);
-});
+client.on('error', function (error) {
+  console.error(error)
+})
 
-app.get("/", (req, res) => {
-  console.log("request at URL");
-  res.send("hello from port " + port);
-});
+app.get('/', (req, res) => {
+  console.log('request at URL')
+  res.send('hello from port ' + port)
+})
 
-app.get("/:key", (req, res) => {
-  const key = req.params.key;
+app.get('/:key', (req, res) => {
+  const key = req.params.key
   client.get(key, (error, reply) => {
-    if (error) res.send("Error");
-    else res.send(reply);
-  });
-});
+    if (error) res.send('Error')
+    else res.send(reply)
+  })
+})
 
-app.post("/:key", (req, res) => {
-  const key = req.params.key;
-  const data = req.body;
+app.post('/:key', (req, res) => {
+  const key = req.params.key
+  const data = req.body
   client.set(key, data, (error, reply) => {
-    if (error) res.send("Error");
-    else res.send(reply);
-  });
-});
+    if (error) res.send('Error')
+    else res.send(reply)
+  })
+})
 
 app.listen(port, () => {
-  console.log("app is listening on port " + port);
-});
+  console.log('app is listening on port ' + port)
+})
 ```
 
 > The above consists a simple app which will use service discovery to connect to Redis and create/retreive values based on their `key`
@@ -147,14 +144,14 @@ To define a pipeline we use the `@aws-cdk/core` package as the base, create a `l
 `lib/pipeline-stack.ts`
 
 ```ts
-import * as cdk from "@aws-cdk/core";
+import * as cdk from '@aws-cdk/core'
 
 export class PipelineStack extends cdk.Stack {
-    constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-        super(scope, id, props);
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props)
 
-        // Pipeline code goes here
-    }
+    // Pipeline code goes here
+  }
 }
 ```
 
@@ -164,11 +161,11 @@ Then, instantiate this stack update the `bin/pipeline.ts` to have the following:
 
 ```ts
 #!/usr/bin/env node
-import * as cdk from '@aws-cdk/core';
-import { PipelineStack } from '../lib/pipeline-stack';
+import * as cdk from '@aws-cdk/core'
+import { PipelineStack } from '../lib/pipeline-stack'
 
-const app = new cdk.App();
-new PipelineStack(app, 'CdkPipelineDocker');
+const app = new cdk.App()
+new PipelineStack(app, 'CdkPipelineDocker')
 ```
 
 Then reference this from your `cdk.json` file in the root directory:
@@ -230,16 +227,16 @@ We need to install some of the cdk libraries packages, we can do this with `yarn
 yarn add @aws-cdk/aws-codepipeline @aws-cdk/pipelines @aws-cdk/aws-codepipeline-actions
 ```
 
-Then  we can use these packages in the `pipeline-stack.ts` file we're going to add the following imports:
+Then we can use these packages in the `pipeline-stack.ts` file we're going to add the following imports:
 
 `lib/pipeline-stack.ts`
 
 ```ts
-import * as cdk from "@aws-cdk/core";
-import { Stack, Construct, StackProps, SecretValue } from "@aws-cdk/core";
-import { Artifact } from "@aws-cdk/aws-codepipeline";
-import { CdkPipeline, SimpleSynthAction } from "@aws-cdk/pipelines";
-import { GitHubSourceAction } from "@aws-cdk/aws-codepipeline-actions";
+import * as cdk from '@aws-cdk/core'
+import { Stack, Construct, StackProps, SecretValue } from '@aws-cdk/core'
+import { Artifact } from '@aws-cdk/aws-codepipeline'
+import { CdkPipeline, SimpleSynthAction } from '@aws-cdk/pipelines'
+import { GitHubSourceAction } from '@aws-cdk/aws-codepipeline-actions'
 ```
 
 Next up, we're going to be writing everything else within the `PipelineStack` we defined earlier:
@@ -248,32 +245,32 @@ Next up, we're going to be writing everything else within the `PipelineStack` we
 
 ```ts
 export class PipelineStack extends cdk.Stack {
-    constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-        super(scope, id, props);
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props)
 
-        // Pipeline code goes here
-    }
+    // Pipeline code goes here
+  }
 }
 ```
 
 First, we need to create `sourceArtifact` and `cloudAssemblyArtifact` instances for the pipeline:
 
 ```ts
-const sourceArtifact = new Artifact();
-const cloudAssemblyArtifact = new Artifact();
+const sourceArtifact = new Artifact()
+const cloudAssemblyArtifact = new Artifact()
 ```
 
 Then, we define the `sourceAction` which is how the pipeline neeeds to get our code from our repository. In this case we use the `GitHubSourceAction`. We use the `SecretValue.secretsManager` function to retreive the GitHub token we created previously:
 
 ```ts
 const sourceAction = new GitHubSourceAction({
-  actionName: "GitHubSource",
+  actionName: 'GitHubSource',
   output: sourceArtifact,
-  oauthToken: SecretValue.secretsManager("github-token"),
-  owner: "username",
-  repo: "repository",
-  branch: "main",
-});
+  oauthToken: SecretValue.secretsManager('github-token'),
+  owner: 'username',
+  repo: 'repository',
+  branch: 'main',
+})
 ```
 
 Ensure you've replaced the `owner`, `repo` and `branch` with the one that contains your code on GitHub
@@ -285,56 +282,56 @@ Then, we define the `synthAction` which is used to install dependencies and opti
 const synthAction = SimpleSynthAction.standardYarnSynth({
   sourceArtifact,
   cloudAssemblyArtifact,
-  buildCommand: "yarn build",
-});
+  buildCommand: 'yarn build',
+})
 ```
 
 And lastly, we combine these to create a `CdkPipeline` instance:
 
 ```ts
-const pipeline = new CdkPipeline(this, "Pipeline", {
+const pipeline = new CdkPipeline(this, 'Pipeline', {
   cloudAssemblyArtifact,
   sourceAction,
   synthAction,
-});
+})
 ```
 
 So our overall `lib/pipeline-stack` will now look like this:
 
 ```ts
-import * as cdk from "@aws-cdk/core";
-import { Artifact } from "@aws-cdk/aws-codepipeline";
-import { CdkPipeline, SimpleSynthAction } from "@aws-cdk/pipelines";
-import { GitHubSourceAction } from "@aws-cdk/aws-codepipeline-actions";
+import * as cdk from '@aws-cdk/core'
+import { Artifact } from '@aws-cdk/aws-codepipeline'
+import { CdkPipeline, SimpleSynthAction } from '@aws-cdk/pipelines'
+import { GitHubSourceAction } from '@aws-cdk/aws-codepipeline-actions'
 
 export class PipelineStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
-    const sourceArtifact = new Artifact();
-    const cloudAssemblyArtifact = new Artifact();
+    super(scope, id, props)
+    const sourceArtifact = new Artifact()
+    const cloudAssemblyArtifact = new Artifact()
 
     // clone repo from GtiHub using token from secrets manager
     const sourceAction = new GitHubSourceAction({
-      actionName: "GitHubSource",
+      actionName: 'GitHubSource',
       output: sourceArtifact,
-      oauthToken: cdk.SecretValue.secretsManager("github-token"),
-      owner: "username",
-      repo: "repository",
-      branch: "main",
-    });
+      oauthToken: cdk.SecretValue.secretsManager('github-token'),
+      owner: 'username',
+      repo: 'repository',
+      branch: 'main',
+    })
 
     // will run yarn install --frozen-lockfile, and then the buildCommand
     const synthAction = SimpleSynthAction.standardYarnSynth({
       sourceArtifact,
       cloudAssemblyArtifact,
-      buildCommand: "yarn build",
-    });
+      buildCommand: 'yarn build',
+    })
 
-    const pipeline = new CdkPipeline(this, "Pipeline", {
+    const pipeline = new CdkPipeline(this, 'Pipeline', {
       cloudAssemblyArtifact,
       sourceAction,
       synthAction,
-    });
+    })
   }
 }
 ```
@@ -347,19 +344,19 @@ yarn cdk deploy
 
 ### Add App to Deployment
 
-To create deployments we need to have a class that inherits from `cdk.Stage`, in this  `Stage` we specify all the requisites for an application deployment. We're deploying the `AppStack` application, we will reference it from a Stage called `AppStage` which will just create an instance of the application:
+To create deployments we need to have a class that inherits from `cdk.Stage`, in this `Stage` we specify all the requisites for an application deployment. We're deploying the `AppStack` application, we will reference it from a Stage called `AppStage` which will just create an instance of the application:
 
 `lib/app-stage.ts`
 
 ```ts
-import * as cdk from "@aws-cdk/core";
-import { AppStack } from "./app-stack";
+import * as cdk from '@aws-cdk/core'
+import { AppStack } from './app-stack'
 
 export class AppStage extends cdk.Stage {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StageProps) {
-    super(scope, id, props);
+    super(scope, id, props)
 
-    new AppStack(this, "AppStack");
+    new AppStack(this, 'AppStack')
   }
 }
 ```
@@ -372,63 +369,62 @@ We can then add the above `AppStage` to the `pipeline-stack` using the `pipeline
 // ... other pipeline code
 
 // CdkPipeline as previously created
-const pipeline = new CdkPipeline(this, "Pipeline", {
+const pipeline = new CdkPipeline(this, 'Pipeline', {
   cloudAssemblyArtifact,
   sourceAction,
   synthAction,
-});
+})
 
 // adding app stage to the deployment
-const appStage = new AppStage(this, "Dev");
+const appStage = new AppStage(this, 'Dev')
 
-pipeline.addApplicationStage(appStage);
+pipeline.addApplicationStage(appStage)
 ```
 
 Once all that's been added, the final `pipeline-stack.ts` file will have the following:
 
 ```ts
-import * as cdk from "@aws-cdk/core";
-import { Artifact } from "@aws-cdk/aws-codepipeline";
-import { CdkPipeline, SimpleSynthAction } from "@aws-cdk/pipelines";
-import { GitHubSourceAction } from "@aws-cdk/aws-codepipeline-actions";
-import { AppStage } from "./app-stage";
+import * as cdk from '@aws-cdk/core'
+import { Artifact } from '@aws-cdk/aws-codepipeline'
+import { CdkPipeline, SimpleSynthAction } from '@aws-cdk/pipelines'
+import { GitHubSourceAction } from '@aws-cdk/aws-codepipeline-actions'
+import { AppStage } from './app-stage'
 
 export class PipelineStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
-    
-    const sourceArtifact = new Artifact();
-    const cloudAssemblyArtifact = new Artifact();
+    super(scope, id, props)
+
+    const sourceArtifact = new Artifact()
+    const cloudAssemblyArtifact = new Artifact()
 
     // clone repo from GtiHub using token from secrets manager
     const sourceAction = new GitHubSourceAction({
-      actionName: "GitHubSource",
+      actionName: 'GitHubSource',
       output: sourceArtifact,
-      oauthToken: cdk.SecretValue.secretsManager("github-token"),
-      owner: "username",
-      repo: "repository",
-      branch: "main",
-    });
+      oauthToken: cdk.SecretValue.secretsManager('github-token'),
+      owner: 'username',
+      repo: 'repository',
+      branch: 'main',
+    })
 
     // will run yarn install --frozen-lockfile, and then the buildCommand
     const synthAction = SimpleSynthAction.standardYarnSynth({
       sourceArtifact,
       cloudAssemblyArtifact,
-      buildCommand: "yarn build",
-    });
+      buildCommand: 'yarn build',
+    })
 
-    const pipeline = new CdkPipeline(this, "Pipeline", {
+    const pipeline = new CdkPipeline(this, 'Pipeline', {
       cloudAssemblyArtifact,
       sourceAction,
       synthAction,
-    });
+    })
 
-    const app = new AppStage(this, "Dev");
-    
-    pipeline.addApplicationStage(app);
+    const app = new AppStage(this, 'Dev')
+
+    pipeline.addApplicationStage(app)
   }
 }
-
 ```
 
 ## App Stack
@@ -451,15 +447,15 @@ Importing everything required we would have the following as our `AppStack`:
 `lib/app-stack.ts`
 
 ```ts
-import * as cdk from "@aws-cdk/core";
-import * as ec2 from "@aws-cdk/aws-ec2";
-import * as ecs from "@aws-cdk/aws-ecs";
-import * as ecsPatterns from "@aws-cdk/aws-ecs-patterns";
-import * as ecrAssets from "@aws-cdk/aws-ecr-assets";
+import * as cdk from '@aws-cdk/core'
+import * as ec2 from '@aws-cdk/aws-ec2'
+import * as ecs from '@aws-cdk/aws-ecs'
+import * as ecsPatterns from '@aws-cdk/aws-ecs-patterns'
+import * as ecrAssets from '@aws-cdk/aws-ecr-assets'
 
 export class AppStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StageProps) {
-    super(scope, id, props);
+    super(scope, id, props)
 
     // constructs go here
   }
@@ -471,9 +467,9 @@ Our applications need a VPC and Cluster in which they will run, we can define a 
 `lib/app-stack.ts`
 
 ```ts
-const vpc = new ec2.Vpc(this, "AppVPC", {
+const vpc = new ec2.Vpc(this, 'AppVPC', {
   maxAzs: 2,
-});
+})
 ```
 
 And a `cluster`:
@@ -481,7 +477,7 @@ And a `cluster`:
 `lib/app-stack.ts`
 
 ```ts
-const cluster = new ecs.Cluster(this, "ServiceCluster", { vpc });
+const cluster = new ecs.Cluster(this, 'ServiceCluster', { vpc })
 ```
 
 The `cluster` requires a `CloudMapNamespace` to enable service discovery. This will allow other containers and application within the Cluster to connect to one another using the service name with the service namespace
@@ -489,7 +485,7 @@ The `cluster` requires a `CloudMapNamespace` to enable service discovery. This w
 `lib/app-stack.ts`
 
 ```ts
-cluster.addDefaultCloudMapNamespace({ name: this.cloudMapNamespace });
+cluster.addDefaultCloudMapNamespace({ name: this.cloudMapNamespace })
 ```
 
 Using the `cluster` above, we can create a `Task` and `Service` using the `NetworkLoadBalancedFargateService` as defined in the `aws-ecs-patterns` library
@@ -501,10 +497,10 @@ Defining the `appService` involves the following steps:
 `lib/app-stack.ts`
 
 ```ts
-const appAsset = new ecrAssets.DockerImageAsset(this, "app", {
-  directory: "./app",
-  file: "Dockerfile",
-});
+const appAsset = new ecrAssets.DockerImageAsset(this, 'app', {
+  directory: './app',
+  file: 'Dockerfile',
+})
 ```
 
 1. Defining the App Task
@@ -512,10 +508,10 @@ const appAsset = new ecrAssets.DockerImageAsset(this, "app", {
 `lib/app-stack.ts`
 
 ```ts
-const appTask = new ecs.FargateTaskDefinition(this, "app-task", {
+const appTask = new ecs.FargateTaskDefinition(this, 'app-task', {
   cpu: 512,
   memoryLimitMiB: 2048,
-});
+})
 ```
 
 2. Adding a Container Definition to the Task
@@ -524,16 +520,16 @@ const appTask = new ecs.FargateTaskDefinition(this, "app-task", {
 
 ```ts
 appTask
-  .addContainer("app", {
+  .addContainer('app', {
     image: ecs.ContainerImage.fromDockerImageAsset(appAsset),
     essential: true,
     environment: { REDIS_URL: this.redisServiceUrl },
     logging: ecs.LogDrivers.awsLogs({
-      streamPrefix: "AppContainer",
+      streamPrefix: 'AppContainer',
       logRetention: logs.RetentionDays.ONE_DAY,
     }),
   })
-  .addPortMappings({ containerPort: this.appPort, hostPort: this.appPort });
+  .addPortMappings({ containerPort: this.appPort, hostPort: this.appPort })
 ```
 
 3. Create a Service
@@ -543,11 +539,11 @@ appTask
 ```ts
 const appService = new ecsPatterns.NetworkLoadBalancedFargateService(
   this,
-  "app-service",
+  'app-service',
   {
     cluster,
     cloudMapOptions: {
-      name: "app",
+      name: 'app',
     },
     cpu: 512,
     desiredCount: 1,
@@ -556,7 +552,7 @@ const appService = new ecsPatterns.NetworkLoadBalancedFargateService(
     listenerPort: 80,
     publicLoadBalancer: true,
   }
-);
+)
 ```
 
 4. Enable Public connections to the serive
@@ -566,8 +562,8 @@ const appService = new ecsPatterns.NetworkLoadBalancedFargateService(
 ```ts
 appService.service.connections.allowFromAnyIpv4(
   ec2.Port.tcp(this.appPort),
-  "app-inbound"
-);
+  'app-inbound'
+)
 ```
 
 Defining the Redis service is pretty much the same as above, with the exception that we don't need to define the Image Asset and we can just retreive it from the reigstry, and instead of allowing public connections we only allow connections from the `appService` we defined
@@ -575,32 +571,32 @@ Defining the Redis service is pretty much the same as above, with the exception 
 `lib/app-stack.ts`
 
 ```ts
-const redisTask = new ecs.FargateTaskDefinition(this, "redis-task", {
+const redisTask = new ecs.FargateTaskDefinition(this, 'redis-task', {
   cpu: 512,
   memoryLimitMiB: 2048,
-});
+})
 
 redisTask
-  .addContainer("redis", {
-    image: ecs.ContainerImage.fromRegistry("redis:alpine"),
+  .addContainer('redis', {
+    image: ecs.ContainerImage.fromRegistry('redis:alpine'),
     essential: true,
     logging: ecs.LogDrivers.awsLogs({
-      streamPrefix: "RedisContainer",
+      streamPrefix: 'RedisContainer',
       logRetention: logs.RetentionDays.ONE_DAY,
     }),
   })
   .addPortMappings({
     containerPort: this.redisPort,
     hostPort: this.redisPort,
-  });
+  })
 
 const redisService = new ecsPatterns.NetworkLoadBalancedFargateService(
   this,
-  "redis-service",
+  'redis-service',
   {
     cluster,
     cloudMapOptions: {
-      name: "redis",
+      name: 'redis',
     },
     cpu: 512,
     desiredCount: 1,
@@ -609,14 +605,14 @@ const redisService = new ecsPatterns.NetworkLoadBalancedFargateService(
     listenerPort: this.redisPort,
     publicLoadBalancer: false,
   }
-);
+)
 
 redisService.service.connections.allowFrom(
   appService.service,
   ec2.Port.tcp(this.redisPort)
-);
+)
 
-return redisService;
+return redisService
 ```
 
 Lastly, we want to add the Load Balancer DNS name to our stack's outputs. We can do this with the `cdk.CfnOutput` class:
@@ -624,17 +620,13 @@ Lastly, we want to add the Load Balancer DNS name to our stack's outputs. We can
 `lib/app-stack.ts`
 
 ```ts
-this.appLoadBalancerDNS = new cdk.CfnOutput(this, "AppLoadBalancerDNS", {
+this.appLoadBalancerDNS = new cdk.CfnOutput(this, 'AppLoadBalancerDNS', {
   value: appService.loadBalancer.loadBalancerDnsName,
-});
+})
 
-this.redisLoadBalancerDNS = new cdk.CfnOutput(
-  this,
-  "RedisLoadBalancerDNS",
-  {
-    value: redisService.loadBalancer.loadBalancerDnsName,
-  }
-);
+this.redisLoadBalancerDNS = new cdk.CfnOutput(this, 'RedisLoadBalancerDNS', {
+  value: redisService.loadBalancer.loadBalancerDnsName,
+})
 ```
 
 We can break the `AppService` definition into a `createAppService` function, and the `RedisService` into a `createRedisService` function for some organization, the final `lib/app-stack.ts` file looks like this:
@@ -642,80 +634,81 @@ We can break the `AppService` definition into a `createAppService` function, and
 `lib/app-stack.ts`
 
 ```ts
-import * as cdk from "@aws-cdk/core";
-import * as logs from "@aws-cdk/aws-logs";
-import * as ec2 from "@aws-cdk/aws-ec2";
-import * as ecs from "@aws-cdk/aws-ecs";
-import * as ecsPatterns from "@aws-cdk/aws-ecs-patterns";
-import * as ecrAssets from "@aws-cdk/aws-ecr-assets";
+import * as cdk from '@aws-cdk/core'
+import * as logs from '@aws-cdk/aws-logs'
+import * as ec2 from '@aws-cdk/aws-ec2'
+import * as ecs from '@aws-cdk/aws-ecs'
+import * as ecsPatterns from '@aws-cdk/aws-ecs-patterns'
+import * as ecrAssets from '@aws-cdk/aws-ecr-assets'
 
 export class AppStack extends cdk.Stack {
-  public readonly redisLoadBalancerDNS: cdk.CfnOutput;
-  public readonly appLoadBalancerDNS: cdk.CfnOutput;
+  public readonly redisLoadBalancerDNS: cdk.CfnOutput
+  public readonly appLoadBalancerDNS: cdk.CfnOutput
 
-  public readonly redisPort: number = 6379;
-  public readonly appPort: number = 8080;
-  public readonly cloudMapNamespace: string = "service.internal";
-  public readonly redisServiceUrl: string = "redis://redis.service.internal:6379";
+  public readonly redisPort: number = 6379
+  public readonly appPort: number = 8080
+  public readonly cloudMapNamespace: string = 'service.internal'
+  public readonly redisServiceUrl: string =
+    'redis://redis.service.internal:6379'
 
   constructor(scope: cdk.Construct, id: string, props?: cdk.StageProps) {
-    super(scope, id, props);
+    super(scope, id, props)
 
-    const vpc = new ec2.Vpc(this, "AppVPC", {
+    const vpc = new ec2.Vpc(this, 'AppVPC', {
       maxAzs: 2,
-    });
+    })
 
-    const cluster = new ecs.Cluster(this, "ServiceCluster", { vpc });
+    const cluster = new ecs.Cluster(this, 'ServiceCluster', { vpc })
 
-    cluster.addDefaultCloudMapNamespace({ name: this.cloudMapNamespace });
+    cluster.addDefaultCloudMapNamespace({ name: this.cloudMapNamespace })
 
-    const appService = this.createAppService(cluster);
+    const appService = this.createAppService(cluster)
 
-    const redisService = this.createRedisService(cluster, appService);
+    const redisService = this.createRedisService(cluster, appService)
 
-    this.appLoadBalancerDNS = new cdk.CfnOutput(this, "AppLoadBalancerDNS", {
+    this.appLoadBalancerDNS = new cdk.CfnOutput(this, 'AppLoadBalancerDNS', {
       value: appService.loadBalancer.loadBalancerDnsName,
-    });
+    })
 
     this.redisLoadBalancerDNS = new cdk.CfnOutput(
       this,
-      "RedisLoadBalancerDNS",
+      'RedisLoadBalancerDNS',
       {
         value: redisService.loadBalancer.loadBalancerDnsName,
       }
-    );
+    )
   }
 
   private createAppService(cluster: ecs.Cluster) {
-    const appAsset = new ecrAssets.DockerImageAsset(this, "app", {
-      directory: "./app",
-      file: "Dockerfile",
-    });
+    const appAsset = new ecrAssets.DockerImageAsset(this, 'app', {
+      directory: './app',
+      file: 'Dockerfile',
+    })
 
-    const appTask = new ecs.FargateTaskDefinition(this, "app-task", {
+    const appTask = new ecs.FargateTaskDefinition(this, 'app-task', {
       cpu: 512,
       memoryLimitMiB: 2048,
-    });
+    })
 
     appTask
-      .addContainer("app", {
+      .addContainer('app', {
         image: ecs.ContainerImage.fromDockerImageAsset(appAsset),
         essential: true,
         environment: { REDIS_URL: this.redisServiceUrl },
         logging: ecs.LogDrivers.awsLogs({
-          streamPrefix: "AppContainer",
+          streamPrefix: 'AppContainer',
           logRetention: logs.RetentionDays.ONE_DAY,
         }),
       })
-      .addPortMappings({ containerPort: this.appPort, hostPort: this.appPort });
+      .addPortMappings({ containerPort: this.appPort, hostPort: this.appPort })
 
     const appService = new ecsPatterns.NetworkLoadBalancedFargateService(
       this,
-      "app-service",
+      'app-service',
       {
         cluster,
         cloudMapOptions: {
-          name: "app",
+          name: 'app',
         },
         cpu: 512,
         desiredCount: 1,
@@ -724,46 +717,46 @@ export class AppStack extends cdk.Stack {
         listenerPort: 80,
         publicLoadBalancer: true,
       }
-    );
+    )
 
     appService.service.connections.allowFromAnyIpv4(
       ec2.Port.tcp(this.appPort),
-      "app-inbound"
-    );
+      'app-inbound'
+    )
 
-    return appService;
+    return appService
   }
 
   private createRedisService(
     cluster: ecs.Cluster,
     appService: ecsPatterns.NetworkLoadBalancedFargateService
   ) {
-    const redisTask = new ecs.FargateTaskDefinition(this, "redis-task", {
+    const redisTask = new ecs.FargateTaskDefinition(this, 'redis-task', {
       cpu: 512,
       memoryLimitMiB: 2048,
-    });
+    })
 
     redisTask
-      .addContainer("redis", {
-        image: ecs.ContainerImage.fromRegistry("redis:alpine"),
+      .addContainer('redis', {
+        image: ecs.ContainerImage.fromRegistry('redis:alpine'),
         essential: true,
         logging: ecs.LogDrivers.awsLogs({
-          streamPrefix: "RedisContainer",
+          streamPrefix: 'RedisContainer',
           logRetention: logs.RetentionDays.ONE_DAY,
         }),
       })
       .addPortMappings({
         containerPort: this.redisPort,
         hostPort: this.redisPort,
-      });
+      })
 
     const redisService = new ecsPatterns.NetworkLoadBalancedFargateService(
       this,
-      "redis-service",
+      'redis-service',
       {
         cluster,
         cloudMapOptions: {
-          name: "redis",
+          name: 'redis',
         },
         cpu: 512,
         desiredCount: 1,
@@ -772,21 +765,22 @@ export class AppStack extends cdk.Stack {
         listenerPort: this.redisPort,
         publicLoadBalancer: false,
       }
-    );
+    )
 
     redisService.service.connections.allowFrom(
       appService.service,
       ec2.Port.tcp(this.redisPort)
-    );
+    )
 
-    return redisService;
+    return redisService
   }
 }
 ```
 
-We can kick off the pipeline by pushing to the GitHub repo we setup above which will cause all our services to be deployed. Once that's done we can go to the `Outputs` panel for the `Dev-AppStage` and open the `AppLoadBalancerDNS` url, this will open our application. 
+We can kick off the pipeline by pushing to the GitHub repo we setup above which will cause all our services to be deployed. Once that's done we can go to the `Outputs` panel for the `Dev-AppStage` and open the `AppLoadBalancerDNS` url, this will open our application.
 
 # Test the App
+
 ## Set Data
 
 With the server running you can create a new item with:

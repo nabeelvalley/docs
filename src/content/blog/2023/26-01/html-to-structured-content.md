@@ -6,12 +6,12 @@ description: Transforming HTML into structured data to work with EditorJS
 ---
 
 ---
+
 title: Structuring HTML Content
 subtitle: 26 January 2023
 description: Transforming HTML into structured data to work with EditorJS
----
 
-[[toc]]
+---
 
 # Isn't HTML a structure?
 
@@ -28,30 +28,27 @@ After a little bit of searching, I found this handy function on [StackOverflow](
 ```js
 //Recursively loop through DOM elements and assign properties to object
 function treeHTML(element, object) {
-  object["type"] = element.nodeName;
-  var nodeList = element.childNodes;
+  object['type'] = element.nodeName
+  var nodeList = element.childNodes
   if (nodeList != null) {
     if (nodeList.length) {
-      object["content"] = [];
+      object['content'] = []
       for (var i = 0; i < nodeList.length; i++) {
         if (nodeList[i].nodeType == 3) {
-          object["content"].push(nodeList[i].nodeValue);
+          object['content'].push(nodeList[i].nodeValue)
         } else {
-          object["content"].push({});
-          treeHTML(
-            nodeList[i],
-            object["content"][object["content"].length - 1]
-          );
+          object['content'].push({})
+          treeHTML(nodeList[i], object['content'][object['content'].length - 1])
         }
       }
     }
   }
   if (element.attributes != null) {
     if (element.attributes.length) {
-      object["attributes"] = {};
+      object['attributes'] = {}
       for (var i = 0; i < element.attributes.length; i++) {
-        object["attributes"][element.attributes[i].nodeName] =
-          element.attributes[i].nodeValue;
+        object['attributes'][element.attributes[i].nodeName] =
+          element.attributes[i].nodeValue
       }
     }
   }
@@ -73,18 +70,18 @@ Now that I had an idea of how to approach the problem, the next step was to defi
 Based on the above, the type definition can be seen below along with the implementation:
 
 ```ts
-type TagName = Uppercase<keyof HTMLElementTagNameMap>;
+type TagName = Uppercase<keyof HTMLElementTagNameMap>
 
-type HTMLStringContent = string;
+type HTMLStringContent = string
 
 type TransformResult = {
-  element: Element;
-  tagName: TagName;
-  textContent?: string;
-  htmlContent?: HTMLStringContent;
-  attrs: Record<string, string>;
-  children: TransformResult[];
-};
+  element: Element
+  tagName: TagName
+  textContent?: string
+  htmlContent?: HTMLStringContent
+  attrs: Record<string, string>
+  children: TransformResult[]
+}
 
 const transform = (el: Element): TransformResult => ({
   element: el,
@@ -97,7 +94,7 @@ const transform = (el: Element): TransformResult => ({
     (acc, { name, value }) => ({ ...acc, [name]: value }),
     {}
   ),
-});
+})
 ```
 
 Now that I have the data as a tree structure, we can pass in some simple HTML to see what pops out the other end.
@@ -118,10 +115,10 @@ We can transform it like so:
 
 ```ts
 // use the DOM to parse it from a string
-const el = new DOMParser().parseFromString(html, "text/html").body;
+const el = new DOMParser().parseFromString(html, 'text/html').body
 
 // the convertHtmlToBlocks function takes an HTML ELement
-const transformed = transform(el);
+const transformed = transform(el)
 ```
 
 The `transformed` data looks something like this:
@@ -208,7 +205,7 @@ When we remove the containers can be thought of as:
 Which can be thought of as an array like so:
 
 ```ts
-[paragraph, image];
+;[paragraph, image]
 ```
 
 This is our end goal. In order to get here we still have to figure out two things:
@@ -223,7 +220,7 @@ If we think as containers as having no meaningful data, and just being container
 So, we can write a transformer for a container as something that just returns an array of content
 
 ```ts
-const removeContainer = (data: TransformResult) => data.children;
+const removeContainer = (data: TransformResult) => data.children
 ```
 
 The above is pretty useful, since this means that the following HTML:
@@ -256,7 +253,7 @@ So we could have something like this:
 const removeContainer = (data: TransformResult) =>
   data.children.map((child) =>
     isContainer(child) ? removeContainer(child) : child
-  );
+  )
 ```
 
 Now the function is a bit weird because the inner map is either returning an array if the `child` is a container, or a single `child` if it's not - for consistency, let's just always return an array:
@@ -265,7 +262,7 @@ Now the function is a bit weird because the inner map is either returning an arr
 const removeContainer = (data: TransformResult) =>
   data.children.map((child) =>
     isContainer(child) ? removeContainer(child) : [child]
-  );
+  )
 ```
 
 Much better, but now we've introduced something weird - instead of just returning a `TransformResult[]` we're now returning a `TransformResult[][]` - let's just leave this here for now, we can always unwrap the arrays later - importantly we now know that we've eliminated the wrappers, so the content we're left with now represents:
@@ -288,19 +285,19 @@ The simplified types that represent their data can be seen below:
 
 ```ts
 export type ParagraphBlock = {
-  type: "paragraph";
+  type: 'paragraph'
   data: {
-    text: string;
-  };
-};
+    text: string
+  }
+}
 
 export type SimpleImageBlock = {
-  type: "image";
+  type: 'image'
   data: {
-    url: string;
-    caption: string;
-  };
-};
+    url: string
+    caption: string
+  }
+}
 ```
 
 We can look at the the `TransformResult` for each of the above elements from when we passed the HTML into our `transform` function previously, we can see
@@ -335,12 +332,12 @@ A function for doing this could look something like:
 const convertParagraph = (data: TransformResult): ParagraphBlock | undefined =>
   data.textContent
     ? {
-        type: "paragraph",
+        type: 'paragraph',
         data: {
           text: data.textContent,
         },
       }
-    : undefined;
+    : undefined
 ```
 
 Cool, this lets us transform a paragraph into some structured data.
@@ -351,13 +348,13 @@ We can do something similar for images:
 const convertImage = (data: TransformResult): ImageBlock | undefined =>
   data.attrs.src
     ? {
-        type: "image",
+        type: 'image',
         data: {
           url: data.attrs.src,
-          caption: data.attrs.alt || "",
+          caption: data.attrs.alt || '',
         },
       }
-    : undefined;
+    : undefined
 ```
 
 # Putting it all together
@@ -369,26 +366,26 @@ First, we can update the `removeContainer` function to call the converter on the
 ```ts
 // note that we need a handler for BODY since the `DOMParser` will always add a body element when parsing
 const isContainer = (data: TransformResult) =>
-  data.tagName === "BODY" ||
-  data.tagName === "DIV" ||
-  data.tagName === "SECTION";
+  data.tagName === 'BODY' ||
+  data.tagName === 'DIV' ||
+  data.tagName === 'SECTION'
 
 const removeContainer = (data: TransformResult) =>
   data.children.map((child) => {
     if (isContainer(child)) {
-      return removeContainer(child);
+      return removeContainer(child)
     } else {
-      if (child.tagName === "IMG") {
-        const block = convertImage(child);
+      if (child.tagName === 'IMG') {
+        const block = convertImage(child)
 
-        return block ? [block] : [];
-      } else if (child.tagName === "P") {
-        const block = convertParagraph(child);
+        return block ? [block] : []
+      } else if (child.tagName === 'P') {
+        const block = convertParagraph(child)
 
-        return block ? [block] : [];
+        return block ? [block] : []
       }
     }
-  });
+  })
 ```
 
 Now, you can probably see a pattern that's going to arise as we add more and more elements that we want to handle - so it may be better to create a list of handlers for different tag types:
@@ -398,13 +395,13 @@ type Block = ParagraphBlock | ImageBlock
 
 const handlers: Partial<Record<TagName, (data: TransformResult) => Block[]>> = {
   // content blocks
-  'IMG': convertImage,
-  'P': convertParagraph,
+  IMG: convertImage,
+  P: convertParagraph,
 
   // container blocks - we will always want to remove these
-  'DIV': removeContainer,
-  'SECTION': removeContainer,
-  'BODY': removeContainer,
+  DIV: removeContainer,
+  SECTION: removeContainer,
+  BODY: removeContainer,
 }
 ```
 
@@ -415,26 +412,26 @@ const convertParagraph = (data: TransformResult): ParagraphBlock[] =>
   data.textContent
     ? [
         {
-          type: "paragraph",
+          type: 'paragraph',
           data: {
             text: data.textContent,
           },
         },
       ]
-    : [];
+    : []
 
 const convertImage = (data: TransformResult): ImageBlock[] =>
   data.attrs.src
     ? [
         {
-          type: "image",
+          type: 'image',
           data: {
             url: data.attrs.src,
-            caption: data.attrs.alt || "",
+            caption: data.attrs.alt || '',
           },
         },
       ]
-    : [];
+    : []
 ```
 
 And we can update the `removeContainer` function to handle things a bit more genericallly:
@@ -442,17 +439,17 @@ And we can update the `removeContainer` function to handle things a bit more gen
 ```ts
 const removeContainer = (data: TransformResult): Block[] => {
   const contentArr = data.children.map((child) => {
-    const handler = handlers[child.tagName];
+    const handler = handlers[child.tagName]
 
     if (!handler) {
-      return [];
+      return []
     }
 
-    return handler(child);
-  });
+    return handler(child)
+  })
 
-  return contentArr.flat(1);
-};
+  return contentArr.flat(1)
+}
 ```
 
 If you're really attentive, you'll notice the `contentArr.flat(1)` that was added in the above snippet, this flattens the `Block[][]` into a `Block[]`
@@ -461,16 +458,16 @@ Once we've got that, we can define a `convert` function that will take the HTML 
 
 ```ts
 const convert = (el: Element): Block[] => {
-  const transformed = transform(el);
+  const transformed = transform(el)
 
-  const initialHandler = handlers[transformed.tagName];
+  const initialHandler = handlers[transformed.tagName]
 
   if (!initialHandler) {
-    throw new Error("No handler found for top-level wrapper");
+    throw new Error('No handler found for top-level wrapper')
   }
 
-  return initialHandler(transformed);
-};
+  return initialHandler(transformed)
+}
 ```
 
 # Adding more content types

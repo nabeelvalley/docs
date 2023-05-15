@@ -5,20 +5,18 @@ description: Nushell Commands and Usage
 ---
 
 ---
+
 title: Nushell
 description: Nushell Commands and Usage
 published: true
+
 ---
 
 > [Nushell Docs](https://www.nushell.sh)
 
-[[toc]]
-
 # About
 
-
 Nushell makes use of command outputs as data that can be transformed, it makes use of pipes that connnect commands together in a functional-programming usage style
-
 
 # Moving around the File System
 
@@ -53,7 +51,6 @@ Variables are immutable, however values can be shadowed, so I can create a shado
 ```sh
 let x = $x + 1
 ```
-
 
 ## Scoping
 
@@ -117,7 +114,7 @@ Nushell has the following durations:
 - `us` microsecond
 - `ms` millisecond
 - `sec` second
-- `min` minute 
+- `min` minute
 - `hr` hour
 - `day` day
 - `wk` week
@@ -263,4 +260,3 @@ We can also fetch remote files which will then also be converted into data like 
 ```sh
 fetch https://blog.rust-lang.org/feed.xml
 ```
-

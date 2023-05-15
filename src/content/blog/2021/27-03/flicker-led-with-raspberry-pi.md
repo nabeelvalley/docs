@@ -5,8 +5,6 @@ subtitle: 28 March 2021
 description: Flicker and control and LED via a Raspberry Pi's GPIO Output pins using Python and RPi.GPIO
 ---
 
-[[toc]]
-
 # Circuit Diagram
 
 This script will make use of the GPIO Pins to flicker an LED

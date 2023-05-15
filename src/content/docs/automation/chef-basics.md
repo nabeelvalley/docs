@@ -4,15 +4,13 @@ title: Basics
 subtitle: Basic Concepts for using Chef
 ---
 
-[[toc]]
-
 # Basics of Chef
 
 [From this Module](https://learn.chef.io/modules/learn-the-basics)
 
 ```
 Infrastructure Automation > Learn the Basics > Ubuntu > Docker
-``` 
+```
 
 ## Note About Environment
 
@@ -108,7 +106,7 @@ file '/tmp/motd' do
 end
 ```
 
-And then update the resource with 
+And then update the resource with
 
 ```bash
 chef-client --local-mode hello.rb
@@ -174,7 +172,7 @@ more /tmp/motd
 
 Resources describe the what, not the how. A recipe is a file that describes what state a part of the system should be in, but not how to get there - that is handled by Chef
 
-Resources have actions, such as `:delete` which is a process by which a desired state is reached. Every resource has a default action, such as *create a file* or *install a package*. `:create` is the defult action for a `file` resource
+Resources have actions, such as `:delete` which is a process by which a desired state is reached. Every resource has a default action, such as _create a file_ or _install a package_. `:create` is the defult action for a `file` resource
 
 Recipes are an ordered list of configuration states and typically contain related states
 
@@ -215,7 +213,6 @@ package 'apache2'
 ```
 
 We don't need to specify the `:install` action as this is the default
-
 
 Now run the recipe with
 
@@ -348,6 +345,7 @@ cookbooks
 The default recipe is in the `recipes/default.rb` file, our recipe will be written in there
 
 ### Create a Template
+
 A new template file can be generated with the `chef generate` command, generate a new template called `index.html` as follows
 
 ```bash
@@ -405,4 +403,3 @@ curl localhost
 ```
 
 And by visiting `localhost:8100` on the Host
-

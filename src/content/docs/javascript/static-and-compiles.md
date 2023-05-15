@@ -1,5 +1,3 @@
-[[toc]]
-
 # Static Generator and Compilers
 
 This is a simple listing of a few tools that may be useful with a react app (or just generally) when building static sites or compiling things for a Node.js project

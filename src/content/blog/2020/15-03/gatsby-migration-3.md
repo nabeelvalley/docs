@@ -5,11 +5,9 @@ subtitle: 15 March 2020
 description: Adding dynamic pages to a Gatsby site
 ---
 
-[[toc]]
-
 # Introduction
 
-So far we've created the initial react application as with a few routes for our `Home`, `Blog`, and `404` pages. In this post we'll look at how we can set up our `Post` component to render our pages dynamically based on the JSON data we have. We'll also extend this so that we can have some more content in a markdown file that we'll parse and add to our Gatsby data  
+So far we've created the initial react application as with a few routes for our `Home`, `Blog`, and `404` pages. In this post we'll look at how we can set up our `Post` component to render our pages dynamically based on the JSON data we have. We'll also extend this so that we can have some more content in a markdown file that we'll parse and add to our Gatsby data
 
 1. [Creating the initial React App](/blog/2020/21-01/gatsby-migration-1)
 2. [Rendering the "Dumb" pages with Gatsby](/blog/2020/01-02/gatsby-migration-2)
@@ -23,7 +21,6 @@ Create the following markdown files in the application and align the names with 
 
 1. `static/posts/post-1.md`
 2. `static/posts/post-2.md`
-
 
 # Gatsby Plugins
 
@@ -93,7 +90,7 @@ This should yield the following JSON with our file meta data in it:
           "name": "post-1",
           "extension": "md",
           "absolutePath": "C:/repos/cra-to-gatsby/static/posts/post-1.md"
-        },
+        }
         // file 2 data
       ]
     }
@@ -105,7 +102,7 @@ This should yield the following JSON with our file meta data in it:
 
 Now that we have our metadata for each file in the file system, we're going to create a plugin that will allow us to read the file data and add it the GraphQL data layer
 
-In order to do this, create a `plugins` directory in the root folder. Inside of the plugins directory create a folder and folder for our plugin. 
+In order to do this, create a `plugins` directory in the root folder. Inside of the plugins directory create a folder and folder for our plugin.
 
 Create a new folder in the `plugins` directory with another folder called `gatsby-transformer-postdata`
 
@@ -126,7 +123,6 @@ yarn add showdown
 
 And then create an `gatsby-node.js` file in this directory with the following content:
 
-
 `/plugins/gatsby-transformer-postdata/gatsby-node.js`
 
 ```js
@@ -135,10 +131,9 @@ const crypto = require('crypto')
 const showdown = require('showdown')
 
 exports.onCreateNode = async ({ node, getNode, actions }) => {
+  const { createNodeField, createNode } = actions
 
-    const { createNodeField, createNode } = actions
-
-    // we'll process the node data here
+  // we'll process the node data here
 }
 ```
 
@@ -155,7 +150,6 @@ From the `onCreateNode` function we'll do the following to create the new nodes:
 7. Define the data for our node
 8. Create the new node using the `createNode` function
 
-
 `gatsby-transformer-postdata/gatsby-node.js`
 
 ```js
@@ -163,63 +157,60 @@ const fs = require('fs')
 const crypto = require('crypto')
 const showdown = require('showdown')
 
-exports.onCreateNode = async ({node, actions, loadNodeContent}) => {
+exports.onCreateNode = async ({ node, actions, loadNodeContent }) => {
+  const { createNodeField, createNode } = actions
 
-    const { createNodeField, createNode } = actions
-    
-    // 1. Check if it is a markdown node
-    if (node.internal.mediaType == 'text/markdown') {   
+  // 1. Check if it is a markdown node
+  if (node.internal.mediaType == 'text/markdown') {
+    const jsonFilePath = `${node.absolutePath.slice(0, -3)}.json`
 
-        const jsonFilePath = `${node.absolutePath.slice(0, -3)}.json`
+    console.log(jsonFilePath)
 
-        console.log(jsonFilePath)
-        
-        // 2. Check if the JSON file exists
-        if (fs.existsSync(jsonFilePath)) {
-            
-            // 3. Read file content
-            const markdownFilePath = node.absolutePath
-            const markdownContent = fs.readFileSync(markdownFilePath, 'utf8')
-            const jsonContent = fs.readFileSync(jsonFilePath, 'utf8')
+    // 2. Check if the JSON file exists
+    if (fs.existsSync(jsonFilePath)) {
+      // 3. Read file content
+      const markdownFilePath = node.absolutePath
+      const markdownContent = fs.readFileSync(markdownFilePath, 'utf8')
+      const jsonContent = fs.readFileSync(jsonFilePath, 'utf8')
 
-            // 4. Parse the metadata into an object
-            const metaData = JSON.parse(jsonContent)
+      // 4. Parse the metadata into an object
+      const metaData = JSON.parse(jsonContent)
 
-            // 5. Convert the markdown to HTML
-            const converter = new showdown.Converter()
-            const html = converter.makeHtml(markdownContent)
-            
-            // 6. Get the name of the node
-            const name = node.name
-            
-            // 7. Define the data for our node
-            const nodeData = {
-                name,
-                html,
-                metaData,
-                slug: `/blog/${name}`
-            }
+      // 5. Convert the markdown to HTML
+      const converter = new showdown.Converter()
+      const html = converter.makeHtml(markdownContent)
 
-            // 8. Create the new node using the `createNode` function
-            const newNode = {
-                // Node data
-                ...nodeData,
+      // 6. Get the name of the node
+      const name = node.name
 
-                // Required fields.
-                id: `RenderedMarkdownPost-${name}`,
-                children: [],
-                internal: {
-                    type: `RenderedMarkdownPost`,
-                    contentDigest: crypto
-                        .createHash(`md5`)
-                        .update(JSON.stringify(nodeData))
-                        .digest(`hex`),
-                }
-            }
+      // 7. Define the data for our node
+      const nodeData = {
+        name,
+        html,
+        metaData,
+        slug: `/blog/${name}`,
+      }
 
-            createNode(newNode)
-        }
+      // 8. Create the new node using the `createNode` function
+      const newNode = {
+        // Node data
+        ...nodeData,
+
+        // Required fields.
+        id: `RenderedMarkdownPost-${name}`,
+        children: [],
+        internal: {
+          type: `RenderedMarkdownPost`,
+          contentDigest: crypto
+            .createHash(`md5`)
+            .update(JSON.stringify(nodeData))
+            .digest(`hex`),
+        },
+      }
+
+      createNode(newNode)
     }
+  }
 }
 ```
 
@@ -290,7 +281,7 @@ Now that we've got all our data for the pages in one place we can use the `onCre
 
 Before we really do anything we need to rename the `Blog.js` file to `blog.js` as well as create the `src/components` directory and move the `Post.js` file into it, you may need to restart your application again using `yarn start`
 
-## Create Pages Dynamically 
+## Create Pages Dynamically
 
 In our site root create a `gatsby-node.js` file which exposes an `onCreatePages` function:
 
@@ -300,8 +291,7 @@ In our site root create a `gatsby-node.js` file which exposes an `onCreatePages`
 const path = require('path')
 
 exports.createPages = async ({ graphql, actions }) => {
-    const { createPage } = actions
-    
+  const { createPage } = actions
 }
 ```
 
@@ -316,35 +306,34 @@ From this function we need to do the following:
 const path = require('path')
 
 exports.createPages = async ({ graphql, actions }) => {
-    
-    const { createPage } = actions
+  const { createPage } = actions
 
-    // 1. Query for the PostData using the `graphql` function
-    const result = await graphql(`
+  // 1. Query for the PostData using the `graphql` function
+  const result = await graphql(`
     query AllPostData {
-        allRenderedMarkdownPost {
-          nodes {
-            html
-            name
-            slug
-            metaData {
-              body
-              image
-              title
-            }
+      allRenderedMarkdownPost {
+        nodes {
+          html
+          name
+          slug
+          metaData {
+            body
+            image
+            title
           }
         }
       }
+    }
   `)
 
-    result.data.allRenderedMarkdownPost.nodes.forEach(node => {
-        // 2. Create a page for each `renderedMarkdownPost`
-        createPage({
-            path: node.slug,
-            component: path.resolve(`./src/components/Post.js`),
-            context: node,
-        })
+  result.data.allRenderedMarkdownPost.nodes.forEach((node) => {
+    // 2. Create a page for each `renderedMarkdownPost`
+    createPage({
+      path: node.slug,
+      component: path.resolve(`./src/components/Post.js`),
+      context: node,
     })
+  })
 }
 ```
 
@@ -363,26 +352,32 @@ import { graphql } from 'gatsby'
 import App from '../App'
 
 const Post = ({ data }) => {
+  // 2. Get the data for the Post
+  const postData = data.renderedMarkdownPost
 
-    // 2. Get the data for the Post
-    const postData = data.renderedMarkdownPost
-
-    // 3. Render the data
-    return <App>
-        <div className="Post">
-            <p>This is the <code>{postData.slug}</code> page</p>
-            <h1>{postData.metaData.title}</h1>
-            <div className="markdown" dangerouslySetInnerHTML={{ __html: postData.html }}></div>
-        </div>
+  // 3. Render the data
+  return (
+    <App>
+      <div className="Post">
+        <p>
+          This is the <code>{postData.slug}</code> page
+        </p>
+        <h1>{postData.metaData.title}</h1>
+        <div
+          className="markdown"
+          dangerouslySetInnerHTML={{ __html: postData.html }}
+        ></div>
+      </div>
     </App>
+  )
 }
 
 export default Post
 
 // 1. Export the `query` for the data
 export const query = graphql`
-query PostData($slug: String!) {
-    renderedMarkdownPost(slug: {eq: $slug}) {
+  query PostData($slug: String!) {
+    renderedMarkdownPost(slug: { eq: $slug }) {
       html
       name
       slug
@@ -402,7 +397,6 @@ You can also see that we have significantly reduced the complexity in the `Post`
 
 If you look at the site now you should be able to navigate through all the pages as you'd expect to be able to
 
-
 # Summary
 
 By now we have completed the the entire migration process - converting our static and dynamic pages to use Gatsby. In order to bring the dynamic page generation functionality to our site we've done the following:
@@ -415,4 +409,3 @@ By now we have completed the the entire migration process - converting our stati
 And that's about it, through this series we've covered most of the basics on building a Gatsby site and handling a few scenarios for processing data using plugins and rendering content using Gatsby's available APIs
 
 > Nabeel Valley
-

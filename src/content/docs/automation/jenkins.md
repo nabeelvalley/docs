@@ -4,8 +4,6 @@ title: Jenkins
 subtitle: Jenkins Setup Guide and General Information
 ---
 
-[[toc]]
-
 The Guide for getting started can be found [here](https://jenkins.io/doc/pipeline/tour/getting-started/)
 
 # Setup

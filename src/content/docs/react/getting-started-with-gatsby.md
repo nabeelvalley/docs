@@ -5,8 +5,6 @@ subtitle: Getting Started with Gatsby.js
 description: Getting Started with Gatsby.js
 ---
 
-[[toc]]
-
 # Introduction
 
 Gatsby.js is a Static Site Generator that makes use of React and can plug into a headless CMS to generate a Static Site with SPA support and functionality
@@ -92,7 +90,7 @@ gatsby-hellp-world
 In the `index.js` file you will see a simple React Component that is exported:
 
 ```jsx
-import React from "react"
+import React from 'react'
 
 export default () => <div>Hello world!</div>
 ```
@@ -106,7 +104,7 @@ Gatsby organises pages similar to the way you would if you were using normal HTM
 `pages/about.js`
 
 ```jsx
-import React from "react"
+import React from 'react'
 
 export default () => <div>About Page</div>
 ```
@@ -116,8 +114,8 @@ And then we can add a link to this from the `home` component using the React `Li
 `pages/index.js`
 
 ```jsx
-import React from "react"
-import { Link } from "gatsby"
+import React from 'react'
+import { Link } from 'gatsby'
 
 export default () => (
   <div>
@@ -174,7 +172,7 @@ Next in the `src` project root directory create a file called `gatsby-browser.js
 `gatsby-browser.js`
 
 ```js
-import "./src/styles/global.css"
+import './src/styles/global.css'
 ```
 
 After adding this file you will need to restart the Gatsby development server
@@ -184,8 +182,8 @@ Now let's create a component called `Container`:
 `src/components/container.js`
 
 ```js
-import React from "react"
-import containerStyles from "./container.module.css"
+import React from 'react'
+import containerStyles from './container.module.css'
 
 export default ({ children }) => (
   <div className={containerStyles.container}>{children}</div>
@@ -208,9 +206,9 @@ We can then update the `index.js` page to use this container:
 `index.js`
 
 ```js
-import React from "react"
-import { Link } from "gatsby"
-import Container from "../components/container"
+import React from 'react'
+import { Link } from 'gatsby'
+import Container from '../components/container'
 
 export default () => (
   <Container>
@@ -246,18 +244,18 @@ module.exports = {
     {
       resolve: `gatsby-plugin-typography`,
       options: {
-        pathToConfigModule: `src/utils/typography`
-      }
-    }
-  ]
+        pathToConfigModule: `src/utils/typography`,
+      },
+    },
+  ],
 }
 ```
 
 `src/utils/typography.js`
 
 ```js
-import Typography from "typography"
-import fairyGateTheme from "typography-theme-fairy-gates"
+import Typography from 'typography'
+import fairyGateTheme from 'typography-theme-fairy-gates'
 
 const typography = new Typography(fairyGateTheme)
 
@@ -301,9 +299,9 @@ We can then query for the data by using the GraphQL query constant that we expor
 `index.js`
 
 ```js
-import React from "react"
-import { graphql } from "gatsby"
-import Container from "../components/container"
+import React from 'react'
+import { graphql } from 'gatsby'
+import Container from '../components/container'
 
 export default ({ data }) => (
   <Container>
@@ -329,16 +327,16 @@ Let's add the a simple static query for the `title` in the `container` component
 `container.js`
 
 ```js
-import { useStaticQuery, Link, graphql } from "gatsby"
+import { useStaticQuery, Link, graphql } from 'gatsby'
 ```
 
 We can then use this in our component
 
 ```js
-import React from "react"
-import { graphql } from "gatsby"
-import containerStyles from "./container.module.css"
-import { useStaticQuery } from "gatsby"
+import React from 'react'
+import { graphql } from 'gatsby'
+import containerStyles from './container.module.css'
+import { useStaticQuery } from 'gatsby'
 
 export default ({ children }) => {
   const data = useStaticQuery(
@@ -406,9 +404,9 @@ If we restart the dev server we should see the `allFile` and `file` in the Graph
 We can then query for some data from the file system and log it to the console:
 
 ```js
-import React from "react"
-import { graphql } from "gatsby"
-import Container from "../components/container"
+import React from 'react'
+import { graphql } from 'gatsby'
+import Container from '../components/container'
 
 export default ({ data }) =>
   console.log(data) || (
@@ -514,8 +512,8 @@ In the above query the result will be the rendered `html` node along with any me
 
 ```md
 ---
-title: "Sweet Pandas Eating Sweets"
-date: "2017-08-10"
+title: 'Sweet Pandas Eating Sweets'
+date: '2017-08-10'
 ---
 
 Pandas are really sweet.
@@ -530,9 +528,9 @@ We can then use the query from above to create a page that lists all the markdow
 `src/pages/blog.js`
 
 ```js
-import React from "react"
-import { graphql } from "gatsby"
-import Container from "../components/container"
+import React from 'react'
+import { graphql } from 'gatsby'
+import Container from '../components/container'
 
 export default ({ data }) => {
   console.log(data)
@@ -618,7 +616,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({
       node,
       name: `slug`,
-      value: slug
+      value: slug,
     })
   }
 }
@@ -709,9 +707,9 @@ exports.createPages = async ({ graphql, actions }) => {
 We can then create the `src/templates/blog-post.js` file to render the new data:
 
 ```js
-import React from "react"
-import { graphql } from "gatsby"
-import Container from "../components/container"
+import React from 'react'
+import { graphql } from 'gatsby'
+import Container from '../components/container'
 
 export default ({ data }) => {
   const post = data.markdownRemark
@@ -726,7 +724,7 @@ export default ({ data }) => {
 }
 
 export const query = graphql`
-  query($slug: String!) {
+  query ($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
@@ -744,9 +742,9 @@ We can then also update the `blog.js` file to query for the slug and create a `L
 `blog.js`
 
 ```js
-import React from "react"
-import { graphql, Link } from "gatsby"
-import Container from "../components/container"
+import React from 'react'
+import { graphql, Link } from 'gatsby'
+import Container from '../components/container'
 
 export default ({ data }) => {
   console.log(data)

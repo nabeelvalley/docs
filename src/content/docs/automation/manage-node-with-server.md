@@ -4,13 +4,11 @@ title: Managing a Node using Chef
 subtitle: Managing a Node using Chef
 ---
 
-[[toc]]
-
 [From this Module](https://learn.chef.io/modules/manage-a-node-chef-server/ubuntu/bring-your-own-system#/)
 
 ```
 Infrastructure Automation > Manage a node > Ubuntu > On premises
-``` 
+```
 
 # Overview
 
@@ -103,7 +101,7 @@ sudo /tmp/install-chef-server.sh
 
 ## Configure Ports
 
-Ensure that ports 22, 80, and 443 are exposed on the Chef Server - On VirtualBox I just used port forwarding to map these to my local 22, 80, and 443 ports 
+Ensure that ports 22, 80, and 443 are exposed on the Chef Server - On VirtualBox I just used port forwarding to map these to my local 22, 80, and 443 ports
 
 # Configure the Workstation
 
@@ -144,7 +142,7 @@ Move the `.pem` files we just created to our `chef-repo` with the following comm
 cp /path/to/ORGANIZATION-validator.pem ~/chef-repo/.chef
 ```
 
-## Copy the  Private Key to Workstation
+## Copy the Private Key to Workstation
 
 Copy the `chefadmin.pem` file to your Workstation's `learn-chef/.chef` directory
 

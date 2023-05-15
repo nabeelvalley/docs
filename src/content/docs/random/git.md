@@ -5,8 +5,6 @@ subtitle: Miscellaneous Git Concepts
 description: Git tips and tricks
 ---
 
-[[toc]]
-
 # Stage Files Using Glob
 
 Git allows the use of globbing to work with files, using this knowledge we're able to do something like stage files based on a glob pattern, so we can do something like stage all `.js` and `.ts` files with:
@@ -109,16 +107,16 @@ You will also see a new `.gitmodules` file in your parent repo's root directory 
 ```
 [submodule "MySubmodules/YourRepository"]
 	path = MySubmodules/YourRepository
-	url = https://github.com/nabeelvalley/YourRepository.git 
+	url = https://github.com/nabeelvalley/YourRepository.git
 
 [submodule "MySubmodules/NewNameForSubmoduleDirectory"]
 	path = MySubmodules/NewNameForSubmoduleDirectory
-	url = https://github.com/nabeelvalley/YourRepository.git 
+	url = https://github.com/nabeelvalley/YourRepository.git
 ```
 
 You can see above an example of a submodule created with the default name as well as a renamed one
 
-Next you will see that the new files need to be committed, you can do that with 
+Next you will see that the new files need to be committed, you can do that with
 
 ```bash
 git add .
@@ -172,7 +170,7 @@ It's also relevant to note that when working on submodules you can kind of treat
 
 # [Clean Ignored Files](http://www.codeblocq.com/2016/01/Untrack-files-already-added-to-git-repository-based-on-gitignore/)
 
-To remove files that are in your `.gitignore` but are not ignored by your repo, you can do the following: 
+To remove files that are in your `.gitignore` but are not ignored by your repo, you can do the following:
 
 ```bash
 git rm -r --cached .
@@ -210,8 +208,8 @@ git commit -m 'Initial commit on new branch'
 To init Git Flow in a repo use `git flow` for the help menu:
 
 ```sh
-> git flow                                                                                                
- 
+> git flow
+
 usage: git flow <subcommand>
 
 Available subcommands are:
@@ -253,11 +251,10 @@ Release branches? [] release/
 Hotfix branches? [] hotfix/
 Support branches? [] support/
 Version tag prefix? []
-Hooks and filters directory? [<REPO PATH/.git/hooks]   
+Hooks and filters directory? [<REPO PATH/.git/hooks]
 ```
 
 > When using `init` you will also automatically be switched to the `develop` branch if you're working on an existing project
-
 
 Now you can use the `git flow <BRANCH TYPE> start <FUNCTION NAME>` command to start a new feature branch for something like so:
 
@@ -268,9 +265,9 @@ Switched to a new branch 'feature/save-user'
 
 Summary of actions:
 - A new branch 'feature/save-user' was created, based on 'develop'
-- You are now on branch 'feature/save-user'                                                                                                                                                                                                     
-Now, start committing on your feature. When done, use:                                                                                                                                                                                               
-git flow feature finish save-user  
+- You are now on branch 'feature/save-user'
+Now, start committing on your feature. When done, use:
+git flow feature finish save-user
 
 ```
 
@@ -279,7 +276,7 @@ The above will then add you to a feature called `feature/save-user` and you can 
 When you're done with that you can use `git flow <BRANCH TYPE> finish <FUNCTION NAME>` to merge the work to develop
 
 ```sh
->  git flow feature finish save-user 
+>  git flow feature finish save-user
 
 Switched to branch 'develop'
 Updating 012cac2..ecfd049
@@ -328,7 +325,7 @@ Untracked files:
 
 # Consistent Line Endings
 
-You can setup consistent line endings for repositories that are shared between Windows and *nix systems by adding the following to a `.gitattributes` file
+You can setup consistent line endings for repositories that are shared between Windows and \*nix systems by adding the following to a `.gitattributes` file
 
 `.gitattributes`
 

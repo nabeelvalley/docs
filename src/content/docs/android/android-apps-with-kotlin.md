@@ -5,8 +5,6 @@ subtitle: Introduction to building Android apps using the Kotlin Programming Lan
 description: Introduction to building Android apps using the Kotlin Programming Language
 ---
 
-[[toc]]
-
 > From [this Udacity Corse](https://classroom.udacity.com/courses/ud9012)
 
 # Building your First App

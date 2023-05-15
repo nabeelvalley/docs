@@ -6,13 +6,13 @@ description: An introduction to bits, bytes, and binary file formats
 ---
 
 ---
+
 title: Binary Data and File Formats
 subtitle: 20 August 2022
 description: An introduction to bits, bytes, and binary file formats
 published: true
----
 
-[[toc]]
+---
 
 # Introduction
 
@@ -30,7 +30,7 @@ Bytes consist of 8-bit, with each position representing a power of 2 from 2^0 to
 
 ```
 0 0 0 0 0 0 0 0
-| | | | | | | |  
+| | | | | | | |
 | | | | | | | |__ 2^0 - 0 or 1
 | | | | | | |____ 2^1 - 0 or 2
 | | | | | |______ 2^2 - 0 or 4
@@ -49,7 +49,7 @@ Using the above explanation, the number 1 is represented using the following:
 
 ```
 0 0 0 0 0 0 0 1
-| | | | | | | |  
+| | | | | | | |
 | | | | | | | |__ 2^0 - 1
 | | | | | | |____ 2^1 - 0
 | | | | | |______ 2^2 - 0
@@ -68,7 +68,7 @@ Similarly, 2 is represented as:
 
 ```
 0 0 0 0 0 0 2 0
-| | | | | | | |  
+| | | | | | | |
 | | | | | | | |__ 2^0 - 0
 | | | | | | |____ 2^1 - 2
 | | | | | |______ 2^2 - 0
@@ -87,7 +87,7 @@ Or the number 5 with bits 2^0 and 2^2 having a value:
 
 ```
 0 0 0 0 0 1 0 1
-| | | | | | | |  
+| | | | | | | |
 | | | | | | | |__ 2^0 - 1
 | | | | | | |____ 2^1 - 0
 | | | | | |______ 2^2 - 4
@@ -106,7 +106,7 @@ A larger number, like 234 is:
 
 ```
 1 1 1 0 1 0 1 0
-| | | | | | | |  
+| | | | | | | |
 | | | | | | | |__ 2^0 - 0
 | | | | | | |____ 2^1 - 2
 | | | | | |______ 2^2 - 0
@@ -141,7 +141,7 @@ When looking at binary data, it can be a bit easier to navigate around by repres
 
 ```
 0 0 0 0
-| | | |  
+| | | |
 | | | |__ 2^0 - 0 or 1
 | | |____ 2^1 - 0 or 2
 | |______ 2^2 - 0 or 4
@@ -153,7 +153,7 @@ Using what's already been discussed, the number 12 can be represented in bits as
 Hex numbers additionally convert each of these values into a value from 0-9 or A-F, as seen in the following table:
 
 | Decimal | Bits   | Hex |
-|---------|--------|-----|
+| ------- | ------ | --- |
 | 0       | `0000` | `0` |
 | 1       | `0001` | `1` |
 | 2       | `0010` | `2` |

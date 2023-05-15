@@ -3,8 +3,6 @@ published: true
 title: Istio with k8s
 ---
 
-[[toc]]
-
 # Prerequisites
 
 1. Trial IBM Cloud Account
@@ -52,7 +50,7 @@ cd istio101/workshop
 
 Download Istio from [here](https://github.com/istio/istio/releases) and extract to your root directory
 
-Then add the `istioctl.exe`  file to your `PATH` variable
+Then add the `istioctl.exe` file to your `PATH` variable
 
 Thereafter navigate to the `istio-demo.yaml` file in the istio folder that you extracted and do the following
 
@@ -100,8 +98,8 @@ kubectl create -f redis-slave-service.yaml
 
 Sidecars are utility containers that support the main container, we can inject the Istio sidecar in two ways
 
-* Manually with the Istio CLI
-* Automatically with the Istio Initializer
+- Manually with the Istio CLI
+- Automatically with the Istio Initializer
 
 With Linux you can do this
 
@@ -133,7 +131,7 @@ kubectl create -f guestbook-service.yaml
 Create a Tone Analyzer Service and get the credentials, then add these to the `analyzer-deployment.yaml` file
 
 ```bash
-ibmcloud target --cf 
+ibmcloud target --cf
 ibmcloud service create tone_analyzer lite my-tone-analyzer
 ibmcloud service key-create my-tone-analyzer istiokey
 ibmcloud service key-show my-tone-analyzer istiokey
@@ -199,7 +197,7 @@ kubectl get svc tracing -n istio-system
 
 ### Grafana
 
-We can establish port forwarding for Grafana and view the dashboard on `localhost:3000` 
+We can establish port forwarding for Grafana and view the dashboard on `localhost:3000`
 
 ```bash
 kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000
@@ -207,7 +205,7 @@ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=gr
 
 ### Prometheus
 
-We can view the Prometheus dashboard at `localhost:9090`  
+We can view the Prometheus dashboard at `localhost:9090`
 
 ```bash
 kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090
@@ -255,9 +253,7 @@ kubectl get service istio-ingress -n istio-system
 
 ## Set up a Controller to work with IBM Cloud Kubernetes Service
 
-
 This will only work with a paid cluster
-
 
 Get your Ingress subdomain
 
@@ -280,9 +276,9 @@ The core component for traffic management in istio is Pilot. This manages and co
 
 Pilot translates high level rules into low level configurations by means of the following three resources
 
-* Virtual Services - Defines a set of routing rules to apply when a host is addressed
-* Destination Rules - Defines policies that apply to traffic intended for a service after routing has occurred, specifications for load balancing, connection pool size, outlier detection, etc
-* Service Entries - Enables services to access a service not necessarily managed by Istio
+- Virtual Services - Defines a set of routing rules to apply when a host is addressed
+- Destination Rules - Defines policies that apply to traffic intended for a service after routing has occurred, specifications for load balancing, connection pool size, outlier detection, etc
+- Service Entries - Enables services to access a service not necessarily managed by Istio
 
 ## A/B Testing
 
@@ -395,10 +391,10 @@ Istio uses Mixer to provide a generic intermediate layer between app code and in
 
 Mixer makes use of adapters to interface between code and back-ends
 
-* Denier
-* Prometheus
-* Memquota
-* Stackdriver
+- Denier
+- Prometheus
+- Memquota
+- Stackdriver
 
 ## Using the Denier Adapter
 
@@ -410,10 +406,8 @@ istioctl create -f mixer-rule-denial.yaml
 
 The rule we have created is as follows
 
-
-
 ```yaml
-apiVersion: "config.istio.io/v1alpha2"
+apiVersion: 'config.istio.io/v1alpha2'
 kind: denier
 metadata:
   name: denyall
@@ -424,7 +418,7 @@ spec:
     message: Not allowed
 ---
 # The (empty) data handed to denyall at run time
-apiVersion: "config.istio.io/v1alpha2"
+apiVersion: 'config.istio.io/v1alpha2'
 kind: checknothing
 metadata:
   name: denyrequest
@@ -432,7 +426,7 @@ metadata:
 spec:
 ---
 # The rule that uses denier to deny requests to the guestbook service
-apiVersion: "config.istio.io/v1alpha2"
+apiVersion: 'config.istio.io/v1alpha2'
 kind: rule
 metadata:
   name: deny-hello-world
@@ -440,18 +434,13 @@ metadata:
 spec:
   match: destination.service=="guestbook.default.svc.cluster.local"
   actions:
-  - handler: denyall.denier
-    instances:
-    - denyrequest.checknothing
+    - handler: denyall.denier
+      instances:
+        - denyrequest.checknothing
 ```
-
-
 
 We can verify that the access is denied by navigating to our Ingress IP, next we can remove the rule with
 
 ```bash
 istioctl delete -f mixer-rule-denial.yaml
 ```
-
-
-

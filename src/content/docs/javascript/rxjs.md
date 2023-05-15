@@ -3,8 +3,6 @@ published: true
 title: RxJS Basics
 ---
 
-[[toc]]
-
 > [From DesignCourse on Youtube](https://www.youtube.com/watch?v=PhggNGsSQyg) ([alt](https://coursetro.com/courses/25/A-Comprehensive-RxJS-Tutorial---Learn-ReactiveX-for-JavaScript-))
 
 # Overview
@@ -52,7 +50,6 @@ console.log(Observable)
 
 This should log the `Observable` object from RxJS
 
-
 # Observables
 
 > A stream is a series of events that are emitted over time. An observable provides a means to emit and respond to stream events
@@ -63,13 +60,13 @@ We can create an observable that emits `string` values with the following:
 
 ```ts
 const observable = new Observable<string>((observer) => {
-  observer.next("hello world") // emit a value
+  observer.next('hello world') // emit a value
 })
 ```
 
 ## Subscribe to an Observerble
 
-However, we won't see events emitted unless we have `observers`, in order to get the value we need to define an observer by  with the `subscribe` method. In this case due to how the observable was defined the `value` will be of type `string`:
+However, we won't see events emitted unless we have `observers`, in order to get the value we need to define an observer by with the `subscribe` method. In this case due to how the observable was defined the `value` will be of type `string`:
 
 ```ts
 const observer = observable.subscribe((value) => {
@@ -84,7 +81,7 @@ The events that we can respond to on an observable are `next`, `error`, and `com
 We can additionally also handle errors and completion events by passing them into the subscribe as additional params:
 
 ```ts
-const observable = new Observable<string>(observer => {
+const observable = new Observable<string>((observer) => {
   observer.next('hello world')
   observer.next('what is the up')
   observer.error('i am error')
@@ -94,8 +91,8 @@ const observable = new Observable<string>(observer => {
 })
 
 observable.subscribe(
-  value => console.log(value), // handle next
-  error => console.error(error), // handle error
+  (value) => console.log(value), // handle next
+  (error) => console.error(error), // handle error
   () => console.log('complete') // handle complete
 )
 ```
@@ -105,18 +102,18 @@ observable.subscribe(
 To unsubscribe you can use the `observer.unsubscribe` method:
 
 ```ts
-const observable = new Observable<string>(observer => {
+const observable = new Observable<string>((observer) => {
   observer.next('hello world')
   let count = 0
   setInterval(() => {
-    count ++
-    observer.next('tick ' + count )
+    count++
+    observer.next('tick ' + count)
   }, 1000)
 })
 
 const observer = observable.subscribe(
-  value => console.log(value),
-  error => console.error(error),
+  (value) => console.log(value),
+  (error) => console.error(error),
   () => console.log('complete')
 )
 
@@ -131,23 +128,23 @@ setTimeout(() => {
 We can create multiple observers simply by using the `observable.subscribe` method:
 
 ```ts
-const observable = new Observable<string>(observer => {
+const observable = new Observable<string>((observer) => {
   observer.next('hello world')
   let count = 0
   setInterval(() => {
-    count ++
-    observer.next('tick ' + count )
+    count++
+    observer.next('tick ' + count)
   }, 1000)
 })
 
 const observer1 = observable.subscribe(
-  value => console.log('observer1', value),
-  error => console.error('observer1', error),
+  (value) => console.log('observer1', value),
+  (error) => console.error('observer1', error),
   () => console.log('observer1 complete')
 )
 
-const observer2 = observable.subscribe(
-  value => console.log('observer2', value),
+const observer2 = observable.subscribe((value) =>
+  console.log('observer2', value)
 )
 
 setTimeout(() => {
@@ -162,13 +159,13 @@ If we want to create linked/child observers we can call the `observer.add` and `
 
 ```ts
 const observer = observable.subscribe(
-  value => console.log('observer', value),
-  error => console.error('observer', error),
+  (value) => console.log('observer', value),
+  (error) => console.error('observer', error),
   () => console.log('observer complete')
 )
 
-const childObserver = observable.subscribe(
-  value => console.log('child', value)
+const childObserver = observable.subscribe((value) =>
+  console.log('child', value)
 )
 
 // add a child observer
@@ -189,9 +186,9 @@ setTimeout(() => {
 }, 5000)
 ```
 
-However, if we don't remove it, it will automatically 
+However, if we don't remove it, it will automatically
 
-## Hot or Cold 
+## Hot or Cold
 
 A **cold** observable is an observable whose producer is only activated once a subscription has been created
 
@@ -200,7 +197,7 @@ For example, we can create a second observer after a second, this observer will 
 ```ts
 setTimeout(() => {
   console.log('unsub')
-  const observerLate = observable.subscribe(value =>
+  const observerLate = observable.subscribe((value) =>
     console.log('observerLate', value)
   )
 }, 1000)
@@ -209,12 +206,12 @@ setTimeout(() => {
 However, if we want our observer to get the latest updates and not receive older messages we can create a warm/hot observer by piping the `share` method when we define our observable, this will ensure that the obsever created above will reveive the latest messages only
 
 ```ts
-const observable = new Observable<string>(observer => {
+const observable = new Observable<string>((observer) => {
   observer.next('hello world')
   let count = 0
   setInterval(() => {
-    count ++
-    observer.next('tick ' + count )
+    count++
+    observer.next('tick ' + count)
   }, 1000)
 }).pipe(share())
 ```
@@ -229,7 +226,7 @@ You can create an observerble from DOM events by using the `fromEvent` function:
 const observable = fromEvent(document, 'mousemove')
 ```
 
-# Subjects 
+# Subjects
 
 A subject is simultaneously an observer and an observable which means we are able to send events using the subject and are also able to subscribe to the subject
 
@@ -238,9 +235,7 @@ import { Subject } from 'rxjs'
 
 const subject = new Subject<string>()
 
-const observer1 = subject.subscribe(
-  value => console.log('observer1', value)
-)
+const observer1 = subject.subscribe((value) => console.log('observer1', value))
 
 subject.next('first message')
 ```
@@ -248,9 +243,7 @@ subject.next('first message')
 So now we can add observers and send new messages like this:
 
 ```ts
-const observer2 = subject.subscribe(
-  value => console.log('observer2', value)
-)
+const observer2 = subject.subscribe((value) => console.log('observer2', value))
 
 subject.next('second message')
 
@@ -272,15 +265,11 @@ import { Subject } from 'rxjs'
 
 const subject = new Subject<string>()
 
-const observer1 = subject.subscribe(
-  value => console.log('observer1', value)
-)
+const observer1 = subject.subscribe((value) => console.log('observer1', value))
 
 subject.next('first message')
 
-const observer2 = subject.subscribe(
-  value => console.log('observer2', value)
-)
+const observer2 = subject.subscribe((value) => console.log('observer2', value))
 
 subject.next('second message')
 
@@ -291,26 +280,22 @@ subject.next('third message')
 
 ### Behaviour Subject
 
-A `Behaviour` subject will allow observers to receive all events received after it subscribed as well as: 
+A `Behaviour` subject will allow observers to receive all events received after it subscribed as well as:
 
-  - An initial event for the first observer only
-  - The last event fired before a new observer subscribes
+- An initial event for the first observer only
+- The last event fired before a new observer subscribes
 
 ```ts
 import { BehaviorSubject } from 'rxjs'
 
 const subject = new BehaviorSubject<string>('welcome observer1')
 
-const observer1 = subject.subscribe(
-  value => console.log('observer1', value)
-)
+const observer1 = subject.subscribe((value) => console.log('observer1', value))
 
 subject.next('first message')
 subject.next('second message')
 
-const observer2 = subject.subscribe(
-  value => console.log('observer2', value)
-)
+const observer2 = subject.subscribe((value) => console.log('observer2', value))
 
 subject.next('third message')
 
@@ -330,18 +315,14 @@ import { ReplaySubject } from 'rxjs'
 
 const subject = new ReplaySubject<string>(2)
 
-const observer1 = subject.subscribe(
-  value => console.log('observer1', value)
-)
+const observer1 = subject.subscribe((value) => console.log('observer1', value))
 
 subject.next('first message')
 subject.next('second message')
 subject.next('third message')
 
-const observer2 = subject.subscribe(
-  value => console.log('observer2', value)
-)
-  
+const observer2 = subject.subscribe((value) => console.log('observer2', value))
+
 subject.next('fourth message')
 
 observer2.unsubscribe()
@@ -361,17 +342,15 @@ const subject = new ReplaySubject<string>(20, 200)
 let count = 0
 
 setInterval(() => {
-  count ++
+  count++
   subject.next('tick ' + count)
 }, 100)
 
-const observer1 = subject.subscribe(
-  value => console.log('observer1', value)
-)
+const observer1 = subject.subscribe((value) => console.log('observer1', value))
 
 setTimeout(() => {
-  const observer2 = subject.subscribe(
-    value => console.log('observer2', value)
+  const observer2 = subject.subscribe((value) =>
+    console.log('observer2', value)
   )
 }, 500)
 ```
@@ -381,4 +360,3 @@ In the above, `observer2` will receive ticks `4` and `5` even though it only sta
 ### Async Subject
 
 The async subject only emits the last value and will only do so once the `complete` method has been called on the subject
-

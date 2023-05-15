@@ -4,8 +4,6 @@ title: Vim
 subtitle: Introductory Vimming
 ---
 
-[[toc]]
-
 To start using Vim, first install it from [here](https://www.vim.org/download.php#pc)
 
 > To get some quick tips and information you can use the Vim tutor application, this can be launched from CMD using the `vimtutor` command. For some reason this doesn't work right from Powershell
@@ -28,7 +26,7 @@ Vim has two main modes, a viewing mode and an editing mode, to exit the editing 
 Next, once out of edit mode you can:
 
 - `:w` to save changes
-- `:wq` save changes and close 
+- `:wq` save changes and close
 - `:q!` abandon changes and close
 
 To open and continue editing a file you can again run `vim filename.txt`
@@ -70,7 +68,7 @@ To change until the end of a word use `ce`, this will allow you to overwrite the
 
 # Moving Around
 
-- `ctrl g` to see where in a file you currently are 
+- `ctrl g` to see where in a file you currently are
 - `G` to move to the bottom of a file
 - `gg` to move to the top of a file
 - A line number followed by `G` to go to a line, e.g `12G` will take you to line 12
@@ -84,10 +82,10 @@ To search you can use `/` followed by a search phrase and then click enter
 - `?` to search in the backward direction
 - `ctrl o` to go back to where you were before
 - `ctrl i` to go forward
-- `%` will search for a matching bracket,  `), ], }`
+- `%` will search for a matching bracket, `), ], }`
 - `:noh` will clear the highlighting from the search results
 
-# Substitution 
+# Substitution
 
 Substitution is done using the `:s` command, the structure of this command works like so:
 
@@ -175,4 +173,3 @@ To enable Vim features you can make use of a startup script or a `vimrc` file
 
 - `:set number` to turn on line numbers
 - `:syntax on` to turn on syntax highlighting
-

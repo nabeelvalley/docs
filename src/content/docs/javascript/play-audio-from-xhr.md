@@ -3,8 +3,6 @@ published: true
 title: Play Watson Text-to-Speech via XHR
 ---
 
-[[toc]]
-
 # Play the Audio
 
 In order to play audio from the result of an XHR request we can make use of the following code (in this case using the IBM Watson Text to Speech Service), this will make the request, store the response audio as a `Blob`, assign that to an Audio Element, and then play the audio.
@@ -22,26 +20,26 @@ var data = null
 var xhr = new XMLHttpRequest()
 xhr.withCredentials = true
 xhr.responseType = 'blob'
-xhr.addEventListener('readystatechange', function() {
-    if (this.readyState === 4) {
-        //console.log(this.responseText);
-    }
+xhr.addEventListener('readystatechange', function () {
+  if (this.readyState === 4) {
+    //console.log(this.responseText);
+  }
 })
-xhr.onload = function(evt) {
-    var binaryData = []
-    binaryData.push(xhr.response)
-    var blob = new Blob(binaryData, { type: 'audio/mp3' })
-    var objectUrl = window.URL.createObjectURL(
-        new Blob(binaryData, { type: 'application/zip' })
-    )
-    console.log(objectUrl)
-    var audioElement = document.getElementById('myAudioElement')
-    audioElement.src = objectUrl
-    audioElement.play()
+xhr.onload = function (evt) {
+  var binaryData = []
+  binaryData.push(xhr.response)
+  var blob = new Blob(binaryData, { type: 'audio/mp3' })
+  var objectUrl = window.URL.createObjectURL(
+    new Blob(binaryData, { type: 'application/zip' })
+  )
+  console.log(objectUrl)
+  var audioElement = document.getElementById('myAudioElement')
+  audioElement.src = objectUrl
+  audioElement.play()
 }
 xhr.open(
-    'GET',
-    `speech/text-to-speech/api/v1/voices/en-GB_KateVoice/synthesize?text=${text}`
+  'GET',
+  `speech/text-to-speech/api/v1/voices/en-GB_KateVoice/synthesize?text=${text}`
 )
 xhr.setRequestHeader('Accept', 'audio/mp3')
 xhr.setRequestHeader('Authorization', 'Basic XXXXXXXXXXXXXXXXXXXXXXXXXXX')

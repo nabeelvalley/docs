@@ -3,8 +3,6 @@ published: true
 title: Visualization
 ---
 
-[[toc]]
-
 > [Based on This EdX Course](https://www.edx.org/course/data-science-visualization)
 
 # Configuration
@@ -24,12 +22,12 @@ Numerical Data is often summarised in a single value, the average, with a standa
 
 # Data Types
 
-* Catergorical
-  * Ordinal
-  * Non-Ordinal
-* Numeric 
-  * Discrete
-  * Continious
+- Catergorical
+  - Ordinal
+  - Non-Ordinal
+- Numeric
+  - Discrete
+  - Continious
 
 If a numeric set is discrete and only consists of a few possible values \(e.g 1, 2, 3\) we can consider it to be ordinal
 
@@ -105,10 +103,10 @@ We will be using the `ggplot2` library for plotting because it is easy for begin
 
 # Graph Components
 
-* Data
-* Geometry - Plot Type `geom_...()`
-* Aesthetic Mapping - Points, colouring, etc. `aes()`
-* Scale - Log, linear, etc.
+- Data
+- Geometry - Plot Type `geom_...()`
+- Aesthetic Mapping - Points, colouring, etc. `aes()`
+- Scale - Log, linear, etc.
 
 The first step to define a ggplot graph is by assigning the data to it, we can view the plot by simply printing it
 
@@ -122,8 +120,8 @@ print(plot)
 Graphs are made of layers based on components, to add layers, we use the `+` operator
 
 ```r
-plot <- ggplot(data = dataFrame) + 
-        geom_points(aes(x = ..., y = ...)) + 
+plot <- ggplot(data = dataFrame) +
+        geom_points(aes(x = ..., y = ...)) +
         geom_text(aes(x = ..., y = ..., label = ...), nudge_x = 1.5)
 print(plot)
 ```
@@ -133,8 +131,8 @@ The `aes` function can recognise our values that are defined in the `datFrame`, 
 The problem we have is that we keep having to redifine the mappings for x and y, we can instead define a global aesthetic mapping
 
 ```r
-plot <- ggplot(data = dataFrame, aes(x = ..., y = ..., label = ...)) + 
-        geom_points() + 
+plot <- ggplot(data = dataFrame, aes(x = ..., y = ..., label = ...)) +
+        geom_points() +
         geom_text(nudge_x = 1.5)
 print(plot)
 ```
@@ -146,14 +144,14 @@ We can write local mappings which wil overwrite the global mappings
 We want the scales to be in log10 base, this can be done by adding
 
 ```r
-plot <- ... + scale_x_continious(trans = "log10") 
+plot <- ... + scale_x_continious(trans = "log10")
             + scale_y_continious(trans = "log10")
 ```
 
 Since the log function is so close we can add it simply by
 
 ```r
-plot <- ... + scale_x_log10() 
+plot <- ... + scale_x_log10()
             + scale_y_log10()
 ```
 
@@ -171,8 +169,8 @@ plot <- ... + geom_abline(intersept = ..., lty = 2, color = ...)
 
 # Add-On Packages
 
-* `ggthemes` - Themes
-* `ggrepel` - Ensures labels do not bump nto things
+- `ggthemes` - Themes
+- `ggrepel` - Ensures labels do not bump nto things
 
 To use a theme we can do the following
 
@@ -186,9 +184,9 @@ plot <- ... + theme_themeName()
 
 # Other Graph Types
 
-* `geom_histogram`
-* `geom_density`
-* `geom_qq`
+- `geom_histogram`
+- `geom_density`
+- `geom_qq`
 
 To use multiple plot objects on a single plot we use the `gridExtra` package
 
@@ -203,7 +201,7 @@ grid.arrange(plot1, plot2, plot3, ncol = 3)
 
 ```r
 library(tidyverse)
-ageSummary <- dataFrame %>% 
+ageSummary <- dataFrame %>%
             summarize(median = median(age),
             minimum = min(age),
             maximum = max(height))
@@ -222,7 +220,7 @@ names <- dataFrame %>% .$names
 This allows us to break data into two different sets which return a group data frame. This is like a table with the same columns but two separate sets of rows
 
 ```r
-groupedData = dataFrame %>% 
+groupedData = dataFrame %>%
             + groupBy(catergoryName)
 ```
 
@@ -265,7 +263,7 @@ dataFrame %>% ggplot() + facet_wrap(~gender)
 If we want to plot multiple lines on a plot we need to tell ggplot to do this
 
 ```r
-people %>% ggplot(aes(age, avgHeight, col = gender)) 
+people %>% ggplot(aes(age, avgHeight, col = gender))
             + geom_line
 ```
 
@@ -330,4 +328,3 @@ The default behaviour in R is for a table is to show data up to 7 digits, this i
 We can specify our sifnificant figures with the `signif` and `round` functions
 
 Alternatively the global digit count can be set by `options(digits = n)`
-

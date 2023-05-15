@@ -5,8 +5,6 @@ subtitle: 29 October 2021
 description: Create ranges in Javascript
 ---
 
-[[toc]]
-
 Something i often find myself needing is a way to create a range in javascript, similar to what python has
 
 Here's a basic implementation of something that works like that:
@@ -14,7 +12,7 @@ Here's a basic implementation of something that works like that:
 ```js
 const range = (start, end, count, includeEnd = false) => {
   const space = (end - start) / (count - includeEnd)
-  return new Array(count).fill(0).map((_,i) => start + (i * space))
+  return new Array(count).fill(0).map((_, i) => start + i * space)
 }
 ```
 

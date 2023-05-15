@@ -4,8 +4,6 @@ title: Matter.js
 subtitle: Introductory Matter.js notes
 ---
 
-[[toc]]
-
 > Some notes on using Matter.js based on [The Coding Train YouTube Videos](https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw)
 
 # Physics Engine Overview
@@ -94,7 +92,7 @@ function setup() {
   // shape is defined its centroid and dimensions
   body = Bodies.rectangle(200, 200, 80, 80)
   ground = Bodies.rectangle(200, 375, 400, 50, {
-    isStatic: true
+    isStatic: true,
   })
 
   World.add(engine.world, [body, ground])
@@ -111,10 +109,10 @@ Now that the engine is running, we can start looking at how to render the specif
 Each of the respective bodies we create have some basic properties that we can use to render the body. In the case of `Matter.Bodies` we have a `vertices` property. We can use `p5` to render the vertices as follows:
 
 ```js
-const renderFromVertices = vertices => {
+const renderFromVertices = (vertices) => {
   beginShape()
 
-  vertices.forEach(point => {
+  vertices.forEach((point) => {
     vertex(point.x, point.y)
   })
 
@@ -130,11 +128,11 @@ We can then implement this in a `draw` function which `p5` will call and pass it
 function draw() {
   background(51)
 
-  const renderBody = body => {
+  const renderBody = (body) => {
     if (body.render.visible) {
       beginShape()
 
-      body.vertices.forEach(point => {
+      body.vertices.forEach((point) => {
         vertex(point.x, point.y)
       })
 
@@ -169,7 +167,7 @@ const renderBody = ({ render, vertices }) => {
     stroke(render.strokeStyle)
     strokeWeight(render.lineWidth)
 
-    vertices.forEach(point => {
+    vertices.forEach((point) => {
       vertex(point.x, point.y)
     })
 
@@ -207,7 +205,7 @@ function draw() {
       stroke(render.strokeStyle)
       strokeWeight(render.lineWidth)
 
-      vertices.forEach(point => {
+      vertices.forEach((point) => {
         vertex(point.x, point.y)
       })
 
@@ -218,5 +216,5 @@ function draw() {
   engine.world.bodies.forEach(renderBody)
 }
 ```
- 
+
 > While all the above technically works, I think it may just make sense to write a canvas renderer which should work more or less the same. So hopefully I'll do that doo

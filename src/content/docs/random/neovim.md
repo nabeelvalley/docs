@@ -4,8 +4,6 @@ title: Neovim
 subtitle: Neovim setup and general info
 ---
 
-[[toc]]
-
 # Installation
 
 The following need to be installed to use Neovim with Plugins
@@ -44,7 +42,6 @@ And then install the plugins again with:
 ```vim
 :PlugInstall
 ```
-
 
 ## CoC
 
@@ -291,15 +288,15 @@ I'm using this along with the below settings:
 ```vim
 " FZF settings
 " Open at bottom 40% of screen
-let g:fzf_layout = { 'down': '~40%' } 
+let g:fzf_layout = { 'down': '~40%' }
 ```
 
 After that, resource and install plugins, and then you can use the following commands:
 
-| Command | Description |
+| Command    | Description                  |
 | ---------- | ---------------------------- |
 | `:Files`   | Search all Files             |
-| `:GFiles`  | Search all Git Tracked Files | 
+| `:GFiles`  | Search all Git Tracked Files |
 | `:Buffers` | View Open Buffers            |
 | `:Rg`      | Search in Files (see below)  |
 
@@ -313,8 +310,8 @@ It should also be noted that unless [`bat`](https://github.com/sharkdp/bat) is i
 
 # Useful Keybindings
 
-| Shortcut      | Description                 | 
-| ------------- | --------------------------- |
+| Shortcut        | Description                 |
+| --------------- | --------------------------- |
 | `[space] c`     | View Commands w/ Search     |
 | `[space] a`     | View Language Server Errors |
 | `\f [enter]`    | Format File                 |

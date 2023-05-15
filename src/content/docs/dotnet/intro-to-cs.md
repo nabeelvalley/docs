@@ -5,8 +5,6 @@ subtitle: Basic Introduction to the C# Programming Language
 description: Basic Introduction to the C# Programming Language
 ---
 
-[[toc]]
-
 > From the Microsoft Virtual Academy
 
 # Hello World

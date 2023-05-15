@@ -5,8 +5,6 @@ subtitle: 01 February 2020
 description: Migrating a React.js website to Gatsby.js
 ---
 
-[[toc]]
-
 # Introduction
 
 In the [last post](/blog/2020/21-01/gatsby-migration-1) we looked setting up an application with a few basic routes. These routes were all assigned to Components in the `src/pages` directory.
@@ -70,7 +68,7 @@ In order to enable gatsby we need to add the `gatsby-config.js` file to our root
 
 ```js
 module.exports = {
-  plugins: []
+  plugins: [],
 }
 ```
 
@@ -81,8 +79,8 @@ The `html.js` file needs to be a React Component with the following basic struct
 `src/html.js`
 
 ```js
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react'
+import PropTypes from 'prop-types'
 
 export default function HTML(props) {
   return (
@@ -103,7 +101,7 @@ export default function HTML(props) {
                         // Any scripts that need to be included in the HTML itself
                         // Like tracking code, etc.
                         console.log("Inline Javascript")
-                    `
+                    `,
           }}
         ></script>
 
@@ -128,7 +126,7 @@ HTML.propTypes = {
   bodyAttributes: PropTypes.object,
   preBodyComponents: PropTypes.array,
   body: PropTypes.string,
-  postBodyComponents: PropTypes.array
+  postBodyComponents: PropTypes.array,
 }
 ```
 
@@ -188,7 +186,7 @@ If we look at the `Blog` page we will see that there is an issue with the Page r
 `Blog.js`
 
 ```js
-import { Link } from "gatsby"
+import { Link } from 'gatsby'
 ```
 
 ## Fix the Routes
@@ -225,9 +223,9 @@ When we were using the standard React Routing we made use of the `App` component
 `App.js`
 
 ```js
-import React from "react"
-import "./App.css"
-import { Link } from "gatsby"
+import React from 'react'
+import './App.css'
+import { Link } from 'gatsby'
 
 const App = ({ children }) => (
   <div className="App">
@@ -252,8 +250,8 @@ Now that we've essentially created a `Layout` component in the form of the `App`
 `index.js`
 
 ```js
-import React from "react"
-import App from "../App"
+import React from 'react'
+import App from '../App'
 
 const Home = () => (
   <App>
@@ -275,9 +273,9 @@ The same applies for the `blog` and `404` pages
 `blog.js`
 
 ```js
-import React from "react"
-import { Link } from "gatsby"
-import App from "../App"
+import React from 'react'
+import { Link } from 'gatsby'
+import App from '../App'
 
 const Blog = () => (
   <App>
@@ -304,10 +302,9 @@ export default Blog
 
 `404.js`
 
-
 ```js
-import React from "react"
-import App from "../App"
+import React from 'react'
+import App from '../App'
 
 const NotFound = () => (
   <App>
@@ -343,10 +340,10 @@ module.exports = {
     {
       resolve: `gatsby-plugin-postcss`,
       options: {
-        postCssPlugins: [require(`postcss-preset-env`)({ stage: 0 })]
-      }
-    }
-  ]
+        postCssPlugins: [require(`postcss-preset-env`)({ stage: 0 })],
+      },
+    },
+  ],
 }
 ```
 
@@ -357,7 +354,7 @@ In the root directory create a file called `gatsby-browser.js`, in this we just 
 `gatsby-browser.js`
 
 ```js
-import "./src/index.css"
+import './src/index.css'
 ```
 
 You can now run the following commands and start up the application:

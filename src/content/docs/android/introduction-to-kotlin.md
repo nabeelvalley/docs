@@ -5,8 +5,6 @@ subtitle: Introduction to the Kotlin language and basic concepts
 description: Introduction to the Kotlin language and basic concepts
 ---
 
-[[toc]]
-
 > From [this Udacity course](https://classroom.udacity.com/courses/ud9011)
 
 # About Kotlin
@@ -27,7 +25,7 @@ Kotlin also can interoperate with Java bidirectionally
 # Prerequisites
 
 - A JAVA/Kotlin IDE such as IntelliJ IDEA or Android Studio if you're working on an Android App
-- JDK 
+- JDK
 
 > For some basic stuff you can use the [Kotlin Playground](https://play.kotlinlang.org/)
 
@@ -79,6 +77,7 @@ changeable = 1
 
 val unchangeable = 1
 ```
+
 > Note that `val` only makes the reference immutable and not the properties of the object, so we can still call methods on that object
 
 Although types are inferred we can state them explicitly as well:
@@ -153,6 +152,7 @@ val cows = 12
 
 "I have $(fish + cows) animals in total"
 ```
+
 # Conditions
 
 ## If-Else
@@ -173,7 +173,7 @@ if (fish > 1) {
     println("Statement 1")
     println("Statement 2")
 }
-else {   
+else {
     println("Statement 3")
     println("Statement 4")
 }
@@ -214,7 +214,7 @@ when {
 
 ## Arrays
 
-We can create an Array with 
+We can create an Array with
 
 ```kotlin
 val myArr = arrayOf("val1", "val2")
@@ -263,7 +263,7 @@ Which will result in a 10 item array with each element being `1000^index`
 
 Kotlin also has a datatype known as a `Sequence` which is like a lazy list, the values in this are only evaluated when read and not calculated immediately when operated on
 
-## Maps 
+## Maps
 
 Maps are essentially key-value pairs that make use of `pairs` (see later)
 
@@ -271,8 +271,8 @@ We can create a Map of some data with `mapOf`
 
 ```kotlin
 val colours = mapOf(
-    "sky" to "blue", 
-    "fire" to "red", 
+    "sky" to "blue",
+    "fire" to "red",
     "grass" to "green"
 )
 ```
@@ -291,7 +291,6 @@ colours.getOrElse("sad") { "no colour found" }
 ```
 
 Maps are immutable by default, we can make a mutable map with `mutableMapOf`
-
 
 ## Pairs
 
@@ -374,6 +373,7 @@ fun getDayOfWeek (): String {
     }
 }
 ```
+
 We can see the `Sting` return type written after the function signature, we can use this in our `main` function with:
 
 ```kotlin
@@ -383,7 +383,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-We can run the main function with arguments as well using the Debug Configuration in IntelliJ 
+We can run the main function with arguments as well using the Debug Configuration in IntelliJ
 
 From the above we can see that everything in Kotlin is a value, even the result of a `when` or `if` statement
 
@@ -396,7 +396,6 @@ fun addNumbers(x: Int = 0, y: Int = 2) : Int {
     return x + y
 }
 ```
-
 
 Aside from default params as values we can also make use of this by calling a function
 
@@ -568,8 +567,8 @@ We can also create a default constructor which will set the initial values in th
 
 ```kotlin
 class House (
-    val size: Int = 1200, 
-    val rooms: Int = 3, 
+    val size: Int = 1200,
+    val rooms: Int = 3,
     val garages: Int = 2
 ) {
     val price : Int
@@ -577,7 +576,7 @@ class House (
 }
 ```
 
-Additional constructors can be created as well using the    `constructor` keyword in the class,  such as this one:
+Additional constructors can be created as well using the `constructor` keyword in the class, such as this one:
 
 ```kotlin
 class House (
@@ -841,7 +840,6 @@ enum class Suburb {
 
 A sealed class is a class that can only be used within the same file. These classes are static at compile time as well as all its references this means that the compiler can do additional safety checking that wouldn't otherwise be possible
 
-
 # Extenstion Methods
 
 Extension methods are functions that extend functionality of a class without modifying the class itself. Inside of the function `this` refers to the current object instance
@@ -930,7 +928,7 @@ Sometimes you may need to tell the compiler that a type is a real type, this doe
 ```kotlin
 inline fun <reified T: MyClass> isTypeValid(data: MyClass)
     = data is T
-``` 
+```
 
 We can use generics for extension methods as well
 

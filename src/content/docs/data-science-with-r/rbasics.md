@@ -3,9 +3,6 @@ published: true
 title: R Basics
 ---
 
-[[toc]]
-
-
 > [Based on this EdX Course](https://www.edx.org/course/data-science-r-basics)
 
 # Configuration
@@ -120,9 +117,9 @@ We can use the `==` as the logical operator
 `Factors` allow us to store catergorical data, we can view the different catergories with the following:
 
 ```r
-> class(dataFrame$gender) 
+> class(dataFrame$gender)
 [1] Factor
-> levels(dataFrame$gender) 
+> levels(dataFrame$gender)
 [2] "Male" "Female"
 ```
 
@@ -156,7 +153,7 @@ Getting a sequence of number we can use:
 We can access an element of a vector with either a single access or multi-access vector as follows:
 
 ```r
-> codes[3] 
+> codes[3]
 [1] 818
 
 > codes["canada"]
@@ -248,9 +245,9 @@ index <- large_tots && small_size
 
 # Indexing Functinos
 
-* `which` will give us the indexes which are true `which(data$total > 200)` this will only return the values that are true
-* `match` returns the values in one vector where another occurs `match(c(20, 14, 5), data$size)` will return only the values in which data$size == 20 \|\| 14 \|\| 5
-* `%in%` if we want to check if the contents of a vector are in another vector, for example: 
+- `which` will give us the indexes which are true `which(data$total > 200)` this will only return the values that are true
+- `match` returns the values in one vector where another occurs `match(c(20, 14, 5), data$size)` will return only the values in which data$size == 20 \|\| 14 \|\| 5
+- `%in%` if we want to check if the contents of a vector are in another vector, for example:
 
 ```r
 > x <- c("a", "b", "c", "d", "e")
@@ -265,9 +262,9 @@ These functions are very useful for subsetting datasets
 
 The `dplyr` package is useful for manipulating tables of data
 
-* Add or change a column with `mutate`
-* Filter data by rows with `filter`
-* Filter data by columns with `select`
+- Add or change a column with `mutate`
+- Filter data by rows with `filter`
+- Filter data by columns with `select`
 
 ```r
 mutate(data, rate=total/size) # Add rate column based on two other columns
@@ -288,7 +285,7 @@ dataTable %>% select(name, rate) %>% filter(rate <= 0.7)
 we can create a data frame with the `data.frame` function as follows:
 
 ```r
-data <- data.frame(names = c("John","James", "Jenny"), 
+data <- data.frame(names = c("John","James", "Jenny"),
                    exam_1 = c(90, 29, 45),
                    exam_2 = c(30, 10, 95))
 ```
@@ -296,7 +293,7 @@ data <- data.frame(names = c("John","James", "Jenny"),
 Howewever, by default R will pass strings as Factors, to prevent this we use the `stringsAsFactors` argument:
 
 ```r
-data <- data.frame(names = c("John","James", "Jenny"), 
+data <- data.frame(names = c("John","James", "Jenny"),
                    exam_1 = c(90, 29, 45),
                    exam_2 = c(30, 10, 95),
                    stringsAsFactors = FALSE)
@@ -306,10 +303,10 @@ data <- data.frame(names = c("John","James", "Jenny"),
 
 We can make simple plots very easily with the following functions:
 
-* `plot(dataFrame$size, data$rate)`
-* `lines(dataFrame$size, data$rate)`
-* `hist(dataFrame$size)`
-* `boxplot(rate~catergory, data=dataFrame)`
+- `plot(dataFrame$size, data$rate)`
+- `lines(dataFrame$size, data$rate)`
+- `hist(dataFrame$size)`
+- `boxplot(rate~catergory, data=dataFrame)`
 
 # Programming Basics
 
@@ -360,17 +357,16 @@ At the end of our loop the index value will hold it's last value
 
 In R we rarely use for-loops We can use other functions like the following:
 
-* apply
-* sapply
-* tapply
-* mapply
+- apply
+- sapply
+- tapply
+- mapply
 
 Other functions that are widely used are:
 
-* split
-* cut
-* quantile
-* reduce
-* identical
-* unique
-
+- split
+- cut
+- quantile
+- reduce
+- identical
+- unique

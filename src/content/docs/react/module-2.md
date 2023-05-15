@@ -3,8 +3,6 @@ published: true
 title: State, Lifecycle and Event Handlers
 ---
 
-[[toc]]
-
 > [Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
 
 # React Components
@@ -15,29 +13,26 @@ React components can also be written as ES6 classes instead of functions. This c
 
 ```jsx
 class Welcome extends React.Component {
-    render(){
-        return <h1>Hello World!</h1>
-    }
+  render() {
+    return <h1>Hello World!</h1>
+  }
 }
 
-ReactDOM.render(
-    <Welcome/>,
-    document.getElementById("root")
-)
+ReactDOM.render(<Welcome />, document.getElementById('root'))
 ```
 
 As expected, we can also add props to these components as with functional components as follows
 
 ```jsx
 class Welcome extends ReactComponent {
-    render(){
-        return <h1>Message: {this.props.message}</h1>
-    }
+  render() {
+    return <h1>Message: {this.props.message}</h1>
+  }
 }
 
 ReactDOM.render(
-    <Welcome message="Hello World!"/>,
-    document.getElementById("root")
+  <Welcome message="Hello World!" />,
+  document.getElementById('root')
 )
 ```
 
@@ -59,19 +54,19 @@ class Counter extends React.Component{
 Initial state can be defined as well as updated using the `constructor` and `setState` functions respectively
 
 ```jsx
-class Counter extends React.Component{
-    constructor(props){
-        super(props)
-        //initial state set up
-        this.state = {message:"Initial message"}
-    }
-    componentDidMount(){
-        //updating state
-        this.setState({message:"New message"})
-    }
-    render(){
-        return <div>Message:{this.state.message}</div>
-    }
+class Counter extends React.Component {
+  constructor(props) {
+    super(props)
+    //initial state set up
+    this.state = { message: 'Initial message' }
+  }
+  componentDidMount() {
+    //updating state
+    this.setState({ message: 'New message' })
+  }
+  render() {
+    return <div>Message:{this.state.message}</div>
+  }
 }
 ```
 
@@ -106,7 +101,7 @@ Since the state updates asynchronously, we cannot immediately use the new state 
 
 ```jsx
 //this.state.count is originally 0
-this.setState({count:42})
+this.setState({ count: 42 })
 console.log(this.state.count)
 //outputs 0 still
 ```
@@ -124,7 +119,7 @@ this.setState({count:42}, () = {
 State is immutable and hence should not be manipulated directly. For example, we cannot do the following
 
 ```jsx
-this.state.message = "New message"
+this.state.message = 'New message'
 ```
 
 # Lifecycle Methods
@@ -164,27 +159,24 @@ Event handlers are defined withing a Class component, this can be done as follow
 
 ```jsx
 class Counter extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            count: 0
-        }
-        this.clickHandler = this.clickHandler.bind(this)
+  constructor(props) {
+    super(props)
+    this.state = {
+      count: 0,
     }
-    clickHandler(){
-        this.setState((prevState, props)=>{
-            return {count: prevState.count + 1}
-        })
-    }
-    render(){
-        return <button onClick={this.clickHandler}>{this.state.count}</button>
-    }
+    this.clickHandler = this.clickHandler.bind(this)
+  }
+  clickHandler() {
+    this.setState((prevState, props) => {
+      return { count: prevState.count + 1 }
+    })
+  }
+  render() {
+    return <button onClick={this.clickHandler}>{this.state.count}</button>
+  }
 }
 
-ReactDOM.render(
-    <Counter/>,
-    document.getElementById("root")
-)
+ReactDOM.render(<Counter />, document.getElementById('root'))
 ```
 
 If we need access to the correct `this` for an event handler we need to `bind` the function, this can be done in two ways
@@ -209,58 +201,80 @@ The app below simply displays buttons and text below, and when a button is click
 
 ```jsx
 class Details extends React.Component {
-    render(){
+  render() {
     return <h1>{this.props.details}</h1>
-    }
+  }
 }
 
 class Button extends React.Component {
-    render(){
-        return (
-            <button style={{color: this.props.active? 'red': 'blue'}} onClick={()=> {this.props.clickHandler(this.props.id,this.props.name)}}>
-            {this.props.name}
-            </button>
-        )
-    }
+  render() {
+    return (
+      <button
+        style={{ color: this.props.active ? 'red' : 'blue' }}
+        onClick={() => {
+          this.props.clickHandler(this.props.id, this.props.name)
+        }}
+      >
+        {this.props.name}
+      </button>
+    )
+  }
 }
 
 class App extends React.Component {
-    constructor(props){
-        super(props)
-        this.state={
-            activeArray:[0,0,0,0], 
-            details:""
-        }
-        this.clickHandler=this.clickHandler.bind(this)
+  constructor(props) {
+    super(props)
+    this.state = {
+      activeArray: [0, 0, 0, 0],
+      details: '',
     }
+    this.clickHandler = this.clickHandler.bind(this)
+  }
 
-    clickHandler(id,details){
-        var arr = [0,0,0,0]
-        arr[id] = 1
-        this.setState({
-            activeArray:arr, 
-            details:details
-        })
-        console.log(id,details)
-    }
-    
-    render(){
-        return (
-            <div>
-                <Button id={0} active={this.state.activeArray[0]} clickHandler={this.clickHandler} name="bob"/>
-                <Button id={1} active={this.state.activeArray[1]} clickHandler={this.clickHandler} name="joe"/>
-                <Button id={2} active={this.state.activeArray[2]} clickHandler={this.clickHandler} name="tree"/>
-                <Button id={3} active={this.state.activeArray[3]} clickHandler={this.clickHandler} name="four"/>
-                <Details details={this.state.details}/>
-            </div>
-        )
-    }
+  clickHandler(id, details) {
+    var arr = [0, 0, 0, 0]
+    arr[id] = 1
+    this.setState({
+      activeArray: arr,
+      details: details,
+    })
+    console.log(id, details)
+  }
+
+  render() {
+    return (
+      <div>
+        <Button
+          id={0}
+          active={this.state.activeArray[0]}
+          clickHandler={this.clickHandler}
+          name="bob"
+        />
+        <Button
+          id={1}
+          active={this.state.activeArray[1]}
+          clickHandler={this.clickHandler}
+          name="joe"
+        />
+        <Button
+          id={2}
+          active={this.state.activeArray[2]}
+          clickHandler={this.clickHandler}
+          name="tree"
+        />
+        <Button
+          id={3}
+          active={this.state.activeArray[3]}
+          clickHandler={this.clickHandler}
+          name="four"
+        />
+        <Details details={this.state.details} />
+      </div>
+    )
+  }
 }
 
-ReactDOM.render(
-    <App/>,
-    document.getElementById("root")
-)
+ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
 # Demo App

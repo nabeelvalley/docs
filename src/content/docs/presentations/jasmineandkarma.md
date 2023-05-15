@@ -4,8 +4,6 @@ title: Jasmine and Karma
 subtitle: Unit testing JS Apps using Jasmine and Karma
 ---
 
-[[toc]]
-
 # Jasmine
 
 ## What and Why
@@ -75,7 +73,7 @@ We want to test the following `helloWorld` function.
 
 ```javascript
 function helloWorld() {
-  return "Hello world!"
+  return 'Hello world!'
 }
 ```
 
@@ -84,9 +82,9 @@ This function, when called should return `'Hello World'`
 `test.js`
 
 ```javascript
-describe("suiteName", () => {
-  it("specName", () => {
-    expect(helloWorld()).matcher("Hello world!")
+describe('suiteName', () => {
+  it('specName', () => {
+    expect(helloWorld()).matcher('Hello world!')
   })
 })
 ```
@@ -120,7 +118,7 @@ describe("suiteName", () => {
 ### Setup and Teardown
 
 ```javascript
-let expected = "Hello World!"
+let expected = 'Hello World!'
 ```
 
 - Initialize variable that are needed for testing
@@ -216,11 +214,11 @@ afterEach
 
 ```javascript
 function helloWorld() {
-  return "Hello world!"
+  return 'Hello world!'
 }
 
 function byeWorld() {
-  return "Bye world!"
+  return 'Bye world!'
 }
 
 function bigNumber(num) {
@@ -231,9 +229,9 @@ function bigNumber(num) {
 `test.js`
 
 ```javascript
-describe("Test Suite", () => {
-  let hello = ""
-  let bye = "Bye World :("
+describe('Test Suite', () => {
+  let hello = ''
+  let bye = 'Bye World :('
   let num = 0
 
   beforeAll(() => {
@@ -241,23 +239,23 @@ describe("Test Suite", () => {
   })
 
   beforeEach(() => {
-    hello = "Hello world!"
+    hello = 'Hello world!'
   })
 
   afterEach(() => {
-    hello = ""
-    console.log("Test Completed")
+    hello = ''
+    console.log('Test Completed')
   })
 
-  it("Says hello", () => {
+  it('Says hello', () => {
     expect(helloWorld()).toEqual(hello)
   })
 
-  it("Says bye", () => {
+  it('Says bye', () => {
     expect(byeWorld()).toEqual(bye)
   })
 
-  it("Returns a bigger number", () => {
+  it('Returns a bigger number', () => {
     expect(bigNumber(num)).toBeGreaterThan(num)
   })
 })
@@ -293,8 +291,8 @@ describe("Test Suite", () => {
 - Import the `TestBed`, `ComponentFixture` and Component to be tested
 
 ```typescript
-import { TestBed, async } from "@angular/core/testing"
-import { AppComponent } from "./app.component"
+import { TestBed, async } from '@angular/core/testing'
+import { AppComponent } from './app.component'
 ```
 
 - Configure the Test Bed's Testing Module with the necerssary components and imports in the beforeEach
@@ -334,9 +332,7 @@ import { AppComponent } from "./app.component"
 
 ```html
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
+  <h1>Welcome to {{ title }}!</h1>
 </div>
 <h2>Here are some links to help you start:</h2>
 <ul>
@@ -355,30 +351,30 @@ import { AppComponent } from "./app.component"
 `app.component.ts`
 
 ```typescript
-import { Component } from "@angular/core"
+import { Component } from '@angular/core'
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = "app"
+  title = 'app'
 }
 ```
 
 `app.component.spec.ts`
 
 ```typescript
-import { TestBed, async } from "@angular/core/testing"
-import { AppComponent } from "./app.component"
-describe("AppComponent", () => {
+import { TestBed, async } from '@angular/core/testing'
+import { AppComponent } from './app.component'
+describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
     }).compileComponents()
   }))
-  it("should create the app", async(() => {
+  it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent)
     const app = fixture.debugElement.componentInstance
     expect(app).toBeTruthy()
@@ -386,14 +382,14 @@ describe("AppComponent", () => {
   it(`should have as title 'app'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent)
     const app = fixture.debugElement.componentInstance
-    expect(app.title).toEqual("app")
+    expect(app.title).toEqual('app')
   }))
-  it("should render title in a h1 tag", async(() => {
+  it('should render title in a h1 tag', async(() => {
     const fixture = TestBed.createComponent(AppComponent)
     fixture.detectChanges()
     const compiled = fixture.debugElement.nativeElement
-    expect(compiled.querySelector("h1").textContent).toContain(
-      "Welcome to app!"
+    expect(compiled.querySelector('h1').textContent).toContain(
+      'Welcome to app!'
     )
   }))
 })

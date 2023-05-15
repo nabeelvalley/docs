@@ -5,8 +5,6 @@ subtitle: 06 May 2021
 description: "How to work with modules and handle the 'ModuleNotFoundError: No module named ...' error"
 ---
 
-[[toc]]
-
 When creating a multi-module project for Python, especially when coming from another language ecosystem, you may encounter issues importing code from other files, let's take a look at this
 
 # The Modules

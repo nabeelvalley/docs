@@ -4,8 +4,6 @@ title: React Native Basics
 subtitle: Based on the NetNinja Course
 ---
 
-[[toc]]
-
 > From the Net Ninja's React-Native Course [on YouTube](https://www.youtube.com/watch?v=ur6I5m2nTvk&list=PL4cUxeGkcC9ixPU-QkScoRBVxtPPzVjrQ)
 
 # Introduction
@@ -52,9 +50,9 @@ The `App.tsx` file contains a `View` with some `Text` and a `StyleSheet`
 `App.tsx`
 
 ```tsx
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 
 export default function App() {
   return (
@@ -62,7 +60,7 @@ export default function App() {
       <Text>Hello, World!</Text>
       <StatusBar style="auto" />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -72,7 +70,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
 ```
 
 In RN we use the `Text` component to represent any plain text view as we would in typical `JSX`, additionally, the `View` can be likened to a `div` and the `StyleSheet` to a CSS File
@@ -162,7 +160,7 @@ And then, somewhere higher up we can have `onPersonSelected` defined:
 const onPersonSelected = useCallback<PersonSelectedCallback>(
   (p) => setName(p.name),
   []
-);
+)
 ```
 
 We can set some app props by applying this to the `FlatList` components above.
@@ -171,12 +169,12 @@ Without too much detail, some of the types being referenced by our setup are:
 
 ```ts
 interface Person {
-  id: number;
-  name: string;
-  age: number;
+  id: number
+  name: string
+  age: number
 }
 
-type PersonSelectedCallback = (p: Person) => void;
+type PersonSelectedCallback = (p: Person) => void
 ```
 
 And our person display component will then look like this:
@@ -185,10 +183,10 @@ And our person display component will then look like this:
 const PeopleView: React.FC<{ onPersonSelected: PersonSelectedCallback }> =
   function ({ onPersonSelected }) {
     const people = [
-      { name: "Jeff", age: 1 },
-      { name: "Bob", age: 2 },
+      { name: 'Jeff', age: 1 },
+      { name: 'Bob', age: 2 },
       // ...
-    ].map((p, i) => ({ ...p, id: i }));
+    ].map((p, i) => ({ ...p, id: i }))
 
     return (
       <FlatList
@@ -203,8 +201,8 @@ const PeopleView: React.FC<{ onPersonSelected: PersonSelectedCallback }> =
         )}
         keyExtractor={({ id }) => id.toString()}
       />
-    );
-  };
+    )
+  }
 ```
 
 # Keyboard Dismissing
@@ -232,30 +230,30 @@ expo install expo-font
 And we can use a font from our app with the `useFonts` hook:
 
 ```tsx
-import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useFonts } from 'expo-font';
+import * as React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import { useFonts } from 'expo-font'
 
 export default function App() {
   const [loaded] = useFonts({
     koho: require('./assets/fonts/KoHo-Regular.ttf'),
-  });
-  
+  })
+
   if (!loaded) {
-    return null;
+    return null
   }
 
   return (
     <View style={styles.container}>
       <Text style={{ fontFamily: 'koho', fontSize: 30 }}>KoHo</Text>
     </View>
-  );
+  )
 }
 ```
 
 # React Navigation
 
-We're going to use the `react-navigation` library for building out the navigation and routing. 
+We're going to use the `react-navigation` library for building out the navigation and routing.
 
 We can to install the required packages with:
 
@@ -282,20 +280,18 @@ We can create a Stack Navigator using some of the constructs provided by `react-
 `routes/HomeNavigationContainer.tsx`
 
 ```tsx
-import React from "react";
-import {
-  createStackNavigator,
-} from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import Home from "../screens/Home";
-import ReviewDetails from "../screens/ReviewDetails";
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native'
+import Home from '../screens/Home'
+import ReviewDetails from '../screens/ReviewDetails'
 
 export type AppStackParamList = {
-  Home: undefined;
-  ReviewDetails: undefined;
-};
+  Home: undefined
+  ReviewDetails: undefined
+}
 
-const Stack = createStackNavigator<AppStackParamList>();
+const Stack = createStackNavigator<AppStackParamList>()
 
 export default function HomeNavigationContainer() {
   return (
@@ -305,7 +301,7 @@ export default function HomeNavigationContainer() {
         <Stack.Screen name="ReviewDetails" component={ReviewDetails} />
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  )
 }
 ```
 
@@ -315,12 +311,12 @@ We can then use this from the `App` component with:
 
 ```tsx
 // other imports
-import HomeNavigationContainer from "./routes/HomeNavigationContainer";
+import HomeNavigationContainer from './routes/HomeNavigationContainer'
 
 export default function App() {
   // other stuff
 
-  return <HomeNavigationContainer />;
+  return <HomeNavigationContainer />
 }
 ```
 
@@ -331,26 +327,26 @@ In order to navigate we need to use the `navigation` prop that's passed to our c
 `screens/Home.tsx`
 
 ```tsx
-import { StackScreenProps } from "@react-navigation/stack";
-import React from "react";
-import { View, Text, Button } from "react-native";
-import { AppStackParamList } from "../routes/HomeNavigationContainer";
-import { globalStyles } from "../styles";
+import { StackScreenProps } from '@react-navigation/stack'
+import React from 'react'
+import { View, Text, Button } from 'react-native'
+import { AppStackParamList } from '../routes/HomeNavigationContainer'
+import { globalStyles } from '../styles'
 
-type HomeProps = StackScreenProps<AppStackParamList, "Home">;
+type HomeProps = StackScreenProps<AppStackParamList, 'Home'>
 
 const Home: React.FC<HomeProps> = function ({ navigation }) {
   const navigateToReviews = () => {
-    navigation.navigate("ReviewDetails");
-  };
+    navigation.navigate('ReviewDetails')
+  }
 
   return (
     <View style={globalStyles.container}>
       <Text style={globalStyles.titleText}>Home Page</Text>
       <Button title="To Reviews" onPress={navigateToReviews} />
     </View>
-  );
-};
+  )
+}
 
 export default Home
 ```
@@ -361,9 +357,9 @@ We can send some data to each screen by defining the data in our routing params:
 
 ```ts
 export type AppStackParamList = {
-  Home: undefined;
-  ReviewDetails: { title: string; rating: number; body: string };
-};
+  Home: undefined
+  ReviewDetails: { title: string; rating: number; body: string }
+}
 ```
 
 And then our Reviews screen will look like this:
@@ -371,9 +367,9 @@ And then our Reviews screen will look like this:
 ```tsx
 type ReviewDetailsProps = StackScreenProps<AppStackParamList, "ReviewDetails">;
 
-const ReviewDetails: React.FC<ReviewDetailsProps> = function ({ navigation, route }) {  
+const ReviewDetails: React.FC<ReviewDetailsProps> = function ({ navigation, route }) {
   const params = route.params
-  
+
   // ... render stuff, etc.
 ```
 
@@ -401,30 +397,30 @@ To do this, we'll first return just the stack from the `HomeNavigationContainer`
 `routes/HomeStack.tsx`
 
 ```tsx
-import { StackScreenProps } from "@react-navigation/stack";
-import React from "react";
-import { View, Text, Button } from "react-native";
-import { AppStackParamList } from "../routes/HomeStack";
-import { globalStyles } from "../styles";
+import { StackScreenProps } from '@react-navigation/stack'
+import React from 'react'
+import { View, Text, Button } from 'react-native'
+import { AppStackParamList } from '../routes/HomeStack'
+import { globalStyles } from '../styles'
 
-type HomeProps = StackScreenProps<AppStackParamList, "Home">;
+type HomeProps = StackScreenProps<AppStackParamList, 'Home'>
 
 const Home: React.FC<HomeProps> = function ({ navigation }) {
   const navigateToReviews = () => {
-    navigation.navigate("ReviewDetails", {
+    navigation.navigate('ReviewDetails', {
       title: 'that racing movie',
       rating: 1,
-      body: 'it was terrible'
-    });
-  };
+      body: 'it was terrible',
+    })
+  }
 
   return (
     <View style={globalStyles.container}>
       <Text style={globalStyles.titleText}>Home Page</Text>
       <Button title="To Reviews" onPress={navigateToReviews} />
     </View>
-  );
-};
+  )
+}
 
 export default Home
 ```
@@ -434,23 +430,23 @@ Next, we need to add the `About` page content into a stack, like so:
 `routes/AboutStack.tsx`
 
 ```tsx
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import About from "../screens/About";
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native'
+import About from '../screens/About'
 
 export type AppStackParamList = {
-  About: undefined;
-};
+  About: undefined
+}
 
-const Stack = createStackNavigator<AppStackParamList>();
+const Stack = createStackNavigator<AppStackParamList>()
 
 export default function AboutStack() {
   return (
     <Stack.Navigator initialRouteName="About">
       <Stack.Screen name="About" component={About} />
     </Stack.Navigator>
-  );
+  )
 }
 ```
 
@@ -459,21 +455,21 @@ Then, we will include these components/stacks as the component that needs to be 
 `routes/DrawerNavigator.tsx`
 
 ```tsx
-import React from "react";
+import React from 'react'
 import {
   createDrawerNavigator,
   DrawerScreenProps,
-} from "@react-navigation/drawer";
-import HomeStack from "./HomeStack";
-import AboutStack from "./AboutStack";
-import { NavigationContainer } from "@react-navigation/native";
+} from '@react-navigation/drawer'
+import HomeStack from './HomeStack'
+import AboutStack from './AboutStack'
+import { NavigationContainer } from '@react-navigation/native'
 
 type DrawerParamList = {
-  Home: undefined;
-  About: undefined;
-};
+  Home: undefined
+  About: undefined
+}
 
-const Navigator = createDrawerNavigator<DrawerParamList>();
+const Navigator = createDrawerNavigator<DrawerParamList>()
 
 export default function DrawerNavigator() {
   return (
@@ -483,7 +479,7 @@ export default function DrawerNavigator() {
         <Navigator.Screen component={AboutStack} name="About" />
       </Navigator.Navigator>
     </NavigationContainer>
-  );
+  )
 }
 ```
 
@@ -492,55 +488,55 @@ And lastly, we can use this from the `App.tsx` file like so:
 `App.tsx`
 
 ```tsx
-import React from "react";
-import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
-import { Stack } from "./routes/HomeStack";
-import { NavigationContainer } from "@react-navigation/native";
-import Home from "./screens/Home";
-import ReviewDetails from "./screens/ReviewDetails";
-import DrawerNavigator from "./routes/DrawerNavigator";
+import React from 'react'
+import { useFonts } from 'expo-font'
+import AppLoading from 'expo-app-loading'
+import { Stack } from './routes/HomeStack'
+import { NavigationContainer } from '@react-navigation/native'
+import Home from './screens/Home'
+import ReviewDetails from './screens/ReviewDetails'
+import DrawerNavigator from './routes/DrawerNavigator'
 
 export default function App() {
   const [loaded] = useFonts({
-    "koho-regular": require("./assets/fonts/KoHo-Regular.ttf"),
-  });
+    'koho-regular': require('./assets/fonts/KoHo-Regular.ttf'),
+  })
 
   if (!loaded) {
-    return <AppLoading />;
+    return <AppLoading />
   }
 
-  return <DrawerNavigator />;
+  return <DrawerNavigator />
 }
 ```
 
 Now that we've got the drawer working, it's a matter of finding a way to trigger it from our code, we can use a custom header component to do this. A special consideration here is that this component should have a definition for a composite navigation type in order to access and work with the drawer:
 
 ```tsx
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation } from '@react-navigation/core'
 import {
   DrawerNavigationProp,
   DrawerScreenProps,
   useIsDrawerOpen,
-} from "@react-navigation/drawer";
-import { CompositeNavigationProp } from "@react-navigation/native";
-import { StackNavigationProp, StackScreenProps } from "@react-navigation/stack";
-import React from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
-import { DrawerParamList } from "../routes/DrawerNavigator";
+} from '@react-navigation/drawer'
+import { CompositeNavigationProp } from '@react-navigation/native'
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
+import React from 'react'
+import { View, StyleSheet, Text, Button } from 'react-native'
+import { DrawerParamList } from '../routes/DrawerNavigator'
 
-// composite navigation type to state that the screen 
+// composite navigation type to state that the screen
 // is within two types of navigators
 type HeaderScreenNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<DrawerParamList, "Home">,
+  StackNavigationProp<DrawerParamList, 'Home'>,
   DrawerNavigationProp<DrawerParamList>
->;
+>
 
 const Header = function () {
-  const navigation = useNavigation<HeaderScreenNavigationProp>();
+  const navigation = useNavigation<HeaderScreenNavigationProp>()
 
   function openDrawer() {
-    navigation.openDrawer();
+    navigation.openDrawer()
   }
 
   return (
@@ -548,10 +544,10 @@ const Header = function () {
       <Button title="Menu" onPress={openDrawer} />
       <Text>Header Text</Text>
     </View>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
 ```
 
 We can then implement the `Header` in the `HomeStack` component in the `options` param for the stack:
@@ -571,7 +567,7 @@ export default function HomeStack() {
       />
       <Stack.Screen name="ReviewDetails" component={ReviewDetails} />
     </Stack.Navigator>
-  );
+  )
 }
 ```
 
@@ -591,7 +587,7 @@ export default function AboutStack() {
         }}
       />
     </Stack.Navigator>
-  );
+  )
 }
 ```
 
@@ -602,9 +598,11 @@ Using the Stack Navigation, we are also provided with a title, this is still use
 `routes/HomeStack.tsx`
 
 ```tsx
-<Stack.Screen name="ReviewDetails" component={ReviewDetails} 
-  options={({route}) => ({
-    title: route.params.title
+<Stack.Screen
+  name="ReviewDetails"
+  component={ReviewDetails}
+  options={({ route }) => ({
+    title: route.params.title,
   })}
 />
 ```
@@ -627,10 +625,10 @@ If we have a set of images that we would like to dynamically select from, we can
 
 ```ts
 const images = {
-  'car': require('../assets/car.png'),
-  'bike': require('../assets/bike.png'),
-  'truck': require('../assets/truck.png'),
-  'boat': require('../assets/boat.png'),
+  car: require('../assets/car.png'),
+  bike: require('../assets/bike.png'),
+  truck: require('../assets/truck.png'),
+  boat: require('../assets/boat.png'),
 }
 ```
 
@@ -654,9 +652,7 @@ In RN we can't set image backgrounds using a normal `background` style prop, ins
 
 ```tsx
 <BackgroundImage source={require('../assets/truck.png')}>
-  <View>
-    {/* view content here */}
-  </View>
+  <View>{/* view content here */}</View>
 </BackgroundImage>
 ```
 
@@ -667,16 +663,16 @@ RN comes with a handy modal component which allows us to render modals, `Modal`s
 `screens/About.tsx`
 
 ```tsx
-import React, { useCallback, useState } from "react";
-import { StyleSheet, View, Text, Button, Modal } from "react-native";
-import { globalStyles } from "../styles";
+import React, { useCallback, useState } from 'react'
+import { StyleSheet, View, Text, Button, Modal } from 'react-native'
+import { globalStyles } from '../styles'
 
 export default function About() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const toggleModal = useCallback(() => {
-    setIsOpen(!isOpen);
-  }, [isOpen]);
+    setIsOpen(!isOpen)
+  }, [isOpen])
 
   return (
     <View style={globalStyles.container}>
@@ -687,7 +683,6 @@ export default function About() {
         <Button title="Close Modal" onPress={toggleModal} />
       </Modal>
     </View>
-  );
+  )
 }
 ```
-

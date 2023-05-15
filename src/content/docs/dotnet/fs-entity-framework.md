@@ -4,9 +4,6 @@ title: Entity Framework with F#
 subtitle: Introduction to using Entity Framework with SQL Express and F# Console Apps and Web APIs
 ---
 
-[[toc]]
-
-
 > Foreword, migrations don't work with F# (maybe some time but no hopes)
 
 ## Create the Database

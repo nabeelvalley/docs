@@ -4,8 +4,6 @@ title: Reactive Architecture Foundations
 subtitle: Notes on reactive architecture for microservices
 ---
 
-[[toc]]
-
 > [Based on this CognitiveClass learning path](https://cognitiveclass.ai/learn/reactive-architecture-foundations)
 
 # Foundations
@@ -43,7 +41,7 @@ A reactive system has 4 main principles:
 
 ### Responsive
 
-> "Responsiveness is the cornerstone of usability 
+> "Responsiveness is the cornerstone of usability
 
 Responsive systems build user confidence. In a reactive system all other principles are used to drive responsiveness
 
@@ -55,7 +53,7 @@ Resillience is made possible by:
 
 - Replication
 - Isolation
-- Containment 
+- Containment
 - Deligation
 
 Failures should be isolated to a single component and recovery should be delegated to external components such as monitoring or lifecycle management components
@@ -82,7 +80,7 @@ Messages should provide:
 
 Additionally, this ensures that resources are not consumed while waiting as the application is not blocking or using threads while waiting for a response that may never come
 
-## Reactive Systems vs Reactive Programming 
+## Reactive Systems vs Reactive Programming
 
 - Reactive systems are built in a way such that our individual application services and components interact in a reactive way (the above points). Reactive systems are separated along asynchronous boundries
 - Reactive programming can be used to develop reactive systems makes use of async, often callback-based programming
@@ -381,7 +379,7 @@ In an SOA each individual service:
 
 ### Advantages
 
-- Individual services can be deployed and scaled 
+- Individual services can be deployed and scaled
 - Increased availabilities, more isolated failures
 - Isolation and decoupling creates more flexibility
 - Supports multiple platforms and languages
@@ -511,4 +509,3 @@ API Gateway Services are services between microservices and clients
 - Gateway sents requests to individual services for aggregation
 - Logic and aggregation happens in the Gateway service
 - Gateway handles failures from each service, client only needs to handle gateway failures
-

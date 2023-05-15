@@ -4,8 +4,6 @@ title: CDK Local Lambdas
 subtitle: Local Development and Testing of AWS CDK Lambdas
 ---
 
-[[toc]]
-
 # Introduction
 
 The AWS CDK enables us to define application infrastructure using a programming language instead of markup, which is then transformed by the CDK to CloudFormation templates for the management of cloud infrustructure services
@@ -62,12 +60,12 @@ In the generated files we can see the `bin/my-project.ts` file which creates an 
 
 ```ts
 #!/usr/bin/env node
-import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
-import { MyProjectStack } from '../lib/my-project-stack';
+import 'source-map-support/register'
+import * as cdk from '@aws-cdk/core'
+import { MyProjectStack } from '../lib/my-project-stack'
 
-const app = new cdk.App();
-new MyProjectStack(app, 'MyProjectStack', { });
+const app = new cdk.App()
+new MyProjectStack(app, 'MyProjectStack', {})
 ```
 
 # Create a Handler
@@ -79,19 +77,19 @@ First, we'll export a handler function from our code, I've named this `handler` 
 `lambdas/hello.ts`
 
 ```ts
-import { APIGatewayProxyHandler } from "aws-lambda";
+import { APIGatewayProxyHandler } from 'aws-lambda'
 
 export const handler: APIGatewayProxyHandler = async (event) => {
-  console.log("request:", JSON.stringify(event, undefined, 2))
-  
+  console.log('request:', JSON.stringify(event, undefined, 2))
+
   const res = {
-    hello: 'world'
+    hello: 'world',
   }
 
   return {
     statusCode: 200,
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(res)
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(res),
   }
 }
 ```
@@ -103,12 +101,12 @@ Next, in order to define our application stack we will need to use CDK, we can d
 `lib/my-project-stack.ts`
 
 ```ts
-import * as cdk from '@aws-cdk/core';
+import * as cdk from '@aws-cdk/core'
 import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs'
 
 export class MyProjectStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+    super(scope, id, props)
 
     // this defines a Nodejs function handler
     const hello = new aws_lambda_nodejs_1.NodejsFunction(this, 'HelloHandler', {
@@ -116,8 +114,8 @@ export class MyProjectStack extends cdk.Stack {
       // code located in lambdas directory
       entry: 'lambdas/hello.ts',
       // use the 'hello' file's 'handler' export
-      handler: 'handler'
-    });
+      handler: 'handler',
+    })
   }
 }
 ```
@@ -130,11 +128,11 @@ const hello = new lambda.Function(this, 'HelloHandler', {
   // define directory for code to be used
   code: lambda.Code.fromAsset('./lambdas'),
   // define the name of the file and handler function
-  handler: 'hello.handler'
+  handler: 'hello.handler',
 })
 ```
 
-> Note, avoid running the above command using `npm run sdk ...` as it will lead to the `template.yaml` file including the `npm` log which is not what we want 
+> Note, avoid running the above command using `npm run sdk ...` as it will lead to the `template.yaml` file including the `npm` log which is not what we want
 
 # Create API
 
@@ -144,7 +142,7 @@ To setup the API we use something like this in the `Stack`:
 
 ```ts
 let api = new apiGateway.LambdaRestApi(this, 'Endpoint', {
-  handler: hello
+  handler: hello,
 })
 ```
 
@@ -153,14 +151,14 @@ So our `Stack` now looks something like this:
 `lib/my-project-stack.ts`
 
 ```ts
-import * as cdk from '@aws-cdk/core';
+import * as cdk from '@aws-cdk/core'
 import * as lambda from '@aws-cdk/aws-lambda'
 import * as apiGateway from '@aws-cdk/aws-apigateway'
 import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs'
 
 export class MyProjectStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+    super(scope, id, props)
 
     // define the `hello` lambda
     const hello = new NodejsFunction(this, 'HelloHandler', {
@@ -168,12 +166,12 @@ export class MyProjectStack extends cdk.Stack {
       // code located in lambdas directory
       entry: 'lambdas/hello.ts',
       // use the 'hello' file's 'handler' export
-      handler: 'handler'
+      handler: 'handler',
     })
 
     // our main api
     let api = new apiGateway.LambdaRestApi(this, 'Endpoint', {
-      handler: hello
+      handler: hello,
     })
   }
 }
@@ -214,7 +212,7 @@ I've also written a Dev container Docker setup file for use with CDK and SAM, It
 `Dockerfile`
 
 ```dockerfile
-# Note: You can use any Debian/Ubuntu based image you want. 
+# Note: You can use any Debian/Ubuntu based image you want.
 FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu
 
 # [Option] Install zsh
@@ -255,8 +253,8 @@ RUN npm install -g aws-cdk
 # install SAM
 RUN pip3 install aws-sam-cli==1.12.0
 
-# Setting the ENTRYPOINT to docker-init.sh will configure non-root access to 
-# the Docker socket if "overrideCommand": false is set in devcontainer.json. 
+# Setting the ENTRYPOINT to docker-init.sh will configure non-root access to
+# the Docker socket if "overrideCommand": false is set in devcontainer.json.
 # The script will also execute CMD if you need to alter startup behaviors.
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]
@@ -268,41 +266,37 @@ CMD [ "sleep", "infinity" ]
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.166.1/containers/docker-from-docker
 {
-	"name": "Docker from Docker",
-	"dockerFile": "Dockerfile",
-	"runArgs": [
-		"--init"
-	],
-	"mounts": [
-		"source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
-	],
-	"overrideCommand": false,
-	// Use this environment variable if you need to bind mount your local source code into a new container.
-	"remoteEnv": {
-		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
-	},
-	// Set *default* container specific settings.json values on container create.
-	"settings": {
-		"terminal.integrated.shell.linux": "/bin/bash"
-	},
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"ms-azuretools.vscode-docker"
-	],
-	"workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
-	"workspaceFolder": "${localWorkspaceFolder}",
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "npm install",
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+  "name": "Docker from Docker",
+  "dockerFile": "Dockerfile",
+  "runArgs": ["--init"],
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
+  ],
+  "overrideCommand": false,
+  // Use this environment variable if you need to bind mount your local source code into a new container.
+  "remoteEnv": {
+    "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+  },
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": ["ms-azuretools.vscode-docker"],
+  "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
+  "workspaceFolder": "${localWorkspaceFolder}",
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "npm install",
+  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode"
 }
 ```
 
 Especially note the `workspaceMount` and `workspaceFolderz sections as these ensure the directory structure maps correctly between your local folder structure and container volume so that the CDK and SAM builds are able to find and create their assets in the correct locations
 
-# References 
- 
-- [The AWS Docs](https://docs.aws.amazon.com/cdk/latest/guide/home.html) 
+# References
+
+- [The AWS Docs](https://docs.aws.amazon.com/cdk/latest/guide/home.html)
 - [CDK Workshop](https://cdkworkshop.com/)

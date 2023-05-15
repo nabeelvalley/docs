@@ -4,8 +4,6 @@ title: Dart Reference
 subtitle: Notes on the Dart language
 ---
 
-[[toc]]
-
 > Notes from the [The Net Ninja Youtube Series](https://www.youtube.com/watch?v=1ukSR1GRtMU&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ)
 
 To get started with Dart you can use [DartPad](https://dartpad.dev/)

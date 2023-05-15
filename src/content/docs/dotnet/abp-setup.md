@@ -4,8 +4,6 @@ title: ASP.NET Core Boilerplate Setup
 subtitle: Notes on the ASP.NET Boilerplate MVC Framework/Template
 ---
 
-[[toc]]
-
 [Refer to](https://github.com/aodendaal/aspnetboilerplate-core-ng)
 
 # Infrastructure Layer

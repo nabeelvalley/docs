@@ -5,8 +5,6 @@ subtitle: Miscellaneous WSL Things
 description: WSL tips and tricks
 ---
 
-[[toc]]
-
 # Troubleshooting
 
 When using WSL, you may occasionally see the following error message:
@@ -28,4 +26,3 @@ nameserver 208.67.222.222
 ```
 
 You should then be able to run `apt-get update` and everything should connect as expected
-

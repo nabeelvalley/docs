@@ -5,8 +5,6 @@ subtitle: Code snippets for common tasks with SQL Server and SQL Express
 description: SQL Cheatsheet for SQL Server and SQL Express
 ---
 
-[[toc]]
-
 > Mostly applies to SQL Server and SQL Express
 
 # Log Into Instance
@@ -92,8 +90,8 @@ GO
 ```sql
 CREATE TABLE [TestDatabase].[dbo].[Items]
    (
-      ItemId int NOT NULL, 
-	  PersonId int NOT NULL, 
+      ItemId int NOT NULL,
+	  PersonId int NOT NULL,
 	  Name nvarchar(50),
       CONSTRAINT PK_Items PRIMARY KEY (ItemId),
       CONSTRAINT FK_Items_Person FOREIGN KEY ([PersonId])
@@ -184,7 +182,7 @@ BEGIN TRANSACTION
 
 SELECT * FROM [TestDatabase].[dbo].[Persons]
 
-DELETE FROM [TestDatabase].[dbo].[Persons] 
+DELETE FROM [TestDatabase].[dbo].[Persons]
 	WHERE [LastName] = 'Person2'
 
 SELECT * FROM [TestDatabase].[dbo].[Persons]
@@ -199,7 +197,7 @@ BEGIN TRANSACTION
 
 SELECT * FROM [TestDatabase].[dbo].[Persons]
 
-DELETE FROM [TestDatabase].[dbo].[Persons] 
+DELETE FROM [TestDatabase].[dbo].[Persons]
 	WHERE [LastName] = 'Person2'
 
 SELECT * FROM [TestDatabase].[dbo].[Persons]
@@ -222,7 +220,7 @@ a.ID as ID,
 b.Vehicle as Vehicle,
 b.Registered as IsRegistered
 
-FROM Table_1 as a 
+FROM Table_1 as a
 INNER JOIN Table_2 as b
 ON a.ID = b.UserId
 ```

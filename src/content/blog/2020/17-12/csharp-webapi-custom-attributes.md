@@ -9,8 +9,6 @@ Implementing an attribute for a WebAPI or class in C# can help to reduce duplica
 
 In this post I'm going to cover the following:
 
-[[toc]]
-
 # Attribute Types and Execution Order
 
 There are a few different attribute types that we can handle on a WebAPI that provide us with the ability to wrap some functionality around our endpoints, below are some of the common attributes that we can implement and the order in which they execute ([StackOverflow](https://stackoverflow.com/questions/19249511/difference-between-iactionfilter-and-iauthorizationfilter))
@@ -65,7 +63,6 @@ The order of logging which we see will be as follows:
 2. `OnActionExecuting` when the controller is called
 3. `Executing Get` when the controller is executed
 4. `OnActionExecuted` when the controller is done executing
-
 
 ## IAuthorizationFilter
 
@@ -193,7 +190,7 @@ Since an attribute can be implemented at a class and method level it's useful fo
 
 We can do this by setting the attribute inheritence to `false`
 
-Updating out `LogStatusAttribute` we can add the  `AttributeUsage` Attribute as follows:
+Updating out `LogStatusAttribute` we can add the `AttributeUsage` Attribute as follows:
 
 ```cs
 namespace CSharpAttributes.Attributes
@@ -226,7 +223,6 @@ namespace CSharpAttributes.Controllers
 ```
 
 Which will output the logs as follows:
-
 
 1. `Attribute Initialized` when the controller is instantiated
 2. `WeatherForecast:OnActionExecuting` when the class is called

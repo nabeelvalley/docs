@@ -4,8 +4,6 @@ title: Redis from Express
 subtitle: Using Redis from a Node.js Express App via Docker Compose
 ---
 
-[[toc]]
-
 # Setup Project
 
 Init an NPM project with Redis and Express:
@@ -33,23 +31,23 @@ The following code should create a key-value pair on redis, you can add this to 
 `db.js`
 
 ```js
-const redis = require("redis");
-const client = redis.createClient();
+const redis = require('redis')
+const client = redis.createClient()
 
-client.on("error", function(error) {
-  console.error(error);
-});
+client.on('error', function (error) {
+  console.error(error)
+})
 
-client.set("bob", "i am bob", redis.print);
-client.get("bob", redis.print);
+client.set('bob', 'i am bob', redis.print)
+client.get('bob', redis.print)
 ```
 
 Or, if you're feeling that the default client is sketchy you can use this with the explicit url:
 
 ```js
 const client = redis.createClient({
-  url: " redis://localhost:6379"
-});
+  url: ' redis://localhost:6379',
+})
 ```
 
 Either way, you can run this using `node db.js` which should output the creation success
@@ -82,7 +80,7 @@ A simple express client which will do key-value creates and lookups can be defin
 
 ```js
 const express = require('express')
-const redis = require("redis");
+const redis = require('redis')
 
 const port = process.env.PORT || 8080
 
@@ -91,31 +89,31 @@ const app = express()
 app.use(express.text())
 
 const client = redis.createClient({
-  url: "redis://localhost:6379"
-});
-
-client.on("error", function(error) {
-  console.error(error);
-});
-
-app.get("/", (req, res) => {
-  console.log("request at URL")
-  res.send("hello nabeeel from port " + port)
+  url: 'redis://localhost:6379',
 })
 
-app.get("/:key", (req, res) => {
+client.on('error', function (error) {
+  console.error(error)
+})
+
+app.get('/', (req, res) => {
+  console.log('request at URL')
+  res.send('hello nabeeel from port ' + port)
+})
+
+app.get('/:key', (req, res) => {
   const key = req.params.key
   client.get(key, (error, reply) => {
-    if (error) res.send("Error")
+    if (error) res.send('Error')
     else res.send(reply)
   })
 })
 
-app.post("/:key", (req, res) => {
+app.post('/:key', (req, res) => {
   const key = req.params.key
   const data = req.body
   client.set(key, data, (error, reply) => {
-    if (error) res.send("Error")
+    if (error) res.send('Error')
     else res.send(reply)
   })
 })
@@ -123,7 +121,7 @@ app.post("/:key", (req, res) => {
 app.posts
 
 app.listen(port, () => {
-  console.log("app is listening on port " + port)
+  console.log('app is listening on port ' + port)
 })
 ```
 
@@ -180,7 +178,6 @@ RESPONSE "my test data"
 
 Since we're using Docker, it would be great to configure our application using a Docker compose file. In the compose file we'll define a `web` and `redis` service and will provide the Redis URL in the environment for our Express app, the service config for `web` is:
 
-
 ```yml
 web:
   image: express-app
@@ -193,7 +190,6 @@ web:
   ports:
     - 8080:8080
 ```
-
 
 And for the `redis` service it's pretty much the same as what we provided to the container we started with the command line:
 
@@ -259,8 +255,8 @@ const redisUrl = process.env.REDIS_URL
 // other stuff
 
 const client = redis.createClient({
-  url: redisUrl
-});
+  url: redisUrl,
+})
 ```
 
 So the final file will now be:
@@ -268,9 +264,8 @@ So the final file will now be:
 `index.js`
 
 ```js
-
 const express = require('express')
-const redis = require("redis");
+const redis = require('redis')
 
 const port = process.env.PORT || 8080
 const redisUrl = process.env.REDIS_URL
@@ -280,41 +275,41 @@ const app = express()
 app.use(express.text())
 
 const client = redis.createClient({
-  url: redisUrl
-});
-
-client.on("error", function(error) {
-  console.error(error);
-});
-
-app.get("/", (req, res) => {
-  console.log("request at URL")
-  res.send("hello nabeeel from port " + port)
+  url: redisUrl,
 })
 
-app.get("/:key", (req, res) => {
+client.on('error', function (error) {
+  console.error(error)
+})
+
+app.get('/', (req, res) => {
+  console.log('request at URL')
+  res.send('hello nabeeel from port ' + port)
+})
+
+app.get('/:key', (req, res) => {
   const key = req.params.key
   client.get(key, (error, reply) => {
-    if (error) res.send("Error")
+    if (error) res.send('Error')
     else res.send(reply)
   })
 })
 
-app.post("/:key", (req, res) => {
+app.post('/:key', (req, res) => {
   const key = req.params.key
   const data = req.body
   client.set(key, data, (error, reply) => {
-    if (error) res.send("Error")
+    if (error) res.send('Error')
     else res.send(reply)
   })
 })
 
 app.listen(port, () => {
-  console.log("app is listening on port " + port)
+  console.log('app is listening on port ' + port)
 })
 ```
 
-And you should be able to run this all with: 
+And you should be able to run this all with:
 
 ```sh
 docker-compose up

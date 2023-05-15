@@ -1,5 +1,3 @@
-[[toc]]
-
 # Deploy a Python Machine Learning Model as a CF Web Service
 
 An important part of machine learning is model deployment, deploying a machine learning mode so that other applications can consume the model in production.
@@ -45,6 +43,7 @@ y = 2*(x) + 3
 y_noise = 2 * np.random.normal(size=x.size)
 ydata = y + y_noise
 ```
+
 3. Next you can view the generated data as a Data Frame by running the following code.
 
 ```python
@@ -173,7 +172,7 @@ If your model requires multiple features to make a prediction, you can simply ad
 
 6. You can run your Python application from the terminal or your Python IDE. From the terminal, run the following command
 
-```bash 
+```bash
 python app.py
 ```
 
@@ -211,11 +210,11 @@ In order to deploy to Cloud Foundry, a few additional files need to be created i
 ```yaml
 ---
 applications:
-- name: MLModelAPI
-  random-route: true
-  buildpack: python_buildpack
-  command: python app.py
-  memory: 256M
+  - name: MLModelAPI
+    random-route: true
+    buildpack: python_buildpack
+    command: python app.py
+    memory: 256M
 ```
 
 2. Next, the Cloud Foundry runtime version for the application must be defined in the `runtime.txt` file. In the `deploy` directory create the `runtime.txt` file and add the following to it:
@@ -257,14 +256,15 @@ In order to deploy the Docker image on Cloud Foundry we need to first create a f
 ```yaml
 ---
 applications:
-- name: MLModelAPI
-  random-route: true
-  buildpack: python_buildpack
-  command: python app.py
-  memory: 256M
-  docker:
-    image: <YOUR DOCKERHUB USERNAME>/python-ml-service
+  - name: MLModelAPI
+    random-route: true
+    buildpack: python_buildpack
+    command: python app.py
+    memory: 256M
+    docker:
+      image: <YOUR DOCKERHUB USERNAME>/python-ml-service
 ```
+
 2. The application dependencies must be defined in the `requirements.txt`. Create this file in the `deploy` directory and add the following:
 
 ```txt
@@ -351,7 +351,7 @@ ibmcloud login
 ibmcloud target --cf
 ```
 
-Note that if you are using a Federated ID and see the following when running  `ibmcloud login`:
+Note that if you are using a Federated ID and see the following when running `ibmcloud login`:
 
 ```raw
 You are using a federated user ID, please use one time passcode ( C:\Program Files\IBM\Cloud\bin\ibmcloud.exe login --sso ), or use API key ( C:\Program Files\IBM\Cloud\bin\ibmcloud.exe --apikey key or @key_file ) to authenticate.
@@ -416,7 +416,7 @@ At line:1 char:1
     + FullyQualifiedErrorId : CommandNotFoundException
 ```
 
-Ensure that Python is in your `PATH`, the process for doing this is dependant on your Python installation and OS and is not covered here 
+Ensure that Python is in your `PATH`, the process for doing this is dependant on your Python installation and OS and is not covered here
 
 ## ModuleNotFound
 

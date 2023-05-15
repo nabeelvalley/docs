@@ -3,8 +3,6 @@ published: true
 title: Analog Cool
 ---
 
-[[toc]]
-
 ![](/content/photography/images/fuji-analog-cool.jpg)
 
 | Setting               | Value             |

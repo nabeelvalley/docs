@@ -4,8 +4,6 @@ title: WebRTC
 subtitle: Real-time Communication with WebRTC
 ---
 
-[[toc]]
-
 [From this CodeLab](https://codelabs.developers.google.com/codelabs/webrtc-web/#0)
 
 # Getting the Code
@@ -50,7 +48,7 @@ In the `main.js` file add the following
 
 // On this codelab, you will be streaming only video (video: true).
 const mediaStreamConstraints = {
-  video: true
+  video: true,
 }
 
 // Video element where stream will be placed.
@@ -87,12 +85,12 @@ The `constraints` object can consist of different properties, such as:
 const hdConstraints = {
   video: {
     width: {
-      min: 1280
+      min: 1280,
     },
     height: {
-      min: 720
-    }
-  }
+      min: 720,
+    },
+  },
 }
 ```
 
@@ -148,12 +146,12 @@ Add a second video element as well as some buttons for controlling the content t
 // In this codelab, you will be streaming video only: "video: true".
 // Audio will not be streamed because it is set to "audio: false" by default.
 const mediaStreamConstraints = {
-  video: true
+  video: true,
 }
 
 // Set up to exchange only video.
 const offerOptions = {
-  offerToReceiveVideo: 1
+  offerToReceiveVideo: 1,
 }
 
 // Define initial start time of the call (defined as connection between peers).
@@ -235,7 +233,7 @@ function handleConnection(event) {
       .then(() => {
         handleConnectionSuccess(peerConnection)
       })
-      .catch(error => {
+      .catch((error) => {
         handleConnectionFailure(peerConnection, error)
       })
 

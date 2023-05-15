@@ -4,8 +4,6 @@ title: p5.js
 subtitle: Introductory p5.js notes
 ---
 
-[[toc]]
-
 > Notes from [`p5.js`](https://p5js.org/) and [The Nature of Code](https://natureofcode.com/book/introduction/)
 
 # Random Walk
@@ -29,7 +27,7 @@ class Walker {
   }
 
   draw() {
-    stroke("red")
+    stroke('red')
     strokeWeight(2)
     point(this.x, this.y)
   }
@@ -71,7 +69,7 @@ let walkers = []
 
 function setup() {
   createCanvas(w, h)
-  background("red")
+  background('red')
 
   for (let step = 0; step < 500; step++) {
     walkers.push(new Walker(width, height, 100))
@@ -79,7 +77,7 @@ function setup() {
 }
 
 function draw() {
-  walkers.forEach(w => w.step())
+  walkers.forEach((w) => w.step())
 }
 
 class Walker {
@@ -121,7 +119,6 @@ class Walker {
 
 </details>
 
-
 # Vectors
 
 `p5` also contains a Vector Class, this is a class of functions that allows us to work with vectors as mathematical structures
@@ -129,31 +126,32 @@ class Walker {
 We can create a bouncing ball animation by using two vectors, one for `position` and one for `velocity` we can apply some vector math to get the ball to bounce around the screen
 
 ```js
-const w = 600, h = 500, r = 50
+const w = 600,
+  h = 500,
+  r = 50
 
 let position
 let velocity
 
 this.setup = () => {
-  createCanvas(w, h);
-  
+  createCanvas(w, h)
+
   position = createVector(random(r, w - r), random(r, h - r))
-  velocity = createVector(10, 10)  
+  velocity = createVector(10, 10)
 }
 
-this.draw = () =>  {
-  background(0);
-  
+this.draw = () => {
+  background(0)
+
   position.add(velocity)
-  
+
   if (position.x <= r || position.x >= w - r) velocity.x *= -1
   if (position.y <= r || position.y >= h - r) velocity.y *= -1
-  
+
   fill('red')
   noStroke()
-  ellipse(position.x, position.y, r * 2)  
+  ellipse(position.x, position.y, r * 2)
 }
 ```
 
 We cal also do something like the above using a 3D canvas
-

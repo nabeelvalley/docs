@@ -3,8 +3,6 @@ published: true
 title: Node.js Basics
 ---
 
-[[toc]]
-
 # Basic Modules
 
 ## Installing Prerequisites
@@ -62,20 +60,20 @@ This can be an absolute or releative path to the file
 
 We are providded with some additional objects and keywords on top of javascript
 
-* `global`
-* `process`
-* `module.exports` or `exports`
+- `global`
+- `process`
+- `module.exports` or `exports`
 
 ## Global
 
 Any first level `global` property is available without the keywords Some poperties of the global object are as follows:
 
-* `process`
-* `require`
-* `module`
-* `console`
-* `__dirname`
-* `__filename`
+- `process`
+- `require`
+- `module`
+- `console`
+- `__dirname`
+- `__filename`
 
 ## Processes
 
@@ -83,20 +81,20 @@ Every Node.js script is a process
 
 We can interact with the process by:
 
-* `env` Enviromnent variables
-* `argv` Command-line arguments
-* `exit()` Terminate the current process
+- `env` Enviromnent variables
+- `argv` Command-line arguments
+- `exit()` Terminate the current process
 
 ### Process exit codes can be specified
 
 ```javascript
 // process failed
-process.exit(1);
+process.exit(1)
 
 // process exited successfully
-process.exit(0);
+process.exit(0)
 
-// process failed with custom exit code 
+// process failed with custom exit code
 process.exit(code)
 ```
 
@@ -107,14 +105,14 @@ process.exit(code)
 Global property to allow a script to export something for other modules to use
 
 ```javascript
-module.exports = function(numbersToSum) {
-  let sum = 0, 
-    i = 0, 
-    l = numbersToSum.length;
-    while (i < l) {
-        sum += numbersToSum[i++]
-    }
-    return sum
+module.exports = function (numbersToSum) {
+  let sum = 0,
+    i = 0,
+    l = numbersToSum.length
+  while (i < l) {
+    sum += numbersToSum[i++]
+  }
+  return sum
 }
 ```
 
@@ -133,7 +131,7 @@ const filesystem = require('fs') // core module
 const express = require('express') // npm module
 const server = require('./boot/server.js') // server.js file with a relative path down the tree
 const server = require('../boot/server.js') // server.js file with a relative path up the tree
-const server = require('/var/www/app/boot/server.js') // server.js file with an absolute path 
+const server = require('/var/www/app/boot/server.js') // server.js file with an absolute path
 const server = require('./boot/server') // file if there's the server.js file
 const routes = require('../routes') // index.js inside routes folder if there's no routes.js file
 const databaseConfigs = require('./configs/database.json') // JSON file
@@ -143,39 +141,43 @@ const databaseConfigs = require('./configs/database.json') // JSON file
 
 Node has a lot of preinstalled modules, the main ones are as follows:
 
-* fs: module to work with the file system, files and folders
-* path: module to parse file system paths across platforms
-* querystring: module to parse query string data
-* net: module to work with networking for various protocols
-* stream: module to work with data streams
-* events: module to implement event emitters \(Node observer pattern\)
-* child\_process: module to spawn external processes
-* os: module to access OS-level information including platform, number of CPUs, memory, uptime, etc.
-* url: module to parse URLs
-* http: module to make requests \(client\) and accept requests \(server\)
-* https: module to do the same as http only for HTTPS
-* util: various utilities including promosify which turns any standard Node core method into a promise-base API
-* assert: module to perform assertion based testing
-* crypto: module to encrypt and hash information
+- fs: module to work with the file system, files and folders
+- path: module to parse file system paths across platforms
+- querystring: module to parse query string data
+- net: module to work with networking for various protocols
+- stream: module to work with data streams
+- events: module to implement event emitters \(Node observer pattern\)
+- child_process: module to spawn external processes
+- os: module to access OS-level information including platform, number of CPUs, memory, uptime, etc.
+- url: module to parse URLs
+- http: module to make requests \(client\) and accept requests \(server\)
+- https: module to do the same as http only for HTTPS
+- util: various utilities including promosify which turns any standard Node core method into a promise-base API
+- assert: module to perform assertion based testing
+- crypto: module to encrypt and hash information
 
 ### fs
 
 Handles file system operations
 
-* fs.readFile\(\) reads files asynchronously
-* fs.readFileSync\(\) reads files synchronously
-* fs.writeFile\(\) writes files asynchronously
-* fs.writeFileSync\(\) writes files synchronously
+- fs.readFile\(\) reads files asynchronously
+- fs.readFileSync\(\) reads files synchronously
+- fs.writeFile\(\) writes files asynchronously
+- fs.writeFileSync\(\) writes files synchronously
 
 ### Reading a File
 
 ```javascript
 const fs = require('fs')
 const path = require('path')
-fs.readFile(path.join(__dirname, '/data/customers.csv'), {encoding: 'utf-8'}, function (error, data) {
-  if (error) return console.error(error)
-  console.log(data)
-})
+fs.readFile(
+  path.join(__dirname, '/data/customers.csv'),
+  { encoding: 'utf-8' },
+  function (error, data) {
+    if (error) return console.error(error)
+    console.log(data)
+  }
+)
 ```
 
 ### Writing to a file
@@ -216,12 +218,12 @@ const EventEmitter = require('events')
 class Job extends EventEmitter {}
 job = new Job()
 
-job.on('done', function(timeDone){
+job.on('done', function (timeDone) {
   console.log('Job was pronounced done at', timeDone)
 })
 
 job.emit('done', new Date())
-job.removeAllListeners()  // remove  all observers
+job.removeAllListeners() // remove  all observers
 ```
 
 Output `Job was pronounced done at ____________`
@@ -285,12 +287,12 @@ const EventEmitter = require('events')
 class Job extends EventEmitter {
   constructor(ops) {
     super(ops)
-    this.on('start', ()=>{
+    this.on('start', () => {
       this.process()
     })
   }
   process() {
-     setTimeout(()=>{
+    setTimeout(() => {
       // Emulate the delay of the job - async!
       this.emit('done', { completedOn: new Date() })
     }, 700)
@@ -306,9 +308,8 @@ module.exports = Job
 var Job = require('./job.js')
 var job = new Job()
 
-job.on('done', function(details){
-  console.log('Weekly email job was completed at',
-    details.completedOn)
+job.on('done', function (details) {
+  console.log('Weekly email job was completed at', details.completedOn)
 })
 
 job.emit('start')
@@ -325,16 +326,18 @@ Making an HTTP Request using http from NodeJs Core. Will receive data in chunks 
 ```javascript
 const http = require('http')
 const url = 'http://nodeprogram.com'
-http.get(url, (response) => {
-  response.on('data', (chunk) => { 
-    console.log(chunk.toString('utf8'))
+http
+  .get(url, (response) => {
+    response.on('data', (chunk) => {
+      console.log(chunk.toString('utf8'))
+    })
+    response.on('end', () => {
+      console.log('response has ended')
+    })
   })
-  response.on('end', () => {
-    console.log('response has ended')
+  .on('error', (error) => {
+    console.error(`Got error: ${error.message}`)
   })
-}).on('error', (error) => {
-  console.error(`Got error: ${error.message}`)
-})
 ```
 
 Alternatively, the data can be aded to a buffer until the response is complete as below `http-get.js`
@@ -342,17 +345,19 @@ Alternatively, the data can be aded to a buffer until the response is complete a
 ```javascript
 const http = require('http')
 const url = 'http://nodeprogram.com'
-http.get(url, (response) => {
-  let rawData = ''
-  response.on('data', (chunk) => { 
-    rawData += chunk
+http
+  .get(url, (response) => {
+    let rawData = ''
+    response.on('data', (chunk) => {
+      rawData += chunk
+    })
+    response.on('end', () => {
+      console.log(rawData)
+    })
   })
-  response.on('end', () => {
-    console.log(rawData)
+  .on('error', (error) => {
+    console.error(`Got error: ${error.message}`)
   })
-}).on('error', (error) => {
-  console.error(`Got error: ${error.message}`)
-})
 ```
 
 #### Processing JSON
@@ -363,23 +368,26 @@ In order to get JSON the full response is needed, after which we parse the json 
 
 ```javascript
 const https = require('https')
-const url = 'https://gist.githubusercontent.com/azat-co/a3b93807d89fd5f98ba7829f0557e266/raw/43adc16c256ec52264c2d0bc0251369faf02a3e2/gistfile1.txt'
-https.get(url, (response) => {
-  let rawData = ''
-  response.on('data', (chunk) => { 
-    rawData += chunk 
+const url =
+  'https://gist.githubusercontent.com/azat-co/a3b93807d89fd5f98ba7829f0557e266/raw/43adc16c256ec52264c2d0bc0251369faf02a3e2/gistfile1.txt'
+https
+  .get(url, (response) => {
+    let rawData = ''
+    response.on('data', (chunk) => {
+      rawData += chunk
+    })
+    response.on('end', () => {
+      try {
+        const parsedData = JSON.parse(rawData)
+        console.log(parsedData)
+      } catch (e) {
+        console.error(e.message)
+      }
+    })
   })
-  response.on('end', () => {
-    try {
-      const parsedData = JSON.parse(rawData)
-      console.log(parsedData)
-    } catch (e) {
-      console.error(e.message)
-    }
+  .on('error', (error) => {
+    console.error(`Got error: ${error.message}`)
   })
-}).on('error', (error) => {
-  console.error(`Got error: ${error.message}`)
-})
 ```
 
 ### Post
@@ -399,8 +407,8 @@ const options = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
-    'Content-Length': Buffer.byteLength(postData)
-  }
+    'Content-Length': Buffer.byteLength(postData),
+  },
 }
 
 const req = http.request(options, (res) => {
@@ -429,10 +437,12 @@ We can use `node http-server.js` to run the server, we can also use `node-dev` t
 ```javascript
 const http = require('http')
 const port = 3000
-http.createServer((req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/plain'})
-  res.end('Hello World\n')
-}).listen(port)
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' })
+    res.end('Hello World\n')
+  })
+  .listen(port)
 
 console.log(`Server running at http://localhost:${port}/`)
 ```
@@ -462,7 +472,7 @@ http.createServer((request, response) => {
   if (request.method == 'POST') {
     let buff = ''
     request.on('data', function (chunk) {
-      buff += chunk  
+      buff += chunk
     })
     request.on('end', function () {
       console.log(`Body: ${buff}`)
@@ -471,7 +481,6 @@ http.createServer((request, response) => {
   } else {
     response.writeHead(200, {'Content-Type': 'text/plain'})
     response.end('Hello World\n')
-  } 
+  }
 }).listen(port)
 ```
-

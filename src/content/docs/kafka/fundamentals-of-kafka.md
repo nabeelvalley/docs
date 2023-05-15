@@ -4,8 +4,6 @@ title: Kafka Fundamentals
 subtitle: Data Streaming and Big Data using Apache Kafka
 ---
 
-[[toc]]
-
 > Based on [this](https://www.youtube.com/watch?v=-DyWhcX3Dpc&list=PLa7VYi0yPIH2PelhRHoFR5iQgflg-y6JA) series
 
 > AWS = MSK, Azure = Kafka
@@ -117,4 +115,3 @@ Brokers replicate each partition, usually 3 replicants, per partition, and these
 
 - [Kafka vs SQS vs Kinesis](https://dzone.com/articles/evaluating-message-brokers-kafka-vs-kinesis-vs-sqs)
 - [Event Streaming DB with AWS](https://medium.com/nikeengineering/moving-faster-with-aws-by-creating-an-event-stream-database-dedec8ca3eeb)
-

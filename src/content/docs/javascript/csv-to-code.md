@@ -3,8 +3,6 @@ published: true
 title: Code Generation using CSV Files
 ---
 
-[[toc]]
-
 # Generating code from a CSV file
 
 At times it may be necessary to generate a script or some code from a CSV File, this can be done using Node.js with a structure as follows:
@@ -31,7 +29,7 @@ const code = fs
    .map(extractData)
    .map(buildCode)
    .join('')
-   
+
 fs.writeFileSync('newFile.js', code)
 
 console.log('done')

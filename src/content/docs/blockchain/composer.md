@@ -4,8 +4,6 @@ title: Hyperledger Composer
 subtitle: Introduction to Hyperledger Composer
 ---
 
-[[toc]]
-
 # Overview
 
 A business Network, defined in a **Business Network Archive** `.bna` File
@@ -292,7 +290,7 @@ async function tradeCommodity(trade) {
   trade.commodity.owner = trade.newOwner
 
   // Persist updated asset in asset registry
-  let assetRegistry = await getAssetRegistry("org.example.mynetwork.Commodity")
+  let assetRegistry = await getAssetRegistry('org.example.mynetwork.Commodity')
   await assetRegistry.update(trade.commodity)
 }
 ```

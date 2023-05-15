@@ -5,8 +5,6 @@ subtitle: 17 June 2021
 description: Build, debug, and deploy serverless applications on AWS using SST and VSCode
 ---
 
-[[toc]]
-
 > Prior to doing any of the below you will require your `~/.aws/credentials` file to be configured with the credentials for your AWS account
 
 # Serverless Stack Framework
@@ -56,16 +54,16 @@ The application is structured like a relatively normal Lambda/CDK app with `lib`
 `lib/index.ts`
 
 ```ts
-import MyStack from "./MyStack";
-import * as sst from "@serverless-stack/resources";
+import MyStack from './MyStack'
+import * as sst from '@serverless-stack/resources'
 
 export default function main(app: sst.App): void {
   // Set default runtime for all functions
   app.setDefaultFunctionProps({
-  runtime: "nodejs12.x"
-  });
+    runtime: 'nodejs12.x',
+  })
 
-  new MyStack(app, "my-stack");
+  new MyStack(app, 'my-stack')
 
   // Add more stacks
 }
@@ -74,43 +72,43 @@ export default function main(app: sst.App): void {
 `lib/MyStack.ts`
 
 ```ts
-import * as sst from "@serverless-stack/resources";
+import * as sst from '@serverless-stack/resources'
 
 export default class MyStack extends sst.Stack {
   constructor(scope: sst.App, id: string, props?: sst.StackProps) {
-  super(scope, id, props);
+    super(scope, id, props)
 
-  // Create the HTTP API
-  const api = new sst.Api(this, "Api", {
-    routes: {
-    "GET /": "src/lambda.handler"    },
-  });
+    // Create the HTTP API
+    const api = new sst.Api(this, 'Api', {
+      routes: {
+        'GET /': 'src/lambda.handler',
+      },
+    })
 
-  // Show API endpoint in output
-  this.addOutputs({
-    "ApiEndpoint": api.httpApi.apiEndpoint,
-  });
+    // Show API endpoint in output
+    this.addOutputs({
+      ApiEndpoint: api.httpApi.apiEndpoint,
+    })
   }
 }
 ```
 
 And `src` which contains the lambda code:
 
-
 `src/lambda.ts`
 
 ```ts
-import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
+import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from 'aws-lambda'
 
 export const handler: APIGatewayProxyHandlerV2 = async (
   event: APIGatewayProxyEventV2
 ) => {
   return {
-  statusCode: 200,
-  headers: { "Content-Type": "text/plain" },
-  body: `Hello, World! Your request was received at ${event.requestContext.time}.`,
-  };
-};
+    statusCode: 200,
+    headers: { 'Content-Type': 'text/plain' },
+    body: `Hello, World! Your request was received at ${event.requestContext.time}.`,
+  }
+}
 ```
 
 ## Add a new Endpoint
@@ -120,21 +118,21 @@ Using the defined constructs it's really easy for us to add an additional endpoi
 `src/hello.ts`
 
 ```ts
-import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
+import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from 'aws-lambda'
 
 export const handler: APIGatewayProxyHandlerV2 = async (
   event: APIGatewayProxyEventV2
 ) => {
   const response = {
-    data: 'Hello, World! This is another lambda but with JSON'
+    data: 'Hello, World! This is another lambda but with JSON',
   }
 
   return {
-  statusCode: 200,
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(response),
-  };
-};
+    statusCode: 200,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(response),
+  }
+}
 ```
 
 And then in the stack we just update the routes:
@@ -142,12 +140,12 @@ And then in the stack we just update the routes:
 `lib/MyStack.ts`
 
 ```ts
-const api = new sst.Api(this, "Api", {
+const api = new sst.Api(this, 'Api', {
   routes: {
-  "GET /": "src/lambda.handler",
-  "GET /hello": "src/hello.handler" // new endpoint handler
+    'GET /': 'src/lambda.handler',
+    'GET /hello': 'src/hello.handler', // new endpoint handler
   },
-});
+})
 ```
 
 So that the full stack looks like this:
@@ -155,24 +153,24 @@ So that the full stack looks like this:
 `lib/MyStack.ts`
 
 ```ts
-import * as sst from "@serverless-stack/resources";
+import * as sst from '@serverless-stack/resources'
 
 export default class MyStack extends sst.Stack {
   constructor(scope: sst.App, id: string, props?: sst.StackProps) {
-  super(scope, id, props);
+    super(scope, id, props)
 
-  // Create the HTTP API
-  const api = new sst.Api(this, "Api", {
-    routes: {
-    "GET /": "src/lambda.handler",
-    "GET /hello": "src/hello.handler"
-    },
-  });
+    // Create the HTTP API
+    const api = new sst.Api(this, 'Api', {
+      routes: {
+        'GET /': 'src/lambda.handler',
+        'GET /hello': 'src/hello.handler',
+      },
+    })
 
-  // Show API endpoint in output
-  this.addOutputs({
-    "ApiEndpoint": api.httpApi.apiEndpoint,
-  });
+    // Show API endpoint in output
+    this.addOutputs({
+      ApiEndpoint: api.httpApi.apiEndpoint,
+    })
   }
 }
 ```
@@ -210,11 +208,10 @@ SST supports VSCode Debugging, all that's required is for you to create a `.vsco
       "disableOptimisticBPs": true
     }
   ]
-} 
+}
 ```
 
 This will then allow you to run `Debug SST Start` which will configure the AWS resources using the `npm start` command and connect the debugger to the instance so you can debug your functions locally as well as make use of the automated function deployment
-
 
 ## Add a DB
 
@@ -223,36 +220,36 @@ This will then allow you to run `Debug SST Start` which will configure the AWS r
 We can define our table using the `sst.Table` class:
 
 ```ts
-const table = new sst.Table(this, "Notes", {
+const table = new sst.Table(this, 'Notes', {
   fields: {
-  userId: sst.TableFieldType.STRING,
-  noteId: sst.TableFieldType.NUMBER
+    userId: sst.TableFieldType.STRING,
+    noteId: sst.TableFieldType.NUMBER,
   },
   primaryIndex: {
-  partitionKey: "userId", sortKey: "noteId"
-  }
+    partitionKey: 'userId',
+    sortKey: 'noteId',
+  },
 })
 ```
 
 Next, we can add some endpoint definitions for the functions we'll create as well as access to the table name via the environment:
 
 ```ts
-const api = new sst.Api(this, "Api", {
+const api = new sst.Api(this, 'Api', {
   defaultFunctionProps: {
-      timeout: 60, // increase timeout so we can debug
+    timeout: 60, // increase timeout so we can debug
     environment: {
       tableName: table.dynamodbTable.tableName,
     },
   },
   routes: {
-  // .. other routes
-    "GET  /notes": "src/notes/getAll.handler", // userId in query
-    "GET  /notes/{noteId}": "src/notes/get.handler", // userId in query
-    "POST /notes": "src/notes/create.handler"
+    // .. other routes
+    'GET  /notes': 'src/notes/getAll.handler', // userId in query
+    'GET  /notes/{noteId}': 'src/notes/get.handler', // userId in query
+    'POST /notes': 'src/notes/create.handler',
   },
-});
+})
 ```
-
 
 And lastly we can grant the permissions to our `api` to access the `table`
 
@@ -263,44 +260,45 @@ api.attachPermissions([table])
 Adding the above to the `MyStack.ts` file results in the following:
 
 ```ts
-import * as sst from "@serverless-stack/resources";
+import * as sst from '@serverless-stack/resources'
 
 export default class MyStack extends sst.Stack {
   constructor(scope: sst.App, id: string, props?: sst.StackProps) {
-  super(scope, id, props);
+    super(scope, id, props)
 
-  const table = new sst.Table(this, "Notes", {
-    fields: {
-    userId: sst.TableFieldType.STRING,
-    noteId: sst.TableFieldType.STRING
-    },
-    primaryIndex: {
-    partitionKey: "userId", sortKey: "noteId"
-    }
-  })
+    const table = new sst.Table(this, 'Notes', {
+      fields: {
+        userId: sst.TableFieldType.STRING,
+        noteId: sst.TableFieldType.STRING,
+      },
+      primaryIndex: {
+        partitionKey: 'userId',
+        sortKey: 'noteId',
+      },
+    })
 
-  // Create the HTTP API
-  const api = new sst.Api(this, "Api", {
-    defaultFunctionProps: {
-    timeout: 60, // increase timeout so we can debug
-    environment: {
-      tableName: table.dynamodbTable.tableName,
-    },
-    },
-    routes: {
-    // .. other routes
-    "GET  /notes": "src/notes/getAll.handler", // userId in query
-    "GET  /notes/{noteId}": "src/notes/get.handler", // userId in query
-    "POST /notes": "src/notes/create.handler"
-    },
-  });
+    // Create the HTTP API
+    const api = new sst.Api(this, 'Api', {
+      defaultFunctionProps: {
+        timeout: 60, // increase timeout so we can debug
+        environment: {
+          tableName: table.dynamodbTable.tableName,
+        },
+      },
+      routes: {
+        // .. other routes
+        'GET  /notes': 'src/notes/getAll.handler', // userId in query
+        'GET  /notes/{noteId}': 'src/notes/get.handler', // userId in query
+        'POST /notes': 'src/notes/create.handler',
+      },
+    })
 
-  api.attachPermissions([table])
+    api.attachPermissions([table])
 
-  // Show API endpoint in output
-  this.addOutputs({
-    "ApiEndpoint": api.httpApi.apiEndpoint,
-  });
+    // Show API endpoint in output
+    this.addOutputs({
+      ApiEndpoint: api.httpApi.apiEndpoint,
+    })
   }
 }
 ```
@@ -321,13 +319,13 @@ We'll also create some general helper functions for returning responses of diffe
 ```ts
 const successResponse = <T>(item: T) => {
   return {
-  statusCode: 200,
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(item),
-  };
-};
+    statusCode: 200,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(item),
+  }
+}
 
-export default successResponse;
+export default successResponse
 ```
 
 `src/responses/badResuestsResponse.ts`
@@ -335,12 +333,11 @@ export default successResponse;
 ```ts
 const badRequestResponse = (msg: string) => {
   return {
-  statusCode: 400,
-  headers: { "Content-Type": "text/plain" },
-  body: msg,
-  };
+    statusCode: 400,
+    headers: { 'Content-Type': 'text/plain' },
+    body: msg,
+  }
 }
-  
 
 export default badRequestResponse
 ```
@@ -349,13 +346,13 @@ export default badRequestResponse
 
 ```ts
 const internalErrorResponse = (msg: string) => {
-  console.error(msg);
+  console.error(msg)
   return {
     statusCode: 500,
-    headers: { "Content-Type": "text/plain" },
-    body: "internal error",
-  };
-  };
+    headers: { 'Content-Type': 'text/plain' },
+    body: 'internal error',
+  }
+}
 
 export default internalErrorResponse
 ```
@@ -366,11 +363,11 @@ And we've also got a `Note` type which will be the data that gets stored/retreiv
 
 ```ts
 type Note = {
-  userId: string;
-  noteId: string;
-  content?: string;
-  createdAt: number;
-};
+  userId: string
+  noteId: string
+  content?: string
+  createdAt: number
+}
 
 export default Note
 ```
@@ -382,7 +379,7 @@ Once we've got a DB table defined as above, we can then access the table to exec
 We would create a DB object instance using:
 
 ```ts
-const db = new DynamoDB.DocumentClient();
+const db = new DynamoDB.DocumentClient()
 ```
 
 ### Create
@@ -391,8 +388,8 @@ A `create` is the simplest one of the database functions for us to implement, th
 
 ```ts
 const create = async (tableName: string, item: Note) => {
-  await db.put({ TableName: tableName, Item: item }).promise();
-};
+  await db.put({ TableName: tableName, Item: item }).promise()
+}
 ```
 
 ### Get
@@ -401,16 +398,18 @@ We can implement a `getOne` function by using `db.get` and providing the full `K
 
 ```ts
 const getOne = async (tableName: string, noteId: string, userId: string) => {
-  const result =  await db.get({
-    TableName: tableName,
-    Key: {
-      userId: userId,
-      noteId: noteId
-    }
-  }).promise();
+  const result = await db
+    .get({
+      TableName: tableName,
+      Key: {
+        userId: userId,
+        noteId: noteId,
+      },
+    })
+    .promise()
 
   return result.Item
-};
+}
 ```
 
 ### GetAll
@@ -419,16 +418,18 @@ We can implement a `getByUserId` function which will make use of `db.query` and 
 
 ```ts
 const getByUserId = async (tableName: string, userId: string) => {
-  const result =  await db.query({
-    TableName: tableName,
-    KeyConditionExpression: "userId = :userId",
-    ExpressionAttributeValues: {
-      ":userId": userId,
-    },
-  }).promise();
+  const result = await db
+    .query({
+      TableName: tableName,
+      KeyConditionExpression: 'userId = :userId',
+      ExpressionAttributeValues: {
+        ':userId': userId,
+      },
+    })
+    .promise()
 
   return result.Items
-};
+}
 ```
 
 ## Define Lambdas
@@ -440,15 +441,15 @@ Now that we know how to write data to Dynamo, we can implement the following fil
 `src/notes/create.ts`
 
 ```ts
-import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { DynamoDB } from "aws-sdk";
-import { v1 } from "uuid";
-import internalErrorResponse from "../responses/internalErrorResponse";
-import successResponse from "../responses/successResponse";
-import badRequestResponse from "../responses/badRequestResponse"
-import Note from "./Note";
+import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from 'aws-lambda'
+import { DynamoDB } from 'aws-sdk'
+import { v1 } from 'uuid'
+import internalErrorResponse from '../responses/internalErrorResponse'
+import successResponse from '../responses/successResponse'
+import badRequestResponse from '../responses/badRequestResponse'
+import Note from './Note'
 
-const db = new DynamoDB.DocumentClient();
+const db = new DynamoDB.DocumentClient()
 
 const toItem = (data: string, content: string): Note => {
   return {
@@ -456,41 +457,42 @@ const toItem = (data: string, content: string): Note => {
     noteId: v1(),
     content: content,
     createdAt: Date.now(),
-  };
-};
+  }
+}
 
 const parseBody = (event: APIGatewayProxyEventV2) => {
-  const data = JSON.parse(event.body || "{}");
+  const data = JSON.parse(event.body || '{}')
 
   return {
     userId: data.userId,
     content: data.content,
-  };
-};
+  }
+}
 
 const isValid = (data: Partial<Note>) =>
-  typeof data.userId !== "undefined" && typeof data.content !== "undefined";
+  typeof data.userId !== 'undefined' && typeof data.content !== 'undefined'
 
 const create = async (tableName: string, item: Note) => {
-  await db.put({ TableName: tableName, Item: item }).promise();
-};
+  await db.put({ TableName: tableName, Item: item }).promise()
+}
 
 export const handler: APIGatewayProxyHandlerV2 = async (
   event: APIGatewayProxyEventV2
 ) => {
-  if (typeof process.env.tableName === "undefined")
-    return internalErrorResponse("tableName is undefined");
+  if (typeof process.env.tableName === 'undefined')
+    return internalErrorResponse('tableName is undefined')
 
-  const tableName = process.env.tableName;
-  const data = parseBody(event);
+  const tableName = process.env.tableName
+  const data = parseBody(event)
 
-  if (!isValid(data)) return badRequestResponse("userId and content are required");
+  if (!isValid(data))
+    return badRequestResponse('userId and content are required')
 
-  const item = toItem(data.userId, data.content);
-  await create(tableName, item);
+  const item = toItem(data.userId, data.content)
+  await create(tableName, item)
 
   return successResponse(item)
-};
+}
 ```
 
 ### Get
@@ -498,112 +500,132 @@ export const handler: APIGatewayProxyHandlerV2 = async (
 `src/notes/get.ts`
 
 ```ts
-import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { DynamoDB } from "aws-sdk";
-import badRequestResponse from "../responses/badRequestResponse";
-import internalErrorResponse from "../responses/internalErrorResponse";
-import successResponse from "../responses/successResponse";
+import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from 'aws-lambda'
+import { DynamoDB } from 'aws-sdk'
+import badRequestResponse from '../responses/badRequestResponse'
+import internalErrorResponse from '../responses/internalErrorResponse'
+import successResponse from '../responses/successResponse'
 
 type RequestParams = {
-  noteId?: string;
+  noteId?: string
   userId?: string
-};
+}
 
-const db = new DynamoDB.DocumentClient();
+const db = new DynamoDB.DocumentClient()
 
 const parseBody = (event: APIGatewayProxyEventV2): RequestParams => {
-  const pathData = event.pathParameters;
-  const queryData = event.queryStringParameters;
+  const pathData = event.pathParameters
+  const queryData = event.queryStringParameters
 
   return {
     noteId: pathData?.noteId,
-    userId: queryData?.userId
-  };
-};
+    userId: queryData?.userId,
+  }
+}
 
-const isValid = (data: RequestParams) => typeof data.noteId !== "undefined" && typeof data.userId !== 'undefined'
+const isValid = (data: RequestParams) =>
+  typeof data.noteId !== 'undefined' && typeof data.userId !== 'undefined'
 
 const getOne = async (tableName: string, noteId: string, userId: string) => {
-  const result =  await db.get({
-    TableName: tableName,
-    Key: {
-      userId: userId,
-      noteId: noteId
-    }
-  }).promise();
+  const result = await db
+    .get({
+      TableName: tableName,
+      Key: {
+        userId: userId,
+        noteId: noteId,
+      },
+    })
+    .promise()
 
   return result.Item
-};
+}
 
 export const handler: APIGatewayProxyHandlerV2 = async (
   event: APIGatewayProxyEventV2
 ) => {
-  const data = parseBody(event);
+  const data = parseBody(event)
 
-  if (typeof process.env.tableName === "undefined")
-    return internalErrorResponse("tableName is undefined");
+  if (typeof process.env.tableName === 'undefined')
+    return internalErrorResponse('tableName is undefined')
 
-  const tableName = process.env.tableName;
+  const tableName = process.env.tableName
 
-  if (!isValid(data)) return badRequestResponse("noteId is required in path, userId is required in query");
+  if (!isValid(data))
+    return badRequestResponse(
+      'noteId is required in path, userId is required in query'
+    )
 
-  const items = await getOne(tableName, data.noteId as string, data.userId as string);
+  const items = await getOne(
+    tableName,
+    data.noteId as string,
+    data.userId as string
+  )
 
   return successResponse(items)
-};
-import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { DynamoDB } from "aws-sdk";
-import badRequestResponse from "../responses/badRequestResponse";
-import internalErrorResponse from "../responses/internalErrorResponse";
-import successResponse from "../responses/successResponse";
+}
+import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from 'aws-lambda'
+import { DynamoDB } from 'aws-sdk'
+import badRequestResponse from '../responses/badRequestResponse'
+import internalErrorResponse from '../responses/internalErrorResponse'
+import successResponse from '../responses/successResponse'
 
 type RequestParams = {
-  noteId?: string;
+  noteId?: string
   userId?: string
-};
+}
 
-const db = new DynamoDB.DocumentClient();
+const db = new DynamoDB.DocumentClient()
 
 const parseBody = (event: APIGatewayProxyEventV2): RequestParams => {
-  const pathData = event.pathParameters;
-  const queryData = event.queryStringParameters;
+  const pathData = event.pathParameters
+  const queryData = event.queryStringParameters
 
   return {
     noteId: pathData?.noteId,
-    userId: queryData?.userId
-  };
-};
+    userId: queryData?.userId,
+  }
+}
 
-const isValid = (data: RequestParams) => typeof data.noteId !== "undefined" && typeof data.userId !== 'undefined'
+const isValid = (data: RequestParams) =>
+  typeof data.noteId !== 'undefined' && typeof data.userId !== 'undefined'
 
 const getOne = async (tableName: string, noteId: string, userId: string) => {
-  const result =  await db.get({
-    TableName: tableName,
-    Key: {
-      userId: userId,
-      noteId: noteId
-    }
-  }).promise();
+  const result = await db
+    .get({
+      TableName: tableName,
+      Key: {
+        userId: userId,
+        noteId: noteId,
+      },
+    })
+    .promise()
 
   return result.Item
-};
+}
 
 export const handler: APIGatewayProxyHandlerV2 = async (
   event: APIGatewayProxyEventV2
 ) => {
-  const data = parseBody(event);
+  const data = parseBody(event)
 
-  if (typeof process.env.tableName === "undefined")
-    return internalErrorResponse("tableName is undefined");
+  if (typeof process.env.tableName === 'undefined')
+    return internalErrorResponse('tableName is undefined')
 
-  const tableName = process.env.tableName;
+  const tableName = process.env.tableName
 
-  if (!isValid(data)) return badRequestResponse("noteId is required in path, userId is required in query");
+  if (!isValid(data))
+    return badRequestResponse(
+      'noteId is required in path, userId is required in query'
+    )
 
-  const items = await getOne(tableName, data.noteId as string, data.userId as string);
+  const items = await getOne(
+    tableName,
+    data.noteId as string,
+    data.userId as string
+  )
 
   return successResponse(items)
-};
+}
 ```
 
 ### GetAll
@@ -611,56 +633,58 @@ export const handler: APIGatewayProxyHandlerV2 = async (
 `src/notes/getAll.ts`
 
 ```ts
-import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { DynamoDB } from "aws-sdk";
-import badRequestResponse from "../responses/badRequestResponse";
-import internalErrorResponse from "../responses/internalErrorResponse";
-import successResponse from "../responses/successResponse";
+import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from 'aws-lambda'
+import { DynamoDB } from 'aws-sdk'
+import badRequestResponse from '../responses/badRequestResponse'
+import internalErrorResponse from '../responses/internalErrorResponse'
+import successResponse from '../responses/successResponse'
 
 type PathParams = {
-  userId?: string;
-};
+  userId?: string
+}
 
-const db = new DynamoDB.DocumentClient();
+const db = new DynamoDB.DocumentClient()
 
 const parseBody = (event: APIGatewayProxyEventV2): PathParams => {
-  const data = event.queryStringParameters;
+  const data = event.queryStringParameters
 
   return {
     userId: data?.userId,
-  };
-};
+  }
+}
 
-const isValid = (data: PathParams) => typeof data.userId !== "undefined";
+const isValid = (data: PathParams) => typeof data.userId !== 'undefined'
 
 const getByUserId = async (tableName: string, userId: string) => {
-  const result =  await db.query({
-    TableName: tableName,
-    KeyConditionExpression: "userId = :userId",
-    ExpressionAttributeValues: {
-      ":userId": userId,
-    },
-  }).promise();
+  const result = await db
+    .query({
+      TableName: tableName,
+      KeyConditionExpression: 'userId = :userId',
+      ExpressionAttributeValues: {
+        ':userId': userId,
+      },
+    })
+    .promise()
 
   return result.Items
-};
+}
 
 export const handler: APIGatewayProxyHandlerV2 = async (
   event: APIGatewayProxyEventV2
 ) => {
-  const data = parseBody(event);
+  const data = parseBody(event)
 
-  if (typeof process.env.tableName === "undefined")
-    return internalErrorResponse("tableName is undefined");
+  if (typeof process.env.tableName === 'undefined')
+    return internalErrorResponse('tableName is undefined')
 
-  const tableName = process.env.tableName;
+  const tableName = process.env.tableName
 
-  if (!isValid(data)) return badRequestResponse("userId is required in query");
+  if (!isValid(data)) return badRequestResponse('userId is required in query')
 
-  const items = await getByUserId(tableName, data.userId as string);
+  const items = await getByUserId(tableName, data.userId as string)
 
   return successResponse(items)
-};
+}
 ```
 
 ### Testing
@@ -769,15 +793,15 @@ SST provides us with the `sst.Queue` class that we can use for this purpose
 To create a Queue you can use the following in stack:
 
 ```ts
-const queue = new sst.Queue(this, "NotesQueue", {
-  consumer: "src/consumers/createNote.handler",
-});
+const queue = new sst.Queue(this, 'NotesQueue', {
+  consumer: 'src/consumers/createNote.handler',
+})
 
-queue.attachPermissions([table]);
+queue.attachPermissions([table])
 queue.consumerFunction?.addEnvironment(
-  "tableName",
+  'tableName',
   table.dynamodbTable.tableName
-);
+)
 ```
 
 The above code does the following:
@@ -789,7 +813,7 @@ The above code does the following:
 We will also need to grant permissions to the API to access the `queue` so that our `create` handler is able to add messages to the `queue`
 
 ```ts
-api.attachPermissions([table, queue]);
+api.attachPermissions([table, queue])
 ```
 
 Which means our Stack now looks like this:
@@ -797,35 +821,35 @@ Which means our Stack now looks like this:
 `lib/MyStack.ts`
 
 ```ts
-import * as sst from "@serverless-stack/resources";
+import * as sst from '@serverless-stack/resources'
 
 export default class MyStack extends sst.Stack {
   constructor(scope: sst.App, id: string, props?: sst.StackProps) {
-    super(scope, id, props);
+    super(scope, id, props)
 
-    const table = new sst.Table(this, "Notes", {
+    const table = new sst.Table(this, 'Notes', {
       fields: {
         userId: sst.TableFieldType.STRING,
         noteId: sst.TableFieldType.STRING,
       },
       primaryIndex: {
-        partitionKey: "userId",
-        sortKey: "noteId",
+        partitionKey: 'userId',
+        sortKey: 'noteId',
       },
-    });
+    })
 
-    const queue = new sst.Queue(this, "NotesQueue", {
-      consumer: "src/consumers/createNote.handler",
-    });
+    const queue = new sst.Queue(this, 'NotesQueue', {
+      consumer: 'src/consumers/createNote.handler',
+    })
 
-    queue.attachPermissions([table]);
+    queue.attachPermissions([table])
     queue.consumerFunction?.addEnvironment(
-      "tableName",
+      'tableName',
       table.dynamodbTable.tableName
-    );
+    )
 
     // Create the HTTP API
-    const api = new sst.Api(this, "Api", {
+    const api = new sst.Api(this, 'Api', {
       defaultFunctionProps: {
         timeout: 60, // increase timeout so we can debug
         environment: {
@@ -834,20 +858,20 @@ export default class MyStack extends sst.Stack {
         },
       },
       routes: {
-        "GET  /": "src/lambda.handler",
-        "GET  /hello": "src/hello.handler",
-        "GET  /notes": "src/notes/getAll.handler",
-        "POST /notes": "src/notes/create.handler",
-        "GET  /notes/{noteId}": "src/notes/get.handler",
+        'GET  /': 'src/lambda.handler',
+        'GET  /hello': 'src/hello.handler',
+        'GET  /notes': 'src/notes/getAll.handler',
+        'POST /notes': 'src/notes/create.handler',
+        'GET  /notes/{noteId}': 'src/notes/get.handler',
       },
-    });
+    })
 
-    api.attachPermissions([table, queue]);
+    api.attachPermissions([table, queue])
 
     // Show API endpoint in output
     this.addOutputs({
       ApiEndpoint: api.httpApi.apiEndpoint,
-    });
+    })
   }
 }
 ```
@@ -859,9 +883,9 @@ Since we plan to create notes via a queue we will update our `create` function i
 `src/notes/create.ts`
 
 ```ts
-import { SQS } from "aws-sdk";
+import { SQS } from 'aws-sdk'
 
-const queue = new SQS();
+const queue = new SQS()
 ```
 
 Once we've got our instance, the `create` function is done by means of the `queue.sendMessage` function:
@@ -876,8 +900,8 @@ const create = async (queueUrl: string, item: Note) => {
       DelaySeconds: 0,
       MessageBody: JSON.stringify(item),
     })
-    .promise();
-};
+    .promise()
+}
 ```
 
 Lastly, our `handler` remains mostly the same with the exception of some additional validation to check that we have the `queue` connection information in the environment:
@@ -889,41 +913,40 @@ export const handler: APIGatewayProxyHandlerV2 = async (
   event: APIGatewayProxyEventV2
 ) => {
   // pre-save validation
-  if (typeof process.env.queueUrl === "undefined")
-    return internalErrorResponse("queueUrl is undefined");
+  if (typeof process.env.queueUrl === 'undefined')
+    return internalErrorResponse('queueUrl is undefined')
 
-  const queueUrl = process.env.queueUrl;
+  const queueUrl = process.env.queueUrl
 
-  const data = parseBody(event);
+  const data = parseBody(event)
 
   if (!isValid(data))
-    return badRequestResponse("userId and content are required");
+    return badRequestResponse('userId and content are required')
 
   // save process
-  const item = toItem(data.userId, data.content);
-  const creatresult = await create(queueUrl, item);
+  const item = toItem(data.userId, data.content)
+  const creatresult = await create(queueUrl, item)
 
-  if (!creatresult.MessageId) internalErrorResponse("MessageId is undefined");
+  if (!creatresult.MessageId) internalErrorResponse('MessageId is undefined')
 
-  return successResponse(item);
-};
+  return successResponse(item)
+}
 ```
 
 Implementing the above into the `create` handler means that our `create.ts` file now looks like this:
 
-
 `src/notes/create.ts`
 
 ```ts
-import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { v1 } from "uuid";
-import internalErrorResponse from "../responses/internalErrorResponse";
-import successResponse from "../responses/successResponse";
-import badRequestResponse from "../responses/badRequestResponse";
-import Note from "./Note";
-import { SQS } from "aws-sdk";
+import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from 'aws-lambda'
+import { v1 } from 'uuid'
+import internalErrorResponse from '../responses/internalErrorResponse'
+import successResponse from '../responses/successResponse'
+import badRequestResponse from '../responses/badRequestResponse'
+import Note from './Note'
+import { SQS } from 'aws-sdk'
 
-const queue = new SQS();
+const queue = new SQS()
 
 // helper functions start
 
@@ -933,20 +956,20 @@ const toItem = (data: string, content: string): Note => {
     noteId: v1(),
     content: content,
     createdAt: Date.now(),
-  };
-};
+  }
+}
 
 const parseBody = (event: APIGatewayProxyEventV2) => {
-  const data = JSON.parse(event.body || "{}");
+  const data = JSON.parse(event.body || '{}')
 
   return {
     userId: data.userId,
     content: data.content,
-  };
-};
+  }
+}
 
 const isValid = (data: Partial<Note>) =>
-  typeof data.userId !== "undefined" && typeof data.content !== "undefined";
+  typeof data.userId !== 'undefined' && typeof data.content !== 'undefined'
 
 // helper functions end
 
@@ -957,31 +980,31 @@ const create = async (queueUrl: string, item: Note) => {
       DelaySeconds: 0,
       MessageBody: JSON.stringify(item),
     })
-    .promise();
-};
+    .promise()
+}
 
 export const handler: APIGatewayProxyHandlerV2 = async (
   event: APIGatewayProxyEventV2
 ) => {
   // pre-save validation
-  if (typeof process.env.queueUrl === "undefined")
-    return internalErrorResponse("queueUrl is undefined");
+  if (typeof process.env.queueUrl === 'undefined')
+    return internalErrorResponse('queueUrl is undefined')
 
-  const queueUrl = process.env.queueUrl;
+  const queueUrl = process.env.queueUrl
 
-  const data = parseBody(event);
+  const data = parseBody(event)
 
   if (!isValid(data))
-    return badRequestResponse("userId and content are required");
+    return badRequestResponse('userId and content are required')
 
   // save process
-  const item = toItem(data.userId, data.content);
-  const creatresult = await create(queueUrl, item);
+  const item = toItem(data.userId, data.content)
+  const creatresult = await create(queueUrl, item)
 
-  if (!creatresult.MessageId) internalErrorResponse("MessageId is undefined");
+  if (!creatresult.MessageId) internalErrorResponse('MessageId is undefined')
 
-  return successResponse(item);
-};
+  return successResponse(item)
+}
 ```
 
 ### Add Queue-Based Create Handler
@@ -993,18 +1016,18 @@ First, we take the `create` function that was previously on the `create.ts` file
 `src/consumers/createNote.ts`
 
 ```ts
-import { DynamoDB } from "aws-sdk";
+import { DynamoDB } from 'aws-sdk'
 
-const db = new DynamoDB.DocumentClient();
+const db = new DynamoDB.DocumentClient()
 
 const create = async (tableName: string, item: Note) => {
   const createResult = await db
     .put({ TableName: tableName, Item: item })
-    .promise();
-  if (!createResult) throw new Error("create failed");
+    .promise()
+  if (!createResult) throw new Error('create failed')
 
-  return createResult;
-};
+  return createResult
+}
 ```
 
 We'll also need a function for parsing the `SQSRecord` object into a `Note`:
@@ -1013,9 +1036,7 @@ We'll also need a function for parsing the `SQSRecord` object into a `Note`:
 
 ```ts
 const parseBody = (record: SQSRecord): Note => {
-  const { noteId, userId, content, createdAt } = JSON.parse(
-    record.body
-  ) as Note;
+  const { noteId, userId, content, createdAt } = JSON.parse(record.body) as Note
 
   // do this to ensure we only extract information we need
   return {
@@ -1023,8 +1044,8 @@ const parseBody = (record: SQSRecord): Note => {
     userId,
     content,
     createdAt,
-  };
-};
+  }
+}
 ```
 
 And finally we consume the above through the `handler`, you can see in the below code that we are iterating over the `event.Records` object, this is because the `SQSEvent` adds each new event into this array, the reason for this is because we can also specify batching into our Queue so that the handler is only triggered after `n` events instead of each time, and though this isn't happening in our case, we still should handle this for our handler:
@@ -1034,44 +1055,42 @@ And finally we consume the above through the `handler`, you can see in the below
 ```ts
 export const handler: SQSHandler = async (event) => {
   // pre-save environment check
-  if (typeof process.env.tableName === "undefined")
-    throw new Error("tableName is undefined");
+  if (typeof process.env.tableName === 'undefined')
+    throw new Error('tableName is undefined')
 
-  const tableName = process.env.tableName;
+  const tableName = process.env.tableName
 
   for (let i = 0; i < event.Records.length; i++) {
-    const r = event.Records[i];
-    const item = parseBody(r);
-    console.log(item);
+    const r = event.Records[i]
+    const item = parseBody(r)
+    console.log(item)
 
-    const result = await create(tableName, item);
-    console.log(result);
+    const result = await create(tableName, item)
+    console.log(result)
   }
-};
+}
 ```
 
 Putting all the above together our `createNote.ts` file now has the following code:
 
 ```ts
-import { SQSHandler, SQSRecord } from "aws-lambda";
-import Note from "../notes/Note";
-import { DynamoDB } from "aws-sdk";
+import { SQSHandler, SQSRecord } from 'aws-lambda'
+import Note from '../notes/Note'
+import { DynamoDB } from 'aws-sdk'
 
-const db = new DynamoDB.DocumentClient();
+const db = new DynamoDB.DocumentClient()
 
 const create = async (tableName: string, item: Note) => {
   const createResult = await db
     .put({ TableName: tableName, Item: item })
-    .promise();
-  if (!createResult) throw new Error("create failed");
+    .promise()
+  if (!createResult) throw new Error('create failed')
 
-  return createResult;
-};
+  return createResult
+}
 
 const parseBody = (record: SQSRecord): Note => {
-  const { noteId, userId, content, createdAt } = JSON.parse(
-    record.body
-  ) as Note;
+  const { noteId, userId, content, createdAt } = JSON.parse(record.body) as Note
 
   // do this to ensure we only extract information we need
   return {
@@ -1079,24 +1098,24 @@ const parseBody = (record: SQSRecord): Note => {
     userId,
     content,
     createdAt,
-  };
-};
+  }
+}
 
 export const handler: SQSHandler = async (event) => {
-  if (typeof process.env.tableName === "undefined")
-    throw new Error("tableName is undefined");
+  if (typeof process.env.tableName === 'undefined')
+    throw new Error('tableName is undefined')
 
-  const tableName = process.env.tableName;
+  const tableName = process.env.tableName
 
   for (let i = 0; i < event.Records.length; i++) {
-    const r = event.Records[i];
-    const item = parseBody(r);
-    console.log(item);
+    const r = event.Records[i]
+    const item = parseBody(r)
+    console.log(item)
 
-    const result = await create(tableName, item);
-    console.log(result);
+    const result = await create(tableName, item)
+    console.log(result)
   }
-};
+}
 ```
 
 This completes the implementation of the asynchronous saving mechanism for notes. As far as a consumer of our API is concerned, nothing has changed and they will still be able to use the API exactly as we had in the [Testing section above](#testing)
@@ -1110,7 +1129,6 @@ Deploying using `sst` is still very easy, all we need to do is run the `npm run 
 ```sh
 npm run deploy
 ```
-
 
 # Teardown
 

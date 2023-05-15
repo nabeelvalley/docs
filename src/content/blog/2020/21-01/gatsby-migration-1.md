@@ -5,8 +5,6 @@ subtitle: 21 January 2020
 description: Building a basic React site with basic dynamic data loading
 ---
 
-[[toc]]
-
 # Introduction
 
 Lately I've been a little concerned with my current SPA approach on my personal site as well as a few others. More specifically the high initial load time due to the calls to the backend to retrieve content
@@ -64,8 +62,8 @@ If we intend to use JSX in a file we need to ensure that we import `React`. The 
 `Blog.js`
 
 ```js
-import React from "react"
-import { Link } from "react-router-dom"
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Blog = () => (
   <div className="Blog">
@@ -91,7 +89,7 @@ Additionally we have the `Home.js` and `NotFound.js` files which are similar to 
 `Home.js`
 
 ```js
-import React from "react"
+import React from 'react'
 
 const Home = () => (
   <div className="Home">
@@ -111,7 +109,7 @@ export default Home
 `NotFound.js`
 
 ```js
-import React from "react"
+import React from 'react'
 
 const NotFound = () => (
   <div className="NotFound">
@@ -144,7 +142,7 @@ We use `fetch` in the `useEffect` hook to retrieve the data from the `public` di
 `Post.js`
 
 ```js
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from 'react'
 
 const Post = ({ match }) => {
   const slug = match.params.slug
@@ -246,13 +244,13 @@ The `Route` component takes in the component that we would like to display for a
 Fow now, our `App.js` file is as follows:
 
 ```js
-import React from "react"
-import "./App.css"
-import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom"
-import Home from "./pages/Home"
-import Blog from "./pages/Blog"
-import Post from "./pages/Post"
-import NotFound from "./pages/NotFound"
+import React from 'react'
+import './App.css'
+import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Blog from './pages/Blog'
+import Post from './pages/Post'
+import NotFound from './pages/NotFound'
 
 const App = () => (
   <Router>

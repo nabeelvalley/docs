@@ -4,8 +4,6 @@ title: Authentication with MongoDB
 subtitle: Configure MongoDB Authentication and Authorization
 ---
 
-[[toc]]
-
 # Configuration File
 
 > [The Docs](https://docs.mongodb.com/manual/reference/configuration-options/)
@@ -43,13 +41,12 @@ storage:
 systemLog:
   destination: file
   logAppend: true
-  path:  C:\Program Files\MongoDB\Server\4.0\log\mongod.log
+  path: C:\Program Files\MongoDB\Server\4.0\log\mongod.log
 
 # network interfaces
 net:
   port: 27017
   bindIp: 127.0.0.1
-
 #processManagement:
 
 #security:
@@ -111,14 +108,14 @@ db.grantRolesToUser("myUserAdmin", [{ role: "root", db: "admin" }])
 3. Shut down the instance:
 
 ```js
-db.adminCommand( { shutdown: 1 } )
+db.adminCommand({ shutdown: 1 })
 ```
 
 4. Add the following to the `mongod.conf` file:
 
 ```yml
 security:
-    authorization: enabled
+  authorization: enabled
 ```
 
 > Setting the above config is the same as running `mongod --auth` when starting up
@@ -149,25 +146,25 @@ And then enter the password on the prompt
 
 2. We can create a user with some `readWrite` and `read` permissions using `db.createUser()`:
 
-Select the DB to create the user (we'll use admin, but this can be another database): 
+Select the DB to create the user (we'll use admin, but this can be another database):
 
 ```js
 use admin
 ```
 
-> If you use another database above then the database 
+> If you use another database above then the database
 
 Create the User on the DB:
 
 ```js
-db.createUser(
-  {
-    user: "myTester",
-    pwd:  "password",   // or cleartext password
-    roles: [ { role: "readWrite", db: "dbTest" },
-             { role: "read", db: "dbOtherData" } ]
-  }
-)
+db.createUser({
+  user: 'myTester',
+  pwd: 'password', // or cleartext password
+  roles: [
+    { role: 'readWrite', db: 'dbTest' },
+    { role: 'read', db: 'dbOtherData' },
+  ],
+})
 ```
 
 The created user will then be created on the `admin` database and will have access to the `dbTest` and `dbOtherData` databases
@@ -204,53 +201,53 @@ If trying to do something that was not allowed for your user you will see an aut
 An example Node.js application that makes use of the above user will look like the following:
 
 ```js
-const { MongoClient } = require("mongodb");
-const readline = require("readline");
+const { MongoClient } = require('mongodb')
+const readline = require('readline')
 
-const dbName = "dbTest";
+const dbName = 'dbTest'
 
 /// Note that our ConnectionString contains the Auth Source
-const url =	`mongodb://myTester:password@localhost:37200/?authSource=admin`;
+const url = `mongodb://myTester:password@localhost:37200/?authSource=admin`
 
 const rl = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout,
-});
+  input: process.stdin,
+  output: process.stdout,
+})
 
 // init database
 MongoClient.connect(url, (err, db) => {
-	if (err) throw err;
+  if (err) throw err
 
-	console.log("DB Connected");
-	app(db);
-});
+  console.log('DB Connected')
+  app(db)
+})
 
 const app = (db) => {
-	rl.question("Please enter a name to add to the DB ", (name, err) => {
-		if (err) throw err;
-		db.db(dbName)
-			.collection("people")
-			.insertOne({ name }, (err, res) => {
-				if (err) throw err;
-				
-				console.log(res);
-				rl.close();
-			});
-	});
+  rl.question('Please enter a name to add to the DB ', (name, err) => {
+    if (err) throw err
+    db.db(dbName)
+      .collection('people')
+      .insertOne({ name }, (err, res) => {
+        if (err) throw err
 
-	rl.on("close", () => {
-		console.log("Database Closed");
-		db.close();
-		console.log("Application Closed");
-		process.exit(0);
-	});
-};
+        console.log(res)
+        rl.close()
+      })
+  })
+
+  rl.on('close', () => {
+    console.log('Database Closed')
+    db.close()
+    console.log('Application Closed')
+    process.exit(0)
+  })
+}
 ```
 
 The connection string we use in the above is important, and contains the following pieces of information:
 
 1. The Database User's Username
-2. The Database User's Password 
+2. The Database User's Password
 3. The name of the database to authenticate against
 
 If we want to, we can also define the database we're using to authenticate with in the connection string like so:
@@ -263,9 +260,8 @@ mongodb://myTester:password@localhost:37200/admin`
 
 Connection strings like the following will not work now that authentication is enabled:
 
-```	
+```
 mongodb://myTester:incorrectpassword@localhost:37200/?authSource=admin
 mongodb://localhost:37200/?authSource=admin
 mongodb://localhost:37200/?authSource=nonExistentDB
 ```
-

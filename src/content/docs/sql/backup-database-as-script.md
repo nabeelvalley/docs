@@ -4,8 +4,6 @@ title: Backup SQL Server Database as Script
 subtitle: Use the Scripted Backup for a SQL Server Database
 ---
 
-[[toc]]
-
 To create a scripted backup of a database on SQL Server do the following:
 
 1. Right click on the database name > `Tasks` > `Generate Scripts...`

@@ -5,11 +5,11 @@ description: Commands and shortcuts for using the unix based shells
 ---
 
 ---
+
 title: Unix Shell
 description: Commands and shortcuts for using the unix based shells
----
 
-[[toc]]
+---
 
 # Searching
 
@@ -54,7 +54,6 @@ To get the PID of a process you can use `lsof` along with `grep`, e.g. find a `n
 ```sh
 lsof | grep node
 ```
-
 
 ## Find A Process on a Current Port
 

@@ -1,5 +1,3 @@
-[[toc]]
-
 # Publish an App to CF
 
 Every app to be published requires a `manifest.yml` file that defines some specifications for the app. An example of this can be seen below:
@@ -14,7 +12,7 @@ applications:
     path: .
     memory: 500M
     instances: 1
-    services: 
+    services:
     - Service Name
     env:
     NODE_ENV: dev
@@ -32,4 +30,3 @@ The `bx` CLI is used to publish an app to the IBM cloud.
 2. Next you log in with `bx-login`, however if you have a federated login then you need to make use of `bx login -sso`
 3. `bx target cf` will enable us to select the _space_ and _organization_ that we want to publish to
 4. Then we can push our app with `bx app push` which will upload our package, create a container and then deploy the container
-

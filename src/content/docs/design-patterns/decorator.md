@@ -3,8 +3,6 @@ published: true
 title: Decorator
 ---
 
-[[toc]]
-
 > "Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors"
 
 The decorator pattern is about changing the behaviour of a method at runtime instead of compile time. This allows us to modify functionality of a class without modifying the class contents
@@ -26,7 +24,6 @@ We could implement a multi-factor authentication type model by using the decorat
 ## Base Classes
 
 Before we can create our concrete implementations we need to establish the base classes for our Logins and Decorators to work from, we can simply create two classes in which our `AbstractLogin` is the main root, and our `LoginDecorator` inherits from `AbstractLogin`
-
 
 ```cs
 // base class for concrete component classes and base decorator

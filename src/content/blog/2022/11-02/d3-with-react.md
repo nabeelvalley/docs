@@ -5,8 +5,6 @@ subtitle: 11 February 2022
 description: Create SVG Graphs and Visualizations in React using D3
 ---
 
-[[toc]]
-
 # Data Visualization with D3 and React
 
 React is a library for building reactive user interfaces using JavaScript (or Typescript) and D3 (short for _Data-Driven Documents_) is a set of libraries for working with visualizations based on data
@@ -55,38 +53,40 @@ type Datum = {
 }
 
 export const data: Datum[] = [
-  { name: "🍊", count: 21 },
-  { name: "🍇", count: 13 },
-  { name: "🍏", count: 8 },
-  { name: "🍌", count: 5 },
-  { name: "🍐", count: 3 },
-  { name: "🍋", count: 2 },
-  { name: "🍎", count: 1 },
-  { name: "🍉", count: 1 },
+  { name: '🍊', count: 21 },
+  { name: '🍇', count: 13 },
+  { name: '🍏', count: 8 },
+  { name: '🍌', count: 5 },
+  { name: '🍐', count: 3 },
+  { name: '🍋', count: 2 },
+  { name: '🍎', count: 1 },
+  { name: '🍉', count: 1 },
 ]
 ```
 
 > Also, a common thing to do when working with scales is to define margins around out image, this is done simply as an object like so:
+>
 > ```ts
 > const margin = {
 >   top: 20,
 >   right: 20,
 >   bottom: 20,
 >   left: 35,
-> };
+> }
 > ```
+>
 > This just helps us simplify some position/layout things down the line
 
 Scales work by taking a value from the `domain` (data space) and returning a value from `range` (visual space):
 
 ```ts
-const width = 600;
-const height = 400;
+const width = 600
+const height = 400
 
 const x = d3
   .scaleLinear()
-  .domain([0, 10])    // values of the data space
-  .range([0, width])  // values of the visual space
+  .domain([0, 10]) // values of the data space
+  .range([0, width]) // values of the visual space
 
 const position = x(3) // position = scale(value)
 ```
@@ -94,7 +94,7 @@ const position = x(3) // position = scale(value)
 Additionally, there's also the `invert` method which goes the other way - from `range` to `domain`
 
 ```ts
-const position = x(3)      // position === 30
+const position = x(3) // position === 30
 const value = x.invert(30) // value === 3
 ```
 
@@ -114,7 +114,7 @@ D3 has different Scale types:
 
 These scales map continuous data to other continuous data
 
-D3 has a few different continuous scale types: 
+D3 has a few different continuous scale types:
 
 - Linear
 - Power
@@ -131,12 +131,12 @@ For my purposes at the moment I'm going to be looking at the methods for Linear 
 We can use a `linear` scale in the fruit example for mapping count to an x width:
 
 ```ts
-const maxX = d3.max(data, (d) => d.count) as number;
+const maxX = d3.max(data, (d) => d.count) as number
 
 const x = d3
   .scaleLinear<number>()
   .domain([0, maxX])
-  .range([margin.left, width - margin.right]);
+  .range([margin.left, width - margin.right])
 ```
 
 If we don't want the custom `domain` to `range` interpolation we can create a custom `interpolator`. An `interpolator` is a function that takes a value from the `domain` and returns the resulting `range` value
@@ -149,8 +149,8 @@ We can create a custom color domain to interpolate over and use the `interpolate
 const color = d3
   .scaleLinear<string>()
   .domain([0, maxX])
-  .range(["pink", "lightgreen"])
-  .interpolate(d3.interpolateHsl);
+  .range(['pink', 'lightgreen'])
+  .interpolate(d3.interpolateHsl)
 ```
 
 ### Sequential Color
@@ -167,7 +167,7 @@ We can create a color scale using the `d3.interpolatePurples` which will map the
 const color = d3
   .scaleSequential()
   .domain([0, maxX])
-  .interpolator(d3.interpolatePurples);
+  .interpolator(d3.interpolatePurples)
 ```
 
 These can be used instead of the `scaleLinear` with `interpolateHsl` for example above but to provide a pre-calibrated color scale
@@ -186,23 +186,22 @@ A Band Scale is a type of Ordinal Scale where the output `range` is continuous a
 We can create a mapping for where each of our labels should be positioned with `scaleBand`:
 
 ```ts
-const names = data.map((d) => d.name);
+const names = data.map((d) => d.name)
 
 const y = d3
   .scaleBand()
   .domain(names)
   .range([margin.top, height - margin.bottom])
-  .padding(0.1);
+  .padding(0.1)
 ```
 
 > The domain can be any size array, unlike in the case of continuous scales where the are usually start and end values
 
 ## Building a Bar Graph
 
-When creating visuals with D3 there are a few different ways we can output to SVG data. D3 provides us with some methods for creating shapes and elements programmatically via a builder pattern - similar to how we create scales. 
+When creating visuals with D3 there are a few different ways we can output to SVG data. D3 provides us with some methods for creating shapes and elements programmatically via a builder pattern - similar to how we create scales.
 
 However, there are also cases where we would want to define out SVG elements manually, such as when working with React so that the react renderer can handle the rendering of the SVG elements and we can manage our DOM structure in a way that's a bit more representative of the way we work in React
-
 
 ### The SVG Root
 
@@ -211,17 +210,13 @@ Every SVG image has to have an `svg` root element. To help ensure that this root
 Using the definitions for `margin`, `width` and `height` from before we can get the `viewBox` for the SVG we're trying to render like so:
 
 ```ts
-const viewBox = `0 ${margin.top} ${width} ${height - margin.top}`;
+const viewBox = `0 ${margin.top} ${width} ${height - margin.top}`
 ```
 
 And then, using that value in the `svg` element:
 
 ```tsx
-return (
-  <svg viewBox={viewBox}>
-    {/* we will render the graph in here */}
-  </svg>
-)
+return <svg viewBox={viewBox}>{/* we will render the graph in here */}</svg>
 ```
 
 At this point we don't really have anything in the SVG, next up we'll do the following:
@@ -244,7 +239,7 @@ const bars = data.map((d) => (
     width={x(d.count) - x(0)}
     height={y.bandwidth()}
   />
-));
+))
 ```
 
 We make use of the `x` and `y` functions which help us get the positions for the `rect` as well as `y.bandWidth()` and `x(d.count)` to `height` and `width` for the element
@@ -256,7 +251,7 @@ return (
   <svg viewBox={viewBox}>
     <g>{bars}</g>
   </svg>
-);
+)
 ```
 
 At this point, the resulting SVG will look like this:
@@ -283,7 +278,7 @@ const yLabels = data.map((d) => (
   <text key={y(d.name)} y={y(d.name)} x={0} dy="0.35em">
     {d.name}
   </text>
-));
+))
 ```
 
 Next, we can add this into the SVG, and also wrapping the element in a `g` with a some basic text alignment and translation for positioning it correctly:
@@ -300,7 +295,7 @@ return (
     </g>
     <g>{bars}</g>
   </svg>
-);
+)
 ```
 
 The state of the SVG at this point is:
@@ -340,7 +335,6 @@ The state of the SVG at this point is:
   </g>
 </svg>
 
-
 ### X Labels
 
 Next, we can add the X Labels over each `rect` using:
@@ -350,7 +344,7 @@ const xLabels = data.map((d) => (
   <text key={y(d.name)} y={y(d.name)} x={x(d.count)} dy="0.35em">
     {d.count}
   </text>
-));
+))
 ```
 
 And the resulting code looks like this:
@@ -374,7 +368,7 @@ return (
       {xLabels}
     </g>
   </svg>
-);
+)
 ```
 
 And the final SVG:
@@ -432,50 +426,50 @@ The code for the entire file/graph can be seen below:
 <summary>Fruit.tsx</summary>
 
 ```tsx
-import React from "react";
-import * as d3 from "d3";
-import { data } from "../data/fruit";
+import React from 'react'
+import * as d3 from 'd3'
+import { data } from '../data/fruit'
 
-const width = 600;
-const height = 400;
+const width = 600
+const height = 400
 
 const margin = {
   top: 20,
   right: 20,
   bottom: 20,
   left: 35,
-};
+}
 
-const maxX = d3.max(data, (d) => d.count) as number;
+const maxX = d3.max(data, (d) => d.count) as number
 
 const x = d3
   .scaleLinear<number>()
   .domain([0, maxX])
   .range([margin.left, width - margin.right])
-  .interpolate(d3.interpolateRound);
+  .interpolate(d3.interpolateRound)
 
-const names = data.map((d) => d.name);
+const names = data.map((d) => d.name)
 
 const y = d3
   .scaleBand()
   .domain(names)
   .range([margin.top, height - margin.bottom])
   .padding(0.1)
-  .round(true);
+  .round(true)
 
 const color = d3
   .scaleSequential()
   .domain([0, maxX])
-  .interpolator(d3.interpolateCool);
+  .interpolator(d3.interpolateCool)
 
 export const Fruit: React.FC = ({}) => {
-  const viewBox = `0 ${margin.top} ${width} ${height - margin.top}`;
+  const viewBox = `0 ${margin.top} ${width} ${height - margin.top}`
 
   const yLabels = data.map((d) => (
     <text key={y(d.name)} y={y(d.name)} x={0} dy="0.35em">
       {d.name}
     </text>
-  ));
+  ))
 
   const bars = data.map((d) => (
     <rect
@@ -486,13 +480,13 @@ export const Fruit: React.FC = ({}) => {
       width={x(d.count) - x(0)}
       height={y.bandwidth()}
     />
-  ));
+  ))
 
   const xLabels = data.map((d) => (
     <text key={y(d.name)} y={y(d.name)} x={x(d.count)} dy="0.35em">
       {d.count}
     </text>
-  ));
+  ))
 
   return (
     <svg viewBox={viewBox}>
@@ -512,9 +506,10 @@ export const Fruit: React.FC = ({}) => {
         {xLabels}
       </g>
     </svg>
-  );
-};
+  )
+}
 ```
+
 </details>
 
 ### Ticks and Grid Lines
@@ -537,18 +532,18 @@ const xGrid = x.ticks().map((t) => (
       {t}
     </text>
   </g>
-));
+))
 ```
 
 And then render this in the `svg` as:
 
 ```tsx
 return (
-<svg viewBox={viewBox}>
-  <g>{xGrid}</g>
-  { /* previous graph content */ }
-</svg>
-);
+  <svg viewBox={viewBox}>
+    <g>{xGrid}</g>
+    {/* previous graph content */}
+  </svg>
+)
 ```
 
 The result will look like this:
@@ -650,9 +645,9 @@ We can apply all the same as in the Bar Graph before to draw a Line Graph. The e
 
 ```ts
 export type Datum = {
-  date: Date;
-  temp: number;
-};
+  date: Date
+  temp: number
+}
 ```
 
 Given that the X-Axis is a `DateTime` we will need to do some additional conversions as well as formatting
@@ -664,8 +659,8 @@ In the context of this graph it would also be useful to have an automatically ca
 We can use the `d3.extent` function to calculate a domain:
 
 ```ts
-const dateDomain = d3.extent(data, (d) => d.date) as [Date, Date];
-const tempDomain = d3.extent(data, (d) => d.temp).reverse() as [number, number];
+const dateDomain = d3.extent(data, (d) => d.date) as [Date, Date]
+const tempDomain = d3.extent(data, (d) => d.temp).reverse() as [number, number]
 ```
 
 We can then use this domain definitions in a `scale`:
@@ -675,12 +670,12 @@ const tempScale = d3
   .scaleLinear<number>()
   .domain(tempDomain)
   .range([margin.top, height - margin.bottom])
-  .interpolate(d3.interpolateRound);
+  .interpolate(d3.interpolateRound)
 
 const dateScale = d3
   .scaleTime()
   .domain(dateDomain)
-  .range([margin.left, width - margin.right]);
+  .range([margin.left, width - margin.right])
 ```
 
 ### Create a Line
@@ -693,7 +688,7 @@ The `line` function requires `x` and `y` mappings. The line for the graph path c
 const line = d3
   .line<Datum>()
   .x((d) => dateScale(d.date))
-  .y((d) => tempScale(d.temp))(data) as string;
+  .y((d) => tempScale(d.temp))(data) as string
 ```
 
 We also include the `Datum` type in the above to scope down the type of `data` allowed in the resulting function
@@ -703,7 +698,7 @@ We also include the `Datum` type in the above to scope down the type of `data` a
 D3 includes functions for formatting `DateTime`s. We can create a formatter for a `DateTime` as follows:
 
 ```ts
-const formatter = d3.timeFormat("%Y-%m")
+const formatter = d3.timeFormat('%Y-%m')
 ```
 
 We can then use the formatter like so:
@@ -731,7 +726,7 @@ const xGrid = dateTicks.map((t) => (
       {formatter(t)}
     </text>
   </g>
-));
+))
 ```
 
 And the Y Axis grid lines:
@@ -747,16 +742,11 @@ const yGrid = tempTicks.map((t) => (
       x2={width - margin.right}
       strokeDasharray={4}
     />
-    <text
-      fill="darkgrey"
-      textAnchor="end"
-      y={tempScale(t)}
-      x={margin.left - 5}
-    >
+    <text fill="darkgrey" textAnchor="end" y={tempScale(t)} x={margin.left - 5}>
       {t}
     </text>
   </g>
-));
+))
 ```
 
 ### Final result
@@ -770,58 +760,57 @@ return (
     <g>{yGrid}</g>
     <path d={line} stroke="steelblue" fill="none" />
   </svg>
-);
+)
 ```
 
 The final code can be seen below:
-
 
 <details>
 <summary>Temperature.tsx</summary>
 
 ```tsx
-import React from "react";
-import * as d3 from "d3";
-import { data, Datum } from "../data/temperature";
+import React from 'react'
+import * as d3 from 'd3'
+import { data, Datum } from '../data/temperature'
 
-const width = 600;
-const height = 400;
+const width = 600
+const height = 400
 
 const margin = {
   top: 20,
   right: 50,
   bottom: 20,
   left: 50,
-};
+}
 
-const tempDomain = d3.extent(data, (d) => d.temp).reverse() as [number, number];
+const tempDomain = d3.extent(data, (d) => d.temp).reverse() as [number, number]
 
 const tempScale = d3
   .scaleLinear<number>()
   .domain(tempDomain)
   .range([margin.top, height - margin.bottom])
-  .interpolate(d3.interpolateRound);
+  .interpolate(d3.interpolateRound)
 
-const tempTicks = tempScale.ticks();
+const tempTicks = tempScale.ticks()
 
-const dateDomain = d3.extent(data, (d) => d.date) as [Date, Date];
+const dateDomain = d3.extent(data, (d) => d.date) as [Date, Date]
 
 const dateScale = d3
   .scaleTime()
   .domain(dateDomain)
-  .range([margin.left, width - margin.right]);
+  .range([margin.left, width - margin.right])
 
-const dateTicks = dateScale.ticks(5).concat(dateScale.domain());
+const dateTicks = dateScale.ticks(5).concat(dateScale.domain())
 
 const line = d3
   .line<Datum>()
   .x((d) => dateScale(d.date))
-  .y((d) => tempScale(d.temp))(data) as string;
+  .y((d) => tempScale(d.temp))(data) as string
 
-const formatter = d3.timeFormat("%Y-%m");
+const formatter = d3.timeFormat('%Y-%m')
 
 export const Temperature: React.FC = ({}) => {
-  const viewBox = `0 0 ${width} ${height}`;
+  const viewBox = `0 0 ${width} ${height}`
 
   const xGrid = dateTicks.map((t) => (
     <g key={t.toString()}>
@@ -837,7 +826,7 @@ export const Temperature: React.FC = ({}) => {
         {formatter(t)}
       </text>
     </g>
-  ));
+  ))
 
   const yGrid = tempTicks.map((t) => (
     <g key={t.toString()}>
@@ -858,7 +847,7 @@ export const Temperature: React.FC = ({}) => {
         {t}
       </text>
     </g>
-  ));
+  ))
 
   return (
     <svg viewBox={viewBox}>
@@ -868,10 +857,10 @@ export const Temperature: React.FC = ({}) => {
         <path d={line} stroke="steelblue" fill="none" />
       </g>
     </svg>
-  );
-};
-
+  )
+}
 ```
+
 </details>
 
 And the resulting SVG will then look something like this:

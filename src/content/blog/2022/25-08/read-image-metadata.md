@@ -6,13 +6,13 @@ description: Using Rust to parse EXIF metadata from image files
 ---
 
 ---
+
 title: Read Metadata from Images using Rust
 subtitle: 25 August 2022
 description: Using Rust to parse EXIF metadata from image files
 published: true
----
 
-[[toc]]
+---
 
 > The complete Rust code discussed in this post can be found in the [exiflib GitHub repo](https://github.com/nabeelvalley/exiflib)
 
@@ -37,7 +37,7 @@ The Exchangeable Image File Format (EXIF) is based on the Tag Image File Format 
 The EXIF section in an image file is structured as follows:
 
 | Section                 | Subsection            | Number of Bytes             |
-|-------------------------|-----------------------|-----------------------------|
+| ----------------------- | --------------------- | --------------------------- |
 | Header                  |                       |                             |
 |                         | EXIF Marker (Exif00)  | 6 bytes                     |
 | IFD                     |                       |                             |
@@ -64,9 +64,9 @@ FF D8 FF E1 57 FE 45 78 69 66 00 00 49 49 2A 00    . . . . W . E x i f . . I I *
 00 00 10 01 02 00 07 00 00 00 A8 00 00 00 12 01    . . . . . . . . . . . . . . . .    |
 03 00 01 00 00 00 01 00 00 00 1A 01 05 00 01 00    . . . . . . . . . . . . . . . .    |
 00 00 B0 00 00 00 1B 01 05 00 01 00 00 00 B8 00    . . . . . . . . . . . . . . . .    | Data Entries
-00 00 28 01 03 00 01 00 00 00 02 00 00 00 31 01    . . ( . . . . . . . . . . . 1 .    | 
-02 00 1E 00 00 00 C0 00 00 00 32 01 02 00 14 00    . . . . . . . . . . 2 . . . . .    |_ 
-00 00 DE 00 00 00 13 02 03 00 01 00 00 00 02 00    . . . . . . . . . . . . . . . .    | 
+00 00 28 01 03 00 01 00 00 00 02 00 00 00 31 01    . . ( . . . . . . . . . . . 1 .    |
+02 00 1E 00 00 00 C0 00 00 00 32 01 02 00 14 00    . . . . . . . . . . 2 . . . . .    |_
+00 00 DE 00 00 00 13 02 03 00 01 00 00 00 02 00    . . . . . . . . . . . . . . . .    |
 00 00 98 82 02 00 05 00 00 00 F2 00 00 00 69 87    . . . . . . . . . . . . . . i .    |
 04 00 01 00 00 00 14 01 00 00 A5 C4 07 00 1C 00    . . . . . . . . . . . . . . . .    | Additional Data Section
 00 00 F8 00 00 00 EC 29 00 00 46 55 4A 49 46 49    . . . . . . . ) . . F U J I F I    |
@@ -192,7 +192,7 @@ After the bytes indicate the count, the next section consists of the entries. Ea
 | Tag     | Data Format | Component Length | Data          |
 | ------- | ----------- | ---------------- | ------------- |
 | 2 bytes | 2 Bytes     | 4 Bytes          | 4 Bytes       |
-| `0F 01` | `02 00`     | `09 00 00 00`    | `9E 00 00 00` | 
+| `0F 01` | `02 00`     | `09 00 00 00`    | `9E 00 00 00` |
 
 - The Tag is an identifier that specifies what the value of the entry represents
 - The Data format states how the data should be read
@@ -211,7 +211,7 @@ let tag = u16::from_endian_bytes(endian, entry)?;
 
 The value of the tag is a 16-bit unsigned integer, but it's more commonly represented as Hex value in the tag lookup tables, a lookup table for these can be found at the [EXIF Tool Tag Names Doc](https://exiftool.org/TagNames/EXIF.html)
 
-The value of the tag above `0F 01`  can be converted to hex for the Little Endian notation resulting in `0x010F`, the lookup table states that this tag identifies the `Make` property in the Exif data
+The value of the tag above `0F 01` can be converted to hex for the Little Endian notation resulting in `0x010F`, the lookup table states that this tag identifies the `Make` property in the Exif data
 
 ### Data Format
 
@@ -309,7 +309,7 @@ let format = get_tag_format(&format_value)?;
 
 ### Component Length
 
-The Component length specifies the number of components for the tag format being read - for most tag formats this will be 1, however, for specific values like `AsciiString` or `Undefined`, this may be different in which case it specifies the length of the string or how many bytes are required respectively 
+The Component length specifies the number of components for the tag format being read - for most tag formats this will be 1, however, for specific values like `AsciiString` or `Undefined`, this may be different in which case it specifies the length of the string or how many bytes are required respectively
 
 The value for the component length can be found by reading the relevant bytes in the entry and converting them to a 32-bit unsigned integer, starting from byte index 4, like so:
 
@@ -409,14 +409,12 @@ let value_bytes = bytes.get(range)?;
 let result = parse_tag_value(&format, endian, value_bytes)
 ```
 
-
 Putting all the above together, reading the tag above will give:
-
 
 | Tag      | Data Format  | Component Length | Data          |
 | -------- | ------------ | ---------------- | ------------- |
 | 2 bytes  | 2 Bytes      | 4 Bytes          | 4 Bytes       |
-| `0F 01`  | `02 00`      | `09 00 00 00`    | `9E 00 00 00` | 
+| `0F 01`  | `02 00`      | `09 00 00 00`    | `9E 00 00 00` |
 | `0x010f` | ASCII String | 9                | FUJIFILM\0    |
 
 ### Reading Additional Entries

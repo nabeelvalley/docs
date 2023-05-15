@@ -4,8 +4,6 @@ title: Replication with MongoDB
 subtitle: Configure MongoDB ReplicaSets using Mongo on a Server or via Docker Compose
 ---
 
-[[toc]]
-
 Using a single MongoDB instance is cool, but you know what's cooler? Using more than one. Sometimes we need to set up a couple of different database replicas, this is a general method of how this can be done
 
 # On a Development Machine
@@ -184,8 +182,8 @@ services:
     container_name: mongonode0
     restart: always
     ports:
-     - "37000:27017"
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+      - '37000:27017'
+    entrypoint: ['/usr/bin/mongod', '--bind_ip_all', '--replSet', 'rs0']
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -197,8 +195,8 @@ services:
     container_name: mongonode1
     restart: always
     ports:
-     - "37001:27017"
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+      - '37001:27017'
+    entrypoint: ['/usr/bin/mongod', '--bind_ip_all', '--replSet', 'rs0']
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -210,8 +208,8 @@ services:
     container_name: mongonode2
     restart: always
     ports:
-     - "37002:27017"
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+      - '37002:27017'
+    entrypoint: ['/usr/bin/mongod', '--bind_ip_all', '--replSet', 'rs0']
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
@@ -292,7 +290,6 @@ In a MongoDB ReplicaSet an Arbiter is a node that does not store data but is all
 
 Since it's not always possible to set-up a third (or additional) that store data, we can configure an arbiter. We can use either of the methods of starting up the Three DB instances as above, but we will instead only configure two instances as nodes. the below config will do that:
 
-
 ```bash
 rsconf = {
   _id: "rs0",
@@ -336,7 +333,7 @@ We can use the `rs.reconfig(NEW_CONFIG)` function to provide a new replicaset co
 1. Get the Configuration with `rs.config()`, then edit the config and re-provide it like so:
 
 ```js
-newConfig = {  ... the_new_config_after_editing_stuff }
+newConfig = { ...the_new_config_after_editing_stuff }
 rs.reconfig(newConfig) // apply the config
 ```
 

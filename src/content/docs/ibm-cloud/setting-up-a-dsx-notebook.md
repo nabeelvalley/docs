@@ -1,5 +1,3 @@
-[[toc]]
-
 # Setting up a DSX Notebook
 
 ## 1. Configure an Apache Spark Instance
@@ -23,4 +21,3 @@ Create a new Jupyter Notebook for your project, select the Language, Spark Versi
 ## 5. Importing Data
 
 Insert the code to import your file from the data tab by selecting the file and the import method
-

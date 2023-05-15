@@ -9,8 +9,6 @@ Before reading through this, you may want to read the page about the application
 - [Installing Minicube on Windows](https://medium.com/@JockDaRock/minikube-on-windows-10-with-hyper-v-6ef0f4dc158c)
 - [Dockerise a Node-Mongo App](https://medium.com/statuscode/dockerising-a-node-js-and-mongodb-app-d22047e2806f)
 
-[[toc]]
-
 # Prerequisites
 
 - Docker
@@ -40,8 +38,9 @@ minikube stop
 Enable Dynamic Memory from Hyper-V Manager, and then start minikube with:
 
 ```bash
-minikube start 
+minikube start
 ```
+
 ## VirtualBox
 
 We can use VirtualBox as our driver as well with the following
@@ -49,6 +48,7 @@ We can use VirtualBox as our driver as well with the following
 ```bash
 minikbe start --vm-driver virtualbox
 ```
+
 ### Running Minikube
 
 ```bash
@@ -123,12 +123,13 @@ kubectl create -f mongo.yaml
 This will create a deployment as well as a service for both the Express App and Mongo. The deployment configs are as follows
 
 `express.yaml`
+
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: "1"
+    deployment.kubernetes.io/revision: '1'
   labels:
     app: comments-app
   name: comments-app
@@ -144,9 +145,9 @@ spec:
       name: comments-app
     spec:
       containers:
-      - image: <USERNAME>/comments-app
-        imagePullPolicy: Always
-        name: comments-app
+        - image: <USERNAME>/comments-app
+          imagePullPolicy: Always
+          name: comments-app
 
 ---
 apiVersion: v1
@@ -157,49 +158,49 @@ metadata:
   name: comments-app
 spec:
   ports:
-  - name: tcp-8080-8080-comments-app
-    nodePort: 30016
-    port: 8080
-    protocol: TCP
-    targetPort: 8080
+    - name: tcp-8080-8080-comments-app
+      nodePort: 30016
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
   selector:
     app: comments-app
   type: LoadBalancer
 ```
 
-
 `mongo.yaml`
+
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-   name: mongo
-   labels:
-     run: mongo
+  name: mongo
+  labels:
+    run: mongo
 spec:
-   ports:
-   - port: 27017
-     targetPort: 27017
-     protocol: TCP
-   selector:
-     run: mongo
+  ports:
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP
+  selector:
+    run: mongo
 
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-   name: mongo
+  name: mongo
 spec:
-   template:
-     metadata:
-       labels:
-         run: mongo
-     spec:
-       containers:
-       - name: mongo
-         image: mongo
-         ports:
-         - containerPort: 27017
+  template:
+    metadata:
+      labels:
+        run: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo
+          ports:
+            - containerPort: 27017
 ```
 
 ## Use the App

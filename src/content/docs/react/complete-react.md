@@ -3,8 +3,6 @@ published: true
 title: React with Redux Basics
 ---
 
-[[toc]]
-
 [Based on this video series](https://www.youtube.com/watch?v=OxIDLw0M-m0&list=PL4cUxeGkcC9ij8CfkAY2RAGb-tmkNwQHG&index=1)
 
 [GitHub Repo](https://github.com/iamshaunjp/react-redux-complete-playlist)
@@ -83,7 +81,7 @@ class App extends React.Component {
       <div>
         <h1>Hello World!</h1>
       </div>
-    );
+    )
   }
 }
 ```
@@ -95,7 +93,7 @@ In order to render a component we need to tell React to render our component, th
 the `ReactDOM.render` function takes a component and the DOM element we want to render the component into as follows
 
 ```js
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(<App />, document.getElementById('app'))
 ```
 
 Within JSX we are also able to include Javascript dynamically within curly braces for example:
@@ -108,7 +106,7 @@ class App extends React.Component {
         <h1>Hello World!</h1>
         <p>{Math.random() * 10}</p>
       </div>
-    );
+    )
   }
 }
 ```
@@ -126,9 +124,9 @@ State can be referenced as dynamic content inside of template
 ```jsx
 class App extends React.Component {
   state = {
-    name: "John",
-    age: 30
-  };
+    name: 'John',
+    age: 30,
+  }
 
   render() {
     return (
@@ -138,7 +136,7 @@ class App extends React.Component {
           My name is {this.state.name}, I am {this.state.age}
         </p>
       </div>
-    );
+    )
   }
 }
 ```
@@ -197,9 +195,9 @@ There are a few different ways to bind context, using an Arrow function is the e
 We can do this for the `handleMouseOver` function as follows
 
 ```jsx
-handleMouseOver = e => {
-  console.log(this);
-};
+handleMouseOver = (e) => {
+  console.log(this)
+}
 ```
 
 ### Update State
@@ -209,9 +207,9 @@ In order to update state we use the `this.setState` function, **not by manually 
 We can update the state by doing something simple like increasing the age when someone clicks on the `Click Me` button
 
 ```jsx
-handleClick = e => {
-  this.setState({ age: this.state.age + 1 });
-};
+handleClick = (e) => {
+  this.setState({ age: this.state.age + 1 })
+}
 ```
 
 ### Forms
@@ -221,9 +219,9 @@ We can redefine the content of our `App` class to contain a simple form by repla
 ```jsx
 class App extends React.Component {
   state = {
-    name: "John",
-    age: 30
-  };
+    name: 'John',
+    age: 30,
+  }
 
   render() {
     return (
@@ -234,7 +232,7 @@ class App extends React.Component {
           <button>Submit</button>
         </form>
       </div>
-    );
+    )
   }
 }
 ```
@@ -244,10 +242,10 @@ We can then make use of event binding to enable stuff to happen when we interact
 When a form is submitted by default the event is to submit and refresh the page, but we do not want that, so in the `handleSubmit` function we need to first prevent the default action and then add our own functionality
 
 ```jsx
-handleSubmit = e => {
-  e.preventDefault();
-  console.log("Form submitted by", this.state.name);
-};
+handleSubmit = (e) => {
+  e.preventDefault()
+  console.log('Form submitted by', this.state.name)
+}
 ```
 
 We then bind this to the form `onSubmit` event and can be seen below
@@ -255,18 +253,18 @@ We then bind this to the form `onSubmit` event and can be seen below
 ```jsx
 class App extends React.Component {
   state = {
-    name: "John",
-    age: 30
-  };
+    name: 'John',
+    age: 30,
+  }
 
-  handleChange = e => {
-    this.setState({ name: e.target.value });
-  };
+  handleChange = (e) => {
+    this.setState({ name: e.target.value })
+  }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log("Form submitted by", this.state.name);
-  };
+  handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('Form submitted by', this.state.name)
+  }
 
   render() {
     return (
@@ -277,11 +275,11 @@ class App extends React.Component {
           <button>Submit</button>
         </form>
       </div>
-    );
+    )
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(<App />, document.getElementById('app'))
 ```
 
 > It is important to note that React makes use of two input types: 'controlled' and 'uncontrolled'. In order to make an input 'controlled' you need to ensure that the value is initialized - e.g. if `value={name}` you need to be sure that upon initialization, `name` is defined and not null. If you're assigning `state` in the `constructor` note that you will be overwriting state that is defined at a class level
@@ -324,7 +322,7 @@ We'll create some new components in the `src` file to build the other functional
 Let's clean up the `src/App.js` file to be as follows
 
 ```jsx
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
 class App extends Component {
   render() {
@@ -333,11 +331,11 @@ class App extends Component {
         <h1>React App</h1>
         <p>Hello World!</p>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
 ```
 
 Take note of the imports at the top and the export at the bottom of the above codeblock
@@ -359,7 +357,7 @@ And can then be accessed in a class based component with the `this.props` object
 In order to split up the object, we can de-structure the props object as follows
 
 ```jsx
-const { name, age, belt } = this.props;
+const { name, age, belt } = this.props
 ```
 
 We can also, instead of passing a single value in - pass in a list of objects and cycle through those within a component
@@ -371,15 +369,15 @@ We can iterate and render a list of objects, but we must be sure to include a un
 ```jsx
 class Ninjas extends Component {
   render() {
-    const { ninjas } = this.props;
-    const ninjaList = ninjas.map(ninja => (
+    const { ninjas } = this.props
+    const ninjaList = ninjas.map((ninja) => (
       <div className="ninja" key={ninja.id}>
         <div>Name: {ninja.name}</div>
         <div>Age: {ninja.age}</div>
         <div>Belt: {ninja.belt}</div>
       </div>
-    ));
-    return <div className="ninja-list">{ninjaList}</div>;
+    ))
+    return <div className="ninja-list">{ninjaList}</div>
   }
 }
 ```
@@ -393,20 +391,20 @@ We have multiple types of components such as Container components which are stat
 We can redefine the `Ninjas` component from above to be a Functional Component which also makes use of destructuring in the function input with the following code
 
 ```jsx
-import React from "react";
+import React from 'react'
 
 const Ninjas = ({ ninjas }) => {
-  const ninjaList = ninjas.map(ninja => (
+  const ninjaList = ninjas.map((ninja) => (
     <div className="ninja" key={ninja.id}>
       <div>Name: {ninja.name}</div>
       <div>Age: {ninja.age}</div>
       <div>Belt: {ninja.belt}</div>
     </div>
-  ));
-  return <div className="ninja-list">{ninjaList}</div>;
-};
+  ))
+  return <div className="ninja-list">{ninjaList}</div>
+}
 
-export default Ninjas;
+export default Ninjas
 ```
 
 ### Conditional Output
@@ -417,7 +415,7 @@ In order to display conditional output we can simply use an if-else or terenary 
 
 ```jsx
 const Ninjas = ({ ninjas }) => {
-  const ninjaList = ninjas.map(ninja => {
+  const ninjaList = ninjas.map((ninja) => {
     if (ninja.age > 31) {
       return (
         <div className="ninja" key={ninja.id}>
@@ -425,30 +423,30 @@ const Ninjas = ({ ninjas }) => {
           <div>Age: {ninja.age}</div>
           <div>Belt: {ninja.belt}</div>
         </div>
-      );
+      )
     } else {
-      return null;
+      return null
     }
-  });
-  return <div className="ninja-list">{ninjaList}</div>;
-};
+  })
+  return <div className="ninja-list">{ninjaList}</div>
+}
 ```
 
 #### Terenary
 
 ```jsx
 const Ninjas = ({ ninjas }) => {
-  const ninjaList = ninjas.map(ninja => {
+  const ninjaList = ninjas.map((ninja) => {
     return ninja.age > 31 ? (
       <div className="ninja" key={ninja.id}>
         <div>Name: {ninja.name}</div>
         <div>Age: {ninja.age}</div>
         <div>Belt: {ninja.belt}</div>
       </div>
-    ) : null;
-  });
-  return <div className="ninja-list">{ninjaList}</div>;
-};
+    ) : null
+  })
+  return <div className="ninja-list">{ninjaList}</div>
+}
 ```
 
 ### Forms
@@ -460,25 +458,25 @@ Crete a new file for the form called `AddNinja.js`, because we need to control t
 The `onChange` function will update the state each time we update the form, in order to do this we first need to define a state object and a `handleChange` event in which we can take the correct state property
 
 ```jsx
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
 class AddNinja extends Component {
   state = {
     name: null,
     age: null,
-    belt: null
-  };
+    belt: null,
+  }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value
-    });
-  };
+      [e.target.id]: e.target.value,
+    })
+  }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log(this.state);
-  };
+  handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(this.state)
+  }
 
   render() {
     return (
@@ -493,11 +491,11 @@ class AddNinja extends Component {
           <button>Submit</button>
         </form>
       </div>
-    );
+    )
   }
 }
 
-export default AddNinja;
+export default AddNinja
 ```
 
 We will then need to add this to the App by including it in the `app.js` `Render()`
@@ -507,13 +505,13 @@ We can now update the state of the form, but we are still not adding the new nin
 In the `App` class, create a new function to handle the `addNinja` event which we will then be able to pass into the child component and then call that function from the child in which we will
 
 ```jsx
-addNinja = ninja => {
-  ninja.id = Math.random();
-  let ninjas = [...this.state.ninjas, ninja];
+addNinja = (ninja) => {
+  ninja.id = Math.random()
+  let ninjas = [...this.state.ninjas, ninja]
   this.setState({
-    ninjas: ninjas
-  });
-};
+    ninjas: ninjas,
+  })
+}
 ```
 
 Pass the `addNinja` function as a prop to the `AddNinja` component as follows
@@ -525,10 +523,10 @@ Pass the `addNinja` function as a prop to the `AddNinja` component as follows
 And we will update the `handleSubmit` function in the `AddNinja` class to be
 
 ```jsx
-handleSubmit = e => {
-  e.preventDefault();
-  this.props.addNinja(this.state);
-};
+handleSubmit = (e) => {
+  e.preventDefault()
+  this.props.addNinja(this.state)
+}
 ```
 
 Next up we will add the functionality to delete a ninja by creating a function in the parent called `deleteNinja` and adding a delete button on the child from which we will call the delete function
@@ -537,7 +535,7 @@ We will wrap the function on the child in an anonymous function in order to prev
 
 ```jsx
 const Ninjas = ({ ninjas, deleteNinja }) => {
-  const ninjaList = ninjas.map(ninja => {
+  const ninjaList = ninjas.map((ninja) => {
     return ninja.age > 31 ? (
       <div className="ninja" key={ninja.id}>
         <div>Name: {ninja.name}</div>
@@ -545,16 +543,16 @@ const Ninjas = ({ ninjas, deleteNinja }) => {
         <div>Belt: {ninja.belt}</div>
         <button
           onClick={() => {
-            deleteNinja(ninja.id);
+            deleteNinja(ninja.id)
           }}
         >
           Delete
         </button>
       </div>
-    ) : null;
-  });
-  return <div className="ninja-list">{ninjaList}</div>;
-};
+    ) : null
+  })
+  return <div className="ninja-list">{ninjaList}</div>
+}
 ```
 
 Next, from the `App` component, define the `deleteNinja` function and pass it in as a prop to the `Ninjas` component
@@ -562,12 +560,12 @@ Next, from the `App` component, define the `deleteNinja` function and pass it in
 In the `deleteNinja` function, we will use a non-destructiver filter function to remove the ninja with the selected ID
 
 ```jsx
-deleteNinja = id => {
-  let ninjas = this.state.ninjas.filter(ninja => ninja.id !== id);
+deleteNinja = (id) => {
+  let ninjas = this.state.ninjas.filter((ninja) => ninja.id !== id)
   this.setState({
-    ninjas: ninjas
-  });
-};
+    ninjas: ninjas,
+  })
+}
 ```
 
 ### CSS
@@ -604,30 +602,30 @@ For a somewhat nicer version of this take a look at the ToDo app which makes use
 `App.js`
 
 ```jsx
-import React, { Component } from "react";
-import Todos from "./Todos";
-import AddTodo from "./AddForm";
+import React, { Component } from 'react'
+import Todos from './Todos'
+import AddTodo from './AddForm'
 
 class App extends Component {
   state = {
     todos: [
-      { id: 0, content: "buy some milk" },
-      { id: 1, content: "play mario kart" }
-    ]
-  };
+      { id: 0, content: 'buy some milk' },
+      { id: 1, content: 'play mario kart' },
+    ],
+  }
 
-  deleteTodo = id => {
-    const todos = this.state.todos.filter(todo => todo.id !== id);
-    this.setState({ todos: todos });
-  };
+  deleteTodo = (id) => {
+    const todos = this.state.todos.filter((todo) => todo.id !== id)
+    this.setState({ todos: todos })
+  }
 
-  addTodo = todo => {
-    todo.id = this.state.todos.length;
-    const todos = [...this.state.todos, todo];
+  addTodo = (todo) => {
+    todo.id = this.state.todos.length
+    const todos = [...this.state.todos, todo]
     this.setState({
-      todos: todos
-    });
-  };
+      todos: todos,
+    })
+  }
 
   render() {
     return (
@@ -636,22 +634,22 @@ class App extends Component {
         <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} />
         <AddTodo addTodo={this.addTodo} />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
 ```
 
 `Todos.js`
 
 ```jsx
-import React from "react";
+import React from 'react'
 
 const Todos = ({ todos, deleteTodo }) => {
   const todoList =
     todos.length > 0 ? (
-      todos.map(todo => (
+      todos.map((todo) => (
         <div
           className="collection-item"
           key={todo.id}
@@ -662,37 +660,37 @@ const Todos = ({ todos, deleteTodo }) => {
       ))
     ) : (
       <p className="center">You have no todos</p>
-    );
+    )
 
-  return <div className="todos collection">{todoList}</div>;
-};
+  return <div className="todos collection">{todoList}</div>
+}
 
-export default Todos;
+export default Todos
 ```
 
 `AddForm.js`
 
 ```jsx
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
 class AddTodo extends Component {
   state = {
-    content: ""
-  };
+    content: '',
+  }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
-      content: e.target.value
-    });
-  };
+      content: e.target.value,
+    })
+  }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.addTodo(this.state);
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.addTodo(this.state)
     this.setState({
-      content: ""
-    });
-  };
+      content: '',
+    })
+  }
 
   render() {
     return (
@@ -706,11 +704,11 @@ class AddTodo extends Component {
           />
         </form>
       </div>
-    );
+    )
   }
 }
 
-export default AddTodo;
+export default AddTodo
 ```
 
 ## React Router
@@ -743,7 +741,7 @@ Before we can route to pagess it would be useful to first have some. Create the 
 `components/About.js`
 
 ```jsx
-import React from "react";
+import React from 'react'
 
 const About = () => (
   <div className="container">
@@ -754,15 +752,15 @@ const About = () => (
       ipsum quod amet soluta aliquid quae nobis fugiat incidunt obcaecati.
     </p>
   </div>
-);
+)
 
-export default About;
+export default About
 ```
 
 `components/Contact.js`
 
 ```jsx
-import React from "react";
+import React from 'react'
 
 const Contact = () => (
   <div className="container">
@@ -773,15 +771,15 @@ const Contact = () => (
       ipsum quod amet soluta aliquid quae nobis fugiat incidunt obcaecati.
     </p>
   </div>
-);
+)
 
-export default Contact;
+export default Contact
 ```
 
 `components/Home.js`
 
 ```jsx
-import React from "react";
+import React from 'react'
 
 const Home = () => (
   <div className="container home">
@@ -792,9 +790,9 @@ const Home = () => (
       ipsum quod amet soluta aliquid quae nobis fugiat incidunt obcaecati.
     </p>
   </div>
-);
+)
 
-export default Home;
+export default Home
 ```
 
 ### Create Navbar
@@ -804,7 +802,7 @@ Now add a navbar which will just link to the different pages we just created
 `components/Navbar.js`
 
 ```jsx
-import React from "react";
+import React from 'react'
 
 const Navbar = () => {
   return (
@@ -826,17 +824,17 @@ const Navbar = () => {
         </ul>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
 ```
 
 Add the Navbar to the `App` template as follows
 
 ```jsx
-import React, { Component } from "react";
-import Navbar from "./components/Navbar";
+import React, { Component } from 'react'
+import Navbar from './components/Navbar'
 
 class App extends Component {
   render() {
@@ -844,11 +842,11 @@ class App extends Component {
       <div className="App">
         <Navbar />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
 ```
 
 ### Add React Router Package
@@ -864,12 +862,12 @@ Then import the `BrowserRouter` and and `Route` include the applcation inside th
 `App.js`
 
 ```jsx
-import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import About from "./components/About";
-import Contact from "./components/Contact";
+import React, { Component } from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Home from './components/Home'
+import About from './components/About'
+import Contact from './components/Contact'
 
 class App extends Component {
   render() {
@@ -882,11 +880,11 @@ class App extends Component {
           <Route path="/about" component={About} />
         </div>
       </BrowserRouter>
-    );
+    )
   }
 }
 
-export default App;
+export default App
 ```
 
 Make note of the `exact` on the `Home` route, this insures that the `About` and `Contact` pages are not viewed as subsets of the `Home` route.
@@ -894,8 +892,8 @@ Make note of the `exact` on the `Home` route, this insures that the `About` and 
 Also we will notice that when navigating the page is reloaded, this is because we are using `href` in our `Navbar` anchor tags which results in the browser trying to make a server request. Instead we will make use of the `Link` from the `react-router-dom` as follows
 
 ```jsx
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -919,17 +917,17 @@ const Navbar = () => {
         </ul>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
 ```
 
 We can also use `NavLink` insead, this will but this will render the `active` class when we are on a specific route - this is pretty much the same as when using `Link`
 
 ```jsx
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -953,10 +951,10 @@ const Navbar = () => {
         </ul>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
 ```
 
 ### Redirect Users
@@ -992,30 +990,30 @@ export default withRouter(Navbar)
 To create an automatic redirect to the `About` page from the `Navbar` we can update the `Navbar.js` with the following
 
 ```jsx
-import React from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import React from 'react'
+import { NavLink, withRouter } from 'react-router-dom'
 
-const Navbar = props => {
+const Navbar = (props) => {
   setTimeout(() => {
-    props.history.push("/about");
-  }, 2000);
-  return <nav className="nav-wrapper red darken-3">...</nav>;
-};
+    props.history.push('/about')
+  }, 2000)
+  return <nav className="nav-wrapper red darken-3">...</nav>
+}
 
-export default withRouter(Navbar);
+export default withRouter(Navbar)
 ```
 
 Be sure to remove the `setTimeout` after you have tested the rerouting as we do not need this
 
 ```jsx
-import React from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import React from 'react'
+import { NavLink, withRouter } from 'react-router-dom'
 
-const Navbar = props => {
-  return <nav className="nav-wrapper red darken-3">...</nav>;
-};
+const Navbar = (props) => {
+  return <nav className="nav-wrapper red darken-3">...</nav>
+}
 
-export default withRouter(Navbar);
+export default withRouter(Navbar)
 ```
 
 ### Higher Order Components
@@ -1029,12 +1027,12 @@ The HOC should return a function which returns the original component, we can do
 ```jsx
 import React from 'react'
 
-const Rainbow = WrappedComponent => {
+const Rainbow = (WrappedComponent) => {
   const colours = ['red', 'pink', 'orange', 'blue', 'green', 'yellow']
   const randomColour = colours[Math.floor(Math.random() * 5)]
   const className = randomColour + '-text'
 
-  return props => (
+  return (props) => (
     <div className={className}>
       <WrappedComponent {...props} />
     </div>
@@ -1062,14 +1060,14 @@ import axios from 'axios'
 
 class Home extends Component {
   state = {
-    posts: []
+    posts: [],
   }
 
   componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/posts').then(res => {
+    axios.get('https://jsonplaceholder.typicode.com/posts').then((res) => {
       console.log(res)
       this.setState({
-        posts: res.data.slice(0, 10)
+        posts: res.data.slice(0, 10),
       })
     })
   }
@@ -1078,7 +1076,7 @@ class Home extends Component {
     const { posts } = this.state
 
     const postList = posts.length ? (
-      posts.map(post => (
+      posts.map((post) => (
         <div className="post card" key={post.id}>
           <div className="card-content">
             <span className="card-title">{post.title}</span>
@@ -1107,6 +1105,7 @@ export default Home
 We can set up sub-routes based on components, we can create a component to render a single post with the following, taking careful note of the sub-component routing in the `Home.js` for the `Post` component file and the usage of the params in the `Post.js` file
 
 `Home.js`
+
 ```jsx
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
@@ -1135,7 +1134,6 @@ class App extends Component {
 }
 
 export default App
-
 ```
 
 Note that the usage of the `Switch` above is to take care of the fact that `/contact` and `/about` can be viewed as `/:post_id` where the `post_id` is `contact` and `about` respectively - the `Switch` component will ensure that only one route at a time can be matched
@@ -1148,14 +1146,16 @@ import axios from 'axios'
 
 class Post extends Component {
   state = {
-    post: null
+    post: null,
   }
 
   componentDidMount() {
     const id = this.props.match.params.post_id
-    axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`).then(res => {
-      this.setState({ post: res.data })
-    })
+    axios
+      .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .then((res) => {
+        this.setState({ post: res.data })
+      })
   }
 
   render() {
@@ -1180,6 +1180,7 @@ export default Post
 We can render images by importing them into the component in which we waant to use them and reference the import without needing the source to the actual file
 
 `Home.js`
+
 ```jsx
 import Pokeball from '../pokeball.png'
 ...
@@ -1211,14 +1212,14 @@ We can import Redux, and Babel into the HTML document, and start working with th
 When creating a store we need to intialize state and give the store a reducer, this can be seen below
 
 ```jsx
-const { createStore } = Redux;
+const { createStore } = Redux
 
 const initState = {
   todos: [],
-  posts: []
+  posts: [],
 }
 
-function myreducer(state = initState, action){
+function myreducer(state = initState, action) {
   console.log(action, state)
 }
 
@@ -1232,14 +1233,13 @@ When editing data we create an action which will be dispatched, this is an objec
 ```jsx
 const todoAction = {
   type: 'ADD_TODO',
-  todo: 'buy milk'
+  todo: 'buy milk',
 }
 
 store.dispatch(todoAction)
 ```
 
 We would siomply use the `dispatch` from a component to update state
-
 
 ### Update State
 
@@ -1321,19 +1321,19 @@ const initState = {
     {
       id: 1,
       title: 'Hello World 1',
-      body: 'das  as das d asd asd sd asd  asd sd sd'
+      body: 'das  as das d asd asd sd asd  asd sd sd',
     },
     {
       id: 2,
       title: 'Hello World 2',
-      body: 'das  as das d asd asd sd asd  asd sd sd'
+      body: 'das  as das d asd asd sd asd  asd sd sd',
     },
     {
       id: 3,
       title: 'Hello World 3',
-      body: 'das  as das d asd asd sd asd  asd sd sd'
-    }
-  ]
+      body: 'das  as das d asd asd sd asd  asd sd sd',
+    },
+  ],
 }
 
 const rootReducer = (state = initState, action) => {
@@ -1341,13 +1341,11 @@ const rootReducer = (state = initState, action) => {
 }
 
 export default rootReducer
-
 ```
 
 ### Create Store
 
 Thereafter we will create a store, we generally do this in the `index.js` file, in our case updating it with the following
-
 
 ```jsx
 import { createStore } from 'redux'
@@ -1356,7 +1354,7 @@ import rootReducer from './reducers/rootReducer';
 
 const store = createStore(rootReducer)
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, 
+ReactDOM.render(<Provider store={store}><App /></Provider>,
 ```
 
 ### Update Data
@@ -1366,12 +1364,13 @@ In Order to update our components, we will make use of an HOC, in this case usin
 Note that the `connect` function returns an HOC which will in turn take in our component. The `connect` function requires an input function which will map our component `props` to our redux `state`
 
 `rootReducer.js`
+
 ```jsx
 const initState = {
-  posts: []
+  posts: [],
 }
 
-const rootReducer = (state=initState, action) =>{
+const rootReducer = (state = initState, action) => {
   return state
 }
 
@@ -1379,6 +1378,7 @@ export default rootReducer
 ```
 
 `Home.js`
+
 ```jsx
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
@@ -1390,11 +1390,13 @@ class Home extends Component {
     const { posts } = this.props
 
     const postList = posts.length ? (
-      posts.map(post => (
+      posts.map((post) => (
         <div className="post card" key={post.id}>
-          <img src={Pokeball} alt="A pokeball"/>
+          <img src={Pokeball} alt="A pokeball" />
           <div className="card-content">
-            <Link to={`/${post.id}`}><span className="card-title">{post.title}</span></Link>
+            <Link to={`/${post.id}`}>
+              <span className="card-title">{post.title}</span>
+            </Link>
             <p>{post.body}</p>
           </div>
         </div>
@@ -1414,7 +1416,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    posts: state.posts
+    posts: state.posts,
   }
 }
 
@@ -1447,7 +1449,7 @@ class Post extends Component {
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.post_id
   return {
-    post: state.posts.find(post => post.id == id)
+    post: state.posts.find((post) => post.id == id),
   }
 }
 
@@ -1465,12 +1467,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 class Post extends Component {
-  
+
   handleClick = () => {
-    this.props.deletePost(this.props.post.id)    
+    this.props.deletePost(this.props.post.id)
     this.props.history.push('/')
   }
-  
+
   render() {
     const post = this.props.post ? (
       ...
@@ -1508,10 +1510,10 @@ As well as providing the delete functionality on the `rootReducer` as follows
 const rootReducer = (state = initState, action) => {
   console.log(action)
   if (action.type === 'DELETE_POST') {
-    const newPosts = state.posts.filter(post => post.id !== action.id)
+    const newPosts = state.posts.filter((post) => post.id !== action.id)
     return {
       ...state,
-      posts: newPosts
+      posts: newPosts,
     }
   }
   return state
@@ -1525,10 +1527,10 @@ Action creators are functions we can use to more easily dispatch actions by simp
 Create a file `src/actions/postActions.js` with a single function defined
 
 ```jsx
-export const deletePost = id => {
+export const deletePost = (id) => {
   return {
     type: 'DELETE_POST',
-    id: id
+    id: id,
   }
 }
 ```
@@ -1536,9 +1538,9 @@ export const deletePost = id => {
 And then simply update the `Posts/mapDispatchToProp` function to be as follows
 
 ```jsx
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    deletePost: id => dispatch(deletePost(id))
+    deletePost: (id) => dispatch(deletePost(id)),
   }
 }
 ```

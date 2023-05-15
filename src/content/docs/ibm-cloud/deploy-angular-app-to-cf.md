@@ -1,5 +1,3 @@
-[[toc]]
-
 # Deploy Angular App to CF with DevOps
 
 ## Generating an Angular Application

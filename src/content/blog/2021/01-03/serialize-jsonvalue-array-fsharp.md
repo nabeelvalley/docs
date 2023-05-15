@@ -5,8 +5,6 @@ subtitle: 03 February 2021
 description: Making use of the FSharp.Data JsonProvider and the serialization of JsonProvider arrays into JSON
 ---
 
-[[toc]]
-
 When working with the `FSharp.Data.JsonProvider` type provider you may encounter a need to serialize a `JsonValue array`
 
 Let's take a look at an example where this may be necessary:
@@ -18,19 +16,19 @@ First, we'll define the type of our data using a type provider, in this case it'
 ```json
 {
   "data": [
-      {
-          "id": "id",
-          "caption": "caption",
-          "media_type": "IMAGE",
-          "media_url": "url_to_image"
-      }
+    {
+      "id": "id",
+      "caption": "caption",
+      "media_type": "IMAGE",
+      "media_url": "url_to_image"
+    }
   ],
   "paging": {
-      "cursors": {
-          "before": "hash",
-          "after": "hash"
-      },
-      "next": "full_request_url"
+    "cursors": {
+      "before": "hash",
+      "after": "hash"
+    },
+    "next": "full_request_url"
   }
 }
 ```
@@ -44,7 +42,6 @@ type ApiResponse = JsonProvider<"./data/api-response.json", SampleIsList=true>
 ```
 
 We can also create some sample data using the `ApiResponse.Parse` method that's now defined on our type thanks to the JsonProvider
-
 
 ```fs
 // get some sample data
@@ -69,7 +66,7 @@ let sampleData = ApiResponse.Parse("""{
 
 If you were to use the `sampleData` object and try to parse it to JSON you could directly call the `sampleData.JsonValue.ToString()` method. As designed, this immediately returns the JSON representation of the object
 
-However, when we take a look at the `sampleData.Data` property, we will notice this is a `Datum array`, the problem here is that the `array` type doesn't have `JsonValue` property 
+However, when we take a look at the `sampleData.Data` property, we will notice this is a `Datum array`, the problem here is that the `array` type doesn't have `JsonValue` property
 
 However, if we look at how `JsonValue` is defined we will see the following:
 
@@ -89,7 +86,7 @@ Based on this, we can see that an `Array of elements` can be seen as a `JsonValu
 ```fs
 let jsonValue =
     // get the property we want
-    sampleData.Data 
+    sampleData.Data
     // extract the JsonValue property from each element
     |> Array.map (fun p -> p.JsonValue)
     // pass into the JsonValue.Array constructor

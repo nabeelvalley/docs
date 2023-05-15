@@ -1,5 +1,3 @@
-[[toc]]
-
 # CI Pipelines
 
 ## Static Site
@@ -14,17 +12,15 @@ Hence the `cp .public`, `mv .public` stuff
 pages:
   stage: deploy
   script:
-  - mkdir .public
-  - cp -r * .public
-  - mv .public public
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
   artifacts:
     paths:
-    - public
+      - public
   only:
-  - master
+    - master
 ```
-
-
 
 ## Angular
 
@@ -36,93 +32,83 @@ During our build stage we install our dependencies, do the application build, an
 
 ### Deploy
 
-We simply copy the contents of our `dist` folder to our `public` directory. 
-
+We simply copy the contents of our `dist` folder to our `public` directory.
 
 Note that we also need to modify our `index.html` file's base url to be `<base href="">` otherwise our app will get a 404 error when trying to get our script and css files
 
-
-
-
 ```yaml
 build:
   image: node:latest
   stage: build
   script:
-  - echo "compile"
-  - npm install
-  - npm install -g @angular/cli
-  - npm run build
-  - ls dist
+    - echo "compile"
+    - npm install
+    - npm install -g @angular/cli
+    - npm run build
+    - ls dist
   artifacts:
     paths:
-    - dist
+      - dist
   cache:
     paths:
-    - node_modules
+      - node_modules
 ```
-
-
 
 ```yaml
 pages:
   stage: deploy
   script:
-  - ls
-  - echo "deploy"
-  - ls dist
-  - mkdir .public
-  - cp -r dist/. .public
-  - mv .public public
-  - ls public
+    - ls
+    - echo "deploy"
+    - ls dist
+    - mkdir .public
+    - cp -r dist/. .public
+    - mv .public public
+    - ls public
   artifacts:
     paths:
-    - public
+      - public
   only:
-  - develop
+    - develop
 ```
-
-
 
 ```yaml
 stages:
- - build
- - deploy
+  - build
+  - deploy
 
 build:
   image: node:latest
   stage: build
   script:
-  - echo "compile"
-  - npm install
-  - npm install -g @angular/cli
-  - npm run build
-  - ls dist
+    - echo "compile"
+    - npm install
+    - npm install -g @angular/cli
+    - npm run build
+    - ls dist
   artifacts:
     paths:
-    - dist
+      - dist
   cache:
     paths:
-    - node_modules
+      - node_modules
 
 pages:
   stage: deploy
   script:
-  - ls
-  - echo "deploy"
-  - ls dist
-  - mkdir .public
-  - cp -r dist/. .public
-  - mv .public public
-  - ls public
+    - ls
+    - echo "deploy"
+    - ls dist
+    - mkdir .public
+    - cp -r dist/. .public
+    - mv .public public
+    - ls public
   artifacts:
     paths:
-    - public
+      - public
   only:
-  - develop
+    - develop
 ```
-
-
 
 ```markup
 <!doctype html>
@@ -140,6 +126,3 @@ pages:
 </html>
 
 ```
-
-
-

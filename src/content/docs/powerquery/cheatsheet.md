@@ -5,8 +5,6 @@ subtitle: Cheatsheet for PowerQuery with PowerBI or Excel
 description: Basics of using PowerQuery with PowerBI or Excel for common tasks and operations
 ---
 
-[[toc]]
-
 `Power Query` is query language which makes use of the `M` langauge to transform, manipulate, and query data and is used in different MS data applications such as PowerBI and Excel
 
 # Primitives and Operators
@@ -133,7 +131,7 @@ Targets are often measured using metrics like YTD or MTD in PowerBI, however thi
 There's probably a better way to do this but the method I've worked it to create a running target table that only has columns for each target in it's own row which can then be linked to a Date/calendar table for making targets time-calculable:
 
 ```powerquery-m
-= let 
+= let
     dates =  Table.FromColumns(
         {List.Dates(#date(2016, 1, 1), 2000, #duration(1, 0, 0, 0))}, {"Date"}
     ),
@@ -143,7 +141,7 @@ There's probably a better way to do this but the method I've worked it to create
     withT1 = AddTargetCol(dates, "Target 1", 5000),
     withT2 = AddTargetCol(withT1, "Target 2", 10000),
     withT3 = AddTargetCol(withT2, "Target 3", 100)
-in 
+in
     withT3
 ```
 

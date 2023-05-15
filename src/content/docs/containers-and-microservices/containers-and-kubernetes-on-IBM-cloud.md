@@ -3,27 +3,25 @@ published: true
 title: Containers and Kubernetes on IBM Cloud
 ---
 
-[[toc]]
-
 [Based on this Cognitive Class Learning Path](https://cognitiveclass.ai/learn/containers-k8s-and-istio-on-ibm-cloud/)
 
-#  Prerequisites
+# Prerequisites
 
 Before getting started, you will need a few prerequisites
 
-* IBM Cloud CLI
-  * Kubernetes Plugin
-  * Container Registry Plugin
-* Kubernetes CLI
-* Docker 1.9 or later
+- IBM Cloud CLI
+  - Kubernetes Plugin
+  - Container Registry Plugin
+- Kubernetes CLI
+- Docker 1.9 or later
 
-#  Kubernetes
+# Kubernetes
 
-Kubernetes is a container  orchestrator to provision, manage and scale apps
+Kubernetes is a container orchestrator to provision, manage and scale apps
 
 It allows us to manage app resources, clusters, and infrastructure declaratively
 
-#  Set Up and Deploy an App
+# Set Up and Deploy an App
 
 # # Push an Image to Registry
 
@@ -103,7 +101,7 @@ config-mil01-mycluster.yml"
 kubectl run hello-world --image=registry.ng.bluemix.net/<namespace>/hello-world
 ```
 
-This will take some time, to view the status of our deployment we can use 
+This will take some time, to view the status of our deployment we can use
 
 ```bash
 kubectl get pods
@@ -127,7 +125,7 @@ We can get the public IP of our service with
 ibmcloud cs workers <CLUSTER NAME>
 ```
 
-We can visit our service/container from the 
+We can visit our service/container from the
 
 ```bash
 <PUBLIC IP>:<NODE PORT>
@@ -139,7 +137,7 @@ Visiting this via our browser should yield
 Hello world from hello-world-85794b747c-z8g2s! Your app is up and running in a cluster!
 ```
 
-#  Scale and Update Apps
+# Scale and Update Apps
 
 # # Scale Application with Replicas
 
@@ -149,7 +147,7 @@ We can view our deployment configuration file with
 kubectl edit deployment/<DEPLOYMENT NAME>
 ```
 
-This will open a file that looks like this 
+This will open a file that looks like this
 
 ```yaml
     ...
@@ -224,7 +222,7 @@ Or we can edit the deployment with the command line with
 kubectl set image deployment/hello-world hello-world=registry.ng.bluemix.net/<NAMESPACE>/hello-world:2
 ```
 
-If you see  the following error on the Kubernetes Dashboard it may mean that you are using an incorrect registry endpoint in the last command, it is important to ensure that the registry endpoint is correct \(as mentioned previously, in this case `eu-gb` and not `ng`\)
+If you see the following error on the Kubernetes Dashboard it may mean that you are using an incorrect registry endpoint in the last command, it is important to ensure that the registry endpoint is correct \(as mentioned previously, in this case `eu-gb` and not `ng`\)
 
 ```bash
 Failed to pull image "registry.ng.bluemix.net/nabeellab1/hello-world:2": rpc error: code = Unknown desc = Error response from daemon: Get https://registry.ng.bluemix.net/v2/nabeellab1/hello-world/manifests/2: unauthorized: authentication required
@@ -234,10 +232,10 @@ Once we have updated our deployment configuration we can rollout our changes and
 
 ```bash
 kubectl rollout status deployment/<DEPLOYMENT NAME>
-kubectl get replicasets 
+kubectl get replicasets
 ```
 
-If we see that our deployments are not 
+If we see that our deployments are not
 
 Lastly we can do a rollout with
 
@@ -247,7 +245,7 @@ kubectl rollout undo deployment/<DEPLOYMENT NAME>
 
 # # Check Application Health
 
-We can check app health periodically by using the `healthcheck.yml` file, we can open this file with from our `Lab 2` directory 
+We can check app health periodically by using the `healthcheck.yml` file, we can open this file with from our `Lab 2` directory
 
 ```text
 notepad .\healthcheck.yml
@@ -264,13 +262,13 @@ We can edit this file as needed, by updating our image repository in this spec a
     ...
 ```
 
-Then, while still in the `Lab 2` directory,  push this update with 
+Then, while still in the `Lab 2` directory, push this update with
 
 ```text
 kubectl apply -f .\healthcheck.yml
 ```
 
-#  Deploy an App with Watson Services
+# Deploy an App with Watson Services
 
 # # Deploy the Watson App
 
@@ -294,14 +292,14 @@ Next, in the `watson-deployment.yml` file, update the registry information in th
         spec:
           containers:
             - name: watson
-              image: "registry.ng.bluemix.net/<namespace>/watson" 
+              image: "registry.ng.bluemix.net/<namespace>/watson"
               # change to the path of the watson image you just pushed
               # ex: image: "registry.ng.bluemix.net/<namespace>/watson"
     ...
         spec:
           containers:
             - name: watson-talk
-              image: "registry.ng.bluemix.net/<namespace>/watson-talk" 
+              image: "registry.ng.bluemix.net/<namespace>/watson-talk"
               # change to the path of the watson-talk image you just pushed
               # ex: image: "registry.ng.bluemix.net/<namespace>/watson-talk"
 ```
@@ -317,9 +315,9 @@ ibmcloud cf create-service tone_analyzer standard tone
 
 Where
 
-* `tone_analyzer` is the service type
-* `standard` is the plan
-* `tone` is the service name
+- `tone_analyzer` is the service type
+- `standard` is the plan
+- `tone` is the service name
 
 We can view that our service was created with
 
@@ -353,11 +351,11 @@ We can expose the secret to our pod so the service can be used by creating a sec
         - name: service-bind-volume
           secret:
             defaultMode: 420
-            secretName: binding-tone 
+            secretName: binding-tone
             # from the kubectl get secrets command above
 ```
 
-Then we can build the app in the `Lab 3` directory with 
+Then we can build the app in the `Lab 3` directory with
 
 ```bash
 kubectl create -f watson-deployment.yml
@@ -392,12 +390,3 @@ We can run a get to our endpoint with a message
 ```
 
 if we get a JSON output then we know the service and applications are running
-
-
-
-
-
-
-
-
-

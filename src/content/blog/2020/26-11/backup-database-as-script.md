@@ -5,8 +5,6 @@ subtitle: 26 November 2020
 description: Create a DB Backup/Restore Script using SQL Server
 ---
 
-[[toc]]
-
 To create a scripted backup of a database on SQL Server do the following:
 
 1. Right click on the database name > `Tasks` > `Generate Scripts...`

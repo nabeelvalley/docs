@@ -2,12 +2,10 @@
 published: true
 title: Scripting with FSharp
 subtitle: 13 October 2020
-description: Using the .NET CLI to use the F# Interactive console and run F# Scripts 
+description: Using the .NET CLI to use the F# Interactive console and run F# Scripts
 ---
 
-[[toc]]
-
-> Before you can use the following, you will need the [.NET Core SDK installed](https://dotnet.microsoft.com/download)   
+> Before you can use the following, you will need the [.NET Core SDK installed](https://dotnet.microsoft.com/download)
 
 # Open the F# Interactive Console
 
@@ -18,7 +16,6 @@ dotnet fsi
 ```
 
 > Note that to end statements/execute in the F# Interactive console use `;;` at the end of a line or section of code
-
 
 Once in the console, running `#help;;` from the `fsi` console to view the help menu, and `#quit;;` to quit the interactive session
 

@@ -4,10 +4,7 @@ title: Gradients
 subtitle: Basic application of SVG Linear and Radial Gradients to SVG Elements
 ---
 
-[[toc]]
-
 > For reference take a look at the [MDN SVG Gradient Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Gradients)
-
 
 SVG has provides us with two different gradient elements, namely `linearGradient` and `radialGradient` which can be applied as fills or strokes to SVG elements
 
@@ -37,7 +34,7 @@ Some examples of a `stop` using the above definitions can be seen below:
 
 ## The `linearGradient` Element
 
-Linear gradients are gradients that change along a straight line (the gradient vector). 
+Linear gradients are gradients that change along a straight line (the gradient vector).
 
 Creating a `linearGradient` in the `defs` section of an SVG file looks like so:
 
@@ -51,7 +48,7 @@ Creating a `linearGradient` in the `defs` section of an SVG file looks like so:
 </defs>
 ```
 
-Additionally we can control the position/direction of the gradient vector by changing it's start and end points using the `x1`, `x2`, `y1`, and `y2` values. 
+Additionally we can control the position/direction of the gradient vector by changing it's start and end points using the `x1`, `x2`, `y1`, and `y2` values.
 
 So a horizontal gradient (the default) would look something like this:
 
@@ -81,7 +78,7 @@ Creating a `radialGradient` in the `defs` section of an SVG file looks like so:
 </defs>
 ```
 
-For a `radialGradient` we can also control the radius, center point positions, and focal point radius, and focal point positions using `r`, `cx`, `cy`, `fr`,  `fx`, and `fy` respectively
+For a `radialGradient` we can also control the radius, center point positions, and focal point radius, and focal point positions using `r`, `cx`, `cy`, `fr`, `fx`, and `fy` respectively
 
 To define a gradient with a small center radius, we can do something like this:
 
@@ -105,7 +102,7 @@ Or using `fr` instead:
 
 ```svg
 <radialGradient id="radial" fr="0.2" />
-````
+```
 
 # Using Gradients
 
@@ -114,22 +111,22 @@ Using SVG Gradients can be done by referencing the gradient from the `fill` or `
 For example, I can use the `linearGradient` defined above for a circle's fill with:
 
 ```svg
-<circle 
-  cx="50" 
+<circle
+  cx="50"
   cy="50"
-  r="40" 
-  fill="url(#linear)" 
+  r="40"
+  fill="url(#linear)"
 />
 ```
 
 Or for the stroke on a path with:
 
 ```svg
-<path 
-  d="M 0 100 L 10 40 L 100 50" 
-  stroke-width="1" 
-  fill="transparent" 
-  stroke="url(#linear)" 
+<path
+  d="M 0 100 L 10 40 L 100 50"
+  stroke-width="1"
+  fill="transparent"
+  stroke="url(#linear)"
 />
 ```
 
@@ -160,18 +157,18 @@ And the result:
 
 <svg viewBox="0 0 100 100"  xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
-  <defs>
-    <linearGradient id="linear" x1="0" y1="0" x2="0" y2="1">
-      <stop stop-color="blue"/>
-      <stop stop-color="#E2E2E2" offset="0.5" />
-      <stop stop-color="#D5E73F" stop-opacity="0.7" offset="80%" />
-    </linearGradient>
-   <radialGradient id="radial" fr="0" r="0.7" cx="0.3" cy="0.3">
-      <stop stop-color="blue"/>
-      <stop stop-color="#E2E2E2" offset="0.5" />
-      <stop stop-color="#D5E73F" stop-opacity="0.7" offset="80%" />
-    </linearGradient>
-  </defs>
+<defs>
+<linearGradient id="linear" x1="0" y1="0" x2="0" y2="1">
+<stop stop-color="blue"/>
+<stop stop-color="#E2E2E2" offset="0.5" />
+<stop stop-color="#D5E73F" stop-opacity="0.7" offset="80%" />
+</linearGradient>
+<radialGradient id="radial" fr="0" r="0.7" cx="0.3" cy="0.3">
+<stop stop-color="blue"/>
+<stop stop-color="#E2E2E2" offset="0.5" />
+<stop stop-color="#D5E73F" stop-opacity="0.7" offset="80%" />
+</linearGradient>
+</defs>
 
   <circle cx="50" cy="50" r="40" fill="url(#radial)" />
   <path d="M 0 100 L 10 40 L 100 50" stroke-width="1" stroke="url(#linear)" fill="transparent" />

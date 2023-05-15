@@ -1,5 +1,3 @@
-[[toc]]
-
 # Software Architecture and Design
 
 > From [this Udacity Course](https://classroom.udacity.com/courses/ud821), the course structure and recommended reading can be found [here](https://www.udacity.com/wiki/saad/schedule)
@@ -47,7 +45,7 @@ The operations are the actions that a user would use to interact an application,
 
 ## Percepts
 
-These are the externally observable properties of a system, e.g the size of the viewport. These are any interfaces that are used to connect to an external actor 
+These are the externally observable properties of a system, e.g the size of the viewport. These are any interfaces that are used to connect to an external actor
 
 ## Relationships
 

@@ -5,8 +5,6 @@ subtitle: Basic Info for Using Svelte
 description: Basic Info for Using Svelte
 ---
 
-[[toc]]
-
 # Introduction to Svelte
 
 [Notes from this video](https://www.youtube.com/watch?v=Bfi96LUebXo)
@@ -52,8 +50,8 @@ import App from './App.svelte'
 const app = new App({
   target: document.body,
   props: {
-    name: 'world'
-  }
+    name: 'world',
+  },
 })
 
 export default app
@@ -156,7 +154,7 @@ You can create a component that iterates over a list of items using something li
   let myList = [
     { id: 0, name: 'John' },
     { id: 1, name: 'Jenny' },
-    { id: 2, name: 'James' }
+    { id: 2, name: 'James' },
   ]
 </script>
 
@@ -164,9 +162,7 @@ You can create a component that iterates over a list of items using something li
 
 <ul>
   {#each myList as {id, name}}
-  <li id="{id}">
-    {name}
-  </li>
+  <li id="{id}">{name}</li>
   {/each}
 </ul>
 ```

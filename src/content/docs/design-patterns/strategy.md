@@ -3,8 +3,6 @@ published: true
 title: Strategy
 ---
 
-[[toc]]
-
 > The strategy pattern is about using composition instead of inheritence
 
 The strategy pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. The algorithm can vary independent of clients using it

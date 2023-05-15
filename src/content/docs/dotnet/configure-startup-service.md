@@ -4,8 +4,6 @@ title: Dependency Injection with .NET Core
 subtitle: Configuring Startup Services and in .NET Core Web APIs
 ---
 
-[[toc]]
-
 You can think of a service simply as a reusable class instance that can be reused in different controllers. This can be injected via dependency injection where it is needed
 
 # Define a Service
@@ -15,13 +13,13 @@ To create a new service, you will first need to define a `class` that provides t
 ```cs
 public class MyCat {
   public string Name { get; set; }
-  
-  public MyCat(string name) 
+
+  public MyCat(string name)
   {
     Name = name;
   }
-  
-  public string SayHi () 
+
+  public string SayHi ()
   {
     return "Hello, from " + Name;
   }
@@ -42,7 +40,7 @@ Additionally if you would like your service to be able to make use of other serv
 services.AddScoped<MyCat>(serviceProvider => {
   var config = serviceProvider.GetRequiredService<IConfiguration>();
   var name = config.GetValue<string>("Name");
-  
+
   return new MyCat(name);
 });
 ```
@@ -66,7 +64,7 @@ services.AddScoped<SmtpClient>(serviceProvider => {
     };
 });
 ```
-            
+
 The service can then be used by a controller by including a reference based on the service type in the controller's constructor and its functionality can be used by the controller like with the example below:
 
 ```cs
@@ -74,7 +72,7 @@ public class CatController : Controller
 {
 
   private MyCat _cat;
-  
+
   public CatController(MyCat cat)
   {
     _cat = cat;
@@ -89,7 +87,6 @@ public class CatController : Controller
 
 Note that the `MyCat` service is injected into our controller simply by us defining it in the constructor as a dependency
 
-
 # Different ConnectedServices by Environment
 
 Using the above approach combined with the Visual Studio Connected Services / `svcutil` functionality you can set up a different service instance based on your environment configuration with something like this:
@@ -99,11 +96,11 @@ services.AddScoped(serviceProvider => {
   var endpoint = serviceProvider
     .GetRequiredService<Iconfiguration>()
     .GetValue<string>("WSDLEndpoint");
-    
+
   var endpointConfig = ServiceName.ClientName.EndpointConfig.ConfigValue;
-  
+
   var myClient = new ServiceName.ClientName(endpointConfig, endpoint);
-  
+
   reutrn myClient
 });
 ```

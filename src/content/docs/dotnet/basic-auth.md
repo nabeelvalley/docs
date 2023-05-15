@@ -4,8 +4,6 @@ title: Basic Auth for .NET Core
 subtitle: Utilising Basic Auth with .NET Core Identity
 ---
 
-[[toc]]
-
 .NET Core Identity using Local Users can be used natively on application endpoints, this however makes use of a few additional layers of abstracting which can make using it with a WebAPI kind of troublesome
 
 In order to add your own custom authentication which makes use of Basic Auth and the UserManager Dependency provided by Identity, you can do the following
@@ -35,7 +33,7 @@ private async Task<bool> isUserAuthenticted()
 {
     var passwordHasher = new PasswordHasher<IdentityUser>();
 
-    string authHeader = HttpContext.Request.Headers["Authorization"];                              
+    string authHeader = HttpContext.Request.Headers["Authorization"];
 
     if (authHeader != null && authHeader.StartsWith("Basic"))
     {
@@ -66,11 +64,11 @@ The above can then be implemented by a controller with something like:
 ```cs
 public async Task<ActionResult<string>> GetText()
 {
-  if (await isUserAuthenticated) 
+  if (await isUserAuthenticated)
   {
     return "Hello world";
   }
-  else 
+  else
   {
     return Unauthorized();
   }

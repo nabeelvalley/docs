@@ -5,8 +5,6 @@ subtitle: Overview of the SAFE Stack
 description: Overview of the SAFE Stack
 ---
 
-[[toc]]
-
 An F# stack for everywhere, [here's the docs](https://safe-stack.github.io)
 
 # Prereqs

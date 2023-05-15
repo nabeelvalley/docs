@@ -5,8 +5,6 @@ subtitle: Getting Started with Next.js
 description: Getting Started with Next.js
 ---
 
-[[toc]]
-
 # Introduction
 
 Next.js is framework for building single page applications using React, Next.js allows us to use a combination of SSR and Prerendering to build our applications based on the data requirements
@@ -39,7 +37,7 @@ Now, we can create the `pages/index.tsx` with the following function component:
 `pages/index.tsx`
 
 ```tsx
-import { NextPage } from "next"
+import { NextPage } from 'next'
 
 const Index: NextPage = () => <h1>Hello world!</h1>
 
@@ -55,7 +53,7 @@ We can first create a new page `about.tsx` in the `pages` directory:
 `about.tsx`
 
 ```tsx
-import { NextPage } from "next"
+import { NextPage } from 'next'
 
 const About: NextPage = () => <h1>About</h1>
 
@@ -67,8 +65,8 @@ We can then create a link from our `index` page to link to this using the `next/
 `index.tsx`
 
 ```tsx
-import { NextPage } from "next"
-import Link from "next/link"
+import { NextPage } from 'next'
+import Link from 'next/link'
 
 const Index: NextPage = () => (
   <>
@@ -92,8 +90,8 @@ Like you would expect from when we use React on its own we can create shared com
 `Header.tsx`
 
 ```tsx
-import Link from "next/link"
-import { NextPage } from "next"
+import Link from 'next/link'
+import { NextPage } from 'next'
 
 const Header = () => (
   <div>
@@ -114,8 +112,8 @@ We can then create a `Layout` component which works as a higher order component 
 `Layout.tsx`
 
 ```tsx
-import { NextPage } from "next"
-import Header from "./Header"
+import { NextPage } from 'next'
+import Header from './Header'
 
 const Layout = ({ children }) => (
   <>
@@ -158,9 +156,9 @@ We can create dynamic pages based on the data from the URL Query parameters a us
 `index.tsx`
 
 ```tsx
-import { NextPage } from "next"
-import Link from "next/link"
-import { withLayout } from "../components/Layout"
+import { NextPage } from 'next'
+import Link from 'next/link'
+import { withLayout } from '../components/Layout'
 
 const PostLink = ({ title }) => (
   <li>
@@ -194,9 +192,9 @@ We can then make use of the `useRouter` hook to retrieve this from a `post` page
 `post.tsx`
 
 ```tsx
-import { NextPage } from "next"
-import { useRouter } from "next/router"
-import { withLayout } from "../components/Layout"
+import { NextPage } from 'next'
+import { useRouter } from 'next/router'
+import { withLayout } from '../components/Layout'
 
 const Post: NextPage = () => {
   const router = useRouter()
@@ -215,9 +213,9 @@ We can update our `index` page to make use of this routing strategy by updating 
 `index.tsx`
 
 ```tsx
-import { NextPage } from "next"
-import Link from "next/link"
-import { withLayout } from "../components/Layout"
+import { NextPage } from 'next'
+import Link from 'next/link'
+import { withLayout } from '../components/Layout'
 
 const PostLink = ({ id }) => (
   <li>
@@ -251,9 +249,9 @@ The `href` is the link to the page as per our component setup, and the `as` is t
 `post/[id].tsx`
 
 ```tsx
-import { NextPage } from "next"
-import { useRouter } from "next/router"
-import { withLayout } from "../../components/Layout"
+import { NextPage } from 'next'
+import { useRouter } from 'next/router'
+import { withLayout } from '../../components/Layout'
 
 const Post: NextPage = () => {
   const router = useRouter()
@@ -276,7 +274,7 @@ yarn add isomorphic-unfetch
 Wherever we need to use this we can simply import it with:
 
 ```tsx
-import fetch from "isomorphic-unfetch"
+import fetch from 'isomorphic-unfetch'
 ```
 
 Next we'll create a basic page which displays the content from the `tvmaze` api so that we have something to render. Update the `Header` component to link to the `tv` page that we will create after
@@ -284,8 +282,8 @@ Next we'll create a basic page which displays the content from the `tvmaze` api 
 `Header.tsx`
 
 ```tsx
-import Link from "next/link"
-import { NextPage } from "next"
+import Link from 'next/link'
+import { NextPage } from 'next'
 
 const Header = () => (
   <div>
@@ -309,9 +307,9 @@ We can then create a new `pages/tv.tsx` file with the following component:
 `tv.tsx`
 
 ```tsx
-import { NextPage } from "next"
-import Layout, { withLayout } from "../components/Layout"
-import fetch from "isomorphic-unfetch"
+import { NextPage } from 'next'
+import Layout, { withLayout } from '../components/Layout'
+import fetch from 'isomorphic-unfetch'
 
 type ShowData = {
   id: string
@@ -326,12 +324,12 @@ type TvData = {
   data: ShowData[]
 }
 
-const Tv: NextPage<TvData> = props => {
+const Tv: NextPage<TvData> = (props) => {
   return (
     <Layout>
       <h1>TV</h1>
       <ul>
-        {props.data?.map(show => (
+        {props.data?.map((show) => (
           <li key={show.id}> {show.name} </li>
         ))}
       </ul>
@@ -350,15 +348,15 @@ Next, we will need to update our page's `getServerSideProps` function which is a
 
 ```tsx
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch("https://api.tvmaze.com/search/shows?q=batman")
+  const res = await fetch('https://api.tvmaze.com/search/shows?q=batman')
   const data = (await res.json()) as TvResponse
 
   console.log(`Show data fetched. Count: ${data.length}`)
 
   return {
     props: {
-      data: data.map(el => el.show)
-    }
+      data: data.map((el) => el.show),
+    },
   }
 }
 ```
@@ -382,7 +380,7 @@ Next, in our `tsx` we need to import the module like so:
 `Header.tsx`
 
 ```tsx
-import styles from "./Header.module.css"
+import styles from './Header.module.css'
 ```
 
 Thereafter we can make use of the different classes exposed in our module by assigning the `className` attribute of a component to a a property of the imported `style`
@@ -396,8 +394,8 @@ If instead of locally scoped styles we would like to use global styles we need t
 `_app.tsx`
 
 ```tsx
-import "../styles.css"
-import { AppProps } from "next/app"
+import '../styles.css'
+import { AppProps } from 'next/app'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />
@@ -415,14 +413,14 @@ For a route without any parameter like the `api/data` route we can have:
 `pages/api/data.tsx`
 
 ```tsx
-import { NextApiRequest, NextApiResponse } from "next"
+import { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
   name: string
 }
 
 export default (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  res.status(200).json({ name: "John Doe" })
+  res.status(200).json({ name: 'John Doe' })
 }
 ```
 
@@ -448,12 +446,12 @@ const fetcher = async (url: string) => {
 This will then be used by the `useSWR` hook in our component like so:
 
 ```tsx
-const { data, error } = useSWR("/api/data", fetcher)
+const { data, error } = useSWR('/api/data', fetcher)
 
 let name = data?.name
 
-if (!data) name = "Loading..."
-if (error) name = "Failed to fetch data."
+if (!data) name = 'Loading...'
+if (error) name = 'Failed to fetch data.'
 ```
 
 Putting this all together in our `index` page we end up with the following
@@ -461,10 +459,10 @@ Putting this all together in our `index` page we end up with the following
 `index.tsx`
 
 ```tsx
-import { NextPage } from "next"
-import Link from "next/link"
-import { withLayout } from "../components/Layout"
-import useSWR from "swr"
+import { NextPage } from 'next'
+import Link from 'next/link'
+import { withLayout } from '../components/Layout'
+import useSWR from 'swr'
 
 const fetcher = async (url: string) => {
   const res = await fetch(url)
@@ -480,12 +478,12 @@ const PostLink = ({ id }) => (
 )
 
 const Index: NextPage = () => {
-  const { data, error } = useSWR("/api/data", fetcher)
+  const { data, error } = useSWR('/api/data', fetcher)
 
   let name = data?.name
 
-  if (!data) name = "Loading..."
-  if (error) name = "Failed to fetch data."
+  if (!data) name = 'Loading...'
+  if (error) name = 'Failed to fetch data.'
 
   return (
     <>

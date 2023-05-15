@@ -1,5 +1,3 @@
-[[toc]]
-
 # Setup GitLab SSH for Git
 
 You need to run the following from bash:

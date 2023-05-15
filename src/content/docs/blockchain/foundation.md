@@ -4,20 +4,18 @@ title: Blockchain Foundations
 subtitle: Basic Blockchain Concepts using Hyperledger
 ---
 
-[[toc]]
-
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/ibm-blockchain-foundation-dev/)
 
 ## Prerequisites
 
 For Windows you need (in this order), Note that I cannot seem to get this to work on Windows, however there is information on running this with Ubuntu on [this page](/content/docs/blockchain/fabric-via-docs-1)
 
-* Python 2.7
-* Docker
-* Node
-  * [With these packages](https://hyperledger.github.io/composer/latest/installing/development-tools)
-* VS Code
-  * With Hyperledger Composer Extension
+- Python 2.7
+- Docker
+- Node
+  - [With these packages](https://hyperledger.github.io/composer/latest/installing/development-tools)
+- VS Code
+  - With Hyperledger Composer Extension
 
 ## Hyperledger Composer
 
@@ -29,33 +27,33 @@ It is an abstraction over Hyperledger Fabric which allows us to more easily mode
 
 Overall, Hyperledger Composer
 
-* Increases understanding of business concepts
-* Saves time by allowing us to develop applications quickly
-* Reduces risk as it is a well tested and designed to suite best practices as well as allows for reusability
-* Increases flexibility due to the high level of abstraction we are able to easily modify and change our model as is needed over time
+- Increases understanding of business concepts
+- Saves time by allowing us to develop applications quickly
+- Reduces risk as it is a well tested and designed to suite best practices as well as allows for reusability
+- Increases flexibility due to the high level of abstraction we are able to easily modify and change our model as is needed over time
 
 ### Components and Structure
 
-The key concepts in the composer programming model are 
+The key concepts in the composer programming model are
 
 A Business Network Archive consists of a few key elements such as
 
-* Models
-* Script Files
-* ACLs
-* Metadata
+- Models
+- Script Files
+- ACLs
+- Metadata
 
 ### The Toolset
 
 We make use of a variety of open source tools such as
 
-* JavaScript
-* Node/NPM
-* VS Code
-* Yeoman
-* Composer CLI
-* Web Playground
-* LoopBack/Swagger
+- JavaScript
+- Node/NPM
+- VS Code
+- Yeoman
+- Composer CLI
+- Web Playground
+- LoopBack/Swagger
 
 ## Fabric
 
@@ -76,12 +74,12 @@ We make use of a variety of open source tools such as
 
 - Ledger
   - Stores world state
-- Smart contract 
+- Smart contract
   - Encode business logic
-- Peer network 
-  - eCerts for identity 
+- Peer network
+  - eCerts for identity
   - tCerts for transactions
-- Events 
+- Events
   - Pub/Sub event based system
 - Wallet
   - Stores membership certificates/identity
@@ -193,22 +191,21 @@ We have two different types of systems in a network
 ### Transaction Process
 
 1. Propose transaction
-   -  Application will submit a proposed transaction to target peers
-   -  Nodes will need to endorse the policy
+   - Application will submit a proposed transaction to target peers
+   - Nodes will need to endorse the policy
 2. Execute Proposal
-    - Each Endorser node will carry out the transaction
+   - Each Endorser node will carry out the transaction
 3. Proposal Response
-    - The Endorser will send back the original transaction
-    - Additionally will send the read/write state
-    - Transaction Signature
+   - The Endorser will send back the original transaction
+   - Additionally will send the read/write state
+   - Transaction Signature
 4. Order Transaction
-    - Verified transaction will be sent to the orderer
-    - Orderer will group transactions into a block
+   - Verified transaction will be sent to the orderer
+   - Orderer will group transactions into a block
 5. Deliver Transaction
-    - The orderer will then distribute the block to all the peers
+   - The orderer will then distribute the block to all the peers
 6. Validate Transaction
-    - Peers will then verify that the transaction is correct
-    - The block will then be added to the chain
-8. Notify Transaction
-    - Send an event to say that the block has been added to the chain
-
+   - Peers will then verify that the transaction is correct
+   - The block will then be added to the chain
+7. Notify Transaction
+   - Send an event to say that the block has been added to the chain

@@ -4,8 +4,6 @@ title: Hyperledger Fabric Part 2
 subtitle: Intro to Hyperledger Fabric via the Docs
 ---
 
-[[toc]]
-
 # [Add an Org to a Channel](https://hyperledger-fabric.readthedocs.io/en/latest/channel_update_tutorial.html)
 
 This extends on the network from `byfn` by adding a new Organization to the channel. Chaincode updates are handled by an organization admin and not a chaincode or application developer
@@ -50,7 +48,7 @@ Once we are done, we can look at the logs and then run the following script to b
 
 ## Add Org3 to the Channel Manually
 
-Before starting, modify the `docker-compose-cli.yaml` in the `first-network` directory to set the `FABRIC_LOGGING_SPEC` to  `DEBUG`
+Before starting, modify the `docker-compose-cli.yaml` in the `first-network` directory to set the `FABRIC_LOGGING_SPEC` to `DEBUG`
 
 ```yaml
 cli:
@@ -103,7 +101,8 @@ Next we use the `configtxgen` tool to create the Org3 config material in JSON as
 
 ``bash
 export FABRIC_CFG_PATH=$PWD && ../../bin/configtxgen -printOrg Org3MSP > ../channel-artifacts/org3.json
-```
+
+````
 
 This command creates a JSON file that contains policy definitions for Org3 as well as the following certificates:
 
@@ -117,7 +116,7 @@ Next, we'll make a copy of the Orderer's TLS root cert to allow for secure commu
 
 ```bash
 cd ../ && cp -r crypto-config/ordererOrganizations org3-artifacts/crypto-config/
-```
+````
 
 Now we have all the required material to update the channel
 
@@ -221,6 +220,7 @@ We can first sign the update as Org1 Admin as follows (since the CLI is bootstra
 ```bash
 peer channel signconfigtx -f org3_update_in_envelope.pb
 ```
+
 Next we switch to Org2 by changing our environment credentials and running the `peer channel update` command
 
 > Note that realistically a single container would not have all the network's crypto material
@@ -296,7 +296,6 @@ peer channel join -b mychannel.block
 ```
 
 We can then add a second peer to the block with:
-
 
 ```bash
 export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.example.com/peers/peer1.org3.example.com/tls/ca.crt
@@ -386,6 +385,7 @@ type SimpleAsset struct {
 We need to provide the `Init` function, this is called when te chaincode is initialized or when chaincode is upgraded. When writing a chaincode upgrade be sure to modify the `Init` function to be empty if there is no migration that needs to be done
 
 Our `Init` function will be defined as follows:
+
 ```go
 // Init is called during chaincode instantiation to initialize any data.
 func (t *SimpleAsset) Init(stub shim.ChaincodeStubInterface) peer.Response {
@@ -647,6 +647,7 @@ go build
 We can test the chaincode with the `fabric-samples/docker-devmode` folder. For this we will need 3 terminals
 
 ### Terminal 1 - Start the Network
+
 ```bash
 docker-compose -f docker-compose-simple.yaml up
 ```
@@ -673,6 +674,7 @@ CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
 ```bash
 docker exec -it cli bash
 ```
+
 ```bash
 peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0
 peer chaincode instantiate -n mycc -v 0 -c '{"Args":["init","a","10"]}' -C myc

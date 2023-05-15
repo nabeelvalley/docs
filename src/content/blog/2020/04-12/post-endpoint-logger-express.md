@@ -5,8 +5,6 @@ subtitle: 04 December 2020
 description: Create an express.js app with an endpoint that logs and returns a request's JSON body
 ---
 
-[[toc]]
-
 Sometimes it's useful to have an endpoint that you can use to debug data that's being `POST`ed to an application
 
 You can make use of the following `express.js` app to log your application's POST requests:
@@ -17,11 +15,11 @@ You can make use of the following `express.js` app to log your application's POS
 <summary>View Code</summary>
 
 ```js
-const express = require("express")
+const express = require('express')
 const app = express()
 
 // parse json
-app.use(express.json())  
+app.use(express.json())
 
 // GET endpoint to check uptime
 app.get('/', (req, res) => {
@@ -36,7 +34,7 @@ app.post('/', (req, res) => {
 
 // listen for requests
 const listener = app.listen(process.env.PORT, () => {
-  console.log("listening on port " + listener.address().port)
+  console.log('listening on port ' + listener.address().port)
 })
 ```
 

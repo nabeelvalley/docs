@@ -5,15 +5,12 @@ subtitle: Build an Express Application that uses MongoDB and Docker
 description: Build an Express Application that uses MongoDB and Docker
 ---
 
-[[toc]]
-
 Built with tons of help from:
 
--   [Getting started with Node and Mongo DB](https://closebrace.com/tutorials/2017-03-02/the-dead-simple-step-by-step-guide-for-front-end-developers-to-getting-up-and-running-with-nodejs-express-and-mongodb)
--   [Dockerise a Node-Mongo App](https://medium.com/statuscode/dockerising-a-node-js-and-mongodb-app-d22047e2806f)
+- [Getting started with Node and Mongo DB](https://closebrace.com/tutorials/2017-03-02/the-dead-simple-step-by-step-guide-for-front-end-developers-to-getting-up-and-running-with-nodejs-express-and-mongodb)
+- [Dockerise a Node-Mongo App](https://medium.com/statuscode/dockerising-a-node-js-and-mongodb-app-d22047e2806f)
 
-
-#  Setting up Mongo
+# Setting up Mongo
 
 # # Adding Mongo to your PATH
 
@@ -119,23 +116,23 @@ Which will output the following
 }
 ```
 
-#  Building the Express App
+# Building the Express App
 
 This can all be found in the `server.js` file
 
 The Express app will do a few things:
 
--   Serve the necessary static files for the app
--   Get and Insert data into Mongo
--   Build and send the Mongo content to the frontend
+- Serve the necessary static files for the app
+- Get and Insert data into Mongo
+- Build and send the Mongo content to the frontend
 
 # # Importing the Necessary Libraries
 
 I'm making use of the following libraries to
 
--   Read environmental variables
--   Create my server
--   Parse JSON body from the create form
+- Read environmental variables
+- Create my server
+- Parse JSON body from the create form
 
 ```js
 require('dotenv').config()
@@ -169,9 +166,9 @@ MONGO_ENDPOINT=localhost:27017
 
 Configure express middleware for the following
 
--   Use static files
--   Parse JSON and Form data from request
--   Make DB accessible to the app
+- Use static files
+- Parse JSON and Form data from request
+- Make DB accessible to the app
 
 ```js
 app.use(bodyParser.json())
@@ -179,8 +176,8 @@ app.use(bodyParser.urlencoded())
 app.use(express.static('public'))
 
 app.use((req, res, next) => {
-    req.db = db
-    next()
+  req.db = db
+  next()
 })
 ```
 
@@ -189,20 +186,20 @@ app.use((req, res, next) => {
 Next I define a `/comments` that will retrieve content from the `comments` collection, render it with the `base.card` and `base.content` functions and send that as a response
 
 ```js
-app.get('/comments', function(req, res) {
-    let db = req.db
-    let collection = db.get('comments')
-    collection.find({}, {}, function(e, docs) {
-        const base = require('./base')
+app.get('/comments', function (req, res) {
+  let db = req.db
+  let collection = db.get('comments')
+  collection.find({}, {}, function (e, docs) {
+    const base = require('./base')
 
-        let content = ''
-        docs.reverse().forEach(comment => {
-            content += base.card(comment.name, comment.comment, comment._id)
-        })
-        content = base.content(content)
-
-        res.send(content)
+    let content = ''
+    docs.reverse().forEach((comment) => {
+      content += base.card(comment.name, comment.comment, comment._id)
     })
+    content = base.content(content)
+
+    res.send(content)
+  })
 })
 ```
 
@@ -212,33 +209,33 @@ To create a comment I've used a simple form in the frontend, which can be seen b
 
 ```html
 <form action="/submit" method="post">
-    <div class="form-row">
-        <div class="col-lg-12 mb-3">
-            <label for="nameInput">Full Name</label>
-            <input
-                type="text"
-                class="form-control"
-                id="nameInput"
-                placeholder="John Doe"
-                value=""
-                required
-                name="name"
-            />
-        </div>
-        <div class="col-lg-12 mb-3">
-            <label for="commentInput">Comment</label>
-            <input
-                type="text"
-                class="form-control"
-                id="commentInput"
-                placeholder=""
-                value=""
-                required
-                name="comment"
-            />
-        </div>
+  <div class="form-row">
+    <div class="col-lg-12 mb-3">
+      <label for="nameInput">Full Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nameInput"
+        placeholder="John Doe"
+        value=""
+        required
+        name="name"
+      />
     </div>
-    <button class="btn btn-primary" type="submit">Submit form</button>
+    <div class="col-lg-12 mb-3">
+      <label for="commentInput">Comment</label>
+      <input
+        type="text"
+        class="form-control"
+        id="commentInput"
+        placeholder=""
+        value=""
+        required
+        name="comment"
+      />
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit">Submit form</button>
 </form>
 ```
 
@@ -246,33 +243,33 @@ And an express route to handle the post and insert the new comment to the databa
 
 ```js
 app.post('/submit', (req, res) => {
-    // Set our internal DB variable
-    let db = req.db
+  // Set our internal DB variable
+  let db = req.db
 
-    // Set our collection
-    let collection = db.get('comments')
+  // Set our collection
+  let collection = db.get('comments')
 
-    // Submit to the DB
-    collection.insert(req.body, function(err, doc) {
-        if (err) {
-            // If it failed, return error
-            const base = require('./base')
-            const content = base.content(
-                '<h1>There was an error sending your content, please try again<h2>'
-            )
-            res.send(content)
-        } else {
-            // get id of inserted element
-            console.log(doc._id)
-            // And forward to success page
-            res.redirect(`comments`)
-            // res.redirect(`comments/${doc._id}`)
-        }
-    })
+  // Submit to the DB
+  collection.insert(req.body, function (err, doc) {
+    if (err) {
+      // If it failed, return error
+      const base = require('./base')
+      const content = base.content(
+        '<h1>There was an error sending your content, please try again<h2>'
+      )
+      res.send(content)
+    } else {
+      // get id of inserted element
+      console.log(doc._id)
+      // And forward to success page
+      res.redirect(`comments`)
+      // res.redirect(`comments/${doc._id}`)
+    }
+  })
 })
 ```
 
-#  Deploy on k8s
+# Deploy on k8s
 
 Once we are done we can push this as a Docker image and deploy it on a Kubernetes Cluster as follows
 
@@ -297,12 +294,13 @@ kubectl create -f mongo.yaml
 This will create a deployment as well as a service for both the Express App and Mongo. The deployment configs are as follows
 
 `express.yaml`
+
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: "1"
+    deployment.kubernetes.io/revision: '1'
   labels:
     app: comments-app
   name: comments-app
@@ -318,9 +316,9 @@ spec:
       name: comments-app
     spec:
       containers:
-      - image: nabeelvalley/comments-app
-        imagePullPolicy: Always
-        name: comments-app
+        - image: nabeelvalley/comments-app
+          imagePullPolicy: Always
+          name: comments-app
 
 ---
 apiVersion: v1
@@ -331,50 +329,51 @@ metadata:
   name: comments-app
 spec:
   ports:
-  - name: tcp-8080-8080-comments-app
-    nodePort: 30016
-    port: 8080
-    protocol: TCP
-    targetPort: 8080
+    - name: tcp-8080-8080-comments-app
+      nodePort: 30016
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
   selector:
     app: comments-app
   type: LoadBalancer
 ```
 
 `mongo.yaml`
+
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-   name: mongo
-   labels:
-     run: mongo
+  name: mongo
+  labels:
+    run: mongo
 spec:
-   ports:
-   - port: 27017
-     targetPort: 27017
-     protocol: TCP
-   selector:
-     run: mongo
+  ports:
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP
+  selector:
+    run: mongo
 
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-   name: mongo
+  name: mongo
 spec:
-   template:
-     metadata:
-       labels:
-         run: mongo
-     spec:
-       containers:
-       - name: mongo
-         image: mongo
-         ports:
-         - containerPort: 27017
+  template:
+    metadata:
+      labels:
+        run: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo
+          ports:
+            - containerPort: 27017
 ```
 
-#  Running Locally
+# Running Locally
 
 If you'd like to run this application on a local Kubernetes cluster, take a look at the page on [Deploying an Express App that Uses Mongo on k8s Locally](/docs/ibm-cloud/deploy-a-kubernetes-app-on-icp)

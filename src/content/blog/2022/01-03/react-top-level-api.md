@@ -7,8 +7,6 @@ description: Building complex react components using the React top-level API and
 
 > For a reference on the React Top-Level API you can take a look at [the React Docs](https://reactjs.org/docs/react-api.html)
 
-[[toc]]
-
 # Introduction
 
 React allows us to do lots of different things using concepts like composition and higher order components. Most of the time these methods are good enough for us to do what we want, however there are some cases where these methods can prove to be insufficient such as when building complex library components or components that need to allow for dynamic composition or do runtime modification of things like child component props, etc.
@@ -29,13 +27,13 @@ When this is done, we want to render a component that results in the following m
 <Wrapper>
   <Count />
   <ItemWrapper>
-    <Item name="" position=""/>
+    <Item name="" position="" />
   </ItemWrapper>
   <ItemWrapper>
-    <Item name="" position=""/>
+    <Item name="" position="" />
   </ItemWrapper>
   <ItemWrapper>
-    <Item name="" position=""/>
+    <Item name="" position="" />
   </ItemWrapper>
 </Wrapper>
 ```
@@ -50,7 +48,6 @@ But a consumer can be used like:
 </Wrapper>
 ```
 
-
 # Using `React.Children` to work with a component's `children`
 
 The `React.Children` API (see [docs](https://reactjs.org/docs/react-api.html#reactchildren)) provides us with some utilities for traversing the children passed to a component
@@ -58,10 +55,16 @@ The `React.Children` API (see [docs](https://reactjs.org/docs/react-api.html#rea
 Before we can do any of the following, we need to define the structure of an item. Our `Item` component is defined as follows:
 
 ```tsx
-interface ItemProps { name: string; position?: number; }
+interface ItemProps {
+  name: string
+  position?: number
+}
 
-const Item: React.FC<ItemProps> = ({ name, position }) => 
-  <div>{name}, {position}</div>
+const Item: React.FC<ItemProps> = ({ name, position }) => (
+  <div>
+    {name}, {position}
+  </div>
+)
 ```
 
 ## Use `React.Children.count` to get the count
@@ -76,7 +79,9 @@ const count = React.Children.count(children)
 For our example, let's start off by creating a `Count` component that simply takes a `count` prop and displays some text:
 
 ```tsx
-interface CountProps { count: number; }
+interface CountProps {
+  count: number
+}
 
 const Count: React.FC<CountProps> = ({ count }) => <p>Total: {count}</p>
 ```
@@ -87,9 +92,11 @@ Next, we can define our `Wrapper` which will take `children` and pass the `count
 const Wrapper: React.FC = ({ children }) => {
   const count = React.Children.count(children)
 
-  return <div>
-    <Count count={count}  />
-  </div>
+  return (
+    <div>
+      <Count count={count} />
+    </div>
+  )
 }
 ```
 
@@ -106,12 +113,17 @@ const items = React.Children.map(children, (child) => {
 Based on the above, we can define an `ItemWrapper` as so:
 
 ```tsx
-const ItemWrapper: React.FC = ({ children }) => 
-  <li style={{
-    backgroundColor: 'lightgrey',
-    padding: '10px',
-    margin: '20px'
-  }} >{children}</li>
+const ItemWrapper: React.FC = ({ children }) => (
+  <li
+    style={{
+      backgroundColor: 'lightgrey',
+      padding: '10px',
+      margin: '20px',
+    }}
+  >
+    {children}
+  </li>
+)
 ```
 
 And we can update the `Wrapper` to make use of `React.children.map`:
@@ -124,10 +136,12 @@ const Wrapper: React.FC = ({ children }) => {
     return <ItemWrapper>{child}</ItemWrapper>
   })
 
-  return <div>
-    <Count count={count}  />
-    <ul>{items}</ul>
-  </div>
+  return (
+    <div>
+      <Count count={count} />
+      <ul>{items}</ul>
+    </div>
+  )
 }
 ```
 
@@ -137,7 +151,7 @@ Lastly, we want to append a `position` prop to the `Item`. To do this we can mak
 
 ```tsx
 const childProps = child.props
-const newProps = {...child.props, position: index}
+const newProps = { ...child.props, position: index }
 
 const newChild = React.cloneElement(child, newProps)
 ```
@@ -150,17 +164,19 @@ const Wrapper: React.FC = ({ children }) => {
 
   const items = React.Children.map(children, (child, index) => {
     const childProps = child.props
-    const newProps = {...child.props, position: index}
-    
+    const newProps = { ...child.props, position: index }
+
     const newChild = React.cloneElement(child, newProps)
-    
+
     return <ItemWrapper>{newChild}</ItemWrapper>
   })
 
-  return <div>
-    <Count count={count}  />
-    <ul>{items}</ul>
-  </div>
+  return (
+    <div>
+      <Count count={count} />
+      <ul>{items}</ul>
+    </div>
+  )
 }
 ```
 
@@ -175,10 +191,10 @@ const items = React.Children.map(children, (child, index) => {
   if (!React.isValidElement(child)) return null
 
   const childProps = child.props
-  const newProps = {...child.props, position: index}
-  
+  const newProps = { ...child.props, position: index }
+
   const newChild = React.cloneElement(child, newProps)
-  
+
   return <ItemWrapper>{newChild}</ItemWrapper>
 })
 ```
@@ -190,19 +206,21 @@ const Wrapper: React.FC = ({ children }) => {
   const count = React.Children.count(children)
   const items = React.Children.map(children, (child, index) => {
     if (!React.isValidElement(child)) return null
-    
+
     const childProps = child.props
-    const newProps = {...child.props, position: index}
-    
+    const newProps = { ...child.props, position: index }
+
     const newChild = React.cloneElement(child, newProps)
-    
+
     return <ItemWrapper>{newChild}</ItemWrapper>
   })
 
-  return <div>
-    <Count count={count}  />
-    <ul>{items}</ul>
-  </div>
+  return (
+    <div>
+      <Count count={count} />
+      <ul>{items}</ul>
+    </div>
+  )
 }
 ```
 

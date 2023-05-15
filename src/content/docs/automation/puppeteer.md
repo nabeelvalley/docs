@@ -4,8 +4,6 @@ title: Puppeteer
 subtitle: Browser Automation using Node.js and Puppeteer
 ---
 
-[[toc]]
-
 # Installing
 
 To get started with Puppeteer you will need to install it to your package `npm i puppeteer` this will install the required packages as well as a Google Chrome instance for Puppeteer
@@ -15,13 +13,13 @@ To get started with Puppeteer you will need to install it to your package `npm i
 In general, you will create a new `browser` instance, and interact with that instance using the `puppeteer api`. A basic example of using Puppeteer to take a screenshot can be seen below which will run a headless browser instance
 
 ```js
-const puppeteer = require("puppeteer")
+const puppeteer = require('puppeteer')
 
 ;(async () => {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
-  await page.goto("https://www.google.com")
-  await page.screenshot({ path: "google/index.png" })
+  await page.goto('https://www.google.com')
+  await page.screenshot({ path: 'google/index.png' })
 
   await browser.close()
 })()
@@ -43,8 +41,8 @@ const browser = await puppeteer.launch({
 To navigate, type, and take some screenshots you can see the following:
 
 ```js
-const puppeteer = require("puppeteer")
-const fs = require("fs")
+const puppeteer = require('puppeteer')
+const fs = require('fs')
 
 const run = async () => {
   const browser = await puppeteer.launch({
@@ -53,15 +51,15 @@ const run = async () => {
     defaultViewport: null,
   })
   const page = await browser.newPage()
-  await page.goto("https://www.google.com")
-  await page.screenshot({ path: "google/index.png" })
+  await page.goto('https://www.google.com')
+  await page.screenshot({ path: 'google/index.png' })
 
-  await page.type("input[type = text]", "Hello World")
-  await page.keyboard.press("Enter")
-  await page.screenshot({ path: "google/search.png" })
+  await page.type('input[type = text]', 'Hello World')
+  await page.keyboard.press('Enter')
+  await page.screenshot({ path: 'google/search.png' })
 
-  const searchText = await page.$eval("*", (el) => el.innerText)
-  fs.writeFileSync("google/text.txt", searchText)
+  const searchText = await page.$eval('*', (el) => el.innerText)
+  fs.writeFileSync('google/text.txt', searchText)
 
   await browser.close()
 }
@@ -75,20 +73,22 @@ It can sometimes be useful to execute arbitrary code in browser window that inte
 
 ```js
 await page.evaluate(() => {
-  document.body.innerHTML = "Hello World" // this will update the DOM
+  document.body.innerHTML = 'Hello World' // this will update the DOM
 })
 ```
 
 Alternatively, the `.evaluate` function can also take data to share from the Node.js process to the browser process as a second argument, like so:
 
 ```js
-
-const name = "Bob"
+const name = 'Bob'
 const age = 32
 
-await page.evaluate((props) => {
-  console.log(props.name, props.age) // this will be logged in the browser console
-}, { name, age })
+await page.evaluate(
+  (props) => {
+    console.log(props.name, props.age) // this will be logged in the browser console
+  },
+  { name, age }
+)
 ```
 
 # Connect to a Running Chrome Instance
@@ -111,7 +111,7 @@ You can also switch out port `9222` for any other port you want, thereafter use 
 const browser = await puppeteer.connect({
   browserURL: `http://localhost:9222`,
   slowMo: 250,
-});
+})
 ```
 
 > Again, note that the port can be any port you like

@@ -1,5 +1,3 @@
-[[toc]]
-
 # Deep Learning Fundamentals
 
 ## Introduction to Deep Learning
@@ -32,30 +30,29 @@ Deep nets break down complex patterns into many simpler patterns and combine the
 
 The problem is that Deep Nets take very long to train, we can however use high speed GPU's to train NN's faster
 
-
 ### Different Deep Nets
 
 - Unlabelled Data
-    - RBM
-    - Autoencoder
+  - RBM
+  - Autoencoder
 - Labelled
-    - Text Processing
-        - RNTN
-        - Recurrent Net
-    - Image Recognition
-        - DBN
-        - Convolutional Net
-    - Object Recognition
-        - Convolutional Net
-        - RNTN
-    - Speech Recognition
-        - Recurrent Net
+  - Text Processing
+    - RNTN
+    - Recurrent Net
+  - Image Recognition
+    - DBN
+    - Convolutional Net
+  - Object Recognition
+    - Convolutional Net
+    - RNTN
+  - Speech Recognition
+    - Recurrent Net
 - General
-    - Classification
-        - MLP
-        - RELU
-    - Time Series
-        - Recurrent Net
+  - Classification
+    - MLP
+    - RELU
+  - Time Series
+    - Recurrent Net
 
 ### The Vanishing Gradient
 
@@ -93,7 +90,7 @@ To finish the training process we take a small set of labelled samples which wil
 
 ### Convolutional Nets
 
-The CNN has dominated the Image Recognition space. CNN's were developed by Yann Lecun 
+The CNN has dominated the Image Recognition space. CNN's were developed by Yann Lecun
 
 > For more detailed information look at Andrej Karpathy's CS231 Notes
 
@@ -110,7 +107,6 @@ The next two layers are RELU and Pooling. CNN's combine multiple Convolutional L
 At the end there is a Fully Connected net which helps to classify the output data from the Pooling Layer
 
 CNN's are supervised models which mean they require a lot of labelled data which can be difficult to come across
-
 
 ### Recurrent Nets
 
@@ -140,7 +136,7 @@ Autoencoders help us to figure out the underlying stucture of a data set, these 
 
 AE's are typically very shallow, an RBM is an AE with only 2 layers
 
-Autoencoders are using a backpropogation value of *loss*, which is a measure of the information loss
+Autoencoders are using a backpropogation value of _loss_, which is a measure of the information loss
 
 Deep AE's are useful for maintaining information while reducing the dimensionality of data
 
@@ -207,7 +203,7 @@ H2O is downloadable and can be deployed and managed on your own
 
 Graphlab offers 2 Deep Nets as well as Machine Learning and Graph models
 
-Graphlab has a CNN and MLP among tools for Classification, Regression, Text analysis, and Clustering 
+Graphlab has a CNN and MLP among tools for Classification, Regression, Text analysis, and Clustering
 
 Built in integration for external data sources as well as tools for visualizations
 
@@ -254,4 +250,3 @@ Tensorflow is based on the concept of a Computational Graph in which Tensors flo
 If Hyperparameter interfaces are available by way of the Keras library
 
 Tensorboard allows you to view visualizations about the network with methods such as Network architecture as well as model progression
-

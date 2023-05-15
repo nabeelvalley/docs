@@ -3,15 +3,13 @@ published: true
 title: Infrastructure and Container Management
 ---
 
-[[toc]]
-
 > Presented by Donovan Marais
 
-#  Container vs VM 
+# Container vs VM
 
 Only the required files and infrastructure are required for a container, this allows us to have very fast environments and are a lot easier and smaller to set up than VM's
 
-#  Cloud Automation Manager
+# Cloud Automation Manager
 
 **Service Automation, Orchestration and Multi-Cloud Management**
 
@@ -21,9 +19,9 @@ Above this we do not require environment and software licenses versus when using
 
 Application environments should be
 
-* Easy to design and build
-* Easy to govern and curate
-* Simple to consume in a cloud independent way
+- Easy to design and build
+- Easy to govern and curate
+- Simple to consume in a cloud independent way
 
 We make use of Open Standards/Source technologies like **Terraform** to design and assemble our environments
 
@@ -43,15 +41,14 @@ From IBM Cloud Private we can deploy on Azure, Amazon, Google, etc. if we want t
 
 # # Service Composer
 
-* Visually bind service orchestrations
-* Build services with Helm and Terraform
-  * Mixed Cloud
-  * Mixed Architecture
-* Integrate with Adjacent Services
-  * CMDB's / REST
-  * Custom Integration
+- Visually bind service orchestrations
+- Build services with Helm and Terraform
+  - Mixed Cloud
+  - Mixed Architecture
+- Integrate with Adjacent Services
+  - CMDB's / REST
+  - Custom Integration
 
-#  Demo
+# Demo
 
 [Automation Manager Demo on BlueDemos](https://bluedemos.com/show/765)
-

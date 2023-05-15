@@ -5,8 +5,6 @@ subtitle: 19 March 2021
 description: Dynamically render a React Element given the name of the corresponding HTML element
 ---
 
-[[toc]]
-
 When using React it can sometimes be useful to render a standard HTML element given the element name dynamically as a prop
 
 React allows us to do this provided we store the element name in a variable that starts with a capital letter, as JSX requires this to render a custom element
@@ -14,10 +12,9 @@ React allows us to do this provided we store the element name in a variable that
 We can do something like this by defining a generic element in React which just takes in the name of the tag in addition to it's usual props and children, something like this:
 
 ```jsx
-const GenericElement = ({ tagName:Tag, children, ...innerProps}) => 
-  <Tag {...innerProps}> 
-    {children}
-  </Tag>
+const GenericElement = ({ tagName: Tag, children, ...innerProps }) => (
+  <Tag {...innerProps}>{children}</Tag>
+)
 ```
 
 We can then render this element by calling the `GenericElement` with the `tagName` prop and then any children we'd like:

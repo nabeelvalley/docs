@@ -4,8 +4,6 @@ title: IBM Cloud VSCode Blockchain Extension
 subtitle: Using the VSCode Extension for Interacting with a Blockchain
 ---
 
-[[toc]]
-
 > Note: Just use Ubuntu, you shouldn't run into all the build issues that you will with Windows for Node
 
 # VSCode Extension
@@ -36,7 +34,6 @@ Copy the `Certificate` into a text file, and do the same for the `Private Key`. 
 
 Next add your certificate by navigating to `Members > Certificates > Add Certificate` and enter a `Name` for your certificate and your `Certificate` that was generated previously and `Submit`, then click on `Restart` to restart all your peers
 
-
 ## Configure the Extension
 
 Now click on the IBM Blockchain extension on your extensions panel, and in the panel hover beside the `Blockchain Connections` and click the `+` button. You will then be directed to give a name to the connection and select your `Connection Profile`, `Certificate` and `Private Key` files that you had previously downloaded/created
@@ -63,7 +60,7 @@ If you get a `Can't find Python executable "python"` error, you can read [this p
 
 You will need to be running `Python 2.7`, so make sure that you configure your environment to be such. You can add new environments from the Anaconda Navigator. Check your Python version from a new terminal with `python --version`
 
-You can configure a new Anaconda environment with Python 2.7  (I named mine `python2.7`) and you can then modify your Python Path to be `C:\tools\Anaconda3\envs\python2.7` instead to reference your new environment
+You can configure a new Anaconda environment with Python 2.7 (I named mine `python2.7`) and you can then modify your Python Path to be `C:\tools\Anaconda3\envs\python2.7` instead to reference your new environment
 
 > If you run into the node-gyp issue, look at the installation instructions on the [node-gyp documentation](https://github.com/nodejs/node-gyp#on-windows)
 
@@ -86,4 +83,3 @@ npm run build
 ```bash
 npm run test
 ```
-

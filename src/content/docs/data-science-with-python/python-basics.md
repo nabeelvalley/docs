@@ -4,8 +4,6 @@ title: Python Basics
 subtitle: General information on using Python for Data Science and Machine Learning
 ---
 
-[[toc]]
-
 # Python Basics
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/learn/data-science-with-python/)
@@ -571,7 +569,6 @@ We have a few different comparison operators which will produce a boolean based 
 | greater than or equal | `>=`     | `i >= 0 and i >= 1` |
 | less than or equal    | `<=`     | `i <= 2 and i <= 1` |
 
-
 ### Logical Operators
 
 Python has the following logical operators
@@ -580,7 +577,7 @@ Python has the following logical operators
 | --------- | -------- | ------------------- |
 | and       | `and`    | ` i == 1 and i < 2` |
 | or        | `or`     | ` i == 1 or i == 2` |
-| not       | `not`    | ` not(i != 0) `     |
+| not       | `not`    | `not(i != 0)`       |
 
 ### String Comparison
 
@@ -785,22 +782,22 @@ We make use of `matplotlib` to plot our circle here
 
 ```py
 import matplotlib.pyplot as plt
-%matplotlib inline  
+%matplotlib inline
 
 class Circle(object):
-  
+
   def __init__(self, radius=3, color='blue'):
     self.radius = radius
     self.color = color
-  
+
   def add_radius(self, r)
     self.radius += r
     return(self.radius)
 
-  def draw_circle(self):      
+  def draw_circle(self):
     plt.gca().add_patch(plt.Circle((0, 0), radius=self.radius, fc=self.color))
     plt.axis('scaled')
-    plt.show()  
+    plt.show()
 ```
 
 ### Instantiating an Object
@@ -853,6 +850,7 @@ We can use the built-in `open` function to read a file which will provide us wit
 example1 = '/data/test.txt'
 file1 = open(example1,'r')
 ```
+
 The `'r'` sets open to read mode, for write mode we can use `'w'`, and `'a'` for append mode
 
 #### Properties
@@ -953,7 +951,6 @@ with open(out_path, 'w') as out_file:
 
 The `write` function works the same as the `read` function in that each time we call it, it will just write a single line to the file, if we want to write multiple lines to our file w need to do this as follows
 
-
 ```py
 content = ['Line 1 content', 'Line 2 content', 'Line 3 content']
 with open(out_path, 'w') as out_file:
@@ -975,7 +972,6 @@ with open('readfile.txt','r') as readfile:
 ## Pandas
 
 Pandas is a library that is useful for working with data as a DataFrame in Python
-
 
 ### Importing Pandas
 
@@ -1089,6 +1085,7 @@ df.iloc[1:3, 0:2]
 ```py
 df.loc[0:2, 'Age':'Height']
 ```
+
 |     | Age | Height |
 | --- | --- | ------ |
 | 0   | 23  | 1.2    |
@@ -1199,6 +1196,7 @@ We can apply a function to these values by using array operations, such as those
 x = np.linspace(0,2*np.pi, num=100)
 y = np.sin(x) + np.cos(x)
 ```
+
 ### 2D Arrays
 
 #### Defining a 2D Array

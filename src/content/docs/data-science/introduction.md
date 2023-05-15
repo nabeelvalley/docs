@@ -1,6 +1,5 @@
-[[toc]]
-
 # Introduction
+
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/data-science-101/)
 
 ## Defining Data Science

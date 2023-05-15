@@ -4,8 +4,6 @@ title: Signal R
 subtitle: Real-time, two way, server and client communication
 ---
 
-[[toc]]
-
 > [Microsoft Documentation](https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-typescript-webpack?view=aspnetcore-3.1&tabs=visual-studio-code)
 
 Signal R is a way to add real-time functionality to a .NET Web API, it makes use of a Server and Client side connection enabling two way transfer of data between them
@@ -112,34 +110,34 @@ We will make use of two React components in our application, the `App` component
 `MessageViewer.tsx`
 
 ```tsx
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { HubConnectionBuilder, HubConnection } from '@microsoft/signalr'
-import './App.css';
+import './App.css'
 
 type Message = {
-    message: string,
-    username: string 
+  message: string
+  username: string
 }
 
 type MessageViewerState = {
-    messages: Message[],
-    connection: HubConnection
+  messages: Message[]
+  connection: HubConnection
 }
 
 class MessageViewer extends Component<{}, MessageViewerState> {
-    render() {
-        return (
-            <div className="MessageViewer">
-                {this.state.messages.map(m => m.message).join(' ')}
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="MessageViewer">
+        {this.state.messages.map((m) => m.message).join(' ')}
+      </div>
+    )
+  }
 }
 
-export default MessageViewer;
+export default MessageViewer
 ```
 
-So far we have just implemented the render method for the component and the relevant types, however we need to implement the `constructor` to initialize our properties, and the `componentDidMount` and `messageHandler`  methods so we set up the connection to the Server and handle the messages sent from it. In the class definition for the `MessageViewerComponent` included those functions: 
+So far we have just implemented the render method for the component and the relevant types, however we need to implement the `constructor` to initialize our properties, and the `componentDidMount` and `messageHandler` methods so we set up the connection to the Server and handle the messages sent from it. In the class definition for the `MessageViewerComponent` included those functions:
 
 In the `constructor` we just initialize our state with an empty `message` array and the `HubConnection`. The Hub Connection is built using the `HubConnectionBuilder`
 
@@ -181,68 +179,70 @@ And then define the `handleMessage` function which will update our state based o
 `MessageViewer.tsx`
 
 ```tsx
-handleMessage = (username: string, message: string) => this.setState({
+handleMessage = (username: string, message: string) =>
+  this.setState({
     ...this.state,
-    messages: [...this.state.messages, { message, username }]
-})
+    messages: [...this.state.messages, { message, username }],
+  })
 ```
 
 <details>
   <summary>Complete `MessageViewer.tsx` file</summary>
 
 ```tsx
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { HubConnectionBuilder, HubConnection } from '@microsoft/signalr'
-import './App.css';
+import './App.css'
 
 type Message = {
-    message: string,
-    username: string
+  message: string
+  username: string
 }
 
 type MessageViewerState = {
-    messages: Message[],
-    connection: HubConnection
+  messages: Message[]
+  connection: HubConnection
 }
 
 class MessageViewer extends Component<{}, MessageViewerState> {
+  constructor(props: any) {
+    super(props)
 
-    constructor(props: any) {
-        super(props)
-
-        this.state = {
-            messages: [],
-            connection: new HubConnectionBuilder().withUrl("http://localhost:4000/hub").build()
-        }
+    this.state = {
+      messages: [],
+      connection: new HubConnectionBuilder()
+        .withUrl('http://localhost:4000/hub')
+        .build(),
     }
+  }
 
-    handleMessage = (username: string, message: string) => this.setState({
-        ...this.state,
-        messages: [...this.state.messages, { message, username }]
+  handleMessage = (username: string, message: string) =>
+    this.setState({
+      ...this.state,
+      messages: [...this.state.messages, { message, username }],
     })
 
-
-    async componentDidMount() {
-        try {
-            await this.state.connection.start()
-            console.log('connection started')
-        } catch (error) {
-            console.error(error)
-        }
-
-        this.state.connection.on('messageReceived', this.handleMessage)
+  async componentDidMount() {
+    try {
+      await this.state.connection.start()
+      console.log('connection started')
+    } catch (error) {
+      console.error(error)
     }
 
-    render() {
-        return (
-            <div className="MessageViewer">
-                {this.state.messages.map(m => m.message).join(' ')}
-            </div>
-        )
-    }
+    this.state.connection.on('messageReceived', this.handleMessage)
+  }
+
+  render() {
+    return (
+      <div className="MessageViewer">
+        {this.state.messages.map((m) => m.message).join(' ')}
+      </div>
+    )
+  }
 }
 
-export default MessageViewer;
+export default MessageViewer
 ```
 
 </details>
@@ -254,38 +254,38 @@ For our initial connection configuration we will use some of the same code we us
 `App.tsx`
 
 ```tsx
-import React, {     Component } from 'react';
-import './App.css';
-import { HubConnectionBuilder, HubConnection } from '@microsoft/signalr';
-import MessageViewer from './MessageViewer';
+import React, { Component } from 'react'
+import './App.css'
+import { HubConnectionBuilder, HubConnection } from '@microsoft/signalr'
+import MessageViewer from './MessageViewer'
 
 type AppState = {
-    connectionUser: string,
-    connection: HubConnection
+  connectionUser: string
+  connection: HubConnection
 }
 
 class App extends Component<{}, AppState> {
+  constructor(props: any) {
+    super(props)
 
-    constructor(props: any) {
-        super(props)
-
-        this.state = {
-            connectionUser: 'App',
-            connection: new HubConnectionBuilder().withUrl("http://localhost:4000/hub").build()
-        }
+    this.state = {
+      connectionUser: 'App',
+      connection: new HubConnectionBuilder()
+        .withUrl('http://localhost:4000/hub')
+        .build(),
     }
+  }
 
-    render(){
-        return (
-            <div className="App">
-                <MessageViewer />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="App">
+        <MessageViewer />
+      </div>
+    )
+  }
 }
 
-export default App;
-
+export default App
 ```
 
 Next, we need to add some functionality to the component. First, in the `async componentDidMount` function we will connect to the server and and add an event listener for `keydown` events, and a `componentWillUnmount` which will remove the listener when the component unmounts:
@@ -301,7 +301,7 @@ async componentDidMount() {
         console.error(error)
     }
 
-    document.addEventListener('keydown', this.handleKeydown)        
+    document.addEventListener('keydown', this.handleKeydown)
 }
 
 componentWillUnmount() {
@@ -315,11 +315,15 @@ Lastly we can add the `handleKeydown` function on our component to send a messag
 
 ```tsx
 handleKeydown = async (e: KeyboardEvent) => {
-    try {
-        await this.state.connection.send("newMessage", this.state.connectionUser, e.key)
-    } catch (error) {
-        console.error(error)
-    }
+  try {
+    await this.state.connection.send(
+      'newMessage',
+      this.state.connectionUser,
+      e.key
+    )
+  } catch (error) {
+    console.error(error)
+  }
 }
 ```
 

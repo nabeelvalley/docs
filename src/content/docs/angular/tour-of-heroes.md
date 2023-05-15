@@ -5,9 +5,7 @@ subtitle: Introduction to Angular Basics
 description: Angular Tour of Heroes tutorial notes
 ---
 
-[[toc]]
-
-# Setup 
+# Setup
 
 # Angular CLI
 
@@ -21,7 +19,7 @@ To view the CLI functionality you can use:
 
 ```sh
 ng help
-``` 
+```
 
 # App Initialization
 
@@ -89,20 +87,17 @@ The generated `class` looks like this:
 `heroes.component.ts`
 
 ```ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.css']
+  styleUrls: ['./heroes.component.css'],
 })
 export class HeroesComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
 ```
 
@@ -129,7 +124,7 @@ And then inputting the interface name will generate the interface. Thereafter yo
 
 ```ts
 export interface Hero {
-  id: number,
+  id: number
   name: string
 }
 ```
@@ -140,7 +135,7 @@ You can then refer to it in the `class` like so:
 hero: Hero = {
   id: 1,
   name: 'Jeff',
-};
+}
 ```
 
 And in a `template` like so:
@@ -175,8 +170,9 @@ We can the use the FormModule for two-way data binding using an input in the `he
 
 ```html
 <div>
-  <label>name:
-    <input [(ngModel)]="hero.name" placeholder="name"/>
+  <label
+    >name:
+    <input [(ngModel)]="hero.name" placeholder="name" />
   </label>
 </div>
 ```
@@ -221,4 +217,4 @@ And then implementing a handler in the template:
 
 ### Conditionals
 
-You can make use of conditionals with the `*ngIf` to selectively render a part of the template  
+You can make use of conditionals with the `*ngIf` to selectively render a part of the template

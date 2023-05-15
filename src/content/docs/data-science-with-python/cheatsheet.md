@@ -4,8 +4,6 @@ title: Cheatsheet
 subtitle: Some heplful functions for Data Analysis and ML with Python
 ---
 
-[[toc]]
-
 # Python Data Science Cheatsheet
 
 General Information from here:
@@ -52,11 +50,11 @@ from sklearn.ensemble import ExtraTreesClassifier
 import matplotlib.pyplot as plt
 
 fs_data = pd.read_csv(DATA_FILE)
-fs_x = fs_data.iloc[:,0:20] 
-fs_y = fs_data.iloc[:,-1]    
+fs_x = fs_data.iloc[:,0:20]
+fs_y = fs_data.iloc[:,-1]
 
 classifier = ExtraTreesClassifier()  # Create classifier instance
-classifier.fit(fs_x, fs_y)           # Train the Classifier 
+classifier.fit(fs_x, fs_y)           # Train the Classifier
 
 fs_importance = classifier.feature_importances_
 
@@ -93,7 +91,6 @@ plt.figure(figsize=(20,20))
 _ = sns.heatmap(cm_data[top_correlation_features].corr(), annot=True, cmap="RdYlGn")
 ```
 
-
 Or as the folllowing Function:
 
 ```py
@@ -113,8 +110,8 @@ replace_domains = domain_counts[domain_counts < 100].index
 
 # on-hot encoding of Domains
 df_domain_invoice = pd.get_dummies(df_domain_invoice['Email Domain']
-                                           .replace(replace_domains, 'other_'), 
-                                       columns = ['Email Domain'], 
+                                           .replace(replace_domains, 'other_'),
+                                       columns = ['Email Domain'],
                                        drop_first=False)
 ```
 
@@ -130,7 +127,7 @@ From the following sources:
 ```py
 import scipy.stats as ss
 from collections import Counter
-import math 
+import math
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -167,7 +164,7 @@ def convert(data, to):
         raise TypeError('cannot handle data conversion of type: {} to {}'.format(type(data),to))
     else:
         return converted
-    
+
 def conditional_entropy(x, y):
     """
     Calculates the conditional entropy of x given y: S(x|y)
@@ -303,4 +300,3 @@ def associations(dataset, nominal_columns=None, mark_columns=False, theil_u=Fals
     if return_results:
         return corr
 ```
-
