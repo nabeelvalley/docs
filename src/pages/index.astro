@@ -2,14 +2,22 @@
 // Welcome to Astro! Everything between these triple-dash code fences
 // is your "component front matter". It never runs in the browser.
 import Base from '../layouts/Base.astro'
-import summary from '../../_cache/data/summary.json'
 import Title from '../components/Title.astro'
 
 import getMeta from '../data/meta'
 import allProjects from '../data/projects.json'
 import LinkBlock from '../components/LinkBlock.astro'
+import { getCollection } from 'astro:content'
 
-const blog = summary.filter((page) => page.route.startsWith('/blog/'))
+const collection = await getCollection('blog')
+const blog = collection
+  .filter((p) => p.data.published !== false)
+  .sort((a, b) =>
+    new Date(a.data.subtitle).getTime() - new Date(b.data.subtitle).getTime() >
+    0
+      ? -1
+      : 1
+  )
 
 const meta = getMeta()
 
@@ -24,6 +32,11 @@ const docsItem = {
   cta: 'Go to docs',
   url: '/docs',
 }
+
+const recentPostItem = {
+  ...recentPost.data,
+  url: `${recentPost.collection}/${recentPost.slug}`,
+}
 ---
 
 <Base>
@@ -34,12 +47,12 @@ const docsItem = {
       alt="the sky with some clouds"
     />
     <div>
-      <!-- <a href={recentPost.route} class="link__link">
-        <h2 class="link__title">{recentPost.title}</h2>
-        <p class="link__subtitle">{recentPost.subtitle}</p>
-        <p class="link__description">{recentPost.description}</p>
+      <a href={recentPostItem.url} class="link__link">
+        <h2 class="link__title">{recentPostItem.title}</h2>
+        <p class="link__subtitle">{recentPostItem.subtitle}</p>
+        <p class="link__description">{recentPostItem.description}</p>
         <p class="link__cta">Read more</p>
-      </a> -->
+      </a>
     </div>
   </section>
 
@@ -48,7 +61,11 @@ const docsItem = {
   <section class="link__grid">
     <LinkBlock item={docsItem} />
 
-    {posts?.map((post) => <LinkBlock item={post} />)}
+    {
+      posts?.map((post) => (
+        <LinkBlock link={`${post.collection}/${post.slug}`} item={post.data} />
+      ))
+    }
   </section>
 
   <Title title="Projects" />

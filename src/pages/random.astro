@@ -1,15 +1,19 @@
 ---
-import summary from '../../_cache/data/summary.json'
+import { getCollection } from 'astro:content'
 import LinkBlock from '../components/LinkBlock.astro'
 import Base from '../layouts/Base.astro'
 
-const pages = summary.filter((page) => page.route.startsWith('/random/'))
+const random = await getCollection('random')
 ---
 
 <Base>
   <article>Random bits from life</article>
 
   <section class="link__grid">
-    {pages.map((page) => <LinkBlock item={page} />)}
+    {
+      random.map((page) => (
+        <LinkBlock link={`${page.collection}/${page.slug}`} item={page.data} />
+      ))
+    }
   </section>
 </Base>
