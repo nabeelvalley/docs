@@ -1,10 +1,10 @@
 ---
-import summary from '../../_cache/data/summary.json'
+import { getCollection } from 'astro:content'
 import LinkBlock from '../components/LinkBlock.astro'
 import Title from '../components/Title.astro'
 import Base from '../layouts/Base.astro'
 
-const blog = summary.filter((page) => page.route.startsWith('/blog/'))
+const blog = await getCollection('blog')
 ---
 
 <Base>

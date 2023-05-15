@@ -34,8 +34,8 @@ const replaceYamlHeader = (content) => {
   content.replace(/^---(.|\n)*?---/gm, '')
 }
 
-export const getFiles = (ext, root = 'content') => {
-  const g = `${root}/**/*.${ext}`
+export const getFiles = (ext) => {
+  const g = `src/content/**/*.${ext}`
 
   return new Promise((res, rej) => {
     glob(g, (err, matches) => {
@@ -46,8 +46,8 @@ export const getFiles = (ext, root = 'content') => {
           .map((m) => ({
             path: m,
             directory: getDirectoryName(m),
-            url: m.replace('content', '').replace(extRx, '') + '/',
-            route: m.replace('content', '').replace(extRx, ''),
+            url: m.replace('src/content', '').replace(extRx, '') + '/',
+            route: m.replace('src/content', '').replace(extRx, ''),
           }))
           .filter((m) => !m.route.endsWith('index'))
         res(result)
@@ -59,8 +59,8 @@ export const getFiles = (ext, root = 'content') => {
 const cwd = process.cwd()
 
 export const readMeta = async (data) => {
-  const jsonPath = data.route + '.json'
-  const mdPath = data.route + '.md'
+  const jsonPath = `src/content` + data.route + '.json'
+  const mdPath = `src/content` + data.route + '.md'
 
   try {
     const content = await readFile(jsonPath)
@@ -115,8 +115,8 @@ const sortByDate = (a, b) => {
   return dateB - dateA
 }
 
-export default async function (includeMarkdown = true) {
-  const md = includeMarkdown ? await getFiles('md') : []
+export default async function () {
+  const md = await getFiles('md')
   const ipynb = await getFiles('ipynb')
 
   const content = [...md, ...ipynb]

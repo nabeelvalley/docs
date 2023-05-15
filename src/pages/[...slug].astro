@@ -1,5 +1,5 @@
 ---
-import { CollectionEntry, getCollection } from 'astro:content'
+import { getCollection } from 'astro:content'
 import Base from '../layouts/Base.astro'
 import { readFile, stat } from 'fs/promises'
 import { join } from 'path'
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
     return entries.map((entry) => {
       const path = entry.slug.endsWith('ipynbout')
         ? entry.slug.replace('ipynbout', '')
-        : ''
+        : entry.slug
       const slug = `${name}/${path}`
 
       return {
