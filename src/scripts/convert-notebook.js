@@ -20,6 +20,15 @@ const toHeader = (data) => {
   return `${lines.join('\n')}`
 }
 
+const clean = (html) =>
+  sanitize(html || '', {
+    allowedTags: sanitize.defaults.allowedTags.concat(['img']),
+    allowedAttributes: {
+      img: ['src', 'alt'],
+    },
+    allowedSchemes: ['data', 'http', 'https'],
+  })
+
 const notebooks = await getFiles('ipynb', 'src/content')
 await Promise.all(
   notebooks
@@ -56,9 +65,11 @@ await Promise.all(
               let content = ''
 
               if (data['text/html']) {
-                content += data['text/html'].join
-                  ? data['text/html'].join('')
-                  : data['text/html']
+                content += clean(
+                  data['text/html'].join
+                    ? data['text/html'].join('')
+                    : data['text/html']
+                )
               } else if (data['text/plain']) {
                 content += '\n```\n' + data['text/plain'] + '\n```\n'
               }
@@ -75,16 +86,8 @@ await Promise.all(
         })
         .join('\n\n')
 
-      const clean = sanitize(markdown || '', {
-        allowedTags: sanitize.defaults.allowedTags.concat(['img']),
-        allowedAttributes: {
-          img: ['src', 'alt'],
-        },
-        allowedSchemes: ['data', 'http', 'https'],
-      })
-
       const header = toHeader(meta)
 
-      await writeFile(meta.path + '.out.md', `${header}\n\n${clean}`)
+      await writeFile(meta.path + '.out.md', `${header}\n\n${markdown}`)
     })
 )
