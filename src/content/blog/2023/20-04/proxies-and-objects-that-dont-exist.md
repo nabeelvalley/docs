@@ -1,49 +1,53 @@
+---
+published: false
+---
+
 ```ts
 interface Person {
-  name: string;
+  name: string
 }
 
-type DB = Record<string, Person>;
+type DB = Record<string, Person>
 
 const db: DB = {
   bob: {
-    name: "Bob",
+    name: 'Bob',
   },
   jeff: {
-    name: "Jeff",
+    name: 'Jeff',
   },
-};
+}
 
 const alwaysDefinedHandler: ProxyHandler<DB> = {
   get(target, prop, receiver) {
-    const user = db[prop as string];
+    const user = db[prop as string]
 
     if (!user) {
       db[prop as string] = {
         name: prop as string,
-      };
+      }
 
-      return db[prop as string];
+      return db[prop as string]
     }
 
-    return user;
+    return user
   },
-};
+}
 
-const insertIfNotFoundDb = new Proxy<DB>(db, alwaysDefinedHandler);
+const insertIfNotFoundDb = new Proxy<DB>(db, alwaysDefinedHandler)
 
-console.log(insertIfNotFoundDb.bob);
+console.log(insertIfNotFoundDb.bob)
 
-console.log(db);
+console.log(db)
 
 // smith is not in the database, but the act of accessing it through a proxy will create the person
 // based on the logic we have defined in the proxy
-console.log(insertIfNotFoundDb.smith);
+console.log(insertIfNotFoundDb.smith)
 
-console.log(db);
+console.log(db)
 
 // @ts-expect-error
-console.log(insertIfNotFoundDb[new Date()]);
+console.log(insertIfNotFoundDb[new Date()])
 
-console.log(db);
+console.log(db)
 ```

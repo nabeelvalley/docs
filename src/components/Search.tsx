@@ -1,3 +1,4 @@
+import { getCollection } from 'astro:content'
 import {
   KBarProvider,
   KBarAnimator,
@@ -9,8 +10,6 @@ import {
   Action,
   useKBar,
 } from 'kbar'
-
-import summary from '../../_cache/data/summary.json'
 
 const baseActions: Action[] = [
   {
@@ -81,12 +80,19 @@ const baseActions: Action[] = [
   },
 ]
 
-const routeActions: Action[] = summary.map((page) => ({
+const summary = await Promise.all([
+  getCollection('blog'),
+  getCollection('docs'),
+  getCollection('photography'),
+  getCollection('random'),
+])
+
+const routeActions: Action[] = summary.flat().map((page) => ({
   parent: 'posts',
-  id: page.route,
-  name: page.title,
-  subtitle: page.description || page.subtitle,
-  perform: () => (window.location.pathname = page.route),
+  id: page.slug,
+  name: page.data.title,
+  subtitle: page.data.description || page.data.subtitle,
+  perform: () => (window.location.pathname = `${page.collection}/${page.slug}`),
 }))
 
 const actions = [...baseActions, ...routeActions]

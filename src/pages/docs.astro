@@ -1,7 +1,27 @@
 ---
-import groupedDocs from '../../_cache/data/groupedDocs.json'
+import { getCollection } from 'astro:content'
 import Title from '../components/Title.astro'
 import Base from '../layouts/Base.astro'
+
+import { upperFirst, groupBy } from 'lodash'
+
+const docs = await getCollection('docs')
+
+const getDirectoryName = (dir) => {
+  const split = dir.split('/')
+  const directory = split[0]
+  return directory
+    .split('-')
+    .map((d) => upperFirst(d))
+    .join(' ')
+}
+
+const groupedDocs = Object.entries(
+  groupBy(
+    docs.filter((p) => p.data.title),
+    (p) => getDirectoryName(p.slug)
+  )
+)
 ---
 
 <Base>
@@ -16,14 +36,14 @@ import Base from '../layouts/Base.astro'
 
   <section>
     {
-      groupedDocs.map((group) => (
+      groupedDocs.map(([directory, pages]) => (
         <div>
-          <h2>{group[0].directory}</h2>
+          <h2>{directory}</h2>
 
           <ul>
-            {group.map((page) => (
+            {pages.map((page) => (
               <li>
-                <a href={page.route}>{page.title}</a>
+                <a href={page.slug}>{page.data.title}</a>
               </li>
             ))}
           </ul>

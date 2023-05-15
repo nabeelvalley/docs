@@ -5,6 +5,21 @@ const { writeFile, mkdir, rm, readFile } = promises
 
 import sanitize from 'sanitize-html'
 
+const toHeader = (data) => {
+  const lines = ['---', 'published: true']
+  const keys = ['title', 'subtitle', 'description', 'date']
+
+  keys.forEach((key) => {
+    if (data[key]) {
+      lines.push(`${key}: ${data[key]}`)
+    }
+  })
+
+  lines.push('---')
+
+  return `${lines.join('\n')}`
+}
+
 const notebooks = await getFiles('ipynb', 'src/content')
 await Promise.all(
   notebooks
@@ -68,19 +83,8 @@ await Promise.all(
         allowedSchemes: ['data', 'http', 'https'],
       })
 
-      await writeFile(
-        meta.path + '.out.md',
-        `---
-title: ${meta.title || ''}
-subtitle: ${meta.subtitle || ''}
-date: ${meta.data || ''}
-description: ${meta.description || ''}
-published: ${meta.published || ''}
----
+      const header = toHeader(meta)
 
-${clean}
-
-      `
-      )
+      await writeFile(meta.path + '.out.md', `${header}\n\n${clean}`)
     })
 )
