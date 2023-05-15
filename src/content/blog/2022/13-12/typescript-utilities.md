@@ -5,15 +5,6 @@ subtitle: 12 December 2022
 description: Some general purpose typescript utilities
 ---
 
----
-
-title: Typescript Utilities
-subtitle: 12 December 2022
-description: Some general purpose typescript utilities
-published: true
-
----
-
 Here's a collection of some typescript utility functions I've put together
 
 # Functions

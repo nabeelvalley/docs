@@ -4,12 +4,6 @@ title: Tools
 description: Some interesting web-based, open source tools
 ---
 
----
-title: Tools
-description: Some interesting web-based, open source tools
-published: true
----
-
 # Drawing
 
 - [TL Draw](https://www.tldraw.com)

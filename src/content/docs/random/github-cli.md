@@ -4,12 +4,6 @@ title: GitHub CLI
 description: Quick tips for using the GitHub CLI
 ---
 
----
-title: GitHub CLI
-description: Quick tips for using the GitHub CLI
-published: true
----
-
 > [GitHub CLI Website](https://cli.github.com)
 
 # Setup
@@ -69,7 +63,6 @@ If you don't give it any args with the required data then the CLI open the inter
 Some of the params that I use frequently when creating a PR are `--title`, `--labels`, and `--reviewer`
 
 A PR with the above may look like so:
-
 
 ```sh
 gh pr create --title "Add some cool feature" --labels feature,cool --reviewer nabeelvalley

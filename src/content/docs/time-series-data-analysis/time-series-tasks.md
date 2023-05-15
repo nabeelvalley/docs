@@ -4,12 +4,6 @@ title: Types of Time Series Tasks
 subtitle: Overview of the different types of tasks when analyzing time series data
 ---
 
----
-title: Types of Time Series Tasks
-subtitle: Overview of the different types of tasks when analyzing time series data
-published: true
----
-
 > This document is a summary of this [Overview of time series analysis Python packages](https://siebert-julien.github.io/time-series-analysis-python/)
 
 # Analysis tasks

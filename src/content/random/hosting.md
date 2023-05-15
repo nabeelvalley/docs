@@ -4,11 +4,6 @@ title: Free Application Hosting
 description: Sites for free cloud application hosting
 ---
 
----
-title: Free Application Hosting
-description: Sites for free cloud application hosting
----
-
 Below is a list of some websites and platforms that provide free application hosting and dev services
 
 # Static

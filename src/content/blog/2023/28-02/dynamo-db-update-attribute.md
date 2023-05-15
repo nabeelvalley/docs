@@ -5,12 +5,6 @@ subtitle: 28 February 2023
 description: Use UpdateExpressions to modify DynamoDB items without reading them from the database
 ---
 
----
-title: Update or Append to DynamoDB Attributes
-description: Use UpdateExpressions to modify DynamoDB items without reading them from the database
-subtitle: 28 February 2023
----
-
 # DynamoDB Overview
 
 DynamoDB is AWS's No SQL Database Service. Dynamo uses partition keys and sort keys to uniquely identify and partion item in the database which allows for high scalability and throughput
@@ -63,10 +57,9 @@ Yup, that's pretty much it as far as the expression goes, the actual names of th
 
 The overall command with all of that is as follows:
 
-
 ```ts
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
+import { marshall, unmarshall } from '@aws-sdk/util-dynamodb'
 
 const client = new DynamoDBClient({})
 
@@ -82,18 +75,17 @@ const command = new UpdateItemCommand({
   }),
   UpdateExpression: 'SET #attr = :value',
   ExpressionAttributeNames: {
-    '#attr': 'status'
+    '#attr': 'status',
   },
   ExpressionAtrributeValues: marshall({
-    ':value': updateValue
-  })
+    ':value': updateValue,
+  }),
 })
 
 await client.send()
 ```
 
-And that's pretty much the process for updating an attribute witha  specific value
-
+And that's pretty much the process for updating an attribute witha specific value
 
 # Append to a List Attribute That Exists
 
@@ -110,8 +102,8 @@ SET #attr = list_append(#attr, :value)
 For our sake we only want to append a single item, so we can just wrap it in an array when we pass it on in the command. The command for the above update looks like so:
 
 ```ts
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
+import { marshall, unmarshall } from '@aws-sdk/util-dynamodb'
 
 const client = new DynamoDBClient({})
 
@@ -119,7 +111,7 @@ const pk = 'bob'
 const sk = 12
 const updateValue = {
   place: 'home',
-  time: Date.now()
+  time: Date.now(),
 }
 
 const command = new UpdateItemCommand({
@@ -130,12 +122,12 @@ const command = new UpdateItemCommand({
   }),
   UpdateExpression: 'SET #attr = list_append(#attr, :value)',
   ExpressionAttributeNames: {
-    '#attr': 'checkIns'
+    '#attr': 'checkIns',
   },
   ExpressionAtrributeValues: marshall({
     // array since the update expression works on two lists
-    ':value': [updateValue]
-  })
+    ':value': [updateValue],
+  }),
 })
 
 await client.send()
@@ -154,8 +146,8 @@ SET #attr = list_append(if_not_exists(#attr, :fallback), :value)
 And the full command looks like so:
 
 ```ts
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
+import { marshall, unmarshall } from '@aws-sdk/util-dynamodb'
 
 const client = new DynamoDBClient({})
 
@@ -163,7 +155,7 @@ const pk = 'bob'
 const sk = 12
 const updateValue = {
   place: 'home',
-  time: Date.now()
+  time: Date.now(),
 }
 
 const command = new UpdateItemCommand({
@@ -172,15 +164,16 @@ const command = new UpdateItemCommand({
     username: pk,
     group: sk,
   }),
-  UpdateExpression: 'SET #attr = list_append(if_not_exists(#attr, :fallback), :value)',
+  UpdateExpression:
+    'SET #attr = list_append(if_not_exists(#attr, :fallback), :value)',
   ExpressionAttributeNames: {
-    '#attr': 'checkIns'
+    '#attr': 'checkIns',
   },
   ExpressionAtrributeValues: marshall({
     ':value': [updateValue],
     // fallback to an empty array if the value does not exist before appending
-    ':fallback': []
-  })
+    ':fallback': [],
+  }),
 })
 
 await client.send()
@@ -189,7 +182,6 @@ await client.send()
 The above expresson helps us append an item to the list while also providing a fallback for the case where the list item may not exist
 
 # A Note on Marshalled/Unmarshalled data
-
 
 DynamoDB works with data in the "marshalled" form, which is an object representation for primitive data types ([AWS Documentation - Attribute Value](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeValue.html)). Some examples of marshalled and unmarshalled data can be seen below:
 

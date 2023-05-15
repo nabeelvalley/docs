@@ -5,13 +5,6 @@ subtitle: 13 November 2022
 description: A bottom navigation with expanding icons using CSS Transitions and Svelte
 ---
 
----
-title: Expanding Bottom Navigation with CSS Transitions
-subtitle: 13 November 2022
-description: A bottom navigation with expanding icons using CSS Transitions and Svelte
-published: true
----
-
 So I was looking around on YouTube and came across a video about this library called `google_nav_bar` for flutter and I really liked the idea of how it works and wanted to implement something similar in an app I've been working on
 
 The basic functionality of the of the library can be seen on [`google_nav_bar` package page](https://pub.dev/packages/google_nav_bar)
