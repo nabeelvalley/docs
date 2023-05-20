@@ -74,9 +74,9 @@ await Promise.all(
                 content += '\n```\n' + data['text/plain'] + '\n```\n'
               }
 
-              if (data['image/png']) {
-                content += `<img src="data:image/png;base64,${data['image/png']}" />`
-              }
+              // if (data['image/png']) {
+              //   content += `<img src="data:image/png;base64,${data['image/png']}" />`
+              // }
 
               return content
             })
