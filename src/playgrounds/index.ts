@@ -4,13 +4,12 @@ import { FileSystemTree } from '@webcontainer/api'
 import { join, resolve } from 'path'
 
 const getFiles = (dir): FileSystemTree => {
-  console.log(dir)
   const subdirs = readdirSync(dir)
-  console.log(subdirs)
   return subdirs.reduce<FileSystemTree>((curr, subdir) => {
     const res = resolve(dir, subdir)
 
     const isDir = statSync(res).isDirectory()
+
     if (!isDir) {
       return {
         ...curr,
@@ -24,10 +23,9 @@ const getFiles = (dir): FileSystemTree => {
 
     const files = getFiles(res)
     return {
+      ...curr,
       [subdir]: {
-        directory: {
-          ...Object.assign({}, files),
-        },
+        directory: Object.assign({}, files),
       },
     }
   }, {})
@@ -35,19 +33,5 @@ const getFiles = (dir): FileSystemTree => {
 
 export const importPlayground = (path: string): FileSystemTree => {
   const files = getFiles('src/playgrounds/' + path)
-  console.log(files)
-
   return files
-  // return {
-  //   'index.js': {
-  //     file: {
-  //       contents: "console.log('hello world')",
-  //     },
-  //   },
-  //   'README.md': {
-  //     file: {
-  //       contents: 'Jack Smith',
-  //     },
-  //   },
-  // }
 }
