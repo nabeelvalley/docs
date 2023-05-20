@@ -7,7 +7,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "prebuild": "node --es-module-specifier-resolution=node src/scripts/convert-notebook.js",
+    "import-playground": "node --es-module-specifier-resolution=node src/scripts/read-playground.js",
+    "import-nb": "node --es-module-specifier-resolution=node src/scripts/convert-notebook.js",
+    "prebuild": "pnpm run import-nb && pnpm run import-playground",
     "predev": "pnpm run prebuild",
     "dev": "astro dev",
     "build": "astro build --verbose",

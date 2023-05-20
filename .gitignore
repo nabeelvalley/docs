@@ -6,3 +6,4 @@ _cache/
 .astro
 *.out.md
 public/*.nb-out.png
+public/playgrounds.json
