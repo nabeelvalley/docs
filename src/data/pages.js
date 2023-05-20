@@ -2,7 +2,7 @@ import matter from 'gray-matter'
 import { promises } from 'fs'
 const { readFile } = promises
 import { glob } from 'glob'
-import { resolve, format } from 'path'
+import { resolve, format, sep } from 'path'
 import _ from 'lodash'
 import {
   convertJupyterToHtml,
@@ -34,26 +34,23 @@ const replaceYamlHeader = (content) => {
   content.replace(/^---(.|\n)*?---/gm, '')
 }
 
-export const getFiles = (ext) => {
+export const getFiles = async (ext) => {
   const g = `src/content/**/*.${ext}`
+  const globs = await glob(g)
 
-  return new Promise((res, rej) => {
-    glob(g, (err, matches) => {
-      if (err) rej(err)
-      else {
-        const extRx = new RegExp(`\.${ext}$`)
-        const result = matches
-          .map((m) => ({
-            path: m,
-            directory: getDirectoryName(m),
-            url: m.replace('src/content', '').replace(extRx, '') + '/',
-            route: m.replace('src/content', '').replace(extRx, ''),
-          }))
-          .filter((m) => !m.route.endsWith('index'))
-        res(result)
-      }
-    })
-  })
+  const matches = globs.map((p) => p.replaceAll(sep, '/'))
+
+  const extRx = new RegExp(`\.${ext}$`)
+  const result = matches
+    .map((m) => ({
+      path: m,
+      directory: getDirectoryName(m),
+      url: m.replace('src/content', '').replace(extRx, '') + '/',
+      route: m.replace('src/content', '').replace(extRx, ''),
+    }))
+    .filter((m) => !m.route.endsWith('index'))
+
+  return result
 }
 
 const cwd = process.cwd()

@@ -1,4 +1,3 @@
-// import { globSync } from 'glob'
 import { readFileSync, statSync, readdirSync } from 'fs'
 import { FileSystemTree } from '@webcontainer/api'
 import { join, resolve } from 'path'
