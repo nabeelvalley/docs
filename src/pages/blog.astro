@@ -27,7 +27,7 @@ const blog = collection
     {
       blog.map((page) => (
         <LinkBlock
-          link={`${page.collection}/${page.slug}`}
+          link={`${page.collection}/${page.slug.replace('ipynbout', '')}`}
           item={page.data}
           cta="Read post"
         />
