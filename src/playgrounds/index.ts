@@ -14,7 +14,7 @@ const getFiles = (dir): FileSystemTree => {
         ...curr,
         [subdir]: {
           file: {
-            contents: readFileSync(res),
+            contents: readFileSync(res, 'utf-8').toString(),
           },
         },
       }

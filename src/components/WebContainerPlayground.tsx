@@ -5,8 +5,9 @@ import type { Terminal } from 'xterm'
 import 'xterm/css/xterm.css'
 
 interface Props {
-  files: FileSystemTree
+  windowFileKey: string
   initialCommand?: string
+  startCommand?: string
 }
 
 type SetServer = (url: string) => void
@@ -76,8 +77,10 @@ const exec = async (
 type Status = 'loading' | 'done' | 'initial'
 export default (props: Props) => {
   const [status, setStatus] = useState<Status>('initial')
+  const [server, setServer] = useState<string>()
+  const [initialized, setInitialized] = useState(false)
 
-  const container = useContainer()
+  const container = useContainer(setServer)
 
   const terminalRef = useRef(null)
   const terminal = useTerminal(terminalRef)
@@ -86,6 +89,7 @@ export default (props: Props) => {
     if (props.initialCommand) {
       await exec(container, terminal, props.initialCommand)
     }
+    setInitialized(true)
 
     const shellProcess = await container.spawn('jsh')
     shellProcess.output.pipeTo(
@@ -104,15 +108,37 @@ export default (props: Props) => {
     return shellProcess
   }
 
+  const files = window[props.windowFileKey] as FileSystemTree
+
+  console.log({ files })
+
   if (status === 'initial' && container) {
     setStatus('loading')
-    container.mount(props.files).then(() => {
+    container.mount(files).then(() => {
       setStatus('done')
       startShell()
     })
   }
 
-  return <div ref={terminalRef}></div>
+  return (
+    <>
+      {props.startCommand && initialized && !server ? (
+        <p>
+          Get started by running <code>{props.startCommand}</code> in the
+          terminal above
+        </p>
+      ) : null}
+      <div ref={terminalRef}></div>
+      {server ? (
+        <blockquote>
+          Server running at{' '}
+          <code>
+            <a href={server}>{server}</a>
+          </code>
+        </blockquote>
+      ) : null}
+    </>
+  )
 }
 
 export const prerender = false

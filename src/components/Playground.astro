@@ -1,0 +1,27 @@
+---
+/**
+ * Note that the reason for the indirection in implementing the solution here is due the need for
+ * SSR as well as client-component hydration which is a bit hacky.
+ *
+ * The alternative is to generate the content up-front which adds a new problem of dynamically
+ * having to fetch the data from the client side
+ */
+
+import { importPlayground } from '../playgrounds'
+import WebContainerPlayground from './WebContainerPlayground'
+
+const files = importPlayground(Astro.props.name)
+---
+
+<script id="webcontainer-data-script" data-files={JSON.stringify(files)}>
+  const json = document.getElementById('webcontainer-data-script').dataset.files
+  // read dynamically and passed into the WebContainerPlayground for hydration
+  window['webcontainerFiles'] = JSON.parse(json)
+</script>
+
+<WebContainerPlayground
+  windowFileKey="webcontainerFiles"
+  initialCommand={Astro.props.initialCommand}
+  startCommand={Astro.props.startCommand}
+  client:only="react"
+/>

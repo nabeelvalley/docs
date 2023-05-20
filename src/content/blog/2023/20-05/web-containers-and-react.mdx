@@ -5,8 +5,7 @@ subtitle: 20 May 2023
 published: true
 ---
 
-import WebContainerPlayground from '../../../../components/WebContainerPlayground'
-import { importPlayground } from '../../../../playgrounds'
+import Playground from '../../../../components/Playground.astro'
 
 [WebContainers](https://webcontainers.io/) are a cool tech by StackBlitz that let you run a Node.js development environment in your browser
 
@@ -14,10 +13,10 @@ import { importPlayground } from '../../../../playgrounds'
 
 The current state of my implementation can be seen below
 
-<WebContainerPlayground
+<Playground
+  name="web-containers-and-react"
   initialCommand="pnpm install"
-  files={importPlayground('web-containers-and-react')}
-  client:only="react"
+  startCommand="pnpm dev"
 />
 
 The idea is to turn the above into a little code editor that will also let me pull out code snippets that can be interactive and runnable
@@ -26,7 +25,10 @@ This is especially useful for more complex snippets that sprawl over multiple fi
 
 The following are some features that I would like to implement over time:
 
-- [ ] A way to define the core editor state for a post
+- [x] Load up the container with files that can be run
+- [x] A way to define the core editor state for a post - contained in `window.webcontainerFiles`
+- [x] Notify user when a server is up so they can open it
 - [ ] Extract snippets from the editor so that they can be rendered inline
 - [ ] Make the editor full-screen-capable so that longer code samples can be viewed in their totality
 - [ ] Run commands by pressing a button and allow a user to modify small snippets of code
+- [ ] Make it look not so bad
