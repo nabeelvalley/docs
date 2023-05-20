@@ -8,9 +8,10 @@ published: false
 import WebContainerPlayground from '../../../../components/WebContainerPlayground'
 import { importPlayground } from '../../../../playgrounds'
 
-This is some MDX Content
+[WebContainers](https://webcontainers.io/) are a cool tech by StackBlitz that let you run a Node.js development environment in your browser
 
 <WebContainerPlayground
+  initialCommand="pnpm install"
   files={importPlayground('web-containers-and-react')}
   client:only="react"
 />
