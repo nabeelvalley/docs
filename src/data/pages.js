@@ -1,7 +1,7 @@
 import matter from 'gray-matter'
 import { promises } from 'fs'
 const { readFile } = promises
-import glob from 'glob'
+import { glob } from 'glob'
 import { resolve, format } from 'path'
 import _ from 'lodash'
 import {
