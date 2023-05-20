@@ -1,26 +1,27 @@
-import { WebContainer } from '@webcontainer/api';
-import { useEffect, useRef, useState } from "react"
+import { FileSystemTree, WebContainer } from '@webcontainer/api'
+import { useRef, useState } from 'react'
 
-import type {Terminal} from 'xterm' 
-import 'xterm/css/xterm.css';
-
+import type { Terminal } from 'xterm'
+import 'xterm/css/xterm.css'
 
 interface Props {
-
+  files: FileSystemTree
 }
+
+type SetServer = (url: string) => void
 
 /**
  * Only a single container instance may be booted and exist at any given time
  */
 let instance: WebContainer | undefined = undefined
-const useContainer = (setServer) => {
+const useContainer = (setServer?: SetServer) => {
   const [booted, setBooted] = useState(!!instance)
 
   // we only manage a single container instance
   if (!booted) {
     WebContainer.boot().then((result) => {
-      instance = result;
-      result.on('server-ready', (port, url) => setServer(url))
+      instance = result
+      result.on('server-ready', (_, url) => setServer?.(url))
       setBooted(true)
     })
   }
@@ -28,107 +29,68 @@ const useContainer = (setServer) => {
   return instance
 }
 
-
-/** @satisfies {import('@webcontainer/api').FileSystemTree} */
-
-export const files = {
-  'index.js': {
-    file: {
-      contents: `
-  import express from 'express';
-  const app = express();
-  const port = 3111;
-  
-  app.get('/', (req, res) => {
-    res.send('Welcome to a WebContainers app! 🥳');
-  });
-  
-  app.listen(port, () => {
-    console.log(\`App is live at http://localhost:\${port}\`);
-  });`,
-    },
-  },
-  'package.json': {
-    file: {
-      contents: `
-  {
-    "name": "example-app",
-    "type": "module",
-    "dependencies": {
-      "express": "latest",
-      "nodemon": "latest"
-    },
-    "scripts": {
-      "start": "nodemon --watch './' index.js"
-    }
-  }`,
-    },
-  },
-};
-
-const useTerminal = (ref, onCommand) => {
+const useTerminal = (ref) => {
   const instanceRef = useRef<Terminal>()
-  const [input, setInput] = useState<string>("")
 
   if (!instance) {
-    import('xterm').then(xterm => {
-      const term = new xterm.Terminal({
-        convertEol: true,
-        disableStdin: false
-      });
-      
-      term.open(ref.current);      
-      instanceRef.current = term
-    }).catch(console.error)
+    import('xterm')
+      .then((xterm) => {
+        const term = new xterm.Terminal({
+          convertEol: true,
+          disableStdin: false,
+          fontFamily: 'monospace',
+          fontSize: 14,
+        })
+
+        term.open(ref.current)
+        instanceRef.current = term
+      })
+      .catch(console.error)
   }
 
   return instanceRef.current
 }
 
 type Status = 'loading' | 'done' | 'initial'
-export default () => {
+export default (props: Props) => {
+  console.log(props.files)
   const [status, setStatus] = useState<Status>('initial')
-  const [server, setServer] = useState<string>();
 
-  const container = useContainer(setServer)
+  const container = useContainer()
 
   const terminalRef = useRef(null)
-  const terminal = useTerminal(terminalRef, console.log)
+  const terminal = useTerminal(terminalRef)
 
-  console.log({terminal})
+  console.log({ terminal })
 
-  async function startShell() {
-    const shellProcess = await container?.spawn('jsh');
+  const startShell = async () => {
+    const shellProcess = await container?.spawn('jsh')
     shellProcess.output.pipeTo(
       new WritableStream({
         write(data) {
-          terminal.write(data);
+          terminal.write(data)
           console.log(data)
         },
       })
-    );
-  
-    const input = shellProcess.input.getWriter();
+    )
+
+    const input = shellProcess.input.getWriter()
     terminal.onData((data) => {
-      input.write(data);
-    });
-  
-    return shellProcess;
-  };
-  
+      input.write(data)
+    })
+
+    return shellProcess
+  }
+
   if (status === 'initial' && container) {
     setStatus('loading')
-    container.mount(files).then(() => {
+    container.mount(props.files).then(() => {
       setStatus('done')
       startShell()
     })
   }
 
-  return <>
-    <div>Web Container: {status}</div>
-    <div ref={terminalRef}></div>
-    <div>{server ? `Visit app on ${server}` : 'Start app with "npm install && npm start" '}</div>
-  </>
+  return <div ref={terminalRef}></div>
 }
 
-export const prerender = false;
+export const prerender = false

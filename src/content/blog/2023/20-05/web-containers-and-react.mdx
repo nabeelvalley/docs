@@ -6,7 +6,11 @@ published: false
 ---
 
 import WebContainerPlayground from '../../../../components/WebContainerPlayground'
+import { importPlayground } from '../../../../playgrounds'
 
 This is some MDX Content
 
-<WebContainerPlayground client:only="react" />
+<WebContainerPlayground
+  files={importPlayground('web-containers-and-react')}
+  client:only="react"
+/>

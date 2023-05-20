@@ -608,3 +608,8 @@ code.mermaid[data-processed='true'] {
     flex-direction: row;
   }
 }
+
+/* XTerm */
+.terminal {
+  padding: 12px;
+}
