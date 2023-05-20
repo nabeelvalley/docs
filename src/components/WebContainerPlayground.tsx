@@ -2,6 +2,8 @@ import { FileSystemTree, WebContainer } from '@webcontainer/api'
 import { useRef, useState } from 'react'
 
 import type { Terminal } from 'xterm'
+import { FitAddon } from 'xterm-addon-fit'
+
 import 'xterm/css/xterm.css'
 
 interface Props {
@@ -43,7 +45,10 @@ const useTerminal = (ref) => {
         fontSize: 14,
       })
 
+      const fitAddon = new FitAddon()
+      term.loadAddon(fitAddon)
       term.open(ref.current)
+      fitAddon.fit()
       instanceRef.current = term
     })
   }
