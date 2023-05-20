@@ -82,7 +82,7 @@ await Promise.all(
 
                 await writeFile(`public/${filePath}`, data['image/png'], 'base64')
 
-                content += `<img src="${filePath}" />`
+                content += `<img src="/${filePath}" />`
               }
 
               return content
