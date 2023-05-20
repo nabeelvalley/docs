@@ -6,6 +6,7 @@ import 'xterm/css/xterm.css'
 
 interface Props {
   files: FileSystemTree
+  initialCommand?: string
 }
 
 type SetServer = (url: string) => void
@@ -33,27 +34,47 @@ const useTerminal = (ref) => {
   const instanceRef = useRef<Terminal>()
 
   if (!instance) {
-    import('xterm')
-      .then((xterm) => {
-        const term = new xterm.Terminal({
-          convertEol: true,
-          disableStdin: false,
-          fontFamily: 'monospace',
-          fontSize: 14,
-        })
-
-        term.open(ref.current)
-        instanceRef.current = term
+    import('xterm').then((xterm) => {
+      const term = new xterm.Terminal({
+        convertEol: true,
+        disableStdin: false,
+        fontFamily: 'monospace',
+        fontSize: 14,
       })
-      .catch(console.error)
+
+      term.open(ref.current)
+      instanceRef.current = term
+    })
   }
 
   return instanceRef.current
 }
 
+const exec = async (
+  container: WebContainer,
+  terminal: Terminal,
+  script: string
+): Promise<void> => {
+  const [command, ...args] = script.split(' ')
+
+  const result = await container?.spawn(command, args)
+
+  terminal.writeln(`> ${script}`)
+
+  result?.output.pipeTo(
+    new WritableStream({
+      write(data) {
+        terminal.write(data)
+      },
+    })
+  )
+
+  await result.exit
+  terminal.writeln('')
+}
+
 type Status = 'loading' | 'done' | 'initial'
 export default (props: Props) => {
-  console.log(props.files)
   const [status, setStatus] = useState<Status>('initial')
 
   const container = useContainer()
@@ -61,15 +82,16 @@ export default (props: Props) => {
   const terminalRef = useRef(null)
   const terminal = useTerminal(terminalRef)
 
-  console.log({ terminal })
-
   const startShell = async () => {
-    const shellProcess = await container?.spawn('jsh')
+    if (props.initialCommand) {
+      await exec(container, terminal, props.initialCommand)
+    }
+
+    const shellProcess = await container.spawn('jsh')
     shellProcess.output.pipeTo(
       new WritableStream({
         write(data) {
           terminal.write(data)
-          console.log(data)
         },
       })
     )
