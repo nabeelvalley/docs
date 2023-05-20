@@ -5,3 +5,4 @@ _cache/
 .yarn
 .astro
 *.out.md
+public/*.nb-out.png

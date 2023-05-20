@@ -2,6 +2,7 @@ import { getFiles, readMeta, readNotebook } from '../data/pages.js'
 import { convertJupyterToHtml } from '../lib/markdown.js'
 import { promises } from 'fs'
 const { writeFile, mkdir, rm, readFile } = promises
+import path from 'path'
 
 import sanitize from 'sanitize-html'
 
@@ -29,6 +30,8 @@ const clean = (html) =>
     allowedSchemes: ['data', 'http', 'https'],
   })
 
+const nbImageExt = '.nb-out.png'
+
 const notebooks = await getFiles('ipynb', 'src/content')
 await Promise.all(
   notebooks
@@ -42,8 +45,8 @@ await Promise.all(
       const file = await readFile(nb.path)
       const ipynb = JSON.parse(file.toString())
 
-      const markdown = ipynb.cells
-        .map((cell) => {
+      const markdownTasks = ipynb.cells
+        .map(async (cell, cellInd) => {
           const type = cell.cell_type
 
           if (type === 'markdown' && cell.source.join) {
@@ -55,7 +58,7 @@ await Promise.all(
               ? '```py\n' + cell.source.join('') + '\n```\n'
               : ''
 
-            const output = cell.outputs.map((out) => {
+            const outputTasks = cell.outputs.map(async (out, outInd) => {
               if (!out.data) {
                 return ''
               }
@@ -74,17 +77,24 @@ await Promise.all(
                 content += '\n```\n' + data['text/plain'] + '\n```\n'
               }
 
-              // if (data['image/png']) {
-              //   content += `<img src="data:image/png;base64,${data['image/png']}" />`
-              // }
+              if (data['image/png']) {
+                const filePath = `${nb.path.replaceAll(path.sep, '__')}-${cellInd}-${outInd}${nbImageExt}`
+
+                await writeFile(`public/${filePath}`, data['image/png'], 'base64')
+
+                content += `<img src="${filePath}" />`
+              }
 
               return content
             })
 
+            const output = await Promise.all(outputTasks)
+
             return code + output.join('\n\n')
           }
         })
-        .join('\n\n')
+        
+      const markdown = (await Promise.all(markdownTasks)).join('\n\n')
 
       const header = toHeader(meta)
 
