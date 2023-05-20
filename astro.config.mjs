@@ -1,15 +1,21 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
-
-// import mdx from '@astrojs/mdx'
-
 import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
   outDir: '_site',
   site: 'https://nabeelvalley.co.za/',
+  server: {
+    headers: {
+      'X-Nabeels-Header': "Hello from Nabeel",
+
+      // Cross-Origin Headers needed for Web Containers
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Opener-Policy': 'same-origin'
+    }
+  },
   markdown: {
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
