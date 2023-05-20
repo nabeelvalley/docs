@@ -93,7 +93,7 @@ const routeActions: Action[] = summary.flat().map((page) => ({
   id: page.slug.replace('ipynbout', ''),
   name: page.data.title,
   subtitle: page.data.description || page.data.subtitle,
-  perform: () => (window.location.pathname = `${page.collection}/${page.slug}`),
+  perform: () => (window.location.pathname = `${page.collection}/${page.slug.replace('ipynbout', '')}`),
 }))
 
 const actions = [...baseActions, ...routeActions]
