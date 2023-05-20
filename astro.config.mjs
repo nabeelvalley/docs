@@ -14,6 +14,11 @@ export default defineConfig({
       'Cross-Origin-Opener-Policy': 'same-origin',
     },
   },
+  vite: {
+    optimizeDeps: {
+      exclude: ['fs', 'path'],
+    },
+  },
   markdown: {
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
