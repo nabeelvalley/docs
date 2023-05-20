@@ -1,7 +1,7 @@
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import sitemap from '@astrojs/sitemap';
-import mdx from "@astrojs/mdx";
+import { defineConfig } from 'astro/config'
+import react from '@astrojs/react'
+import sitemap from '@astrojs/sitemap'
+import mdx from '@astrojs/mdx'
 
 // https://astro.build/config
 export default defineConfig({
@@ -9,12 +9,10 @@ export default defineConfig({
   site: 'https://nabeelvalley.co.za/',
   server: {
     headers: {
-      'X-Nabeels-Header': "Hello from Nabeel",
-
       // Cross-Origin Headers needed for Web Containers
       'Cross-Origin-Embedder-Policy': 'require-corp',
-      'Cross-Origin-Opener-Policy': 'same-origin'
-    }
+      'Cross-Origin-Opener-Policy': 'same-origin',
+    },
   },
   markdown: {
     shikiConfig: {
@@ -24,11 +22,11 @@ export default defineConfig({
       // Add custom languages
       // Note: Shiki has countless langs built-in, including .astro!
       // https://github.com/shikijs/shiki/blob/main/docs/languages.md
-      langs: []
+      langs: [],
       // Enable word wrap to prevent horizontal scrolling
       // wrap: true,
-    }
+    },
   },
 
-  integrations: [react(), sitemap(), mdx()]
-});
+  integrations: [react(), sitemap(), mdx()],
+})
