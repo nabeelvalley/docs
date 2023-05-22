@@ -155,7 +155,7 @@ Also for resizing windows you can make use of some of the following commands:
 - `ctrl + W =` to make all windows equal sizes
 - `:res n` to resize windows by `n`
 
-And `ctrl + W r` to rotate the windows
+And `ctrl + W r` to rotate the windows or `ctrl + W DIR` to move to the window in the `DIR` direction using `h`, `j`, `k`, `l`
 
 # File Management
 
