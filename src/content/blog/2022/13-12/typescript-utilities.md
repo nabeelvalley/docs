@@ -162,3 +162,36 @@ export type FlatPartial<T, TKeep = Primitive> = {
   [K in keyof T]: T[K] extends TKeep ? T[K] | undefined : Partial<T[K]>
 }
 ```
+
+# Strings
+
+```ts
+type Stringable = string | number;
+
+/**
+ * Joins stringable members into a single, typed, string
+ */
+export type Join<TSep extends string, T extends Array<Stringable>> = T extends [
+  infer El,
+  ...infer Rest
+]
+  ? El extends Stringable
+    ? Rest extends Array<Stringable>
+      ? `${El}${TSep}${Join<TSep, Rest>}`
+      : `${El}${TSep}`
+    : ''
+  : '';
+
+/**
+ * Split a strongly typed string into its parts
+ */
+export type Split<
+  TSep extends string,
+  TStr extends string,
+  TBase extends string[] = []
+> = TStr extends `${infer El}${TSep}${infer Rest}`
+  ? [El, Rest] extends [string, string]
+    ? [...TBase, El, ...Split<TSep, Rest>]
+    : [...TBase, El]
+  : [...TBase, TStr];
+```
