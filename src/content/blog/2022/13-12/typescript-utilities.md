@@ -166,7 +166,12 @@ export type FlatPartial<T, TKeep = Primitive> = {
 # Strings
 
 ```ts
-type Stringable = string | number;
+/**
+ * Types that can be cleanly/predictably converted into a string
+ */
+type Stringable = Exclude<string | number, ''>;
+
+type NonEmptyArray<T> = [T, ...T[]];
 
 /**
  * Joins stringable members into a single, typed, string
@@ -176,9 +181,9 @@ export type Join<TSep extends string, T extends Array<Stringable>> = T extends [
   ...infer Rest
 ]
   ? El extends Stringable
-    ? Rest extends Array<Stringable>
+    ? Rest extends NonEmptyArray<Stringable>
       ? `${El}${TSep}${Join<TSep, Rest>}`
-      : `${El}${TSep}`
+      : El
     : ''
   : '';
 
@@ -189,9 +194,5 @@ export type Split<
   TSep extends string,
   TStr extends string,
   TBase extends string[] = []
-> = TStr extends `${infer El}${TSep}${infer Rest}`
-  ? [El, Rest] extends [string, string]
-    ? [...TBase, El, ...Split<TSep, Rest>]
-    : [...TBase, El]
-  : [...TBase, TStr];
+> = TStr extends `${infer El}${TSep}${infer Rest}` ? [...TBase, El, ...Split<TSep, Rest>] : [TStr];
 ```
