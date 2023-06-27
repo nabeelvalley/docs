@@ -234,7 +234,7 @@ The above solutions use **Type Assertions** which allow a user to override the T
 
 The type assertions around user types are leading to lots of bugs, the team has a discussion about how this problem can be solved and someone suggests using a **Type Guard**. Type Guards are functions that can be used to check if a given variable meets a specific criterion under which it can be considered a narrower type that the input type. The difference between a Type Guard in this context and a regular function is that a Type Guard returns type information that can be used to inform the Typescript compiler about the state of a variable
 
-The proposed example is to convert the `isModerator` function into a `Type Guard` by converting the return type from `boolean` to `user is ModeratorUser` - this statement tells the compiler that within the scope that the check is `true`, the value is of the stated type and not the original type
+The proposed example is to convert the `isModerator` function into an **Assertion Function** by converting the return type from `boolean` to `user is ModeratorUser` - this assertion tells the compiler that within the scope that the check is `true`, the value is of the stated type and not the original type
 
 For example, `isModerator` can be updated as such:
 
@@ -261,3 +261,20 @@ const moderatorUsers = users.filter(isModerator)
 # Conclusion
 
 Discriminated Unions and type Guards are a powerful methods that can be used for working with complex object types and encoding application rules into your type system to minimize bugs and make code easier to extend
+
+# Further Reading
+
+On this site the following posts contain content relative to this one:
+
+- [Type Narrowing](/blog/2022/31-05/type-narrowing)
+- [Typescript Basics](/docs/javascript/typescript-basics)
+
+The Typescript documentation also mentions the above topics in a few different places:
+
+- [Assertion Functions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)
+- [Discriminated Unions](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions)
+- [Unions and Intersection Types](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminating-unions) 
+
+And the below post from [F# for Fun and Profit](https://fsharpforfunandprofit.com/) is something I often find myself coming back to on the topic of type design:
+
+- [Designing with types: Making illegal states unrepresentable](https://fsharpforfunandprofit.com/posts/designing-with-types-making-illegal-states-unrepresentable/)

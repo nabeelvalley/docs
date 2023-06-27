@@ -88,7 +88,7 @@ const getComplexName2 = (data: AnyData): string => {
 
 ## References
 
-- [My TS Notes](../../docs/javascript/typescript-basics)
+- [My TS Notes](/docs/javascript/typescript-basics)
 - [MDN The `in` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in)
 - [MDN The `typeof` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof)
 - [TS Docs on Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html)
