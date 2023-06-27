@@ -94,7 +94,7 @@ const convertUserToModerator = (user: User): User => {
   user.isModerator = true
   user.isWriter = false
 
-  return true
+  return user
 }
 ```
 
