@@ -275,6 +275,7 @@ The Typescript documentation also mentions the above topics in a few different p
 - [Discriminated Unions](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions)
 - [Unions and Intersection Types](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminating-unions) 
 
-And the below post from [F# for Fun and Profit](https://fsharpforfunandprofit.com/) is something I often find myself coming back to on the topic of type design:
+And the following series from [F# for Fun and Profit](https://fsharpforfunandprofit.com/) is something I often find myself coming back to on the topic of type design:
 
+- [Designing with types: Introduction](https://fsharpforfunandprofit.com/posts/designing-with-types-intro/)
 - [Designing with types: Making illegal states unrepresentable](https://fsharpforfunandprofit.com/posts/designing-with-types-making-illegal-states-unrepresentable/)
