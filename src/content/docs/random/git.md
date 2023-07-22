@@ -390,3 +390,11 @@ When using git it can be annoying when pushing a new branch since it will always
 ```sh
 git config --global push.autoSetupRemote true
 ```
+
+# Enable Case Sensitivity
+
+To ensure that git is case sensitive on non-case-sensitive systems (Windows) you can use the following command:
+
+```sh
+git config core.ignorecase false
+```
