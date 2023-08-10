@@ -1,10 +1,17 @@
 [
   {
+    "company": "Entelect",
+    "subtitle": "Senior Software Engineer",
+    "description": "",
+    "location": "Amsterdam, Netherlands",
+    "period": "July '23 - present"
+  },
+  {
     "company": "Quro Medical",
     "subtitle": "Senior Software Engineer",
     "description": "Developing web and mobile applications powered by scalable cloud native architectures, the internet of things, and artificial intelligence\nFocused on developing cross-platform applications with React-Native and Typescript, building scalable, cloud-native IoT and health solutions on AWS and GCP, and creating and managing machine learning models\nThe role also has a strong focus on working with and up-skilling junior developers and interacting with business to define solutions to healthcare and technical challenges",
     "location": "Johannesburg, South Africa",
-    "period": "May '21 - present"
+    "period": "May '21 - July '23"
   },
   {
     "company": "Mercedes-Benz",
