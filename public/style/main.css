@@ -248,10 +248,6 @@ footer.nav {
   color: var(--color-brand);
 }
 
-.link__tag:before {
-  content: '#';
-}
-
 .link__cta-wrapper {
   flex: 1;
   display: flex;
