@@ -105,12 +105,14 @@
     "title": "Image Resizer",
     "description": "I like my images to always be at a 3:2 ratio. This app resizes them in batches and adjusts the output dimensions for posting on the web",
     "cta": "Go to app",
-    "link": "https://nabeels-image-resizer.netlify.app/"
+    "link": "https://nabeels-image-resizer.netlify.app/",
+    "tags": ["js", "html"]
   },
   {
     "title": "Keycode Debugger",
     "description": "Debugging input events across browsers and operating systems for the web can be extremely annoying. This is a little app that hopes to make that easier",
     "cta": "Go to app",
-    "link": "https://keycode-debugger.netlify.app/"
+    "link": "https://keycode-debugger.netlify.app/",
+    "tags": ["js", "html"]
   }
 ]
