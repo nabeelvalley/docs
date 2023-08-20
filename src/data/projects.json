@@ -100,5 +100,17 @@
     "tags": ["node.js", "angular", "ibm-cloud", "cloud-foundry", "cloud"],
     "cta": "Go to article",
     "link": "https://developer.ibm.com/tutorials/deploy-angular-apps-cloud-foundry-devops/"
+  },
+  {
+    "title": "Image Resizer",
+    "description": "I like my images to always be at a 3:2 ratio. This app resizes them in batches and adjusts the output dimensions for posting on the web",
+    "cta": "Go to app",
+    "link": "https://nabeels-image-resizer.netlify.app/"
+  },
+  {
+    "title": "Keycode Debugger",
+    "description": "Debugging input events across browsers and operating systems for the web can be extremely annoying. This is a little app that hopes to make that easier",
+    "cta": "Go to app",
+    "link": "https://keycode-debugger.netlify.app/"
   }
 ]
