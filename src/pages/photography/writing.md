@@ -1,5 +1,4 @@
 ---
-layout: ../layouts/Photography.astro
 title: Photography
 subtitle: Filters and projects
 published: true
