@@ -15,8 +15,8 @@ const imageTasks = imagePaths.map(async (path) => {
   const parts = src.split('/')
   const alt = parts[parts.length - 1].split('.')[0]
 
+  // `.` needed to ensure path is relative since glob retuns it as `/public/...`
   const size = imageSize(`.${src}`)
-  console.log({ size })
 
   return {
     ...size,
