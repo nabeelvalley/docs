@@ -1,32 +1,29 @@
 ---
 import imageSize from 'image-size'
+import { glob } from 'glob'
 
 const { path } = Astro.props
-const start = `/public/photography/${path}`
-const paths = await Astro.glob('/public/photography/**/*')
 
-const imagePaths = paths.filter((p) => {
-  const src = p.default
-  console.log({ src })
-  return src.startsWith(start)
+const base = `public/photography/${path}`
+const paths = await glob(`./${base}/**/*`, {
+  nodir: true,
+  posix: true,
 })
 
-const imageTasks = imagePaths.map(async (path) => {
-  const src = path.default as string
+const images = paths.map((src) => {
   const parts = src.split('/')
   const alt = parts[parts.length - 1].split('.')[0]
 
+  console.log(src)
   // `.` needed to ensure path is relative since glob retuns it as `/public/...`
-  const size = imageSize(`.${src}`)
+  const size = imageSize(src)
 
   return {
     ...size,
-    src: src.replace('/public', ''),
+    src: src.replace('public', ''),
     alt,
   }
 })
-
-const images = await Promise.all(imageTasks)
 ---
 
 <div class="gallery__grid">
