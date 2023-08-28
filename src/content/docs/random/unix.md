@@ -4,6 +4,12 @@ title: Unix Shell
 description: Commands and shortcuts for using the unix based shells
 ---
 
+---
+published: true
+title: Unix Shell
+description: Commands and shortcuts for using the unix based shells
+---
+
 # Searching
 
 You can use `grep` to search in a file

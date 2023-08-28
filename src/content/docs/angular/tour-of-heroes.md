@@ -5,6 +5,13 @@ subtitle: Introduction to Angular Basics
 description: Angular Tour of Heroes tutorial notes
 ---
 
+---
+published: true
+title: Tutorial - Tour of Heroes
+subtitle: Introduction to Angular Basics
+description: Angular Tour of Heroes tutorial notes
+---
+
 # Setup
 
 # Angular CLI

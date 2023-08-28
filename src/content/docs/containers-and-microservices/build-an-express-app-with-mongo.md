@@ -5,6 +5,13 @@ subtitle: Build an Express Application that uses MongoDB and Docker
 description: Build an Express Application that uses MongoDB and Docker
 ---
 
+---
+published: true
+title: Express Application with MongoDB
+subtitle: Build an Express Application that uses MongoDB and Docker
+description: Build an Express Application that uses MongoDB and Docker
+---
+
 Built with tons of help from:
 
 - [Getting started with Node and Mongo DB](https://closebrace.com/tutorials/2017-03-02/the-dead-simple-step-by-step-guide-for-front-end-developers-to-getting-up-and-running-with-nodejs-express-and-mongodb)

@@ -5,6 +5,13 @@ subtitle: 23 March 2021
 description: Add styles for specific HTML elements in a markdown document
 ---
 
+---
+published: true
+title: Custom Styles in Markdown
+subtitle: 23 March 2021
+description: Add styles for specific HTML elements in a markdown document
+---
+
 When working with markdown it can often be useful to be able to style elements using custom CSS
 
 We can accomplish this by including a `style` tag. An example to illustrate this is changing the way a table renders in a specific document by changing the style of table rows to be striped, you would include the following CSS:

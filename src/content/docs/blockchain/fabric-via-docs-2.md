@@ -4,6 +4,12 @@ title: Hyperledger Fabric Part 2
 subtitle: Intro to Hyperledger Fabric via the Docs
 ---
 
+---
+published: true
+title: Hyperledger Fabric Part 2
+subtitle: Intro to Hyperledger Fabric via the Docs
+---
+
 # [Add an Org to a Channel](https://hyperledger-fabric.readthedocs.io/en/latest/channel_update_tutorial.html)
 
 This extends on the network from `byfn` by adding a new Organization to the channel. Chaincode updates are handled by an organization admin and not a chaincode or application developer

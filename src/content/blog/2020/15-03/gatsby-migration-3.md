@@ -5,6 +5,13 @@ subtitle: 15 March 2020
 description: Adding dynamic pages to a Gatsby site
 ---
 
+---
+published: true
+title: The Gatsby Migration, pt.3 - Smart Pages
+subtitle: 15 March 2020
+description: Adding dynamic pages to a Gatsby site
+---
+
 # Introduction
 
 So far we've created the initial react application as with a few routes for our `Home`, `Blog`, and `404` pages. In this post we'll look at how we can set up our `Post` component to render our pages dynamically based on the JSON data we have. We'll also extend this so that we can have some more content in a markdown file that we'll parse and add to our Gatsby data

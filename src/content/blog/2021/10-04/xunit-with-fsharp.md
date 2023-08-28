@@ -5,6 +5,13 @@ subtitle: 10 April 2021
 description: Configuring and Testing F# applications using XUnit and the .NET Core CLI
 ---
 
+---
+published: true
+title: XUnit with F#
+subtitle: 10 April 2021
+description: Configuring and Testing F# applications using XUnit and the .NET Core CLI
+---
+
 An important part of writing any software is testing. Unit testing is an automated testing method in which we test individual components of our software to verify that their behaviour aligns with our expectations
 
 This post will take a look at the process of setting up a new F# library and two methods of configuring XUnit to test your project's code

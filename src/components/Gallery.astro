@@ -1,0 +1,46 @@
+---
+import imageSize from 'image-size'
+
+const { path } = Astro.props
+const start = `/public/photography/${path}`
+const paths = await Astro.glob('../../public/photography/**/*')
+
+const imagePaths = paths.filter((p) => {
+  const src = p.default
+  return src.startsWith(start)
+})
+
+const imageTasks = imagePaths.map(async (path) => {
+  const src = path.default as string
+  const parts = src.split('/')
+  const alt = parts[parts.length - 1].split('.')[0]
+
+  const size = imageSize(`.${src}`)
+  console.log({ size })
+
+  return {
+    ...size,
+    src: src.replace('/public', ''),
+    alt,
+  }
+})
+
+const images = await Promise.all(imageTasks)
+---
+
+<div class="gallery__grid">
+  {
+    images
+      .reverse()
+      .map((image) => (
+        <image
+          {...image}
+          class={
+            image.height > image.width
+              ? 'gallery__image gallery__image--vertical'
+              : 'gallery__image gallery__image--horizontal'
+          }
+        />
+      ))
+  }
+</div>

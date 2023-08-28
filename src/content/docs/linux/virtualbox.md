@@ -4,6 +4,12 @@ title: VirtualBox Setup
 subtitle: Some Personal Preferences and Troubleshooting
 ---
 
+---
+published: true
+title: VirtualBox Setup
+subtitle: Some Personal Preferences and Troubleshooting
+---
+
 # VirtualBox Bugs
 
 ## Guest Additions

@@ -5,6 +5,13 @@ subtitle: 07 July 2022
 description: Create a simple database that's backed to a JSON file using Typescript and Node.js
 ---
 
+---
+published: true
+title: A Simple JSON Backed Database in Typescript
+subtitle: 07 July 2022
+description: Create a simple database that's backed to a JSON file using Typescript and Node.js
+---
+
 # Define the database
 
 The database is defined as a class which has an in-memory store `data` and a `persist` method that allows for persisting the database to a file as well as  content when an instance is created from an existing JSON file

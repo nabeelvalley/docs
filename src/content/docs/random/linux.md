@@ -4,6 +4,12 @@ title: Linux
 subtitle: Miscellaneous Linux Concepts
 ---
 
+---
+published: true
+title: Linux
+subtitle: Miscellaneous Linux Concepts
+---
+
 # Ubuntu
 
 ## Troubleshooting

@@ -5,6 +5,13 @@ subtitle: Introduction to the Android framework and basic concepts
 description: Introduction to the Android framework and basic concepts
 ---
 
+---
+published: true
+title: Android Basics
+subtitle: Introduction to the Android framework and basic concepts
+description: Introduction to the Android framework and basic concepts
+---
+
 > From the [Android Docs](https://developer.android.com/guide) and [this section](https://developer.android.com/training/basics/firstapp/index.html)
 
 # Creating a Project

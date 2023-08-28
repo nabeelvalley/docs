@@ -5,6 +5,13 @@ subtitle: 07 October 2020
 description: Manage python packages using poetry
 ---
 
+---
+published: true
+title: Package Management with Poetry
+subtitle: 07 October 2020
+description: Manage python packages using poetry
+---
+
 > [Poetry Docs](https://python-poetry.org/docs/)
 
 Python package management is typically quite a mess. Managing packages with `pip` often requires additional management of things like virtual environments and python version management

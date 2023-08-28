@@ -4,6 +4,12 @@ title: User interfaces with Compose
 subtitle: Building Declarative Android UIs using Jetpack Compose and Kotlin
 ---
 
+---
+published: true
+title: User interfaces with Compose
+subtitle: Building Declarative Android UIs using Jetpack Compose and Kotlin
+---
+
 # Jetpack Compose
 
 > Based on the [Jetpack Compose Learning Path](https://developer.android.com/courses/pathways/compose#article-https://developer.android.com/jetpack/compose/tutorial)

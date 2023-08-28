@@ -4,6 +4,12 @@ title: Antlr in a Container
 subtitle: How to configure ANTLR in a Devcontainer
 ---
 
+---
+published: true
+title: Antlr in a Container
+subtitle: How to configure ANTLR in a Devcontainer
+---
+
 To install ANTLR in a VSCode DevContainer you need to:
 
 1. Select a container with Java

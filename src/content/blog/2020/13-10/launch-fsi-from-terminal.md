@@ -5,6 +5,13 @@ subtitle: 13 October 2020
 description: Using the .NET CLI to use the F# Interactive console and run F# Scripts
 ---
 
+---
+published: true
+title: Scripting with FSharp
+subtitle: 13 October 2020
+description: Using the .NET CLI to use the F# Interactive console and run F# Scripts
+---
+
 > Before you can use the following, you will need the [.NET Core SDK installed](https://dotnet.microsoft.com/download)
 
 # Open the F# Interactive Console

@@ -3,6 +3,11 @@ published: true
 title: Faded Mono
 ---
 
+---
+published: true
+title: Faded Mono
+---
+
 ![](/content/photography/images/fuji-faded-mono.jpg)
 
 | Setting               | Value          |

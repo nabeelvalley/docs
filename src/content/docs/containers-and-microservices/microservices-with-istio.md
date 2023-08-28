@@ -3,6 +3,11 @@ published: true
 title: Microservices with Istio
 ---
 
+---
+published: true
+title: Microservices with Istio
+---
+
 [Based on this Cognitive Class course](https://cognitiveclass.ai/courses/get-started-with-microservices-istio-and-ibm-cloud-container-service/)
 
 # Twelve Factor App

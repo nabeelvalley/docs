@@ -43,6 +43,9 @@ dependencies:
   gray-matter:
     specifier: ^4.0.3
     version: 4.0.3
+  image-size:
+    specifier: ^1.0.2
+    version: 1.0.2
   ipynb2html:
     specifier: ^0.3.0
     version: 0.3.0

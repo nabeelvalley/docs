@@ -5,6 +5,13 @@ subtitle: Basic Introduction to the F# Programming Language
 description: Basic Introduction to the F# Programming Language
 ---
 
+---
+published: true
+title: Introduction to F#
+subtitle: Basic Introduction to the F# Programming Language
+description: Basic Introduction to the F# Programming Language
+---
+
 Mostly based on the content [here](https://fsharpforfunandprofit.com)
 
 > Foreword: When creating a new F# project from Visual Studio do not check the `Dockerfile` option, this will result in the following error when trying to run the application in some cases `A function labeled with the 'EntryPointAttribute' attribute must be the last declaration in the last file in the compilation sequence.`

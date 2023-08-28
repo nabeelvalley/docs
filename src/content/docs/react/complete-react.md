@@ -3,6 +3,11 @@ published: true
 title: React with Redux Basics
 ---
 
+---
+published: true
+title: React with Redux Basics
+---
+
 [Based on this video series](https://www.youtube.com/watch?v=OxIDLw0M-m0&list=PL4cUxeGkcC9ij8CfkAY2RAGb-tmkNwQHG&index=1)
 
 [GitHub Repo](https://github.com/iamshaunjp/react-redux-complete-playlist)

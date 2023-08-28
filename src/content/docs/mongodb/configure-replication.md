@@ -4,6 +4,12 @@ title: Replication with MongoDB
 subtitle: Configure MongoDB ReplicaSets using Mongo on a Server or via Docker Compose
 ---
 
+---
+published: true
+title: Replication with MongoDB
+subtitle: Configure MongoDB ReplicaSets using Mongo on a Server or via Docker Compose
+---
+
 Using a single MongoDB instance is cool, but you know what's cooler? Using more than one. Sometimes we need to set up a couple of different database replicas, this is a general method of how this can be done
 
 # On a Development Machine

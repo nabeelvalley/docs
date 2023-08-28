@@ -4,6 +4,12 @@ title: Intro to Slack Apps
 subtitle: Building a Hello World app with the Slack API
 ---
 
+---
+published: true
+title: Intro to Slack Apps
+subtitle: Building a Hello World app with the Slack API
+---
+
 # Hello World App
 
 ## Incoming Webhooks

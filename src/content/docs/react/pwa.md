@@ -3,6 +3,11 @@ published: true
 title: Progressive Web Apps
 ---
 
+---
+published: true
+title: Progressive Web Apps
+---
+
 # Automatically
 
 The PWA can be built automatically using the [**PWABuilder**](https://www.pwabuilder.com)

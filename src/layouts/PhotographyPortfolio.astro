@@ -1,0 +1,26 @@
+---
+import Base from './Base.astro'
+import Title from '../components/Title.astro'
+
+const { title } = Astro.props
+---
+
+<Base fullWidth>
+  <Title title={title} />
+
+  <nav class="nav">
+    <ul class="nav__list no-print">
+      <li class="nav__item">
+        <a href="/photography/portraits/bw">Portraits</a>
+      </li>
+      <li class="nav__item">
+        <a href="/photography/places">Places</a>
+      </li>
+      <li class="nav__item">
+        <a href="/photography/nature">Nature</a>
+      </li>
+    </ul>
+  </nav>
+
+  <slot />
+</Base>

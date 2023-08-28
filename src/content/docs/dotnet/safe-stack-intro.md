@@ -5,6 +5,13 @@ subtitle: Overview of the SAFE Stack
 description: Overview of the SAFE Stack
 ---
 
+---
+published: true
+title: SAFE Stack
+subtitle: Overview of the SAFE Stack
+description: Overview of the SAFE Stack
+---
+
 An F# stack for everywhere, [here's the docs](https://safe-stack.github.io)
 
 # Prereqs

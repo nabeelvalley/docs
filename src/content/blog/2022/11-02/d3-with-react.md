@@ -5,6 +5,13 @@ subtitle: 11 February 2022
 description: Create SVG Graphs and Visualizations in React using D3
 ---
 
+---
+published: true
+title: Visualizations with React
+subtitle: 11 February 2022
+description: Create SVG Graphs and Visualizations in React using D3
+---
+
 # Data Visualization with D3 and React
 
 React is a library for building reactive user interfaces using JavaScript (or Typescript) and D3 (short for _Data-Driven Documents_) is a set of libraries for working with visualizations based on data

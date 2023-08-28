@@ -5,6 +5,13 @@ subtitle: 15 December 2022
 description: A Smooth Bottom Navigator using CSS Transitions and Svelte
 ---
 
+---
+published: true
+title: Smooth Bottom Navigator with Secondary Actions
+subtitle: 15 December 2022
+description: A Smooth Bottom Navigator using CSS Transitions and Svelte
+---
+
 Not dissimilar from my previous post on the [expanding bottom nav](/blog/2022/13-11/svelte-expanding-nav) this expands on the idea of animating between states in the navigator in a more global way, this version makes use of a similar animation/transition pattern but does so by modifying the heights as well as the absolute positioning of different components
 
 The implementation below takes the overall concept to the simplest possible state, however some refinements that can still be made include being responsive to the size of the additional content as well as doing a more accurate calculation on how large the sliding tab should be and how it's placed

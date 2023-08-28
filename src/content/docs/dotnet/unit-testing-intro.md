@@ -5,6 +5,13 @@ subtitle: Introduction to Unit Testing with XUnit
 description: Introduction to Unit Testing with XUnit
 ---
 
+---
+published: true
+title: Introduction to Unit Testing
+subtitle: Introduction to Unit Testing with XUnit
+description: Introduction to Unit Testing with XUnit
+---
+
 [Part 1](https://www.youtube.com/watch?v=HhRvW1b4IwM)
 
 Unit testing is about testing code to do what it is expected to do

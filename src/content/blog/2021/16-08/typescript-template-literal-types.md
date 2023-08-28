@@ -5,6 +5,13 @@ subtitle: 16 August 2021
 description: Defining type combinations using Template Literal types
 ---
 
+---
+published: true
+title: Template Literal Types with Typescript
+subtitle: 16 August 2021
+description: Defining type combinations using Template Literal types
+---
+
 Template literal types provide us a way to combine `string types` or `enums` in Typescript.
 
 In the below example, we can make use of a `string type` called `Action` and an `enum` called `Resource` to define a type which is a combination of an action combined with a resource

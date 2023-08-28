@@ -5,6 +5,13 @@ subtitle: 03 August 2022
 description: Software development tools and languages I'm using at the moment
 ---
 
+---
+published: true
+title: Dev Tools Update
+subtitle: 03 August 2022
+description: Software development tools and languages I'm using at the moment
+---
+
 # Programming Languages
 
 I've primarily switched over to Typescript as my language for building applications, but I've also been learning Rust for the purpose of building some low-level libraries

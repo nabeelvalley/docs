@@ -5,6 +5,13 @@ subtitle: 25 November 2021
 description: Introduction to the Rust Programming Language
 ---
 
+---
+published: true
+title: Introduction
+subtitle: 25 November 2021
+description: Introduction to the Rust Programming Language
+---
+
 > These notes are based on working through [The Rust Programming Language Book](https://doc.rust-lang.org/book/title-page.html). It can also be accessed using `rustup docs --book`
 
 # Getting Started

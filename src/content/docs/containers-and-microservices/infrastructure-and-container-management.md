@@ -3,6 +3,11 @@ published: true
 title: Infrastructure and Container Management
 ---
 
+---
+published: true
+title: Infrastructure and Container Management
+---
+
 > Presented by Donovan Marais
 
 # Container vs VM

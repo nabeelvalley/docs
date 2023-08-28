@@ -5,6 +5,13 @@ subtitle: Tips and Tricks
 description: Powershell tips and tricks
 ---
 
+---
+published: true
+title: Powershell
+subtitle: Tips and Tricks
+description: Powershell tips and tricks
+---
+
 # Modify Prompt
 
 > Based on [this](https://superuser.com/questions/446827/configure-the-windows-powershell-to-display-only-the-current-folder-name-in-the)

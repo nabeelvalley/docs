@@ -6,6 +6,7 @@ import { Footer, Header } from '../components'
 const {
   title = 'Nabeel Valley',
   description = 'Software develpment, Photography and Design',
+  fullWidth = false,
 } = Astro.props
 ---
 
@@ -65,7 +66,7 @@ const {
   </head>
 
   <body>
-    <div class="page">
+    <div class={fullWidth ? 'page full-width' : 'page'}>
       <Header />
       <main class="main">
         <slot />

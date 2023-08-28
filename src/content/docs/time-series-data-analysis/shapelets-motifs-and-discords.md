@@ -4,6 +4,12 @@ title: Shapelets, Motifs, and Discords
 description: Using Shapelets, Motifs, and Discords in Time Series Data Analysis
 ---
 
+---
+published: true
+title: Shapelets, Motifs, and Discords
+description: Using Shapelets, Motifs, and Discords in Time Series Data Analysis
+---
+
 > Notes on [Shaplets, Motifs and Discords: A set of Primitives for Mining Massive Time Series and Image Archives by Eamonn Keogh](https://www.youtube.com/watch?v=ODspi8-uWgo)
 
 A time series will consist of a time series (T) and many subsequences (C)

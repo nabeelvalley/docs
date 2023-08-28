@@ -121,6 +121,10 @@ li a {
   padding: 48px 24px;
 }
 
+.page.full-width {
+  max-width: unset;
+}
+
 .nav {
   display: flex;
   flex-direction: column;
@@ -608,4 +612,42 @@ code.mermaid[data-processed='true'] {
 /* XTerm */
 .terminal {
   padding: 12px;
+}
+
+/* Gallery */
+.gallery__grid {
+  --grid-cols: 6;
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  grid-template-rows: auto;
+  grid-gap: 24px;
+}
+
+@media (min-width: 900px) {
+  .gallery__grid {
+    --grid-cols: 12;
+  }
+}
+
+@media (min-width: 1200px) {
+  .gallery__grid {
+    --grid-cols: 24;
+  }
+}
+
+.gallery__image {
+  position: relative;
+  height: unset;
+  width: unset;
+}
+
+.gallery__image--horizontal {
+  grid-column: span 6;
+  grid-row: span 4;
+}
+
+.gallery__image--vertical {
+  grid-column: span 6;
+  grid-row: span 8;
 }

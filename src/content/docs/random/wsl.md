@@ -5,6 +5,13 @@ subtitle: Miscellaneous WSL Things
 description: WSL tips and tricks
 ---
 
+---
+published: true
+title: WSL
+subtitle: Miscellaneous WSL Things
+description: WSL tips and tricks
+---
+
 # Troubleshooting
 
 When using WSL, you may occasionally see the following error message:

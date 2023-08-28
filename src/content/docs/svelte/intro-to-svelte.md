@@ -5,6 +5,13 @@ subtitle: Basic Info for Using Svelte
 description: Basic Info for Using Svelte
 ---
 
+---
+published: true
+title: Intro to Svelte
+subtitle: Basic Info for Using Svelte
+description: Basic Info for Using Svelte
+---
+
 # Introduction to Svelte
 
 [Notes from this video](https://www.youtube.com/watch?v=Bfi96LUebXo)

@@ -3,6 +3,11 @@ published: true
 title: Code Generation using CSV Files
 ---
 
+---
+published: true
+title: Code Generation using CSV Files
+---
+
 # Generating code from a CSV file
 
 At times it may be necessary to generate a script or some code from a CSV File, this can be done using Node.js with a structure as follows:

@@ -4,6 +4,12 @@ title: Flutter Reference
 subtitle: Notes on the Flutter framework
 ---
 
+---
+published: true
+title: Flutter Reference
+subtitle: Notes on the Flutter framework
+---
+
 > Notes from the [The Net Ninja Youtube Series](https://www.youtube.com/watch?v=1ukSR1GRtMU&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ)
 
 # What is it

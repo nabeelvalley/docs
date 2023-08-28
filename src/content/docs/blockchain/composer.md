@@ -4,6 +4,12 @@ title: Hyperledger Composer
 subtitle: Introduction to Hyperledger Composer
 ---
 
+---
+published: true
+title: Hyperledger Composer
+subtitle: Introduction to Hyperledger Composer
+---
+
 # Overview
 
 A business Network, defined in a **Business Network Archive** `.bna` File

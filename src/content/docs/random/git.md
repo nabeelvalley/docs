@@ -5,6 +5,13 @@ subtitle: Miscellaneous Git Concepts
 description: Git tips and tricks
 ---
 
+---
+published: true
+title: Git
+subtitle: Miscellaneous Git Concepts
+description: Git tips and tricks
+---
+
 # Stage Files Using Glob
 
 Git allows the use of globbing to work with files, using this knowledge we're able to do something like stage files based on a glob pattern, so we can do something like stage all `.js` and `.ts` files with:

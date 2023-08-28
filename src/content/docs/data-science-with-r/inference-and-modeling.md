@@ -3,6 +3,11 @@ published: true
 title: Inference and Modeling
 ---
 
+---
+published: true
+title: Inference and Modeling
+---
+
 > [Based on this EdX Course](https://www.edx.org/course/data-science-inference)
 
 # Inference

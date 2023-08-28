@@ -4,6 +4,12 @@ title: Typescript Basics
 subtitle: Introduction and cheatsheet for basic Typescript concepts
 ---
 
+---
+published: true
+title: Typescript Basics
+subtitle: Introduction and cheatsheet for basic Typescript concepts
+---
+
 # Types
 
 A `type` is the most basic thing in typescript and is an object structure

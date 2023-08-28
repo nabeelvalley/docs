@@ -3,6 +3,11 @@ published: true
 title: Lists and Forms
 ---
 
+---
+published: true
+title: Lists and Forms
+---
+
 [Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
 
 # Lists

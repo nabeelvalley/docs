@@ -4,6 +4,12 @@ title: Reactive Architecture Foundations
 subtitle: Notes on reactive architecture for microservices
 ---
 
+---
+published: true
+title: Reactive Architecture Foundations
+subtitle: Notes on reactive architecture for microservices
+---
+
 > [Based on this CognitiveClass learning path](https://cognitiveclass.ai/learn/reactive-architecture-foundations)
 
 # Foundations

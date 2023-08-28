@@ -4,6 +4,12 @@ title: CDK Local Lambdas
 subtitle: Local Development and Testing of AWS CDK Lambdas
 ---
 
+---
+published: true
+title: CDK Local Lambdas
+subtitle: Local Development and Testing of AWS CDK Lambdas
+---
+
 # Introduction
 
 The AWS CDK enables us to define application infrastructure using a programming language instead of markup, which is then transformed by the CDK to CloudFormation templates for the management of cloud infrustructure services

@@ -4,6 +4,12 @@ title: Unity Basics
 subtitle: Basic Game Development using Unity
 ---
 
+---
+published: true
+title: Unity Basics
+subtitle: Basic Game Development using Unity
+---
+
 > Notes from [this series](https://www.youtube.com/watch?v=_uO5B7bP9jo&list=PLX2vGYjWbI0TiP080ELGDurOmz5NAg5CI)
 
 # Setting Up

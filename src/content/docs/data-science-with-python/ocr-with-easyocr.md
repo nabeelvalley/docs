@@ -4,6 +4,12 @@ title: OCR with Python and EasyOCR
 subtitle: Create a basic application using EasyOCR and Flask that uses Machine Learning to Parse Text from an Image
 ---
 
+---
+published: true
+title: OCR with Python and EasyOCR
+subtitle: Create a basic application using EasyOCR and Flask that uses Machine Learning to Parse Text from an Image
+---
+
 A simple application to use EasyOCR and Flask to create a WebApp that is able to process images and return the relevant text
 
 # Requirements/Dependencies

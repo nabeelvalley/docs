@@ -3,6 +3,11 @@ published: true
 title: Visualization
 ---
 
+---
+published: true
+title: Visualization
+---
+
 > [Based on This EdX Course](https://www.edx.org/course/data-science-visualization)
 
 # Configuration
