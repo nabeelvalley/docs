@@ -3,10 +3,11 @@ import imageSize from 'image-size'
 
 const { path } = Astro.props
 const start = `/public/photography/${path}`
-const paths = await Astro.glob('../../public/photography/**/*')
+const paths = await Astro.glob('/public/photography/**/*')
 
 const imagePaths = paths.filter((p) => {
   const src = p.default
+  console.log({ src })
   return src.startsWith(start)
 })
 
