@@ -5,13 +5,6 @@ subtitle: 25 July 2020
 description: Using a Docker Container as a development container using the Visual Studio Code Remote-Containers Extension
 ---
 
----
-published: true
-title: Code in a Container
-subtitle: 25 July 2020
-description: Using a Docker Container as a development container using the Visual Studio Code Remote-Containers Extension
----
-
 Recently I'd started using Visual Studio Code's _Remote Containers_ functionality for development and it's been really useful
 
 The Remote Containers extension allows us to write code and develop applications within a virtualized environment that makes it easier for us to manage our development environment as well as more closely resemble our target deployment environment (if we're deploying to Docker or Kubernetes)

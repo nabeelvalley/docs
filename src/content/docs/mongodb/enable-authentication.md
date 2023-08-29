@@ -4,12 +4,6 @@ title: Authentication with MongoDB
 subtitle: Configure MongoDB Authentication and Authorization
 ---
 
----
-published: true
-title: Authentication with MongoDB
-subtitle: Configure MongoDB Authentication and Authorization
----
-
 # Configuration File
 
 > [The Docs](https://docs.mongodb.com/manual/reference/configuration-options/)

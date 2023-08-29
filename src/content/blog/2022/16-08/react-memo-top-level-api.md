@@ -5,13 +5,6 @@ subtitle: 16 August 2022
 description: Using the react top-level API for debouncing and selectively rendering a component for better performance
 ---
 
----
-published: true
-title: Using React.memo for Controlling Component Rendering
-subtitle: 16 August 2022
-description: Using the react top-level API for debouncing and selectively rendering a component for better performance
----
-
 # React Top Level API
 
 The React library contains some functions at it's top level scope. Amongst these are the built-in hooks (like `useState`, `useCallback`, etc.) as well as some other functions for manipulating React Elements directly - which I've covered in a previous post on [The React Top Level API](../01-03/react-top-level-api.md)

@@ -5,13 +5,6 @@ subtitle: 24 January 2023
 description: A short introduction to RSS feeds
 ---
 
----
-published: true
-title: Let's talk about Feeds
-subtitle: 24 January 2023
-description: A short introduction to RSS feeds
----
-
 # Order Up
 
 Life's busy and disastrous and trying to pop in and talk to myself for a few hours is unattainable most of the time

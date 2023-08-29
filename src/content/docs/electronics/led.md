@@ -4,12 +4,6 @@ title: LEDs
 subtitle: General information on using LEDs in electric circuits
 ---
 
----
-published: true
-title: LEDs
-subtitle: General information on using LEDs in electric circuits
----
-
 LED is short for Light Emitting Diode
 
 # Symbol

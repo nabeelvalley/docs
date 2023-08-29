@@ -5,13 +5,6 @@ subtitle: 20 August 2022
 description: An introduction to bits, bytes, and binary file formats
 ---
 
----
-published: true
-title: Binary Data and File Formats
-subtitle: 20 August 2022
-description: An introduction to bits, bytes, and binary file formats
----
-
 # Introduction
 
 Computers work with data stored in binary formats. Reading and interpreting binary data is an important part of understanding file formats so their data can be read and interpreted

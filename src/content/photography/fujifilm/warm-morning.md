@@ -3,11 +3,6 @@ published: true
 title: Warm Morning
 ---
 
----
-published: true
-title: Warm Morning
----
-
 ![](/content/photography/images/fuji-warm-morning.jpg)
 
 | Setting               | Value         |

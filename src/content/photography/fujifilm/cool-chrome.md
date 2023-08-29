@@ -3,11 +3,6 @@ published: true
 title: Cool Chrome
 ---
 
----
-published: true
-title: Cool Chrome
----
-
 ![](/content/photography/images/fuji-cool-chrome.jpg)
 
 | Setting               | Value          |

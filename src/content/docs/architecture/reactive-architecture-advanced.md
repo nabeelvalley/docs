@@ -4,12 +4,6 @@ title: Reactive Architecture Advanced
 subtitle: Notes on reactive architecture for microservices
 ---
 
----
-published: true
-title: Reactive Architecture Advanced
-subtitle: Notes on reactive architecture for microservices
----
-
 > [Based on this CognitiveClass learning path](https://cognitiveclass.ai/learn/reactive-architecture-advanced)
 
 # Building Scalable Systems

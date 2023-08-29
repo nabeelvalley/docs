@@ -3,11 +3,6 @@ published: true
 title: Functional Higher Order Components (HOCs) with Typescript
 ---
 
----
-published: true
-title: Functional Higher Order Components (HOCs) with Typescript
----
-
 An HOC in React is a component that wraps another component to provide additional props or functionality to the wrapped component
 
 Here's a simple example of how we can create an HOC using Typescript:

@@ -5,13 +5,6 @@ subtitle: Basic Introduction to the C# Programming Language
 description: Basic Introduction to the C# Programming Language
 ---
 
----
-published: true
-title: Introduction to C#
-subtitle: Basic Introduction to the C# Programming Language
-description: Basic Introduction to the C# Programming Language
----
-
 > From the Microsoft Virtual Academy
 
 # Hello World

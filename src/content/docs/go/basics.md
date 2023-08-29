@@ -4,12 +4,6 @@ title: Basics
 subtitle: Notes on the GO Programming language
 ---
 
----
-published: true
-title: Basics
-subtitle: Notes on the GO Programming language
----
-
 - [YouTube Video](https://www.youtube.com/watch?v=SqrbIlUwR0U)
 - [GitHub](https://github.com/bradtraversy/go_crash_course)
 

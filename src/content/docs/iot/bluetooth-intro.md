@@ -4,12 +4,6 @@ title: Introduction to Bluetooth
 subtitle: Connecting to, and Reading Data from Bluetooth Devices using Python and Bleak
 ---
 
----
-published: true
-title: Introduction to Bluetooth
-subtitle: Connecting to, and Reading Data from Bluetooth Devices using Python and Bleak
----
-
 # Overview
 
 Bluetooth Low Energy (BLE) devices make use of a few different concepts for reading and writing data. At a high level, bluetooth data is organized as follows:

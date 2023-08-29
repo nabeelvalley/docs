@@ -3,11 +3,6 @@ published: true
 title: Istio with k8s
 ---
 
----
-published: true
-title: Istio with k8s
----
-
 # Prerequisites
 
 1. Trial IBM Cloud Account

@@ -4,12 +4,6 @@ title: Neovim
 subtitle: Neovim setup and general info
 ---
 
----
-published: true
-title: Neovim
-subtitle: Neovim setup and general info
----
-
 # Installation
 
 The following need to be installed to use Neovim with Plugins

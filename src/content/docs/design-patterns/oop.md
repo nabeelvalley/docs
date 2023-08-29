@@ -3,11 +3,6 @@ published: true
 title: OOP Concepts
 ---
 
----
-published: true
-title: OOP Concepts
----
-
 - [Part 1](https://www.youtube.com/watch?v=vNHpsC5ng_E&list=PLF206E906175C7E07&index=1)
 
 - [Part 2](https://www.youtube.com/watch?v=yRJ1rRoMnIM&list=PLF206E906175C7E07&index=2)

@@ -5,13 +5,6 @@ subtitle: Getting Started with Gatsby.js
 description: Getting Started with Gatsby.js
 ---
 
----
-published: true
-title: Gatsby
-subtitle: Getting Started with Gatsby.js
-description: Getting Started with Gatsby.js
----
-
 # Introduction
 
 Gatsby.js is a Static Site Generator that makes use of React and can plug into a headless CMS to generate a Static Site with SPA support and functionality

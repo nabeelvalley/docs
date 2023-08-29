@@ -5,13 +5,6 @@ subtitle: 17 May 2020
 description: An introduction to programming and general programming concepts using JavaScript
 ---
 
----
-published: true
-title: Code for Noobs
-subtitle: 17 May 2020
-description: An introduction to programming and general programming concepts using JavaScript
----
-
 So I've been meaning to write an introductory post about the basics of JavaScript for quite some time. A few weeks ago I managed to finally get something going on [this Twitter thread (@not_nabeel)](https://twitter.com/not_nabeel/status/1255743195557888000)
 
 Let's get into it

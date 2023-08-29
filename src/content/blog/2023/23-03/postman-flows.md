@@ -5,13 +5,6 @@ subtitle: 03 March 2023
 description: First impressions playing with the new Postman Flows
 ---
 
----
-published: true
-title: Postman Flows
-subtitle: 03 March 2023
-description: First impressions playing with the new Postman Flows
----
-
 Postman is a tool used for making HTTP requests during development that enables easy testing and experimentation with HTTP/REST APIs
 
 Recently Postman released something called Flows which is a visual editor for building API flows between different applications and stitching them together into some kind of output view

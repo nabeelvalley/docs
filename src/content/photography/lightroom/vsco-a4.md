@@ -3,11 +3,6 @@ published: true
 title: VSCO A4
 ---
 
----
-published: true
-title: VSCO A4
----
-
 > [Download Lightroom Preset](/photography/lightroom/presets/nabeel-valley-vsco-a4.xmp)
 
 # Sample 1

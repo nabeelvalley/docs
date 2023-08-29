@@ -4,12 +4,6 @@ title: Scaling
 subtitle: Tips for scaling SVGs
 ---
 
----
-published: true
-title: Scaling
-subtitle: Tips for scaling SVGs
----
-
 # Scaling an SVG
 
 Scaling an inline SVG isn't as straightforward as scaling a normal image as they don't behave quite the same when using an `img` tag. There's a lot of information on doing this [on CSS Tricks](https://css-tricks.com/scale-svg/)

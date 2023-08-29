@@ -5,13 +5,6 @@ subtitle: 26 June 2023
 description: A practical introduction to type guards and union types
 ---
 
----
-published: true
-title: Using Type Guards and Unions to prevent bugs and increase maintainability
-subtitle: 26 June 2023
-description: A practical introduction to type guards and union types
----
-
 When working with a dynamic language, like Javascript, a problem that we can often run into is one where a variable may be of multiple possible types in a given place in our code. Due to this, we often run into a need to check the type of an object
 
 # The Scene
@@ -22,8 +15,8 @@ The object we use for representing a user who just reads our site is as follows:
 
 ```ts
 const reader = {
-  "username": "john",
-  "email": "john@email.com"
+  username: 'john',
+  email: 'john@email.com',
 }
 ```
 
@@ -31,9 +24,9 @@ After some time, we decide to make it such that certain users can create article
 
 ```ts
 const writer = {
-  "username": "smith",
-  "email": "smith@email.com",
-  "isWriter": true,
+  username: 'smith',
+  email: 'smith@email.com',
+  isWriter: true,
 }
 ```
 
@@ -47,10 +40,10 @@ So we choose to add a field for that indicates a user is a moderator:
 
 ```ts
 const moderator = {
-  "username": "bob",
-  "email": "bob@email.com",
-  "isWriter": false,
-  "isModerator": true
+  username: 'bob',
+  email: 'bob@email.com',
+  isWriter: false,
+  isModerator: true,
 }
 ```
 
@@ -84,7 +77,6 @@ After a few weeks though, readers start to notice a problem - some articles that
 Upon some further investigation, the team notices that all these articles are ones in which the moderator is the writer of the article - but this shouldn't have happened right? We said that each moderator should not be able to also function as a writer
 
 Eventually, we track down the bug that made this possible, it was in the function called `convertUserToModerator`:
-
 
 ```ts
 const convertUserToModerator = (user: User): User => {
@@ -120,7 +112,6 @@ Since each user can have `true` or `false` for any combination of `isWriter` and
 | `isModerator === true`  | Unknown             | Moderator            |
 | `isModerator === false` | Writer              | Reader               |
 
-
 From the above, we can see that we have a state that is not handled in the current code - this "Unknown" state. In this state, the `isModerator` and `isWriter` functions return `true`
 
 We want this state to be impossible in our code. This is not a state that our application should ever have to consider. From a type-design perspective, it's not enough to handle these impossible states, we need to prevent them from existing in the first place
@@ -137,7 +128,7 @@ Using these user types, we can update the `User` definition from above:
 
 ```ts
 interface User {
-  type: "reader" | "writer" | "moderator"
+  type: 'reader' | 'writer' | 'moderator'
 
   username: string
   email: string
@@ -148,7 +139,7 @@ The `type` field allows us to determine the type of a user. We can then use this
 
 # Extending the Moderator
 
-Our solution is running well and we have managed to fully eliminate the bug. 
+Our solution is running well and we have managed to fully eliminate the bug.
 
 But now, the moderators are a little bored with their duties and would like some way that they can compete with each other on the quality of their content moderation - so they decide to create a leaderboard in which they look at how many articles they have read and approved or denied - as interest goes however, the moderators reach out to the development team and ask if it would be possible to add the number of approvals and denials so that the moderators don't need to calculate this manually every month for their leaderboard
 
@@ -156,7 +147,7 @@ The development team has the idea to add these scores into the `User` definition
 
 ```ts
 interface User {
-  type: "reader" | "writer" | "moderator"
+  type: 'reader' | 'writer' | 'moderator'
 
   username: string
   email: string
@@ -184,14 +175,14 @@ interface BaseUser<Type extends string> {
 Each specialized user type can inherit from `BaseUser` with a specific type applied, for the `writer` and `reader` types, these can just be aliases to the base interface
 
 ```ts
-type ReaderUser = BaseUser<"reader">
-type WriterUser = BaseUser<"writer">
+type ReaderUser = BaseUser<'reader'>
+type WriterUser = BaseUser<'writer'>
 ```
 
 The `moderator` however, will need to extend this to add the additional properties:
 
 ```ts
-interface ModeratorUser extends BaseUser<"moderator"> {
+interface ModeratorUser extends BaseUser<'moderator'> {
   approvedArticles: number
   deniedArticles: number
 }
@@ -212,7 +203,7 @@ In our backend code, we can now use the `type` property of our user to condition
 As the codebase grows, the team writes some functions to check the type of the user so that specific computations can be done, for example checking the total number of articles a moderator has been reviewed. An example of one of these checks can be seen below:
 
 ```ts
-const isModerator = (user: User): boolean => user.type === "moderator"
+const isModerator = (user: User): boolean => user.type === 'moderator'
 ```
 
 The above check is used in quite a few places, like when counting the total number of articles reviewed:
@@ -221,7 +212,7 @@ The above check is used in quite a few places, like when counting the total numb
 const getTotalArticlesReviewed = (user: User): number | undefined => {
   if (isModerator(user)) {
     const moderatorUser = user as ModeratorUser
-  
+
     return moderatorUser.approvedArticles + moderatorUser.deniedArticles
   }
 
@@ -246,7 +237,8 @@ The proposed example is to convert the `isModerator` function into an **Assertio
 For example, `isModerator` can be updated as such:
 
 ```ts
-const isModerator = (user: User): user is ModeratorUser => user.type === "moderator"
+const isModerator = (user: User): user is ModeratorUser =>
+  user.type === 'moderator'
 ```
 
 This means that when using the code above, we no longer need to cast since Typescript can infer the variable appropriately
@@ -280,7 +272,7 @@ The Typescript documentation also mentions the above topics in a few different p
 
 - [Assertion Functions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)
 - [Discriminated Unions](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions)
-- [Unions and Intersection Types](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminating-unions) 
+- [Unions and Intersection Types](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminating-unions)
 
 And the following series from [F# for Fun and Profit](https://fsharpforfunandprofit.com/) is something I often find myself coming back to on the topic of type design:
 

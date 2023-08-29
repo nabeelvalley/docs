@@ -4,12 +4,6 @@ title: Blockchain Foundations
 subtitle: Basic Blockchain Concepts using Hyperledger
 ---
 
----
-published: true
-title: Blockchain Foundations
-subtitle: Basic Blockchain Concepts using Hyperledger
----
-
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/ibm-blockchain-foundation-dev/)
 
 ## Prerequisites

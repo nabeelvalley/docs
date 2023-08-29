@@ -4,12 +4,6 @@ title: IBM Cloud VSCode Blockchain Extension
 subtitle: Using the VSCode Extension for Interacting with a Blockchain
 ---
 
----
-published: true
-title: IBM Cloud VSCode Blockchain Extension
-subtitle: Using the VSCode Extension for Interacting with a Blockchain
----
-
 > Note: Just use Ubuntu, you shouldn't run into all the build issues that you will with Windows for Node
 
 # VSCode Extension

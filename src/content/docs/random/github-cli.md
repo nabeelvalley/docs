@@ -4,12 +4,6 @@ title: GitHub CLI
 description: Quick tips for using the GitHub CLI
 ---
 
----
-published: true
-title: GitHub CLI
-description: Quick tips for using the GitHub CLI
----
-
 > [GitHub CLI Website](https://cli.github.com)
 
 # Setup

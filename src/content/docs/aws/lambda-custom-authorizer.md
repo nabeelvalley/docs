@@ -4,12 +4,6 @@ title: Simple Lambda Custom Authorizer
 subtitle: Using a Lambda for Authorization and Authentication on AWS API Gateway
 ---
 
----
-published: true
-title: Simple Lambda Custom Authorizer
-subtitle: Using a Lambda for Authorization and Authentication on AWS API Gateway
----
-
 # Custom Authorizers
 
 API Gateway allows us to handle auth by way of a lambda. AWS has two types of authorization lambdas we can use, namely:

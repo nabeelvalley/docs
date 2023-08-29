@@ -4,12 +4,6 @@ title: Nushell
 description: Nushell Commands and Usage
 ---
 
----
-published: true
-title: Nushell
-description: Nushell Commands and Usage
----
-
 > [Nushell Docs](https://www.nushell.sh)
 
 # About

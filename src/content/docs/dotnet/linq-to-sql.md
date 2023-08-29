@@ -5,13 +5,6 @@ subtitle: Basic Introduction to Mapping Entities using LINQ to SQL
 description: Basic Introduction to Mapping Entities using LINQ to SQL
 ---
 
----
-published: true
-title: Introduction to LINQ to SQL
-subtitle: Basic Introduction to Mapping Entities using LINQ to SQL
-description: Basic Introduction to Mapping Entities using LINQ to SQL
----
-
 > Note that you can follow this entire process or skip to the [Shortcut](#Shortcut) section at the end
 
 Using the Microsoft [docs on LINQ to SQL](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/) and the [sample database setup script](https://raw.githubusercontent.com/microsoft/sql-server-samples/master/samples/databases/northwind-pubs/instnwnd.sql)

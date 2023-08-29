@@ -3,11 +3,6 @@ published: true
 title: Docker Configuration Scripts
 ---
 
----
-published: true
-title: Docker Configuration Scripts
----
-
 # Docker Configuration Scripts
 
 ## Ubuntu

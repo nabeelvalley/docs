@@ -5,13 +5,6 @@ subtitle: 26 January 2023
 description: Transforming HTML into structured data to work with EditorJS
 ---
 
----
-published: true
-title: Structuring HTML Content
-subtitle: 26 January 2023
-description: Transforming HTML into structured data to work with EditorJS
----
-
 # Isn't HTML a structure?
 
 HTML content is structured as a tree - while this is useful for the medium, this structure isn't very convenient for transforming into data that can be used outside of the web or with libraries that use content in a more flat structure

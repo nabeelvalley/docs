@@ -3,11 +3,6 @@ published: true
 title: Faded Warm
 ---
 
----
-published: true
-title: Faded Warm
----
-
 ![](/content/photography/images/fuji-faded-warm.jpg)
 
 | Setting               | Value          |

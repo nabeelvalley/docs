@@ -4,12 +4,6 @@ title: Raspberry Pi Headless
 subtitle: Setting up WiFi and SSH on a Raspberry PI Headlessly
 ---
 
----
-published: true
-title: Raspberry Pi Headless
-subtitle: Setting up WiFi and SSH on a Raspberry PI Headlessly
----
-
 # Get the OS Ready
 
 To setup a headless Pi you need to do the following:

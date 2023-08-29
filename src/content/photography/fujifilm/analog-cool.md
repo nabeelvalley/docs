@@ -3,11 +3,6 @@ published: true
 title: Analog Cool
 ---
 
----
-published: true
-title: Analog Cool
----
-
 ![](/content/photography/images/fuji-analog-cool.jpg)
 
 | Setting               | Value             |

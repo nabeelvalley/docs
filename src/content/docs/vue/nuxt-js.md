@@ -5,13 +5,6 @@ subtitle: Getting Started with Nuxt.js
 description: Getting Started with Nuxt.js
 ---
 
----
-published: true
-title: Nuxt.js
-subtitle: Getting Started with Nuxt.js
-description: Getting Started with Nuxt.js
----
-
 # Introduction
 
 Nuxt.js is server-side framework based on Vue, the content here is kind of from this [DesignCourse Video](https://www.youtube.com/watch?v=IkrbIFZz_IM) and [this video](https://www.youtube.com/watch?v=T4qLTXGvJ7k&t=1901s) but with TypeScript. The overall code from the video can be found [here](https://github.com/designcourse/nuxt-2-tutorial-project)

@@ -4,12 +4,6 @@ title: NLP with Tensorflow
 subtitle: Natural Language Processing with Tensorflow for Python
 ---
 
----
-published: true
-title: NLP with Tensorflow
-subtitle: Natural Language Processing with Tensorflow for Python
----
-
 # Natural Language Processing
 
 > From [this Playlist](https://www.youtube.com/watch?v=fNxaJsNG3-s&list=PLQY2H8rRoyvwLbzbnKJ59NkZvQAW9wLbx&index=1)

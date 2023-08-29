@@ -4,12 +4,6 @@ title: Typescript Basics
 subtitle: Introduction and cheatsheet for basic Typescript concepts
 ---
 
----
-published: true
-title: Typescript Basics
-subtitle: Introduction and cheatsheet for basic Typescript concepts
----
-
 # Types
 
 A `type` is the most basic thing in typescript and is an object structure
@@ -303,4 +297,4 @@ Below is a link to the runnable Repl.it that has the above code defined
 
 - [Template Literal Types](/blog/2021/16-08/typescript-template-literal-types)
 - [Type Narrowing](/blog/2022/31-05/type-guard)
-- [Type Guards and Unions](/blog/2023/26-06/type-guards-and-unions-typescript) 
+- [Type Guards and Unions](/blog/2023/26-06/type-guards-and-unions-typescript)

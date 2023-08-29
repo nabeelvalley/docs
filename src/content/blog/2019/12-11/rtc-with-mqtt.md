@@ -5,13 +5,6 @@ subtitle: 12 November 2019
 description: MQTT and real-time communication with the browser, JavaScript, Web Sockets and a Mosquitto message broker
 ---
 
----
-published: true
-title: Real-time Communication with MQTT
-subtitle: 12 November 2019
-description: MQTT and real-time communication with the browser, JavaScript, Web Sockets and a Mosquitto message broker
----
-
 # Overview
 
 MQTT is an open standard for communication and is especially useful for communication between IoT devices due to its low bandwidth requirements

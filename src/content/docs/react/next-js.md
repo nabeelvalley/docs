@@ -5,13 +5,6 @@ subtitle: Getting Started with Next.js
 description: Getting Started with Next.js
 ---
 
----
-published: true
-title: Next.js
-subtitle: Getting Started with Next.js
-description: Getting Started with Next.js
----
-
 # Introduction
 
 Next.js is framework for building single page applications using React, Next.js allows us to use a combination of SSR and Prerendering to build our applications based on the data requirements

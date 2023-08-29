@@ -4,12 +4,6 @@ title: Puppeteer
 subtitle: Browser Automation using Node.js and Puppeteer
 ---
 
----
-published: true
-title: Puppeteer
-subtitle: Browser Automation using Node.js and Puppeteer
----
-
 # Installing
 
 To get started with Puppeteer you will need to install it to your package `npm i puppeteer` this will install the required packages as well as a Google Chrome instance for Puppeteer

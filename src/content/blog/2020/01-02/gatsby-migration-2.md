@@ -5,13 +5,6 @@ subtitle: 01 February 2020
 description: Migrating a React.js website to Gatsby.js
 ---
 
----
-published: true
-title: The Gatsby Migration, pt.2 - Dumb Pages
-subtitle: 01 February 2020
-description: Migrating a React.js website to Gatsby.js
----
-
 # Introduction
 
 In the [last post](/blog/2020/21-01/gatsby-migration-1) we looked setting up an application with a few basic routes. These routes were all assigned to Components in the `src/pages` directory.

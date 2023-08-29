@@ -5,13 +5,6 @@ subtitle: 12 December 2022
 description: Some general purpose typescript utilities
 ---
 
----
-published: true
-title: Typescript Utilities
-subtitle: 12 December 2022
-description: Some general purpose typescript utilities
----
-
 Here's a collection of some typescript utility functions I've put together
 
 # Functions
@@ -139,7 +132,7 @@ export type WithRequired<T extends {}, R extends keyof T> = T &
  * @param TKeep types to not make partial
  */
 export type DeepPartial<T, TKeep = never> = T extends TKeep
-  ? T 
+  ? T
   : T extends object
   ? {
       [P in keyof T]?: DeepPartial<T[P], TKeep>
@@ -176,9 +169,9 @@ export type FlatPartial<T, TKeep = Primitive> = {
 /**
  * Types that can be cleanly/predictably converted into a string
  */
-type Stringable = Exclude<string | number, ''>;
+type Stringable = Exclude<string | number, ''>
 
-type NonEmptyArray<T> = [T, ...T[]];
+type NonEmptyArray<T> = [T, ...T[]]
 
 /**
  * Joins stringable members into a single, typed, string
@@ -192,7 +185,7 @@ export type Join<TSep extends string, T extends Array<Stringable>> = T extends [
       ? `${El}${TSep}${Join<TSep, Rest>}`
       : El
     : ''
-  : '';
+  : ''
 
 /**
  * Split a strongly typed string into its parts
@@ -201,5 +194,7 @@ export type Split<
   TSep extends string,
   TStr extends string,
   TBase extends string[] = []
-> = TStr extends `${infer El}${TSep}${infer Rest}` ? [...TBase, El, ...Split<TSep, Rest>] : [TStr];
+> = TStr extends `${infer El}${TSep}${infer Rest}`
+  ? [...TBase, El, ...Split<TSep, Rest>]
+  : [TStr]
 ```

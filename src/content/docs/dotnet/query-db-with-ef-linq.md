@@ -4,12 +4,6 @@ title: Query a Database with Entity Framework
 subtitle: Use Entity Framework and LINQ to Connect to and Query an Existing Database
 ---
 
----
-published: true
-title: Query a Database with Entity Framework
-subtitle: Use Entity Framework and LINQ to Connect to and Query an Existing Database
----
-
 > Info derived from [this post on LearnEntityFrameworkCore](https://www.learnentityframeworkcore.com/walkthroughs/existing-database)
 
 Sometimes you want to use a database but don't want to deal with the difficulties created by SQL

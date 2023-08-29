@@ -5,13 +5,6 @@ subtitle: Unit Testing Private Members with XUnit
 description: Unit Testing Private Members with XUnit
 ---
 
----
-published: true
-title: Testing Private Members
-subtitle: Unit Testing Private Members with XUnit
-description: Unit Testing Private Members with XUnit
----
-
 # Testing Private Members
 
 In order to test the values of private members (if for some reason that's necessary) you will need to make use of reflection. The following two functions will make it possible to access a private `field` or `property`

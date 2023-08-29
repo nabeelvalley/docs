@@ -5,13 +5,6 @@ subtitle: 29 October 2021
 description: Create ranges in Javascript
 ---
 
----
-published: true
-title: Javascript Range Function
-subtitle: 29 October 2021
-description: Create ranges in Javascript
----
-
 Something i often find myself needing is a way to create a range in javascript, similar to what python has
 
 Here's a basic implementation of something that works like that:

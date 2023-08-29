@@ -4,12 +4,6 @@ title: Time Series Analysis
 description: Basics of time series data analysis using Python
 ---
 
----
-published: true
-title: Time Series Analysis
-description: Basics of time series data analysis using Python
----
-
 > Notes from the [Complete Guide on Time Series Analysis in Python by Prashant Banerjee](https://www.kaggle.com/code/prashant111/complete-guide-on-time-series-analysis-in-python)
 
 # Introduction

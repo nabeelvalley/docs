@@ -5,13 +5,6 @@ subtitle: C# Service for integrating multi-tier applications
 description: C# Service for integrating multi-tier applications
 ---
 
----
-published: true
-title: Multi-Tier Integration Service
-subtitle: C# Service for integrating multi-tier applications
-description: C# Service for integrating multi-tier applications
----
-
 For applications that span multiple tiers or make use of a separate data accesss and web application layers a generic integration service can be used to communicate between tiers
 
 # Service Definition

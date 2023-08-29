@@ -4,12 +4,6 @@ title: Ubuntu Server Setup
 subtitle: Some Personal Preferences
 ---
 
----
-published: true
-title: Ubuntu Server Setup
-subtitle: Some Personal Preferences
----
-
 # SSH Setup
 
 ## 1. Install SSH

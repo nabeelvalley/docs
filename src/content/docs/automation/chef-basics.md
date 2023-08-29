@@ -4,12 +4,6 @@ title: Basics
 subtitle: Basic Concepts for using Chef
 ---
 
----
-published: true
-title: Basics
-subtitle: Basic Concepts for using Chef
----
-
 # Basics of Chef
 
 [From this Module](https://learn.chef.io/modules/learn-the-basics)

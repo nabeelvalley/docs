@@ -3,11 +3,6 @@ published: true
 title: Data Science Methodology
 ---
 
----
-published: true
-title: Data Science Methodology
----
-
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/data-science-methodology-2/)
 
 # The Methodology

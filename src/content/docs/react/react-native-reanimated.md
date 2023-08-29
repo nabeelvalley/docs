@@ -4,12 +4,6 @@ title: React Native Reanimated
 subtitle: Declarative Animation in React-Native
 ---
 
----
-published: true
-title: React Native Reanimated
-subtitle: Declarative Animation in React-Native
----
-
 References:
 
 - [the Reanimated docs](https://docs.swmansion.com/react-native-reanimated/docs/)

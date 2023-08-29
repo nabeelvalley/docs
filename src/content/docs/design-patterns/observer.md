@@ -3,11 +3,6 @@ published: true
 title: Observer
 ---
 
----
-published: true
-title: Observer
----
-
 The Observer pattern defines a one to many dependency between objects so that when one object changes state, all it's dependencies are notfied of this change
 
 The Observer pattern is used to enable one object to subscribe to some changes of another object. It allows us to move from a `poll` type architecture to a `push` type architecture

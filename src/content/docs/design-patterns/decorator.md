@@ -3,11 +3,6 @@ published: true
 title: Decorator
 ---
 
----
-published: true
-title: Decorator
----
-
 > "Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors"
 
 The decorator pattern is about changing the behaviour of a method at runtime instead of compile time. This allows us to modify functionality of a class without modifying the class contents

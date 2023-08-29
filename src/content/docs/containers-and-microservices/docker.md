@@ -5,13 +5,6 @@ subtitle: Docker Reference Page
 description: Docker Reference and Introductory information
 ---
 
----
-published: true
-title: Docker
-subtitle: Docker Reference Page
-description: Docker Reference and Introductory information
----
-
 [Based on this Cognitive Class Course](https://courses.cognitiveclass.ai/courses/course-v1:IBMDeveloperSkillsNetwork+CO0101EN+v1/info)
 
 # Prerequisites

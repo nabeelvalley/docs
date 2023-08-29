@@ -4,12 +4,6 @@ title: Hyperledger Fabric Part 1
 subtitle: Intro to Hyperledger Fabric via the Docs
 ---
 
----
-published: true
-title: Hyperledger Fabric Part 1
-subtitle: Intro to Hyperledger Fabric via the Docs
----
-
 # Resources
 
 - [Prerequisites](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html)

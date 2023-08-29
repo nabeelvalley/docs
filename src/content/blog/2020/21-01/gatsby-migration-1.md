@@ -5,13 +5,6 @@ subtitle: 21 January 2020
 description: Building a basic React site with basic dynamic data loading
 ---
 
----
-published: true
-title: The Gatsby Migration, pt.1 - Setting the Scene
-subtitle: 21 January 2020
-description: Building a basic React site with basic dynamic data loading
----
-
 # Introduction
 
 Lately I've been a little concerned with my current SPA approach on my personal site as well as a few others. More specifically the high initial load time due to the calls to the backend to retrieve content

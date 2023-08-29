@@ -1,3 +1,9 @@
+---
+published: true
+title: Web Accessibility
+description: Overview of basic web accessibility
+---
+
 > Notes from the W3C's [Introduction to Web Accessibility Course on EdX](https://learning.edx.org/course/course-v1:W3Cx+WAI0.1x+3T2019/home)
 
 # What is Web Accessibility

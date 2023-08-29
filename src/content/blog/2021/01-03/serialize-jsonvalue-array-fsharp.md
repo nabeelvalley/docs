@@ -5,13 +5,6 @@ subtitle: 03 February 2021
 description: Making use of the FSharp.Data JsonProvider and the serialization of JsonProvider arrays into JSON
 ---
 
----
-published: true
-title: Serialize a JsonValue Array using F# and FSharp.Data's JsonProvider
-subtitle: 03 February 2021
-description: Making use of the FSharp.Data JsonProvider and the serialization of JsonProvider arrays into JSON
----
-
 When working with the `FSharp.Data.JsonProvider` type provider you may encounter a need to serialize a `JsonValue array`
 
 Let's take a look at an example where this may be necessary:

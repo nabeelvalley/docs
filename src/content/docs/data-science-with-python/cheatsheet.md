@@ -4,12 +4,6 @@ title: Cheatsheet
 subtitle: Some heplful functions for Data Analysis and ML with Python
 ---
 
----
-published: true
-title: Cheatsheet
-subtitle: Some heplful functions for Data Analysis and ML with Python
----
-
 # Python Data Science Cheatsheet
 
 General Information from here:

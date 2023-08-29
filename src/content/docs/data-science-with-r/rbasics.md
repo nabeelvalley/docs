@@ -3,11 +3,6 @@ published: true
 title: R Basics
 ---
 
----
-published: true
-title: R Basics
----
-
 > [Based on this EdX Course](https://www.edx.org/course/data-science-r-basics)
 
 # Configuration

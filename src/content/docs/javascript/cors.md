@@ -3,11 +3,6 @@ published: true
 title: CORS with Express
 ---
 
----
-published: true
-title: CORS with Express
----
-
 There are two parts to making a response, the request and the response
 
 We need to handle `CORS` on each end

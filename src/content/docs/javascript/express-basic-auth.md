@@ -3,11 +3,6 @@ published: true
 title: HTTP Basic Authentication with Express
 ---
 
----
-published: true
-title: HTTP Basic Authentication with Express
----
-
 In a new file, define the middleware using the following:
 
 ```js

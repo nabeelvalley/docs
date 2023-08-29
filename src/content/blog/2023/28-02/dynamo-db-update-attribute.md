@@ -5,13 +5,6 @@ subtitle: 28 February 2023
 description: Use UpdateExpressions to modify DynamoDB items without reading them from the database
 ---
 
----
-published: true
-title: Update or Append to DynamoDB Attributes
-subtitle: 28 February 2023
-description: Use UpdateExpressions to modify DynamoDB items without reading them from the database
----
-
 # DynamoDB Overview
 
 DynamoDB is AWS's No SQL Database Service. Dynamo uses partition keys and sort keys to uniquely identify and partion item in the database which allows for high scalability and throughput

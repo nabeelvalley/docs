@@ -4,12 +4,6 @@ title: Gradients
 subtitle: Basic application of SVG Linear and Radial Gradients to SVG Elements
 ---
 
----
-published: true
-title: Gradients
-subtitle: Basic application of SVG Linear and Radial Gradients to SVG Elements
----
-
 > For reference take a look at the [MDN SVG Gradient Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Gradients)
 
 SVG has provides us with two different gradient elements, namely `linearGradient` and `radialGradient` which can be applied as fills or strokes to SVG elements
