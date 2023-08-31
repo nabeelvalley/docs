@@ -6,9 +6,11 @@ published: false
 
 Content from [Syntax.fm](https://syntax.fm/show/616/supper-club-adam-argyle-on-what-s-new-in-css)
 
-- [ ] Style Queries 
+- [ ] Style Queries
   - https://developer.chrome.com/blog/style-queries/
   - https://una.im/style-queries/
+- [ ] Container queries
+  - https://www.smashingmagazine.com/2021/05/complete-guide-css-container-queries/
 - [ ] New Relative Units - https://nerdy.dev/new-relative-units-ric-rex-rlh-and-rch
 - [ ] Gradients and Colour Spaces - https://gradient.style/
 - [ ] Open Props - https://open-props.style
