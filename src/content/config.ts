@@ -8,8 +8,12 @@ const schema = z.object({
 })
 
 export const collections = {
-  blog: defineCollection({ schema }),
-  photography: defineCollection({ schema }),
-  random: defineCollection({ schema }),
-  docs: defineCollection({ schema }),
+  photography: defineCollection({ type: 'content', schema }),
+  random: defineCollection({ type: 'content', schema }),
+
+  'blog-md': defineCollection({ type: 'content', schema }),
+  'blog-ipynb': defineCollection({ type: "data", schema }),
+
+  'docs-md': defineCollection({ type: 'content', schema }),
+  'docs-ipynb': defineCollection({ type: "data", schema }),
 }

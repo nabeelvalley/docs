@@ -6,8 +6,12 @@ import _ from 'lodash'
 
 const { upperFirst, groupBy } = _
 
-const docs = await getCollection('docs')
+const docsCollections = await Promise.all([
+  getCollection('docs-md'),
+  getCollection('docs-ipynb'),
+])
 
+const collection = docsCollections.flat()
 const getDirectoryName = (dir) => {
   const split = dir.split('/')
   const directory = split[0]
@@ -19,8 +23,8 @@ const getDirectoryName = (dir) => {
 
 const groupedDocs = Object.entries(
   groupBy(
-    docs.filter((p) => p.data.title),
-    (p) => getDirectoryName(p.slug)
+    collection.filter((p) => p.data.title),
+    (p) => getDirectoryName(p.id)
   )
 )
 ---
@@ -39,9 +43,7 @@ const groupedDocs = Object.entries(
           <ul>
             {pages.map((page) => (
               <li>
-                <a href={`/${page.collection}/${page.slug.replace('ipynbout', '')}`}>
-                  {page.data.title}
-                </a>
+                <a href={`/docs/${page.id.split('.')[0]}`}>{page.data.title}</a>
               </li>
             ))}
           </ul>

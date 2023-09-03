@@ -6,14 +6,6 @@ import sitemap from '@astrojs/sitemap'
 export default defineConfig({
   outDir: '_site',
   site: 'https://nabeelvalley.co.za/',
-  //  experimental: {
-  //    assets: true,
-  //  },
-  vite: {
-    optimizeDeps: {
-      exclude: ['fs', 'path'],
-    },
-  },
   markdown: {
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)

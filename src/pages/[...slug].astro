@@ -1,47 +1,92 @@
 ---
-import { getCollection } from 'astro:content'
+import { getCollection, type CollectionEntry } from 'astro:content'
 import Base from '../layouts/Base.astro'
-import { readFile, stat } from 'fs/promises'
 import { join } from 'path'
 import { readMeta } from '../lib/meta'
+import { renderJupyterNotebook } from '../lib/markdown'
+
+type Collection = Parameters<typeof getCollection>[0]
+
+interface Props<C extends Collection = Collection> {
+  slug: string
+  extension: string
+  collection: C
+  entry: CollectionEntry<C>
+}
+
+interface StaticPaths {
+  params: {
+    slug: string
+  }
+  props: Props
+}
 
 // 1. Generate a new path for every collection entry
-export async function getStaticPaths() {
-  const readCollection = async (name: string) => {
-    const entries = await getCollection(name as any)
+export async function getStaticPaths(): Promise<StaticPaths[]> {
+  const slugSegments: Record<Collection, string> = {
+    random: 'random',
+    photography: 'photography',
+
+    'blog-md': 'blog',
+    'blog-ipynb': 'blog',
+
+    'docs-md': 'docs',
+    'docs-ipynb': 'docs',
+  }
+
+  const collections: Collection[] = [
+    'random',
+    'photography',
+    'blog-md',
+    'blog-ipynb',
+    'docs-md',
+    'docs-ipynb',
+  ]
+
+  const readCollection = async (
+    collection: Collection
+  ): Promise<StaticPaths[]> => {
+    const entries = await getCollection(collection)
 
     return entries.map((entry) => {
-      const path = entry.slug.endsWith('ipynbout')
-        ? entry.slug.replace('ipynbout', '')
-        : entry.slug
-      const slug = `${name}/${path}`
+      const [path, extension] = entry.id.split('.')
+      const base = slugSegments[collection]
+      const slug = `${base}/${path}`
 
       return {
         params: { slug },
-        props: { entry },
+        props: { collection, slug, extension, entry },
       }
     })
   }
 
-  const paths = await Promise.all(
-    ['blog', 'photography', 'docs', 'random'].map(readCollection)
+  const staticPaths = await Promise.all(collections.map(readCollection))
+
+  return staticPaths.flat()
+}
+
+const renderIpynb = async (props: Props) => {
+  const html = await renderJupyterNotebook(
+    `./src/content/${props.collection}/${props.entry.id}`
   )
 
-  return paths.flat()
+  return { Content: html }
+}
+
+const renderers = {
+  'blog-md': (entry: Props<'blog-md'>) => entry.entry.render(),
+  'blog-ipynb': (entry: Props<'blog-ipynb'>) => renderIpynb(entry),
+  'docs-md': (entry: Props<'docs-md'>) => entry.entry.render(),
+  'docs-ipynb': (entry: Props<'docs-ipynb'>) => renderIpynb(entry),
+  photography: (entry: Props<'photography'>) => entry.entry.render(),
+  random: (entry: Props<'random'>) => entry.entry.render(),
 }
 
 // 2. When it's time to render, you can get the entry directly from the prop
-const { entry } = Astro.props
-const { Content } = await entry.render()
-const meta = await readMeta(join('src/content', `${Astro.params.slug}.json`))
+const { props } = Astro
+const { Content } = await renderers[props.entry.collection](props)
 
-const {
-  title,
-  subtitle,
-  html,
-  next: next_page,
-  previous: prev_page,
-} = { ...meta, ...entry.data } as Record<string, any>
+const { title, subtitle } = props.entry.data
 ---
 
 <Base>
@@ -49,32 +94,8 @@ const {
     <h1>{title}</h1>
     <h2>{subtitle}</h2>
 
-    <!-- <div set:html={html} /> -->
+    {typeof Content === 'string' ? <div set:html={Content} /> : <Content />}
 
     <Content />
-
-    <nav class="link__grid">
-      {
-        prev_page && (
-          <a href={prev_page.route} class="link__link">
-            <div class="link__card">
-              <h2 class="link__title">Previous</h2>
-              <h3 class="link__subtitle">{prev_page.title}</h3>
-            </div>
-          </a>
-        )
-      }
-
-      {
-        next_page && (
-          <a href={next_page.route} class="link__link">
-            <div class="link__card">
-              <h2 class="link__title">Next</h2>
-              <h3 class="link__subtitle">{next_page.title}</h3>
-            </div>
-          </a>
-        )
-      }
-    </nav>
   </article>
 </Base>
