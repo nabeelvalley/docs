@@ -9,7 +9,12 @@ import allProjects from '../data/projects.json'
 import LinkBlock from '../components/LinkBlock.astro'
 import { getCollection } from 'astro:content'
 
-const collection = await getCollection('blog')
+const blogCollections = await Promise.all([
+  getCollection('blog-md'),
+  getCollection('blog-ipynb'),
+])
+
+const collection = blogCollections.flat()
 const blog = collection
   .filter((p) => p.data.published !== false)
   .sort((a, b) =>
@@ -35,7 +40,7 @@ const docsItem = {
 
 const recentPostItem = {
   ...recentPost.data,
-  url: `/${recentPost.collection}/${recentPost.slug}`,
+  url: `/blog/${recentPost.id.split('.')[0]}`,
 }
 ---
 
@@ -63,7 +68,7 @@ const recentPostItem = {
 
     {
       posts?.map((post) => (
-        <LinkBlock link={`${post.collection}/${post.slug}`} item={post.data} />
+        <LinkBlock link={`blog/${post.id.split('.')[0]}`} item={post.data} />
       ))
     }
   </section>

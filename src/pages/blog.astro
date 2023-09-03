@@ -4,7 +4,12 @@ import LinkBlock from '../components/LinkBlock.astro'
 import Title from '../components/Title.astro'
 import Base from '../layouts/Base.astro'
 
-const collection = await getCollection('blog')
+const blogCollections = await Promise.all([
+  getCollection('blog-md'),
+  getCollection('blog-ipynb'),
+])
+
+const collection = blogCollections.flat()
 const blog = collection
   .filter((p) => p.data.published !== false)
   .sort((a, b) =>
@@ -27,7 +32,7 @@ const blog = collection
     {
       blog.map((page) => (
         <LinkBlock
-          link={`/${page.collection}/${page.slug.replace('ipynbout', '')}`}
+          link={`/blog/${page.id.split('.')[0]}`}
           item={page.data}
           cta="Read post"
         />
