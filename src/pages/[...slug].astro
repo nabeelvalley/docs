@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content'
 import Base from '../layouts/Base.astro'
 import { join } from 'path'
 import { readMeta } from '../lib/meta'
+import { renderJupyterNotebook } from '../lib/markdown'
 
 type Collection = Parameters<typeof getCollection>[0]
 
@@ -41,6 +42,7 @@ export async function getStaticPaths(): Promise<StaticPaths[]> {
     'docs-md',
     'docs-ipynb',
   ]
+
   const readCollection = async (
     collection: Collection
   ): Promise<StaticPaths[]> => {
@@ -50,6 +52,8 @@ export async function getStaticPaths(): Promise<StaticPaths[]> {
       const [path, extension] = entry.id.split('.')
       const base = slugSegments[collection]
       const slug = `${base}/${path}`
+
+      console.log(extension, slug)
 
       return {
         params: { slug },
@@ -63,15 +67,19 @@ export async function getStaticPaths(): Promise<StaticPaths[]> {
   return staticPaths.flat()
 }
 
-const renderIpynb = (slug: string) => {
-  return { Content: 'Placeholder Content' }
+const renderIpynb = async (props: Props) => {
+  const html = await renderJupyterNotebook(
+    `./src/content/${props.collection}/${props.entry.id}`
+  )
+
+  return { Content: html }
 }
 
 const renderers = {
   'blog-md': (entry: Props<'blog-md'>) => entry.entry.render(),
-  'blog-ipynb': (entry: Props<'blog-ipynb'>) => renderIpynb(entry.slug),
+  'blog-ipynb': (entry: Props<'blog-ipynb'>) => renderIpynb(entry),
   'docs-md': (entry: Props<'docs-md'>) => entry.entry.render(),
-  'docs-ipynb': (entry: Props<'docs-ipynb'>) => renderIpynb(entry.slug),
+  'docs-ipynb': (entry: Props<'docs-ipynb'>) => renderIpynb(entry),
   photography: (entry: Props<'photography'>) => entry.entry.render(),
   random: (entry: Props<'random'>) => entry.entry.render(),
 }
