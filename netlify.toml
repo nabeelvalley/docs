@@ -3,13 +3,6 @@ command = "pnpm run prebuild && pnpm run build"
 publish = "_site"
 base = ""
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Cross-Origin-Embedder-Policy = "require-corp"
-    Cross-Origin-Opener-Policy = "same-origin"
-
-
 [[redirects]]
 from = "https://nabeelvalley.netlify.app/*"
 to = "https://nabeelvalley.co.za/:splat"

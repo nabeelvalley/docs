@@ -53,8 +53,6 @@ export async function getStaticPaths(): Promise<StaticPaths[]> {
       const base = slugSegments[collection]
       const slug = `${base}/${path}`
 
-      console.log(extension, slug)
-
       return {
         params: { slug },
         props: { collection, slug, extension, entry },
