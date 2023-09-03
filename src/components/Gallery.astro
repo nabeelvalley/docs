@@ -1,29 +1,42 @@
 ---
-import imageSize from 'image-size'
-import { glob } from 'glob'
-
+import { Image } from 'astro:assets'
 const { path } = Astro.props
 
-const base = `public/photography/${path}`
-const paths = await glob(`./${base}/**/*`, {
-  nodir: true,
-  posix: true,
-})
+type Path = 'index' | 'nature' | 'places' | 'portraits/bw'
 
-const images = paths.map((src) => {
-  const parts = src.split('/')
-  const alt = parts[parts.length - 1].split('.')[0]
+interface Props {
+  path: Path
+}
 
-  console.log(src)
-  // `.` needed to ensure path is relative since glob retuns it as `/public/...`
-  const size = imageSize(src)
+type ImageData = {
+  src: string
+  width: number
+  height: number
+  format: 'jpg'
+  orientation: 1
+}
 
-  return {
-    ...size,
-    src: src.replace('public', ''),
-    alt,
-  }
-})
+const allImages = (await import.meta.glob(`../photography/**/*.*`)) as Record<
+  string,
+  () => Promise<{ default: ImageData }>
+>
+
+const getAlt = (path: string): string => {
+  const parts = path.split('/')
+  const file = parts[parts.length - 1]
+  const name = file.split('.')[0]
+
+  return name
+}
+
+const images = await Promise.all(
+  Array.from(Object.entries(allImages))
+    .filter(([key]) => key.startsWith(`../photography/${path}`))
+    .map(async ([key, getData]) => ({
+      alt: getAlt(key),
+      ...(await getData()),
+    }))
+)
 ---
 
 <div class="gallery__grid">
@@ -31,10 +44,11 @@ const images = paths.map((src) => {
     images
       .reverse()
       .map((image) => (
-        <image
-          {...image}
+        <Image
+          src={image.default}
+          alt={image.alt}
           class={
-            image.height > image.width
+            image.default.height > image.default.width
               ? 'gallery__image gallery__image--vertical'
               : 'gallery__image gallery__image--horizontal'
           }
