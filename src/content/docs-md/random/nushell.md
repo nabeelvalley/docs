@@ -32,6 +32,14 @@ Or even globs
 ls **/*.md
 ```
 
+## Globs
+
+You can also use the `glob` method direclt to find files recursively:
+
+```sh
+glob **/*.png
+```
+
 # Thinking in Nu
 
 Nushell works with results using pipes, this is similar to `>` in bash but isn't exactly the same
