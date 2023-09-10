@@ -5,20 +5,32 @@ interface Props {
   subtitle?: string
   description?: string
   tags?: string[]
+  image?: string
 }
 
-const { link, title, subtitle, description, tags } = Astro.props
+const { link, title, subtitle, description, tags, image } = Astro.props
 ---
 
 <a href={link} class="link__link">
   <h2 class="link__title link">{title}</h2>
+  {
+    image && (
+      <div class="link__image">
+        <img alt={title} src={image} />
+      </div>
+    )
+  }
   {subtitle && <p class="link__subtitle">{subtitle}</p>}
   {description && <p class="link__decription">{description}</p>}
   {
     tags && (
       <ul class="link__tags">
-        {tags?.map((tag) => (
-          <li class="link__tag">{tag}</li>
+        {tags?.map((tag, i) => (
+          <>
+            {i !== 0 ? '•' : ''}
+
+            <li class="link__tag">{tag}</li>
+          </>
         ))}
       </ul>
     )
@@ -36,5 +48,19 @@ const { link, title, subtitle, description, tags } = Astro.props
 
   .link__title {
     margin-top: 0px;
+  }
+
+  .link__subtitle {
+    font-style: italic;
+  }
+
+  .link__tags {
+    display: inline-block;
+    /* don't show tags for now */
+    display: none;
+  }
+
+  .link__tag {
+    display: inline-block;
   }
 </style>

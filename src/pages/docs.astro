@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content'
 import Title from '../components/Title.astro'
 import Base from '../layouts/Base.astro'
 import _ from 'lodash'
+import Page from '../layouts/Page.astro'
 
 const { upperFirst, groupBy } = _
 
@@ -30,11 +31,12 @@ const groupedDocs = Object.entries(
 ---
 
 <Base>
-  <Title title="Docs" />
+  <Page>
+    <Title title="Docs" />
+    <p>
+      These are my personal notes on software development and similar topics
+    </p>
 
-  <p>These are my personal notes on software development and similar topics</p>
-
-  <section>
     {
       groupedDocs.map(([directory, pages]) => (
         <div>
@@ -50,5 +52,5 @@ const groupedDocs = Object.entries(
         </div>
       ))
     }
-  </section>
+  </Page>
 </Base>

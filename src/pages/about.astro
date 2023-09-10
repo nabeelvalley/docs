@@ -5,87 +5,90 @@ import education from '../data/education.json'
 import Base from '../layouts/Base.astro'
 import { Contact } from '../components/Contact'
 import SocialNav from '../components/SocialNav.astro'
+import ReadingWidth from '../layouts/ReadingWidth.astro'
 ---
 
 <Base>
-  <div class="no-print">
-    <Title title="About me" />
-  </div>
-
-  <SocialNav />
-
-  <section class="link__grid">
-    <div>
-      <h2 class="link__title">Me</h2>
-      <h3 class="link__subtitle">Pretoria, South Africa</h3>
-      <p class="link__subtitle">'95</p>
-    </div>
-    <div>
-      <p class="link__description link__description--no-margin">
-        My name is Nabeel Valley, born in 1995 - Pretoria, South Africa
-      </p>
-
-      <p class="link__description">
-        I'm passionate about solving challenging problems in beautiful ways
-      </p>
-
-      <p class="link__description">
-        I have a Bachelor's of Engineering in Mechanical Engineering and have
-        worked professionally as a Software Engineer since 2018
-      </p>
-
-      <p class="link__description">
-        My daily-doings involve writing code, graphic and ui design, taking
-        pictures, and a bit of reading
-      </p>
+  <ReadingWidth>
+    <div class="no-print">
+      <Title title="About me" />
     </div>
 
-    <br class="hidden-mobile no-print" />
+    <!-- <SocialNav /> -->
 
-    <Contact client:only="react" />
-  </section>
+    <section class="link__grid">
+      <div>
+        <h2 class="link__title">Me</h2>
+        <h3 class="link__subtitle">Pretoria, South Africa</h3>
+        <p class="link__subtitle">'95</p>
+      </div>
+      <div>
+        <p class="link__description link__description--no-margin">
+          My name is Nabeel Valley, born in 1995 - Pretoria, South Africa
+        </p>
 
-  <section>
-    <Title title="Experience" />
+        <p class="link__description">
+          I'm passionate about solving challenging problems in beautiful ways
+        </p>
 
-    {
-      experience.map((exp) => (
-        <div class="link__grid">
-          <div>
-            <h2 class="link__title">{exp.company}</h2>
-            <h3 class="link__subtitle">{exp.subtitle}</h3>
-            <p class="link__subtitle">{exp.period}</p>
-          </div>
-          <div>
-            {exp.description.split('\n').map((p) => (
-              <p class="link__description">{p}</p>
-            ))}
-          </div>
-        </div>
-      ))
-    }
-  </section>
+        <p class="link__description">
+          I have a Bachelor's of Engineering in Mechanical Engineering and have
+          worked professionally as a Software Engineer since 2018
+        </p>
 
-  <section>
-    <Title title="Education" />
+        <p class="link__description">
+          My daily-doings involve writing code, graphic and ui design, taking
+          pictures, and a bit of reading
+        </p>
+      </div>
 
-    <div class="education__grid">
+      <br class="hidden-mobile no-print" />
+
+      <!-- <Contact client:only="react" /> -->
+    </section>
+
+    <section>
+      <Title title="Experience" />
+
       {
-        education.map((edu) => (
-          <div class="education__item">
+        experience.map((exp) => (
+          <div class="link__grid">
             <div>
-              <h2 class="link__title">{edu.school}</h2>
-              <h3 class="link__subtitle">{edu.qualification}</h3>
-              <p class="link__subtitle">{edu.period}</p>
+              <h2 class="link__title">{exp.company}</h2>
+              <h3 class="link__subtitle">{exp.subtitle}</h3>
+              <p class="link__subtitle">{exp.period}</p>
             </div>
             <div>
-              {edu.description.split('\n').map((p) => (
-                <p class="link__description no-print">{p}</p>
+              {exp.description.split('\n').map((p) => (
+                <p class="link__description">{p}</p>
               ))}
             </div>
           </div>
         ))
       }
-    </div>
-  </section>
+    </section>
+
+    <section>
+      <Title title="Education" />
+
+      <div class="education__grid">
+        {
+          education.map((edu) => (
+            <div class="education__item">
+              <div>
+                <h2 class="link__title">{edu.school}</h2>
+                <h3 class="link__subtitle">{edu.qualification}</h3>
+                <p class="link__subtitle">{edu.period}</p>
+              </div>
+              <div>
+                {edu.description.split('\n').map((p) => (
+                  <p class="link__description no-print">{p}</p>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </ReadingWidth>
 </Base>

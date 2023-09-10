@@ -1,0 +1,48 @@
+---
+interface Props {
+  link: string
+  title: string
+  subtitle?: string
+  description?: string
+}
+
+const { description, link, subtitle, title } = Astro.props
+---
+
+<section class="link__grid">
+  <a href={link} class="link__link">
+    <div>
+      <h2 class="link__title link">{title}</h2>
+      <p class="link__subtitle">{subtitle}</p>
+      <p class="link__description">{description}</p>
+    </div>
+  </a>
+  <img
+    class="link__image--horizontal"
+    src="/images/home/code.jpg"
+    alt="the sky with some clouds"
+  />
+</section>
+
+<style>
+  .link__title {
+    font-size: 72px;
+    margin: 0;
+  }
+
+  .link__subtitle {
+    font-style: italic;
+  }
+
+  @media (max-width: 1000px) {
+    .link__title {
+      font-size: 48px;
+    }
+  }
+
+  @media (max-width: 750px) {
+    .link__title {
+      font-size: 32px;
+    }
+  }
+</style>

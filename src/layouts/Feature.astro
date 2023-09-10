@@ -1,0 +1,39 @@
+---
+import ReadingWidth from './ReadingWidth.astro'
+---
+
+<ReadingWidth>
+  <div class="grid">
+    <div class="grid__feature">
+      <slot name="feature" />
+    </div>
+
+    <slot name="sidebar" />
+  </div>
+</ReadingWidth>
+
+<style>
+  .grid {
+    --feature-end: clamp(1, var(--column-count), 5);
+
+    display: grid;
+    grid-template-columns: repeat(var(--feature-end), 1fr);
+    grid-template-rows: 1fr;
+
+    grid-column-gap: var(--block-gap);
+    grid-row-gap: var(--block-gap);
+  }
+
+  @media (max-width: 1000px) {
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--block-gap);
+    }
+  }
+
+  .grid__feature {
+    grid-column: 1 / var(--feature-end);
+    grid-row: span 1;
+  }
+</style>

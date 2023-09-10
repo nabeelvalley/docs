@@ -1,36 +1,59 @@
-<div class="grid">
-  <div class="grid__feature">
-    <slot name="feature" />
-  </div>
-  <div class="grid__sidebar">
-    <slot name="sidebar" />
-  </div>
-  <div class="grid__additional">
-    <slot name="additional" />
-  </div>
-</div>
+---
+import Layout from '../layouts/Feature.astro'
 
-<style>
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(var(--column-count), 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: var(--block-gap);
-    grid-row-gap: var(--block-gap);
+import getMeta from '../data/meta'
+import allProjects from '../data/projects.json'
+import LinkBlock from '../components/LinkBlock.astro'
+import Feature from '../components/Feature.astro'
+import { getCollection } from 'astro:content'
 
-    --feature-end: var(--column-count);
+const blogCollections = await Promise.all([
+  getCollection('blog-md'),
+  getCollection('blog-ipynb'),
+])
+
+const collection = blogCollections.flat()
+const blog = collection
+  .filter((p) => p.data.published !== false)
+  .sort((a, b) =>
+    new Date(a.data.subtitle).getTime() - new Date(b.data.subtitle).getTime() >
+    0
+      ? -1
+      : 1
+  )
+
+const meta = getMeta()
+
+interface Props {
+  blogs?: [number, number]
+}
+
+const hasSidebar = Astro.slots.has('sidebar')
+
+const posts = blog.slice(...(Astro.props.blogs || [0, 5]))
+---
+
+<Layout>
+  <section slot="feature">
+    <slot name="default" />
+  </section>
+  {
+    hasSidebar ? <section slot="sidebar">
+      <slot name="sidebar" />
+      </section> :
+      <aside slot="sidebar">
+        <h3>Recent Posts</h3>
+        {
+          posts.map((post) => (
+            <LinkBlock
+              title={post.data.title}
+              description={post.data.description}
+              subtitle={post.data.subtitle}
+              link={`blog/${post.id.split('.')[0]}`}
+            />
+          ))
+        }
+      </aside>
   }
-
-  .grid__feature {
-    grid-column: 1 / var(--feature-end);
-  }
-
-  .grid__additional {
-    grid-column: var(--feature-end) / -1;
-    grid-row-start: span 1;
-
-    display: block;
-    column-count: var(--column-count);
-    column-gap: var(--block-gap);
-  }
-</style>
+  <slot slot="extra" name="extra" />
+</Layout>

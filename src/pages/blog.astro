@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content'
 import LinkBlock from '../components/LinkBlock.astro'
 import Title from '../components/Title.astro'
 import Base from '../layouts/Base.astro'
+import LinkGrid from '../components/LinkGrid.astro'
 
 const blogCollections = await Promise.all([
   getCollection('blog-md'),
@@ -27,8 +28,7 @@ const blog = collection
     Rants and Ramblings. Random thoughts on Web Development, Photography,
     Design, and Life
   </article>
-
-  <section class="link__grid">
+  <LinkGrid>
     {
       blog.map((page) => (
         <LinkBlock
@@ -39,13 +39,5 @@ const blog = collection
         />
       ))
     }
-  </section>
+  </LinkGrid>
 </Base>
-
-<style>
-  .link__grid {
-    column-count: var(--column-count);
-    column-gap: var(--block-gap);
-    margin-top: 48px;
-  }
-</style>

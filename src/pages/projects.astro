@@ -4,19 +4,14 @@ import projects from '../data/projects.json'
 import LinkBlock from '../components/LinkBlock.astro'
 import Base from '../layouts/Base.astro'
 import ImageSectionBlock from '../components/ImageSectionBlock.astro'
-
-const large = projects.filter((p) => p.image)
-const small = projects.filter((p) => !p.image)
+import LinkGrid from '../components/LinkGrid.astro'
 ---
 
 <Base>
   <Title title="Projects" />
 
-  <section>
-    {large.map((project) => <ImageSectionBlock item={project} />)}
-  </section>
-
-  <section class="link__grid">
-    {small.map((project) => <LinkBlock item={project} />)}
-  </section>
+  <LinkGrid>
+    {projects.map((project) => <LinkBlock {...project} />)}
+    <LinkGrid />
+  </LinkGrid>
 </Base>
