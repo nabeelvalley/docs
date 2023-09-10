@@ -90,10 +90,10 @@ const summary = await Promise.all([
 const routeActions: Action[] = summary.flat().map((page) => ({
   parent: 'posts',
   // need to do this in some more unified way
-  id: page.slug.replace('ipynbout', ''),
+  id: page.id,
   name: page.data.title,
   subtitle: page.data.description || page.data.subtitle,
-  perform: () => (window.location.pathname = `${page.collection}/${page.slug.replace('ipynbout', '')}`),
+  perform: () => (window.location.pathname = `${page.collection}/${page.id}`),
 }))
 
 const actions = [...baseActions, ...routeActions]

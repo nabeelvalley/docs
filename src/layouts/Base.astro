@@ -3,6 +3,12 @@
 // is your "component front matter". It never runs in the browser.
 import { Footer, Header } from '../components'
 
+export interface Props {
+  title?: string
+  description?: string
+  fullWidth?: boolean
+}
+
 const {
   title = 'Nabeel Valley',
   description = 'Software develpment, Photography and Design',
@@ -78,3 +84,16 @@ const {
     ></script>
   </body>
 </html>
+
+<style>
+  .page {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 48px 24px;
+  }
+
+  .page.full-width {
+    max-width: unset;
+  }
+</style>
