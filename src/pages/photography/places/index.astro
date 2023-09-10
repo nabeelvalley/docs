@@ -5,6 +5,6 @@ import PlacesLinks from '../../../components/PlacesLinks.astro'
 ---
 
 <Layout title="Places">
-  <PlacesLinks />
-  <Gallery path="places/index" />
+  <PlacesLinks slot="links" />
+  <Gallery slot="gallery" path="places/index" />
 </Layout>

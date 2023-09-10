@@ -4,6 +4,8 @@ import Base from '../layouts/Base.astro'
 import { join } from 'path'
 import { readMeta } from '../lib/meta'
 import { renderJupyterNotebook } from '../lib/markdown'
+import ReadingWidth from '../layouts/ReadingWidth.astro'
+import Page from '../layouts/Page.astro'
 
 type Collection = Parameters<typeof getCollection>[0]
 
@@ -90,11 +92,12 @@ const { title, subtitle } = props.entry.data
 ---
 
 <Base>
-  <article>
-    <h1>{title}</h1>
-    <h2>{subtitle}</h2>
+  <Page>
+    <article>
+      <h1>{title}</h1>
+      <h2>{subtitle}</h2>
 
-    {typeof Content === 'string' ? <div set:html={Content} /> : <Content />}
-
-  </article>
+      {typeof Content === 'string' ? <div set:html={Content} /> : <Content />}
+    </article>
+  </Page>
 </Base>

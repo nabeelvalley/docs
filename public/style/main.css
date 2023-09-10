@@ -13,6 +13,8 @@ body {
   max-height: 100vh;
   scroll-behavior: smooth;
   font-family: var(--font-body);
+  background-color: var(--color-base);
+  color: var(--color-on-base);
 }
 
 h1,
@@ -71,6 +73,13 @@ a {
 
   --column-count: 1;
   --block-gap: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-base: #2d2d2d;
+    --color-on-base: #ffffff;
+  }
 }
 
 img {
@@ -138,4 +147,8 @@ a.link:hover {
   :root {
     --column-count: 8;
   }
+}
+
+pre.astro-code {
+  padding: 8px 16px;
 }
