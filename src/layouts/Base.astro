@@ -87,13 +87,21 @@ const {
 
 <style>
   .page {
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 48px 24px;
+    position: relative;
   }
 
   .page.full-width {
     max-width: unset;
+  }
+
+  .page {
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+  }
+
+  .main {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 48px 24px;
   }
 </style>

@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;600&family=Red+Hat+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+@font-face {
+  font-family: Monogram;
+  src: url(../fonts/bd-renaissance/BDRENAIS.TTF);
+}
 
 /* resets/normalizations */
 html,
@@ -7,6 +12,7 @@ body {
   padding: 0;
   max-height: 100vh;
   scroll-behavior: smooth;
+  font-family: var(--font-body);
 }
 
 h1,
@@ -56,7 +62,9 @@ a {
   --color-base: #ffffff;
   --color-on-base: #2d2d2d;
 
-  --font-display: 'Playfair Display', serif;
+  --font-display: 'Cinzel Decorative', serif;
+  --font-body: 'Red Hat Text', sans-serif;
+  --font-monogram: 'Monogram';
 }
 
 h1,
@@ -66,9 +74,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
-  font-weight: 500;
 }
-
 img {
   display: block;
   object-fit: cover;
@@ -78,7 +84,11 @@ img {
   margin-right: auto;
 }
 
-.page {
-  overflow-x: hidden;
-  overflow-wrap: break-word;
+.link {
+  text-decoration: underline transparent 2px;
+  transition: text-decoration-color 300ms;
+}
+a .link:hover,
+a.link:hover {
+  text-decoration-color: var(--color-brand);
 }
