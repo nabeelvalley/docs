@@ -88,10 +88,10 @@ const renderers = {
 const { props } = Astro
 const { Content } = await renderers[props.entry.collection](props)
 
-const { title, subtitle } = props.entry.data
+const { title, subtitle, description } = props.entry.data
 ---
 
-<Base>
+<Base title={title} description={description}>
   <Page>
     <article>
       <h1>{title}</h1>
