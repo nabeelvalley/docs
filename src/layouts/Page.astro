@@ -1,0 +1,36 @@
+<div class="grid">
+  <div class="grid__feature">
+    <slot name="feature" />
+  </div>
+  <div class="grid__sidebar">
+    <slot name="sidebar" />
+  </div>
+  <div class="grid__additional">
+    <slot name="additional" />
+  </div>
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(var(--column-count), 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: var(--block-gap);
+    grid-row-gap: var(--block-gap);
+
+    --feature-end: var(--column-count);
+  }
+
+  .grid__feature {
+    grid-column: 1 / var(--feature-end);
+  }
+
+  .grid__additional {
+    grid-column: var(--feature-end) / -1;
+    grid-row-start: span 1;
+
+    display: block;
+    column-count: var(--column-count);
+    column-gap: var(--block-gap);
+  }
+</style>

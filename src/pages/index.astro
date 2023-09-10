@@ -2,7 +2,7 @@
 // Welcome to Astro! Everything between these triple-dash code fences
 // is your "component front matter". It never runs in the browser.
 import Base from '../layouts/Base.astro'
-import Title from '../components/Title.astro'
+import Page from '../layouts/Page.astro'
 
 import getMeta from '../data/meta'
 import allProjects from '../data/projects.json'
@@ -45,37 +45,22 @@ const recentPostItem = {
 ---
 
 <Base>
-  <section class="link__grid">
-    <img
-      class="link__image--horizontal"
-      src="/images/home/code.jpg"
-      alt="the sky with some clouds"
-    />
-    <div>
+  <Page>
+    <section slot="feature" class="link__grid">
       <a href={recentPostItem.url} class="link__link">
-        <h2 class="link__title">{recentPostItem.title}</h2>
-        <p class="link__subtitle">{recentPostItem.subtitle}</p>
-        <p class="link__description">{recentPostItem.description}</p>
-        <p class="link__cta">Read more</p>
+        <div>
+          <h2 class="link__title link">{recentPostItem.title}</h2>
+          <p class="link__subtitle">{recentPostItem.subtitle}</p>
+          <p class="link__description">{recentPostItem.description}</p>
+        </div>
       </a>
-    </div>
-  </section>
-
-  <Title title="What's new" />
-
-  <section class="link__grid">
-    <LinkBlock item={docsItem} />
-
-    {
-      posts?.map((post) => (
-        <LinkBlock link={`blog/${post.id.split('.')[0]}`} item={post.data} />
-      ))
-    }
-  </section>
-
-  <Title title="Projects" />
-
-  <section class="link__grid">
-    {projects?.map((project) => <LinkBlock item={project} />)}
-  </section>
+      <img
+        class="link__image--horizontal"
+        src="/images/home/code.jpg"
+        alt="the sky with some clouds"
+      />
+    </section>
+  </Page>
 </Base>
+
+<style></style>

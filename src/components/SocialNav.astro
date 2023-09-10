@@ -1,4 +1,4 @@
-<ul class="nav__list no-print">
+<ul class="nav__list">
   <li class="nav__item">
     <a href="https://www.linkedin.com/in/nabeelvalley/">Linkedin</a>
   </li>
@@ -13,27 +13,39 @@
   </li>
 </ul>
 
-<div class="print">
-  <ul class="nav__list">
-    <li class="nav__item">
-      <img class="nav__icon" src="/icons/feathericon-globe.svg" />
-      <a href="https://nabeelvalley.co.za">nabeelvalley.co.za</a>
-    </li>
-    <li class="nav__item">
-      <img class="nav__icon" src="/icons/linkedin.svg" />
-      <a href="https://www.linkedin.com/in/nabeelvalley/">@nabeelvalley</a>
-    </li>
-    <li class="nav__item">
-      <img class="nav__icon" src="/icons/github.svg" />
-      <a href="https://github.com/nabeelvalley">@nabeelvalley</a>
-    </li>
-    <li class="nav__item">
-      <img class="nav__icon" src="/icons/twitter.svg" />
-      <a href="https://twitter.com/not_nabeel">@not_nabeel</a>
-    </li>
-    <li class="nav__item">
-      <img class="nav__icon" src="/icons/instagram.svg" />
-      <a href="https://instagram.com/nabeelvalley">@nabeelvalley</a>
-    </li>
-  </ul>
-</div>
+<style>
+  .nav__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0;
+    margin-top: 16px;
+    padding: 4px 0px;
+
+    width: 100%;
+
+    border-bottom: var(--separator-border);
+    border-top: var(--separator-border);
+  }
+
+  .nav__item {
+    display: block;
+    padding: 0px 4px;
+    font-size: smaller;
+  }
+
+  .nav__placeholder {
+    height: 88px;
+  }
+
+  .nav__monogram {
+    user-select: none;
+    font-family: var(--font-monogram);
+  }
+
+  @media (max-width: 720px) {
+    .nav__title {
+      font-size: 32px;
+    }
+  }
+</style>

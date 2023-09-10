@@ -32,11 +32,20 @@ const blog = collection
     {
       blog.map((page) => (
         <LinkBlock
+          title={page.data.title}
+          subtitle={page.data.subtitle}
+          description={page.data.description}
           link={`/blog/${page.id.split('.')[0]}`}
-          item={page.data}
-          cta="Read post"
         />
       ))
     }
   </section>
 </Base>
+
+<style>
+  .link__grid {
+    column-count: var(--column-count);
+    column-gap: var(--block-gap);
+    margin-top: 48px;
+  }
+</style>

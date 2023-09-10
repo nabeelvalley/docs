@@ -1,17 +1,40 @@
 ---
-const { link, item, cta = 'Read more' } = Astro.props
+interface Props {
+  link: string
+  title: string
+  subtitle?: string
+  description?: string
+  tags?: string[]
+}
+
+const { link, title, subtitle, description, tags } = Astro.props
 ---
 
-<a href={link || item.url || item.link} class="link__link">
-  <div class="link__card">
-    <h2 class="link__title">{item.title}</h2>
-    {item.subtitle && <p class="link__subtitle">{item.subtitle}</p>}
-    <p class="link__decription">{item.description}</p>
-    <ul class="link__tags">
-      {item.tags?.map((tag) => <li class="link__tag">{tag}</li>)}
-    </ul>
-    <div class="link__cta-wrapper">
-      <p class="link__cta">{item.cta || cta}</p>
-    </div>
-  </div>
+<a href={link} class="link__link">
+  <h2 class="link__title link">{title}</h2>
+  {subtitle && <p class="link__subtitle">{subtitle}</p>}
+  {description && <p class="link__decription">{description}</p>}
+  {
+    tags && (
+      <ul class="link__tags">
+        {tags?.map((tag) => (
+          <li class="link__tag">{tag}</li>
+        ))}
+      </ul>
+    )
+  }
 </a>
+
+<style>
+  .link__link {
+    display: block;
+    break-inside: avoid;
+
+    border-bottom: var(--separator-border);
+    margin-bottom: 24px;
+  }
+
+  .link__title {
+    margin-top: 0px;
+  }
+</style>

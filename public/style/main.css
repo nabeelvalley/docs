@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;600&family=Red+Hat+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;600&family=Courier+Prime:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 
 @font-face {
   font-family: Monogram;
@@ -63,18 +63,16 @@ a {
   --color-on-base: #2d2d2d;
 
   --font-display: 'Cinzel Decorative', serif;
-  --font-body: 'Red Hat Text', sans-serif;
+  --font-body: 'Courier Prime', sans-serif;
   --font-monogram: 'Monogram';
+
+  --separator-width: 2px;
+  --separator-border: var(--separator-width) solid var(--color-on-base);
+
+  --column-count: 1;
+  --block-gap: 16px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-display);
-}
 img {
   display: block;
   object-fit: cover;
@@ -88,7 +86,56 @@ img {
   text-decoration: underline transparent 2px;
   transition: text-decoration-color 300ms;
 }
-a .link:hover,
+
+a:hover .link,
 a.link:hover {
   text-decoration-color: var(--color-brand);
+}
+
+@media (min-width: 500px) {
+  :root {
+    --column-count: 2;
+  }
+}
+
+@media (min-width: 750px) {
+  :root {
+    --column-count: 2;
+  }
+}
+
+@media (min-width: 1000px) {
+  :root {
+    --column-count: 3;
+  }
+}
+
+@media (min-width: 1250px) {
+  :root {
+    --column-count: 4;
+  }
+}
+
+@media (min-width: 1250px) {
+  :root {
+    --column-count: 5;
+  }
+}
+
+@media (min-width: 1500px) {
+  :root {
+    --column-count: 6;
+  }
+}
+
+@media (min-width: 1750px) {
+  :root {
+    --column-count: 7;
+  }
+}
+
+@media (min-width: 2000px) {
+  :root {
+    --column-count: 8;
+  }
 }
