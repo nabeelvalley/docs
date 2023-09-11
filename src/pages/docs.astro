@@ -45,7 +45,7 @@ const groupedDocs = Object.entries(
           <ul>
             {pages.map((page) => (
               <li>
-                <a href={`/docs/${page.id.split('.')[0]}`}>{page.data.title}</a>
+                <a class="link" href={`/docs/${page.id.split('.')[0]}`}>{page.data.title}</a>
               </li>
             ))}
           </ul>
