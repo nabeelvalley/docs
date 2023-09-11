@@ -99,12 +99,19 @@ img {
 .link,
 .rendered a {
   text-decoration: dotted underline var(--color-on-base);
-  transition: text-decoration-color 300ms;
+  transition: all 300ms;
 }
 
+.link:hover,
+.link:focus,
 a:hover .link,
 a.link:hover,
-.rendered a:hover {
+.rendered a:hover,
+a:focus .link,
+a.link:focus,
+.rendered a:focus,
+.kbar__result--active .link {
+  color: var(--color-brand);
   text-decoration-color: var(--color-brand);
 }
 
@@ -178,4 +185,65 @@ code .line::before {
   display: inline-block;
   text-align: right;
   color: var(--color-brand);
+}
+
+/* search bar */
+
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.kbar__wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-base);
+  width: 720px;
+  max-width: 80vw;
+  border: var(--separator-border);
+  border-width: var(--separator-width);
+
+  /* glass effect */
+  opacity: 0.9;
+}
+
+.kbar__positioner {
+  /* glass effect */
+  backdrop-filter: blur(2px);
+}
+
+.kbar__search {
+  font-size: 36px;
+  font-family: var(--font-display);
+  color: var(--color-on-base);
+  background-color: var(--color-base);
+  padding: 16px 20px;
+  border-color: transparent;
+  border-width: 0px;
+  border-bottom-width: 2px;
+  border-style: solid;
+  outline: none;
+}
+
+.kbar__section {
+  padding: 12px 16px;
+}
+
+.kbar__result {
+  border: none;
+  padding: 12px 20px;
+}
+
+.kbar__result__title {
+  margin: 0;
+}
+
+.kbar__result__subtitle {
+  margin: 0;
+  margin-top: 4px;
 }

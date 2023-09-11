@@ -7,9 +7,10 @@ import {
   KBarSearch,
   useMatches,
   KBarResults,
-  Action,
+  type Action,
   useKBar,
 } from 'kbar'
+import { getPathParts } from '../lib/pages'
 
 const baseActions: Action[] = [
   {
@@ -80,20 +81,31 @@ const baseActions: Action[] = [
   },
 ]
 
-const summary = await Promise.all([
-  getCollection('blog'),
-  getCollection('docs'),
-  getCollection('photography'),
-  getCollection('random'),
-])
+const collections = [
+  'blog-md',
+  'blog-ipynb',
+  'docs-md',
+  'docs-ipynb',
+  'photography',
+  'random',
+] as const
+
+const summary = await Promise.all(
+  collections.map(async (collection) => {
+    const entries = await getCollection(collection)
+
+    return entries.map((entry) => ({ collection, entry }))
+  })
+)
 
 const routeActions: Action[] = summary.flat().map((page) => ({
   parent: 'posts',
   // need to do this in some more unified way
   id: page.id,
-  name: page.data.title,
-  subtitle: page.data.description || page.data.subtitle,
-  perform: () => (window.location.pathname = `${page.collection}/${page.id}`),
+  name: page.entry.data.title,
+  subtitle: page.entry.data.description || page.entry.data.subtitle,
+  perform: () =>
+    (window.location.pathname = getPathParts(page.entry, page.collection)[0]),
 }))
 
 const actions = [...baseActions, ...routeActions]
@@ -113,7 +125,7 @@ const RenderResults = () => {
           <div
             className={`kbar__result ${active ? 'kbar__result--active' : ''}`}
           >
-            <h2 className="kbar__result__title">{item.name}</h2>
+            <h2 className="kbar__result__title link">{item.name}</h2>
             <p className="kbar__result__subtitle">{item.subtitle}</p>
           </div>
         )
@@ -126,7 +138,7 @@ const Button = () => {
   const { query } = useKBar()
 
   return (
-    <button className="button" onClick={query.toggle}>
+    <button className="link" onClick={query.toggle}>
       Search
     </button>
   )
@@ -136,7 +148,7 @@ export const Search = () => (
   <KBarProvider actions={actions}>
     <Button />
     <KBarPortal>
-      <KBarPositioner>
+      <KBarPositioner className="kbar__positioner" style={{ paddingLeft: 0 }}>
         <KBarAnimator>
           <div className="kbar__wrapper">
             <KBarSearch className="kbar__search" />

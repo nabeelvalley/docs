@@ -6,8 +6,7 @@ import { readMeta } from '../lib/meta'
 import { renderJupyterNotebook } from '../lib/markdown'
 import ReadingWidth from '../layouts/ReadingWidth.astro'
 import Page from '../layouts/Page.astro'
-
-type Collection = Parameters<typeof getCollection>[0]
+import { getPathParts, type Collection, collections } from '../lib/pages'
 
 interface Props<C extends Collection = Collection> {
   slug: string
@@ -16,7 +15,7 @@ interface Props<C extends Collection = Collection> {
   entry: CollectionEntry<C>
 }
 
-interface StaticPaths {
+export interface StaticPaths {
   params: {
     slug: string
   }
@@ -25,36 +24,13 @@ interface StaticPaths {
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths(): Promise<StaticPaths[]> {
-  const slugSegments: Record<Collection, string> = {
-    random: 'random',
-    photography: 'photography',
-
-    'blog-md': 'blog',
-    'blog-ipynb': 'blog',
-
-    'docs-md': 'docs',
-    'docs-ipynb': 'docs',
-  }
-
-  const collections: Collection[] = [
-    'random',
-    'photography',
-    'blog-md',
-    'blog-ipynb',
-    'docs-md',
-    'docs-ipynb',
-  ]
-
   const readCollection = async (
     collection: Collection
   ): Promise<StaticPaths[]> => {
     const entries = await getCollection(collection)
 
     return entries.map((entry) => {
-      const [path, extension] = entry.id.split('.')
-      const base = slugSegments[collection]
-      const slug = `${base}/${path}`
-
+      const [slug, extension] = getPathParts(entry, collection)
       return {
         params: { slug },
         props: { collection, slug, extension, entry },
@@ -84,7 +60,6 @@ const renderers = {
   random: (entry: Props<'random'>) => entry.entry.render(),
 }
 
-// 2. When it's time to render, you can get the entry directly from the prop
 const { props } = Astro
 const { Content } = await renderers[props.entry.collection](props)
 

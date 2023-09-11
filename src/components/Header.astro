@@ -1,4 +1,5 @@
 ---
+import { Suspense } from 'react'
 import { Search } from './Search'
 ---
 
@@ -22,69 +23,71 @@ import { Search } from './Search'
       <a class="link" href="/photography">Photography</a>
     </li>
     <li class="nav__item"><a class="link" href="/about">Me</a></li>
-    <!-- <li class="nav__item"><Search client:only="react" /></li> -->
+    <li class="nav__item">
+      <Search client:only="react" />
+    </li>
   </ul>
-</nav>
 
-<style>
-  .nav {
-    padding-top: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  <style>
+    .nav {
+      padding-top: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-    backdrop-filter: blur(5px);
-    box-shadow: inset 0px 0px 500px 0px var(--color-base);
-  }
-
-  .nav__title-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  .nav__title {
-    font-family: var(--font-display);
-    font-size: 48px;
-  }
-
-  .nav__subtitle {
-    font-size: smaller;
-  }
-
-  .nav__list {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 0;
-    margin-top: 16px;
-    padding: 8px 0;
-
-    width: 100%;
-
-    border-top: var(--separator-border);
-    border-bottom: var(--separator-border);
-  }
-
-  .nav__item {
-    display: block;
-    padding: 0px 4px;
-    font-size: smaller;
-  }
-
-  .nav__placeholder {
-    height: 88px;
-  }
-
-  .nav__monogram {
-    user-select: none;
-    font-family: var(--font-monogram);
-  }
-
-  @media (max-width: 720px) {
-    .nav__title {
-      font-size: 32px;
+      backdrop-filter: blur(5px);
+      box-shadow: inset 0px 0px 500px 0px var(--color-base);
     }
-  }
-</style>
+
+    .nav__title-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .nav__title {
+      font-family: var(--font-display);
+      font-size: 48px;
+    }
+
+    .nav__subtitle {
+      font-size: smaller;
+    }
+
+    .nav__list {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin: 0;
+      margin-top: 16px;
+      padding: 8px 0;
+
+      width: 100%;
+
+      border-top: var(--separator-border);
+      border-bottom: var(--separator-border);
+    }
+
+    .nav__item {
+      display: block;
+      padding: 0px 4px;
+      font-size: smaller;
+    }
+
+    .nav__placeholder {
+      height: 88px;
+    }
+
+    .nav__monogram {
+      user-select: none;
+      font-family: var(--font-monogram);
+    }
+
+    @media (max-width: 720px) {
+      .nav__title {
+        font-size: 32px;
+      }
+    }
+  </style>
+</nav>
