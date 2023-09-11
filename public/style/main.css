@@ -15,7 +15,6 @@ body {
   font-family: var(--font-body);
   background-color: var(--color-base);
   color: var(--color-on-base);
-  text-align: justify;
 }
 
 h1,
