@@ -28,16 +28,24 @@ const blog = collection
     Rants and Ramblings. Random thoughts on Web Development, Photography,
     Design, and Life
   </article>
-  <LinkGrid>
-    {
-      blog.map((page) => (
-        <LinkBlock
-          title={page.data.title}
-          subtitle={page.data.subtitle}
-          description={page.data.description}
-          link={`/blog/${page.id.split('.')[0]}`}
-        />
-      ))
-    }
-  </LinkGrid>
+  <div class="grid">
+    <LinkGrid>
+      {
+        blog.map((page) => (
+          <LinkBlock
+            title={page.data.title}
+            subtitle={page.data.subtitle}
+            description={page.data.description}
+            link={`/blog/${page.id.split('.')[0]}`}
+          />
+        ))
+      }
+    </LinkGrid>
+  </div>
 </Base>
+
+<style>
+  .grid {
+    margin-top: 48px;
+  }
+</style>

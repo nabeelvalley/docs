@@ -1,11 +1,23 @@
+---
+interface Props {
+  maxCols?: number
+}
+
+const { maxCols = 100 } = Astro.props
+---
+
 <section class="link__grid">
   <slot />
 </section>
 
-<style>
+<style define:vars={{ 'max-cols': maxCols }}>
   .link__grid {
-    column-count: var(--column-count);
-    column-gap: var(--block-gap);
-    margin-top: 48px;
+    --cols: min(var(--max-cols), var(--column-count));
+
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    gap: var(--block-gap);
+    /* column-count: var(--column-count); */
+    /* column-gap: var(--block-gap); */
   }
 </style>

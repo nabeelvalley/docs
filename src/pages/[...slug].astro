@@ -93,11 +93,18 @@ const { title, subtitle, description } = props.entry.data
 
 <Base title={title} description={description}>
   <Page>
-    <article>
+    <article class="rendered">
       <h1>{title}</h1>
-      <h2>{subtitle}</h2>
+      <p class="subtitle">{subtitle}</p>
 
       {typeof Content === 'string' ? <div set:html={Content} /> : <Content />}
     </article>
   </Page>
 </Base>
+
+<style>
+  .rendered {
+    padding-bottom: 48px;
+    border-bottom: var(--separator-border);
+  }
+</style>

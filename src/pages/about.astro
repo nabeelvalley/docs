@@ -6,6 +6,7 @@ import Base from '../layouts/Base.astro'
 import { Contact } from '../components/Contact'
 import SocialNav from '../components/SocialNav.astro'
 import ReadingWidth from '../layouts/ReadingWidth.astro'
+import LinkGrid from '../components/LinkGrid.astro'
 ---
 
 <Base>
@@ -42,30 +43,30 @@ import ReadingWidth from '../layouts/ReadingWidth.astro'
         </p>
       </div>
 
-      <br class="hidden-mobile no-print" />
-
       <!-- <Contact client:only="react" /> -->
     </section>
 
     <section>
       <Title title="Experience" />
 
-      {
-        experience.map((exp) => (
-          <div class="link__grid">
-            <div>
-              <h2 class="link__title">{exp.company}</h2>
-              <h3 class="link__subtitle">{exp.subtitle}</h3>
-              <p class="link__subtitle">{exp.period}</p>
+      <LinkGrid maxCols={2}>
+        {
+          experience.map((exp) => (
+            <div class="link__grid">
+              <div>
+                <h2 class="link__title">{exp.company}</h2>
+                <h3 class="link__subtitle">{exp.subtitle}</h3>
+                <p class="link__subtitle">{exp.period}</p>
+              </div>
+              <div>
+                {exp.description.split('\n').map((p) => (
+                  <p class="link__description">{p}</p>
+                ))}
+              </div>
             </div>
-            <div>
-              {exp.description.split('\n').map((p) => (
-                <p class="link__description">{p}</p>
-              ))}
-            </div>
-          </div>
-        ))
-      }
+          ))
+        }
+      </LinkGrid>
     </section>
 
     <section>

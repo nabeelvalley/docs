@@ -28,6 +28,11 @@ b {
   font-weight: 400;
 }
 
+h1 {
+  font-size: xx-large;
+  font-family: var(--font-display);
+}
+
 /* * {
   font-size: 1em;
 } */
@@ -38,7 +43,7 @@ body {
 }
 
 pre {
-  font-family: Lato;
+  /* font-family: Lato; */
   font-size: 1.1em;
 }
 
@@ -91,13 +96,15 @@ img {
   margin-right: auto;
 }
 
-.link {
-  text-decoration: underline transparent 2px;
+.link,
+.rendered a {
+  text-decoration: dotted underline var(--color-on-base);
   transition: text-decoration-color 300ms;
 }
 
 a:hover .link,
-a.link:hover {
+a.link:hover,
+.rendered a:hover {
   text-decoration-color: var(--color-brand);
 }
 
@@ -149,6 +156,26 @@ a.link:hover {
   }
 }
 
+/* markdown */
 pre.astro-code {
-  padding: 8px 16px;
+  padding: 16px;
+  filter: grayscale();
+  border: var(--separator-border);
+  border-width: var(--separator-width);
+}
+
+code {
+  counter-reset: step;
+  counter-increment: step 0;
+}
+
+code .line::before {
+  font-family: var(--font-body);
+  content: counter(step);
+  counter-increment: step;
+  width: 1rem;
+  margin-right: 1.5rem;
+  display: inline-block;
+  text-align: right;
+  color: var(--color-brand);
 }
