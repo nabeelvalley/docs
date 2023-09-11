@@ -49,7 +49,7 @@ const posts = blog.slice(...(Astro.props.blogs || [0, 5]))
               title={post.data.title}
               description={post.data.description}
               subtitle={post.data.subtitle}
-              link={`blog/${post.id.split('.')[0]}`}
+              link={`/blog/${post.id.split('.')[0]}`}
             />
           ))
         }
