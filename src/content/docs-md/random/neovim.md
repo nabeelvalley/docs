@@ -339,3 +339,16 @@ Note that `NERDTree` can also be used from the `:Explore` menu by using `:Explor
 | `[space] o`     | View Symbols                      |
 | `[ctrl] t`      | From GFiles View, open in new tab |
 | `gt` `gT`       | Go to next tab/previous tab       |
+
+# Using NuShell with Vim
+
+You can configure Nushell with Vim using Lua config as:
+
+```lua
+-- setting the shell to use "nu" - all of these are required for correct behaviour
+-- not setting all the below options will break the `:!command` mode in vim
+vim.opt.shell = 'nu'
+vim.opt.shellcmdflag = '-c'
+vim.opt.shellquote = ""
+vim.opt.shellxquote = ""
+```
