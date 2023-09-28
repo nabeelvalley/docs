@@ -260,3 +260,11 @@ We can also fetch remote files which will then also be converted into data like 
 ```sh
 fetch https://blog.rust-lang.org/feed.xml
 ```
+
+### Deleting Branches
+
+We can use a script like the following to delete all git branches other than the current branch
+
+```sh
+git branch | lines | filter {|l| $l | str contains -n "*"} | each {|b| $b | str trim} | each {|b| git branch -d $b}
+```
