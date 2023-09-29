@@ -369,6 +369,14 @@ Or from a specific commit
 git checkout 211512 src/my-file.ts
 ```
 
+# Checkout Previous Branch
+
+When switching branches, we can easily go to the last branch we were on using:
+
+```sh
+git checkout -
+```
+
 # Get Commit Changes from another Branch (Cherry Picking)
 
 Cherry picking allows us to get a specific commit from one branch and bring it into our current branch

@@ -114,3 +114,25 @@ For example, resuming the `ping hello.com` can be done with:
 ```sh
 fg %3
 ```
+
+## Navigating 
+
+You can use `cd` to move to specific folders relatively
+
+```sh
+cd ../other-folder/my-folder
+```
+
+Or even from the user home directory by prefixing with `~`
+
+```sh
+cd ~/my-stuff
+```
+
+And you can use `-` to just swap back to the last directory
+
+```sh
+# before, in apps/stuff, now in apps/something-else
+cd -
+# after, now in apps/something-else
+```
