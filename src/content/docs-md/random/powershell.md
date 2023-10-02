@@ -292,6 +292,20 @@ To view what process is using a specific port you can run the following command:
 Get-Process -Id (Get-NetTCPConnection -LocalPort 5000).OwningProcess
 ```
 
+You can also use the following command:
+
+```ps1
+netstat -ano | findstr : 8000
+```
+
+# Killing Process by ID
+
+If you have the PID, for example using one of the above commands, you can kill us using `taskkill`, for example for killing PID 1234
+
+```ps1
+taskkill /PID 1234 /F
+```
+
 # Zipping Files
 
 To zip all the files in a directory you can use the following:
