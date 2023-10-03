@@ -10,36 +10,6 @@ description: Nushell Commands and Usage
 
 Nushell makes use of command outputs as data that can be transformed, it makes use of pipes that connnect commands together in a functional-programming usage style
 
-# Moving around the File System
-
-Nushell provides commands for normal file-system related tasks which are similar to common commands
-
-## Listing Files
-
-```sh
-ls
-```
-
-Or listing a specific file type
-
-```sh
-ls *.md
-```
-
-Or even globs
-
-```sh
-ls **/*.md
-```
-
-## Globs
-
-You can also use the `glob` method direclt to find files recursively:
-
-```sh
-glob **/*.png
-```
-
 # Thinking in Nu
 
 Nushell works with results using pipes, this is similar to `>` in bash but isn't exactly the same
@@ -260,6 +230,44 @@ We can also fetch remote files which will then also be converted into data like 
 ```sh
 fetch https://blog.rust-lang.org/feed.xml
 ```
+
+# Cheatsheet
+
+## Moving around the File System
+
+Nushell provides commands for normal file-system related tasks which are similar to common commands such as:
+
+```sh
+./hello/world # will cd to the directory
+```
+
+## Listing Files
+
+```sh
+ls
+```
+
+Or listing a specific file type
+
+```sh
+ls *.md
+```
+
+Or even globs
+
+```sh
+ls **/*.md
+```
+
+## Globs
+
+You can also use the `glob` method directly to find files recursively:
+
+```sh
+glob **/*.png
+```
+
+> The `glob` method returns a list of strings versus the `ls` method which returns a list of file objects
 
 ### Deleting Branches
 
