@@ -155,6 +155,15 @@ WHERE [PersonId] = 1
 GO
 ```
 
+## Values in List
+
+We can use the `IN` operator to select some data based on values being in a given list
+
+```sql
+SELECT * FROM users
+WHERE id in (1,2,3)
+```
+
 # Testing Statements
 
 When running SQL queries it may sometimes be necessary to check if your query will work as expected before you actually run it you can wrap your query in:
@@ -223,4 +232,20 @@ b.Registered as IsRegistered
 FROM Table_1 as a
 INNER JOIN Table_2 as b
 ON a.ID = b.UserId
+```
+
+# Inner Queries
+
+You can use subqueries inside of SQL queries for the purpose of comparing data against without actually returning/selecting the data from the inner query
+
+```sql
+SELECT *
+FROM users
+WHERE id IN 
+    (
+        SELECT user_id 
+        FROM orders 
+        WHERE order_id IN (1,3)
+    )
+AND LOWER(username) LIKE LOWER('%bob%')
 ```
