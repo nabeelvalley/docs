@@ -234,6 +234,22 @@ for ((index, element) in myArr.withIndex()) {
 }
 ```
 
+## Lists
+
+We can create lists using:
+
+```kotlin
+val myList = listOf("val1", "val2")
+```
+
+If we want the list to be mutable, we can do this using:
+
+```kotlin
+val myMutableList = mutableListOf("val1", "val2")
+```
+
+> Similar constructor functions exist for other collection types with the concept of mutable and immutable collection types
+
 ## Ranges
 
 You can also create ranges, we can use the following methods of creating a range:
