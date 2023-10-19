@@ -27,3 +27,5 @@ Content from [Syntax.fm](https://syntax.fm/show/616/supper-club-adam-argyle-on-w
   -  https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations
 - Cascade layers
 - CSS Nesting
+- CSS Houdini (`@property`)
+- https://www.projectwallace.com/
