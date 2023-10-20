@@ -187,6 +187,12 @@ code .line::before {
   color: var(--color-brand);
 }
 
+blockquote {
+  border-left: solid var(--separator-width) var(--color-brand);
+  padding-left: var(--block-gap);
+  margin-left: 0;
+}
+  
 /* search bar */
 
 button {
