@@ -192,7 +192,17 @@ blockquote {
   padding-left: var(--block-gap);
   margin-left: 0;
 }
+
+article {
+  padding-bottom: 48px;
+}
   
+@media(max-width: 1000px) {
+  article {
+    border-bottom: var(--separator-border);
+  }
+}
+
 /* search bar */
 
 button {
