@@ -1,6 +1,7 @@
 ---
 published: true
 title: RxJS Basics
+description: Basic introduction to RxJS and Streams in Javascript
 ---
 
 - [RxJS Website](https://rxjs.dev/)
