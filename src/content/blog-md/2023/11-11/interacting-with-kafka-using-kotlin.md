@@ -1,10 +1,13 @@
 ---
-published: false
+title: Interacting with Kafka with Kotlin Coroutines
+subtitle: 11 November 2023
+description: Producing, Consuming, and Processing Kafka Event Streams
+published: true
 ---
 
 # Overview
 
-The purpose of this post is to illustrate a method of interacting with Kafka using Kotlin in a functional programming style while using Kotlin coroutines for a multi-threading means of interacting with Kafka. We will be interacting with the [Kafka Client for Java](https://docs.confluent.io/kafka-clients/java/current/overview.html) and will be building a small library on top of this for the purpose of simplifying communication and handling tasks like JSON Serialization
+The purpose of this post is to illustrate a method of interacting with Kafka using Kotlin in a functional programming style while using Kotlin coroutines for a multi-threading. We will be interacting with the [Kafka Client for Java](https://docs.confluent.io/kafka-clients/java/current/overview.html) and will be building a small library on top of this for the purpose of simplifying communication and handling tasks like JSON Serialization
 
 > If you would like to view the completed source code, you can take a look at the [kotlin-kafka GitHub repository](https://github.com/nabeelvalley/kotlin-kafka)
 
@@ -27,8 +30,6 @@ From a more detailed perspective, Kafka internally handles storage of event stre
 - The Producer API for production
 - The Consumer API for subscription
 - The Streams API for processing stream data
-
-In addition to the above, we we will also touch on the **Admin API** that enables us to do some basic management tasks of our Kafka instance
 
 ## Kotlin
 
@@ -92,7 +93,7 @@ fun loadProperties(): Properties {
 
 The above example uses the `io.github.cdimascio:dotenv-java:3.0.0` package for loading the environment variables and some builtin Java utilities for loading the application properties file
 
-Next, for the purpose of using it with our library we will create a `Config` class that wraps the properties file we defined so that we can use this a little more elegantly in our consumers. Realistically we probably should do some validation on the resulting Properties that we load in but we'll just keep it simple and define `Config` as a class that contains the properties as a property:
+Next, for the purpose of using it with our library we will create a `Config` class that wraps the properties file we defined so that we can use this a little more elegantly in our consumers. Realistically we probably should do some validation on the resulting `Properties` that we load in but we'll just keep it simple and define `Config` as a class that contains the `properties` as a property:
 
 `Config.kt`
 
@@ -110,7 +111,7 @@ An important part of what we want our client to handle is the JSON serialization
 
 ### Serialization
 
-Serialization in this context refers to the process of converting our Kotlin classes into a string and back to a Kotlin class. For this discussion we will refer to a class that is able to do this bidirectional conversion as a Serializer.
+Serialization in this context refers to the process of converting our Kotlin classes into a string and back to a Kotlin class. For this discussion we will refer to a class that is able to do this bidirectional conversion as a `Serializer`.
 
 We can define generic representation of a serializer as a class that contains a method callsed `serialize` that takes in data of type `T` and returns a string, and contains a method called `deserialize` that takes in a string and returns an object of type `T`
 
@@ -242,9 +243,9 @@ We'll codify this intent as a type as follows:
 typealias Produce<T> = suspend (send: Send<T>) -> Unit
 ```
 
-> Note that we define this as a `suspend` function that will enable users to send messages from within a Corouting context
+> Note that we define this as a `suspend` function that will enable users to send messages from within a coroutine context
 
-Next, we define the type of our producer as method with a way to create a prodcuer instance for users who may want to manage the lifecycle of the `KafkaProducer` on their own. This however also means they lose access to the automatic serialization and deserialization that we will provide via our `producer` method
+Next, we define the type of our producer as method with a way to create a producer instance for users who may want to manage the lifecycle of the `KafkaProducer` on their own. This however also means they lose access to the automatic serialization and deserialization that we will provide via our `producer` method
 
 This interface is defined as follows:
 
