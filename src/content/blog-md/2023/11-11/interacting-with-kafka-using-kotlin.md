@@ -1,6 +1,6 @@
 ---
 title: Interacting with Kafka with Kotlin Coroutines
-subtitle: 11 November 2023
+subtitle: 09 November 2023
 description: Producing, Consuming, and Processing Kafka Event Streams
 published: true
 ---
