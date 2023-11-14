@@ -72,7 +72,7 @@ class MarkdownPreviewElement extends HTMLElement {
 		return this.getAttribute("label") || ""
 	}
 
-	/** @type {string | undefined} */
+	/** @type {string} */
 	get #value() {
 		return this.getAttribute("value") || ""
 	}
@@ -133,7 +133,7 @@ class MarkdownPreviewElement extends HTMLElement {
 		shadow.appendChild(this.#wrapper)
 
 		this.#input.addEventListener("input", () => this.#onchange())
-		this.#output.innerHTML = this.#converter.makeHtml(this.#value || "")
+		this.#output.innerHTML = this.#converter.makeHtml(this.#value)
 	}
 }
 
