@@ -18,8 +18,7 @@ export const GET = async (context) => {
       link: `/blog/${post.slug}/`,
       content: parser.render(post.body),
     }))
-
-  console.log(items)
+    .sort((postA, postB) => (postA.pubDate - postB.pubDate > 0 ? -1 : 1))
 
   return rss({
     title: 'Nabeel Valley',
