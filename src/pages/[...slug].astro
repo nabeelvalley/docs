@@ -61,7 +61,7 @@ const renderers = {
 }
 
 const { props } = Astro
-const { Content, remarkPluginFrontmatter } = await renderers[
+const { Content, remarkPluginFrontmatter = {} } = await renderers[
   props.entry.collection
 ](props)
 
