@@ -61,16 +61,20 @@ const renderers = {
 }
 
 const { props } = Astro
-const { Content } = await renderers[props.entry.collection](props)
+const { Content, remarkPluginFrontmatter } = await renderers[
+  props.entry.collection
+](props)
 
 const { title, subtitle, description } = props.entry.data
+const { lastModified } = remarkPluginFrontmatter
 ---
 
 <Base title={title} description={description}>
   <Page>
     <article class="rendered">
       <h1>{title}</h1>
-      <p class="subtitle">{subtitle}</p>
+      <p class="subtitle">Created: {subtitle}</p>
+      {lastModified ? <p class="subtitle">Updated: {lastModified}</p> : null}
 
       {typeof Content === 'string' ? <div set:html={Content} /> : <Content />}
     </article>

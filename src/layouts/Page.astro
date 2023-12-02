@@ -38,22 +38,23 @@ const posts = blog.slice(...(Astro.props.blogs || [0, 5]))
     <slot name="default" />
   </section>
   {
-    hasSidebar ? <section slot="sidebar">
-      <slot name="sidebar" />
-      </section> :
+    hasSidebar ? (
+      <section slot="sidebar">
+        <slot name="sidebar" />
+      </section>
+    ) : (
       <aside slot="sidebar">
         <h3>Recent Posts</h3>
-        {
-          posts.map((post) => (
-            <LinkBlock
-              title={post.data.title}
-              description={post.data.description}
-              subtitle={post.data.subtitle}
-              link={`/blog/${post.id.split('.')[0]}`}
-            />
-          ))
-        }
+        {posts.map((post) => (
+          <LinkBlock
+            title={post.data.title}
+            description={post.data.description}
+            subtitle={post.data.subtitle}
+            link={`/blog/${post.id.split('.')[0]}`}
+          />
+        ))}
       </aside>
+    )
   }
   <slot slot="extra" name="extra" />
 </Layout>
