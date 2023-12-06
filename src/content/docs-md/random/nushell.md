@@ -276,3 +276,13 @@ We can use a script like the following to delete all git branches other than the
 ```sh
 git branch | lines | filter {|l| $l | str contains -n "*"} | each {|b| $b | str trim} | each {|b| git branch -d $b}
 ```
+
+### Stopping All Docker Containers
+
+The Docker CLI outputs data that's nicely structured for working with the NuShell table structure.
+
+We can kill all containers by parsing the data into a table and stopping them individually
+
+```sh
+docker container ls | from ssv | select "CONTAINER ID" | each { |i| docker container stop $i."CONTAINER ID" } 
+```
