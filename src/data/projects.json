@@ -1,5 +1,19 @@
 [
   {
+    "title": "SQLQ",
+    "description": "A little CLI for working with databases during development for quick queries and automation",
+    "tags": ["ts", "cli", "sql"],
+    "link": "https://github.com/nabeelvalley/sqlq",
+    "image": "/content/projects/sqlq.svg"
+  },
+  {
+    "title": "Link Book",
+    "description": "Quickly save links from around the web to a GitHub repository",
+    "tags": ["ts", "nextjs", "github", "automation"],
+    "link": "https://link-book.vercel.app/",
+    "image": "/content/projects/link-book.jpg"
+  },
+  {
     "title": "Articly",
     "description": "A read-it-later app with support for Web Pages, RSS Feeds, Podcasts, and Twitter Threads that sanitizes content and delivers a seamless reading experience with highlights and sharing functionality",
     "tags": ["svelte", "ts", "supabase"],
