@@ -161,6 +161,74 @@ export type Primitive = string | number | boolean | Symbol | Date
 export type FlatPartial<T, TKeep = Primitive> = {
   [K in keyof T]: T[K] extends TKeep ? T[K] | undefined : Partial<T[K]>
 }
+
+/**
+ * Gets all keys of an object where the property at that key in the object extends a condition
+ *
+ * @param Cond the condition that properties need to  extend
+ * @param T the object with the keys of interest
+ */
+type ConditionalKeys<Cond, T> = {
+  [K in keyof T]: T[K] extends Cond ? K : never;
+}[keyof T];
+
+/**
+ * Get the primitive keys of a given object
+ */
+type PrimitiveKeys<T> = ConditionalKeys<Primitive, T>;
+
+/**
+ * Pick the keys of an object where the property value is a primitive
+ */
+type PickPrimitive<T> = Pick<T, PrimitiveKeys<T>>;
+
+/**
+ * Pick the keys of an object where the property value is not primitive
+ */
+type ObjectKeys<T> = Exclude<keyof T, PrimitiveKeys<T>>;
+
+/**
+ * Join two keys using a separator
+ */
+type JoinKeys<
+  TSep extends string,
+  P extends string,
+  K extends string,
+> = `${P}${TSep}${K}`;
+
+/**
+ * Create an object with all keys prepended with some prefix
+ *
+ * @param T the type with the keys of interest
+ * @param P the prefix to prepend keys with
+ * @param Sep the separator to use for nesting keys
+ */
+type ExpandPathsRec<T, P extends string, Sep extends string> = {
+  [K in keyof T & string]: T[K] extends Primitive
+    ? {
+        [key in JoinKeys<Sep, P, K>]: T[K];
+      }
+    : ExpandPathsRec<T[K], JoinKeys<Sep, P, K>, Sep>;
+}[keyof T & string];
+
+/**
+ * Create the resultant nested object using the given keys of the input object
+ *
+ * @param T the object to un-nest
+ * @param P the keys to keep when un-nesting
+ */
+type ExpandPaths<T, P extends keyof T, Sep extends string> = P extends string
+  ? ExpandPathsRec<T[P], P, Sep>
+  : {};
+
+/**
+ * Bring all object properties to the top-level recursively
+ *
+ * @param T the object to expand
+ * @param Sep the separator to use when expanding
+ */
+type Pathify<T, Sep extends string> = PickPrimitive<T> &
+  ExpandPaths<T, ObjectKeys<T>, Sep>;
 ```
 
 # Strings
