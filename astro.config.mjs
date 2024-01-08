@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import { remarkModifiedTime } from './src/lib/markdownit-last-modified';
+import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,5 +15,5 @@ export default defineConfig({
     },
   },
 
-  integrations: [react(), sitemap()],
+  integrations: [react(), sitemap(), mdx()],
 })
