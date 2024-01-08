@@ -7,9 +7,11 @@ import polyfillNode from "rollup-plugin-polyfill-node";
 
 
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      plugins: [polyfillNode()],
+  vite: {
+    build: {
+      rollupOptions: {
+        plugins: [polyfillNode()]
+      }
     }
   },
   outDir: '_site',
