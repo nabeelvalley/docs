@@ -1,4 +1,8 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 dependencies:
   '@11ty/eleventy':
@@ -12,7 +16,7 @@ dependencies:
     version: 1.0.0(astro@3.0.7)
   '@astrojs/react':
     specifier: ^3.0.0
-    version: 3.0.0(@types/react-dom@18.2.3)(@types/react@18.2.5)(react-dom@18.2.0)(react@18.2.0)
+    version: 3.0.0(@types/react-dom@18.2.3)(@types/react@18.2.5)(react-dom@18.2.0)(react@18.2.0)(vite@4.4.9)
   '@astrojs/rss':
     specifier: ^3.0.0
     version: 3.0.0
@@ -30,7 +34,7 @@ dependencies:
     version: 1.1.3
   astro:
     specifier: ^3.0.7
-    version: 3.0.7
+    version: 3.0.7(@types/node@20.0.0)
   date-fns:
     specifier: ^2.28.0
     version: 2.30.0
@@ -51,7 +55,7 @@ dependencies:
     version: 1.0.2
   ipynb2html:
     specifier: ^0.3.0
-    version: 0.3.0
+    version: 0.3.0(nodom@2.4.0)
   jsdom:
     specifier: ^18.0.1
     version: 18.1.1
@@ -66,7 +70,7 @@ dependencies:
     version: 13.0.1
   markdown-it-anchor:
     specifier: ^8.6.4
-    version: 8.6.7(markdown-it@13.0.1)
+    version: 8.6.7(@types/markdown-it@13.0.7)(markdown-it@13.0.1)
   markdown-it-highlightjs:
     specifier: ^4.0.1
     version: 4.0.1
@@ -90,7 +94,7 @@ dependencies:
     version: 18.2.0(react@18.2.0)
   react-terminal:
     specifier: ^1.3.1
-    version: 1.3.1(react-dom@18.2.0)(react@18.2.0)
+    version: 1.3.1(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
   sanitize-html:
     specifier: ^2.10.0
     version: 2.10.0
@@ -102,7 +106,7 @@ dependencies:
     version: 1.6.6
   ts-node:
     specifier: ^10.9.1
-    version: 10.9.1(typescript@4.9.5)
+    version: 10.9.1(@types/node@20.0.0)(typescript@4.9.5)
   typescript:
     specifier: ^4.7.4
     version: 4.9.5
@@ -220,7 +224,7 @@ packages:
       astro: ^3.0.0
     dependencies:
       '@astrojs/prism': 3.0.0
-      astro: 3.0.7
+      astro: 3.0.7(@types/node@20.0.0)
       github-slugger: 2.0.0
       import-meta-resolve: 3.0.0
       rehype-raw: 6.1.1
@@ -247,7 +251,7 @@ packages:
       '@astrojs/prism': 3.0.0
       '@mdx-js/mdx': 2.3.0
       acorn: 8.10.0
-      astro: 3.0.7
+      astro: 3.0.7(@types/node@20.0.0)
       es-module-lexer: 1.3.0
       estree-util-visit: 1.2.1
       github-slugger: 2.0.0
@@ -273,7 +277,7 @@ packages:
       prismjs: 1.29.0
     dev: false
 
-  /@astrojs/react@3.0.0(@types/react-dom@18.2.3)(@types/react@18.2.5)(react-dom@18.2.0)(react@18.2.0):
+  /@astrojs/react@3.0.0(@types/react-dom@18.2.3)(@types/react@18.2.5)(react-dom@18.2.0)(react@18.2.0)(vite@4.4.9):
     resolution: {integrity: sha512-JOj0DF7gCmyrM2fem8LLXOh2sF9lX0zSkm6B0GpLeJ4u2lH5B8w9znBZuLy4AZZVktNqiLfexwlhWE99VC9ZpQ==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
@@ -285,7 +289,7 @@ packages:
       '@astrojs/internal-helpers': 0.2.0
       '@types/react': 18.2.5
       '@types/react-dom': 18.2.3
-      '@vitejs/plugin-react': 4.0.4
+      '@vitejs/plugin-react': 4.0.4(vite@4.4.9)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       ultrahtml: 1.4.0
@@ -1264,10 +1268,25 @@ packages:
       '@types/node': 20.0.0
     dev: false
 
+  /@types/linkify-it@3.0.5:
+    resolution: {integrity: sha512-yg6E+u0/+Zjva+buc3EIb+29XEg4wltq7cSmd4Uc2EE/1nUVmxyzpX6gUXD0V8jIrG0r7YeOGVIbYRkxeooCtw==}
+    dev: false
+
+  /@types/markdown-it@13.0.7:
+    resolution: {integrity: sha512-U/CBi2YUUcTHBt5tjO2r5QV/x0Po6nsYwQU4Y04fBS6vfoImaiZ6f8bi3CjTCxBPQSO1LMyUqkByzi8AidyxfA==}
+    dependencies:
+      '@types/linkify-it': 3.0.5
+      '@types/mdurl': 1.0.5
+    dev: false
+
   /@types/mdast@3.0.11:
     resolution: {integrity: sha512-Y/uImid8aAwrEA24/1tcRZwpxX3pIFTSilcNDKSPn+Y2iDywSEachzRuvgAYYLR3wpGXAsMbv5lvKLDZLeYPAw==}
     dependencies:
       '@types/unist': 2.0.6
+    dev: false
+
+  /@types/mdurl@1.0.5:
+    resolution: {integrity: sha512-6L6VymKTzYSrEf4Nev4Xa1LCHKrlTlYCBMTlQKFuddo1CvQcE52I0mwfOJayueUC7MJuXOeHTcIU683lzd0cUA==}
     dev: false
 
   /@types/mdx@2.0.5:
@@ -1342,7 +1361,7 @@ packages:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
     dev: false
 
-  /@vitejs/plugin-react@4.0.4:
+  /@vitejs/plugin-react@4.0.4(vite@4.4.9):
     resolution: {integrity: sha512-7wU921ABnNYkETiMaZy7XqpueMnpu5VxvVps13MjmCo+utBdD79sZzrApHawHtVX66cCJQQTXFcjH0y9dSUK8g==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -1352,6 +1371,7 @@ packages:
       '@babel/plugin-transform-react-jsx-self': 7.22.5(@babel/core@7.22.11)
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.11)
       react-refresh: 0.14.0
+      vite: 4.4.9(@types/node@20.0.0)
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -1585,7 +1605,7 @@ packages:
     hasBin: true
     dev: false
 
-  /astro@3.0.7:
+  /astro@3.0.7(@types/node@20.0.0):
     resolution: {integrity: sha512-slUnDBXfxMzq5abE4svcKbaeYC/tHZsJYOrzwDNU9lLye3/4cqYP7OuHMTXiRlx7LSpHQlUhwbMe2HqCv2GKag==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
@@ -1641,7 +1661,7 @@ packages:
       undici: 5.23.0
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.4.9
+      vite: 4.4.9(@types/node@20.0.0)
       vitefu: 0.2.4(vite@4.4.9)
       which-pm: 2.0.0
       yargs-parser: 21.1.1
@@ -3056,6 +3076,18 @@ packages:
       debug: 4.3.2
     dev: false
 
+  /follow-redirects@1.15.2(debug@4.3.4):
+    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dependencies:
+      debug: 4.3.4
+    dev: false
+
   /for-in@1.0.2:
     resolution: {integrity: sha512-7EwmXrOjyL+ChxMhmG5lnW9MPt1aIeZEwKhQzoBUdTV0N3zuwWDZYVJatDvZ2OyzPUvdIAZDsCetk3coyMfcnQ==}
     engines: {node: '>=0.10.0'}
@@ -3520,7 +3552,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.2(debug@4.3.2)
+      follow-redirects: 1.15.2(debug@4.3.4)
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
@@ -3650,7 +3682,7 @@ packages:
     engines: {node: '>=10.13.0'}
     dev: false
 
-  /ipynb2html@0.3.0:
+  /ipynb2html@0.3.0(nodom@2.4.0):
     resolution: {integrity: sha512-ljySokCPjpEGa8U7yY7NSF+hV2BeuQU+T52cXzw9heQoiurc48DxFKrxGsHMYj41hTf/h1Wpr6EIOmDfTWIm3g==}
     engines: {node: '>=10.13.0'}
     peerDependencies:
@@ -3661,6 +3693,7 @@ packages:
       ipynb2html-core: 0.3.0
       katex: 0.11.1
       marked: 1.2.9
+      nodom: 2.4.0
     dev: false
 
   /is-absolute@1.0.0:
@@ -4275,12 +4308,13 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /markdown-it-anchor@8.6.7(markdown-it@13.0.1):
+  /markdown-it-anchor@8.6.7(@types/markdown-it@13.0.7)(markdown-it@13.0.1):
     resolution: {integrity: sha512-FlCHFwNnutLgVTflOYHPW2pPcl2AACqVzExlkGQNsi4CJgqOHN7YTgDd4LuhgN1BFO3TS0vLAruV1Td6dwWPJA==}
     peerDependencies:
       '@types/markdown-it': '*'
       markdown-it: '*'
     dependencies:
+      '@types/markdown-it': 13.0.7
       markdown-it: 13.0.1
     dev: false
 
@@ -5111,6 +5145,10 @@ packages:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
     dev: false
 
+  /nodom@2.4.0:
+    resolution: {integrity: sha512-qhfYgpoCSi37HLiViMlf94YqMQdvk3n3arI1uGbAWZK9NKCYRSI42W8lATeGloYGLYxb8us1C5rTvtsXjwdWQg==}
+    dev: false
+
   /nopt@6.0.0:
     resolution: {integrity: sha512-ZwLpbTgdhuZUnZzjd7nb1ZV+4DoiC6/sfiVKok72ym/4Tlf+DFdlHYmT2JPmcNNWV6Pi3SDf1kT+A4r9RTuT9g==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
@@ -5874,9 +5912,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /react-terminal@1.3.1(react-dom@18.2.0)(react@18.2.0):
+  /react-terminal@1.3.1(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-lbkrih1be0nlJptZR7uwV6YF8PMuxKJOKhGN+GVuFKp9dY/qpSYF76KMGZZJnWbbxAt5Bkf+aUt4iyy5F8NBdQ==}
     peerDependencies:
+      prop-types: ^15.8.1
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
@@ -6864,7 +6903,7 @@ packages:
     resolution: {integrity: sha512-AqTiAOLcj85xS7vQ8QkAV41hPDIJ71XJB4RCUrzo/1GM2CQwhkJGaf9Hgr7BOugMRpgGUrqRg/DrBDl4H40+8g==}
     dev: false
 
-  /ts-node@10.9.1(typescript@4.9.5):
+  /ts-node@10.9.1(@types/node@20.0.0)(typescript@4.9.5):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -6883,6 +6922,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
+      '@types/node': 20.0.0
       acorn: 8.8.2
       acorn-walk: 8.2.0
       arg: 4.1.3
@@ -7174,7 +7214,7 @@ packages:
       vfile-message: 3.1.4
     dev: false
 
-  /vite@4.4.9:
+  /vite@4.4.9(@types/node@20.0.0):
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -7202,6 +7242,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 20.0.0
       esbuild: 0.18.20
       postcss: 8.4.29
       rollup: 3.28.1
@@ -7217,7 +7258,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.4.9
+      vite: 4.4.9(@types/node@20.0.0)
     dev: false
 
   /void-elements@3.1.0:
