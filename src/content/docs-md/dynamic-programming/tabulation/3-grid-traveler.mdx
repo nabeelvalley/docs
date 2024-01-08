@@ -1,0 +1,31 @@
+---
+title: Grid Traveler with Tabulation
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+# Problem
+
+The same problem as the [Grid Traveler problem](/dynamic-programming/memoization/3-grid-traveler)
+
+For this case, we will consider a table such that the last index is the desired size we want. Since we are doing a count we probably want to initialize the values of the table to 0 and 1 at position (1,1)
+
+In terms of the size of our table we want to use (n+1, m+1) so that the last indexes are equal to the endpoints n and m, and also having a 0th index since a grid with length 0 is valid and needs to be considered
+
+The initial table will look like this:
+
+![](@assets/grid-traveler-table-initial.png)
+
+In the implementation here we will go through the grid and increment each valid move direction by the number of possible routes from the current position, this looks like so:
+
+![](@assets/grid-traveler-table.png)
+
+We can understand the fact that the top rows and columns are all 0 and will never change as when we are in a 0xn or mx0 grid there will be 0 ways to move to the end from that position
+
+# Tabulation Implementation
+
+For our implementation we will define a table that has a position for each value we want. For our starting seed we will define an array of 0s and a 1 at index 1, from here we will step through each item and add it to the following two items. This is a bit of a different perspective on the Fibonacci problem than in the [Recursive Fibonacci example](/dynamic-programming/memoization/2-fib)
+
+<Snippet path="dynamic-programming/tabulation/grid-traveler.ts" />
+
+In this implementation we have a linear solution with time complexity $O(n)$ and space complexity of $O(n)$

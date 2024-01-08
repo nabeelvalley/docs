@@ -1,0 +1,42 @@
+---
+title: Count Construct
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+# Problem
+
+Given a target string and a list of strings return the number of ways that
+the items in the string list can be combined to build the string in the target
+
+An example of what we want to do is:
+
+```js
+canConstruct(abcdef, [ab, cd, ef]) = 1
+canConstruct(abcdef, [ab, cd]) = 0
+canConstruct(abcdef, [ab, cd, cdef, ef]) = 2
+```
+
+In general it will probably be easier to create a shorter string than a longer one
+
+We can consider a base case where:
+
+```js
+canConstruct('', [a,b,c]) = true
+```
+
+# Base Implementation
+
+The implementation of this is pretty similar to the [Can Construct](./7-can-construct) problem
+
+<Snippet path="dynamic-programming/memoization/count-construct.ts" />
+
+The complexity of this is the same as the Can Construct implementation with a time complexity $O(n^m * m)$ and space complexity of $O(m^2)$
+
+# With memoization
+
+We implement the memoization as in the previous examples
+
+<Snippet path="dynamic-programming/memoization/count-construct-memo.ts" />
+
+The complexity of this is the same as the Can Construct memoized implementation with a time complexity $O(n * m^2)$ and space complexity of $O(m^2)$

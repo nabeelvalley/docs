@@ -1,0 +1,25 @@
+---
+title: Best Sum
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+# Problem
+
+Essentially the same as the [How Sum](./5-how-sum) question but our goal here is to find the shortest array that yields the sum we are interested in. If there are multiple equally short options then we can take any one
+
+# Base Implementation
+
+The solution to this is almost identical to the [How Sum](./5-how-sum) questio but we don't early return when we find a solution of a subtree but instead we store the result of the best subtree as we iterate through
+
+<Snippet path="dynamic-programming/memoization/best-sum.ts" />
+
+In the above solution with $m=target$ and $n=length of nums$ the time complexity is $O(n^m * m)$ and the space complexity is $O(m^2)$
+
+# With memoization
+
+We can implement memoizatio based on the target:
+
+<Snippet path="dynamic-programming/memoization/best-sum-memo.ts" />
+
+The time complexity of this should now be $O(m^2 * n)$ and the space complexity of $O(m^2)$

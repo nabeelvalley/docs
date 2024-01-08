@@ -1,0 +1,25 @@
+---
+title: All Construct
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+# Problem
+
+This problem is very similar to the previous question but now instead of counting the ways we can construct a string we want to return the the list of ways that the word can be constructed
+
+# Base Implementation
+
+The implementation of this is pretty similar to the [Count Construct](./7-can-construct) problem but we return the list of combinations that make the input string
+
+<Snippet path="dynamic-programming/memoization/all-construct.ts" />
+
+The complexity of this is the same as the Can Construct implementation with a time complexity $O(n^m)$ and space complexity of $O(n^m)$ since we always need to return a large list of subarrays of combinations
+
+# With memoization
+
+We implement the memoization as in the previous examples
+
+<Snippet path="dynamic-programming/memoization/all-construct-memo.ts" />
+
+The complexity of this is the same as the Can Construct memoized implementation with a time complexity $O(n * m^2)$ and space complexity of $O(m^2)$

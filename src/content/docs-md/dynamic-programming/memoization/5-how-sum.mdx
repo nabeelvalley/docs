@@ -1,0 +1,36 @@
+---
+title: How Sum
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+# Problem
+
+Given a list of numbers write a function that will return the numbers from the array that can be summed to the given input if it is possible to sum the numbers to a given target, else return null. Each number can be used multiple times if needed. Can assume all numbers are positive
+
+Some examples to consider:
+
+```js
+canSum(7, [5,3,2,7]) = [2,5]
+canSum(7, [2,4]) = null
+```
+
+We can follow a similar strategy as in the [Can Sum](./4-can-sum) example but here we will return an array of the values that added up the the desired result
+
+![](@assets/how-sum-tree.png)
+
+# Base Implementation
+
+The brute force solution looks like this:
+
+<Snippet path="dynamic-programming/memoization/how-sum.ts" />
+
+The above solution has a resulting time complexity of $O(n^m * m)$ with $n$ as the target and $m$ as the length of the array. We can technically also consider the result array which is $O(m)$ but that's not very
+
+# With memoization
+
+In the context of this problem we have cases in which the `canSum` function is being called with parameters that it has seen previously, we can apply the memoization as in other cases using this method
+
+<Snippet path="dynamic-programming/memoization/how-sum-memo.ts" />
+
+In the resulting implementation the resulting complexity is $O(n * m^2)$ for time and $O(m^2)$ for space as we are now storing the result of each subcomputation to lookup later

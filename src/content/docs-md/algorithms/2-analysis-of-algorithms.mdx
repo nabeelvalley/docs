@@ -1,0 +1,192 @@
+---
+title: Analysis of Algorithms
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+Think of this from a few different perspectives:
+
+1. Programmer - develop a working solution
+2. Client - solve problem efficiently
+3. Theoretician - understand the solution
+4. Team - Basic blocking and tackling of a problem
+
+# Why analyze algorithms
+
+- Performance prediction
+- Understanding some theoretical basis
+- Ccmpare algorithms
+- Provide guarantees
+- Understand theoretical basis
+- Avoid performance bugs
+
+# Examples of Algorithmic usecases
+
+- Discrete Fourier Transform
+  - Breakdown waveforms into periodic components
+  - Brute force `N^2` vs `Nlog N`
+- N-body simulation
+  - Simulate gravitational interactions
+  - Brute force `N^2` vs Barnes-Hut `N LogN`
+
+More efficient algorithms enable the development of previously impossible usecases
+
+# Scientific Method
+
+Applying to the analysis we can predict the performance of different algorithms
+
+- Observe
+- Hypothesize
+- Predict
+- Verify
+- Validate
+
+Some basic principles:
+
+- Reproducibility
+- Falsifiability
+
+## Using an Example
+
+Given N Distinct integers, how many triples sum to exactly 0. We will write a program that can compute this and
+
+We can implement a simple solution as follows:
+
+<Snippet path="algorithms/3-sum/brute-force.ts" />
+
+# Observations
+
+Looking at the example above, we can:
+
+1. Run the code with increasingly larger inputs and try to see how the run time increases
+2. We can plot the results as a log-log plot, the slope of this will be `a` if our slope is `aN^b`
+
+If we are to plot the running time of our implementation we can see something like so:
+
+```txt
+Count: 100: 7.144ms
+Count: 200: 18.393ms
+Count: 400: 168.99ms
+Count: 800: 1.125s
+```
+
+In the above we can see that the runtime gets exponentially longer when doubling the size of the inputs
+
+Since it is often a power law, we can use the doubling of the input size as we have above to find out at what rate the input grows, for the case above we can see that we grow at approximately the following rate:
+
+| N    | time (ms) | ratio | lg ratio |
+| ---- | --------- | ----- | -------- |
+| 100  | 7.144     | -     | -        |
+| 200  | 18.393    | 2.5   | 1.33     |
+| 400  | 168.99    | 9.18  | 3.199    |
+| 800  | 1125      | 6.65  | 2.73     |
+| 1600 | 9456      | 8.405 | 3.07     |
+
+In the above we can see that the `lg(ratio)` starts to hover around 3, this is our `b` value, we can estimate `a` similarly by running the same test over repeatedly for a sufficiently large value of N and solving in the equation: `t = aN^b`
+
+# Mathematical Models
+
+The mathematical model for analyzing the runtime of an algorithm can be used for analyzing the performance of something
+
+> The total running time = cost per operation \* number of operations
+
+Generally there is some time complexity associated with doing some operation like a variable initialization or integer comparison, etc.
+
+This can become very tedious so it is sometimes easier to come up with an estimate of this, so realistically we consider the most expensive operation and look at it's frequency
+
+When looking at this we consider two things that we can simplify based on:
+
+1. The highest order operation frequency
+2. Discard lower order terms in this frequency
+
+In our case above we are looping N choose 3 number of times:
+
+`N Choose 3 = N(N-1)(N-2)/{3!}`
+
+## Estimating a Discrete Sum
+
+1. We can replace a sum of `1 + 2 + ... + N` with an approximation of `(1/2)N^2`
+2. We can replace a sum of `1 + 1/2 + 1/3 + ... + 1/N` with an approximation of `ln N`
+3. We can replace a sum of loops with `(N choose Loops/Loops!)*N^Loops`
+
+The calculations can get very complex and so it's often more practical to use approximations as discussed above
+
+# Order of Growth
+
+When analyzing algorithms we have a small set of functions that pop up, usually:
+
+The order of growth comes from some simple patterns that come up in our code:
+
+| Order     | Name         | Code                      | example           |
+| --------- | ------------ | ------------------------- | ----------------- |
+| `1`       | Constant     | `a = b + c`               | add two nums      |
+| `log N`   | Logarithmic  | `while (N>1) { N/2 }`     | binary search     |
+| `N`       | Linear       | `for (let i in arr) {}`   | loop              |
+| `N log N` | Linearithmic | `// merge sort`           | mergesort         |
+| `N^2`     | Quadratic    | `for (){for(){}}`         | check all pairs   |
+| `N^3`     | Cubic        | `for(){for(){for(){}}}`   | check all triples |
+| `2^N`     | Exponential  | `// combinatorial search` | check all subsets |
+
+It is possible to implement the 3-sum above using a combination of a sorting algorithm and a binary search which can end up making it go from `N^3` to `N^2 Log N` which will have a much better performance
+
+# Theory of Algorithms
+
+In general, the given input can impact the running time of an algorithm. A difficult input is defined as a worst case, and the easiest input is the best case. We can assume any actual result is somewhere between these two cases
+
+We generally want to:
+
+- Establish difficulty
+- Develop an optimal solution
+
+The approach used is generally to:
+
+- Supress as many details as possible
+- Eliminate variability by focusing on the worst case
+
+Finding the optimal algorithm means:
+
+- Performance is guaranteed for any input
+- Can prove that algorithm can provide better performance
+
+## Notations for Describing Order of Growth
+
+- Big Theta - Used to classify algorithms
+- Big Oh - Develop upper bounds
+- Bug Omega - Develop lower bounds
+
+## Finding the Optimal Algorithm
+
+We can be sure that the optimal algorithm falls within the range of the lower and upper bounds
+
+Let's consider a 1-sum problem, essentially asking is there a 0 in an array
+
+1. We can define an upper bound of a brute force algorithm to be `O(N)`
+2. Since any solution will require us to look at every element in the array, we can see the lower bound will also be `\Omega(N)`
+3. This means the optimal algorithm is the brute force algorithm for this problem is `\Theta(N)`
+
+# Memory
+
+Typical memory usage of some primitives:
+
+| type          | bytes           |
+| ------------- | --------------- |
+| boolean       | 1               |
+| byte          | 1               |
+| char          | 2               |
+| int           | 4               |
+| float         | 4               |
+| long          | 8               |
+| double        | 8               |
+| char[]        | 2N + 24         |
+| int[]         | 4N + 24         |
+| double[]      | 8N + 24         |
+| char[][]      | ~ 2MN           |
+| int[][]       | ~ 4MN           |
+| double[][]    | ~ 8MN           |
+| Object (Java) | 16 + inner data |
+
+In general, as N gets large we care less about the constant factor, e.g. for an array we can ignore the 24 bytes baseline since the number of items is much larger in proportion
+
+# Conclusion
+
+Generally, the mathematical model is independent of the particular machine that the algorithm is implemented on but we should still use actual implementations for validation

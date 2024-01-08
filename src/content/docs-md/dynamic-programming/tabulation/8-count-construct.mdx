@@ -1,0 +1,21 @@
+---
+title: Count Construct with Tabulation
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+# Problem
+
+The same problem as the [Count Construct Memoization Problem](/dynamic-programming/memoization/7-can-construct) but implemented using the tabular style in the previous problems
+
+In this case, we will store an index for each letter and the value of how many substrings can start from that position - if it is possible then we will go to the end of ths substring and mark that position as false
+
+# Tabulation Implementation
+
+The implementation of this can be seen below:
+
+<Snippet path="dynamic-programming/tabulation/count-construct.ts" />
+
+In the above, the time complexity $O(m^2 *n)$ and space complexity $O(m)$
+
+> The reason we say $m^2$ and not $m$ in the time complexity is because of the array copy operation that we do to assign the latest value

@@ -1,0 +1,51 @@
+---
+title: Grid Traveler Recursive Memoization
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+# Problem
+
+A traveler on a 2D grid begins in the top left and must travel to the bottom right corner by only moving down or right
+
+How many ways can you travel to the goal on a grid that is `m*n`
+
+The resulting travel for a 2x3 grid may look like so:
+
+![](@assets/grid-traveler-example.png)
+
+Some special cases we want to ensure we can handle as well:
+
+```js
+gridTraveler(1,1) = 1
+gridTraveler(m,0) = 0
+gridTraveler(0,n) = 0
+gridTraveler(m,1) = 1
+gridTraveler(1,n) = 0
+```
+
+Looking at the example, we can think about how any movement from a point in a grid shrinks the grid in some direction
+
+![](@assets/grid-traveler-shrink.png)
+
+From this idea we can see that the problem is somewhat recursive, we can visualize this problem as a tree that will look something like this:
+
+![](@assets/grid-traveler-tree.png)
+
+Any node that has a `0` or `1` can be considered the base case where we know the number of routes that can be travelled. Furthermore, we can also see that there are some repeated nodes
+
+# Base Implementation
+
+<Snippet path="dynamic-programming/memoization/grid-traveler.ts" />
+
+This implementation starts to look a lot like the [Fibonacci Implementation](./fib)
+
+In the tree for this implementation the time complexity will be $O(2^(m+n))$ and the space complexity is $O(n+m)$
+
+# With memoization
+
+If we look at the tree we see that some subtrees are repeated directly, so we can try to memoize these.
+
+<Snippet path="dynamic-programming/memoization/grid-traveler-memo.ts" />
+
+Thinking further about it we can consider that the number of solutions of `2,3` is the same as `3,2`. We can also consider this for a further optimization but that is not implemented here
