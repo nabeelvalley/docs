@@ -7,13 +7,6 @@ import polyfillNode from "rollup-plugin-polyfill-node";
 
 
 export default defineConfig({
-  vite: {
-    build: {
-      rollupOptions: {
-        plugins: [polyfillNode()]
-      }
-    }
-  },
   outDir: '_site',
   site: 'https://nabeelvalley.co.za/',
   markdown: {
@@ -22,7 +15,7 @@ export default defineConfig({
       theme: 'dark-plus',
     },
   },
-  integrations: [react(), mdx({
+  integrations: [mdx({
     extendMarkdownConfig: true
   }), sitemap()],
 })
