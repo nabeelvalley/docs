@@ -14,7 +14,9 @@
     "dev": "astro dev",
     "build": "astro build --verbose",
     "astro": "astro",
-    "sync": "astro sync"
+    "sync": "astro sync",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@11ty/eleventy": "^0.12.1",
@@ -25,6 +27,7 @@
     "@astrojs/sitemap": "^1.3.0",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "@vitest/ui": "^1.1.3",
     "@webcontainer/api": "^1.1.3",
     "astro": "^3.0.7",
     "date-fns": "^2.28.0",
@@ -52,6 +55,7 @@
     "slugify": "^1.6.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4",
+    "vitest": "^1.1.3",
     "xterm": "^5.1.0",
     "xterm-addon-fit": "^0.7.0",
     "xterm-addon-web-links": "^0.8.0"
