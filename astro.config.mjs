@@ -15,7 +15,7 @@ export default defineConfig({
     },
   },
 
-  integrations: [react(), sitemap(), mdx({
+  integrations: [react(), mdx({
     extendMarkdownConfig: true
-  })],
+  }), sitemap()],
 })
