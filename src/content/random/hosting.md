@@ -34,6 +34,10 @@ Below is a list of some websites and platforms that provide free application hos
 - [Upstash](https://upstash.com/) - Redis and Kafka
 - [Xata](https://xata.io)
 
+# Vector Database
+
+- [Milvus](https://milvus.io/)
+
 # CRON
 
 - [Zeplo](https://www.zeplo.io/)
