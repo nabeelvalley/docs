@@ -1,6 +1,6 @@
 ---
 published: true
-title: Generic Link Component
+title: Angular Generic Link Component
 description: A link component that simply wraps the HTML anchor component to allow internal and external lnks
 ---
 
