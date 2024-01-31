@@ -31,6 +31,8 @@ class MyComponent {
 
 A reason for an issue as described above may be due to the fact that the initialization of our library happens outside of Angular's state management. 
 
+# ChangeDetector
+
 The simplest approach we can use to solving this issue us by mangully calling Angular's change detection:
 
 ```ts
@@ -55,6 +57,8 @@ class MyComponent {
 }
 
 ```
+
+# NgZone
 
 While the above method should work generally, I've also had some issues when working with complex asynchronous state where we do not know when a given task will complete. In order to solve this, we can use `NgZone` which provides a `run` method that can be used to tell Angular that some callback will change some internal state that Angular will need to react to
 
