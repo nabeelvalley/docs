@@ -1,0 +1,103 @@
+---
+import Title from '../components/Title.astro'
+import Base from '../layouts/Base.astro'
+---
+
+<Base>
+  <Title title="The Archive" />
+
+  <p>A short history of the different iterations of this website</p>
+
+  <div class="archive-row">
+    <div class="archive-overview">
+      <h2>2019-2020</h2>
+
+      <p>
+        The first "real" version of my website with the main goal of making my
+        notes more easily accessible. Build as a regular-old react app
+      </p>
+    </div>
+
+    <iframe class=".archive-frame" src="https://2019.archive.nabeelvalley.co.za"
+    ></iframe>
+  </div>
+
+  <div class="archive-row">
+    <div class="archive-overview">
+      <h2>2020-2022</h2>
+
+      <p>
+        A rewrite of the 2019 site using the same design and reusing a lot of
+        the components but using Gatsby. The focus of this build was to make the
+        site faster overall and it did a pretty good job at that
+      </p>
+    </div>
+    <iframe src="https://2021.archive.nabeelvalley.co.za"></iframe>
+  </div>
+
+  <div class="archive-row">
+    <div class="archive-overview">
+      <h2>2022-2023</h2>
+
+      <p>
+        The Gatsby site started to struggle to keep up with amount of content
+        and the site started to take ages to build, particularly running into
+        out of memory issues when building in the cloud and was becoming a
+        hassle to maintain. This version was built using Eleventy with a slight
+        redesign to simplify the content structure. I also moved the photography
+        to a different site during this period so this overall design placed a
+        lot less emphasis on imagery compared to previous versions
+      </p>
+    </div>
+    <iframe src="https://2022.archive.nabeelvalley.co.za"></iframe>
+  </div>
+
+  <div class="archive-row">
+    <div class="archive-overview">
+      <h2>2022-2023</h2>
+
+      <p>
+        I was reaching a point where I wanted to try to integrate some more
+        complex functionality into my site as well as make it possible for me to
+        build self-containted applet type things in my site and I wanted a
+        framework that would enable me to play around in that space. This
+        version of the site was written with Astro and had a few small
+        experiments such as a small javascript playground that was all built
+        within the app
+      </p>
+    </div>
+    <iframe src="https://2023.archive.nabeelvalley.co.za"></iframe>
+  </div>
+
+  <h2>2023-present</h2>
+
+  <p>
+    The site you're looking at. A complete redesign, still using Astro, but now
+    with MDX
+  </p>
+</Base>
+
+<style>
+  iframe {
+    width: 100%;
+    height: 80vh;
+    border: solid 4px var(--color-brand);
+  }
+
+  @media (min-width: 1024px) {
+    .archive-row {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .archive-overview {
+      max-width: 400px;
+    }
+
+    .archive-frame {
+      flex: 1;
+    }
+  }
+</style>
