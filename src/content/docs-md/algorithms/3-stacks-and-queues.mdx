@@ -1,8 +1,9 @@
 ---
+published: true
 title: Stacks and Queues
 ---
 
-import Snippet from "@/components/Snippet.astro";
+import Snippet from '@/components/Snippet.astro'
 
 # Stacks and Queues
 
@@ -87,29 +88,29 @@ In Javascript, the relevant definitions look like so:
 
 ```ts
 interface IteratorYieldResult<TYield> {
-  done?: false;
-  value: TYield;
+  done?: false
+  value: TYield
 }
 
 interface IteratorReturnResult<TReturn> {
-  done: true;
-  value: TReturn;
+  done: true
+  value: TReturn
 }
 
 type IteratorResult<T, TReturn = any> =
   | IteratorYieldResult<T>
-  | IteratorReturnResult<TReturn>;
+  | IteratorReturnResult<TReturn>
 
 interface Iterator<T, TReturn = any, TNext = undefined> {
-  next(...args: [] | [TNext]): IteratorResult<T, TReturn>;
+  next(...args: [] | [TNext]): IteratorResult<T, TReturn>
 }
 
 interface Iterable<T> {
-  [Symbol.iterator](): Iterator<T>;
+  [Symbol.iterator](): Iterator<T>
 }
 
 interface IterableIterator<T> extends Iterator<T> {
-  [Symbol.iterator](): IterableIterator<T>;
+  [Symbol.iterator](): IterableIterator<T>
 }
 ```
 

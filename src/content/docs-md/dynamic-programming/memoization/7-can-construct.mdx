@@ -1,8 +1,9 @@
 ---
+published: true
 title: Can Construct
 ---
 
-import Snippet from "@/components/Snippet.astro";
+import Snippet from '@/components/Snippet.astro'
 
 # Problem
 
@@ -40,4 +41,3 @@ We implement the memoization as in the previous examples
 <Snippet path="dynamic-programming/memoization/can-construct-memo.ts" />
 
 When we memoize this we are removing subtrees, this way we cut down the width of our tree. In the act of memoizing we define a map that stores the result of each substring which is of size $m$, the overall time complexity is the $O(n * m^2)$ and a space complexity of $O(m^2)$
-

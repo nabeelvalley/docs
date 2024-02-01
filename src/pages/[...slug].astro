@@ -73,7 +73,7 @@ const { lastModified } = remarkPluginFrontmatter
   <Page>
     <article class="rendered">
       <h1>{title}</h1>
-      <p class="subtitle">Created: {subtitle}</p>
+      {subtitle ? <p class="subtitle">Created: {subtitle}</p> : null}
       {lastModified ? <p class="subtitle">Updated: {lastModified}</p> : null}
 
       {typeof Content === 'string' ? <div set:html={Content} /> : <Content />}
