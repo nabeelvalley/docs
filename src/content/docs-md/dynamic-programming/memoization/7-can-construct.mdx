@@ -1,0 +1,43 @@
+---
+title: Can Construct
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+# Problem
+
+Given a target string and a list of strings return a boolean that indicates if the items in the string list can be combined to build the string in the target
+
+An example of what we want to do is:
+
+```js
+canConstruct(abcdef, [ab, cd, ef]) = true
+canConstruct(abcdef, [ab, cd]) = false
+```
+
+In general it will probably be easier to create a shorter string than a longer one
+
+We can consider a base case where:
+
+```js
+canConstruct('', [a,b,c]) = true
+```
+
+# Base Implementation
+
+We can work on shrinking the string by stepping and splitting off subscrings in our input data ensuring that we do not break the sequencing of the initial string, so we do not remove any segments from the middle of the string
+
+We will split off substrings if they are within the start of our initial string
+
+<Snippet path="dynamic-programming/memoization/can-construct.ts" />
+
+In this implementation the height of this tree can be the length of the target word $m$, for every element we would do a check which is $n$, in this case the time complexity is $O(n^m * m)$ (the last $m$ because we're slicing the string on each iteration). The space complexity is the at most the length of our string of $m$ and the new string we have that is maybe also of length $m$, the space complexity is the $O(m^2)$
+
+# With memoization
+
+We implement the memoization as in the previous examples
+
+<Snippet path="dynamic-programming/memoization/can-construct-memo.ts" />
+
+When we memoize this we are removing subtrees, this way we cut down the width of our tree. In the act of memoizing we define a map that stores the result of each substring which is of size $m$, the overall time complexity is the $O(n * m^2)$ and a space complexity of $O(m^2)$
+

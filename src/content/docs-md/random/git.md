@@ -406,3 +406,15 @@ To ensure that git is case sensitive on non-case-sensitive systems (Windows) you
 ```sh
 git config core.ignorecase false
 ```
+
+# Find Bad Commits using Bisect
+
+1. Checkout the branch where the bad commit exists
+2. Run `git bisect start` to start a bisect session
+3. Checkout a commit that is known to be bad and run `git bisect bad`
+4. Checkout a commit that is known to be good and run `git bisect good`
+5. Then the bisect tool will automatically checkout another commit
+  - Do your checks
+  - If good then run `git bisect good`, otherwise run `git bisect bad`
+6. The process will run until you find the last bad commit, you can then try to figure out what was changed in that commit
+7. Optionally, you can checkout the HEAD of your branch, then run `git checkout <LAST_WORKING_COMMIT_HASH> .` to get the last working files in your branch and you can remove changes until you are left with some change that would be the one that caused the bug

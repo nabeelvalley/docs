@@ -1,0 +1,35 @@
+---
+title: Fibonacci with Tabulation
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+# Problem
+
+Calculate the nth number in the Fibbonnaci sequence with:
+
+1. 0th number as 0
+2. 1st number as 1
+
+So the resulting:
+
+```txt
+n:      0   1   2   3   4   5   6
+fib(n)  0   1   1   2   3   5   8
+```
+
+The tabulation strategy consists of building a table but we think of the problem in terms of iteration instead of recursion
+
+In this tabular representation something important to note is that for the value of `n=6` we have an array with the **indices 0 to 6** and a **length of 7**
+
+# Tabulation Implementation
+
+For our implementation we will define a table that has a position for each value we want. For our starting seed we will define an array of 0s and a 1 at index 1, from here we will step through each item and add it to the following two items. This is a bit of a different perspective on the Fibonacci problem than in the [Recursive Fibonacci example](/dynamic-programming/memoization/2-fib)
+
+<Snippet path="dynamic-programming/tabulation/fib.ts" />
+
+In this implementation we have a linear solution with time complexity $O(n)$ and space complexity of $O(n)$
+
+An important thing to note about this solution is that it still represents a tree structure but is represented as a table:
+
+![](@assets/fib-tree.png)

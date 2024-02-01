@@ -1,0 +1,33 @@
+---
+title: Fibonacci Recursive Memoization
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+# Base Implementation
+
+Looking at the recursive Fibonacci implementation below:
+
+<Snippet path="dynamic-programming/memoization/fib.ts" />
+
+The time complexity is $O(2^n)$ and space complexity of $O(n)$
+
+The above function gets extremely slow when `n` is large due to the recursive implementation. For example asking for `fib(50)` will have a time of $2^50$
+
+If we visualize the implementation of the above function we will see a tree, for example for `n=7`:
+
+![Tree of all paths traversed](@assets/fib-tree.png)
+
+Looking at the subtrees we can see that there is a lot of data that is frequently recalculated and we can try to memoize this data
+
+# With Memoization
+
+We can create a memo object that we pass around that will allow us to access and early escape a calculation
+
+<Snippet path="dynamic-programming/memoization/fib-memo.ts" />
+
+And now running `fib(50)` runs super quickly, this essentially takes the tree and collapses it into a more linear implementation and looks a bit like this:
+
+![Tree with most branches eliminated](@assets/fib-memo.png)
+
+Based on this, the time complexity is now $O(n)$ without a relevant impact on the space complexity which is still $O(n)$

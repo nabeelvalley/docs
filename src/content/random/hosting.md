@@ -1,7 +1,7 @@
 ---
 published: true
-title: Free Application Hosting
-description: Sites for free cloud application hosting
+title: Free Services
+description: Services that are either self or cloud hosted that have a free tier 
 ---
 
 Below is a list of some websites and platforms that provide free application hosting and dev services
@@ -34,6 +34,10 @@ Below is a list of some websites and platforms that provide free application hos
 - [Upstash](https://upstash.com/) - Redis and Kafka
 - [Xata](https://xata.io)
 
+# Vector Database
+
+- [Milvus](https://milvus.io/)
+
 # CRON
 
 - [Zeplo](https://www.zeplo.io/)
@@ -41,3 +45,10 @@ Below is a list of some websites and platforms that provide free application hos
 # CICD
 
 - [Buddy](https://buddy.works/pricing)
+
+# Self Hosted
+
+## Aplication Backends
+
+- [AppWrite](https://appwrite.io) - Basically a host-your-own firebase
+- [Parse](https://parseplatform.org/) - Nodejs Application Server with storage, aauth, and application management

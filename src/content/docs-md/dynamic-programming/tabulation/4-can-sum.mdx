@@ -1,0 +1,34 @@
+---
+title: Can Sum with Tabulation
+---
+
+import Snippet from "@/components/Snippet.astro";
+
+# Problem
+
+The same problem as the [Memoization Can Sum problem](/dynamic-programming/memoization/4-can-sum) but we want to take a tabular approach
+
+When using a table we should consider a table size based on the target number we want for this problem, in this context we will use the array size as `target+1`. For initialization we consider the resulting type, in this case we want a boolean so we initialize the entire array to `false`
+
+In this case we also consider that the sum of 0 is always true, so we set this in the table. Our initial setup of our table then represents:
+
+```
+canSum(7,[...])
+
+i                  0 1 2 3 4 5 6 7
+is sum=i possible  T F F F F F F F
+```
+
+Now we will iterate through each section checking if any given value is possible using any ofthe other numbers we have by setting that sum as true. Furthermore, we can only evaluate if a sum is possible by updating data based on a sum that is already possible
+
+The overall idea of how we transition state can be seen below:
+
+![](@assets/can-sum-table.png)
+
+# Tabulation Implementation
+
+The implementation of this can be seen below:
+
+<Snippet path="dynamic-programming/tabulation/can-sum.ts" />
+
+In the above, the time complexity $O(m*n)$ and space complexity $O(m)$
