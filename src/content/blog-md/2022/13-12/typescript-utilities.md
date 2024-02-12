@@ -94,6 +94,19 @@ export type ArrayReducer<T, U> = (
   currentIndex: number,
   array: T[]
 ) => U
+
+/**
+ * Defines a step type that may contain different data types as an array such
+ * that each step adds or removes from the current input but should always
+ * result in the same final object that can be validated by just verifying the
+ * final length assuming all steps have been validated prior
+ */
+export type StepsOf<Final extends Readonly<any[]>> = Final extends [
+  ...infer Next,
+  infer _,
+]
+  ? StepsOf<Next> | Final
+  : [];
 ```
 
 # Objects
