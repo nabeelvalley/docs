@@ -418,3 +418,35 @@ git config core.ignorecase false
   - If good then run `git bisect good`, otherwise run `git bisect bad`
 6. The process will run until you find the last bad commit, you can then try to figure out what was changed in that commit
 7. Optionally, you can checkout the HEAD of your branch, then run `git checkout <LAST_WORKING_COMMIT_HASH> .` to get the last working files in your branch and you can remove changes until you are left with some change that would be the one that caused the bug
+
+# Newer Git Stuff
+
+> From [Git Tips and Tricks](https://blog.gitbutler.com/git-tips-and-tricks/)
+
+## Log changes to specific part of file
+
+Log changes to a specific part of a file using:
+
+```sh
+git log -L FROM,TO:path/to/file
+```
+
+For example:
+
+```sh
+git log -L 10,20:my/file.js
+```
+
+You can also do this using the name of some symbol in your code and it will try to figure that out for you:
+
+```sh
+git log -L SymbolName:path/to/file
+```
+
+## Git Maintenance
+
+Run the following in a repo to make git maintain the repo and keep things fast in the background using a CRON job (just run this in every repo)
+
+```sh
+git maintenance start
+```
