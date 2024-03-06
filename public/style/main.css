@@ -184,7 +184,6 @@ code .line::before {
   margin-right: 1.5rem;
   display: inline-block;
   text-align: right;
-  color: var(--color-brand);
 }
 
 blockquote {
@@ -196,8 +195,8 @@ blockquote {
 article {
   padding-bottom: 48px;
 }
-  
-@media(max-width: 1000px) {
+
+@media (max-width: 1000px) {
   article {
     border-bottom: var(--separator-border);
   }
