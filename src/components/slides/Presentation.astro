@@ -80,6 +80,12 @@
         return
       }
 
+      const isStart = ev.key === 'p'
+      if (isStart) {
+        startPresentation()
+        return
+      }
+
       const handler = keyHandlers[ev.key]
 
       if (!handler) {
@@ -158,7 +164,7 @@
     box-sizing: border-box;
     min-height: 100vh;
     width: 100%;
-    padding: 4rem;
+    padding: 2rem 4rem;
 
     & .centered {
       flex: 1;
