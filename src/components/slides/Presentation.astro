@@ -13,106 +13,112 @@
 
 <script>
   const button = document.getElementById(
-    "presentation-button"
-  ) as HTMLButtonElement;
+    'presentation-button'
+  ) as HTMLButtonElement
   const container = document.getElementById(
-    "presentation-container"
-  ) as HTMLDivElement;
+    'presentation-container'
+  ) as HTMLDivElement
   const content = document.getElementById(
-    "presentation-content"
-  ) as HTMLDivElement;
+    'presentation-content'
+  ) as HTMLDivElement
 
-  let slides: string[] = [];
-  let slide = 0;
+  let slides = Array.from(document.querySelectorAll('.presentation-slide')).map(
+    (el) => el.outerHTML
+  )
+
+  let slide = 0
 
   const nextSlide = () => {
     if (slide === slides.length - 1) {
-      return slide;
+      return slide
     }
 
-    return slide + 1;
-  };
+    return slide + 1
+  }
 
   const prevSlide = () => {
     if (slide === 0) {
-      return slide;
+      return slide
     }
 
-    return slide - 1;
-  };
+    return slide - 1
+  }
 
-  const nextClass = "presentation-next";
-  const prevClass = "presentation-prev";
+  const nextClass = 'presentation-next'
+  const prevClass = 'presentation-prev'
 
-  const transitionClasses = [nextClass, prevClass];
+  const transitionClasses = [nextClass, prevClass]
 
   const keyHandlers: Record<string, [string, () => number]> = {
     ArrowRight: [nextClass, nextSlide],
-    ArrowDown: [nextClass, nextSlide],
-
     ArrowLeft: [prevClass, prevSlide],
-    ArrowUp: [prevClass, prevSlide],
-  };
+  }
 
   const startPresentation = () => {
-    slides = Array.from(document.querySelectorAll(".presentation-slide")).map(
-      (el) => el.innerHTML
-    );
-
-    container.classList.remove("presentation-hidden");
-    button.innerHTML = "Resume presentation";
-    document.body.classList.add("presentation-overflow-hidden");
-
+    container.classList.remove('presentation-hidden')
+    button.innerHTML = 'Resume presentation'
+    document.body.classList.add('presentation-overflow-hidden')
     if (slides.length) {
-      content.innerHTML = slides[slide];
+      content.innerHTML = slides[slide]
     }
-  };
+  }
 
   const endPresentation = () => {
-    container.classList.add("presentation-hidden");
-    document.body.classList.remove("presentation-overflow-hidden");
-  };
+    container.classList.add('presentation-hidden')
+    document.body.classList.remove('presentation-overflow-hidden')
+  }
 
   // If there is no presentation on the page then we don't initialize
-  if (container) {
-    button.classList.remove("presentation-hidden");
-    button.addEventListener("click", startPresentation);
+  if (slides.length) {
+    button.classList.remove('presentation-hidden')
+    button.addEventListener('click', startPresentation)
 
-    window.addEventListener("keyup", (ev) => {
-      const isEscape = ev.key === "Escape";
+    window.addEventListener('keyup', (ev) => {
+      const isEscape = ev.key === 'Escape'
       if (isEscape) {
-        endPresentation();
-        return;
+        endPresentation()
+        return
       }
 
-      const handler = keyHandlers[ev.key];
+      const handler = keyHandlers[ev.key]
 
       if (!handler) {
-        return;
+        return
       }
 
-      const [transitionClass, getSlide] = handler;
+      const [transitionClass, getSlide] = handler
 
-      content.classList.remove(...transitionClasses);
-      content.classList.add(transitionClass);
+      content.classList.remove(...transitionClasses)
+      content.classList.add(transitionClass)
 
-      const nextSlide = getSlide();
+      const nextSlide = getSlide()
       if (slide === nextSlide) {
-        return;
+        return
       }
 
       // In order to use the more complex transitions you will require
       // the view transitions flag to be on until supported
       // chrome://flags/#view-transition-on-navigation
       document.startViewTransition(() => {
-        slide = nextSlide;
-        content.innerHTML = slides[slide];
-      });
-    });
+        slide = nextSlide
+        content.innerHTML = slides[slide]
+      })
+    })
   }
 </script>
 
 <style is:global>
+  #presentation-button {
+    text-decoration: dotted underline var(--color-brand);
+    color: var(--color-on-base);
+    transition: all 300ms;
+  }
+
+  #presentation-button:hover,
+  #presentation-button:focus {
+    color: var(--color-brand);
+  }
+
   .presentation-overflow-hidden {
     overflow: hidden;
   }
@@ -126,15 +132,16 @@
   }
 
   #presentation-container {
-    position: absolute;
+    z-index: 10;
+    position: fixed;
     top: 0;
     left: 0;
-    bottom: 0;
     right: 0;
+    bottom: 0;
+    overflow: auto;
 
-    backdrop-filter: blur(20px);
-    background-color: rgba(0, 0, 0, 0.566);
-    color: rgb(255, 255, 255);
+    backdrop-filter: blur(50px);
+    background-color: #0000007d;
 
     & .presentation-slide-only {
       display: block;
@@ -142,11 +149,24 @@
   }
 
   #presentation-content {
-    background-color: black;
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--color-base);
+    color: var(--color-on-base);
+
     box-sizing: border-box;
-    padding: 4rem;
-    height: 100%;
+    min-height: 100vh;
     width: 100%;
+    padding: 4rem;
+
+    & .centered {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   .presentation-next {
@@ -158,17 +178,17 @@
   }
 
   ::view-transition-old(next) {
-    animation: slide-out-next 1s ease-in-out;
+    animation: slide-out-next 0.5s linear;
   }
   ::view-transition-new(next) {
-    animation: slide-in-next 1s ease-in-out;
+    animation: slide-in-next 0.5s linear;
   }
 
   ::view-transition-old(prev) {
-    animation: slide-out-prev 1s ease-in-out;
+    animation: slide-out-prev 0.5s linear;
   }
   ::view-transition-new(prev) {
-    animation: slide-in-prev 1s ease-in-out;
+    animation: slide-in-prev 0.5s linear;
   }
 
   @keyframes slide-out-prev {

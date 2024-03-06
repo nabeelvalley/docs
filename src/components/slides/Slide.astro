@@ -1,3 +1,11 @@
-<section class="presentation-slide">
-    <slot />
+---
+export interface Props {
+  centered?: boolean
+}
+
+const { centered } = Astro.props
+---
+
+<section class="presentation-slide" class:list={{ centered }}>
+  <slot />
 </section>

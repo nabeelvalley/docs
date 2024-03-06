@@ -7,10 +7,6 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "//import-playground": "node --es-module-specifier-resolution=node src/scripts/read-playground.js",
-    "//import-nb": "node --es-module-specifier-resolution=node src/scripts/convert-notebook.js",
-    "//prebuild": "pnpm run import-nb && pnpm run import-playground",
-    "//predev": "pnpm run prebuild",
     "dev": "astro dev",
     "build": "astro build --verbose",
     "astro": "astro",
@@ -26,6 +22,7 @@
     "@astrojs/react": "^3.0.0",
     "@astrojs/rss": "^3.0.0",
     "@astrojs/sitemap": "^3.0.5",
+    "@types/dom-view-transitions": "^1.0.4",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@vitest/ui": "^1.1.3",

@@ -1,0 +1,548 @@
+---
+title: Astro as Slides
+subtitle: 06 March 2024
+description: Easily create presentations from your existing markdown content
+published: true
+---
+
+import { Slide, Presentation, SlideOnly } from '@/components/slides'
+
+Well, since this is a post about building a presentation framework within your Astro site, it may be worth mentioning that you can view this page as a presentation using the below button:
+
+<Presentation />
+
+<Slide centered>
+
+# The Problem
+
+</Slide>
+
+<Slide centered>
+
+> I'm kind of lazy.
+
+</Slide>
+
+I had to put together a little presentation based on something I've written about previously and wanted a lazy way to reuse my existing content while also making the resulting presentation available on my website
+
+Overall, these are the requirements I had in mind:
+
+<Slide>
+## My Requirements
+
+1. Not require any additional build process
+2. Work with Markdown or MDX so I can include it in my website easily
+3. Have a small learning curve
+4. Integrate flexibly with my existing content - pages should be able to be very easily converted to slides
+
+</Slide>
+
+So I investigated a few solutions:
+
+<Slide>
+## Existing Slide Solutions
+
+1. Just a markdown doc
+1. [Reveal.js](https://revealjs.com/)
+1. [MDX Deck](https://github.com/jxnblk/mdx-deck)
+1. [Spectacle](https://github.com/FormidableLabs/spectacle)
+1. Plain' ol' HTML
+1. PowerPoint??
+
+</Slide>
+
+<Slide centered>> The existing solutions just don't work for my case</Slide>
+
+Now, it's not that they're not good - most of them are pretty great and have some features that I would like to use if this were some once-off throwaway presentation, but since I would like to refer back to and manage the way I want they're not really suitable
+
+> I also didn't want to style everything from scratch or write lots of HTML everywhere
+
+<Slide centered>
+# The Solution
+
+<SlideOnly>
+
+> Build it myself. Obviously
+
+</SlideOnly>
+</Slide>
+
+Instead of just looking at the existing options, I instead chose to build a library/framework that would work with my existing Astro site while keeping the implementation relatively minimal and just depending on plain CSS, Javascript, MDX, and Astro to get the job done
+
+<Slide>
+<SlideOnly>
+## Use Existing Tooling
+
+1. HTML
+1. CSS
+1. Javascript (Typescript)
+1. MDX
+
+> Facilitated by - not coupled to - Astro
+
+</SlideOnly>
+</Slide>
+
+# Code
+
+So, since I'm building it myself, that means code - and that's what we're going to look at
+
+## The API
+
+I wanted to keep the API relatively simple. It should work with existing markdown content and allow me to delineate a slide in a way that can be easily read from the DOM so as to minimize the amount of build-time processing I need to do as well as minimize how much markup I need to write. For this purpose, I decided that I want it to fit into an MDX document like so:
+
+<Slide>
+<SlideOnly>
+## The API
+</SlideOnly>
+
+````mdx
+... Existing page content
+
+<Slide>
+# Heading for Slide
+
+Some content for the slide
+
+```js
+console.log('I am a code block')
+```
+
+> And literally any other markdown content
+
+</Slide>
+````
+
+</Slide>
+
+Hiven the above, I had a high level idea that I would need two parts to this - firstly I want to use the `Slide` component to give me something to latch onto in the HTML that I can manipulate, secondly I know I would need some kind of component that would control the overall presentation state, I called that `Presentation`
+
+## The `Slide` Component
+
+The Slide component is simply a wrapper that includes content in an HTML section with a class `presentation-slide` which will contain the contents of a slide
+
+<Slide centered>
+<SlideOnly>
+## The `Slide` Component
+</SlideOnly>
+
+`components/Slide.astro`
+
+```html
+<section class="presentation-slide">
+  <slot />
+</section>
+```
+
+</Slide>
+
+## The `Presentation` Component
+
+The `Presentation` component needs to do a few different things:
+
+<Slide centered>
+<SlideOnly>
+## The `Presentation` Component
+</SlideOnly>
+
+1. Hide presentation until enabled
+1. Allow navigation of slides
+1. Render slide content above existing page
+1. Manage transitions between slide pages
+
+</Slide>
+
+Firstly, we can just take a look at the HTML that we will render contains a few basic elements as well as a script tag that grabs a reference to these elements. The `presentation-hidden` class is used for hiding or showing the presentation when active/inactive:
+
+<Slide centered>
+<SlideOnly>
+## Basic Elements
+</SlideOnly>
+
+`components/Presentation.astro`
+
+```html
+<button id="presentation-button" class="presentation-hidden" type="button">
+  Start Presentation
+</button>
+
+<div
+  id="presentation-container"
+  class="presentation-hidden presentation-overflow-hidden"
+>
+  <main id="presentation-content">
+    <h1>No slides found on page</h1>
+  </main>
+</div>
+
+<script>
+  const button = document.getElementById('presentation-button') as HTMLButtonElement
+  const container = document.getElementById('presentation-container') as HTMLDivElement
+  const content = document.getElementById('presentation-content') as HTMLDivElement
+</script>
+```
+
+</Slide>
+
+Next, we can grab the actual slide content by using the `presentation-slide` class we defined earlier:
+
+<Slide centered>
+## Get Slides
+
+`components/Presentation.astro`
+
+```ts
+let slides = Array.from(document.querySelectorAll('.presentation-slide')).map(
+  (el) => el.outerHTML
+)
+
+let slide = 0
+```
+
+</Slide>
+
+Once we have the content of the slides and a variable to track which slide we are on, we can define a function that will set the slide content. This will set the `innerHTML` of the `content` element to the `slide` that is active. We can handle this by first defining some utilities for grabbing the next and previous slides as well as mapping a key code to the function that will resolve the next slide
+
+<Slide>
+<SlideOnly>
+# Slide Utilities
+</SlideOnly>
+
+`components/Presentation.astro`
+
+```ts
+const nextSlide = () => {
+  if (slide === slides.length - 1) {
+    return slide
+  }
+
+  return slide + 1
+}
+
+const prevSlide = () => {
+  if (slide === 0) {
+    return slide
+  }
+
+  return slide - 1
+}
+
+const keyHandlers: Record<string, () => number> = {
+  ArrowRight: nextSlide,
+  ArrowLeft: prevSlide,
+}
+```
+
+</Slide>
+
+Next, we can define what it means for us to start and end a presentation. For this example, starting a presentation will remove the `presentation-hidden` class from the main wrapper so we can make the presentation visible on the page as well as set the content to the current slide index (we initialized this to `0` above)
+
+<Slide>
+# Start and End Presentation
+
+`components/Presentation.astro`
+
+```ts
+const startPresentation = () => {
+  container.classList.remove('presentation-hidden')
+  if (slides.length) {
+    content.innerHTML = slides[slide]
+  }
+}
+
+const endPresentation = () => {
+  container.classList.add('presentation-hidden')
+}
+```
+
+> We set the content to `slide` instead of `0` so that we can pause and continue the presentation if we wanted to
+
+</Slide>
+
+Next, hook up some event handlers so that we can have a method for controlling our presentation:
+
+<Slide>
+## Wiring things up
+
+`components/Presentation.astro`
+
+```ts
+// If there is no presentation on the page then we don't initialize
+if (slides.length) {
+  button.addEventListener('click', startPresentation)
+
+  window.addEventListener('keyup', (ev) => {
+    const isEscape = ev.key === 'Escape'
+    if (isEscape) {
+      endPresentation()
+      return
+    }
+
+    const getSlide = keyHandlers[ev.key]
+
+    if (!getSlide) {
+      return
+    }
+
+    const nextSlide = getSlide()
+    if (slide === nextSlide) {
+      return
+    }
+
+    slide = nextSlide
+    content.innerHTML = slides[slide]
+  })
+}
+```
+
+</Slide>
+
+> In the above, the left and right arrows are used to navigate slides and the escape key is used to end the presentation
+
+Next up, we need to add some CSS to make the slides pin to the root of our application above everything else so that you can actually use this:
+
+<Slide>
+## Styling
+
+`components/Presentation.astro`
+
+```html
+<style is:global>
+  .presentation-overflow-hidden {
+    overflow: hidden;
+  }
+
+  .presentation-hidden {
+    display: none;
+  }
+
+  #presentation-container {
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+
+    backdrop-filter: blur(50px);
+    background-color: #0000007d;
+  }
+
+  #presentation-content {
+    display: flex;
+    flex-direction: column;
+
+    background-color: black;
+    color: white;
+
+    box-sizing: border-box;
+    min-height: 100vh;
+    width: 100%;
+    padding: 4rem;
+  }
+</style>
+```
+
+</Slide>
+
+And that's pretty much it for the core implementation. One other piece of fanciness that I wanted to add was the ability to make an actual slide transition. To do this I decided to use the [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) and found a few nice references on the [Unecesssary View Transitions API List](https://philnash.github.io/unnecessary-view-transitions)
+
+> In order to use this you need to have the feature enabled in your browser at the moment but it should be stable soon (I hope)
+
+For this implementation, we will need to have different animations for the case where we are moving forwards or backwards. In order to do this, we will define some classes as part of our keyboard handler resolution that we will append to the `presentation-container`:
+
+<Slide>
+## View Transitions
+
+`components/Presentation.astro`
+
+```ts
+const nextClass = 'presentation-next'
+const prevClass = 'presentation-prev'
+
+const transitionClasses = [nextClass, prevClass]
+
+const keyHandlers: Record<string, [string, () => number]> = {
+  ArrowRight: [nextClass, nextSlide],
+  ArrowLeft: [prevClass, prevSlide],
+}
+```
+
+</Slide>
+
+Then, we will update our event handling logic to set these classes on the `contaienr`
+
+<Slide>
+### Setting the Classes
+
+`components/Presentation.astro`
+
+```ts
+const [transitionClass, getSlide] = handler
+
+content.classList.remove(...transitionClasses)
+content.classList.add(transitionClass)
+
+const nextSlide = getSlide()
+if (slide === nextSlide) {
+  return
+}
+```
+
+</Slide>
+
+Then, instead just setting the `content.innerHTML` directly, we do it within the `document.startViewTransition` callback which will be what handles the state transition between the content leaving the DOM and the new content that is entering the DOM
+
+> Note that the `startViewTransition` API is experimental and typescript may complain, you will need to install `@types/dom-view-transitions` which will provide the type definition you need to use this API
+
+<Slide>
+### Starting the Transition
+
+`components/Presentation.astro`
+
+```ts
+document.startViewTransition(() => {
+  slide = nextSlide
+  content.innerHTML = slides[slide]
+})
+```
+
+</Slide>
+
+The last thing we need to do is define the view transitions for when the content enters and exists the DOM. The transitions are defined in the `style` tag of our component as follows:
+
+<Slide>
+
+### CSS Transitions
+
+Below is the transition for moving to the next slide
+
+`components/Presentation.astro`
+
+```css
+.presentation-next {
+  view-transition-name: next;
+}
+
+::view-transition-old(next) {
+  animation: slide-out-next 0.5s linear;
+}
+::view-transition-new(next) {
+  animation: slide-in-next 0.5s linear;
+}
+```
+
+</Slide>
+
+In the above we set that the `presentation-next` class defines a `view-transition-name` called `next`. Then, we define the transitions for the `old` and `new` content that applies to the `next` transition name as an Animation. We are referencing a `slide-in-next` and `slide-out-next` animation which are define as follows:
+
+<Slide>
+### Animations
+
+`components/Presentation.astro`
+
+```css
+@keyframes slide-out-next {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+  15% {
+    transform: translateX(0) scale(0.8) translateY(0%);
+  }
+  85% {
+    transform: translateX(-100%) scale(0.8) translateY(0%);
+  }
+  100% {
+    transform: translateX(-100%) scale(1);
+  }
+}
+
+@keyframes slide-in-next {
+  0% {
+    transform: translateX(100%) scale(1);
+  }
+  15% {
+    transform: translateX(100%) scale(0.8) translateY(0%);
+  }
+  85% {
+    transform: translateX(0) scale(0.8) translateY(0%);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+  }
+}
+```
+
+</Slide>
+
+Lastly, the implementation for the `presentation-prev` transition is pretty similar just with lots of numbers flipped around:
+
+`components/Presentation.astro`
+
+```css
+.presentation-prev {
+  view-transition-name: prev;
+}
+
+::view-transition-old(prev) {
+  animation: slide-out-prev 0.5s linear;
+}
+::view-transition-new(prev) {
+  animation: slide-in-prev 0.5s linear;
+}
+
+@keyframes slide-out-prev {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+  15% {
+    transform: translateX(0) scale(0.8) translateY(0%);
+  }
+  85% {
+    transform: translateX(100%) scale(0.8) translateY(0%);
+  }
+  100% {
+    transform: translateX(100%) scale(1);
+  }
+}
+
+@keyframes slide-in-prev {
+  0% {
+    transform: translateX(-100%) scale(0.8);
+  }
+  15% {
+    transform: translateX(-100%) scale(0.8) translateY(0%);
+  }
+  85% {
+    transform: translateX(0) scale(0.8) translateY(0%);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+  }
+}
+```
+
+And yes, that's a fair amount of code. All-in it's about 200 lines - most of which is the CSS for the transition though. Generally the implementation is pretty straightforward and should be relatively easy to tweak to match the vibe of your website without adding any dependency bloat.
+
+As it stands right now the implementation is pretty simple but leaves a lot of space to be extended
+
+<Slide>
+# Future Ideas
+
+1. Presenter mode with some kind of synchronized state for multiple monitors (LocalStorage?)
+1. Presenter notes and preview of next slide
+1. Make this a library so other people can use it with less copy pasta
+1. More transitions and styling possibilities
+1. Dynamic code blocks/customizable transitions ([Code Surfer](https://github.com/pomber/code-surfer))
+1. Automatic zooming
+
+</Slide>
+
+<Slide>
+
+# Conclusion
+
+We used some interesting CSS here and overall we can see that it's not alays a huge amount of work to write your own implementation of something.
+
+</Slide>
