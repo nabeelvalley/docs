@@ -96,7 +96,6 @@
 
     slide = nextSlide
     const slideContent = slides[slide]
-    slideContent.scrollIntoView()
 
     document.startViewTransition(() => {
       content.innerHTML = slideContent.outerHTML
@@ -156,8 +155,7 @@
     bottom: 0;
     overflow: auto;
 
-    backdrop-filter: blur(50px);
-    background-color: #0000007d;
+    background-color: black;
 
     & .presentation-slide-only {
       display: block;
@@ -189,9 +187,9 @@
     }
   }
 
-  .presentation-presenter {
+  .presentation-presenter #presentation-content {
     border: solid 8px var(--color-brand);
-  t
+  }
 
   .presentation-next {
     view-transition-name: next;
@@ -202,17 +200,17 @@
   }
 
   ::view-transition-old(next) {
-    animation: slide-out-left 1s ease-in;
+    animation: slide-out-left 0.66s ease-in-out;
   }
   ::view-transition-new(next) {
-    animation: slide-out-right 1s ease-in reverse;
+    animation: slide-out-right 0.66s ease-in-out reverse;
   }
 
   ::view-transition-old(prev) {
-    animation: slide-out-right 1s ease-in;
+    animation: slide-out-right 0.66s ease-in-out;
   }
   ::view-transition-new(prev) {
-    animation: slide-out-left 1s ease-in reverse;
+    animation: slide-out-left 0.66s ease-in-out reverse;
   }
 
   @keyframes slide-out-right {
@@ -221,6 +219,12 @@
     }
     20% {
       transform: translateX(0) scale(0.8) translateY(0%);
+    }
+    30% {
+      transform: translateX(0) scale(0.8) translateY(0%);
+    }
+    70% {
+      transform: translateX(100%) scale(0.8) translateY(0%);
     }
     80% {
       transform: translateX(100%) scale(0.8) translateY(0%);
@@ -236,6 +240,12 @@
     }
     20% {
       transform: translateX(0) scale(0.8) translateY(0%);
+    }
+    30% {
+      transform: translateX(0) scale(0.8) translateY(0%);
+    }
+    70% {
+      transform: translateX(-100%) scale(0.8) translateY(0%);
     }
     80% {
       transform: translateX(-100%) scale(0.8) translateY(0%);
