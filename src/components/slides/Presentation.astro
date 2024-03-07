@@ -158,14 +158,6 @@
       },
       false
     )
-
-    container.addEventListener('touchstart', (ev) => {
-      if (ev.touches.length > 1) {
-        transition(prevSlide())
-      } else {
-        transition(nextSlide())
-      }
-    })
   }
 </script>
 
