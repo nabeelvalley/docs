@@ -130,6 +130,42 @@
       const nextSlide = getSlide()
       transition(nextSlide)
     })
+
+    let touchstartX = 0
+    let touchendX = 0
+    const handleGesure = () => {
+      if (touchendX < touchstartX) {
+        transition(nextSlide())
+      }
+      if (touchendX > touchstartX) {
+        transition(prevSlide())
+      }
+    }
+
+    container.addEventListener(
+      'touchstart',
+      (ev) => {
+        touchstartX = ev.changedTouches[0].screenX
+      },
+      false
+    )
+
+    container.addEventListener(
+      'touchend',
+      (event) => {
+        touchendX = event.changedTouches[0].screenX
+        handleGesure()
+      },
+      false
+    )
+
+    container.addEventListener('touchstart', (ev) => {
+      if (ev.touches.length > 1) {
+        transition(prevSlide())
+      } else {
+        transition(nextSlide())
+      }
+    })
   }
 </script>
 
