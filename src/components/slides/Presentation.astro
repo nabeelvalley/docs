@@ -12,6 +12,8 @@
 </div>
 
 <script>
+  import { createSyncReader, createSyncWriter } from '../sync'
+
   const button = document.getElementById(
     'presentation-button'
   ) as HTMLButtonElement
@@ -22,11 +24,13 @@
     'presentation-content'
   ) as HTMLDivElement
 
-  let slides = Array.from(document.querySelectorAll('.presentation-slide')).map(
-    (el) => el.outerHTML
-  )
+  let slides = Array.from(document.querySelectorAll('.presentation-slide'))
 
   let slide = 0
+  let presenter = false
+
+  const presentationId = window.location.href
+  const syncWriter = createSyncWriter<number>(presentationId)
 
   const nextSlide = () => {
     if (slide === slides.length - 1) {
@@ -49,9 +53,9 @@
 
   const transitionClasses = [nextClass, prevClass]
 
-  const keyHandlers: Record<string, [string, () => number]> = {
-    ArrowRight: [nextClass, nextSlide],
-    ArrowLeft: [prevClass, prevSlide],
+  const keyHandlers: Record<string, () => number> = {
+    ArrowRight: nextSlide,
+    ArrowLeft: prevSlide,
   }
 
   const startPresentation = () => {
@@ -59,7 +63,7 @@
     button.innerHTML = 'Resume presentation'
     document.body.classList.add('presentation-overflow-hidden')
     if (slides.length) {
-      content.innerHTML = slides[slide]
+      content.innerHTML = slides[slide].outerHTML
     }
   }
 
@@ -68,10 +72,42 @@
     document.body.classList.remove('presentation-overflow-hidden')
   }
 
+  const setPresenter = () => {
+    presenter = true
+    syncWriter(slide)
+    container.classList.add('presentation-presenter')
+  }
+
+  const transition = (nextSlide: number) => {
+    if (slide === nextSlide) {
+      return
+    }
+
+    content.classList.remove(...transitionClasses)
+    if (slide < nextSlide) {
+      content.classList.add(nextClass)
+    } else {
+      content.classList.add(prevClass)
+    }
+
+    if (presenter) {
+      syncWriter(nextSlide)
+    }
+
+    slide = nextSlide
+    const slideContent = slides[slide]
+    slideContent.scrollIntoView()
+
+    document.startViewTransition(() => {
+      content.innerHTML = slideContent.outerHTML
+    })
+  }
+
   // If there is no presentation on the page then we don't initialize
   if (slides.length) {
     button.classList.remove('presentation-hidden')
     button.addEventListener('click', startPresentation)
+    createSyncReader<number>(presentationId, slide, transition)
 
     window.addEventListener('keyup', (ev) => {
       const isEscape = ev.key === 'Escape'
@@ -80,35 +116,20 @@
         return
       }
 
-      const isStart = ev.key === 'p'
-      if (isStart) {
-        startPresentation()
+      const isSpace = ev.key === ' '
+      if (isSpace) {
+        setPresenter()
         return
       }
 
-      const handler = keyHandlers[ev.key]
+      const getSlide = keyHandlers[ev.key]
 
-      if (!handler) {
+      if (!getSlide) {
         return
       }
-
-      const [transitionClass, getSlide] = handler
-
-      content.classList.remove(...transitionClasses)
-      content.classList.add(transitionClass)
 
       const nextSlide = getSlide()
-      if (slide === nextSlide) {
-        return
-      }
-
-      // In order to use the more complex transitions you will require
-      // the view transitions flag to be on until supported
-      // chrome://flags/#view-transition-on-navigation
-      document.startViewTransition(() => {
-        slide = nextSlide
-        content.innerHTML = slides[slide]
-      })
+      transition(nextSlide)
     })
   }
 </script>
@@ -168,6 +189,10 @@
     }
   }
 
+  .presentation-presenter {
+    border: solid 8px var(--color-brand);
+  t
+
   .presentation-next {
     view-transition-name: next;
   }
@@ -177,27 +202,27 @@
   }
 
   ::view-transition-old(next) {
-    animation: slide-out-left 0.5s linear;
+    animation: slide-out-left 1s ease-in;
   }
   ::view-transition-new(next) {
-    animation: slide-out-right 0.5s linear reverse;
+    animation: slide-out-right 1s ease-in reverse;
   }
 
   ::view-transition-old(prev) {
-    animation: slide-out-right 0.5s linear;
+    animation: slide-out-right 1s ease-in;
   }
   ::view-transition-new(prev) {
-    animation: slide-out-left 0.5s linear reverse;
+    animation: slide-out-left 1s ease-in reverse;
   }
 
   @keyframes slide-out-right {
     0% {
       transform: translateX(0) scale(1);
     }
-    15% {
+    20% {
       transform: translateX(0) scale(0.8) translateY(0%);
     }
-    85% {
+    80% {
       transform: translateX(100%) scale(0.8) translateY(0%);
     }
     100% {
@@ -209,10 +234,10 @@
     0% {
       transform: translateX(0) scale(1);
     }
-    15% {
+    20% {
       transform: translateX(0) scale(0.8) translateY(0%);
     }
-    85% {
+    80% {
       transform: translateX(-100%) scale(0.8) translateY(0%);
     }
     100% {
