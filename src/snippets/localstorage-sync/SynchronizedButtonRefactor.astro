@@ -1,0 +1,28 @@
+<button id="sync-button-refactor">Count</button>
+
+<script>
+  import { createSyncReader, createSyncWriter } from './sync'
+
+  const button = document.getElementById(
+    'sync-button-refactor'
+  ) as HTMLButtonElement
+  const syncKey = 'button-example-key-refactor'
+
+  const render = (count: number) => {
+    button.innerText = `Count: ${count}`
+  }
+
+  const readValue = createSyncReader<number>(syncKey, 0, render)
+  const writeValue = createSyncWriter<number>(syncKey)
+
+  button.addEventListener('click', () => {
+    const count = readValue()
+    const nextCount = count + 1
+
+    // Since the storage event only fires in other tabs we must also render our own tab
+    render(nextCount)
+    writeValue(nextCount)
+  })
+
+  render(readValue())
+</script>

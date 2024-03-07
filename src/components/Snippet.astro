@@ -5,19 +5,24 @@ import { Code } from 'astro:components'
 
 interface Props {
   /**
-   * Path from the `src/snippets` directory, e.g. `algorithms/union-find/quick-find.ts`
+   * Base path from which to resolve snippet
+   *
+   */
+  base?: string
+  /**
+   * Path from the `base` directory, e.g. `algorithms/union-find/quick-find.ts`
    */
   path: string
   /**
    * Languages supported by the Astro Code component. Add languages here as needed since Astro does
    * not expose this type
    */
-  lang: 'ts' | 'js' | undefined
+  lang?: 'ts' | 'js' | 'astro'
 }
 
-const { path, lang = 'ts' } = Astro.props
+const { base = './src/snippets', path, lang = 'ts' } = Astro.props
 
-const code = await readFile(`./src/snippets/${path}`, 'utf-8')
+const code = await readFile(`${base}/${path}`, 'utf-8')
 ---
 
 <code>{path}</code>

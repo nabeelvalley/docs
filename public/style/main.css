@@ -212,6 +212,16 @@ button {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+
+  transition: all 300ms;
+  border: solid 2px transparent;
+  background-color: var(--color-brand);
+  padding: 0.25rem 0.5rem;
+}
+
+button:hover,
+button:focus {
+  border-color: var(--color-on-base);
 }
 
 .kbar__wrapper {
