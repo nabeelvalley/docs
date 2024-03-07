@@ -416,6 +416,61 @@ document.startViewTransition(() => {
 
 The last thing we need to do is define the view transitions for when the content enters and exists the DOM. The transitions are defined in the `style` tag of our component as follows:
 
+Firstly we need to 
+
+
+<Slide>
+### Animations
+
+`components/Presentation.astro`
+
+```css
+@keyframes slide-out-right {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+  15% {
+    transform: translateX(0) scale(0.8) translateY(0%);
+  }
+  85% {
+    transform: translateX(100%) scale(0.8) translateY(0%);
+  }
+  100% {
+    transform: translateX(100%) scale(1);
+  }
+}
+
+@keyframes slide-out-left {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+  15% {
+    transform: translateX(0) scale(0.8) translateY(0%);
+  }
+  85% {
+    transform: translateX(-100%) scale(0.8) translateY(0%);
+  }
+  100% {
+    transform: translateX(-100%) scale(1);
+  }
+}
+```
+
+</Slide>
+
+The above defines two basic animations that we will use for our transitions. We define an animation that moves an element off the screen to the right called `slide-out-right` and another to move it to the left called `slide-out-left`. These animations can also be reversed to slide content in from the right or left respectively
+
+<Slide>
+
+For the "Next" animation we need to do the following:
+
+1. Slide the old content to the left 
+2. Slide the new content from the right
+
+</Slide>
+
+In the below we set that the `presentation-next` class defines a `view-transition-name` called `next`. Then, we define the transitions for the `old` and `new` content that applies to the `next` transition name as an Animation. We are referencing a `slide-out-right` and `slide-out-left` animations which we defined previously:
+
 <Slide>
 
 ### CSS Transitions
@@ -430,57 +485,18 @@ Below is the transition for moving to the next slide
 }
 
 ::view-transition-old(next) {
-  animation: slide-out-next 0.5s linear;
+  animation: slide-out-left 0.5s linear;
 }
 ::view-transition-new(next) {
-  animation: slide-in-next 0.5s linear;
+  animation: slide-out-right 0.5s linear reverse;
 }
 ```
 
-</Slide>
-
-In the above we set that the `presentation-next` class defines a `view-transition-name` called `next`. Then, we define the transitions for the `old` and `new` content that applies to the `next` transition name as an Animation. We are referencing a `slide-in-next` and `slide-out-next` animation which are define as follows:
-
-<Slide>
-### Animations
-
-`components/Presentation.astro`
-
-```css
-@keyframes slide-out-next {
-  0% {
-    transform: translateX(0) scale(1);
-  }
-  15% {
-    transform: translateX(0) scale(0.8) translateY(0%);
-  }
-  85% {
-    transform: translateX(-100%) scale(0.8) translateY(0%);
-  }
-  100% {
-    transform: translateX(-100%) scale(1);
-  }
-}
-
-@keyframes slide-in-next {
-  0% {
-    transform: translateX(100%) scale(1);
-  }
-  15% {
-    transform: translateX(100%) scale(0.8) translateY(0%);
-  }
-  85% {
-    transform: translateX(0) scale(0.8) translateY(0%);
-  }
-  100% {
-    transform: translateX(0) scale(1);
-  }
-}
-```
+> `view-transition-old` refers to content that is being removed from the DOM, `view-transition-new` refers to the content that is being added to the DOM
 
 </Slide>
 
-Lastly, the implementation for the `presentation-prev` transition is pretty similar just with lots of numbers flipped around:
+Lastly, the implementation for the `presentation-prev` we can reuse the same animations for moving left or right as we defined previously, but change the directions as needed for the relevant section
 
 `components/Presentation.astro`
 
@@ -490,40 +506,10 @@ Lastly, the implementation for the `presentation-prev` transition is pretty simi
 }
 
 ::view-transition-old(prev) {
-  animation: slide-out-prev 0.5s linear;
+  animation: slide-out-right 0.5s linear;
 }
 ::view-transition-new(prev) {
-  animation: slide-in-prev 0.5s linear;
-}
-
-@keyframes slide-out-prev {
-  0% {
-    transform: translateX(0) scale(1);
-  }
-  15% {
-    transform: translateX(0) scale(0.8) translateY(0%);
-  }
-  85% {
-    transform: translateX(100%) scale(0.8) translateY(0%);
-  }
-  100% {
-    transform: translateX(100%) scale(1);
-  }
-}
-
-@keyframes slide-in-prev {
-  0% {
-    transform: translateX(-100%) scale(0.8);
-  }
-  15% {
-    transform: translateX(-100%) scale(0.8) translateY(0%);
-  }
-  85% {
-    transform: translateX(0) scale(0.8) translateY(0%);
-  }
-  100% {
-    transform: translateX(0) scale(1);
-  }
+  animation: slide-out-left 0.5s linear reverse;
 }
 ```
 
