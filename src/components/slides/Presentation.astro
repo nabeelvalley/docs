@@ -134,6 +134,13 @@
     let touchstartX = 0
     let touchendX = 0
     const handleGesure = () => {
+      const magnitude = Math.abs(touchstartX - touchendX)
+
+      if (magnitude < 40) {
+        // Ignore since this could be a scroll up/down
+        return
+      }
+
       if (touchendX < touchstartX) {
         transition(nextSlide())
       }
