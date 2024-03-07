@@ -1,0 +1,32 @@
+<button id="sync-button"></button>
+
+<script>
+  const button = document.getElementById("sync-button") as HTMLButtonElement;
+  const syncKey = "button-example-key";
+
+  const getCount = () => {
+    const count = window.localStorage.getItem(syncKey) || "0";
+
+    return parseInt(count);
+  };
+
+  const render = () => {
+    console.log("render");
+    const count = getCount();
+    button.innerText = `Count: ${count}`;
+  };
+
+  window.addEventListener("storage", () => render());
+
+  button.addEventListener("click", () => {
+    console.log("Clicked");
+    const count = getCount();
+    const nextCount = count + 1;
+
+    // Since the storage event only fires in other tabs we must also render our own tab
+    render();
+    window.localStorage.setItem(syncKey, nextCount.toString());
+  });
+
+  render();
+</script>

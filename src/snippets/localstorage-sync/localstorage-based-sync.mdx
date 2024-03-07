@@ -1,0 +1,111 @@
+---
+title: Use localStorage for Tab Synchronization
+description: Synchronize data between browser tabs using localStorage
+subtitle: 03 March 2024
+---
+
+import SynchronizedButton from "./SynchronizedButton.astro";
+
+# localStorage
+
+localStorage is a method for persistent data storage in the browser. The storage itself is a simple key-value store with a synchronous API
+
+We can write data to a given key using the following:
+
+```ts
+window.localStorage.setItem("my-key", "my-data");
+```
+
+And we can get that data back using:
+
+```ts
+const myData = window.localStorage.getItem("my-key");
+```
+
+Pretty neat right?
+
+For the purpose of this post we'll look into how we can use this as a method for sending data between different browser tabs of the same website
+
+# Storage Event
+
+Aside from just data storage - localStorage (as well as sessionStorage) provides us with a notification when the data in a storage is changed - this is called a `StorageEvent`. What's particularly interesting to us is that it's fired in all other tabs of a particular site when any a tab of that site modifies the data
+
+We can listen for this event using `window.addEventListener`
+
+```ts
+window.addEventListener("storage", () => {
+  console.log("Something has changed in storage");
+});
+```
+
+Now, if you think about it for a short while, you may come to an interesting conclusion - we can talk to other tabs
+
+# Speaking to Tabs
+
+> Open this page in two different windows side-by-side for this example
+
+Since we can talk between tabs, we can synchronize parts of our UI using the messages we recieive
+
+Below we have a button that uses this - each time it is pressed in one tab - it updates the count in all tabs
+
+<SynchronizedButton />
+
+The code for this can be seen below:
+
+# INSERT SNIPPET OF SYNC BUTTON HERE
+
+# Generic Implementation
+
+So overall, this is a pretty neat method for sharing data between pages, but we end up having to do some repetitive work when setting this up in many places or when working with anything that isn't a string (as you can see with the `parseInt`s required in the above example)
+
+To make this a little more generic we're first going to extract the getting and setting of data into their own functions:
+
+```ts
+const getValue = <T>(key: string, initial: T) => {
+  try {
+    const existing = window.localStorage.getItem(key);
+    if (!existing) {
+      return initial;
+    }
+
+    return JSON.parse(existing) as T;
+  } catch {
+    return initial;
+  }
+};
+
+const setValue = <T>(key: string, value: T) =>
+  window.localStorage.setItem(key, JSON.stringify(value));
+```
+
+These provide relatively simple wrappers around the reading and writing of data and making it possible for us to work with objects
+
+Next, we can provide an easy way to define a data reader and writer - the reason we define these separately is to make the interface a little easier for consumers to use without needing to rearrange all their code:
+
+```ts
+export type SetValue<T> = (value: T) => void;
+
+export const createSyncReader = <T>(
+  key: string,
+  initial: T,
+  onChange: (value: T) => void
+) => {
+  window.addEventListener("storage", () => {
+    const value = getValue(key, initial);
+    onChange(value);
+  });
+
+  return () => getValue(key, initial);
+};
+
+export const createSyncWriter =
+  <T>(key: string): SetValue<T> =>
+  (value) =>
+    setValue(key, value);
+```
+
+Our reader function will call the provided `onChange` callback that is provided to it when the data is changed with the parsed data. We can implement the same button as above using this new code as can be seen below:
+
+```ts
+
+```
