@@ -1,0 +1,172 @@
+---
+title: Check your domain
+subtitle: 12 March 2024
+description: Domain driven development with Typescript
+published: true
+---
+
+import Snippet from '@/components/Snippet.astro'
+import { Slide, Presentation, SlideOnly } from '@/components/slides'
+
+<Presentation />
+
+<Slide centered>
+
+<SlideOnly>
+
+# Check your domain
+
+</SlideOnly>
+
+> Domain driven development with Typescript
+
+</Slide>
+
+<Slide>
+
+# Overview
+
+- Typescript
+- The Domain
+- The Problem
+- Some tools
+
+</Slide>
+
+<Slide>
+
+# What is Typescript?
+
+- Statically typed programming language
+- Structural typing system
+- OOP and FP
+- Compiled to Javascript
+- Not "Javascript with Types"
+
+</Slide>
+
+<Slide>
+
+# The Domain
+
+- Company rewards program
+- All users must have their emails verified to be able to send points
+- Users cannot send more points than they have available
+- Employees can send messages with points to one another
+
+- Employees can be converted to a manager by a system administrator
+- Managers can send but not receive messages
+
+</Slide>
+
+<Slide>
+
+## Some Data Types
+
+Our requirements are as follows:
+
+- Define user type
+- Users can be managers
+- Define message type
+
+> Code: Defining types for a User, Message, and a SendMessage action
+
+</Slide>
+
+<Snippet path="ddd-with-ts/01-domain.ts" />
+
+<Slide>
+
+## Problems
+
+- A user could have an unverified email
+- A manager can receive points
+- What happens if the sender does not have enough points?
+- Possibly others
+
+</Slide>
+
+<Slide>
+
+## The Usual Solution
+
+- Checking that the user is valid before doing a transaction
+- Tests ensuring that we prevent users from sending points to managers
+- Tests ensuring that balances are in order before sending points
+- What happens if we delete a check somewhere?
+
+> Tests are a regression hazard
+
+</Slide>
+
+<Slide centered>
+
+## A Different Solution
+
+> "Make illegal states unrepresentable" - Yaron Minsky
+
+</Slide>
+
+<Slide>
+
+## Impossible States
+
+When creating a transaction:
+
+- An unverified user can participate in a transaction
+- A manager could potentially receive a message
+- A user with insufficient budget could send a message
+- A user can have a negative number of points
+- A message can have a negative number of points
+- A manager can have a negative number of points
+
+</Slide>
+
+<Slide>
+
+## Can we define our user types better?
+
+> Code: Split user into Discriminated Union, define Email type, update Message Type. Basic Message Send Implementation
+
+</Slide>
+
+<Snippet path="ddd-with-ts/02-domain.ts" />
+
+<Slide>
+
+## Implementing Message Sending
+
+> Code: Basic example for saving a message and modifying the relevant entites
+
+</Slide>
+
+<Slide>
+
+- We need a bunch of tests
+- Can we tell if we are missing any validations?
+- Did we definitely get all the edge cases?
+
+</Slide>
+
+<Snippet path="ddd-with-ts/03-domain.ts" />
+
+<Slide>
+
+## Can we make invalid domain logic a compiler error?
+
+I don't need to test things that the compiler tests for me. Can we make our validations part of the compiler?
+
+> Code: Define Concept of Validation, Validators, and Validated Message. Use them in the sending of a message
+
+</Slide>
+
+<Snippet path="ddd-with-ts/04-domain.ts" />
+
+<Slide>
+
+## Conclusion
+
+- Typing our domain == compiler feedback
+- Helps us identify edge cases
+
+</Slide >
