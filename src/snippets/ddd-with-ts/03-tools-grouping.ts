@@ -1,3 +1,8 @@
+type Dimensions = {
+  height: number
+  width: number
+}
+
 export type Plank = {
   material: string
 
@@ -9,6 +14,5 @@ export type Plank = {
   shipped: boolean
   shippingDate: Date
 
-  height: number
-  width: number
+  dimensions: Dimensions
 }

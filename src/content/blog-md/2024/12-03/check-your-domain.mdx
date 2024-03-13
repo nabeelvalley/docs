@@ -1,0 +1,216 @@
+---
+title: Check your domain
+subtitle: 12 March 2024
+description: Domain driven development with Typescript
+published: true
+---
+
+import Snippet from '@/components/Snippet.astro'
+import { Slide, Presentation, SlideOnly } from '@/components/slides'
+
+<Presentation />
+
+<Slide centered>
+
+<SlideOnly>
+
+## Check your domain
+
+</SlideOnly>
+
+> Domain driven development with Typescript
+
+</Slide>
+
+<Slide>
+
+## Overview
+
+- Typescript
+- The Domain
+- Some Problems
+- Some tools
+- Why do this?
+
+</Slide>
+
+<Slide>
+
+## What is Typescript?
+
+- Statically typed programming language
+- Structural typing system
+- OOP and FP
+- Compiled to Javascript
+- Not "Javascript with Types"
+
+</Slide>
+
+<Slide>
+
+## The Domain
+
+- Manufacturing of Planks
+- Sustainable sourcing initiative
+- After plank is completed
+
+> Code: Defining the Model
+
+</Slide>
+
+<Slide>
+
+<Snippet path="ddd-with-ts/01-domain.ts" />
+
+</Slide>
+
+<Slide>
+
+## Poke some holes
+
+> Code: What potential issues are there in our model
+
+</Slide>
+
+<Slide>
+
+<Snippet path="ddd-with-ts/02-domain-issues.ts" />
+
+</Slide>
+
+<Slide>
+
+### The Usual Solution
+
+- Checking that the user is valid before doing a transaction
+- Tests ensuring that we prevent users from sending points to managers
+- Tests ensuring that balances are in order before sending points
+- What happens if we delete a check somewhere?
+
+> Tests are a regression hazard
+
+</Slide>
+
+<Slide centered>
+
+### A Different Solution
+
+> "Make illegal states unrepresentable" - Yaron Minsky
+
+</Slide>
+
+<Slide>
+
+### Some Tools
+
+- Group related things
+- String literal types
+- String literal types
+
+> Code: Union Types, Template Literal Types
+
+</Slide>
+
+<Slide>
+
+<Snippet path="ddd-with-ts/03-tools-grouping.ts" />
+
+</Slide>
+
+<Slide>
+
+### Problems
+
+- A user could have an unverified email
+- A manager can receive points
+- What happens if the sender does not have enough points?
+- Possibly others
+
+</Slide>
+
+<Slide>
+
+### Impossible States
+
+```ts
+passedQA: boolean
+
+shipped: boolean
+```
+
+What are our states?
+
+- `passedQA=true` and `shipped=false`
+- `passedQA=true` and `shipped=true`
+- `passedQA=false` and `shipped=false`
+- `passedQA=false` and `shipped=true`
+
+> Boolean states are exponential
+
+</Slide>
+
+<Slide>
+
+### Desired States
+
+- A product in QA
+- A product that has completed QA
+  - Has been shipped
+  - Not yet shipped
+
+</Slide>
+
+<Slide>
+
+### Modeling the desired state
+
+- Union types
+
+</Slide>
+
+<Slide>
+
+<Snippet path="ddd-with-ts/06-tools-union-types.ts" />
+
+</Slide>
+
+<Slide>
+
+### What do we see?
+
+- We actually notice that we have a missing state - what happens if QA does not pass?
+
+</Slide>
+
+<Slide>
+
+<Snippet path="ddd-with-ts/07-tools-add-missing-state.ts" />
+
+</Slide>
+
+<Slide>
+
+### Being 100% Sure
+
+- Can our dimensions be negative?
+- Need to validate this
+
+> Code: Option Type and Branded Type usage
+
+</Slide>
+
+<Slide>
+
+<Snippet path="ddd-with-ts/08-tools-branded-types.ts" />
+
+</Slide>
+
+<Slide>
+
+## Why do this?
+
+- Interrogate the domain
+- Clarify intent
+- Reduces testing
+
+</Slide>
