@@ -7,6 +7,7 @@ import { renderJupyterNotebook } from '../lib/markdown'
 import ReadingWidth from '../layouts/ReadingWidth.astro'
 import Page from '../layouts/Page.astro'
 import { getPathParts, type Collection, collections } from '../lib/pages'
+import CopyCode from '@/components/CopyCode.astro'
 
 interface Props<C extends Collection = Collection> {
   slug: string
@@ -78,5 +79,7 @@ const { lastModified } = remarkPluginFrontmatter
 
       {typeof Content === 'string' ? <div set:html={Content} /> : <Content />}
     </article>
+
+    <CopyCode />
   </Page>
 </Base>
