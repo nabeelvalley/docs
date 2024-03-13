@@ -1,9 +1,7 @@
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import sitemap from '@astrojs/sitemap';
-import { remarkModifiedTime } from './src/lib/markdownit-last-modified';
-import mdx from '@astrojs/mdx';
-import polyfillNode from "rollup-plugin-polyfill-node";
+import { defineConfig } from 'astro/config'
+import sitemap from '@astrojs/sitemap'
+import { remarkModifiedTime } from './src/lib/markdownit-last-modified'
+import mdx from '@astrojs/mdx'
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,10 +10,13 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkModifiedTime],
     shikiConfig: {
-      theme: 'dark-plus'
-    }
+      theme: 'dark-plus',
+    },
   },
-  integrations: [mdx({
-    extendMarkdownConfig: true
-  }), sitemap()]
-});
+  integrations: [
+    mdx({
+      extendMarkdownConfig: true,
+    }),
+    sitemap(),
+  ],
+})

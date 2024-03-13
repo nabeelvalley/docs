@@ -109,6 +109,7 @@
     createSyncReader<number>(presentationId, slide, transition)
 
     window.addEventListener('keyup', (ev) => {
+      ev.preventDefault()
       const isEscape = ev.key === 'Escape'
       if (isEscape) {
         endPresentation()
@@ -250,6 +251,26 @@
 
   @keyframes slide-out-right {
     0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes slide-out-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  /* 
+  @keyframes slide-out-right {
+    0% {
       transform: translateX(0) scale(1);
     }
     20% {
@@ -288,5 +309,5 @@
     100% {
       transform: translateX(-100%) scale(1);
     }
-  }
+  } */
 </style>
