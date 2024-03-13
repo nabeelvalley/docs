@@ -52,7 +52,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 - Manufacturing of Planks
 - Sustainable sourcing initiative
-- After plank is completed
+- After a plank is cut to size it must pass QA before being shipped
 
 > Code: Defining the Model
 
@@ -82,12 +82,14 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 ### The Usual Solution
 
-- Checking that the user is valid before doing a transaction
-- Tests ensuring that we prevent users from sending points to managers
-- Tests ensuring that balances are in order before sending points
-- What happens if we delete a check somewhere?
+- Lots of unit tests
+- Documentation
+- "Assume it is valid at this point in the code"
 
-> Tests are a regression hazard
+- What happens if we delete a check somewhere?
+- What happens if the implementation changes?
+
+> Tests are a regression hazard. Documentation goes out of sync
 
 </Slide>
 
@@ -119,22 +121,16 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 <Slide>
 
-### Problems
+### Impossible States
 
-- A user could have an unverified email
-- A manager can receive points
-- What happens if the sender does not have enough points?
-- Possibly others
+> Is there anything we have overlooked?
 
 </Slide>
 
 <Slide>
 
-### Impossible States
-
 ```ts
 passedQA: boolean
-
 shipped: boolean
 ```
 
@@ -151,7 +147,7 @@ What are our states?
 
 <Slide>
 
-### Desired States
+### Explicit States
 
 - A product in QA
 - A product that has completed QA

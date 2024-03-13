@@ -14,7 +14,7 @@ export type Plank = {
   shipped: boolean
   shippingDate: Date
 
-  /** What units are these measured in? */
+  /** What units are these measured in? How do we prevent a negative number */
   height: number
   width: number
 }
