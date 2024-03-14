@@ -6,7 +6,7 @@
     {
       "label": "Start Sketch",
       "type": "shell",
-      "command": "arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/${input:sketch}"
+      "command": "arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/${input:sketch}/${input-sketch}.ino"
     },
     {
       "label": "Start Blink",
@@ -32,6 +32,11 @@
       "label": "Start Websocket",
       "type": "shell",
       "command": "arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/websocket"
+    },
+    {
+      "label": "Start I2C Detect",
+      "type": "shell",
+      "command": "arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/i2c-detect"
     },
     {
       "label": "Start Serial Monitor",

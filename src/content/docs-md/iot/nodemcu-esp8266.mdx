@@ -152,3 +152,62 @@ arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sket
 ```
 
 And thereafter you can connect the serial monitor as normal to view any logs from the websocket response
+
+### Screen
+
+This one was a bit more complicated since it required a little more info, the following youtube videos were really handy in explaining the hardware setup process in more detail:
+
+- [Using OLED displays with Arduino/ESP8266](https://www.youtube.com/watch?v=YF6NAjq0044)
+- [Tutorial on I2C OLED Display with Arduino/NodeMCU](https://www.youtube.com/watch?v=_e_0HJY0uIo)
+
+#### Connecting the Screen
+
+For the connection Information I used the [Tutorial on I2C OLED Display with Arduino/NodeMCU](https://www.youtube.com/watch?v=_e_0HJY0uIo) video. The connection information for the screen I have is as follows:
+
+| Screen Pin | NodeMCU Pin |
+| ---------- | ----------- |
+| VCC        | 3V          |
+| GND        | GND         |
+| SCL        | D1          |
+| SDA        | D2          |
+
+#### Libraries
+
+We also need a few libraries which we can install with:
+
+```sh
+arduino-cli lib install "i2cdetect"
+arduino-cli lib install "Adafruit GFX Library"
+arduino-cli lib install "Adafruit BusIO"
+arduino-cli lib install "Adafruit SSD1306"
+```
+
+For running the display there are two things we need to do
+
+#### Get the Screen Address
+
+Firstly, we need to figure out the screen address, this can be done by using the `i2cdetect` library using their example as-is. This is just needed the first time we use the screen:
+
+<Snippet lang="c++" path="esp-8266/sketches/i2c-detect/i2c-detect.ino" />
+
+Then, we need to connect the Serial Monitor and view the output. In the output we should see a value that is active, in my case `C3`:
+
+```
+    0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- 3c -- -- --
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+70: -- -- -- -- -- -- -- --
+```
+
+This is the value we will use for the Screen Address in the next setup
+
+#### Write Some Stuff
+
+To write stuff to the screen we can use the Adafruit sample from the library as a base, I've simplified it to just print a message on the screen to demonstrate the basic usage:
+
+<Snippet lang="c++" path="esp-8266/sketches/screen/screen.ino" />
