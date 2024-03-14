@@ -1,0 +1,154 @@
+---
+published: true
+title: ESP8266
+subtitle: Programming the NodeMCU ESP8266 Board
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+> Some notes on running code on the NodeMCU ESP8266
+
+## Basic Setup
+
+To run the ESP8266 code you will need to use the [Arduino CLI](https://arduino.github.io/arduino-cli/) or [Arduino IDE](https://www.arduino.cc/en/software)
+
+You can compile the arduino code using the Arduino CLI
+
+Next, you can work on this application using the Arduino IDE or the Arduino VSCode Extension. Using the VSCode extension you will need to run the `Arduino: Initialize` command to configure the IDE to be aware of the relevant libraries - For the board I am using I will select `NodeMCU 1.0 (ESP-12E Module)` thereafter select the `Serial Port` that your device is connected on via USB as well as selecting the sketch with the `Arduino: Select Sketch` command
+
+To compile the code that will run on the device you can use the following commands:
+
+```sh
+# Install the board
+arduino-cli core install esp8266:esp8266 --config-file ./.cli-config.yml
+
+# Compile the app
+arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 ./sketches/blink
+
+# Upload the app to the board
+
+arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 --port COM3 --upload ./sketches/blink
+
+# Upload the app to the board (does not compile)
+arduino-cli upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/blink
+
+# Start Serial Monitor
+arduino-cli monitor -p --fqbn esp8266:esp8266:nodemcuv2 --port COM3 -c baudrate=115200
+```
+
+The above commands provide a basic outline for running your board and the relevant tasks associated. You will only need to run the installation once, and the compiliation is not needed if using `arduino-cli upload` as it will upload the files as well
+
+> Note you can also do all of the above using the **Arduino VSCode Extension**
+
+### Install The Board
+
+Before you can do anything else, you will need to install the board
+
+First, define a config file for the Arduino CLI called `.cli-config.yml` with the following in it:
+
+<Snippet lang="yml" path="esp-8266/.cli-config.yml" />
+
+Then, install the board using this config:
+
+```sh
+arduino-cli core install esp8266:esp8266 --config-file ./.cli-config.yml
+```
+
+### Using the Serial Monitor
+
+> Note that you will have to set the Baud rate when connecting to a device using the serial monitor in order to view the output
+
+You can connect the Serial Monitor to the device as follows:
+
+```sh
+arduino-cli monitor -p --fqbn esp8266:esp8266:nodemcuv2 --port COM3 -c baudrate=115200
+```
+
+> Note that the `baudrate` needs to be the same as what is configured during the device `setup` function using `Serial.begin`
+
+Connecting the serial monitor like this should also cause the device to restart so you should be able to get the from the start. Note that you will have to kill this process if you want to upload any code to the device again
+
+To use the Arduino Extension's Serial Monitor you can simply connect to the device. In the event you want to capture output from the moment the device turns on you can press the `RST` button on the device while the Serial Monitor is connected which wil allow you to connect as soon as the device starts up. This is necessary since when the device is being flashed the serial monitor must be disconnected
+
+## Examples
+
+> Note that when switching sketches you will need to use the VSCode Extension's `Arduino: Select Sketch` and thereafter the `Arduino: Initialize` and `Arduino: Rebuild Intellisense Configuration` command to configure VSCode to register the installed libraries
+
+For the sake of example, I will have all my sketches contained in a `sketches` directory with a directory for each sketch (as is required by Arduino)
+
+## Blink
+
+This is effectively the standard getting started hardware programming task - blinking the light on the board. For this example create the `sketches/beep/beep.ino` file:
+
+<Snippet lang="c++" path="esp-8266/sketches/blink/blink.ino" />
+
+Provided you have the board connected via USB, you can then run it as follows:
+
+```sh
+arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/blink
+```
+
+This is also a good opportunity to connect the Serial monitor to view some output from the device using the previous command
+
+## Beep
+
+For this example we will play a short sound on the device when the setup hook runs using the builtin `tone` function. Add the following content to a file with the path `esp-8266/sketches/beep/beep.ino`:
+
+<Snippet lang="c++" path="esp-8266/sketches/beep/beep.ino" />
+
+This can then be uploaded and run on the device using:
+
+```sh
+arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/beep
+```
+
+### WebServer
+
+For this example we will create a small application that responds to HTTP requests and can be accessed from other devices on the same network:
+
+First, define the WiFi connection details by adding a `config.h` in the project directory with the following:
+
+```cpp
+#define STASSID "WIFI SSID"
+#define STAPSK "WIFI_PASSWORD"
+```
+
+Then, the code for the Web Server will look like so:
+
+<Snippet lang="c++" path="esp-8266/sketches/web-server/web-server.ino" />
+
+You can then upload and run it on the device using:
+
+And thereafter you can connect the serial monitor as normal. This is necessary since we want to view the IP adress of the
+
+### WebSocket
+
+For this example we will create a small application that connects to a WebSocket server and prints out the received messages:
+
+Before running the following, you will need to install the `ArduinoWebSockets` library using the Arduino CLI
+
+```sh
+arduino-cli lib install ArduinoWebsockets
+```
+
+Next, define the config by adding a `config.h` in the project directory with the following:
+
+```cpp
+#define STASSID "WIFI SSID"
+#define STAPSK "WIFI_PASSWORD"
+
+// This server will send an inital message and will thereafter echo any message sent to it
+#define WSSERVER "wss://echo.websocket.org"
+```
+
+And the code for the application can be seen below:
+
+<Snippet lang="c++" path="esp-8266/sketches/websocket/websocket.ino" />
+
+Then, you can run the following command to upload and run the code on the device
+
+```sh
+arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/websocket
+```
+
+And thereafter you can connect the serial monitor as normal to view any logs from the websocket response

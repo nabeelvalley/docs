@@ -1,0 +1,50 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Sketch",
+      "type": "shell",
+      "command": "arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/${input:sketch}"
+    },
+    {
+      "label": "Start Blink",
+      "type": "shell",
+      "command": "arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/blink"
+    },
+    {
+      "label": "Start Beep",
+      "type": "shell",
+      "command": "arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/beep"
+    },
+    {
+      "label": "Start Screen",
+      "type": "shell",
+      "command": "arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/screen"
+    },
+    {
+      "label": "Start Web Server",
+      "type": "shell",
+      "command": "arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/web-server"
+    },
+    {
+      "label": "Start Websocket",
+      "type": "shell",
+      "command": "arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/websocket"
+    },
+    {
+      "label": "Start Serial Monitor",
+      "type": "shell",
+      "command": "arduino-cli monitor -p --fqbn esp8266:esp8266:nodemcuv2 --port COM3 -c baudrate=115200"
+    }
+  ],
+
+  "inputs": [
+    {
+      "id": "sketch",
+      "description": "Name of sketch from the \"sketches\" folder",
+      "type": "promptString"
+    }
+  ]
+}
