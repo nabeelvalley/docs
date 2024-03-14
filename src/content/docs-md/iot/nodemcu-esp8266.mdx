@@ -190,6 +190,12 @@ Firstly, we need to figure out the screen address, this can be done by using the
 
 <Snippet lang="c++" path="esp-8266/sketches/i2c-detect/i2c-detect.ino" />
 
+You can run this with:
+
+```sh
+arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/i2c-detect
+```
+
 Then, we need to connect the Serial Monitor and view the output. In the output we should see a value that is active, in my case `C3`:
 
 ```
@@ -211,3 +217,9 @@ This is the value we will use for the Screen Address in the next setup
 To write stuff to the screen we can use the Adafruit sample from the library as a base, I've simplified it to just print a message on the screen to demonstrate the basic usage:
 
 <Snippet lang="c++" path="esp-8266/sketches/screen/screen.ino" />
+
+And this can be run using:
+
+```sh
+arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/screen
+```
