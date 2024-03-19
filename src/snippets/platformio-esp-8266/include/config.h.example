@@ -1,0 +1,3 @@
+#define APP_NAME "APP NAME"
+#define STASSID "WIFI SSID"
+#define STAPSK "WIFI_PASSWORD"

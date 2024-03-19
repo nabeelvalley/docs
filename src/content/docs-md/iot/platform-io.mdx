@@ -1,0 +1,31 @@
+---
+title: Embedded Development with Platform IO
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+> Prerequisite that you have Python 3.0 installed
+
+[PlatformIO](https://platformio.org/) provides a bit of a better workflow and development experience for embedded development. Creating applications can be done using the CLI or the [VSCode Extension](https://platformio.org/install/ide?install=vscode)
+
+Platform IO applications can be created using the PlatformIO VSCode Extension using the `PlatformIO: PlatformIO Home` command in VSCode
+
+Once the application has been created you will have a nice way to develop embedded applications
+
+The main thing that PlatformIO provides us in addition to the workflow is the ability to manage dependencies a little bit better as well as split code into a few different files
+
+As far as I care, the dependency management is the main reason to use PlatformIO
+
+Dependency management uses the `platformio.ini` file, a simple example of this can be seen below:
+
+<Snippet path="platformio-esp-8266/platformio.ini" lang="ini" />
+
+Adding dependencies can be done using the [PlatformIO Registry](https://registry.platformio.org/) using the relevant command which will create an entry in the `platformio.ini` file
+
+You can install this using the `PlatformIO CLI` which is also included in the VSCode Extension via the `PlatformIO: Open PlatformIO Core CLI`
+
+An example command for adding one of the libraries I have in the above example is:
+
+```sh
+pio pkg install --library "adafruit/Adafruit GFX Library@^1.11.9"
+```
