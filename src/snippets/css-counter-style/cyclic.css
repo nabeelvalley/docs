@@ -1,0 +1,9 @@
+@counter-style emoji-cyclic {
+  system: cyclic;
+  symbols: '🎈' '✨' '🎢' '🧵' '🛒' '👓' '🎨' '🛝' '🎻' '📻' '📺';
+  suffix: '➡️';
+}
+
+ul.emoji-cyclic {
+  list-style: emoji-cyclic;
+}
