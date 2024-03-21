@@ -1,0 +1,221 @@
+---
+published: true
+title: Elementary Sorts
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+# Rules of Sorting
+
+## A Typical Sorting Problem
+
+Sorting problems are a general class of problems where we have some list of items and we want to sort them based on some key
+
+We want to be able to apply a sort to any general kind of data
+
+## A General Mechanism
+
+When considering a sort we need to define some kind of mechanism that enables to compare data that our sorting algorithm can use - this is generally referred to as a callback
+
+The Comparison function we use effectively needs to return:
+
+- `-1` for less
+- `+1` for greater
+- `0` for equal
+
+Provided we have a function that returns this for a given data type we should be able to compare some data
+
+## Total Order
+
+A requirement is that our sorting function obeys the Total Order principle:
+
+1. Antisymmetry
+2. Transitivity
+3. Totality
+
+> Not all ordering obeys these rules, e.g Rock, Paper, Scissors
+
+## Definition
+
+For our implementation we need to implement the following requirements:
+
+<Snippet path="algorithms/sorting/definition.ts" />
+
+## Testing if an Array is Sorted
+
+The test simply runs through the array and checks if consecutive elements when sorted meet a given requirement:
+
+<Snippet path="algorithms/sorting/is-sorted.ts">
+
+# Selection Sort
+
+## Algorithm
+
+- Find the index of the smallest entry
+- Swap that with the first entry in the array
+- Iterate down the list until we reach the end
+
+## Implementation
+
+<Snippet path="algorithms/sorting/selection-sort.ts">
+
+A core understanding in Selection Sort is that as we progress through the array we don't touch entries that we have already put into a sorted position
+
+## Mathematical Comparison
+
+- Selection Sort uses `1/2 * N^2` Compares and N exchanges
+- `O(N^2)` time complexity
+- `N` space complexity
+- Data movement is minimal. Every item is put into it's final position as soon as it is found
+- Same number of comparisons regardless of whether or not the array is already sorted
+
+# Insertion Sort
+
+## Algorithm
+
+- In iteration `i` swap `a[i]` with each larger entry to it's left
+
+## Implementation
+
+<Snippet path="algorithms/sorting/insertion-sort.ts" />
+
+## Mathematical Comparison
+
+- For a randomly orderred array insertion sort uses `~ 1/4 * N^2` compares and `~ 1/2 * N^2` exchanges
+- For a worst-case (reversed array) insertion sort uses `~ 1/2 * N^2` compares and `~ 1/2 * N^2` exchanges
+- About half the time of Selection Sort
+- `O(N^2)` time complexity
+- `N` space complexity
+- Insertion sort is very fast when working with a partially sorted array
+
+## Inversions
+
+To talk about sorting we have a concept called **Inversion** which is a pair of keys that are out of order
+
+We call an array **partially sorted** if the number of inversions: `i <= cN`
+
+# Shell Sort
+
+## Algorithm
+
+The main idea is to move entries several positions at a time using a method called **h-sorting**
+
+An **h-sort** considers **h** interleaves and sorts the overall array by comparing every **h** element. Thereafter the **h** value is decreased and the assumption is that after **h** reaches it's final value then the array is sorted
+
+H-Sorting is basically insertion sort but instead of just going 1 position back we go **h** positions back
+
+This allows us to make big increments which makes that subarrays we're sorting smaller. Additionally, once we have the array mostly sorted we can use insertion sort as it's fast under this scenario
+
+What increment sequence should we use for shell sorting?
+
+- Powers of two - bad because odd elements aren't compared until the last step, same as insertion sort
+- Powers of two minus one - Maybe
+- 3x + 1 - okay - easy to compute
+- Sedgewick sequence - 1, 5, 19, 41, 109, 209 ... - difficult to find something better than this
+
+## Implementation
+
+We can do our implemetation using the `3x + 1` sequence:
+
+<Snippet path="algorithms/sorting/shell-sort.ts" />
+
+## Mathematical Analysis
+
+- In the worst-case the number of compares for a `3x+1` shellsort is `Object(N^(3/2))`
+- Number of compares are much less in practice, there isn't a really accurate model for the general case
+
+## Usage
+
+- Example of simple idea leading to substantial performance gains
+- Very fast unless array is huge
+- Small, fixed code footprent, useful in hardware
+- Nontrivial performance which raises some interesting questions
+  - Growth rate?
+  - What is the best sequence?
+  - What is the average performance?
+
+# Shuffle Sort
+
+Suppose we have a list of items, something we may want to do is shuffle the set of data. The way shuffle sorting works is to generate a random number for each array and we sort using the random number as a key
+
+The benefits to doing this is that we can be reasonably confident that the data is uniformly sorted, however, sorting algorithms are a little slow for this usecase
+
+## Algorithm - Knuth Shuffle
+
+- In iteration `i` pick an integer `r` between `0` and `i` at random (swap items to the left)
+- Swap `a[i]` and `a[r]`
+- Iterate down the list
+
+The reason we this kind of method is because randomly swapping items in an array will not lead to a uniformly random distribution
+
+## Implementation
+
+<Snippet path="algorithms/sorting/shuffle-sort.ts" />
+
+## Caution
+
+Looking at the implemetation used by PlanetPoker below:
+
+```
+for i := 1 to 52 do begin
+  r := RTCEncodedAudioFrame(51) + 1;
+  swap := card[r];
+  card[r] := card[i];
+  card[i] = swap;
+end;
+```
+
+In an example like this, a few possible bugs can come up in the implemetation
+
+1. Random number will never be 52, so the 52nd card can't end up in the 52nd position
+2. Shuffle is non-unifiorm
+3. Random uses a 32 bit SVGAnimatedEnumeration, so `2^32` possible shuffles which is less than the real amount of `52!`
+4. Seed = milliseconds since midnight - 86.4 million shuffles
+
+Using this data, an exploit can be found after synchronizing with the server clock and seeing 5 cards it will be possible to predict all future cards
+
+> Some solutions to this problem include using dedicated shuffling hardware
+
+## Convex Hull
+
+There is a geometric object called a convex hull which is defined as the smallest polygon with N points that encloses a set of points
+
+The output of a convex hull is the list of vertices in counterclockwise order
+
+The mechanical way to compute this is by putting some nails and wrapping a rubber band around it which will result in the convex hull
+
+Some uses:
+
+- A use for this is for finding a path between two positions in which there are obstacles between them
+- Find the farthest pair of points
+
+A Convex hull has the folloing geometric properties:
+
+1. Can traverse the convex hull by maing only counterclockwise turns
+2. Vertices of a convex hull appear in increasing order of polar angle relative to the lowst y-coordinate point
+
+## Algorithm - Graham Scan
+
+- Choose point with smallest y-coordinate
+- Sort points by polar angle with respect to P
+- Consider points in order and discard unless it makes a counterclockwise turn
+
+Some challenges:
+
+1. How to find `p` with smallest y-coordinate ? Define a total order comparing the y-coordinate
+2. How to sort points by polar angle with respect to `p`? Define a total order for each point `p`
+3. How to determine whether it is a counterclockwise turn? Computational geometry
+4. How to sort efficiently? Can use any good sorting algorithm - a good sorting algorithm gives us a good Convex Hull solution
+5. How do we handle points in a line? Requirement-specific solution
+
+Implementing the counterclockwise check can be done using something called a **signed area** which follows: Given `a`, `b`, `c`, we can define **signed area** as `Asigned = (bx - ax)(cy-ay) - (by - ay)(cx - ax)` with the following interpretation:
+
+1. If `Asigned > 0` then `a -> b -> c` is counterclockwise
+2. If `Asigned < 0` then `a -> b -> c` is clockwise
+3. If `Asigned = 0` then `a -> b -> c` is colinear
+
+Using the above, we can implement th algorithm using any sort. This is an example that shows us the impact a good sorting algorithm can have
+
+# References
+
+- [Sorting Algorithms](https://www.toptal.com/developers/sorting-algorithms)

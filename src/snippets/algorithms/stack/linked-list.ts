@@ -1,44 +1,44 @@
-import { type Stack } from "./definition";
+import { type Stack } from './definition'
 
 interface Item<T> {
-  value: T;
-  next?: Item<T>;
+  value: T
+  next?: Item<T>
 }
 
 const getSize = <T>(item?: Item<T>, count: number = 0): number => {
   if (!item) {
-    return count;
+    return count
   }
 
-  const innerSize = getSize(item.next, count + 1);
-  return innerSize;
-};
+  const innerSize = getSize(item.next, count + 1)
+  return innerSize
+}
 
 export class LinkedListStack<T> implements Stack<T> {
-  private first?: Item<T> = undefined;
+  private first?: Item<T> = undefined
 
   push(value: T): void {
-    const oldFirst = this.first;
+    const oldFirst = this.first
 
     this.first = {
       value,
       next: oldFirst,
-    };
+    }
   }
 
   pop(): T | undefined {
-    const item = this.first;
+    const item = this.first
 
-    this.first = item?.next;
+    this.first = item?.next
 
-    return item?.value;
+    return item?.value
   }
 
   empty(): boolean {
-    return this.first === undefined;
+    return this.first === undefined
   }
 
   size(): number {
-    return getSize(this.first);
+    return getSize(this.first)
   }
 }
