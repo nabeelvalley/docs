@@ -13,7 +13,9 @@ const bookSchema = z.object({
   date: z.string(),
   isbn: z.string(),
   published: z.number(),
+  tags: z.array(z.string()),
   status: z.enum(['complete', 'in-progress', 'abandoned']),
+  type: z.enum(['fiction', 'nonfiction']),
 })
 
 export const collections = {

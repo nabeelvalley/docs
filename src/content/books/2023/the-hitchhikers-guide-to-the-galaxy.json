@@ -4,5 +4,7 @@
   "isbn": "0-330-25864-8",
   "date": "2023",
   "published": 1979,
+  "tags": ["sci-fi", "comedy"],
+  "type": "fiction",
   "status": "complete"
 }
