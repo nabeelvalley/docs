@@ -1,0 +1,55 @@
+---
+published: true
+title: Mergesort
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+# Mergesort
+
+One of the two classical sorting algorithms, the other is QuickSort
+
+Mergesort is the basic sort in lots of different languages
+
+# Algorithm
+
+- Divide an array into two halfs
+- Recursively sort each half
+- Merge the two halves
+
+# Merging
+
+Based on the idea of merging, think about an array `a` that has 2 halfs that have been sorted - how could we merge the two arrays?
+
+## Merging Algorithm
+
+Before merging, we copy the input array `a` into `aux`. To merge we move keep track of three indexes: `i` and `j` are indexes in the first and second halfs of the `aux` array, we then iterate across the input array `a`. At each iteration we compare the values in `aux[i]` and `aux[j]` and set the smaller value to `a[k]`, we then increment the intex of whichever half was smaller (`i` or `j`). Then we move to the next iteration of `k`
+
+Furthermore, if we are at the end of `i` or `j` then we just use the other one
+
+## Merging Implementation
+
+<Snippet path="algorithms/sorting/mergesort-merge.ts" />
+
+# Sorting
+
+## Sorting Algorithm
+
+The sorting algorithm splits the array recursively and and runs `merge` on it. This works since the smallest version of this array will always consist of 2 items which can always be considered to be 2 sorted halves
+
+## Sorting Implementation
+
+<Snippet path="algorithms/sorting/mergesort.ts" />
+
+> It is important to note that the `aux` array is allocated once and not within `merge` or `sort`. This is to prevent many additional arrays being created due to the fact that the algorithm is recursive
+
+# Comparison with Insertion Sort
+
+| Items     | Insertion Sort `O(N^2)` | Merge Sort `O(N Log N)` |
+| --------- | ----------------------- | ----------------------- |
+| 1 Million | 2.8 hours               | 1 second                |
+| 1 Billion | 317 years               | 18 mins                 |
+
+# Analysis of MergeSort
+
+- Uses at most `N lg N` comparisons and `6N lg N` accesses
