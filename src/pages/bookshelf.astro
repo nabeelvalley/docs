@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content'
+import Title from '../components/Title.astro'
+import Base from '../layouts/Base.astro'
+import LinkGrid from '@/components/LinkGrid.astro'
+
+const collection = await getCollection('books')
+
+const groups = Object.entries(
+  collection.reduce<Record<string, typeof collection[number][]>>(
+    (acc, book) => {
+      const year = book.id.split('/')[0]
+
+      acc[year] = acc[year] || []
+      acc[year].push(book)
+
+      return acc
+    },
+    {}
+  )
+).sort((a, b) => (+a[0] < +b[0] ? 1 : -1))
+---
+
+<Base>
+  <Title title="My Bookshelf" />
+
+  <div class="section">
+    <h2>Currently Reading</h2>
+
+    <LinkGrid>
+      {
+        collection
+          .filter((book) => book.data.status === 'in-progress')
+          .map((book) => (
+            <a class="book" href={`/bookshelf/${book.id}`}>
+              <img
+                src={`https://covers.openlibrary.org/b/isbn/${book.data.isbn}-M.jpg?default=false`}
+                alt={`${book.data.title} - ${book.data.author} - ${book.data.published}`}
+              />
+            </a>
+          ))
+      }
+    </LinkGrid>
+  </div>
+  {
+    groups.map(([year, books]) => (
+      <div class="section">
+        <h2>{year}</h2>
+
+        <LinkGrid>
+          {books
+            .filter((book) => book.data.status !== 'in-progress')
+            .map((book) => (
+              <a class="book" href={`/bookshelf/${book.id}`}>
+                <img
+                  src={`https://covers.openlibrary.org/b/isbn/${book.data.isbn}-M.jpg?default=false`}
+                  alt={`${book.data.title} - ${book.data.author} - ${book.data.published}`}
+                />
+              </a>
+            ))}
+        </LinkGrid>
+      </div>
+    ))
+  }
+
+  <p class="attribution">
+    Cover Images and book data from <a
+      class="link"
+      href="https://openlibrary.org/">Open Library</a
+    >
+  </p>
+</Base>
+
+<style>
+  .section {
+    margin: 2rem 0;
+  }
+
+  .book {
+    display: flex;
+
+    img {
+      display: block;
+      filter: saturate(0.3);
+      transition: all 300ms;
+
+      &:hover {
+        filter: saturate(1);
+      }
+    }
+  }
+</style>

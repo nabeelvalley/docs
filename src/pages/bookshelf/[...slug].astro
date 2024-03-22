@@ -1,0 +1,139 @@
+---
+import LinkGrid from '@/components/LinkGrid.astro'
+import Base from '../../layouts/Base.astro'
+
+import Title from '@/components/Title.astro'
+
+import { getCollection, type CollectionEntry } from 'astro:content'
+
+interface Props {
+  entry: CollectionEntry<'books'>
+  sameAuthor: CollectionEntry<'books'>[]
+  sameTags: CollectionEntry<'books'>[]
+}
+
+export interface StaticPaths {
+  params: {
+    slug: string
+  }
+  props: Props
+}
+
+export async function getStaticPaths(): Promise<StaticPaths[]> {
+  const collection = await getCollection('books')
+
+  const commonTags = (a: string[] = [], b: string[] = []) => {
+    return !!a.find((i) => b.includes(i))
+  }
+
+  return collection.map((item) => ({
+    props: {
+      entry: item,
+      sameAuthor: collection
+        .filter((book) => book.data.author === item.data.author)
+        .filter((book) => book.id !== item.id),
+      sameTags: collection
+        .filter((book) => commonTags(item.data.tags, book.data.tags))
+        .filter((book) => book.id !== item.id),
+    },
+    params: {
+      slug: item.id,
+    },
+  }))
+}
+
+const { entry, sameAuthor, sameTags } = Astro.props
+const { title, isbn, author, date, published, status, tags, type } = entry.data
+---
+
+<Base>
+  <Title title={title} />
+
+  <div class="main">
+    <img
+      src={`https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg?default=false`}
+      alt={'Cover Art for ' + title}
+    />
+
+    <figcaption>
+      <ul>
+        <li>Author: {author}</li>
+        <li>Type: {type}</li>
+        <li>Tags: {tags.join(', ')}</li>
+        <li>Published: {published}</li>
+        <li>ISBN: {isbn}</li>
+      </ul>
+    </figcaption>
+  </div>
+
+  {
+    sameAuthor.length ? (
+      <section class="section">
+        <h2>Also by {author}</h2>
+
+        <LinkGrid>
+          {sameAuthor
+            .filter((book) => book.id != entry.id)
+            .map((book) => (
+              <a class="book" href={`/bookshelf/${book.id}`}>
+                <img
+                  src={`https://covers.openlibrary.org/b/isbn/${book.data.isbn}-M.jpg?default=false`}
+                  alt={`${book.data.title} - ${book.data.author} - ${book.data.published}`}
+                />
+              </a>
+            ))}
+        </LinkGrid>
+      </section>
+    ): <></>
+  }
+
+  {
+    sameTags.length ? (
+      <section class="section">
+        <h2>Tagged with: {tags.join(', ')}</h2>
+
+        <LinkGrid>
+          {sameTags
+            .filter((book) => book.id != entry.id)
+            .map((book) => (
+              <a class="book" href={`/bookshelf/${book.id}`}>
+                <img
+                  src={`https://covers.openlibrary.org/b/isbn/${book.data.isbn}-M.jpg?default=false`}
+                  alt={`${book.data.title} - ${book.data.author} - ${book.data.published}`}
+                />
+              </a>
+            ))}
+        </LinkGrid>
+      </section>
+    ): <></>
+  }
+</Base>
+
+<style>
+  .main {
+    display: grid;
+    place-content: center;
+    margin: 2rem 0;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+
+    @media (min-width: 600px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  
+    img {
+      display: block;
+    }
+  }
+
+  .book img {
+      display: flex;
+      filter:saturate(0.3);
+      transition: all 300ms;
+
+      &:hover {
+        filter: saturate(1);
+      }
+  }
+</style>

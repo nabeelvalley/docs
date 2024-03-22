@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build --verbose",
+    "build": "astro build",
     "astro": "astro",
     "sync": "astro sync",
     "test": "vitest",
