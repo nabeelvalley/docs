@@ -242,6 +242,13 @@ type ExpandPaths<T, P extends keyof T, Sep extends string> = P extends string
  */
 type Pathify<T, Sep extends string> = PickPrimitive<T> &
   ExpandPaths<T, ObjectKeys<T>, Sep>;
+
+/**
+ * Get object with only keys that are an array
+ */
+export type PickArrays<T> = {
+  [K in keyof T as T[K] extends Array<any> ? K : never]: T[K]
+}
 ```
 
 # Strings
