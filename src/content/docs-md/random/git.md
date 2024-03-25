@@ -456,6 +456,8 @@ Sometimes you may have multiple subdirectories in which you would like repositor
     path = ~/repos/my-other-repos/.gitconfig
 ```
 
+> Note that for Windows you have to include the path as `C:/Users/my-user/repos/my-other-repos.` in the `includeIf` section and the `path` section
+
 2. In the subdirecroty create a `.gitconfig` file that has specifies the config for the entire subdirectory:
 
 `~/repos/my-other-repos/.gitconfig`
