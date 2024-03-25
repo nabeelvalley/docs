@@ -419,6 +419,53 @@ git config core.ignorecase false
 6. The process will run until you find the last bad commit, you can then try to figure out what was changed in that commit
 7. Optionally, you can checkout the HEAD of your branch, then run `git checkout <LAST_WORKING_COMMIT_HASH> .` to get the last working files in your branch and you can remove changes until you are left with some change that would be the one that caused the bug
 
+# Git User Configs
+
+> Refer to [this StackOverflow for more information](https://stackoverflow.com/questions/4220416/can-i-specify-multiple-users-for-myself-in-gitconfig/43654115#43654115)
+
+Often when using git you may need to have multiple accounts on the same machine and would like more specific control over config for different repositories - Often I would like to be able to set my email address differently for a specific repo or group of repos
+
+To do this, you can use two solutions depending on your usecase:
+
+## Single Repository
+
+For a repository you can update the `.git/config` file for that repository using the following command:
+
+`~/repos/my-repo/.git/config`
+
+```sh
+git config set user.email "repo@email.com"
+```
+
+## For a Subdirectory
+
+Sometimes you may have multiple subdirectories in which you would like repositories within it to inherit a specific config, you can do this by:
+
+1. Adding a conditional includes in your global git config `~/.gitconfig` file
+
+`~/.gitignore`
+
+```toml
+# default value to be used outside of subdirectory
+[user]
+    name = Nabeel Valley
+    email = nabeel@email.com
+
+# link to subdirectory config
+[includeIf "gitdir:~/repos/my-other-repos/"]
+    path = ~/repos/my-other-repos/.gitconfig
+```
+
+2. In the subdirecroty create a `.gitconfig` file that has specifies the config for the entire subdirectory:
+
+`~/repos/my-other-repos/.gitconfig`
+
+```toml
+# override value that applies to this subdirectory only
+[user]
+    email = other@email.com
+```
+
 # Newer Git Stuff
 
 > From [Git Tips and Tricks](https://blog.gitbutler.com/git-tips-and-tricks/)
