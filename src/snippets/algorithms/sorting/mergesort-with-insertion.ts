@@ -1,4 +1,4 @@
-import { Compare, Comparison } from './definition'
+import { type Compare, Comparison } from './definition'
 import { merge } from './mergesort-merge'
 
 const CUTOFF = 8
@@ -24,7 +24,7 @@ export const insertionSortRange = <T>(
   }
 }
 
-export const mergeSortInsertionBase = <T>(
+export const mergeSortWithInsertion = <T>(
   compare: Compare<T>,
   a: Array<T>
 ): Array<T> => {

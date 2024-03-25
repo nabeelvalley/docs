@@ -1,4 +1,4 @@
-import { Compare, Comparison } from './definition'
+import { type Compare, Comparison } from './definition'
 
 export const insertionSort = <T>(
   compare: Compare<T>,

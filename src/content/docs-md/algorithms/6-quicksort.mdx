@@ -1,0 +1,140 @@
+---
+published: true
+title: Mergesort
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+# Quicksort
+
+One of the two classical sorting algorithms, the other is MergeSort
+
+Quicksort is regarded as one of the most import algorithms and is used as the base sort for many different programming languages
+
+# Algorithm
+
+- Shuffle the array - important to guarantee performance
+- Partition the array for some `j`
+  - Entry `a[j]` is in place
+  - No larger entry to the left of `j`
+  - No larger entry to the right of `j`
+- Sort each piece recursively
+
+## Partitioning
+
+- Phase 1 - Repeat this until `i` and `j` cross each other
+  - Scan `i` from left to right as long as `a[i] < a[lo]`
+  - Scan `j` from right to left as long as `a[j] > a[lo]`
+  - Exchange `a[i]` with `a[j]`
+- Phase 2 - Pointers have crossed
+  - Exchange `a[lo]` with `a[j]`
+  - This is the final position of the partiion element
+
+We can implement the partitioning logic as follows:
+
+<Snippet path="algorithms/sorting/quiksort-partitioning.ts" />
+
+## Sorting
+
+The sort function makes use of the partitioning method above as described initially:
+
+<Snippet path="algorithms/sorting/quiksort.ts" />
+
+## Details
+
+- Partitioning in place. Can be done with a secondary array which makes partitioning easier but is not worth the cose
+- Terminating the loop when pointers cros can be tricky
+- Keeping our pointers in bounds and terminating the loop appropriately is important - The `j==lo` check is redundant in the snippet above but the `i==hi` one is required. This is because we will always find an element that is equal to the partitioning element since it is the element at the `lo` value
+- Preserving randomness by shuffling is needed in order to guarantee performance
+- Qhen duplicates are present it's better to stop when we find a key equal to the partitioning item (duplicate)
+
+## Analysis
+
+| Items     | Insertion Sort `O(N^2)` | Merge Sort `O(N Log N)` | QuickSort `O(N Log N)` |
+| --------- | ----------------------- | ----------------------- | ---------------------- |
+| 1 Million | 2.8 hours               | 1 second                | 0.6 seconds            |
+| 1 Billion | 317 years               | 18 minutes              | 12 minutes             |
+
+- A bit faster than merge sort
+- Uses less memory than merge sort
+
+In the worst case, quicksort is `N^2` which is why we shuffle randomly
+
+More specifically, the time compleixity of quicksort is `2(N+1) lg N`. In the worst case quicksort can be `N^2` - this is why we shuffle
+
+Quicksort can be `N^2` in some circumstances:
+
+- Not randomized
+- Lots of duplicates
+
+## Properties of Quicksort
+
+- May have a large depth of recursion
+- Not stable
+
+Improvements:
+
+- Using insertionsort when the subarrays are small
+- Get a median sample using 3 random items to partition on
+
+# Selection
+
+> An application of quicksort
+
+Given an array of `N` items, we want to find the `k`th largest item.
+
+Things we know:
+
+- Upper bound: We know we can solve it in `N log N` because we can just sort and then get the index we want
+- Upper bound: `kN` since we can just look through till we get the element we want for `k` times
+- Lower bound: `N` since we have to look at every item at least once
+
+Can we define a selection algorithm that takes linear time (`N`)?
+
+## Algorithm
+
+- Partition array so that
+  - Entry `a[j]` is in place
+  - No larger entry to the left of `j`
+  - No entry smaller to the right of `j`
+- Repeat in one subarray, depending on `j`, finished when `j == k`
+
+<Snippet path="algorithms/sorting/quicksort-selection.ts" />
+
+On average, algorithm takes linear time `N` due to how we only ever recurse on one side, however there is the worst case which is `N^2` but that is highly unlikely due to the shuffle
+
+# Duplicate keys
+
+What happens to Quicksort when we have duplicated?
+
+- Mergesort doesn't really care about whether or not there are duplicate keys
+- The quicksort implementation could take quadratic time if there were lots of duplicates depending on how the partitioning logic is implemented
+
+## 3 Way Partitioning
+
+If we accept that there may be duplicates, we can group all equal keys together which will give us a performance gain in the case of duplicate keys
+
+### Algorithm
+
+- Let `v` be the partitioning item at `a[lo]`
+- Scan `i` from left to right
+  - `a[i] < v` - exchange `a[lt]` with `a[i]`, increment `lt` and `i`
+  - `a[i] > v` - exchange `a[gt]` with `a[i]`, decrement `gt`
+  - `a[i] == v` - increment `i`
+
+### Implementation
+
+<Snippet path="algorithms/quicksort-3-way.ts" />
+
+This algorithm is `N lg N` when all are distinct and linear when there is only a constant number of distincy keys
+
+# Applications of Sorting
+
+Sorting algorithms are used in many applications but can also be used to do things like:
+
+- Find the median or duplicates
+- Binary search
+- Identify outliers
+- Data compression
+- Graphics
+- Computational biology

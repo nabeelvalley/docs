@@ -50,6 +50,76 @@ The sorting algorithm splits the array recursively and and runs `merge` on it. T
 | 1 Million | 2.8 hours               | 1 second                |
 | 1 Billion | 317 years               | 18 mins                 |
 
-# Analysis of MergeSort
+## Mergesort with Insertion
+
+Since mergesort is recursive there can be a large function call overhead. For smaller values we can avoid this by using insertion sort (or another elementary sort) when the size of the subarray is smaller than a specific amount as part of our recursive exit condition:
+
+<Snippet path="algorithms/sorting/mergesort-with-insertion.ts" />
+
+# Analysis of Mergesort
 
 - Uses at most `N lg N` comparisons and `6N lg N` accesses
+- Uses `2N` space
+
+# Bottom Up Mergesort
+
+## Algorithm
+
+If we think about the array as small subarrays of size 1, and merge those in pairs to get subarrays of size 2, then 4, and so on. Since we are working with small subarrays we can use our existing merge implementation as previously
+
+## Implementation
+
+We can implement mergesort like this which allows us to avoid recursion
+
+<Snippet path="algorithms/sorting/mergesort-bottom-up.ts" />
+
+# Sorting Complexity
+
+> Computational complexity is a framework for studying the efficiency of algorithms for solving a particular problem
+
+We need the following for defining computational complexity
+
+- Model of computation - what operations are allowed
+- Cost model - how many times we do an operation
+- Upper bound - guarantee provided by some algorithm for solving a problem
+- Lower bound - limit for all different algorithms for solving a problem
+- Optimal algorithm - the best possible algorithm for solving a given problem - the upper bound for this algorithm is approximately the same as the lower bound for a problem
+
+## The Sorting Problem
+
+The idea of a lower bound identifies the minimum number of compares needed to ensure that a the sorting problem is solved - this can be determined using a decision tree
+
+The result of this is that any sorting algorithm that is based on compares must use at least `Nlg(N)` compares in the worst case - the height of the decision tree formed - this is the lower bound for sorging
+
+Since this is the complexity of merge sort, we can see that mergesort is optimal in terms of the number of compares, but since it uses extra space it is not space optimal
+
+> Note that this lower bound applies to the specific model of compares we are using for our example - in this case a comparison-based algorithm
+
+Cases where there may be a more optimal case:
+
+- Partially ordered arrays (Insertion sort)
+- Lots of duplicate keys (3-way Quick Sort)
+- Certain digit/character comparisons (Radix Sort)
+
+# Comparators
+
+Comparators are a mechanism for sorting based on some specific value, in our case we have been using the `compare` function that we provide
+
+The `compare` method provided must be a `total order`, for example if we are comparing strings we can consider many different things:
+
+- Alphabetical
+- Case insensitive
+- Longest to shortest
+
+In the above implementations as long as we provide a `compare` function that works for our data
+
+# Stability
+
+I a typical use we often want to sort by one key and then by another, in this case we want to ensure that we don't unsort a previous sort when running a new sort, so e.g. if we order by name and then age we still might want our data to be be stil relatively sorted
+
+Stability is when an algorithm preserves the relative order of elements
+
+- Insertion Sort - stable - we never move equal items past each other
+- Selection Sort - unstable - we might have items move past other equal items when switching items
+- Shell Sort - unstable - moves keys past other keys that may be equal
+- Merge Sort - stable as long as the merge operation is stable. If the merge takes from the left subarray if two items are equal then the merge operation is equal since this ordering is retained

@@ -1,11 +1,16 @@
 import { describe, expect, test } from 'vitest'
 import { isSorted } from './is-sorted'
-import { Compare, Comparison } from './definition'
+import { type Compare, Comparison } from './definition'
 import { selectionSort } from './selection-sort'
 import { insertionSort } from './insertion-sort'
 import { shellSort } from './shell-sort'
 import { mergeSort } from './mergesort'
-import { mergeSortInsertionBase } from './mergesort-insertion-base'
+import { mergeSortWithInsertion } from './mergesort-with-insertion'
+import { mergeSortBottomUp } from './mergesort-bottom-up'
+import { quickSort } from './quicksort'
+import { quickSelect } from './quicksort-selection'
+import { shuffle } from './shuffle'
+import { quickSort3Way } from './quicksort-3-way'
 
 const builtinSort = (compare: Compare<number>, array: number[]) =>
   array.sort(compare)
@@ -16,7 +21,10 @@ const implementations = [
   insertionSort,
   shellSort,
   mergeSort,
-  mergeSortInsertionBase,
+  mergeSortWithInsertion,
+  mergeSortBottomUp,
+  quickSort,
+  quickSort3Way,
 ]
 
 const compareNumbers: Compare<number> = (v, w) => {
@@ -27,23 +35,23 @@ const compareNumbers: Compare<number> = (v, w) => {
   return Comparison.Equal
 }
 
-test.each(implementations)('Sort Numbers: %o', (sut) => {
-  const data = [5, 3, 4, 1, 2, 7, 6, 8, 9, 0]
+test.each(implementations)('Sort Numbers: %o', (sort) => {
+  const data = [5, 3, 4, 1, 2, 7, 6, 8, 5, 9, 0]
 
-  const sorted = sut(compareNumbers, data)
+  sort(compareNumbers, data)
 
-  expect(sorted).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+  expect(data).toEqual([0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9])
 })
 
-test.each(implementations)('Sort Larger Array: %o', (sut) => {
+test.each(implementations)('Sort Larger Array: %o', (sort) => {
   const data = new Array(20).fill(0).map(() => Math.random())
 
-  const sorted = sut(compareNumbers, data)
+  sort(compareNumbers, data)
 
-  expect(isSorted(compareNumbers, sorted)).toBe(true)
+  expect(isSorted(compareNumbers, data)).toBe(true)
 })
 
-describe('isSorted', () => {
+describe(isSorted, () => {
   test('returns true for sorted', () => {
     const result = isSorted(compareNumbers, [1, 2, 3, 4, 5])
 
@@ -55,4 +63,16 @@ describe('isSorted', () => {
 
     expect(result).toBe(false)
   })
+})
+
+describe(quickSelect, () => {
+  test.each([0, 1, 2, 3, 4, 5])(
+    'returns the kth largest element (k=%i)',
+    (k) => {
+      const input = [0, 1, 2, 3, 4, 5]
+
+      const result = quickSelect(compareNumbers, input, k)
+      expect(result).toBe(k)
+    }
+  )
 })

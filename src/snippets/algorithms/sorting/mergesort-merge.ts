@@ -16,7 +16,7 @@ export const merge = <T>(
   mid: number,
   hi: number
 ) => {
-  const isLessThan = (a: T, b: T) => compare(a, b) === Comparison.Less
+  const lessThan = (a: T, b: T) => compare(a, b) === Comparison.Less
 
   // Copy items into the auxillary array
   for (let i = lo; i <= hi; i++) aux[i] = array[i]
@@ -27,7 +27,7 @@ export const merge = <T>(
   for (let i = lo; i <= hi; i++) {
     if (l > mid) array[i] = aux[h++]
     else if (h > hi) array[i] = aux[l++]
-    else if (isLessThan(aux[l], aux[h])) array[i] = aux[l++]
-    else array[i] = aux[h++]
+    else if (lessThan(aux[h], aux[l])) array[i] = aux[h++]
+    else array[i] = aux[l++]
   }
 }
