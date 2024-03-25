@@ -1,6 +1,6 @@
 ---
 published: true
-title: Mergesort
+title: Quicksort
 ---
 
 import Snippet from '@/components/Snippet.astro'
@@ -32,13 +32,13 @@ Quicksort is regarded as one of the most import algorithms and is used as the ba
 
 We can implement the partitioning logic as follows:
 
-<Snippet path="algorithms/sorting/quiksort-partitioning.ts" />
+<Snippet path="algorithms/sorting/quicksort-partitioning.ts" />
 
 ## Sorting
 
 The sort function makes use of the partitioning method above as described initially:
 
-<Snippet path="algorithms/sorting/quiksort.ts" />
+<Snippet path="algorithms/sorting/quicksort.ts" />
 
 ## Details
 
@@ -124,7 +124,7 @@ If we accept that there may be duplicates, we can group all equal keys together 
 
 ### Implementation
 
-<Snippet path="algorithms/quicksort-3-way.ts" />
+<Snippet path="algorithms/sorting/quicksort-3-way.ts" />
 
 This algorithm is `N lg N` when all are distinct and linear when there is only a constant number of distincy keys
 
