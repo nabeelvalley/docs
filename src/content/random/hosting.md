@@ -23,6 +23,7 @@ Below is a list of some websites and platforms that provide free application hos
 - [Vercel](https://vercel.com/)
 - [Convex](https://www.convex.dev/)
 - [Fly.io](https://fly.io/) - (needs card)
+- [Platform.sh](https://platform.sh/)
 
 # Database
 
