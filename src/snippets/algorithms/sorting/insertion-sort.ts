@@ -1,9 +1,6 @@
 import { type Compare, Comparison } from './definition'
 
-export const insertionSort = <T>(
-  compare: Compare<T>,
-  array: Array<T>
-): Array<T> => {
+export const insertionSort = <T>(compare: Compare<T>, array: Array<T>) => {
   const swap = (indexI: number, indexJ: number) => {
     const replaced = array[indexI]
 
@@ -17,6 +14,4 @@ export const insertionSort = <T>(
       else break
     }
   }
-
-  return array
 }
