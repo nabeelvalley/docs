@@ -1,10 +1,7 @@
 import type { Compare } from './definition'
 import { merge } from './mergesort-merge'
 
-export const mergeSort = <T>(
-  compare: Compare<T>,
-  array: Array<T>
-): Array<T> => {
+export const mergeSort = <T>(compare: Compare<T>, array: Array<T>) => {
   const aux = new Array<T>(array.length)
 
   const sort = (lo: number, hi: number) => {
@@ -20,6 +17,4 @@ export const mergeSort = <T>(
   }
 
   sort(0, array.length - 1)
-
-  return array
 }

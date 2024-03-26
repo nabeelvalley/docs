@@ -176,3 +176,56 @@ From what we have, we can see that the insert operation is `log N` and delete ma
 - It is also possible that someone deletes when the PQ is empty and we need to handle that appropriately. Depending on our implementation we will also realistically want to have the array be an automatically growing array
 - We can create a minimum oriented queue by replacing `less` with `greater`, in our implementation this also applies to the implementation we have for the `swim` and `sink` functions
 - We can also provide other operations such as changing the priority of an item - we can use the sink and swim operations to do this
+
+# Heapsort
+
+Take advantage of a Binary Heap to implement a clever sorting algorithm
+
+## Algorithm
+
+- Create a max-heap with all N keys
+- Repeatedly remove the max key
+
+## Implementation
+
+We will build the heap bottom-up and right-to-left and then tear the heap back down afterwards, by doing this we will have ensured that the array is sorted
+
+The implementation is mostly the same as the `MaxHeapPQ` above but has been adjusted to be 0-indexed so that we can iterate through the array without the need for an extra starting element for offsetting the index calculation
+
+## Analysis
+
+- During construction - `<= 2N` compares and exchanges
+- During sort - `<= 2 N lg N` compares and exchanges
+
+This is an in-place algorithm that is inplace and `N log N` in the worst case, this is relevant in comparison with Mergesort which requires extra space and Quicksort which is in place but can be quadratic in the worst case
+
+Heapsort is optimal for both time and space but:
+
+1. Inner loop is longer than quicksort - generally more work to do than quicksort
+2. Makes poor use of cache memory since memory references are all over the place - quicksort refers to things that are close to each other
+3. Not stable
+
+# Event Driven Simulation
+
+Sometimes we want to be able to simulate particles for scientific or other reasons
+
+We use a model called a Hard disk model
+
+- Moving particles collide with each other and walls
+- Each particle is a disk with known position, velocity, mass, and radius
+- No other forces
+
+Now what happens when two balls bump into each other and how can we do this efficiently? If we have lots of balls this can be a very big combination
+
+A time driven simulation where we check if there is an overlap every iteration of time
+
+- Lots of checks (N^2)
+- Simulation too slow if `dt` is small
+- May miss collision if `dt` is large
+
+Instead of this we use something called an Event Driven Simulation
+
+- Focus on time only when a collision will happen based on the velocity of different particles
+- Predict when a particle will collide
+- Use this time as a key in a priority queue
+- We run our simulation based on which are the most likely collisions

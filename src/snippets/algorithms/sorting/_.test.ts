@@ -12,6 +12,7 @@ import { quickSelect } from './quicksort-selection'
 import { shuffle } from './shuffle'
 import { quickSort3Way } from './quicksort-3-way'
 import { compareNumbers } from './compare'
+import { heapSort } from './heap-sort'
 
 const builtinSort = (compare: Compare<number>, array: number[]) =>
   array.sort(compare)
@@ -26,6 +27,7 @@ const implementations = [
   mergeSortBottomUp,
   quickSort,
   quickSort3Way,
+  heapSort,
 ]
 
 test.each(implementations)('Sort Numbers: %o', (sort) => {
