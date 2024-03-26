@@ -1,4 +1,4 @@
-import { Compare, Comparison } from './definition'
+import { type Compare, Comparison } from './definition'
 
 export const isSorted = <T>(compare: Compare<T>, array: Array<T>): boolean => {
   if (array.length < 2) {

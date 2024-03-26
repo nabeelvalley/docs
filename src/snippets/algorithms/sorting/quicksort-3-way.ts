@@ -1,6 +1,6 @@
 import { Comparison, type Compare } from './definition'
-import { swap } from './quicksort-partitioning'
 import { shuffle } from './shuffle'
+import { swap } from './swap'
 
 export const quickSort3Way = <T>(compare: Compare<T>, array: T[]) => {
   const sort = (lo: number, hi: number) => {

@@ -11,6 +11,7 @@ import { quickSort } from './quicksort'
 import { quickSelect } from './quicksort-selection'
 import { shuffle } from './shuffle'
 import { quickSort3Way } from './quicksort-3-way'
+import { compareNumbers } from './compare'
 
 const builtinSort = (compare: Compare<number>, array: number[]) =>
   array.sort(compare)
@@ -26,14 +27,6 @@ const implementations = [
   quickSort,
   quickSort3Way,
 ]
-
-const compareNumbers: Compare<number> = (v, w) => {
-  if (v > w) return Comparison.Greater
-
-  if (v < w) return Comparison.Less
-
-  return Comparison.Equal
-}
 
 test.each(implementations)('Sort Numbers: %o', (sort) => {
   const data = [5, 3, 4, 1, 2, 7, 6, 8, 5, 9, 0]

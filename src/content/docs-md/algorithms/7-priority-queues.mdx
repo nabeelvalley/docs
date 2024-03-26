@@ -1,0 +1,178 @@
+---
+published: true
+title: Priority Queues
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+# APIs and Elementary Implementations
+
+A variant of sorting that generalizes the idea to create a data structure that can be used for more general problems
+
+## Priority Queue
+
+Different types of collections:
+
+- Stack: remove the most recently added
+- Queue: remove the item least recently added
+- Randomized Queue: remove a random item
+- Priority Queue: remove the largest (or smallest) item
+
+## API
+
+Similar to Stack/Queue but we want to have generic items that are comparable:
+
+The API definition looks like so:
+
+<Snippet path="algorithms/priority-queue/definition.ts" />
+
+There are lots of different algorithms for implementing the priority queue
+
+- Event driven simulation
+- Numerical computation
+- Data compression
+- Graph searching
+- Number theory
+- AI
+- Statistics
+- Operating systems
+- Discrete filtering
+- Spam filtering
+
+Generalizes the idea of a stack, queue, and randomized queue
+
+## Usecase
+
+Say we want to store the largest `M (large)` items in a stream of `N (huge)` items. We can only afford to store `M` items, e.g. due to memory constraints
+
+Ther are some approaches we can use:
+
+| Implementation | Time    | Space | Comment                             |
+| -------------- | ------- | ----- | ----------------------------------- |
+| Sort           | N log N | N     | We don't have `N` space             |
+| Elementary PQ  | M N     | M     | This takes too much time            |
+| Binary Heap    | N log M | M     | Pretty close to the thoretical best |
+| Theoretical    | N       | M     |                                     |
+
+## Elementary Implementation
+
+We could implement this simply using two methods:
+
+- Keep an unordered list, we can add every new item to the end, to remove the max we scan through and remove it from the list
+- Keep an ordered list, we can put the new item in it's new location and move the larger items, to remove we can just take the last item
+
+Below is a simple example of an unordered elementary implementation
+
+<Snippet path="algorithms/priority-queue/unordered-max-pq.ts" />
+
+The above version uses a capacity but we could also define this as some other kind of array implementation
+
+Investigating the two above options we have the following time complexities:
+
+| Implementation  | Insert | Del Max |
+| --------------- | ------ | ------- |
+| Unordered Array | 1      | N       |
+| Ordered Array   | N      | 1       |
+
+The two options to us are not great since they are at `N` for either one of the cases we need to be efficient in
+
+Our goal is to define a `O(log N)` solution for the insert and delete operations
+
+# Binary Heap
+
+- Binary tree - Empty or notde with links to left and right binary trees
+- Complete binary tree - perfectly balanced except for the bottom level
+
+For a complete binary tree, the height of a tree with `N` nodes is the nearest integer less than `floor(lg N)` since the height only increases when N is a power of 2
+
+The priority queue can be implemented using a binary tree
+
+## Array Representation
+
+The Binary heap is a representation of a heap-ordered complete binary tree
+
+A heap-ordered binary tree has:
+
+- Keys in nodes
+- Parent's key no smaller than children's keys
+
+Array representation:
+
+- Indices start at 1 (this simplifies some further computation)
+- Take nodes in `level` order
+- No explicit links needed
+
+By representing a binary tree as an array we can associate each index based on it's position in the tree
+
+- Largest key is `a[1]` which is the root of the binary tree
+- Can use indices to move through the structure:
+  - Parent of a node at `k` is at `k/2`
+  - Children of node at `k` are at `2k` and `2k+1`
+
+## Promotion in a Heap
+
+Given a scenario that a child's key becomes larger than it's parent key we need to do the following to fix the tree:
+
+1. Exchange then key in the child with the key in the parent
+2. Repeat until heap order is restored
+
+We refer to this operation as the **swim** operation as the item swims up the tree and looks like so:
+
+<Snippet path="algorithms/priority-queue/swim.ts" />
+
+Using this means that we can insert as follows:
+
+1. Insert node at end of array
+2. Swim the node up to it's correct position
+
+This implementation has the complexity of `1 + lg N` since the swim operation is at most `lg N`
+
+## Demotion in a Heap
+
+Given the scenario where a parent's key becomes smaller than one or both of its children
+
+To restore the state from this position:
+
+1. Exchange key in parent with key in larger child
+2. Repeat until heap order is restored
+
+This is referred to as the **sink** operation which we can implement as such:
+
+<Snippet path="algorithms/priority-queue/sink.ts" />
+
+## Delete the Maximum in a Heap
+
+To delete the maximum in a heap we need to do the following:
+
+1. Exchange the root with the node at the end
+2. Remove the end node
+3. Sink down root to restore order
+
+In code this will look something like:
+
+```
+max =  pq[1]
+swap(1, N--)
+sink(1)
+
+pq[N+1] = null // prevent loitering reference
+
+return max
+```
+
+## Complete Implementation
+
+We can combine the above `sink` and `swim` functions into the final implementation
+
+<Snippet path="algorithms/priority-queue/binary-heap.ts" />
+
+## Analysis
+
+From what we have, we can see that the insert operation is `log N` and delete max is `log N`. There are also improvements that can be made to further improve this algorithm such as the D-ary heap and the Fibonacci implementations
+
+## Considerations
+
+- It is important to keep in mind that this implementation assumes that the client does not change the keys while on the PQ. The way to avoid this is by ensuring keys are immutable
+- It is also possible that someone deletes when the PQ is empty and we need to handle that appropriately. Depending on our implementation we will also realistically want to have the array be an automatically growing array
+- We can create a minimum oriented queue by replacing `less` with `greater`, in our implementation this also applies to the implementation we have for the `swim` and `sink` functions
+- We can also provide other operations such as changing the priority of an item - we can use the sink and swim operations to do this
