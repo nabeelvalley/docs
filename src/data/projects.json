@@ -1,5 +1,11 @@
 [
   {
+    "title": "synk",
+    "description": "A little CLI for working with databases during development for quick queries and automation",
+    "tags": ["ts", "lib", "websockets", "rpc"],
+    "link": "https://github.com/sftsrv/synk"
+  },
+  {
     "title": "SQLQ",
     "description": "A little CLI for working with databases during development for quick queries and automation",
     "tags": ["ts", "cli", "sql"],
@@ -28,6 +34,12 @@
     "cta": "Go to repo",
     "link": "https://github.com/nabeelvalley/exiflib",
     "image": "/content/projects/exiflib.svg"
+  },
+  {
+    "title": "Structured HTML",
+    "description": "A little library for converting HTML into a structured data format",
+    "tags": ["ts", "html", "lib"],
+    "link": "https://github.com/sftsrv/structured-html"
   },
   {
     "title": "Photography Gallery Template",
@@ -88,18 +100,11 @@
     "link": "https://rakah.netlify.com/"
   },
   {
-    "title": "Twit List",
-    "description": "application that allows you to bookmark tweets and save them to your account simply by sharing that tweet with an app host user's account, works in tandem with the webhooks project",
-    "tags": ["node.js", "express", "twitter", "mongo-db"],
-    "cta": "Go to GitHub",
-    "link": "https://github.com/nabeelvalley/TwitList"
-  },
-  {
     "title": "Instagram backup",
     "description": "A github-actions powered instagram backup using f# and the instagram graph api to retreive and backup a user's instgram posts automatically",
     "tags": ["f#", "graphql", "github", "cron"],
     "cta": "Go to GitHub",
-    "link": "https://github.com/nabeelvalley/RTCWithMQTT"
+    "link": "https://github.com/nabeelvalley/ig-backup"
   },
   {
     "title": "Machine learning web services",
