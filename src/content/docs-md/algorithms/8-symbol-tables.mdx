@@ -1,0 +1,60 @@
+---
+published: true
+title: Symbol Tables
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+# Symbol Table API
+
+The idea is to have some kind of key-value association
+
+- Insert a value with a specified key
+- Given a key, search for the corresponding value
+
+## Basic Table API
+
+The basic idea is to use an **Associative Array** such that we have the following definition:
+
+<Snippet path="algorithms/symbol-table/definition.ts" />
+
+## Keys and Values
+
+For Values:
+
+- Values are non-null
+- Put overwrites an old value
+
+For Keys:
+
+- comparable since it enables us to do some more efficient algorithms
+- Immutable types for keys
+- Assume keys have some method for testing equality
+
+The requirements for equality are as follows:
+
+- Reflexive - `x == x`
+- Symmetric: `x == y iif y == x`
+- Transitive: if `x == y` and `x == z` then `x == y`
+- Java also has: Non-null: `x == null` is false
+
+> For the sake of simplicity we'll keep our implementation of keys to types that can be compared directly using the javascript `===` operator
+
+## Elementary Implementation
+
+- Unordered List/Sequential Search
+  - We could keep a list with a key-value pair in the array
+  - Putting requires us to run through and see if the value is already there and overwrite that value or add a new one at the end
+  - Getting a value requires us to scan through the entire array till we find the value
+- Ordered List/Binary Search
+  - We can use a binary search implementation in which we sort based on the key
+  - This will then have the same characteristics of a binary search for retreiving values
+  - With binary search however, we need to keep the items in order which makes insertions and deletions expensive as we need to shift all items to the right of our key
+  - Good for read-heavy usecases
+
+| Implementation    | Worst Case             | Average Case             | Ordered iteration | Key interface |
+| ----------------- | ---------------------- | ------------------------ | ----------------- | ------------- |
+| sequential search | N search, N insert     | N/2 search, N insert     | No                | Equality      |
+| binary search     | log N search, N insert | log N search, N/2 insert | yes               | Comparison    |
+
+The best above implementation is the binary search but it's still fairly slow for insertion - we want to find an implementation that's more efficient than this
