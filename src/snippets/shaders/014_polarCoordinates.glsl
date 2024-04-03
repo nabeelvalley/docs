@@ -16,7 +16,7 @@ void main(){
     
     float f=sin(a*3.);
     
-    vec3 color=vec3(1.-step(f,r));
+    vec3 color=vec3(1.-smoothstep(f,f+.01,r));
     
     gl_FragColor=vec4(color,1.);
 }
