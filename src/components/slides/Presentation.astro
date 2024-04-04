@@ -2,27 +2,12 @@
   >Start Presentation</button
 >
 
-<div
-  id="presentation-container"
-  class="presentation-hidden presentation-overflow-hidden"
->
-  <main id="presentation-content">
-    <h1>No slides found on page</h1>
-  </main>
-</div>
-
 <script>
   import { createSyncReader, createSyncWriter } from '../sync'
 
   const button = document.getElementById(
     'presentation-button'
   ) as HTMLButtonElement
-  const container = document.getElementById(
-    'presentation-container'
-  ) as HTMLDivElement
-  const content = document.getElementById(
-    'presentation-content'
-  ) as HTMLDivElement
 
   let slides = Array.from(document.querySelectorAll('.presentation-slide'))
 
@@ -49,33 +34,51 @@
   }
 
   const nextClass = 'presentation-next'
+  const currClass = 'presentation-current'
   const prevClass = 'presentation-prev'
 
-  const transitionClasses = [nextClass, prevClass]
+  const transitionClasses = [nextClass, currClass, prevClass]
 
   const keyHandlers: Record<string, () => number> = {
     ArrowRight: nextSlide,
     ArrowLeft: prevSlide,
   }
 
-  const startPresentation = () => {
-    container.classList.remove('presentation-hidden')
-    button.innerHTML = 'Resume presentation'
-    document.body.classList.add('presentation-overflow-hidden')
-    if (slides.length) {
-      content.innerHTML = slides[slide].outerHTML
+  const displaySlides = () => {
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove('active', 'inactive', ...transitionClasses)
+
+      if (i === slide) {
+        slides[i].classList.add('active', currClass)
+      } else {
+        slides[i].classList.add('inactive')
+
+        if (i > slide) {
+          slides[i].classList.add(nextClass)
+        } else {
+          slides[i].classList.add(prevClass)
+        }
+      }
     }
   }
 
+  const startPresentation = () => {
+    // container.classList.remove('presentation-hidden')
+    button.innerHTML = 'Resume presentation'
+    document.body.classList.add('presentation-overflow-hidden')
+
+    displaySlides()
+  }
+
   const endPresentation = () => {
-    container.classList.add('presentation-hidden')
+    // container.classList.add('presentation-hidden')
     document.body.classList.remove('presentation-overflow-hidden')
   }
 
   const setPresenter = () => {
     presenter = true
     syncWriter(slide)
-    container.classList.add('presentation-presenter')
+    // container.classList.add('presentation-presenter')
   }
 
   const transition = (nextSlide: number) => {
@@ -83,23 +86,15 @@
       return
     }
 
-    content.classList.remove(...transitionClasses)
-    if (slide < nextSlide) {
-      content.classList.add(nextClass)
-    } else {
-      content.classList.add(prevClass)
-    }
+    slides.forEach((s) => s.classList.remove(...transitionClasses))
 
     if (presenter) {
       syncWriter(nextSlide)
     }
 
     slide = nextSlide
-    const slideContent = slides[slide]
 
-    document.startViewTransition(() => {
-      content.innerHTML = slideContent.outerHTML
-    })
+    displaySlides()
   }
 
   // If there is no presentation on the page then we don't initialize
@@ -150,7 +145,7 @@
       }
     }
 
-    container.addEventListener(
+    document.addEventListener(
       'touchstart',
       (ev) => {
         touchstartX = ev.changedTouches[0].screenX
@@ -158,7 +153,7 @@
       false
     )
 
-    container.addEventListener(
+    document.addEventListener(
       'touchend',
       (event) => {
         touchendX = event.changedTouches[0].screenX
@@ -172,142 +167,72 @@
 <style is:global>
   .presentation-overflow-hidden {
     overflow: hidden;
-  }
+    visibility: hidden;
 
-  .presentation-hidden {
-    display: none;
-  }
-
-  .presentation-slide-only {
-    display: none;
-  }
-
-  #presentation-container {
-    z-index: 10;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: auto;
-
-    background-color: black;
-
-    .presentation-slide-only {
-      display: block;
+    .presentation-hidden {
+      display: none;
     }
-  }
 
-  #presentation-content {
-    display: flex;
-    flex-direction: column;
+    .presentation-slide {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
 
-    background-color: var(--color-base);
-    color: var(--color-on-base);
+      visibility: visible;
 
-    box-sizing: border-box;
-    min-height: 100vh;
-    width: 100%;
-    padding: 2rem 4rem;
+      transition: transform 500ms ease-in-out;
 
-    .centered {
-      flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
+
+      background-color: var(--color-base);
+      color: var(--color-on-base);
+
+      box-sizing: border-box;
+      min-height: 100vh;
+      width: 100%;
+      padding: 2rem 4rem;
+
+      z-index: 10;
+      overflow: auto;
+
+      &.centered {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .presentation-slide-only {
+        display: block;
+      }
+
+      .astro-code {
+        filter: none;
+      }
     }
 
-    .astro-code {
-      filter: none;
+    .presentation-slide-only {
+      display: none;
     }
-  }
 
-  .presentation-presenter #presentation-content {
-    border: solid 8px var(--color-brand);
+    .presentation-presenter #presentation-content {
+      border: solid 8px var(--color-brand);
+    }
   }
 
   .presentation-next {
-    view-transition-name: next;
+    transform: translateX(100%);
+  }
+
+  .presentation-current {
+    transform: translateX(0%);
   }
 
   .presentation-prev {
-    view-transition-name: prev;
+    transform: translateX(-100%);
   }
-
-  ::view-transition-old(next) {
-    animation: slide-out-left 0.66s ease-in-out;
-  }
-  ::view-transition-new(next) {
-    animation: slide-out-right 0.66s ease-in-out reverse;
-  }
-
-  ::view-transition-old(prev) {
-    animation: slide-out-right 0.66s ease-in-out;
-  }
-  ::view-transition-new(prev) {
-    animation: slide-out-left 0.66s ease-in-out reverse;
-  }
-
-  @keyframes slide-out-right {
-    0% {
-      transform: translateX(0);
-    }
-
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  @keyframes slide-out-left {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-
-  /* 
-  @keyframes slide-out-right {
-    0% {
-      transform: translateX(0) scale(1);
-    }
-    20% {
-      transform: translateX(0) scale(0.8) translateY(0%);
-    }
-    30% {
-      transform: translateX(0) scale(0.8) translateY(0%);
-    }
-    70% {
-      transform: translateX(100%) scale(0.8) translateY(0%);
-    }
-    80% {
-      transform: translateX(100%) scale(0.8) translateY(0%);
-    }
-    100% {
-      transform: translateX(100%) scale(1);
-    }
-  }
-
-  @keyframes slide-out-left {
-    0% {
-      transform: translateX(0) scale(1);
-    }
-    20% {
-      transform: translateX(0) scale(0.8) translateY(0%);
-    }
-    30% {
-      transform: translateX(0) scale(0.8) translateY(0%);
-    }
-    70% {
-      transform: translateX(-100%) scale(0.8) translateY(0%);
-    }
-    80% {
-      transform: translateX(-100%) scale(0.8) translateY(0%);
-    }
-    100% {
-      transform: translateX(-100%) scale(1);
-    }
-  } */
 </style>
