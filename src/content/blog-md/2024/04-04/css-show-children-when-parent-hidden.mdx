@@ -1,0 +1,33 @@
+---
+title: Show Children when Parent is Hidden with CSS
+subtitle: 04 April 2024
+description: Make the children of an HTML element visible when the parent element is hidden
+published: true
+---
+
+import Example from '@/snippets/css-visibility/CSSVisibility.astro'
+import Snippet from '@/components/Snippet.astro'
+
+When working with HTML we sometimes have a case where we want to view child items of an HTML element while the parent element itself is hidden
+
+Normally when trying to hide or show some elements, we would apply `display:none` and move on. However, we may run into a case where we want to make a specific child visible while keeping the remaining content hidden, so, we might try to add the following to the child `display:block`.
+
+We will quickly see that this solution doesn't work. Another thing we might trying to play with the opacity of the items but this doesn't really solve our problem either
+
+The solution to this is the `visibility` property
+
+> According to [the MDN Documentation on Visibility](https://developer.mozilla.org/en-US/docs/Web/CSS/visibility): "The visibility CSS property shows or hides an element without changing the layout of a document."
+
+The MDN definition brings up an important note - the visibility property does not change the layout of the document - this means the hidden elements will still take up space on the screen, which is different to the behaviour of `display:none`. However, we can mitigate that in other ways if we need to deepending on what we're trying to do
+
+We can use the `visibility` property to get what we want. For our example let's use a `ol` with some children, however, we want anything inside of our list to be hidden other than a specific child
+
+The HTML we have is as follows:
+
+<Snippet path="css-visibility/CSSVisibility.astro" lang="html" />
+
+And we can see the result below:
+
+<Example />
+
+It's also important to note that the content before and after the list are not visible but they still take up space

@@ -1,0 +1,27 @@
+<div class="example">
+  <div>before hidden</div>
+
+  <ol class="hide">
+    <li>Item 1</li>
+    <li class="show">Item 2</li>
+    <li>Item 3</li>
+  </ol>
+
+  <div>after hidden</div>
+</div>
+
+<style>
+  .hide {
+    visibility: hidden;
+  }
+
+  .show {
+    visibility: visible;
+  }
+
+  .example {
+    padding: 1rem;
+    background-color: var(--color-on-base);
+    color: var(--color-base);
+  }
+</style>
