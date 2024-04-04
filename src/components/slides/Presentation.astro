@@ -63,7 +63,6 @@
   }
 
   const startPresentation = () => {
-    // container.classList.remove('presentation-hidden')
     button.innerHTML = 'Resume presentation'
     document.body.classList.add('presentation-overflow-hidden')
 
@@ -71,14 +70,12 @@
   }
 
   const endPresentation = () => {
-    // container.classList.add('presentation-hidden')
     document.body.classList.remove('presentation-overflow-hidden')
   }
 
   const setPresenter = () => {
     presenter = true
     syncWriter(slide)
-    // container.classList.add('presentation-presenter')
   }
 
   const transition = (nextSlide: number) => {
