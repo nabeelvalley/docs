@@ -180,9 +180,9 @@ int newFunction(in vec4 aVec4,      // read-only
                 inout int aInt);    // read-write
 ```
 
-# Shapes
+## Shapes
 
-## Rectangle
+### Rectangle
 
 If we wanted to fill a rectangle in a shader, we need to think about how to determine the value for a single pixel, the general idea is as follows:
 
@@ -229,7 +229,7 @@ Using the above, the final result can be seen below:
 
 :snippet: 010_rectangle
 
-## Circle
+### Circle
 
 The approach for drawing a circle is a bit less confusing. Basically we define the distance of a point from a given location, in our case the center of the circle, and we use a step to include everything within that distance space:
 
@@ -264,3 +264,137 @@ float a = atan(pos.y,pos.x);
 We can use these shapes along with the idea of using a `smoothstep/step` as a cutoff value to draw more complex shapes in combination with the polar coordinates:
 
 :snippet: 014_polarCoordinates
+
+## Matrices
+
+Once we know how to define specific shapes, we can use vector transformations to move them to different locations
+
+### Translation
+
+The way we do this at the implementation level is by actually transforming the entire output coordinate space. We can see this by defining a new vector to move the space with below:
+
+:snippet: 015_translation
+
+If you observe the example above, you can see that it's not just the shape that moves but the entire color space. This is due to the coordinate system translation
+
+### 2D Matrices
+
+Doing more complex operations requires a matrix, for example we can translate as above by doing the dot product:
+
+$$
+\begin{bmatrix}
+   1 & 0 & t_x \\
+   0 & 1 & t_y \\
+   0 & 0 & 1
+\end{bmatrix}
+
+\cdot{}
+
+\begin{bmatrix}
+   x \\
+   y \\
+   1
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+   x + t_x \\
+   y + t_y \\
+   1
+\end{bmatrix}
+$$
+
+### Rotation
+
+For rotation, this is a bit more interesting
+
+$$
+\begin{bmatrix}
+   cos\theta & -sin\theta & 0 \\
+   sin\theta & cos\theta & 0 \\
+   0 & 0 & 1
+\end{bmatrix}
+
+\cdot{}
+
+\begin{bmatrix}
+   x \\
+   y \\
+   1
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+   x.cos\theta - y.sin\theta \\
+   x.sin\theta - y.cos\theta \\
+   1
+\end{bmatrix}
+$$
+
+Using the above, we can implement the rotation as follows:
+
+:snippet: 016_rotation
+
+### Scale
+
+Similarly, we can define a matrix operation for scaling:
+
+$$
+\begin{bmatrix}
+   S_x & 0 & 0 \\
+   0 & S_y & 0 \\
+   0 & 0 & S_z
+\end{bmatrix}
+
+\cdot{}
+
+\begin{bmatrix}
+   x \\
+   y \\
+   z
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+   S_x.x \\
+   S_y.y \\
+   S_z.z
+\end{bmatrix}
+$$
+
+And the implementation of this can be seen below:
+
+:snippet: 017_scale
+
+### YUV Color
+
+YUV is a color space for analog encoding of photos and videos that uses the human perception range.
+
+We can define the conversions from YUV and RGB using a matrix and we can apply this to our input space to view the color range
+
+:snippet: 018_yuv
+
+## Patterns
+
+Since shaders execute once per pixel, no matter how much we repeat a shape the complexity is constant - this is a useful property for defining patterns
+
+When creating patterns, we commonly use the `fract` function which gives us the decimal part of a number. Since our numbers are always between 1 and 0 this isn't instantly useful but becomes interesting when multiplying by some value
+
+We can use this for displaying color:
+
+:snippet: 019_fractColor
+
+And we can do something similar using a circle:
+
+:snippet: 020_fractCircle
+
+Since each subsection that we create above is a small sub-coordinate space, we can apply the other methods we've used to do stuff like rotate the space:
+
+:snippet: 021_fractRotate
+
+Or we can make use of the `mod` and `step` functions to identify which row we are in and translate that value halfway to the right like so:
+
+:snippet: 022_fractModulo
