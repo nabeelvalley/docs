@@ -1,6 +1,7 @@
 ---
 title: Introduction to Shaders
 description: Notes from "The Book of Shaders"
+published: true
 ---
 
 > These notes and snippets are based/derived from [The Book of Shaders by Patricio Gonzalez Vivo & Jen Lowe](https://thebookofshaders.com/02/)
@@ -398,3 +399,53 @@ Since each subsection that we create above is a small sub-coordinate space, we c
 Or we can make use of the `mod` and `step` functions to identify which row we are in and translate that value halfway to the right like so:
 
 :snippet: 022_fractModulo
+
+## Randomness
+
+If we consider the function `y = fract(sin(x)*n)` we will notice that as we increase `n` at a certain point we get what looks like randomness:
+
+:snippet: 023_randomness
+
+THe problem with using this kind of randomness is that while it is somewhat chaotic, it is not truly random since the underlying function is not random
+
+Regardless, since we have a method of defining randomness, we can implement this in two dimensions as follows:
+
+:snippet: 024_randomness2d
+
+We do this by getting the dot product of the input vector and some other large vector and then using that to get the value that we pass to our pseudo random function
+
+We can implement something interesting by combining this with the patterning/fraction method we learnt previously do get blocks of random colour instead of just noise:
+
+:snippet: 024_randomnessBlocks
+
+This works since by getting the integer value (via the `floor` function) we effectively group our `st.x` and `st.y` values into buckets over a specified range
+
+Next, we can use these values more directly by creting more complex patterns
+
+:snippet: 025_randomnessPatterns
+
+## Noise
+
+Since very few things in nature are actually random but are a sort random with some sense of order. An example of a function that does something like this is ther Perlin noise algorithm and is a method for generating noise
+
+### Perlin Noise
+
+This algorithm works by mixing the random values with other nearby noise values to create some kind of continuiy. There are of course different ways we can mix these values
+
+For example, we can just use a plain `mix`:
+
+:snippet: 027_perlin
+
+Or mixing using a `smoothstep` as well:
+
+:snippet: 028_perlinSmooth
+
+It is also possible to calculate your own custom curve instead of using something like smoothstep
+
+:snippet: 029_perlinCustom
+
+### 2D Noise
+
+When doing 1D noise we interpolated between random values of `x` and `x+1`. For 2D noise however, we need to consider a plane with a point at each edge offset randomly
+
+:snippet: 030_perlin2d
