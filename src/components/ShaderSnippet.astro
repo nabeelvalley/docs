@@ -26,14 +26,10 @@ const { path, ...rest } = Astro.props
 
 <style>
   .shader-snippet {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
     grid-template-columns: 1fr;
-
-    .snippet,
-    .shader {
-      grid-column: auto / span 1;
-    }
 
     .shader {
       height: 100%;
@@ -47,6 +43,10 @@ const { path, ...rest } = Astro.props
 
     @media (min-width: 800px) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      .shader {
+        grid-column: auto / span 1;
+      }
 
       .snippet {
         grid-column: auto / span 2;

@@ -275,3 +275,10 @@ button:focus {
   margin: 0;
   margin-top: 4px;
 }
+
+/* katex */
+.katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
