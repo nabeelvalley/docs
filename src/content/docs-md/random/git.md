@@ -9,7 +9,7 @@ description: Git tips and tricks
 
 Git allows the use of globbing to work with files, using this knowledge we're able to do something like stage files based on a glob pattern, so we can do something like stage all `.js` and `.ts` files with:
 
-```
+```sh
 git add **/*.{js,ts}
 ```
 
@@ -37,7 +37,7 @@ a -> b -> c -> d -> e -> b'
 
 Such that `b'` undoes the changes introduced by `b`, then we can use the following git command:
 
-```
+```sh
 git revert --no-commit HEAD~4
 ```
 
@@ -306,7 +306,7 @@ Sometimes it's useful to use git from another tool/application. To get a more st
 
 As opposed to:
 
-```
+```sh
 > git status
 
 On branch master
@@ -327,9 +327,7 @@ Untracked files:
 
 You can setup consistent line endings for repositories that are shared between Windows and \*nix systems by adding the following to a `.gitattributes` file
 
-`.gitattributes`
-
-```
+```.gitattributes title=".gitattributes"
 * text=auto eol=lf
 *.{cmd,[cC][mM][dD]} text eol=crlf
 *.{bat,[bB][aA][tT]} text eol=crlf
@@ -414,8 +412,10 @@ git config core.ignorecase false
 3. Checkout a commit that is known to be bad and run `git bisect bad`
 4. Checkout a commit that is known to be good and run `git bisect good`
 5. Then the bisect tool will automatically checkout another commit
-  - Do your checks
-  - If good then run `git bisect good`, otherwise run `git bisect bad`
+
+- Do your checks
+- If good then run `git bisect good`, otherwise run `git bisect bad`
+
 6. The process will run until you find the last bad commit, you can then try to figure out what was changed in that commit
 7. Optionally, you can checkout the HEAD of your branch, then run `git checkout <LAST_WORKING_COMMIT_HASH> .` to get the last working files in your branch and you can remove changes until you are left with some change that would be the one that caused the bug
 

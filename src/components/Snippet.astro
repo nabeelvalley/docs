@@ -1,7 +1,7 @@
 ---
 import { readFile } from 'fs/promises'
 
-import { Code } from 'astro:components'
+import { Code } from 'astro-expressive-code/components'
 
 interface Props {
   /**
@@ -17,7 +17,7 @@ interface Props {
    * Languages supported by the Astro Code component. Add languages here as needed since Astro does
    * not expose this type
    */
-  lang?: 'ts' | 'js' | 'astro' | 'c++' | 'yml' | 'ini' | 'css'
+  lang?: 'ts' | 'js' | 'astro' | 'c++' | 'yml' | 'ini' | 'css' | 'glsl'
 }
 
 const { base = './src/snippets', path, lang = 'ts' } = Astro.props
@@ -25,6 +25,17 @@ const { base = './src/snippets', path, lang = 'ts' } = Astro.props
 const code = await readFile(`${base}/${path}`, 'utf-8')
 ---
 
-<code>{path}</code>
+<div class="snippet">
+  <Code title={path} code={code} lang={lang} />
+</div>
 
-<Code code={code} lang={lang} />
+<style is:global>
+  /* Expressive Code Overrides */
+  .expressive-code .frame.has-title:not(.is-terminal) .header {
+    background: transparent;
+  }
+
+  .expressive-code .copy {
+    transform: scale(0.6);
+  }
+</style>
