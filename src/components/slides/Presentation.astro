@@ -71,6 +71,10 @@
 
   const endPresentation = () => {
     document.body.classList.remove('presentation-overflow-hidden')
+
+    slides.map((s) =>
+      s.classList.remove('active', 'inactive', ...transitionClasses)
+    )
   }
 
   const setPresenter = () => {
