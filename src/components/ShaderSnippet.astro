@@ -13,9 +13,44 @@ const { path } = Astro.props
 ---
 
 <div class="shader-snippet">
-  <Snippet base="./src/snippets/shaders" path={path} lang="glsl" />
+  <div class="snippet">
+    <Snippet base="./src/snippets/shaders" path={path} lang="glsl" />
+  </div>
 
-  <Shader fragmentPath={path} />
+  <div class="shader">
+    <div class="sticky">
+      <Shader fragmentPath={path} />
+    </div>
+  </div>
 </div>
 
-<style is:global></style>
+<style>
+  .shader-snippet {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+
+    .snippet,
+    .shader {
+      grid-column: auto / span 1;
+    }
+
+    .shader {
+      height: 100%;
+      position: relative;
+    }
+
+    .sticky {
+      position: sticky;
+      top: 3rem;
+    }
+
+    @media (min-width: 800px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      .snippet {
+        grid-column: auto / span 2;
+      }
+    }
+  }
+</style>
