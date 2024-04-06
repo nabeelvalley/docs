@@ -5,12 +5,16 @@ import mdx from '@astrojs/mdx'
 
 import expressiveCode from 'astro-expressive-code'
 
+import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
+
 // https://astro.build/config
 export default defineConfig({
   outDir: '_site',
   site: 'https://nabeelvalley.co.za/',
   markdown: {
-    remarkPlugins: [remarkModifiedTime],
+    remarkPlugins: [remarkModifiedTime, remarkMath],
+    rehypePlugins: [rehypeKatex],
   },
   integrations: [
     expressiveCode({

@@ -1,0 +1,98 @@
+---
+import { readFile } from 'fs/promises'
+
+interface Props {
+  fragmentPath: string
+}
+
+const { fragmentPath } = Astro.props
+
+const fragment = await readFile(
+  `./src/snippets/shaders/${fragmentPath}`,
+  'utf-8'
+)
+---
+
+<div class="shader">
+  <canvas class="canvas" data-fragment={fragment}></canvas>
+</div>
+
+<script>
+  import { Canvas } from 'glsl-canvas-js'
+
+  const canvases = new Map<HTMLCanvasElement, Canvas>()
+  const getCanvas = (canvas: HTMLCanvasElement) => {
+    const existing = canvases.get(canvas)
+    if (existing) {
+      return existing
+    }
+
+    const instance = new Canvas(canvas)
+    canvases.set(canvas, instance)
+
+    return instance
+  }
+
+  const showCanvas = (canvas: HTMLCanvasElement) => {
+    const instance = getCanvas(canvas)
+    instance.play()
+  }
+
+  /**
+   * Destroys the rendering instance as well as the overall canvas to ensure that
+   * the entire canvas WebGL instance is re-intialized
+   */
+  const destroyCanvas = (
+    obs: IntersectionObserver,
+    canvas: HTMLCanvasElement
+  ) => {
+    const instance = canvases.get(canvas)
+    if (!instance) {
+      return
+    }
+
+    // handle instance checking
+    instance.pause()
+    instance.destroy()
+    canvases.delete(canvas)
+
+    // handle the cloning of the node
+
+    const parent = canvas.parentElement
+    const newCanvas = canvas.cloneNode() as HTMLCanvasElement
+
+    obs.unobserve(canvas)
+    obs.observe(newCanvas)
+
+    parent.removeChild(canvas)
+    parent.appendChild(newCanvas)
+  }
+
+  const observer = new IntersectionObserver((entries) =>
+    entries.forEach((entry) => {
+      const target = entry.target as HTMLCanvasElement
+      if (entry.isIntersecting) {
+        showCanvas(target)
+      } else {
+        destroyCanvas(observer, target)
+      }
+    })
+  )
+
+  document
+    .querySelectorAll('.shader canvas')
+    .forEach((el) => observer.observe(el))
+</script>
+
+<style>
+  .shader {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .canvas {
+      max-width: 70%;
+      aspect-ratio: 1;
+    }
+  }
+</style>

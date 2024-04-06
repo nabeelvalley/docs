@@ -1,0 +1,21 @@
+---
+import Snippet from './Snippet.astro'
+import Shader from './Shader.astro'
+
+interface Props {
+  /**
+   * Path from the `src/snippets/shaders` directory (probably just the file name)
+   */
+  path: string
+}
+
+const { path } = Astro.props
+---
+
+<div class="shader-snippet">
+  <Snippet base="./src/snippets/shaders" path={path} lang="glsl" />
+
+  <Shader fragmentPath={path} />
+</div>
+
+<style is:global></style>
