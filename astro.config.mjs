@@ -18,7 +18,11 @@ export default defineConfig({
   },
   integrations: [
     expressiveCode({
-      themes: ['houston', 'github-light'],
+      themes: ['dracula-soft', 'rose-pine-dawn'],
+      styleOverrides: {
+        codeBackground: 'var(--color-base)',
+        borderColor: 'var(--color-brand)',
+      },
     }),
     mdx({
       extendMarkdownConfig: true,

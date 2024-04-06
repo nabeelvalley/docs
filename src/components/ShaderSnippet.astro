@@ -1,20 +1,20 @@
 ---
-import Snippet from './Snippet.astro'
+import Snippet, { type Props as SnippetProps } from './Snippet.astro'
 import Shader from './Shader.astro'
 
-interface Props {
+interface Props extends Omit<SnippetProps, 'base' | 'lang' | 'path'> {
   /**
    * Path from the `src/snippets/shaders` directory (probably just the file name)
    */
   path: string
 }
 
-const { path } = Astro.props
+const { path, ...rest } = Astro.props
 ---
 
 <div class="shader-snippet">
   <div class="snippet">
-    <Snippet base="./src/snippets/shaders" path={path} lang="glsl" />
+    <Snippet {...rest} base="./src/snippets/shaders" path={path} lang="glsl" />
   </div>
 
   <div class="shader">

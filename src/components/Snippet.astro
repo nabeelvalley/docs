@@ -2,8 +2,14 @@
 import { readFile } from 'fs/promises'
 
 import { Code } from 'astro-expressive-code/components'
+import type { MarkerDefinition } from 'astro-expressive-code'
 
-interface Props {
+type Range = `${number}-${number}` | `${number}`
+
+export interface Props {
+  mark?: Range | Range[]
+  ins?: Range | Range[]
+  del?: Range | Range[]
   /**
    * Base path from which to resolve snippet
    *
@@ -20,19 +26,52 @@ interface Props {
   lang?: 'ts' | 'js' | 'astro' | 'c++' | 'yml' | 'ini' | 'css' | 'glsl'
 }
 
-const { base = './src/snippets', path, lang = 'ts' } = Astro.props
+const {
+  base = './src/snippets',
+  path,
+  lang = 'ts',
+  mark,
+  ins,
+  del,
+} = Astro.props
+
+const marker = (range?: Range | Range[]): MarkerDefinition[] => {
+  if (!range) {
+    return []
+  }
+
+  if (typeof range === 'string') {
+    return [
+      {
+        range,
+      },
+    ]
+  }
+
+  return range.map((r) => ({ range: r }))
+}
 
 const code = await readFile(`${base}/${path}`, 'utf-8')
 ---
 
 <div class="snippet">
-  <Code title={path} code={code} lang={lang} />
+  <Code
+    title={path}
+    code={code}
+    lang={lang}
+    mark={marker(mark)}
+    ins={marker(ins)}
+    del={marker(del)}
+  />
 </div>
 
 <style is:global>
   /* Expressive Code Overrides */
-  .page .expressive-code .frame.has-title:not(.is-terminal) .header {
-    background: transparent;
+
+  .page .expressive-code .frame.has-title:not(.is-terminal) .header .title {
+    width: 100%;
+    background-color: var(--color-brand);
+    color: var(--color-on-brand);
   }
 
   .page .expressive-code .copy {

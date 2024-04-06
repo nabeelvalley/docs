@@ -68,7 +68,7 @@ uniform float iTime;        // shader playback time (in seconds)
 
 We can use uniforms just as any other variable, for example we can use the `u_time` uniform to set the color based on time:
 
-<ShaderSnippet path="002_uniformTime.glsl" />
+<ShaderSnippet path="002_uniformTime.glsl" mark="5-7" />
 
 We can also make use of the GPU accelerated functions like `abs` and `sin`. Some other GPU accelerated functions are `sin()`, `cos()`, `tan()`, `asin()`, `acos()`, `atan()`, `pow()`, `exp()`, `log()`, `sqrt()`, `sign()`, `floor()`, `ceil()`, `fract()`, `mod()`, `min()`, `max()`, and `clamp()`
 
@@ -444,7 +444,7 @@ Or mixing using a `smoothstep` as well:
 
 It is also possible to calculate your own custom curve instead of using something like smoothstep
 
-<ShaderSnippet path="029_perlinCustom.glsl" />
+<ShaderSnippet path="029_perlinCustom.glsl" mark="24-25" />
 
 ### 2D Noise
 
