@@ -1,0 +1,52 @@
+---
+interface Props {
+  main?: number
+  preview?: number
+}
+
+const { main = 2, preview = 1 } = Astro.props
+---
+
+<div class="preview-wrapper">
+  <div class="main">
+    <slot />
+  </div>
+
+  <div class="preview">
+    <div class="sticky">
+      <slot name="preview" />
+    </div>
+  </div>
+</div>
+
+<style define:vars={{ preview, main, cols: main + preview }}>
+  .preview-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+
+    .preview {
+      height: 100%;
+      position: relative;
+    }
+
+    .sticky {
+      position: sticky;
+      top: 3rem;
+    }
+
+    @media (min-width: 800px) {
+      display: grid;
+      grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+
+      .preview {
+        grid-column: auto / span var(--preview);
+      }
+
+      .main {
+        grid-column: auto / span var(--main);
+      }
+    }
+  }
+</style>

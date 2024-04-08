@@ -2,11 +2,11 @@ import { defineConfig } from 'astro/config'
 import sitemap from '@astrojs/sitemap'
 import { remarkModifiedTime } from './src/lib/markdownit-last-modified'
 import mdx from '@astrojs/mdx'
-
 import expressiveCode from 'astro-expressive-code'
-
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
+
+import react from '@astrojs/react'
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,5 +28,6 @@ export default defineConfig({
       extendMarkdownConfig: true,
     }),
     sitemap(),
+    react(),
   ],
 })

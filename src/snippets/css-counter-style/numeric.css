@@ -6,4 +6,6 @@
 
 ol.emoji-numeric {
   list-style: emoji-numeric;
+  list-style-position: inside;
+  padding: 0;
 }

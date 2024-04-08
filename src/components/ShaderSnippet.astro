@@ -2,6 +2,8 @@
 import Snippet, { type Props as SnippetProps } from './Snippet.astro'
 import Shader from './Shader.astro'
 
+import Preview from './Preview.astro'
+
 interface Props extends Omit<SnippetProps, 'base' | 'lang' | 'path'> {
   /**
    * Path from the `src/snippets/shaders` directory (probably just the file name)
@@ -12,46 +14,7 @@ interface Props extends Omit<SnippetProps, 'base' | 'lang' | 'path'> {
 const { path, ...rest } = Astro.props
 ---
 
-<div class="shader-snippet">
-  <div class="snippet">
-    <Snippet {...rest} base="./src/snippets/shaders" path={path} lang="glsl" />
-  </div>
-
-  <div class="shader">
-    <div class="sticky">
-      <Shader fragmentPath={path} />
-    </div>
-  </div>
-</div>
-
-<style>
-  .shader-snippet {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    grid-template-columns: 1fr;
-
-    .shader {
-      height: 100%;
-      position: relative;
-    }
-
-    .sticky {
-      position: sticky;
-      top: 3rem;
-    }
-
-    @media (min-width: 800px) {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-
-      .shader {
-        grid-column: auto / span 1;
-      }
-
-      .snippet {
-        grid-column: auto / span 2;
-      }
-    }
-  }
-</style>
+<Preview>
+  <Snippet {...rest} base="./src/snippets/shaders" path={path} lang="glsl" />
+  <Shader slot="preview" fragmentPath={path} />
+</Preview>

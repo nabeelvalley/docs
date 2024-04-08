@@ -5,9 +5,7 @@ subtitle: 21 March 2024
 published: true
 ---
 
-import Snippet from '@/components/Snippet.astro'
-import '@/snippets/css-counter-style/cyclic.css'
-import '@/snippets/css-counter-style/numeric.css'
+import Snippet from '@/components/CSSSnippet.astro'
 
 The CSS `@counter-style` rule is used for defining list-styles in CSS
 
@@ -30,49 +28,49 @@ The syntax is pretty simple:
 
 For the sake of example, I'll be using Emojis as the symbols to display. We can define a cycle which uses some emojis like so:
 
-<Snippet path="css-counter-style/cyclic.css" lang="css" />
-
-<ul class="emoji-cyclic">
-  <li>Item 1</li>
-  <li>Item 2</li>
-  <li>Item 3</li>
-  <li>Item 4</li>
-  <li>Item 5</li>
-  <li>Item 7</li>
-  <li>Item 8</li>
-  <li>Item 9</li>
-  <li>Item 10</li>
-</ul>
+<Snippet path="css-counter-style/cyclic.css" size="s">
+  <ul class="emoji-cyclic">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+    <li>Item 5</li>
+    <li>Item 7</li>
+    <li>Item 8</li>
+    <li>Item 9</li>
+    <li>Item 10</li>
+  </ul>
+</Snippet>
 
 ## Numeric Counter Style
 
 For this example, we'll use emoji numbers for the counter style
 
-<Snippet path="css-counter-style/numeric.css" lang="css" />
-
-<ol class="emoji-numeric">
-  <li>Item 1</li>
-  <li>Item 2</li>
-  <li>Item 3</li>
-  <li>Item 4</li>
-  <li>Item 5</li>
-</ol>
-
-<ol class="emoji-numeric" start="11">
-  <li>Item 11</li>
-  <li>Item 12</li>
-  <li>Item 13</li>
-  <li>Item 14</li>
-  <li>Item 15</li>
-</ol>
-
-<ol class="emoji-numeric" start="111">
-  <li>Item 111</li>
-  <li>Item 112</li>
-  <li>Item 113</li>
-  <li>Item 114</li>
-  <li>Item 115</li>
-</ol>
+<Snippet path="css-counter-style/numeric.css" size="s">
+  <div>
+    <ol class="emoji-numeric">
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+      <li>Item 4</li>
+      <li>Item 5</li>
+    </ol>
+    <ol class="emoji-numeric" start="11">
+      <li>Item 11</li>
+      <li>Item 12</li>
+      <li>Item 13</li>
+      <li>Item 14</li>
+      <li>Item 15</li>
+    </ol>
+    <ol class="emoji-numeric" start="111">
+      <li>Item 111</li>
+      <li>Item 112</li>
+      <li>Item 113</li>
+      <li>Item 114</li>
+      <li>Item 115</li>
+    </ol>
+  </div>
+</Snippet>
 
 ## References
 
