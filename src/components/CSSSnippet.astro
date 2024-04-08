@@ -2,15 +2,18 @@
 import { readFile } from 'fs/promises'
 
 import Snippet, { type Props as SnippetProps } from './Snippet.astro'
-import Shader from './Shader.astro'
 
 import Preview from './Preview.astro'
-import { CSSPreview } from './CSSPreview'
+import { CSSPreview, type Props as CSSPreviewProps } from './CSSPreview'
 
 type PreviewSize = 's' | 'm' | 'l'
 
 interface Props extends Omit<SnippetProps, 'lang'> {
   size: PreviewSize
+  /**
+   * Variables configured as { '--name': config }
+   */
+  variables?: CSSPreviewProps['variables']
 }
 
 const sizes: Record<PreviewSize, [number, number]> = {
@@ -19,7 +22,7 @@ const sizes: Record<PreviewSize, [number, number]> = {
   s: [2, 1],
 }
 
-const { size = 'm', base = './src/snippets', path } = Astro.props
+const { size = 'm', base = './src/snippets', path, variables } = Astro.props
 
 const [main, preview] = sizes[size]
 
@@ -28,7 +31,12 @@ const code = await readFile(`${base}/${path}`, 'utf-8')
 
 <Preview main={main} preview={preview}>
   <Snippet {...Astro.props} lang="css" />
-  <CSSPreview slot="preview" client:only="react" css={code}>
+  <CSSPreview
+    slot="preview"
+    client:only="react"
+    css={code}
+    variables={variables || {}}
+  >
     <slot />
   </CSSPreview>
 </Preview>

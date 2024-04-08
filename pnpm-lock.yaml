@@ -26,6 +26,9 @@ dependencies:
   '@astrojs/sitemap':
     specifier: ^3.0.5
     version: 3.0.5
+  '@tweakpane/core':
+    specifier: ^2.0.3
+    version: 2.0.3
   '@types/dom-view-transitions':
     specifier: ^1.0.4
     version: 1.0.4
@@ -134,9 +137,15 @@ dependencies:
   ts-node:
     specifier: ^10.9.1
     version: 10.9.1(@types/node@20.0.0)(typescript@4.9.5)
+  tweakpane:
+    specifier: ^4.0.3
+    version: 4.0.3
   typescript:
     specifier: ^4.9.5
     version: 4.9.5
+  use-tweaks:
+    specifier: ^0.3.1
+    version: 0.3.1(react@18.2.0)(tweakpane@4.0.3)
   vitest:
     specifier: ^1.1.3
     version: 1.1.3(@types/node@20.0.0)(@vitest/ui@1.1.3)(jsdom@18.1.1)
@@ -1674,6 +1683,10 @@ packages:
 
   /@tsconfig/node16@1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
+    dev: false
+
+  /@tweakpane/core@2.0.3:
+    resolution: {integrity: sha512-qHci4XA1Wngpwy8IzsLh5JEdscz8aDti/9YhyOaq01si+cgNDaZfwzTtXdn1+xTxSnCM+pW4Zb2/4eqn+K1ATw==}
     dev: false
 
   /@types/acorn@4.0.6:
@@ -3991,6 +4004,13 @@ packages:
   /get-value@2.0.6:
     resolution: {integrity: sha512-Ln0UQDlxH1BapMu3GPtf7CuYNwRZf2gwCuPqbyG6pB8WfmFpzqcy4xtAaAMUhnNqjMKTiCPZG2oMT3YSx8U2NA==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /get-value@3.0.1:
+    resolution: {integrity: sha512-mKZj9JLQrwMBtj5wxi6MH8Z5eSKaERpAwjg43dPtlGI1ZVEgH/qC7T8/6R2OBSUA+zzHBZgICsVJaEIV2tKTDA==}
+    engines: {node: '>=6.0'}
+    dependencies:
+      isobject: 3.0.1
     dev: false
 
   /github-from-package@0.0.0:
@@ -7638,6 +7658,13 @@ packages:
       split-string: 3.1.0
     dev: false
 
+  /set-value@3.0.3:
+    resolution: {integrity: sha512-Xsn/XSatoVOGBbp5hs3UylFDs5Bi9i+ArpVJKdHPniZHoEgRniXTqHWrWrGQ0PbEClVT6WtfnBwR8CAHC9sveg==}
+    engines: {node: '>=6.0'}
+    dependencies:
+      is-plain-object: 2.0.4
+    dev: false
+
   /setprototypeof@1.1.0:
     resolution: {integrity: sha512-BvE/TwpZX4FXExxOxZyRGQQv651MSwmWKZGqvmPcRIjDqWub67kTKuIMx43cZZrS/cBBzwBcNDWoFxt2XEFIpQ==}
     dev: false
@@ -8290,6 +8317,10 @@ packages:
       safe-buffer: 5.2.1
     dev: false
 
+  /tweakpane@4.0.3:
+    resolution: {integrity: sha512-BlcWOAe8oe4c+k9pmLBARGdWB6MVZMszayekkixQXTgkxTaYoTUpHpwVEp+3HkoamZkomodpbBf0CkguIHTgLg==}
+    dev: false
+
   /type-check@0.3.2:
     resolution: {integrity: sha512-ZCmOJdvOWDBYJlzAoFkC+Q0+bUyEOS1ltgp1MGU03fqHG+dbi9tBFU2Rd9QKiDZFAYrhPh2JUf7rZRIuHRKtOg==}
     engines: {node: '>= 0.8.0'}
@@ -8541,6 +8572,19 @@ packages:
     dependencies:
       querystringify: 2.2.0
       requires-port: 1.0.0
+    dev: false
+
+  /use-tweaks@0.3.1(react@18.2.0)(tweakpane@4.0.3):
+    resolution: {integrity: sha512-nU/FMPTHP50iNDCh8zBoBc81rlhh98GksHouUOWZGqhEskVDD9+UlOojRgXgSLt0Shblmzcm7s9zAbvvLLoFFw==}
+    peerDependencies:
+      react: '>= 16.8.0'
+      tweakpane: ^1.5.6
+    dependencies:
+      change-case: 4.1.2
+      get-value: 3.0.1
+      react: 18.2.0
+      set-value: 3.0.3
+      tweakpane: 4.0.3
     dev: false
 
   /util-deprecate@1.0.2:
