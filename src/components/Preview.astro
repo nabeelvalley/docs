@@ -26,6 +26,12 @@ const { main = 2, preview = 1 } = Astro.props
     gap: 1rem;
     grid-template-columns: 1fr;
 
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
     .preview {
       height: 100%;
       position: relative;

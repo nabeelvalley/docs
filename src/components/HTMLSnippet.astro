@@ -1,0 +1,28 @@
+---
+import { readFile } from 'fs/promises'
+
+import Snippet, { type Props as SnippetProps } from './Snippet.astro'
+
+import Preview from './Preview.astro'
+
+type PreviewSize = 's' | 'm' | 'l'
+
+interface Props extends Omit<SnippetProps, 'lang'> {
+  size: PreviewSize
+}
+
+const sizes: Record<PreviewSize, [number, number]> = {
+  l: [1, 2],
+  m: [1, 1],
+  s: [2, 1],
+}
+
+const { size = 'm' } = Astro.props
+
+const [main, preview] = sizes[size]
+---
+
+<Preview main={main} preview={preview}>
+  <Snippet {...Astro.props} lang="html" />
+  <slot slot="preview" />
+</Preview>

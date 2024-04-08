@@ -1,0 +1,15 @@
+.hide {
+  display: var(--hide-display);
+  visibility: var(--hide-visibility);
+}
+
+.show {
+  display: var(--show-display);
+  visibility: var(--show-visibility);
+}
+
+.example {
+  padding: 1rem;
+  background-color: var(--color-on-base);
+  color: var(--color-base);
+}
