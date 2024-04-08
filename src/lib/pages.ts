@@ -2,7 +2,7 @@ import { getCollection, type CollectionEntry } from 'astro:content'
 
 export type Collection = Parameters<typeof getCollection>[0]
 
-export const slugSegments: Record<Collection, string> = {
+export const slugSegments: Partial<Record<Collection, string>> = {
   random: 'random',
   photography: 'photography',
 
@@ -11,6 +11,8 @@ export const slugSegments: Record<Collection, string> = {
 
   'docs-md': 'docs',
   'docs-ipynb': 'docs',
+
+  'talks': 'talks',
 }
 
 export const collections: Collection[] = [
@@ -20,6 +22,7 @@ export const collections: Collection[] = [
   'blog-ipynb',
   'docs-md',
   'docs-ipynb',
+  'talks',
 ]
 
 export const getPathParts = (
@@ -27,7 +30,7 @@ export const getPathParts = (
   collection: Collection
 ) => {
   const [path, extension] = entry.id.split('.')
-  const base = slugSegments[collection]
+  const base = slugSegments[collection] || collection
   const slug = `${base}/${path}`
 
   return [slug, extension]

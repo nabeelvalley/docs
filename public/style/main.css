@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;600&family=Courier+Prime:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;600&family=Inconsolata:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 
 @font-face {
   font-family: Monogram;
@@ -30,6 +30,11 @@ b {
 
 h1 {
   font-size: xx-large;
+}
+
+h1,
+h2,
+h3 {
   font-family: var(--font-display);
 }
 
@@ -70,7 +75,7 @@ a {
   --color-on-base: #2d2d2d;
 
   --font-display: 'Cinzel Decorative', serif;
-  --font-body: 'Courier Prime', sans-serif;
+  --font-body: 'Inconsolata', sans-serif;
   --font-monogram: 'Monogram';
 
   --separator-width: 2px;

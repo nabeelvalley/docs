@@ -1,11 +1,12 @@
 ---
-title: Astro Slides
+title: View Transitions and an Astro Presentation Framework
 subtitle: 06 March 2024
 description: Easily create presentations from your existing markdown content
 published: true
 ---
 
 import { Slide, Presentation, SlideOnly } from '@/components/slides'
+import Snippet from '@/components/Snippet.astro'
 
 Well, since this is a post about building a presentation framework within your Astro site, it may be worth mentioning that you can view this page as a presentation using the below button:
 
@@ -539,6 +540,13 @@ As it stands right now the implementation is pretty simple but leaves a lot of s
 We used some interesting CSS here and overall we can see that it's not alays a huge amount of work to write your own implementation of something.
 
 </Slide>
+
+Additionally, for the sake of completeness - since this component is alive and ever changing within this website - you can view the current state of the code (sans commentary) below 
+
+<Snippet base="./src/components/slides" path="Slide.astro" lang="html" />
+
+<Snippet base="./src/components/slides" path="Presentation.astro" lang="html" />
+
 
 # References
 

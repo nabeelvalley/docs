@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content'
+import LinkBlock from '../components/LinkBlock.astro'
+import Title from '../components/Title.astro'
+import Base from '../layouts/Base.astro'
+import LinkGrid from '../components/LinkGrid.astro'
+
+const collection = await getCollection('talks')
+
+const talks = collection
+  .filter((p) => p.data.published !== false)
+  .sort((a, b) =>
+    new Date(a.data.subtitle).getTime() - new Date(b.data.subtitle).getTime() >
+    0
+      ? -1
+      : 1
+  )
+---
+
+<Base>
+  <Title title="Talks" />
+
+  <article>Slides from my presentations, talks, and workshops.</article>
+  <div class="grid">
+    <LinkGrid>
+      {
+        talks.map((page) => (
+          <LinkBlock
+            title={page.data.title}
+            subtitle={page.data.subtitle}
+            description={page.data.description}
+            link={`/talks/${page.id.split('.')[0]}`}
+          />
+        ))
+      }
+    </LinkGrid>
+  </div>
+</Base>
+
+<style>
+  .grid {
+    margin-top: 48px;
+  }
+</style>

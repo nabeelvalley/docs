@@ -58,6 +58,7 @@ const renderers = {
   'docs-ipynb': (entry: Props<'docs-ipynb'>) => renderIpynb(entry),
   photography: (entry: Props<'photography'>) => entry.entry.render(),
   random: (entry: Props<'random'>) => entry.entry.render(),
+  talks: (entry: Props<'talks'>) => entry.entry.render(),
 }
 
 const { props } = Astro

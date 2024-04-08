@@ -28,5 +28,7 @@ export const collections = {
   'docs-md': defineCollection({ type: 'content', schema }),
   'docs-ipynb': defineCollection({ type: 'data', schema }),
 
+  talks: defineCollection({type: 'content', schema}),
+
   books: defineCollection({ type: 'data', schema: bookSchema }),
 }
