@@ -1,5 +1,5 @@
 import type { CSSProperties, MouseEventHandler } from 'react'
-import { useLayoutEffect } from 'react'
+import { useId, useLayoutEffect } from 'react'
 import { useRef } from 'react'
 import { useState } from 'react'
 
@@ -12,6 +12,7 @@ export interface Props {
 }
 
 export const CSSPreview = (props: Props) => {
+  const id = Math.random().toString().split('.')[1]
   const pane = useRef<Pane>()
   const controls = useRef<HTMLDivElement>(null)
 
@@ -51,13 +52,15 @@ export const CSSPreview = (props: Props) => {
     }
   })
 
+  const wrappedCSS = `#snippet-${id} { ${props.css} }`
+
   return (
-    <div style={tweaks as CSSProperties}>
+    <div id={'snippet-' + id} style={tweaks as CSSProperties}>
       <div style={{ marginBottom: '1rem' }} ref={controls}></div>
 
       <div>{props.children}</div>
 
-      <style dangerouslySetInnerHTML={{ __html: props.css }} />
+      <style dangerouslySetInnerHTML={{ __html: wrappedCSS }} />
     </div>
   )
 }
