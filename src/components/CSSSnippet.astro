@@ -46,7 +46,7 @@ const html = await (htmlPath
 
 <Preview main={main} preview={preview}>
   <div class="snippets">
-    {showHTML ? <Snippet path={htmlPath} lang="html" /> : null}
+    {showHTML && htmlPath ? <Snippet path={htmlPath} lang="html" /> : null}
     <Snippet {...Astro.props} lang="css" />
   </div>
   <CSSPreview
