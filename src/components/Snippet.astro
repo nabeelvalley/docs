@@ -2,14 +2,16 @@
 import { readFile } from 'fs/promises'
 
 import { Code } from 'astro-expressive-code/components'
-import type { MarkerDefinition } from 'astro-expressive-code'
+import type { MarkerDefinition, MarkerLineOrRange } from 'astro-expressive-code'
 
-type Range = `${number}-${number}` | `${number}`
+type Range = `${number}-${number}` | `${number}` | string
+
+type Mark = Range | Range[] | MarkerLineOrRange | MarkerLineOrRange[] | RegExp
 
 export interface Props {
-  mark?: Range | Range[]
-  ins?: Range | Range[]
-  del?: Range | Range[]
+  mark?: Mark
+  ins?: Mark
+  del?: Mark
   /**
    * Base path from which to resolve snippet
    *
@@ -35,20 +37,39 @@ const {
   del,
 } = Astro.props
 
-const marker = (range?: Range | Range[]): MarkerDefinition[] => {
+const isMarkerArray = (mark: Mark): mark is Range[] | MarkerLineOrRange[] =>
+  mark instanceof Array
+
+const isRange = (mark: string): mark is Range => {
+  const rx = /^(\d+)|(\d+\-\d+)$/g
+  return rx.test(mark)
+}
+
+const markSingle = (mark: Range | MarkerDefinition): MarkerDefinition => {
+  if (typeof mark === 'string') {
+    const rng = isRange(mark)
+    if (rng) {
+      return { range: mark }
+    } else {
+      return mark
+    }
+  }
+
+  return mark
+}
+
+const marker = (range?: Mark): MarkerDefinition[] => {
   if (!range) {
     return []
   }
 
-  if (typeof range === 'string') {
-    return [
-      {
-        range,
-      },
-    ]
+  const isArr = isMarkerArray(range)
+
+  if (isArr) {
+    return range.map(markSingle)
   }
 
-  return range.map((r) => ({ range: r }))
+  return [markSingle(range)]
 }
 
 const code = await readFile(`${base}/${path}`, 'utf-8')

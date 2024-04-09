@@ -13,15 +13,11 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 <Presentation />
 
 <Slide>
-<SlideOnly>
-# An Introduction to CSS
-</SlideOnly>
+# An Introduction to CSS Layouts
 </Slide>
 
 <Slide>
-<SlideOnly>
 # Agenda
-</SlideOnly>
 
 - Basic Syntax
 - Selectors
@@ -39,11 +35,19 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 </Slide>
 
 
-
 <Slide>
 ## Now let's style it
 
-<CSSSnippet path="css-basic-layouts/syntax.css" html htmlFirst htmlPath="css-basic-layouts/Syntax.astro"/>
+<CSSSnippet 
+path="css-basic-layouts/syntax.css" 
+html 
+htmlFirst
+htmlPath="css-basic-layouts/Syntax.astro"
+mark={[{
+    range: "3",
+    label: "1"
+}]}
+/>
 </Slide>
 
 <Slide centered>
@@ -61,7 +65,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 <Slide>
 # References 
 
-Anything by Josh W. Comeau is always amazing
+Anything by Josh W. Comeau pretty much
 
 - [Understanding Layout Algorithms](https://www.joshwcomeau.com/css/understanding-layout-algorithms/)
 - [An Interactive Guide to CSS Grid](https://www.joshwcomeau.com/css/interactive-guide-to-grid/)
