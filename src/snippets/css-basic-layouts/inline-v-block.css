@@ -1,0 +1,32 @@
+.example {
+    background-color: lightblue;
+}
+
+.spacer {
+    padding: 10px;
+    background-color: lightgrey;
+}
+
+.content {
+    background-color: lightgrey;
+    height: 50px;
+}
+
+.block, .inline, .inline-block {
+    background-color: lightcoral;
+    border: .5rem solid lightgreen;
+    padding: 1rem;
+    margin: 1.5rem;
+}
+
+.block {
+    display: block;
+}
+
+.inline {
+    display: inline;
+}
+
+.inline-block {
+    display: inline-block;
+}

@@ -31,6 +31,7 @@ const {
   path,
   variables,
   htmlPath,
+  html: showHTML = false,
 } = Astro.props;
 
 const [main, preview] = sizes[size];
@@ -45,7 +46,7 @@ const html = await (htmlPath
 
 <Preview main={main} preview={preview}>
   <div class="snippets">
-    {html ? <Snippet path={htmlPath} lang="html" /> : null}
+    {showHTML ? <Snippet path={htmlPath} lang="html" /> : null}
     <Snippet {...Astro.props} lang="css" />
   </div>
   <CSSPreview

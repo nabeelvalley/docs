@@ -1,78 +1,92 @@
 ---
-import { readFile } from 'fs/promises'
+import { readFile } from "fs/promises";
 
-import { Code } from 'astro-expressive-code/components'
-import type { MarkerDefinition, MarkerLineOrRange } from 'astro-expressive-code'
+import { Code } from "astro-expressive-code/components";
+import type {
+  MarkerDefinition,
+  MarkerLineOrRange,
+} from "astro-expressive-code";
 
-type Range = `${number}-${number}` | `${number}` | string
+type Range = `${number}-${number}` | `${number}` | string;
 
-type Mark = Range | Range[] | MarkerLineOrRange | MarkerLineOrRange[] | RegExp
+type Mark = Range | Range[] | MarkerLineOrRange | MarkerLineOrRange[] | RegExp;
 
 export interface Props {
-  mark?: Mark
-  ins?: Mark
-  del?: Mark
+  mark?: Mark;
+  ins?: Mark;
+  del?: Mark;
+  collapse?: Range | Range[];
   /**
    * Base path from which to resolve snippet
    *
    */
-  base?: string
+  base?: string;
   /**
    * Path from the `base` directory, e.g. `algorithms/union-find/quick-find.ts`
    */
-  path: string
+  path: string;
   /**
    * Languages supported by the Astro Code component. Add languages here as needed since Astro does
    * not expose this type
    */
-  lang?: 'ts' | 'js' | 'astro' | 'c++' | 'yml' | 'ini' | 'css' | 'glsl' | 'html'
+  lang?:
+    | "ts"
+    | "js"
+    | "astro"
+    | "c++"
+    | "yml"
+    | "ini"
+    | "css"
+    | "glsl"
+    | "html";
 }
 
 const {
-  base = './src/snippets',
+  base = "./src/snippets",
   path,
-  lang = 'ts',
+  lang = "ts",
   mark,
   ins,
   del,
-} = Astro.props
+  collapse,
+} = Astro.props;
 
 const isMarkerArray = (mark: Mark): mark is Range[] | MarkerLineOrRange[] =>
-  mark instanceof Array
+  mark instanceof Array;
 
 const isRange = (mark: string): mark is Range => {
-  const rx = /^(\d+)|(\d+\-\d+)$/g
-  return rx.test(mark)
-}
+  const rx = /^(\d+)|(\d+\-\d+)$/g;
+  return rx.test(mark);
+};
 
 const markSingle = (mark: Range | MarkerDefinition): MarkerDefinition => {
-  if (typeof mark === 'string') {
-    const rng = isRange(mark)
+  if (typeof mark === "string") {
+    const rng = isRange(mark);
     if (rng) {
-      return { range: mark }
+      return { range: mark };
     } else {
-      return mark
+      return mark;
     }
   }
 
-  return mark
-}
+  return mark;
+};
 
 const marker = (range?: Mark): MarkerDefinition[] => {
   if (!range) {
-    return []
+    return [];
   }
 
-  const isArr = isMarkerArray(range)
+  const isArr = isMarkerArray(range);
 
   if (isArr) {
-    return range.map(markSingle)
+    return range.map(markSingle);
   }
 
-  return [markSingle(range)]
-}
+  return [markSingle(range)];
+};
 
-const code = await readFile(`${base}/${path}`, 'utf-8')
+const code = await readFile(`${base}/${path}`, "utf-8");
 ---
 
 <div class="snippet">
@@ -83,6 +97,7 @@ const code = await readFile(`${base}/${path}`, 'utf-8')
     mark={marker(mark)}
     ins={marker(ins)}
     del={marker(del)}
+    collapse={collapse}
   />
 </div>
 

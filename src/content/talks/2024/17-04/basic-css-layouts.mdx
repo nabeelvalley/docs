@@ -9,6 +9,7 @@ import Snippet from '@/components/Snippet.astro'
 import CSSSnippet from '@/components/CSSSnippet.astro'
 import HTMLSnippet from '@/components/HTMLSnippet.astro'
 import { Slide, Presentation, SlideOnly } from '@/components/slides'
+import BoxModelExample from '@/snippets/css-basic-layouts/BoxModelStandalone.astro'
 
 
 <Presentation />
@@ -16,7 +17,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 <Slide centered>
 # ZOOOOOOM!
 
-> Is everything big enough
+> Is everything big enough and are we in dark mode?
 </Slide>
 
 <Slide centered>
@@ -28,10 +29,9 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 - Basic Syntax
 - Selectors
-- "The Cascade"
-- Layout Algorithms
-- Flex 
-- Grid
+- Cascade
+- Box Model
+- Debugging
 </Slide>
 
 <Slide>
@@ -97,11 +97,8 @@ ins={[
 
 </Slide>
 
-
-
 <Slide>
 # Combinators
-
 
 <CSSSnippet
 path="css-basic-layouts/combinators.css" 
@@ -121,13 +118,12 @@ del={
 </Slide>
 
 <Slide centered>
-# The "Cascade"
+# The Cascade
 
 - CSS stands for "Cascading Style Sheets"
 - The Cascade determines which specific styles get applied to an element
 - Specificity of a selector matters
 - Order of rules matter
-- Order is used as a tie breaker for equal specificity
 
 </Slide>
 
@@ -137,6 +133,11 @@ del={
 - Used by browser to determine the most relevant declaration
 - Based on the selector used
 - Type of selector, combinators used, and level of impact this 
+
+# Order 
+
+- Where is the style in the stylesheet
+- Used to break ties in specificity
 </Slide>
 
 <Slide>
@@ -162,6 +163,23 @@ del={
 </Slide>
 
 <Slide>
+# Impact of Specificity
+
+<CSSSnippet
+path="css-basic-layouts/combinators.css" 
+htmlPath="css-basic-layouts/Combinators.astro"
+/>
+
+<CSSSnippet
+path="css-basic-layouts/specificity.css" 
+htmlPath="css-basic-layouts/Specificity.astro"
+/>
+
+
+
+</Slide>
+
+<Slide>
 # Psuedo-class Selectors
 
 - Used in addition to other selectors
@@ -183,12 +201,52 @@ ins=":valid"
 />
 </Slide>
 
+<Slide>
+# The Box Model 
 
-<Slide centered>
-# Layout Algorithms
+>  Rectangles all the way down
 
-> "CSS properties on their own are meaningless. It's up to the layout algorithm to define what they do, how they're used in the calculations." - Josh W. Comeau
+<CSSSnippet
+path="css-basic-layouts/box-model.css" 
+html
+htmlPath="css-basic-layouts/BoxModel.astro"
+ins="17"
+del="18"
+mark="19"
+collapse="1-9"
+/>
+</Slide>
 
+<Slide>
+# Block vs Inline Block 
+
+- Layout behaves and interacts differently
+- Sizing is calculated differently
+- Some properties will behave differently based on this
+
+<CSSSnippet
+path="css-basic-layouts/inline-v-block.css" 
+htmlPath="css-basic-layouts/InlineVBlock.astro"
+mark={["23", "27", "31"]}
+collapse="1-21"
+/>
+
+</Slide>
+
+<Slide>
+# Debugging 
+
+>  Firefox has the best CSS Tooling (in general)
+
+<BoxModelExample />
+</Slide>
+
+<Slide>
+# And if you're still stuck
+
+> Well, you can just:
+
+<HTMLSnippet path="css-basic-layouts/DebugCSSButton.astro" />
 </Slide>
 
 

@@ -3,165 +3,165 @@
 >
 
 <script>
-  import { createSyncReader, createSyncWriter } from '../sync'
+  import { createSyncReader, createSyncWriter } from "../sync";
 
   const button = document.getElementById(
-    'presentation-button'
-  ) as HTMLButtonElement
+    "presentation-button"
+  ) as HTMLButtonElement;
 
-  let slides = Array.from(document.querySelectorAll('.presentation-slide'))
+  let slides = Array.from(document.querySelectorAll(".presentation-slide"));
 
-  let slide = 0
-  let presenter = false
+  let slide = 0;
+  let presenter = false;
 
-  const presentationId = window.location.href
-  const syncWriter = createSyncWriter<number>(presentationId)
+  const presentationId = window.location.href;
+  const syncWriter = createSyncWriter<number>(presentationId);
 
   const nextSlide = () => {
     if (slide === slides.length - 1) {
-      return slide
+      return slide;
     }
 
-    return slide + 1
-  }
+    return slide + 1;
+  };
 
   const prevSlide = () => {
     if (slide === 0) {
-      return slide
+      return slide;
     }
 
-    return slide - 1
-  }
+    return slide - 1;
+  };
 
-  const nextClass = 'presentation-next'
-  const currClass = 'presentation-current'
-  const prevClass = 'presentation-prev'
+  const nextClass = "presentation-next";
+  const currClass = "presentation-current";
+  const prevClass = "presentation-prev";
 
-  const transitionClasses = [nextClass, currClass, prevClass]
+  const transitionClasses = [nextClass, currClass, prevClass];
 
   const keyHandlers: Record<string, () => number> = {
     ArrowRight: nextSlide,
     ArrowLeft: prevSlide,
-  }
+  };
 
   const displaySlides = () => {
     for (let i = 0; i < slides.length; i++) {
-      slides[i].classList.remove('active', 'inactive', ...transitionClasses)
+      slides[i].classList.remove("active", "inactive", ...transitionClasses);
 
       if (i === slide) {
-        slides[i].classList.add('active', currClass)
+        slides[i].classList.add("active", currClass);
       } else {
-        slides[i].classList.add('inactive')
+        slides[i].classList.add("inactive");
 
         if (i > slide) {
-          slides[i].classList.add(nextClass)
+          slides[i].classList.add(nextClass);
         } else {
-          slides[i].classList.add(prevClass)
+          slides[i].classList.add(prevClass);
         }
       }
     }
-  }
+  };
 
   const startPresentation = () => {
-    button.innerHTML = 'Resume presentation'
-    document.body.classList.add('presentation-overflow-hidden')
+    button.innerHTML = "Resume presentation";
+    document.body.classList.add("presentation-overflow-hidden");
 
-    displaySlides()
-  }
+    displaySlides();
+  };
 
   const endPresentation = () => {
-    document.body.classList.remove('presentation-overflow-hidden')
+    document.body.classList.remove("presentation-overflow-hidden");
 
     slides.map((s) =>
-      s.classList.remove('active', 'inactive', ...transitionClasses)
-    )
-  }
+      s.classList.remove("active", "inactive", ...transitionClasses)
+    );
+  };
 
   const setPresenter = () => {
-    presenter = true
-    syncWriter(slide)
-  }
+    presenter = true;
+    syncWriter(slide);
+  };
 
   const transition = (nextSlide: number) => {
     if (slide === nextSlide) {
-      return
+      return;
     }
 
-    slides.forEach((s) => s.classList.remove(...transitionClasses))
+    slides.forEach((s) => s.classList.remove(...transitionClasses));
 
     if (presenter) {
-      syncWriter(nextSlide)
+      syncWriter(nextSlide);
     }
 
-    slide = nextSlide
+    slide = nextSlide;
 
-    displaySlides()
-  }
+    displaySlides();
+  };
 
   // If there is no presentation on the page then we don't initialize
   if (slides.length) {
-    button.classList.remove('presentation-hidden')
-    button.addEventListener('click', startPresentation)
-    createSyncReader<number>(presentationId, slide, transition)
+    button.classList.remove("presentation-hidden");
+    button.addEventListener("click", startPresentation);
+    createSyncReader<number>(presentationId, slide, transition);
 
-    window.addEventListener('keyup', (ev) => {
-      ev.preventDefault()
-      const isEscape = ev.key === 'Escape'
+    window.addEventListener("keyup", (ev) => {
+      ev.preventDefault();
+      const isEscape = ev.key === "Escape";
       if (isEscape) {
-        endPresentation()
-        return
+        endPresentation();
+        return;
       }
 
-      const isSpace = ev.key === ' '
+      const isSpace = ev.key === " ";
       if (isSpace) {
-        setPresenter()
-        return
+        setPresenter();
+        return;
       }
 
-      const getSlide = keyHandlers[ev.key]
+      const getSlide = keyHandlers[ev.key];
 
       if (!getSlide) {
-        return
+        return;
       }
 
-      const nextSlide = getSlide()
-      transition(nextSlide)
-    })
+      const nextSlide = getSlide();
+      transition(nextSlide);
+    });
 
-    let touchstartX = 0
-    let touchendX = 0
+    let touchstartX = 0;
+    let touchendX = 0;
     const handleGesure = () => {
-      const magnitude = Math.abs(touchstartX - touchendX)
+      const magnitude = Math.abs(touchstartX - touchendX);
 
       if (magnitude < 40) {
         // Ignore since this could be a scroll up/down
-        return
+        return;
       }
 
       if (touchendX < touchstartX) {
-        transition(nextSlide())
+        transition(nextSlide());
       }
       if (touchendX > touchstartX) {
-        transition(prevSlide())
+        transition(prevSlide());
       }
-    }
+    };
 
     document.addEventListener(
-      'touchstart',
+      "touchstart",
       (ev) => {
-        touchstartX = ev.changedTouches[0].screenX
+        touchstartX = ev.changedTouches[0].screenX;
       },
       false
-    )
+    );
 
     document.addEventListener(
-      'touchend',
+      "touchend",
       (event) => {
-        touchendX = event.changedTouches[0].screenX
-        handleGesure()
+        touchendX = event.changedTouches[0].screenX;
+        handleGesure();
       },
       false
-    )
+    );
   }
 </script>
 
@@ -183,7 +183,7 @@
 
       visibility: visible;
 
-      transition: transform 500ms ease-in-out;
+      transition: transform 300ms ease-in-out;
 
       display: flex;
       flex-direction: column;
