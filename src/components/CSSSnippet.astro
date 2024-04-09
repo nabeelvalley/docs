@@ -17,6 +17,7 @@ interface Props extends Omit<SnippetProps, 'lang'> {
    */
   variables?: CSSPreviewProps['variables']
   html?: boolean
+  htmlFirst?: boolean
   htmlPath?: string
 }
 
@@ -31,7 +32,6 @@ const {
   base = './src/snippets',
   path,
   variables,
-  html: showHTML = true,
   htmlPath,
 } = Astro.props
 
@@ -48,7 +48,6 @@ const html = await (htmlPath
 <Preview main={main} preview={preview}>
   <div class="snippets">
     <Snippet {...Astro.props} lang="css" />
-    {showHTML ? <Code code={html} lang="html" /> : null}
   </div>
   <CSSPreview
     slot="preview"
@@ -64,5 +63,7 @@ const html = await (htmlPath
   .snippets {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 </style>

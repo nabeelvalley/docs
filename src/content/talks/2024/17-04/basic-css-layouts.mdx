@@ -1,0 +1,74 @@
+---
+title: Introduction to CSS Layouts
+subtitle: 17 April 2024
+description: An basic overview of CSS and some common layout methods
+published: true
+---
+
+import CSSSnippet from '@/components/CSSSnippet.astro'
+import HTMLSnippet from '@/components/HTMLSnippet.astro'
+import { Slide, Presentation, SlideOnly } from '@/components/slides'
+
+
+<Presentation />
+
+<Slide>
+<SlideOnly>
+# An Introduction to CSS
+</SlideOnly>
+</Slide>
+
+<Slide>
+<SlideOnly>
+# Agenda
+</SlideOnly>
+
+- Basic Syntax
+- Selectors
+- "The Cascade"
+</Slide>
+
+<Slide>
+# Basic Syntax
+</Slide>
+
+<Slide>
+## Let's get some markup
+
+<HTMLSnippet path="css-basic-layouts/Syntax.astro" />
+</Slide>
+
+
+
+<Slide>
+## Now let's style it
+
+<CSSSnippet path="css-basic-layouts/syntax.css" html htmlFirst htmlPath="css-basic-layouts/Syntax.astro"/>
+</Slide>
+
+<Slide centered>
+
+# Layout Algorithms
+
+> "CSS properties on their own are meaningless. It's up to the layout algorithm to define what they do, how they're used in the calculations." - Josh W. Comeau
+
+</Slide>
+
+<Slide centered>
+## A working example
+</Slide>
+
+<Slide>
+# References 
+
+Anything by Josh W. Comeau is always amazing
+
+- [Understanding Layout Algorithms](https://www.joshwcomeau.com/css/understanding-layout-algorithms/)
+- [An Interactive Guide to CSS Grid](https://www.joshwcomeau.com/css/interactive-guide-to-grid/)
+- [An Interactive Guide to Flexbox](https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/)
+
+MDN 
+
+- [CSS Syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax)
+
+</Slide>
