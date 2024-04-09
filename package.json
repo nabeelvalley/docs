@@ -22,6 +22,8 @@
     "@astrojs/react": "^3.1.1",
     "@astrojs/rss": "^3.0.0",
     "@astrojs/sitemap": "^3.0.5",
+    "@expressive-code/plugin-collapsible-sections": "^0.34.1",
+    "@expressive-code/plugin-line-numbers": "^0.34.1",
     "@tweakpane/core": "^2.0.3",
     "@types/dom-view-transitions": "^1.0.4",
     "@types/react": "^18.2.74",

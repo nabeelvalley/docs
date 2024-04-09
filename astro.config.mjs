@@ -17,13 +17,7 @@ export default defineConfig({
     rehypePlugins: [rehypeKatex],
   },
   integrations: [
-    expressiveCode({
-      themes: ['dracula-soft', 'rose-pine-dawn'],
-      styleOverrides: {
-        codeBackground: 'var(--color-base)',
-        borderColor: 'var(--color-brand)',
-      },
-    }),
+    expressiveCode(),
     mdx({
       extendMarkdownConfig: true,
     }),
