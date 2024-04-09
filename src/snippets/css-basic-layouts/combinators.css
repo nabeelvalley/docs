@@ -1,0 +1,12 @@
+/* Descendant */
+.a .b { background-color: green; }
+
+/* Child */
+.a > .b { background-color: blue; }
+
+/* Next-sibling */
+.a + .b {background-color: red; }
+
+/* Multiple */
+.a, .b, .c { padding: 1rem; }
+

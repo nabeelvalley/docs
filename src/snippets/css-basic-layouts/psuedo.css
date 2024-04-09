@@ -1,0 +1,23 @@
+input {
+    padding: 1rem;
+    font-size: large;
+    font-weight: bold;
+    border: 4px solid black;
+    outline: none;
+}
+
+input:focus {
+    background-color: plum;
+}
+
+input:hover {
+    background-color: lightblue;
+}
+
+input:invalid {
+    border-color: lightcoral;
+}
+
+input:valid {
+    border-color: aquamarine;
+}

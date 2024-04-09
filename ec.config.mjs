@@ -10,5 +10,9 @@ export default defineEcConfig({
       styleOverrides: {
         codeBackground: 'var(--color-base)',
         borderColor: 'var(--color-brand)',
+    textMarkers: {
+        delDiffIndicatorContent: '',
+        insDiffIndicatorContent: ''
+    }
       },
     })

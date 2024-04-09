@@ -1,51 +1,51 @@
 ---
-import { readFile } from 'fs/promises'
-import { format } from 'prettier'
+import { readFile } from "fs/promises";
+import { format } from "prettier";
 
-import Snippet, { type Props as SnippetProps } from './Snippet.astro'
+import Snippet, { type Props as SnippetProps } from "./Snippet.astro";
 
-import Preview from './Preview.astro'
-import { CSSPreview, type Props as CSSPreviewProps } from './CSSPreview'
+import Preview from "./Preview.astro";
+import { CSSPreview, type Props as CSSPreviewProps } from "./CSSPreview";
 
-type PreviewSize = 's' | 'm' | 'l'
+type PreviewSize = "s" | "m" | "l";
 
-interface Props extends Omit<SnippetProps, 'lang'> {
-  size: PreviewSize
+interface Props extends Omit<SnippetProps, "lang"> {
+  size: PreviewSize;
   /**
    * Variables configured as { '--name': config }
    */
-  variables?: CSSPreviewProps['variables']
-  html?: boolean
-  htmlFirst?: boolean
-  htmlPath?: string
+  variables?: CSSPreviewProps["variables"];
+  html?: boolean;
+  htmlPath?: string;
 }
 
 const sizes: Record<PreviewSize, [number, number]> = {
   l: [1, 2],
   m: [1, 1],
   s: [2, 1],
-}
+};
 
 const {
-  size = 'm',
-  base = './src/snippets',
+  size = "m",
+  base = "./src/snippets",
   path,
   variables,
   htmlPath,
-} = Astro.props
+} = Astro.props;
 
-const [main, preview] = sizes[size]
+const [main, preview] = sizes[size];
 
-const code = await readFile(`${base}/${path}`, 'utf-8')
+const code = await readFile(`${base}/${path}`, "utf-8");
 
-const rawHTML = await Astro.slots.render('default')
+const rawHTML = await Astro.slots.render("default");
 const html = await (htmlPath
-  ? readFile(`${base}/${htmlPath}`, 'utf-8')
-  : format(rawHTML, { parser: 'html' }))
+  ? readFile(`${base}/${htmlPath}`, "utf-8")
+  : format(rawHTML, { parser: "html" }));
 ---
 
 <Preview main={main} preview={preview}>
   <div class="snippets">
+    {html ? <Snippet path={htmlPath} lang="html" /> : null}
     <Snippet {...Astro.props} lang="css" />
   </div>
   <CSSPreview

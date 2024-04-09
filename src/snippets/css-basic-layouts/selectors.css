@@ -1,0 +1,14 @@
+/* Element */
+h1 {}
+
+/* ID */
+#thing-id {}
+
+/* Class */
+.some-class {}
+
+/* Attribute */
+some-selector[myattr="value"] {}
+
+/* Psuedo-class */
+some-selector:psuedoclass {}

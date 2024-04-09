@@ -5,6 +5,7 @@ description: An basic overview of CSS and some common layout methods
 published: false
 ---
 
+import Snippet from '@/components/Snippet.astro'
 import CSSSnippet from '@/components/CSSSnippet.astro'
 import HTMLSnippet from '@/components/HTMLSnippet.astro'
 import { Slide, Presentation, SlideOnly } from '@/components/slides'
@@ -12,28 +13,34 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 <Presentation />
 
-<Slide>
+<Slide centered>
+# ZOOOOOOM!
+
+> Is everything big enough
+</Slide>
+
+<Slide centered>
 # An Introduction to CSS Layouts
 </Slide>
 
-<Slide>
+<Slide centered>
 # Agenda
 
 - Basic Syntax
 - Selectors
 - "The Cascade"
-</Slide>
-
-<Slide>
-# Basic Syntax
+- Layout Algorithms
+- Flex 
+- Grid
 </Slide>
 
 <Slide>
 ## Let's get some markup
 
+> Well, we need something to style
+
 <HTMLSnippet path="css-basic-layouts/Syntax.astro" />
 </Slide>
-
 
 <Slide>
 ## Now let's style it
@@ -43,24 +50,147 @@ path="css-basic-layouts/syntax.css"
 html 
 htmlFirst
 htmlPath="css-basic-layouts/Syntax.astro"
-mark={[{
-    range: "3",
-    label: "1"
+ins={[{
+    range: "6-10",
+    label: "2"
 }]}
+mark={[
+{
+    range: "2",
+    label: "1"
+},
+{
+    range: "3",
+    label: "3"
+},
+{
+    range: "12",
+    label: "4"
+}, ".fancy"]}
+del={[{
+    range: "16",
+    label: "5"
+}, ":hover"]}
 />
 </Slide>
 
 <Slide centered>
+# Selectors
 
+<Snippet
+path="css-basic-layouts/selectors.css" 
+ins={[
+    {range: "1-2", label: "Element Selector"},
+    {range: "4-5", label: "ID Selector"},
+    {range: "7-8", label: "Class Selector"},
+    {range: "10-11", label: "Attribute Selector"},
+    {range: "13-14", label: "Psuedo-class Selector"}
+]}
+/>
+</Slide>
+
+
+<Slide>
+# Combining Selectors (Combinators)
+
+<HTMLSnippet path="css-basic-layouts/Combinators.astro" />
+
+</Slide>
+
+
+
+<Slide>
+# Combinators
+
+
+<CSSSnippet
+path="css-basic-layouts/combinators.css" 
+html
+htmlPath="css-basic-layouts/Combinators.astro"
+ins={
+    {range: "1-2", label: "Descendant Selector"}
+}
+mark={[
+    {range: "4-5", label: "Direct Child Selector"},
+    {range: '10-11', label: "Multiple Selectors"}
+]}
+del={
+    {range: "7-8", label: "Next Sibling Selector"}
+}
+/>
+</Slide>
+
+<Slide centered>
+# The "Cascade"
+
+- CSS stands for "Cascading Style Sheets"
+- The Cascade determines which specific styles get applied to an element
+- Specificity of a selector matters
+- Order of rules matter
+- Order is used as a tie breaker for equal specificity
+
+</Slide>
+
+<Slide centered>
+# Specificity
+
+- Used by browser to determine the most relevant declaration
+- Based on the selector used
+- Type of selector, combinators used, and level of impact this 
+</Slide>
+
+<Slide>
+## Calculated Specificity
+
+Rules for specificity are pretty tricky, but your IDE should show this to you when hovering over a class
+
+<CSSSnippet
+path="css-basic-layouts/specificity.css" 
+html
+htmlPath="css-basic-layouts/Specificity.astro"
+ins={
+    {range: "1-2", label: "(1, 1, 0) - Most Specific"}
+}
+mark={[
+    {range: "4-5", label: "(0, 1, 0) - Least Specific"},
+]}
+del={
+    {range: "7-8", label: "(0, 2, 0)"}
+}
+/>
+
+</Slide>
+
+<Slide>
+# Psuedo-class Selectors
+
+- Used in addition to other selectors
+- Select an element based on DOM state
+</Slide>
+
+<Slide>
+# Some common Psuedo-classes
+
+<CSSSnippet
+path="css-basic-layouts/psuedo.css" 
+html
+htmlPath="css-basic-layouts/Psuedo.astro"
+mark={[
+":hover", ":focus"
+]}
+del=":invalid"
+ins=":valid"
+/>
+</Slide>
+
+
+<Slide centered>
 # Layout Algorithms
 
 > "CSS properties on their own are meaningless. It's up to the layout algorithm to define what they do, how they're used in the calculations." - Josh W. Comeau
 
 </Slide>
 
-<Slide centered>
-## A working example
-</Slide>
 
 <Slide>
 # References 
