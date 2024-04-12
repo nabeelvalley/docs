@@ -5,6 +5,8 @@ subtitle: 12 April 2024
 published: false
 ---
 
+> "Good design is actually a lot harder to notice than poor design, in part because good designs fit our needs so well that the design is invisible, serving us without drawing attention to itself. Bad design, on the other hand, screams out its inadequacies, making itself very noticeable." - Don Norman
+
 Just had a silly experience. I needed to log into an app on my browser and had the following nonsensical series of steps:
 
 1. Go to website
@@ -27,5 +29,3 @@ I think we're still missing some unifying solution - some means of tying my iden
 Generally things get smoother as time goes but I feel that hasn't been then case with auth. Every day there's a new step - OTPs, "Magic Links" or "Your password can't be the same as your past 5 passwords" which create a mess for most people. We like to think that most people just use password managers but that isn't really the case. Many people struggle with this constantly
 
 I'm not sure what the solution is but I think we need to start thinking about security from a bit more of a human angle and less of a computer one
-
-> "Good design is actually a lot harder to notice than poor design, in part because good designs fit our needs so well that the design is invisible, serving us without drawing attention to itself. Bad design, on the other hand, screams out its inadequacies, making itself very noticeable." - Don Norman
