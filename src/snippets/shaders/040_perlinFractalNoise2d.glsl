@@ -29,7 +29,7 @@ float perlin(in vec2 st){
 float fbm(in vec2 st,float lacunarity,float gain){
     const int octaves=8;
     
-    float t=sin(u_time)*.5;
+    float t=u_time*.5;
     
     // initial values
     float amplitude=.5;
