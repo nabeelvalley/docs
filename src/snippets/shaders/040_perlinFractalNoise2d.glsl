@@ -29,29 +29,28 @@ float perlin(in vec2 st){
 float fbm(in vec2 st,float lacunarity,float gain){
     const int octaves=8;
     
-    float x=st.x;
-    float t=u_time*.5;
+    float t=sin(u_time)*.5;
     
     // initial values
     float amplitude=.5;
     float freq=4.;
-    float y=0.;
+    float r=0.;
     
     for(int i=0;i<octaves;i++){
-        y+=amplitude*perlin(freq*st+t);
+        r+=amplitude*perlin(freq*st+t);
         freq*=lacunarity;
         amplitude*=gain;
     }
     
-    return y;
+    return r;
 }
 
 void main(){
     vec2 st=gl_FragCoord.xy/u_resolution;
     
-    float y=fbm(st,2.,.5);
+    float r=fbm(st,2.,.5);
     
-    vec3 color=vec3(y);
+    vec3 color=vec3(r);
     
     gl_FragColor=vec4(color,1.);
 }
