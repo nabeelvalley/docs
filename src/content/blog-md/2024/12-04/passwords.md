@@ -2,7 +2,7 @@
 title: Passwords
 description: Some casual commentary
 subtitle: 12 April 2024
-published: false
+published: true
 ---
 
 > "Good design is actually a lot harder to notice than poor design, in part because good designs fit our needs so well that the design is invisible, serving us without drawing attention to itself. Bad design, on the other hand, screams out its inadequacies, making itself very noticeable." - Don Norman
