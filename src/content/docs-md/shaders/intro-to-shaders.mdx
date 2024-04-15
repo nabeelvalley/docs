@@ -482,17 +482,17 @@ We can see an example of skewing and subdividing this space below:
 
 This subdivision idea can be combined to create more powerful implementations of noise than the simple perlin case we have covered
 
-### Cellular Noise
+## Cellular Noise
 
 Celllar noise is based on iterations. In GLSL we can iterate using loops but we must ensure that the number of loops we have is constant
 
-#### Distance Field
+### Distance Field
 
 Cellular Noise is based on distance fields. For each pixel we calculate the distance to the center of a cell, this means that we need to iterate through all our cells for a given pixel to find it's closest center
 
 <ShaderSnippet path="033_cellularDistance.glsl" />
 
-#### Tiling and iterations
+### Tiling and iterations
 
 For loops are not ideal for working with GLSL since we can't use dynamic exit limits and iterating significantly reduces the performance of a shader so this isn't really practical when using a large number of cells
 
@@ -518,7 +518,7 @@ Next, we can apply a random offset to the center point of each cell which will a
 
 <ShaderSnippet path="035_cellularGridRandom.glsl" />
 
-#### Veronoi Algorithm
+### Veronoi Algorithm
 
 Instead of considering the algorithm from the perspective of the pixels as we have above, we can also take it from the perspectve of the point such that each point grows until it bumps nito another points - the algorithm for this is named after Georgy Veronoi
 
@@ -527,3 +527,29 @@ Creating veronoi diagrams from cellular noise involves keeping track of some add
 We will keep a reference to the center by storing a reference to the distance between our current point and the resolved center:
 
 <ShaderSnippet path="036_cellularGridVoronoi.glsl" />
+
+## Fractal Brownian Motion
+
+A wave is a fluctuation of some property over time. Important aspects of a wave are it's amplitude and frequency
+
+In the case of a $sin$ wave, this is as follows: $y = a.sin(x.f)$
+
+Additionally, we can add waves up to create interference. This changes how the overall wave looks
+
+<ShaderSnippet path="037_waveInterference.glsl" />
+
+We can use this idea to create noise based on this kind of interference to create something called **fractal noise**. for our case we'll use perlin noise instead of a sin wave:
+
+<ShaderSnippet path="038_fractalBrownianMotion.glsl" />
+
+### Fractal Brownian Motion
+
+We can extend on this further by introducing a concept of octaves (iterations of noise), lacunarity (increments of frequency), and gain (amplitide) of the noise by which we apply variants of the same wave on top of itself
+
+We can implement this using perlin noise as the base instead of a sin wave, our result is as follows:
+
+<ShaderSnippet path="039_perlinFractalNoise.glsl" />
+
+We can also implement something like this in two dimensions:
+
+<ShaderSnippet path="040_perlinFractalNoise2d.glsl" />

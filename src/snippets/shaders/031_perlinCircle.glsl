@@ -69,7 +69,7 @@ void main(){
     float sides=time;
     
     float a=abs(angle(st));
-    float offset=perlin(a,sides)-.5;
+    float offset=perlin(sides,a)-.5;
     
     r+=offset*y*.3;
     vec3 color=vec3(circle(st,r+.005))-vec3(circle(st,r));

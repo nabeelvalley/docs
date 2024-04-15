@@ -13,7 +13,7 @@ float plot(vec2 st,float x){
 }
 
 float random(float x){
-    return fract(sin(x)*1000000.);
+    return fract(sin(x)*999999.);
 }
 
 float perlin(float steps,float x){
