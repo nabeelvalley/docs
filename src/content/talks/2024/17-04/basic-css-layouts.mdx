@@ -11,17 +11,18 @@ import HTMLSnippet from '@/components/HTMLSnippet.astro'
 import { Slide, Presentation, SlideOnly } from '@/components/slides'
 import BoxModelExample from '@/snippets/css-basic-layouts/BoxModelStandalone.astro'
 
-
 <Presentation />
 
 <Slide centered>
 # ZOOOOOOM!
 
 > Is everything big enough and are we in dark mode?
+
 </Slide>
 
 <Slide centered>
 # An Introduction to CSS Layouts
+
 </Slide>
 
 <Slide centered>
@@ -31,7 +32,9 @@ import BoxModelExample from '@/snippets/css-basic-layouts/BoxModelStandalone.ast
 - Selectors
 - Cascade
 - Box Model
+- Flow Layout
 - Debugging
+
 </Slide>
 
 <Slide>
@@ -89,7 +92,6 @@ ins={[
 />
 </Slide>
 
-
 <Slide>
 # Combining Selectors (Combinators)
 
@@ -132,12 +134,13 @@ del={
 
 - Used by browser to determine the most relevant declaration
 - Based on the selector used
-- Type of selector, combinators used, and level of impact this 
+- Type of selector, combinators used, and level of impact this
 
-# Order 
+# Order
 
 - Where is the style in the stylesheet
 - Used to break ties in specificity
+
 </Slide>
 
 <Slide>
@@ -146,18 +149,12 @@ del={
 Rules for specificity are pretty tricky, but your IDE should show this to you when hovering over a class
 
 <CSSSnippet
-path="css-basic-layouts/specificity.css" 
-html
-htmlPath="css-basic-layouts/Specificity.astro"
-ins={
-    {range: "1-2", label: "(1, 1, 0) - Most Specific"}
-}
-mark={[
-    {range: "4-5", label: "(0, 1, 0) - Least Specific"},
-]}
-del={
-    {range: "7-8", label: "(0, 2, 0)"}
-}
+  path="css-basic-layouts/specificity.css"
+  html
+  htmlPath="css-basic-layouts/Specificity.astro"
+  ins={{ range: '1-2', label: '(1, 1, 0) - Most Specific' }}
+  mark={[{ range: '4-5', label: '(0, 1, 0) - Least Specific' }]}
+  del={{ range: '7-8', label: '(0, 2, 0)' }}
 />
 
 </Slide>
@@ -166,13 +163,13 @@ del={
 # Impact of Specificity
 
 <CSSSnippet
-path="css-basic-layouts/combinators.css" 
-htmlPath="css-basic-layouts/Combinators.astro"
+  path="css-basic-layouts/combinators.css"
+  htmlPath="css-basic-layouts/Combinators.astro"
 />
 
 <CSSSnippet
-path="css-basic-layouts/specificity.css" 
-htmlPath="css-basic-layouts/Specificity.astro"
+  path="css-basic-layouts/specificity.css"
+  htmlPath="css-basic-layouts/Specificity.astro"
 />
 
 </Slide>
@@ -182,6 +179,7 @@ htmlPath="css-basic-layouts/Specificity.astro"
 
 - Used in addition to other selectors
 - Select an element based on DOM state
+
 </Slide>
 
 <Slide>
@@ -200,9 +198,9 @@ ins=":valid"
 </Slide>
 
 <Slide>
-# The Box Model 
+# The Box Model
 
->  Rectangles all the way down
+> Rectangles all the way down
 
 <CSSSnippet
 path="css-basic-layouts/box-model.css" 
@@ -216,25 +214,65 @@ collapse="1-9"
 </Slide>
 
 <Slide>
-# Block vs Inline Block 
+# Layouts
 
+- Layout influences how certain properties behave
+- Different Layout Modes at a parent level
+  - Flow
+  - Flex
+  - Grid
+- Layout Modes at a child level
+  - Relative
+  - Absolute
+  - Sticky
+  - Static
+
+> We'll talk about Flow
+
+</Slide>
+
+<Slide>
+
+# Flow - Block vs Inline Block
+
+- Block elements are placed top-to-bottom
+- Inline elements are placed left-to-right and wrap with reading width
+- Default layout Mode
 - Layout behaves and interacts differently
 - Sizing is calculated differently
 - Some properties will behave differently based on this
 
+</Slide>
+
+<Slide>
 <CSSSnippet
-path="css-basic-layouts/inline-v-block.css" 
-htmlPath="css-basic-layouts/InlineVBlock.astro"
-mark={["23", "27", "31"]}
-collapse="1-21"
+  path="css-basic-layouts/inline-v-block.css"
+  htmlPath="css-basic-layouts/InlineVBlock.astro"
+  mark={['23', '27', '31']}
+  collapse="1-21"
 />
 
 </Slide>
 
 <Slide>
-# Debugging 
+# A Note on Layouts
 
->  Firefox has the best CSS Tooling (in general)
+- Flow is fairly restrictive but important to understand
+- Other layout modes are also important:
+  - Display properties: Flex, Grid
+  - Position properties: Relative, Absolute, Sticky, Static
+
+</Slide>
+
+<Slide>
+# Debugging
+
+> Firefox has the best CSS Tooling (in general)
+
+- Hover tooltips
+- CSS Overrides
+- HTML Breakpoints
+- Flex and Grid Tools
 
 <BoxModelExample />
 </Slide>
@@ -244,12 +282,11 @@ collapse="1-21"
 
 > Well, you can just:
 
-<HTMLSnippet path="css-basic-layouts/DebugCSSButton.astro" />
+<HTMLSnippet mark="7" path="css-basic-layouts/DebugCSSButton.astro" />
 </Slide>
 
-
 <Slide>
-# References 
+# References
 
 Anything by Josh W. Comeau pretty much
 
@@ -257,8 +294,14 @@ Anything by Josh W. Comeau pretty much
 - [An Interactive Guide to CSS Grid](https://www.joshwcomeau.com/css/interactive-guide-to-grid/)
 - [An Interactive Guide to Flexbox](https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/)
 
-MDN 
+MDN
 
 - [CSS Syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax)
+- [Flow Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flow_layout)
+- [Flex](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)
+
+CSS Tricks
+
+- [Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
 </Slide>
