@@ -69,6 +69,7 @@ a {
 
 :root {
   --color-brand: #e44d90;
+  --color-brand-muted: #e44d9173;
   --color-on-brand: #ffffff;
 
   --color-base: #ffffff;

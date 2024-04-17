@@ -2,6 +2,8 @@
   >Start Presentation</button
 >
 
+<div class="presentation-progress"></div>
+
 <script>
   import { createSyncReader, createSyncWriter } from "../sync";
 
@@ -67,6 +69,7 @@
     document.body.classList.add("presentation-overflow-hidden");
 
     displaySlides();
+    setProgress();
   };
 
   const endPresentation = () => {
@@ -81,21 +84,27 @@
     presenter = true;
     syncWriter(slide);
   };
+  
+  const setProgress = () => {
+    const progress = ((slide+1)/slides.length)*100;
+    document.body.style.setProperty('--presentation-progress', `${progress}%`)
+  }
 
   const transition = (nextSlide: number) => {
     if (slide === nextSlide) {
       return;
     }
-
+    
     slides.forEach((s) => s.classList.remove(...transitionClasses));
-
+    
     if (presenter) {
       syncWriter(nextSlide);
     }
-
+    
     slide = nextSlide;
-
+    
     displaySlides();
+    setProgress();
   };
 
   // If there is no presentation on the page then we don't initialize
@@ -166,12 +175,28 @@
 </script>
 
 <style is:global>
+  .presentation-progress {
+    display: none;
+  }
+
   .presentation-overflow-hidden {
     overflow: hidden;
     visibility: hidden;
 
     .presentation-hidden {
       display: none;
+    }
+
+    .presentation-progress {
+      display: block;
+      visibility: visible;
+      position: absolute;
+      z-index: 20;
+      bottom:0px;
+      left: 0px;
+      width: var(--presentation-progress);
+      height: .5rem;
+      background: var(--color-brand-muted);
     }
 
     .presentation-slide {
@@ -214,6 +239,7 @@
       .astro-code {
         filter: none;
       }
+
     }
 
     .presentation-slide-only {
