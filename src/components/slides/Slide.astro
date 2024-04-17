@@ -1,11 +1,12 @@
 ---
 export interface Props {
   centered?: boolean
+  highlight?: boolean
 }
 
-const { centered } = Astro.props
+const { centered, highlight } = Astro.props
 ---
 
-<section class="presentation-slide" class:list={{ centered }}>
+<section class="presentation-slide" class:list={{ centered, highlight }}>
   <slot />
 </section>

@@ -1,0 +1,184 @@
+---
+title: Introduction to Animation on the Web
+subtitle: 17 April 2024
+description: An basic overview of CSS and JS Transitions and Animation
+published: false
+---
+
+import Snippet from '@/components/Snippet.astro'
+import CSSSnippet from '@/components/CSSSnippet.astro'
+import HTMLSnippet from '@/components/HTMLSnippet.astro'
+import { Slide, Presentation, SlideOnly } from '@/components/slides'
+import BoxModelExample from '@/snippets/css-basic-layouts/BoxModelStandalone.astro'
+
+<Presentation />
+
+<Slide centered>
+# ZOOOOOOM!
+
+> Is everything big enough and are we in dark mode?
+
+</Slide>
+
+<Slide centered highlight>
+# Animation on the Web
+
+</Slide>
+
+<Slide centered skim>
+# Things ✌️ Talk About
+
+(the agenda)
+
+- Why do we need animations?
+- Animating in CSS
+- Principles of Animation
+- When to ignore all of this
+
+</Slide>
+
+<Slide>
+
+# Why do we need animations?
+
+- User Feedback
+- Draw attention to something
+- Highlight personality
+- Juicyness
+
+</Slide>
+
+<Slide>
+
+# Animating in CSS
+
+- Transitions
+- Keyframes
+- View Transitions
+- Optimizing Animations
+
+</Slide>
+
+<Slide>
+
+## Transitions
+
+- Related to state changes
+- Control change of properties over time
+- Implicit transitions
+  - Intermediate states defined by browser
+
+</Slide>
+
+<Slide>
+
+### Setting up a Transition
+
+> We need something to animate
+
+<CSSSnippet
+  html
+  size="s"
+  path="web-animations/transition-base.css"
+  htmlPath="web-animations/index.html"
+/>
+
+</Slide>
+
+<Slide>
+
+### Using Transitions
+
+<CSSSnippet
+  size="s"
+  collapse="1-15"
+  path="web-animations/transition-simple.css"
+  htmlPath="web-animations/index.html"
+  mark={{
+    range: '16-22',
+    label: 'Before Transition',
+  }}
+  ins={{
+    range: '23-28',
+    label: 'After Transition',
+  }}
+/>
+
+</Slide>
+
+<Slide>
+
+### Shorthand Syntax
+
+<CSSSnippet
+  size="s"
+  collapse={['1-16', '21-26']}
+  path="web-animations/transition-simple-alt.css"
+  htmlPath="web-animations/index.html"
+  mark={{
+    range: '18-19',
+    label: 'Syntax: property duration delay timing',
+  }}
+/>
+
+</Slide>
+
+<Slide>
+
+### Multi Property Transitions
+
+<CSSSnippet
+  size="s"
+  collapse={['1-16', '23-28']}
+  path="web-animations/transition-properties.css"
+  htmlPath="web-animations/index.html"
+  mark="18-21"
+/>
+
+</Slide>
+
+<Slide>
+
+### Multi Property Transition Shorthand
+
+<CSSSnippet
+  size="s"
+  collapse={['1-16', '23-28']}
+  path="web-animations/transition-properties-alt.css"
+  htmlPath="web-animations/index.html"
+  mark="18-21"
+/>
+
+</Slide>
+
+<Slide>
+
+### Combining Transitions
+
+<CSSSnippet
+  size="s"
+  collapse={['1-29']}
+  path="web-animations/transition-hand.css"
+  htmlPath="web-animations/index.html"
+  mark={['31', '36-37']}
+/>
+
+</Slide>
+
+<Slide>
+# References
+
+## MDN
+
+- [Using CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions/Using_CSS_transitions)
+- [Using CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations/Using_CSS_animations)
+- [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
+
+## Principles of Animation
+
+- [The Illusion of Life - The 12 Principles](https://the12principles.tumblr.com/)
+- [12 Principles of Animation](https://www.youtube.com/watch?v=EqMi1AzbFqs)
+- [5 Ways to Boost Your Game Juice](https://sefaertunc.medium.com/game-design-series-ii-game-juice-92f6702d4991)
+- [Apply the 12 Principles of Animation to Web Development](https://openclassrooms.com/en/courses/5625816-create-modern-css-animations/5794716-apply-the-12-principles-of-animation-to-the-web)
+
+</Slide>

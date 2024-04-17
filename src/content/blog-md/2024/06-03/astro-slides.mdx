@@ -202,7 +202,7 @@ Next, we can grab the actual slide content by using the `presentation-slide` cla
 
 ```ts
 let slides = Array.from(document.querySelectorAll('.presentation-slide')).map(
-  (el) => el.outerHTML
+  (el) => el.outerHTML,
 )
 
 let slide = 0
@@ -522,14 +522,19 @@ And yes, that's a fair amount of code. All-in it's about 200 lines - most of whi
 As it stands right now the implementation is pretty simple but leaves a lot of space to be extended
 
 <Slide>
-# Future Ideas
+## Added since this post was written
 
-1. Presenter mode with some kind of synchronized state for multiple monitors (LocalStorage?)
-1. Presenter notes and preview of next slide
-1. Make this a library so other people can use it with less copy pasta
-1. More transitions and styling possibilities
-1. Dynamic code blocks/customizable transitions ([Code Surfer](https://github.com/pomber/code-surfer))
-1. Automatic zooming
+- [x] Presenter mode with some kind of synchronized state for multiple monitors (LocalStorage?)
+- [x] Progress tracking
+- [x] Support for non-static components
+
+## Future Ideas
+
+- [ ] Presenter notes and preview of next slide
+- [ ] Make this a library so other people can use it with less copy pasta
+- [ ] More transitions and styling possibilities
+- [ ] Dynamic code blocks/customizable transitions ([Code Surfer](https://github.com/pomber/code-surfer))
+- [ ] Automatic zooming
 
 </Slide>
 
@@ -541,12 +546,11 @@ We used some interesting CSS here and overall we can see that it's not alays a h
 
 </Slide>
 
-Additionally, for the sake of completeness - since this component is alive and ever changing within this website - you can view the current state of the code (sans commentary) below 
+Additionally, for the sake of completeness - since this component is alive and ever changing within this website - you can view the current state of the code (sans commentary) below
 
 <Snippet base="./src/components/slides" path="Slide.astro" lang="html" />
 
 <Snippet base="./src/components/slides" path="Presentation.astro" lang="html" />
-
 
 # References
 

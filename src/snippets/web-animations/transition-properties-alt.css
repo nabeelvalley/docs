@@ -1,0 +1,28 @@
+.greeting {
+  display: inline-block;
+  text-transform: lowercase;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-brand-muted);
+  color: var(--color-on-base);
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' style='font-size:24px;'><text y='50%'>🤚</text></svg>")
+      16 0,
+    auto;
+}
+
+.hand {
+  display: inline-block;
+}
+
+.greeting {
+  transition:
+    transform 300ms 0ms ease-in,
+    color 100ms 300ms ease-out,
+    background-color 100ms 300ms ease-in-out;
+}
+
+.greeting:hover {
+  transform: scale(1.1);
+  background-color: var(--color-brand);
+  color: var(--color-on-brand);
+}

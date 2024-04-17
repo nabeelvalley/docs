@@ -68,8 +68,9 @@ a {
 /* base styles */
 
 :root {
-  --color-brand: #e44d90;
-  --color-brand-muted: #e44d9173;
+  --shade-brand: 228, 77, 144;
+  --color-brand: rgb(var(--shade-brand));
+  --color-brand-muted: rgba(var(--shade-brand), 0.5);
   --color-on-brand: #ffffff;
 
   --color-base: #ffffff;

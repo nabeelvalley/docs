@@ -64,17 +64,21 @@
     }
   };
 
+  let presenting = false
   const startPresentation = () => {
     button.innerHTML = "Resume presentation";
     document.body.classList.add("presentation-overflow-hidden");
-
+    
+    presenting = true
     displaySlides();
     setProgress();
+    initListeners()
   };
 
   const endPresentation = () => {
     document.body.classList.remove("presentation-overflow-hidden");
 
+    presenting = false
     slides.map((s) =>
       s.classList.remove("active", "inactive", ...transitionClasses)
     );
@@ -91,6 +95,10 @@
   }
 
   const transition = (nextSlide: number) => {
+    if (!presenting) {
+      return
+    }
+
     if (slide === nextSlide) {
       return;
     }
@@ -107,12 +115,14 @@
     setProgress();
   };
 
-  // If there is no presentation on the page then we don't initialize
-  if (slides.length) {
-    button.classList.remove("presentation-hidden");
-    button.addEventListener("click", startPresentation);
-    createSyncReader<number>(presentationId, slide, transition);
 
+  let listenersInitialized = false
+  const initListeners = () => {
+     if (listenersInitialized) {
+      return 
+     }
+
+     listenersInitialized= true
     window.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       const isEscape = ev.key === "Escape";
@@ -171,6 +181,13 @@
       },
       false
     );
+  }
+
+  // If there is no presentation on the page then we don't initialize
+  if (slides.length) {
+    button.classList.remove("presentation-hidden");
+    button.addEventListener("click", startPresentation);
+    createSyncReader<number>(presentationId, slide, transition);
   }
 </script>
 
@@ -231,6 +248,11 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+      }
+
+      &.highlight{
+        background-color: var(--color-brand);
+        color: var(--color-on-brand)
       }
 
       .presentation-slide-only {
