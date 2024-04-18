@@ -58,3 +58,134 @@ The requirements for equality are as follows:
 | binary search     | log N search, N insert | log N search, N/2 insert | yes               | Comparison    |
 
 The best above implementation is the binary search but it's still fairly slow for insertion - we want to find an implementation that's more efficient than this
+
+## Ordered Operations
+
+When considering a symbol table it may sometimes be relevant to do things like
+
+- Get the min value
+- Get the max value
+- Get a value given a key
+- Get X top values
+- Get some list of keys ina a range
+- Floor/Ciel of a key
+
+The API for an ordered symbol table is as follows
+
+<Snippet path="algorithms/symbol-table/definition.ts" />
+
+## Binary Search Trees
+
+Enables us to provide an efficient implementation of symbol tables
+
+Binary search trees are binary trees that are in symmetric order - links in the tree can be null
+
+A binary tree is either:
+
+- Empty
+- Two disjoint trees
+
+In a binary search tree each node has a key and every key is larger than all trees in its left subtree and larger than all keys in its right subtree
+
+To implement this we will extend the implementation of a linked list which is doubly linked such
+
+### BST Operations
+
+#### Get
+
+When searching a binary tree, we start at the root and compare the value:
+
+- If less - go left
+- If greater - go right
+- If equal - return the value
+
+If we end up on a null link that means the value is not in the tree so we return null
+
+The implementation of this can be seen below:
+
+<Snippet
+  path="algorithms/symbol-table/binary-search-tree.ts"
+  collapse={['1-32', '46-999']}
+/>
+
+#### Insert
+
+Follow a similar process as we did for searching, but when we get to a null node then we insert the new node there
+
+An important distinction in the insertion implementation is that we recursively traverse the child branches and modify the parent
+
+<Snippet
+  path="algorithms/symbol-table/binary-search-tree.ts"
+  collapse={['1-45', '67-999']}
+/>
+
+### Tree Shape
+
+In the case of a BST the number of compares in the above operations is 1+node depth
+
+Depending on how insertion works, we can end up in a tree which is heavily skewed which can lead to varying performance. The performance of this may be very bad in the event that the inserts are done in some kind of ordered way
+
+The implementation of a BST is very similar to the idea behind how quicksort works
+
+### Ordered BST Operations
+
+#### Max and Min
+
+To find the max value just keep moving right and to find the min value we just keep moving to the left
+
+<Snippet
+  path="algorithms/symbol-table/binary-search-tree.ts"
+  collapse={['1-67', '81-999']}
+/>
+
+#### Floor and Ceil
+
+To get the floor we need to consider the following:
+
+1. K is equal to the key at the root = the floor is K
+2. K is less than the key at the root = the floor is in the left subtree
+3. K is greater than the key at the root = the floor is in the right subtree
+
+The ceiling implementation is the same but we traverse the other way instead. We can see the two implementations below:
+
+<Snippet
+  path="algorithms/symbol-table/binary-search-tree.ts"
+  collapse={['1-81', '127-999']}
+/>
+
+#### Counts
+
+Implementing counts can be done by adding a count field to each node which is the number of nodes in that subtree
+
+The way we maintain this is by setting the count of a node as `1+size(left)+size(right)`
+
+#### Rank
+
+Implementing Rank makes use of these subcounts to determine which sides of a tree to traverse and get the next resulting values in a recursive manner
+
+#### In Order Traversal
+
+The method for traversing the tree in order is as follows:
+
+1. Traverse the left subtree
+2. Enqueue current key
+3. Traverse the right subtree
+
+Implementing the above recursively leads to us having an ordered queue of keys
+
+### Deletion
+
+To delete we can implement a few different solutions. The lazy approach is to remove the value of a key but then we end up accumulating keys in our table
+
+A more general method for deleting nodes is called **Hibbard Deletion**
+
+1. If the node has no children, we just set it's value as null and propogate the change in counts up
+2. If the node has 1 child, we can replace the parent link with the child
+3. If the node has 2 children, we have to do a few more things:
+   - Find the next smallest node in the right subtree
+   - Delete the minimum in the right subtree
+   - Put the smalest value in the spot of the node we deleted
+
+The problem with the Hibbard deletion process leads to the tree becoming imbalanced over time since we are replacing the right subtree constantly
+
+After a lot of deletes the shape of the tree changes which has a considerable negative impact on the performance of the data structure
