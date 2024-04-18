@@ -1,7 +1,7 @@
 ---
 published: true
 title: Free Services
-description: Services that are either self or cloud hosted that have a free tier 
+description: Services that are either self or cloud hosted that have a free tier
 ---
 
 Below is a list of some websites and platforms that provide free application hosting and dev services
@@ -34,6 +34,7 @@ Below is a list of some websites and platforms that provide free application hos
 - [Hasura](http://hasura.io/)
 - [Upstash](https://upstash.com/) - Redis and Kafka
 - [Xata](https://xata.io)
+- [IBM Cloudant](https://cloud.ibm.com/catalog/services/cloudant)
 
 # Vector Database
 
