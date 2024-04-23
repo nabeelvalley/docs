@@ -1,0 +1,58 @@
+.greeting {
+  display: inline-block;
+  text-transform: lowercase;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-brand-muted);
+  color: var(--color-on-base);
+  color: transparent;
+  margin-top: 200px;
+  aspect-ratio: 1;
+}
+
+.wrapper {
+  padding: 0px 100px;
+}
+
+.greeting {
+  --timing-up: cubic-bezier(0.33333, 0.66667, 0.66667, 1);
+  --timing-down: cubic-bezier(0.33333, 0, 0.66667, 0.33333);
+
+  display: inline-block;
+  animation-iteration-count: infinite;
+  animation-duration: var(--animation-duration, 1s);
+
+  animation-direction: alternate;
+  animation-name: greeting-1-move, greeting-1-squash;
+  animation-timing-function: var(--timing-up);
+  animation-composition: accumulate;
+
+  will-change: transform;
+}
+
+@keyframes greeting-1-move {
+  0% {
+    transform: translateY(0px);
+  }
+
+  100% {
+    transform: translateY(-200px);
+  }
+}
+
+@keyframes greeting-1-squash {
+  0% {
+    transform: scaleY(0.5) scaleX(1.5);
+  }
+
+  20% {
+    transform: scaleY(1.5) scaleX(0.5);
+  }
+
+  95% {
+    transform: scaleY(1) scaleX(1);
+  }
+
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+}

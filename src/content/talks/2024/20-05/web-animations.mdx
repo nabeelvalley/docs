@@ -326,7 +326,135 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 <Slide>
 
-## Principles of Animation
+## Animation Optimization
+
+- Size changes are costly
+- Some properties are GPU accelearated
+  - `transform`
+  - `filter`
+  - `opacity`
+- Using `will-change`
+  - Last resort
+  - Do not apply to too many elements
+
+> Premature optimization? It's relatively easy to write it correctly first time
+
+</Slide>
+
+<Slide>
+
+## The 12 Principles of Animation
+
+- Introduced in "The Illusion of Life" by Frank Thomas and Ollie Johnston
+
+> What do we do with our new found skills?
+
+</Slide>
+
+<Slide>
+
+#### 1. Squash and Stretch
+
+> Illusion of weight and volume
+
+<CSSSnippet
+  size="s"
+  collapse="1-19"
+  path="web-animations/principles-1.css"
+  htmlPath="web-animations/index.html"
+  mark={[]}
+/>
+
+</Slide>
+
+<Slide>
+
+#### 2. Anticipation
+
+> Using small actions to indicate an action is about to happen
+
+</Slide>
+
+<Slide>
+
+#### 3. Follow Through and Overlap
+
+> Adding movement after an action
+
+</Slide>
+
+<Slide>
+
+#### 4. Arcs
+
+> Natural life moves in an arc
+
+</Slide>
+
+<Slide>
+
+#### 5. Slow In & Slow Out
+
+> Easing in and out of an action
+
+</Slide>
+
+<Slide>
+
+#### 6. Timing
+
+> Number of frames for a given action
+
+</Slide>
+
+<Slide>
+
+#### 7. Secondary Action
+
+> Additional actions that enhance an action
+
+</Slide>
+
+<Slide>
+
+#### 8. Exaggeration
+
+> Provide dramatic effect
+
+</Slide>
+
+<Slide>
+
+#### 9. Staging
+
+> Direct the audience attention
+
+</Slide>
+
+<Slide>
+
+#### 10. Straight Ahead & Pose to Pose
+
+> Two different techniques for determining frames
+
+- Straight ahead - Draw frames consecutively
+- Post to Pose - Draw frames at start and end the figure out what's in between
+
+</Slide>
+
+<Slide>
+
+#### 11. Solid Drawings
+
+> Make it feel like 2D shapes occupy a 3D space
+
+</Slide>
+
+<Slide>
+
+#### 12. Appeal
+
+> Simple, clear, and compelling
 
 </Slide>
 
@@ -346,5 +474,9 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 - [12 Principles of Animation](https://www.youtube.com/watch?v=EqMi1AzbFqs)
 - [5 Ways to Boost Your Game Juice](https://sefaertunc.medium.com/game-design-series-ii-game-juice-92f6702d4991)
 - [Apply the 12 Principles of Animation to Web Development](https://openclassrooms.com/en/courses/5625816-create-modern-css-animations/5794716-apply-the-12-principles-of-animation-to-the-web)
+
+## StackOverflow
+
+- [Parabolic Timing Functions](https://stackoverflow.com/questions/15423736/how-to-get-a-gravity-effect-in-a-css-animation)
 
 </Slide>
