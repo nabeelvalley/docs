@@ -25,7 +25,9 @@
 .greeting:hover {
   background-color: var(--color-brand);
   color: var(--color-on-brand);
-  animation: greeting-3 var(--duration-s) var(--duration-s);
+  animation-name: greeting-3;
+  animation-duration: var(--duration-s);
+  animation-delay: var(--duration-s);
 }
 
 @keyframes greeting-3 {
