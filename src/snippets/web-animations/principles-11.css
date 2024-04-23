@@ -19,12 +19,12 @@
   --rotate-z-deg: calc(var(--rotate-z, 1) * 1deg);
 
   margin-top: 20px;
+  transition: all var(--duration-s);
 }
 
 .hand {
   display: inline-block;
   transform-origin: bottom right;
-  transition: all var(--duration-s);
 }
 
 .greeting:hover {
