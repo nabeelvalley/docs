@@ -7,6 +7,8 @@ import Snippet, { type Props as SnippetProps } from "./Snippet.astro";
 import Preview from "./Preview.astro";
 import { CSSPreview, type Props as CSSPreviewProps } from "./CSSPreview";
 
+import { parse as parseCSS, ChildNode} from 'postcss'
+
 type PreviewSize = "s" | "m" | "l";
 
 interface Props extends Omit<SnippetProps, "lang"> {
@@ -38,6 +40,26 @@ const [main, preview] = sizes[size];
 
 const code = await readFile(`${base}/${path}`, "utf-8");
 
+const separateGlobalCSS = (css:string) => {
+  const parsed = parseCSS(code)
+
+  const isGlobalNode = (node:ChildNode) =>node.type === 'atrule' && node.name === 'keyframes'
+  const isScopedNode= (node: ChildNode) =>!isGlobalNode(node)
+
+  const toCSS = (nodes: ChildNode[]) => nodes.map((node) => node.toString()).join('\n\n')
+
+
+  const global= parsed.nodes.filter(isGlobalNode)
+  const scoped = parsed.nodes.filter(isScopedNode)
+
+    return {
+    global: toCSS(global),
+    scoped: toCSS(scoped)
+  }
+}
+
+const processedCSS = separateGlobalCSS(code)
+
 const rawHTML = await Astro.slots.render("default");
 const html = await (htmlPath
   ? readFile(`${base}/${htmlPath}`, "utf-8")
@@ -52,7 +74,8 @@ const html = await (htmlPath
   <CSSPreview
     slot="preview"
     client:only="react"
-    css={code}
+    global={processedCSS.global}
+    scoped={processedCSS.scoped}
     variables={variables || {}}
   >
     <div set:html={html} />

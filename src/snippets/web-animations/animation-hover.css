@@ -1,0 +1,43 @@
+.greeting {
+  display: inline-block;
+  text-transform: lowercase;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-brand-muted);
+  color: var(--color-on-base);
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' style='font-size:24px;'><text y='50%'>🤚</text></svg>")
+      16 0,
+    auto;
+}
+
+.hand {
+  display: inline-block;
+  transform-origin: bottom right;
+
+  animation-delay: 100ms;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in-out;
+  animation-name: hand-wave;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: both;
+
+  /* state */
+  animation-play-state: paused;
+}
+
+/* hover */
+.greeting:hover .hand {
+  /* state */
+  animation-play-state: running;
+}
+
+@keyframes hand-wave {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(30deg);
+  }
+}

@@ -9,7 +9,6 @@ import Snippet from '@/components/Snippet.astro'
 import CSSSnippet from '@/components/CSSSnippet.astro'
 import HTMLSnippet from '@/components/HTMLSnippet.astro'
 import { Slide, Presentation, SlideOnly } from '@/components/slides'
-import BoxModelExample from '@/snippets/css-basic-layouts/BoxModelStandalone.astro'
 
 <Presentation />
 
@@ -79,7 +78,7 @@ import BoxModelExample from '@/snippets/css-basic-layouts/BoxModelStandalone.ast
 <CSSSnippet
   html
   size="s"
-  path="web-animations/transition-base.css"
+  path="web-animations/styles.css"
   htmlPath="web-animations/index.html"
 />
 
@@ -166,6 +165,61 @@ import BoxModelExample from '@/snippets/css-basic-layouts/BoxModelStandalone.ast
 </Slide>
 
 <Slide>
+
+## Animations
+
+- Run as soon as the element or class is added
+- More complex animations possible
+- Can be independent of state
+- Implicit or Explicit
+  - We can define intermediate states
+
+</Slide>
+
+<Slide>
+
+### Using Animations
+
+<CSSSnippet
+  size="s"
+  collapse="1-12"
+  path="web-animations/animation-simple.css"
+  htmlPath="web-animations/index.html"
+  mark={[]}
+/>
+
+</Slide>
+
+<Slide>
+
+### State Based Animations
+
+<CSSSnippet
+  size="s"
+  collapse="1-12"
+  path="web-animations/animation-hover.css"
+  htmlPath="web-animations/index.html"
+  mark={[]}
+/>
+
+</Slide>
+
+<Slide>
+
+### Multi Property Animations
+
+<CSSSnippet
+  size="s"
+  collapse="1-12"
+  path="web-animations/animation-properties.css"
+  htmlPath="web-animations/index.html"
+  mark={[]}
+/>
+
+</Slide>
+
+<Slide>
+
 # References
 
 ## MDN
