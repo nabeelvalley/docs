@@ -24,12 +24,11 @@
 .hand {
   display: inline-block;
   transform-origin: bottom right;
+  transition: all var(--duration-s);
 }
 
 .greeting:hover {
   background-color: var(--color-brand);
-  transition: background-color var(--duration-s);
-  transition: all var(--duration-s);
   transform: perspective(var(--perspective-px)) rotateX(var(--rotate-x-deg))
     rotateY(var(--rotate-y-deg)) rotateZ(var(--rotate-z-deg));
 }
