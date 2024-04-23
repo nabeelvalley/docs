@@ -8,6 +8,8 @@ published: false
 import Snippet from '@/components/Snippet.astro'
 import CSSSnippet from '@/components/CSSSnippet.astro'
 import HTMLSnippet from '@/components/HTMLSnippet.astro'
+import Preview from '@/components/Preview.astro'
+import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.astro'
 import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 <Presentation />
@@ -215,6 +217,116 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
   htmlPath="web-animations/index.html"
   mark={[]}
 />
+
+</Slide>
+
+<Slide>
+
+## Timing Functions
+
+<CSSSnippet
+  size="s"
+  collapse="1-16"
+  path="web-animations/transition-timing.css"
+  htmlPath="web-animations/index.html"
+  variables={{
+    '--timing-function': {
+      initial: 'linear',
+      options: {
+        linear: 'linear',
+        'ease-in-out': 'ease-in-out',
+        'cubic-bezier(0.75,-0.61, 0.87,-0.16)':
+          'cubic-bezier(0.75,-0.61, 0.87,-0.16)',
+        'cubic-bezier(1,-2.56, 0, 3.72)': 'cubic-bezier(1,-2.56, 0, 3.72)',
+      },
+    },
+  }}
+  mark="20"
+/>
+
+</Slide>
+
+<Slide>
+
+## View Transitions
+
+- Triggered by JS
+- Transitions content as well as properties
+- Can be used across navigations (browser support in progress)
+
+</Slide>
+
+<Slide>
+
+### Triggering a Transition
+
+<Snippet
+  path="web-animations/ViewTransitions.astro"
+  lang="html"
+  collapse={['1-18', '38-55']}
+  ins={{
+    range: '33-34',
+    label: 'Something to trigger a change',
+  }}
+  mark={[
+    {
+      range: '20-26',
+      label: 'Update DOM Syncronously or Asynchronously',
+    },
+  ]}
+/>
+
+</Slide>
+
+<Slide>
+
+### The Default Transition
+
+- 2 Different transitions
+  - Fades old content out
+  - Fades new content in
+
+<HTMLSnippet size="s" path="web-animations/view-transitions.html" />
+
+</Slide>
+
+<Slide>
+
+### Understanding the Transition
+
+<CSSSnippet
+  size="s"
+  path="web-animations/view-transitions-slide.css"
+  htmlPath="web-animations/view-transitions.html"
+  mark={[
+    'content-transition',
+    {
+      range: '1',
+      label: 'Assign a transition',
+    },
+    {
+      range: '6',
+      label: 'Transition for outgoing content',
+    },
+    {
+      range: '11',
+      label: 'Transition for incoming content',
+    },
+  ]}
+  ins={[
+    'content-slide',
+    {
+      range: '16',
+      label: 'Animation keyframes',
+    },
+  ]}
+/>
+
+</Slide>
+
+<Slide>
+
+## Principles of Animation
 
 </Slide>
 

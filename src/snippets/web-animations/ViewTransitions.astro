@@ -1,0 +1,54 @@
+<script> 
+  const words = [
+    "pale",
+    "dangerous",
+    "secret",
+    "madly",
+    "sharp",
+    "mammoth",
+    "overrated",
+    "painful",
+    "ill-informed",
+    "dizzy",
+    "ambitious",
+    "stable"
+  ]
+
+  const random = () =>  words[Math.floor(Math.random()*words.length)].toUpperCase();
+
+  const handleWrapperClicked = (wrapper) => () => {
+    // updateCallback 
+    document.startViewTransition(() => {
+      const content = wrapper.querySelector('.view-transitions-content')
+
+      content.classList.toggle('inverted')
+      content.innerHTML = random()
+    })
+  }
+
+  // wait for all snippets to initialize
+  setTimeout(() => {
+    const wrappers = document.querySelectorAll('.view-transitions-wrapper')
+    for (const wrapper of wrappers) {
+      // trigger
+      wrapper.addEventListener('click', handleWrapperClicked(wrapper))
+    }
+  }, 1000)
+</script>
+
+<style is:global>
+  .view-transitions-wrapper {
+    overflow: hidden;
+  }
+
+  .view-transitions-content {
+    padding: 1rem;
+    background-color: var(--color-brand);
+    user-select: none;
+    margin: 0;
+
+    &.inverted {
+      filter: invert();
+    }
+  }
+</style>

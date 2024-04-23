@@ -7,7 +7,7 @@ import Snippet, { type Props as SnippetProps } from "./Snippet.astro";
 import Preview from "./Preview.astro";
 import { CSSPreview, type Props as CSSPreviewProps } from "./CSSPreview";
 
-import { parse as parseCSS, ChildNode} from 'postcss'
+import { parse as parseCSS, type ChildNode} from 'postcss'
 
 type PreviewSize = "s" | "m" | "l";
 
@@ -43,7 +43,7 @@ const code = await readFile(`${base}/${path}`, "utf-8");
 const separateGlobalCSS = (css:string) => {
   const parsed = parseCSS(code)
 
-  const isGlobalNode = (node:ChildNode) =>node.type === 'atrule' && node.name === 'keyframes'
+  const isGlobalNode = (node:ChildNode) =>node.type === 'atrule' && node.name === 'keyframes' || node.type === 'rule' && node.selector.startsWith('::view-transition')
   const isScopedNode= (node: ChildNode) =>!isGlobalNode(node)
 
   const toCSS = (nodes: ChildNode[]) => nodes.map((node) => node.toString()).join('\n\n')
