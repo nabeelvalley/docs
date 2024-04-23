@@ -207,7 +207,20 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
   collapse="1-12"
   path="web-animations/animation-hover.css"
   htmlPath="web-animations/index.html"
-  mark={[]}
+  mark={[
+    {
+      range: '25-26',
+      label: 'Animation initially paused',
+    },
+    {
+      range: '29-30',
+      label: 'DOM state trigger',
+    },
+    {
+      range: '31-32',
+      label: 'Play animation when hovered',
+    },
+  ]}
 />
 
 </Slide>
@@ -221,7 +234,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
   collapse="1-12"
   path="web-animations/animation-properties.css"
   htmlPath="web-animations/index.html"
-  mark={[]}
+  mark="30-56"
 />
 
 </Slide>
@@ -387,8 +400,8 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 <CSSSnippet
   size="m"
-  collapse="1-19"
-  mark="26"
+  collapse="1-18"
+  mark="25"
   path="web-animations/principles-2.css"
   htmlPath="web-animations/index.html"
   variables={{
