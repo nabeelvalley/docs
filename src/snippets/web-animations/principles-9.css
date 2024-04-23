@@ -1,0 +1,43 @@
+.greeting {
+  display: inline-block;
+  text-transform: lowercase;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-brand-muted);
+  color: var(--color-on-base);
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' style='font-size:24px;'><text y='50%'>🤚</text></svg>")
+      16 0,
+    auto;
+}
+
+.hand {
+  display: inline-block;
+}
+
+.greeting {
+  --duration-s: calc(var(--duration, 1) * 1s);
+
+  transition-property: all;
+  transition-duration: var(--duration-s);
+  transition-timing-function: ease-in-out;
+
+  animation-name: greeting-9;
+  animation-duration: var(--duration-s);
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+.greeting:hover {
+  background-color: var(--color-brand);
+  color: var(--color-on-brand);
+}
+
+@keyframes greeting-9 {
+  from {
+    border: solid 4px transparent;
+  }
+
+  to {
+    border: solid 4px var(--color-brand);
+  }
+}

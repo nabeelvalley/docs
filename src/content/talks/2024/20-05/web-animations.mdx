@@ -79,7 +79,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 <CSSSnippet
   html
-  size="s"
+  size="m"
   path="web-animations/styles.css"
   htmlPath="web-animations/index.html"
 />
@@ -91,7 +91,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 ### Using Transitions
 
 <CSSSnippet
-  size="s"
+  size="m"
   collapse="1-15"
   path="web-animations/transition-simple.css"
   htmlPath="web-animations/index.html"
@@ -112,7 +112,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 ### Shorthand Syntax
 
 <CSSSnippet
-  size="s"
+  size="m"
   collapse={['1-16', '21-26']}
   path="web-animations/transition-simple-alt.css"
   htmlPath="web-animations/index.html"
@@ -129,7 +129,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 ### Multi Property Transitions
 
 <CSSSnippet
-  size="s"
+  size="m"
   collapse={['1-16', '23-28']}
   path="web-animations/transition-properties.css"
   htmlPath="web-animations/index.html"
@@ -143,7 +143,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 ### Multi Property Transition Shorthand
 
 <CSSSnippet
-  size="s"
+  size="m"
   collapse={['1-16', '23-28']}
   path="web-animations/transition-properties-alt.css"
   htmlPath="web-animations/index.html"
@@ -157,7 +157,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 ### Combining Transitions
 
 <CSSSnippet
-  size="s"
+  size="m"
   collapse={['1-29']}
   path="web-animations/transition-hand.css"
   htmlPath="web-animations/index.html"
@@ -183,7 +183,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 ### Using Animations
 
 <CSSSnippet
-  size="s"
+  size="m"
   collapse="1-12"
   path="web-animations/animation-simple.css"
   htmlPath="web-animations/index.html"
@@ -197,7 +197,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 ### State Based Animations
 
 <CSSSnippet
-  size="s"
+  size="m"
   collapse="1-12"
   path="web-animations/animation-hover.css"
   htmlPath="web-animations/index.html"
@@ -211,7 +211,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 ### Multi Property Animations
 
 <CSSSnippet
-  size="s"
+  size="m"
   collapse="1-12"
   path="web-animations/animation-properties.css"
   htmlPath="web-animations/index.html"
@@ -225,7 +225,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 ## Timing Functions
 
 <CSSSnippet
-  size="s"
+  size="m"
   collapse="1-16"
   path="web-animations/transition-timing.css"
   htmlPath="web-animations/index.html"
@@ -286,7 +286,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
   - Fades old content out
   - Fades new content in
 
-<HTMLSnippet size="s" path="web-animations/view-transitions.html" />
+<HTMLSnippet size="m" path="web-animations/view-transitions.html" />
 
 </Slide>
 
@@ -295,7 +295,7 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 ### Understanding the Transition
 
 <CSSSnippet
-  size="s"
+  size="m"
   path="web-animations/view-transitions-slide.css"
   htmlPath="web-animations/view-transitions.html"
   mark={[
@@ -358,11 +358,17 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 > Illusion of weight and volume
 
 <CSSSnippet
-  size="s"
-  collapse="1-19"
+  size="m"
+  collapse="1-35"
   path="web-animations/principles-1.css"
   htmlPath="web-animations/index.html"
-  mark={[]}
+  variables={{
+    '--duration': {
+      initial: 1,
+      min: 0.1,
+      max: 10,
+    },
+  }}
 />
 
 </Slide>
@@ -373,6 +379,21 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 > Using small actions to indicate an action is about to happen
 
+<CSSSnippet
+  size="m"
+  collapse="1-19"
+  mark="24"
+  path="web-animations/principles-2.css"
+  htmlPath="web-animations/index.html"
+  variables={{
+    '--duration': {
+      initial: 1,
+      min: 0.1,
+      max: 10,
+    },
+  }}
+/>
+
 </Slide>
 
 <Slide>
@@ -381,13 +402,42 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 > Adding movement after an action
 
+<CSSSnippet
+  size="m"
+  collapse="1-16"
+  path="web-animations/principles-3.css"
+  htmlPath="web-animations/index.html"
+  variables={{
+    '--duration': {
+      initial: 1,
+      min: 0.1,
+      max: 10,
+    },
+  }}
+/>
+
 </Slide>
 
 <Slide>
 
 #### 4. Arcs
 
-> Natural life moves in an arc
+> Nature moves in arcs
+
+<CSSSnippet
+  size="m"
+  collapse="1-12"
+  path="web-animations/principles-4.css"
+  htmlPath="web-animations/index.html"
+  variables={{
+    '--duration': {
+      initial: 1,
+      min: 0.1,
+      max: 10,
+    },
+  }}
+  mark={[]}
+/>
 
 </Slide>
 
@@ -397,6 +447,21 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 > Easing in and out of an action
 
+<CSSSnippet
+  size="m"
+  collapse="1-12"
+  path="web-animations/principles-5.css"
+  htmlPath="web-animations/index.html"
+  mark={[]}
+  variables={{
+    '--duration': {
+      initial: 1,
+      min: 0.1,
+      max: 10,
+    },
+  }}
+/>
+
 </Slide>
 
 <Slide>
@@ -404,6 +469,24 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 #### 6. Timing
 
 > Number of frames for a given action
+
+<CSSSnippet
+  size="m"
+  collapse="1-12"
+  path="web-animations/principles-6.css"
+  htmlPath="web-animations/index.html"
+  variables={{
+    '--duration': {
+      initial: '1s',
+    },
+    '--steps': {
+      initial: 5,
+      min: 3,
+      max: 60,
+    },
+  }}
+  mark={[]}
+/>
 
 </Slide>
 
@@ -413,6 +496,20 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 > Additional actions that enhance an action
 
+<CSSSnippet
+  size="m"
+  collapse="1-16"
+  path="web-animations/principles-7.css"
+  htmlPath="web-animations/index.html"
+  variables={{
+    '--duration': {
+      initial: 1,
+      min: 0.1,
+      max: 10,
+    },
+  }}
+/>
+
 </Slide>
 
 <Slide>
@@ -421,6 +518,25 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 > Provide dramatic effect
 
+<CSSSnippet
+  size="m"
+  collapse="1-16"
+  path="web-animations/principles-8.css"
+  htmlPath="web-animations/index.html"
+  variables={{
+    '--duration': {
+      initial: 1,
+      min: 0.1,
+      max: 10,
+    },
+    '--scale': {
+      initial: 150,
+      min: 100,
+      max: 300,
+    },
+  }}
+/>
+
 </Slide>
 
 <Slide>
@@ -428,6 +544,20 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 #### 9. Staging
 
 > Direct the audience attention
+
+<CSSSnippet
+  size="m"
+  collapse="1-16"
+  path="web-animations/principles-9.css"
+  htmlPath="web-animations/index.html"
+  variables={{
+    '--duration': {
+      initial: 1,
+      min: 0.1,
+      max: 10,
+    },
+  }}
+/>
 
 </Slide>
 
@@ -448,13 +578,59 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 > Make it feel like 2D shapes occupy a 3D space
 
+transform: perspective(165px) rotateX(-24deg) rotateY(-35deg) rotateZ(0deg);
+
+<CSSSnippet
+  size="m"
+  collapse="1-16"
+  path="web-animations/principles-11.css"
+  htmlPath="web-animations/index.html"
+  variables={{
+    '--duration': {
+      initial: 1,
+      min: 0.1,
+      max: 10,
+    },
+    '--scale': {
+      initial: 150,
+      min: 100,
+      max: 300,
+    },
+    '--perspective': {
+      initial: 200,
+      min: 0,
+      max: 1000
+    },
+    '--rotate-x': {
+      initial: -30,
+      min: -90,
+      max: 90,
+    },
+    '--rotate-y': {
+      initial: -30,
+      min: -90,
+      max: 90,
+    },
+    '--rotate-z': {
+      initial: 0,
+      min: -90,
+      max: 90,
+    },
+
+}}
+/>
+
 </Slide>
 
 <Slide>
 
 #### 12. Appeal
 
-> Simple, clear, and compelling
+- Simple
+- Clear
+- Compelling
+
+> Make the viewer feel something
 
 </Slide>
 

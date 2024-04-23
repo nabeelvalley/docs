@@ -1,0 +1,62 @@
+.greeting {
+  display: inline-block;
+  text-transform: lowercase;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-brand-muted);
+  color: var(--color-on-base);
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' style='font-size:24px;'><text y='50%'>🤚</text></svg>")
+      16 0,
+    auto;
+}
+
+.greeting {
+  --duration-s: calc(var(--duration, 1) * 1s);
+}
+
+.hand {
+  display: inline-block;
+  transform-origin: bottom right;
+}
+
+.greeting:hover {
+  background-color: var(--color-brand);
+  transition: background-color var(--duration-s);
+}
+
+.hand {
+  animation-delay: calc(0.5 * var(--duration-s));
+  animation-duration: var(--duration-s);
+}
+
+.greeting:hover .hand {
+  animation-name: hand-wave-multi;
+}
+
+@keyframes hand-wave-multi {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  15% {
+    scale: 150%;
+    transform: rotate(0deg);
+    translate: 0px -8px;
+  }
+
+  50% {
+    scale: 150%;
+    transform: rotate(30deg);
+    translate: 0px -8px;
+  }
+
+  85% {
+    scale: 150%;
+    transform: rotate(0deg);
+    translate: 0px -8px;
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
