@@ -30,7 +30,7 @@ The fully automatic Fujifilm 15-45mm f3.5 kit lens:
 
 <center>
 
-![Fujifilm 15-45mm f3.5](/content/blog/2024/27-04/fuji15-45mm.png)
+<img alt="Fujifilm 15-45mm f3.5" src="/content/blog/2024/27-04/fuji15-45mm.png" />
 
 </center>
 
@@ -38,7 +38,7 @@ A fully manual TTArtisan 35mm f1.4 lens:
 
 <center>
 
-![TTArtisan 35mm f1.4](/content/blog/2024/27-04/ttartisan35mm.png)
+<img alt="TTArtisan 35mm f1.4" src="/content/blog/2024/27-04/ttartisan35mm.png" />
 
 </center>
 
