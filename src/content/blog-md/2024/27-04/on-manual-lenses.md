@@ -28,17 +28,17 @@ You can see the indicators I'm referring to below when comparing the two lenses 
 
 The fully automatic Fujifilm 15-45mm f3.5 kit lens:
 
-<center>
+<center style="max-width: 500px; margin: auto;">
 
-<img alt="Fujifilm 15-45mm f3.5" src="/content/blog/2024/27-04/fuji15-45mm.png" style="max-width: 500px;" />
+<img alt="Fujifilm 15-45mm f3.5" src="/content/blog/2024/27-04/fuji15-45mm.png" />
 
 </center>
 
 A fully manual TTArtisan 35mm f1.4 lens:
 
-<center>
+<center style="max-width: 500px; margin: auto;">
 
-<img alt="TTArtisan 35mm f1.4" src="/content/blog/2024/27-04/ttartisan35mm.png" style="max-width: 500px;" />
+<img alt="TTArtisan 35mm f1.4" src="/content/blog/2024/27-04/ttartisan35mm.png" />
 
 </center>
 
