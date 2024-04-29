@@ -1,6 +1,6 @@
 ---
 subtitle: 27 April 2024
-title: On Manual Lensess
+title: On Automatic Lensess
 description: Why automatic camera lenses suck
 published: true
 tags:
