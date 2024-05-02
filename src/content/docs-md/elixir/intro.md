@@ -321,3 +321,159 @@ There are also numerous other methods for working with numbers contained in the 
 x = 0.1234
 r = Float.ceil(x,2)
 ```
+
+The same goes for integers, their methods are located in the `Integer` namespace
+
+### Compound Types
+
+Compound types are types that consist of many other values
+
+For these compound types we can't use `IO.puts` to print them out since they're not directly stringable - we can instead use `IO.inspect` which will print them out in some way that makes sense for the data type as in the following example:
+
+```elixir
+time = Time.new(16,30,0,0)
+IO.inspect(time)
+```
+
+### Dates and Times
+
+We can create dates and times using their respective constructors:
+
+```elixir
+time = Time.new(16,30,0,0)
+date = Date.new(2024, 1, 1)
+```
+
+In the above code the `new` functions return a result, if we want to unwrap this we can add a `!` in our function call:
+
+```elixir
+time = Time.new!(16,30,0,0)
+date = Date.new!(2024, 1, 1)
+
+dt = DateTime.new(date, time)
+```
+
+Unwrapping the values lets us use them directly if we want to, we can do this along with different functions for working with dates, e.g. converting it to a string:
+
+```elixir
+time = Time.new!(16,30,0,0)
+date = Date.new!(2024, 1, 1)
+
+dt = DateTime.new!(date, time)
+IO.puts(DateTime.to_string(dt))
+```
+
+### Tuples
+
+Tuples allow us to store multiple values in a single variable. Tuples have a fixed number of elements and they can be different data types. Tuples use `{}`
+
+```elixir
+bob = {"Bob Smith", 55}
+```
+
+We can also create a new tuple to which we append new values using `Tuple.append`
+
+```elixir
+bob = {"Bob Smith", 55}
+bob = Tuple.append(bob, :active)
+
+IO.inspect(bob)
+```
+
+We can also do math on tuples, for example as seen below:
+
+```elixir
+prices = {20,50, 10}
+avg = Tuple.sum(prices)/tuple_size(prices)
+
+IO.inspect(avg)
+```
+
+We can get individual properties out of a tuple using the `elem` method with the index:
+
+```elixir
+prices = {20,50, 10}
+avg = Tuple.sum(prices)/tuple_size(prices)
+
+IO.puts("Average of: #{elem(prices,0)}, #{elem(prices,1)}, #{elem(prices,2)} is #{avg}")
+```
+
+Or we can descructure the individual values:
+
+```elixir
+bob = {"Bob Smith", 55}
+bob = Tuple.append(bob, :active)
+
+{name, age, status} = bob
+
+IO.puts("#{name} #{age} #{status}")
+```
+
+### Lists
+
+Lists are used when we have a list of elements but we don't know how many elements we will have. Lists use `[]`
+
+```elixir
+user1 = {"Bob Smith", 44}
+user2 = {"Alice Smith", 55}
+user3 = {"Jack Smith", 66}
+
+users = [
+  user1,
+  user2,
+  user3
+]
+
+Enum.each(users, fn {name, age} ->
+    IO.puts("#{name} #{age}")
+  end)
+```
+
+We can also use the `Enum.each` method to iterate over these values as we can see above
+
+### Maps
+
+Maps are key-value pairs. Maps use `%{}`
+
+```elixir
+user1 = {"Bob Smith", 44}
+user2 = {"Alice Smith", 55}
+user3 = {"Jack Smith", 66}
+
+members = %{
+  bob: user1,
+  alice: user2,
+  jack: user3
+}
+
+{name, age}= members.alice
+IO.puts("#{name} #{age}")
+```
+
+Maps are expecially useful since we will also get autocomplete for the fields that are in the map.
+
+### Structs
+
+Structs are used for defining types that have got defined structures
+
+Structs can be defined within a module using the `defstruct` keyword. This is the struct that the module operates with:
+
+```elixir
+defmodule User do
+  defstruct [:name, :age]
+end
+```
+
+And we can create an instance of the struct using the `%Name{}` syntax
+
+```elixir
+user = %User{name: "Bob Smith", age: 55}
+```
+
+We can access properties of the struct using dot notation:
+
+```elixir
+user = %User{name: "Bob Smith", age: 55}
+
+IO.puts(user.name)
+```
