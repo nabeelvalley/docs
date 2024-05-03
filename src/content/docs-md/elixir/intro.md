@@ -591,3 +591,64 @@ values = [25, 50, 75, 100]
 
 added_values = [101, 102 | values]
 ```
+
+### Function Arity
+
+The arity of a function refers to how many parameters the fuction takes. In elixir functions use the `/` t ndicate the arity. This is because we may have multiple functions with the same name in a module that each have a different arity. For example, there are two versions of `String.split` which take one and two parameters. We refer to these as `String.split/1` and `String.split/2` respectively:
+
+```elixir
+# split by whitespace `String.split/1`
+a = String.split("hello world, how are you?")
+IO.inspect(a)
+
+# split by comma `String.split/2`
+a = String.split("hello world, how are you?", ",")
+IO.inspect(a)
+```
+
+### Passing Functions as Parameters
+
+We can pass anonymous functions to other functions:
+
+```elixir
+values = [25, 50, 75, 100]
+
+result = Enum.map(values, fn n -> Integer.to_string(n) end)
+```
+
+We can pass fuctions to other functions. For example, equivalent to the above:
+
+```elixir
+values = [25, 50, 75, 100]
+
+result = Enum.map(values, &Integer.to_string/1)
+```
+
+> The `&` operator converts a function to an anonymous function. This requires that we also specify the arity of a function so that we can pass the correct instance as a callback
+
+### Defining Functions
+
+We can define functions using the `def name do ... end` syntax:
+
+```elixir
+def sum(a,b) do
+  a + b
+end
+```
+
+And we can use this:
+
+```elixir
+result = sum(5,32)
+
+values = [25, 50, 75, 100]
+result = Enum.reduce(values, &Example.sum/2)
+```
+
+Another small example is a function for printing out a list of numbers:
+
+```elixir
+def print_numbers(lst) do
+  lst |> Enum.join(" | ") |> IO.puts()
+end
+```
