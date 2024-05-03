@@ -477,3 +477,117 @@ user = %User{name: "Bob Smith", age: 55}
 
 IO.puts(user.name)
 ```
+
+### Random
+
+We can get a random int using the following:
+
+```elixir
+random = :rand.uniform(11) -1
+```
+
+Whenever we use the `:name` syntax for accessing a namespace it means we are referring to some Erlang based code
+
+### Piping
+
+We can get user input using the `IO.gets` method:
+
+```elixir
+guess = IO.gets("Guess a number between 1 and 10: ") |> String.trim() |> Integer.parse()
+```
+
+In the above example we also use function piping to trim and parse the input string
+
+### Pattern Matching
+
+The above leads to the result being either a value or an error, we can use pattern matching to interpret this value:
+
+```elixir
+case guess do
+  {result, ""} -> IO.puts("Fully parsed: #{result}")
+
+  {result, other} -> IO.puts("Partially parsed: #{result} with #{other}")
+
+  :error -> IO.puts("Failed to parse")
+end
+```
+
+If we want to ignore the partial error case, we can use an `_`:
+
+```elixir
+case guess do
+  {result, _}-> IO.puts("Parsed: #{result}")
+
+  :error -> IO.puts("Failed to parse")
+end
+```
+
+Combining the above, we can create a small guessing game:
+
+```elixir
+correct = :rand.uniform(11) - 1
+
+guess = IO.gets("Guess a number between 0 and 10: ") |> String.trim() |> Integer.parse()
+
+IO.inspect(guess)
+
+case guess do
+  {result, _} ->
+    if result === correct do
+      IO.puts("You guessed correctly!")
+    else
+      IO.puts("The correct answer is #{correct}, you said #{result}")
+    end
+
+  :error ->
+    IO.puts("Failed to parse")
+end
+```
+
+### List Comprehension
+
+List comprehension is used for doing some operation for each item in a list, the syntax is as follows:
+
+```elixir
+values = [25, 50, 75, 100]
+
+for n <- values, do: IO.puts("value: #{n}")
+```
+
+We can also assign the result of the `do` to a new array
+
+```elixir
+values = [25, 50, 75, 100]
+
+double_values = for n <- values, do: n * 2
+```
+
+We can also combine a comprehension with a condition:
+
+```elixir
+values = [25, 50, 75, 100]
+
+evens = for n <- values, n > 50, do: "Value is: #{n}"
+```
+
+> The condition in the above example is `n > 50` but this can be anything that evaluates to a boolean
+
+### Appending to Lists
+
+If we want to append to a list we can use the `++` operator:
+
+```elixir
+values = [25, 50, 75, 100]
+
+added_values = values ++ [101, 102]
+```
+
+### Prepending to a List
+
+We can use the `|` operator to prepend to a list using the following syntax:
+
+```elixir
+values = [25, 50, 75, 100]
+
+added_values = [101, 102 | values]
+```
