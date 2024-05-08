@@ -24,6 +24,7 @@ Below is a list of some websites and platforms that provide free application hos
 - [Convex](https://www.convex.dev/)
 - [Fly.io](https://fly.io/) - (needs card)
 - [Platform.sh](https://platform.sh/)
+- [Gigalixir](https://www.gigalixir.com/) - Elixer Hosting
 
 # Database
 
