@@ -216,6 +216,8 @@ The above commands will generate the relvant modules and JSON code for interacti
 
 Overall, when working with phoenix, we use the Model-View-Controller architecture (MVC), when building an API, we can think of the JSON structure as the view for the sake of our API
 
+## Hooking up the Generated Code
+
 After running the above command we will have some instructions telling us to add some content to the `router.ex` file. We're going to first create a new scope and add it into that scope:
 
 ```elixir title="lib/elixirphoenix_web/router.ex"
@@ -271,6 +273,8 @@ defmodule Elixirphoenix.Posts.Post do
   end
 end
 ```
+
+## Working with Resourecs
 
 Which we then access from the controller that we exposed earlier in our router:
 
@@ -393,6 +397,284 @@ defmodule ElixirphoenixWeb.PostJSON do
       title: post.title,
       body: post.body
     }
+  end
+end
+```
+
+## Viewing Routes
+
+We can get a view of the routes that our application has available using the following command:
+
+```sh
+> mix phx.routes
+
+GET     /                                      ElixirphoenixWeb.PageController :home
+GET     /users                                 ElixirphoenixWeb.PageController :users
+GET     /api/posts                             ElixirphoenixWeb.PostController :index
+GET     /api/posts/:id                         ElixirphoenixWeb.PostController :show
+POST    /api/posts                             ElixirphoenixWeb.PostController :create
+PATCH   /api/posts/:id                         ElixirphoenixWeb.PostController :update
+PUT     /api/posts/:id                         ElixirphoenixWeb.PostController :update
+DELETE  /api/posts/:id                         ElixirphoenixWeb.PostController :delete
+GET     /dev/dashboard/css-:md5                Phoenix.LiveDashboard.Assets :css
+GET     /dev/dashboard/js-:md5                 Phoenix.LiveDashboard.Assets :js
+GET     /dev/dashboard                         Phoenix.LiveDashboard.PageLive :home
+GET     /dev/dashboard/:page                   Phoenix.LiveDashboard.PageLive :page
+GET     /dev/dashboard/:node/:page             Phoenix.LiveDashboard.PageLive :page
+*       /dev/mailbox                           Plug.Swoosh.MailboxPreview []
+WS      /live/websocket                        Phoenix.LiveView.Socket
+GET     /live/longpoll                         Phoenix.LiveView.Socket
+POST    /live/longpoll                         Phoenix.LiveView.Socket
+```
+
+The above shows us the routes that exist in our app. Phoenix is largely convention based and so our controllers will have a fairly standard structure
+
+We can also see that the POST and PATCH for our resource point to the `:update` method. This is because by default the POST and PATCH both work like a PATCH. If you want replace data you can create a separate method that would work as a normal POST method
+
+## Resource Relationships
+
+We can create another resource for Users that can have posts associated with them, we can generate this using the following:
+
+```sh
+mix phx.gen.json Accounts User users name:string email:string:unique
+```
+
+Next, we can follow the instructions to add the resource to our router:
+
+```elixir title="lib/elixirphoenix_web/router.ex" mark={5}
+scope "/api", ElixirphoenixWeb do
+  pipe_through :api
+
+  resources "/posts", PostController, except: [:new, :edit]
+  resources "/users", UserController, except: [:new, :edit]
+end
+```
+
+We can also remove the `users` that we had before:
+
+```elixir title="lib/elixirphoenix_web/router.ex" del={5}
+scope "/", ElixirphoenixWeb do
+  pipe_through :browser
+
+  get "/", PageController, :home
+  # get "/users", PageController, :users
+end
+```
+
+And run the migration:
+
+```sh
+mix ecto.migrate
+```
+
+Now, we want to associate a user with a post. We're going to do this to add a `user` to a post:
+
+To do this, we need to create new migration
+
+```sh
+mix ecto.gen.migration add_user_to_post
+```
+
+This will generate the following empty migration:
+
+```elixir title="priv/repo/migrations/20240508120947_add_user_to_post.exs"
+defmodule Elixirphoenix.Repo.Migrations.AddUserToPost do
+  use Ecto.Migration
+
+  def change do
+
+  end
+end
+```
+
+In this file we will need to specify the change we want to make to our database table:
+
+```elixir title="priv/repo/migrations/20240508120947_add_user_to_post.exs" mark={5-7}
+defmodule Elixirphoenix.Repo.Migrations.AddUserToPost do
+  use Ecto.Migration
+
+  def change do
+    alter table(:posts) do
+      add :user_id, references(:users, on_delete: :nothing)
+    end
+  end
+end
+```
+
+Next we can apply the migration with `mix ecto.migrate`
+
+We need to also define that we have a `user_id` in our schemas. We need to do this in both our resource types:
+
+```elixir title="lib/elixirphoenix/accounts/user.ex" ins={8}
+defmodule Elixirphoenix.Accounts.User do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "users" do
+    field :name, :string
+    field :email, :string
+    has_many :posts, Elixirphoenix.Posts.Post
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(user, attrs) do
+    user
+    |> cast(attrs, [:name, :email])
+    |> validate_required([:name, :email])
+    |> unique_constraint(:email)
+  end
+end
+```
+
+For the Post, we need to define the relationship as well as the validation information:
+
+```elixir title="lib/elixirphoenix/posts/post.ex" ins={8,16-17}
+defmodule Elixirphoenix.Posts.Post do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "posts" do
+    field :title, :string
+    field :body, :string
+    belongs_to :user, Elixirphoenix.Accounts.User
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(post, attrs) do
+    post
+    |> cast(attrs, [:title, :body, :user_id])
+    |> validate_required([:title, :body, :user_id])
+  end
+end
+```
+
+We can create a user by sending the following:
+
+```json title="POST http://localhost:4000/api/users"
+{
+  "user": {
+    "name": "Bob",
+    "email": "bob@email.com"
+  }
+}
+```
+
+And then creating a Post with the associated user ID that we get back:
+
+```json title="POST http://localhost:4000/api/posts"
+{
+  "post": {
+    "title": "My Post Title",
+    "body": "Some content for my post",
+    "user_id": 1
+  }
+}
+```
+
+If we want the `user_id` to be returned with the Post data we can modify the `post_json.ex` file:
+
+```elixir title="lib/elixirphoenix_web/controllers/post_json.ex" mark={6}
+defp data(%Post{} = post) do
+  %{
+    id: post.id,
+    title: post.title,
+    body: post.body,
+    user_id: post.user_id
+  }
+end
+```
+
+## Getting Nested Data
+
+If we want to get the posts when getting a user, we can make it such that we include the data. This is done from the context where we can add `Repo.preload(:post)` into the `get_user` as well as our `list_users` functions:
+
+```elixir title="lib/elixirphoenix/accounts.ex"
+def list_users do
+  Repo.all(User) |> Repo.preload(:posts)
+end
+
+def get_user!(id), do: Repo.get!(User, id) |> Repo.preload(:posts)
+```
+
+Then we need to update our view to include posts. First, we can change the `data` function from our `post_json.ex` file to not be private:
+
+```elixir title="lib/elixirphoenix_web/controllers/post_json.ex"
+def data(%Post{} = post) do
+```
+
+And we can then use that from our `user_json` file:
+
+```elixir title="lib/elixirphoenix_web/controllers/user_json.ex" ins={2,24}
+defmodule ElixirphoenixWeb.UserJSON do
+  alias ElixirphoenixWeb.PostJSON
+  alias Elixirphoenix.Accounts.User
+
+  @doc """
+  Renders a list of users.
+  """
+  def index(%{users: users}) do
+    %{data: for(user <- users, do: data(user))}
+  end
+
+  @doc """
+  Renders a single user.
+  """
+  def show(%{user: user}) do
+    %{data: data(user)}
+  end
+
+  defp data(%User{} = user) do
+    %{
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      posts: for(post <- user.posts, do: PostJSON.data(post))
+    }
+  end
+end
+
+```
+
+This will load the posts property when we query a user, so now if we do:
+
+```json title="GET http://localhost:4000/api/users/1"
+{
+  "data": {
+    "id": 1,
+    "name": "Bob",
+    "email": "bob@email.com",
+    "posts": [
+      {
+        "id": 2,
+        "title": "My Post Title",
+        "body": "Some content for my post",
+        "user_id": 1
+      }
+    ]
+  }
+}
+```
+
+The above implementation however will not catch all cases where we can load the data since we try to convert this view to JSON in cases such as creation or updating where we may not want to preload the data. In these cases we can also use pattern matching to check if the data has not been loaded:
+
+```elixir title="lib/elixirphoenix_web/controllers/user_json.ex"
+defp data(%User{} = user) do
+  result = %{
+    id: user.id,
+    name: user.name,
+    email: user.email,
+  }
+
+  case user.posts do
+    # if the posts are not loaded then we return the result without them
+    %Ecto.Association.NotLoaded{} -> result
+
+    # we add a `posts` field to the map if we do have the posts
+    posts -> Map.put(result, :posts, Enum.map(posts, &PostJSON.data/1))
   end
 end
 ```
