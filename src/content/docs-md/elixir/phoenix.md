@@ -1,6 +1,5 @@
 ---
 title: Web Apps using the Elixer Phoenix Framework
-published: false
 ---
 
 > Notes based on [Phoenix Framework REST API Crash Course](https://www.youtube.com/watch?v=9xaN44PNxps)
