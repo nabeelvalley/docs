@@ -203,3 +203,67 @@ To enable Vim features you can make use of a startup script or a `vimrc` file
 
 - `:set number` to turn on line numbers
 - `:syntax on` to turn on syntax highlighting
+
+# Macros
+
+Macros are a simple way to record a sequence of keystrokes that can be reapplied.
+
+## Recording a Macro
+
+We do this by starting the macro recording with `q` and doing some steps. For example, if I want to delete the first word of each line I can do `0dw`, if I want to make that a macro I can decide what key to be the macro trigger, e.g. let's use `a`, I can record the macro into `a` using `qa0dwq`:
+
+1. `q` to start recording the macro
+2. `a` to set the key to use the macro
+3. `0dw` delete the first word
+4. `q` to end the macro recording
+
+We can then use this macro by typing `@a` which uses the macro at `a`
+
+## Do per line Macro
+
+Often when using macros we're doing something across multiple lines, in this case it's handy to always start and end the macro using `0` to ensure we are always at the start of the line. For example, if we have a bunch of lines that we want to delete the first word from, we can use `0qadw0jq` which will do:
+
+1. `0` to set us to the start of a line
+2. `qa` to start recording a macro in `a`
+3. `dw` to delete the first word (we are already at the start of the line)
+4. `0` to move to the start of the line
+5. `j` to move one line down
+6. `q` to end the recording
+
+We can the use the macro with `@a`, or we can use it multiple times, e.g on the next 5 lines using `5@a` which is:
+
+1. `5` the number of times to repeat
+2. `@a` the macro to execute
+
+## Macro Counters
+
+When doing something over a bunch of lines we don't necessarily want to do the exact same thing. An example of this is to write a list of numbers like:
+
+```
+1. Item 1
+2. Item 2
+3. Item 3
+4. Item 4
+5. Item 5
+```
+
+We can do this by using a macro that modified the line we just wrote. For example, we can first write the following: `1. Item 1`, then we can apply a macro from that line: `qa0yyp<ctrl-a>$<ctrl-a>0q` which does the following:
+
+1. `qa` start recording into `a`
+2. `0` move to start of line
+3. `yyp` copy and paste current line
+4. `<ctrl-a>` increment first number
+5. `$` move to end of line
+6. `<ctrl-a>` increment second number
+7. `0` move to start of line
+8. `q` stop recording
+
+We can then use this macro as needed to implement a count
+
+### Using Put Range
+
+> From [this Stackoverflow Question](https://vi.stackexchange.com/questions/12/how-can-i-generate-a-list-of-sequential-numbers-one-per-line)
+
+As mentioned above, we often want to put numbers on a line and we can manipulate that however we want afterwards, we can use`:put =range(1,100)` to put values 1-100
+
+Of different combinations of the `range` function like `range(1,10,2)` which puts every `2`nd number
