@@ -26,5 +26,5 @@
 }
 
 .wrapper:hover .greeting {
-  transform: translateX(30vw);
+  transform: translateX(20vw);
 }
