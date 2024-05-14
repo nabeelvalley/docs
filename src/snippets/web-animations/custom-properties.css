@@ -1,0 +1,12 @@
+.my-stuff {
+  /* def */
+  --my-color: red;
+  --my-size: 12px;
+
+  /* use */
+  background-color: var(--my-color);
+
+  /* default */
+  height: var(--my-size, 24px);
+  width: var(--some-undefined-value, 24px);
+}

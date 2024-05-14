@@ -55,6 +55,31 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 </Slide>
 
+<Slide centered>
+# A Quick Note on Custom Properties
+
+> These examples make extensive use of CSS Custom Properties so it's good to have a basic understanding of them
+
+<Snippet
+  path="web-animations/custom-properties.css"
+  lang="css"
+  mark={[
+    {
+      range: '2',
+      label: 'Define custom properties using "--"',
+    },
+    {
+      range: '6',
+      label: 'Use with the "var" function',
+    },
+    {
+      range: '9',
+      label: 'Provide a default/fallback value to "var"',
+    }
+  ]}
+/>
+</Slide>
+
 <Slide>
 
 # Animating in CSS
@@ -169,6 +194,18 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   htmlPath="web-animations/index.html"
   mark={['31', '36-37']}
 />
+
+</Slide>
+
+<Slide centered highlight>
+
+# Recap Transitions
+
+- Syntax for Transitions
+- Defining transitions based on DOM state
+- Transitioning multiple properties
+- Shorthand syntax
+- Combining transitions
 
 </Slide>
 
@@ -290,6 +327,18 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 </Slide>
 
+<Slide centered highlight>
+
+# Recap - Animations
+
+- Syntax for Animations
+- Syntax for Keyframes
+- Defining animations based on DOM state
+- Animating multiple properties
+- Timing functions
+
+</Slide>
+
 <Slide>
 
 ## View Transitions
@@ -365,6 +414,16 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
     },
   ]}
 />
+
+</Slide>
+
+<Slide centered highlight>
+
+# Recap - View Transitions
+
+- Trigering a View Transition
+- The Default Transition
+- Customizing a Transitions
 
 </Slide>
 
@@ -681,6 +740,35 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 </Slide>
 
+<Slide centered highlight>
+
+# Recap - Principles of Animation
+
+1. Squash and Stretch
+2. Anticipation
+3. Follow Through and Overlap
+4. Arcs
+5. Slow In & Slow Out
+6. Timing
+7. Secondary Action
+8. Exaggeration
+9. Staging
+10. Straight Ahead & Pose to Pose
+11. Solid Drawings
+12. Appeal
+
+</Slide>
+
+<Slide>
+
+## Frameworks and Libraries
+
+- [TailwindCSS Animation Properties](https://tailwindcss.com/docs/animation) - Primitives for building animations
+- [Animate.css](https://animate.style/) - Predefined animations and transitions
+- [Frame Motion](https://www.framer.com/motion/) - More sophisticated Javascript driven animations
+
+</Slide>
+
 <Slide>
 
 ## When not to use Animations
@@ -699,6 +787,8 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Use animations lightly
 - Less is more, small interactions go a long way
 - Define your identity and use animations to enhance that
+- Understanding interactivity on different screen types
+- Animations should have a purpose
 
 </Slide>
 
@@ -708,6 +798,7 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 ## MDN
 
+- [Using CSS Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
 - [Using CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions/Using_CSS_transitions)
 - [Using CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations/Using_CSS_animations)
 - [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
