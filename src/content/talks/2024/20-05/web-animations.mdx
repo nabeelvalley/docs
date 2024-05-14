@@ -121,6 +121,8 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 ### Using Transitions
 
+> Questions?
+
 <CSSSnippet
   size="m"
   collapse="1-15"
@@ -197,6 +199,32 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 </Slide>
 
+<Slide>
+
+## Timing Functions
+
+<CSSSnippet
+  size="m"
+  collapse="1-16"
+  path="web-animations/transition-timing.css"
+  htmlPath="web-animations/index.html"
+  variables={{
+    '--timing-function': {
+      initial: 'linear',
+      options: {
+        linear: 'linear',
+        'ease-in-out': 'ease-in-out',
+        'cubic-bezier(0.75,-0.61, 0.87,-0.16)':
+          'cubic-bezier(0.75,-0.61, 0.87,-0.16)',
+        'cubic-bezier(1,-2.56, 0, 3.72)': 'cubic-bezier(1,-2.56, 0, 3.72)',
+      },
+    },
+  }}
+  mark="20"
+/>
+
+</Slide>
+
 <Slide centered highlight>
 
 # Recap Transitions
@@ -206,6 +234,7 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Transitioning multiple properties
 - Shorthand syntax
 - Combining transitions
+- Timing functions
 
 </Slide>
 
@@ -224,6 +253,8 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 <Slide>
 
 ### Using Animations
+
+> Questions?
 
 <CSSSnippet
   size="m"
@@ -301,32 +332,6 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 </Slide>
 
-<Slide>
-
-## Timing Functions
-
-<CSSSnippet
-  size="m"
-  collapse="1-16"
-  path="web-animations/transition-timing.css"
-  htmlPath="web-animations/index.html"
-  variables={{
-    '--timing-function': {
-      initial: 'linear',
-      options: {
-        linear: 'linear',
-        'ease-in-out': 'ease-in-out',
-        'cubic-bezier(0.75,-0.61, 0.87,-0.16)':
-          'cubic-bezier(0.75,-0.61, 0.87,-0.16)',
-        'cubic-bezier(1,-2.56, 0, 3.72)': 'cubic-bezier(1,-2.56, 0, 3.72)',
-      },
-    },
-  }}
-  mark="20"
-/>
-
-</Slide>
-
 <Slide centered highlight>
 
 # Recap - Animations
@@ -335,7 +340,6 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Syntax for Keyframes
 - Defining animations based on DOM state
 - Animating multiple properties
-- Timing functions
 
 </Slide>
 
@@ -352,6 +356,8 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 <Slide>
 
 ### Triggering a Transition
+
+> Questions?
 
 <Snippet
   path="web-animations/ViewTransitions.astro"
@@ -386,6 +392,8 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 <Slide>
 
 ### Understanding the Transition
+
+> Questions?
 
 <CSSSnippet
   size="m"
@@ -789,6 +797,25 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Define your identity and use animations to enhance that
 - Understanding interactivity on different screen types
 - Animations should have a purpose
+
+</Slide>
+
+<Slide>
+
+## Case Study
+
+[Josh Comeau](https://www.joshwcomeau.com/)
+
+- Changing themes
+- Navigation dropdown
+- Background svg
+- Link hover
+- Twitter link
+
+[Ling's Cars](https://www.lingscars.com/)
+
+- Sense of identity
+- Maximalism can work too
 
 </Slide>
 
