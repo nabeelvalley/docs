@@ -55,3 +55,7 @@ Below is a list of some websites and platforms that provide free application hos
 
 - [AppWrite](https://appwrite.io) - Basically a host-your-own firebase
 - [Parse](https://parseplatform.org/) - Nodejs Application Server with storage, aauth, and application management
+
+## Apps
+
+- [Affine](https://affine.pro/)
