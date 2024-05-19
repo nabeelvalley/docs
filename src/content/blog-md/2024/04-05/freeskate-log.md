@@ -34,3 +34,22 @@ subtitle: 04 May 2024
 - Keeping your legs together is tricky, bend your knees a bit - having your feet placed well also makes this easier - if your foot placement is bad you may as well bail since you're not really gonna be able to do much
 - Counting as you pump helps keep your feet in sync - 1-in, 2-out, 1-in, 2-out, etc. this helps a decent amount - also I cannot emphasize enough - DON'T LOOK AT YOUR FEET OMW IT WILL SCREW YOU UP
 - Taking a break and coming back later or the next day does wonders for your muscle memory. Kinda crazy how much easier doing the same thing is after resting for a while
+
+## 14 May
+
+- The session today for rained out after about 20mins just as i started getting into it
+- Feeling a lot more comfortable on the skates and little things feel a bit easier like picking up/putting down the skates as well as getting onto them - feels a bit like there breaking in somewhat as well
+- Was able to get into the flow a bit better, moving around feeling a lot better
+- The park was also fairly busy which I think actually helped me focus more on moving and less on what my feet were doing - got some practice turning as well which was good
+
+## 19 May
+
+- Did almost an hour of skating today. 
+- Managed to make it all the way around the park! That was my goal for the day
+- Since I managed to do that I tried to make it through the weird tunnel thing in the middle of the park - this was a bit trickier than I expected since it's really curved on the inside which meant you can't really pump while going through. Balance was also a bit weird because of the angle but I eventually made it through
+- Getting the hang of the movement and rhythm, can also consciously choose to use my back or front leg to pump
+- Moving up a slope is still really difficult but I think I have the hang of the flat ground which feels like progress
+- In general, I feel like swinging your arms helps a bit to keep your feet in sync as well as just help you feel less awkward overall
+- Doing some short warm up rides and taking a break can also help to just lossen up a bit
+- Seems like you just gotta keep on keeping on
+- Plan for next time is to work on pushing from the flat ground and making it all the way around from there - so picking up speed and going up the slight incline
