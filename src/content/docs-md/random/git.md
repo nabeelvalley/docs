@@ -499,3 +499,19 @@ Run the following in a repo to make git maintain the repo and keep things fast i
 ```sh
 git maintenance start
 ```
+
+## Searching for Specific Change
+
+> [StackOverflow Question](https://stackoverflow.com/questions/2839253/git-history-find-lost-line-by-keyword/2839319#2839319)
+
+To search for a specific piece of text that was changed at some point in history (e.g. find some deleted text) you can use:
+
+```sh
+git log -p --all -S 'search term here'
+```
+
+Or with a Regex:
+
+```sh
+git log -p --all -G 'some regex here'
+```
