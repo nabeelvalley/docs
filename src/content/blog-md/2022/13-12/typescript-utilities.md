@@ -262,6 +262,13 @@ type Stringable = Exclude<string | number, ''>
 type NonEmptyArray<T> = [T, ...T[]]
 
 /**
+ * String type that will show suggestions but accept any string
+ *
+ * @param TSugg the strings that you want to appear as IDE suggestions 
+ */
+type SuggestedStrings<TSugg> = TSugg | string & { }
+
+/**
  * Joins stringable members into a single, typed, string
  */
 export type Join<TSep extends string, T extends Array<Stringable>> = T extends [
