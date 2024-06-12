@@ -65,8 +65,9 @@ This component uses the `<ng-template [cdkPortalOutlet]="contentOutput"></ng-tem
 
     <hr />
 
-    <!-- the content will instead be rendered here -->
-    <ng-template [cdkPortalOutlet]="contentOutput"></ng-template>
+    <ng-template [cdkPortalOutlet]="contentOutput">
+      <!-- the content will instead be rendered here -->
+    </ng-template>
   `,
 })
 export class PortalRootComponent {
