@@ -54,6 +54,7 @@ pre {
 
 p code {
   font-size: 1.1em;
+  color: var(--color-brand);
 }
 
 summary {
