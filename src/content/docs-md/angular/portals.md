@@ -116,7 +116,7 @@ export class PortalContentComponent {
   template: `
     <h1>Hello World</h1>
 
-    <p>This is where the portal content is localted in the DOM</p>
+    <p>This is where the portal content is localted in the template:</p>
 
     <portal-content>
       <p>This is some content that is rendered inside a portal</p>
@@ -126,7 +126,7 @@ export class PortalContentComponent {
       <blockquote>Angular functionality will work as normal within the portal</blockquote>
     </portal-content>
 
-    <p>The Portal content will be rendered here:</p>
+    <p>The Portal content will be rendered here in the DOM:</p>
 
     <ng-template [cdkPortalOutlet]="contentOutput"></ng-template>
 
