@@ -249,6 +249,14 @@ type Pathify<T, Sep extends string> = PickPrimitive<T> &
 export type PickArrays<T> = {
   [K in keyof T as T[K] extends Array<any> ? K : never]: T[K]
 }
+
+/**
+ * Get the keys of the object `Obj` that start with the given string `S`
+ * 
+ * @param S the string that a key should start with
+ * @param Obj the object from which to take the matching keys
+ */
+type KeysStartingWith<S extends string, Obj> = keyof Obj & `${S}${string}`;
 ```
 
 # Strings
