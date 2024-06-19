@@ -251,12 +251,20 @@ export type PickArrays<T> = {
 }
 
 /**
- * Get the keys of the object `Obj` that start with the given string `S`
+ * Get the keys of the object `Obj` that start with the given string `P`
  * 
- * @param S the string that a key should start with
+ * @param P the string that a key should be prefixed with
  * @param Obj the object from which to take the matching keys
  */
-type KeysStartingWith<S extends string, Obj> = keyof Obj & `${S}${string}`;
+type KeysStartingWith<P extends string, Obj> = keyof Obj & `${P}${string}`;
+
+/**
+ * Get the keys of the object `Obj` that end with the given string `S`
+ * 
+ * @param S the string that a key should be suffixed with
+ * @param Obj the object from which to take the matching keys
+ */
+type KeysEndingWith<S extends string, Obj> = keyof Obj & `${string}${S}`;
 ```
 
 # Strings
