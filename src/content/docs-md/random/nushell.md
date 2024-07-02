@@ -315,7 +315,7 @@ def 'gclean D' [] {
   | each {|b| git branch -D $b}
 }
 
-def gmerge [] {
+def gmaster [] {
   let branch = git rev-parse --abbrev-ref HEAD
   git checkout master
   git pull
