@@ -269,13 +269,6 @@ glob **/*.png
 
 > The `glob` method returns a list of strings versus the `ls` method which returns a list of file objects
 
-### Deleting Branches
-
-We can use a script like the following to delete all git branches other than the current branch
-
-```sh
-git branch | lines | filter {|l| $l | str contains -n "*"} | each {|b| $b | str trim} | each {|b| git branch -d $b}
-```
 
 ### Stopping All Docker Containers
 
@@ -285,4 +278,64 @@ We can kill all containers by parsing the data into a table and stopping them in
 
 ```sh
 docker container ls | from ssv | select "CONTAINER ID" | each { |i| docker container stop $i."CONTAINER ID" } 
+```
+
+## Config
+
+Some utils from my current `config.nu`, primarily for working with Git
+
+```nu
+alias gch = git checkout
+alias gcb = git checkout -b
+alias glg = git log --graph
+alias ga = git add
+alias gp = git push
+alias gf = git fetch
+alias gl = git pull
+alias gcm = git commit -m
+alias gprune = git remote prune origin
+
+alias conf = code $nu.config-path
+alias env = code $nu.env-path
+
+# Deletes all branches other than the current branch
+def gclean [] {
+  git branch 
+  | lines 
+  | filter {|l| $l | str contains -n "*"} 
+  | each {|b| $b | str trim} 
+  | each {|b| git branch -d $b}
+}
+
+def 'gclean D' [] {
+  git branch 
+  | lines 
+  | filter {|l| $l | str contains -n "*"} 
+  | each {|b| $b | str trim} 
+  | each {|b| git branch -D $b}
+}
+
+def gmerge [] {
+  let branch = git rev-parse --abbrev-ref HEAD
+  git checkout master
+  git pull
+  git checkout $branch
+  git merge master
+}
+
+def dev [repo:string] {
+  code $"~/repos/$repo"
+}
+
+# Search for a string or regex using `rg -i`
+def search [
+    regex:string, # regex or string to search on 
+    -i # Run the search as case insensitive
+  ] {
+  if $i {
+    rg -i $regex
+  } else {
+    rg $regex
+  }
+}
 ```
