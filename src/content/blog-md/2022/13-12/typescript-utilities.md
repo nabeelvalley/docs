@@ -2,10 +2,10 @@
 published: true
 title: Typescript Utilities
 subtitle: 12 December 2022
-description: Some general purpose typescript utilities
+description: Some general purpose utility types
 ---
 
-Here's a collection of some typescript utility functions I've put together
+Here's a collection of some utility types I've put together:
 
 # Functions
 
