@@ -70,6 +70,12 @@ export type SyncOrAsyncOptionFn<TParams, TResult> = SyncOrAsync<
  * Create a version of `VoidFn` that may either be sync or async
  */
 export type SyncOrAsyncVoidFn<TParams> = SyncOrAsync<VoidFn<TParams>>
+
+/**
+ * Returns a function with the arguments reversed
+ */
+export type ReverseArguments<T extends (...args:any[]) => any> = (...args: Reverse<Parameters<T>>) => ReturnType<T>
+
 ```
 
 # Arrays
@@ -107,6 +113,12 @@ export type StepsOf<Final extends Readonly<any[]>> = Final extends [
 ]
   ? StepsOf<Next> | Final
   : [];
+
+
+/**
+ * Reverses the input tuple
+ */
+export type Reverse<T extends Array<unknown>> = T extends [infer First, ...infer Rest] ? [...Reverse<Rest>, First] :[]
 ```
 
 # Objects
