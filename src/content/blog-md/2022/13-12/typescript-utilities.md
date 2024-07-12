@@ -82,6 +82,11 @@ export type ReverseArguments<T extends (...args:any[]) => any> = (...args: Rever
 
 ```ts
 /**
+ * An array with at least 1 item in it
+ */
+export type NonEmptyArray<T> = [T, ...T[]]
+
+/**
  * Array filter type, used to filter an array via the `.filter` method
  */
 export type ArrayFilter<T> = (value: T, index: number, array: T[]) => boolean
@@ -119,6 +124,16 @@ export type StepsOf<Final extends Readonly<any[]>> = Final extends [
  * Reverses the input tuple
  */
 export type Reverse<T extends Array<unknown>> = T extends [infer First, ...infer Rest] ? [...Reverse<Rest>, First] :[]
+
+/**
+ * Remove first value from array
+ */
+export type Eat<T extends unknown[]> = T extends [infer _, ...(infer R)] ? R : never
+
+/**
+ * Remove last value from array
+ */
+export type EatLast<T extends unknown[]> = T extends [...(infer R), infer _] ? R : never 
 ```
 
 # Objects
@@ -277,6 +292,14 @@ type KeysStartingWith<P extends string, Obj> = keyof Obj & `${P}${string}`;
  * @param Obj the object from which to take the matching keys
  */
 type KeysEndingWith<S extends string, Obj> = keyof Obj & `${string}${S}`;
+
+/**
+ * Get a type or else a fallback if it is `never`
+ * 
+ * @param T the base type
+ * @param F the fallback to use if `T extends never`
+ */
+type OrElse<T, F> = T extends never ? F : T
 ```
 
 # Strings
@@ -285,16 +308,14 @@ type KeysEndingWith<S extends string, Obj> = keyof Obj & `${string}${S}`;
 /**
  * Types that can be cleanly/predictably converted into a string
  */
-type Stringable = Exclude<string | number, ''>
-
-type NonEmptyArray<T> = [T, ...T[]]
+export type Stringable = Exclude<string | number, ''>
 
 /**
  * String type that will show suggestions but accept any string
  *
  * @param TSugg the strings that you want to appear as IDE suggestions 
  */
-type SuggestedStrings<TSugg> = TSugg | string & { }
+export type SuggestedStrings<TSugg> = TSugg | string & { }
 
 /**
  * Joins stringable members into a single, typed, string
@@ -320,6 +341,38 @@ export type Split<
 > = TStr extends `${infer El}${TSep}${infer Rest}`
   ? [...TBase, El, ...Split<TSep, Rest>]
   : [TStr]
+
+/**
+ * Get the chars of a strongly typed string as an array
+ */
+export type Chars<
+  TStr extends string,
+  TBase extends string[] = []
+> = TStr extends `${infer El}${""}${infer Rest}`
+  ? Rest extends "" 
+    ? [TStr] 
+    : [...TBase, El, ...Chars<Rest>]
+  : never
+
+/**
+ * Get the length of a string
+ */
+export type Length<TStr extends string> = Chars<TStr>['length']
+
+/**
+ * Get the first character of a string 
+ */
+export type First<T extends string> = T extends `${infer F}${string}` ? F : never
+
+/**
+ * Get the last character of a string
+ */
+export type Last<TStr extends string> = Reverse<Chars<TStr>>[0]
+
+/**
+ * Get a string with the first character omitted
+ */ 
+export type Eat<T extends string> = T extends `${string}${infer E}` ? E : never
 ```
 
 # JSON Schema
