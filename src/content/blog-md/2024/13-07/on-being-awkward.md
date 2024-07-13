@@ -1,6 +1,6 @@
 ---
 title: The Most Awkward Person in the Room
-description: About English and why languages kinda suck
+description: The challenge of language
 subtitle: 13 July 2024
 published: true
 ---
