@@ -20,7 +20,7 @@ interface PartialItem {
 }
 
 const getUrl = (item: PartialItem) =>
-  `${slugSegments[item.collection]}/${item.slug}`
+  `/${slugSegments[item.collection]}/${item.slug}`
 
 const getFilePath = (item: PartialItem) => `${item.collection}/${item.id}`
 
