@@ -3,14 +3,11 @@
 // is your "component front matter". It never runs in the browser.
 import Base from '../layouts/Base.astro'
 import Page from '../layouts/Page.astro'
-import LinkBlock from '../components/LinkBlock.astro'
 
 import getMeta from '../data/meta'
 import allProjects from '../data/projects.json'
-import LinkBlock from '../components/LinkBlock.astro'
 import Feature from '../components/Feature.astro'
 import { getCollection } from 'astro:content'
-import LinkGrid from '../components/LinkGrid.astro'
 
 const blogCollections = await Promise.all([
   getCollection('blog-md'),
@@ -52,10 +49,4 @@ const recentPostItem = {
   <Page blogs={[1, 6]}>
     <Feature {...recentPostItem} />
   </Page>
-  <!-- 
-  <h3>Projects</h3>
-
-  <LinkGrid>
-    {projects.map((project) => <LinkBlock {...project} />)}
-  </LinkGrid> -->
 </Base>

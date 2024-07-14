@@ -54,12 +54,18 @@ const { link, title, subtitle, description, tags, image } = Astro.props
   }
 
   .link__tags {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
     display: inline-block;
-    /* don't show tags for now */
-    display: none;
   }
 
   .link__tag {
     display: inline-block;
+    background-color: var(--color-on-base);
+    color: var(--color-base);
+    padding: 0.25rem;
   }
 </style>

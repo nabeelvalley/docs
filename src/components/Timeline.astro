@@ -1,0 +1,189 @@
+---
+import { getCollection } from 'astro:content'
+import Title from './Title.astro'
+import Base from '../layouts/Base.astro'
+import { collections, slugSegments, type Collection } from '@/lib/pages'
+import { stat } from 'fs/promises'
+import { execSync } from 'child_process'
+import groupBy from 'lodash/groupBy'
+
+import LinkBlock from './LinkBlock.astro'
+import LinkGrid from './LinkGrid.astro'
+
+interface PartialItem {
+  id: string
+  collection: Collection
+  slug: string
+  data: {
+    subtitle?: string
+  }
+}
+
+const getUrl = (item: PartialItem) =>
+  `${slugSegments[item.collection]}/${item.slug}`
+
+const getFilePath = (item: PartialItem) => `${item.collection}/${item.id}`
+
+interface Result {
+  filePath: string
+  url: string
+  created?: Date
+  section: string,
+  timeline?: {
+    year: number
+    month: number
+  }
+}
+
+const sortByDate = (a, b) => b.created - a.created
+
+const normalizeCollection = (collection: PartialItem[]) => {
+  const items = collection
+    .filter((p) => p.data.published !== false)
+    .filter(p => !!p.data.title)
+    .filter((item) => !!item.id)
+    .map(async (item) => {
+      const filePath = getFilePath(item)
+
+      let gitDate: Date | undefined = undefined
+      try {
+        gitDate = new Date(
+          execSync(
+            `git log --diff-filter=A --follow --format=%aD --date=iso -1 -- ./src/content/${filePath}`
+          )
+            .toString()
+            .trim()
+        )
+      } catch (err) {
+        console.log('Error getting git creation date for file')
+      }
+
+      const postDate = new Date(item.data.subtitle)
+
+      const created = isNaN(postDate.getTime()) ? gitDate : postDate
+
+      return {
+        ...item,
+        filePath,
+        url: getUrl(item),
+        section: slugSegments[item.collection],
+        created,
+        timeline: created && {
+          year: created.getFullYear(),
+          month: created.getMonth(),
+        },
+      }
+    })
+
+  return Promise.all(items)
+}
+
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
+
+const groupItems = (posts) => {
+    const groupedByYear = posts.reduce((acc, item) => {
+        acc.set(item.timeline?.year, [...(acc.get(item.timeline?.year) || []), item])
+        return acc
+    }, new Map())
+
+
+    const groupedByMonth = Array.from(groupedByYear.entries()).map(([year, items]) => {
+        const grouped = items.reduce((acc, item) => {
+            acc.set(item.timeline?.month, [...(acc.get(item.timeline?.month) || []), item])
+            return acc
+        }, new Map())
+
+        return [year, Array.from(grouped.entries())]
+    })
+    
+
+    return groupedByMonth
+}
+
+
+const result = await Promise.all(
+  collections.map((collection) =>
+    getCollection(collection).then(normalizeCollection)
+  )
+)
+  .then((collections) => collections.flat())
+  .then((collection) => {
+    const sorted = collection.sort(sortByDate)
+   return groupItems(sorted)
+  })
+---
+
+  
+
+  {
+    result.map(([year, months]) => {
+
+
+      return <section class="year-wrapper"><LinkGrid>
+        {year ? <h1 class="year">{year}</h1> : null}
+
+
+        {
+          months.map(([month, posts]) => {
+
+            return <>
+
+            {monthNames[month] ? <h2 class="month">{monthNames[month]}</h2> : null}
+
+                {
+                  posts.map(post => {
+
+                    return   <LinkBlock
+            title={post.data.title}
+            tags={post.section === 'blog' ? [post.section] : []}
+            link={post.url}
+          />
+
+                  })
+                }
+
+            
+
+</>
+
+          })
+        }
+
+  </LinkGrid>
+  </section>
+    })
+  }
+
+
+
+<style>
+.year-wrapper {
+  margin-bottom: 4rem;
+}
+
+.year {
+  margin: 0;
+  padding: 1rem;
+  color: var(--color-on-brand);
+  background-color: var(--color-brand);
+}
+.month {
+  margin: 0;
+  padding: 1rem;
+  background-color: var(--color-on-base);
+  color: var(--color-base);
+}
+  </style>
