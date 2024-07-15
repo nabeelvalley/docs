@@ -134,3 +134,11 @@ export type Admin = {
   user: User
 }
 ```
+
+# References
+
+In addition to using the AST Direcly, some libraries that are also handy for working with the Typescript AST are:
+
+- [@phenomnomnominal/tsquery](https://github.com/phenomnomnominal/tsquery)
+- [ts-morph](https://github.com/dsherret/ts-morph)
+- [@microsoft/api-extractor](https://api-extractor.com)
