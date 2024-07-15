@@ -5,7 +5,7 @@ title: Using the TypeScript AST
 
 # Generating Typescript using AST's
 
-> Some parsers other that the Typescript ones is [Esprima](https://esprima.org/demo/parse.html), [Acorn](https://github.com/acornjs/acorn), these are Javascript Parsers> Other languages also have parsers as well as tools called `Parser Generators` that enable you to generate a parser for a given language or usecase
+> Some parsers other that the Typescript one is [Esprima](https://esprima.org/demo/parse.html), [Acorn](https://github.com/acornjs/acorn), these are Javascript Parsers> Other languages also have parsers as well as tools called `Parser Generators` that enable you to generate a parser for a given language or usecase
 
 Before getting started, you should first install the `typescript` package into your project with:
 
