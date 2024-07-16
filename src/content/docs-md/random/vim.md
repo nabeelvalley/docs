@@ -62,6 +62,15 @@ Use `p` to put previously deleted text after the cursor (this is sort of like cu
 
 To replace a character wth another you can use `r` followed by the character you want to replace, for example `re` will replace the highligted character with an `e`, additionaly to replace multiple characters you can use `R`
 
+## Regex Replacements
+
+You can use the `%s` command to replace something using regex, for example `:%s/thingToReplace/myReplacement/` - this will only replace one usage per line. Adding the `g` flag as follows will do a replace for all usages in even a single line `:%s/thingToReplace/myReplacement/g` 
+
+It is also possible to do a replacement over a visual selection. Instead of `%` you can use a visual selection and then type `:` which will autofill `'<,'>` in your command bar, typing `s/` will enter the same find and replace mode as before, so you can use a regex. The full command will look like so `:'<,>s/thingToReplace/myReplacement/`
+
+Additionally, you can use regex capture groups in your replacements to do more complex things, this can be done by using the `\` to refer to a capture group, for example: `:%s/(thingToReplace)/\1InTheFuture/` will replace all instances of `thingToReplace` with `thingToReplaceInTheFuture`
+
+
 # Change
 
 To change until the end of a word use `ce`, this will allow you to overwrite the current word from the current current position. This operator works the same as when using the delete operator
