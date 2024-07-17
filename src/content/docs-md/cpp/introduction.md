@@ -1,7 +1,7 @@
 ---
 published: true
-title: Introduction to C
-subtitle: Basic Concepts in the C Programming Language
+title: Introduction to C++
+subtitle: Basic Concepts in the C++ Programming Language
 ---
 
 [Based on this EdX Course](https://courses.edx.org/courses/course-v1:Microsoft+DEV210x+1T2019a/course/)
