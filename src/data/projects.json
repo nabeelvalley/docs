@@ -1,5 +1,11 @@
 [
   {
+    "title": "parz",
+    "description" "A parser combinator library written in Gleam",
+    "tags": ["gleam", "lib", "parsing"],
+    "link": "https://github.com/sftsrv/parz"
+  },
+  {
     "title": "synk",
     "description": "A little CLI for working with databases during development for quick queries and automation",
     "tags": ["ts", "lib", "websockets", "rpc"],
