@@ -5,7 +5,7 @@ subtitle: 20 July 2024
 published: true
 ---
 
-# Time
+## Time
 
 There's never enough time to do the things we want to do. Recently I find myself struggling with this. There are too few hours in a day, too few days in a week. Between work and trying to simply stay alive there aren't many hours left to do things you care about
 
@@ -15,7 +15,7 @@ As far as my photography goes, I'm planning to take fewer pictures, but spend a 
 
 The other area of my life that's suffered due to poor time management is my technical learning. I've found programming to be an interesting lens through which to see the world, and different approaches and paradigms make that a constantly moving picture.
 
-# Gleam
+## Gleam
 
 [Gleam](https://gleam.run/) is a functional programming language in the Erlang/Elixir ecosystem that compiles to code that can run on the Erlang VM and can also optionally target Javascript/Node
 
@@ -33,9 +33,9 @@ Overall I think I learnt quite a bit, I spent a lot of time looking at the Gleam
 
 But anyways, all that aside, let's take a look at some parser things
 
-# Parsers
+## Parsers
 
-## What is a Parser
+### What is a Parser
 
 In our context, a parser is simply a function that takes in some input, and tries to convert it into some meaningful pieces of data, further - a combinator is a function that takes one or more parsers and combines them into a new parser - get it? - combine = combinator.
 
@@ -55,7 +55,7 @@ pub type Parser(a) =
   fn(String) -> Result(ParserState(a), Err)
 ```
 
-## A Simple Parser
+### A Simple Parser
 
 We can also see that we are using this `a` thing above, this is a generic type in Gleam. In our implementation we define that a parser just needs to return some kind of data as what was matched, but we don't particularly care what that is
 
@@ -112,7 +112,7 @@ let error = parser("Yxx")
 
 We can define other parsers using a similar style but this is the core of it, the above is very specifically a `Parser(String)` but these can be more generic as we'll see when we get to combinators
 
-## A Simple Combinator
+### A Simple Combinator
 
 Combinators are used to combine parsers in interesing ways. A simple combinator is the `left` combinator which takes in two parsers and tries to parse them as a sequence, but will only keep the left-side of the parsed result.
 
@@ -185,7 +185,7 @@ let result = parser("xyz")
 
 So that's pretty cool right?
 
-## A More Complex Parser
+### A More Complex Parser
 
 Using the basic idea of a parser and a combinator, we can define a whole bunch of them as I have [in my Parz project on GitHub](https://github.com/sftsrv/parz) we can compose them to create a parser for a more complex data type, for example:
 
@@ -281,11 +281,11 @@ let result = parser(input)
 
 That's about it. At a high level you should be able to build parsers using the concepts I've mentioned here. Combinators are extremely powerful and I think can work as a great introduction to to functional programming concepts
 
-# The Library
+## The Library
 
 Over the course of learning about parser combinators and the gleam language, I put together a little parsing library. It's probably extremely inefficient but was a fun little project and I think it was a useful learning excercise. My libray can be found [on GitHub](https://github.com/sftsrv/parz) but it's also published as a package that you can use on [Hex](https://hexdocs.pm/parz)
 
-# References
+## References
 
 My time was primarily spent between the following resources when working on this project
 
