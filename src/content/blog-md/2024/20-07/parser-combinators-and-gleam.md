@@ -292,3 +292,5 @@ My time was primarily spent between the following resources when working on this
 - [Gleam Documentation](https://gleam.run/documentation/)
 - [Parser Combinators by Low Byte Productions on YouTube](https://www.youtube.com/playlist?list=PLP29wDx6QmW5yfO1LAgO8kU3aQEj8SIrU)
 - [Parser Combinators by Scott Wlaschin on F# for Fun and Profit](https://fsharpforfunandprofit.com/posts/understanding-parser-combinators)
+
+Also, if you just wan to learn to program in Gleam you can take a look on [Exercism](https://exercism.org/tracks/gleam)
