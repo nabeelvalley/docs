@@ -142,3 +142,4 @@ In addition to using the AST Direcly, some libraries that are also handy for wor
 - [@phenomnomnominal/tsquery](https://github.com/phenomnomnominal/tsquery)
 - [ts-morph](https://github.com/dsherret/ts-morph)
 - [@microsoft/api-extractor](https://api-extractor.com)
+- [jscodeshift](https://jscodeshift.com/build/api-reference/)
