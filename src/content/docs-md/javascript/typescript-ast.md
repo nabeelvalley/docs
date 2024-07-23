@@ -144,3 +144,4 @@ In addition to using the AST Direcly, some libraries that are also handy for wor
 - [@microsoft/api-extractor](https://api-extractor.com)
 - [jscodeshift](https://jscodeshift.com/build/api-reference/)
 - [recast](https://github.com/benjamn/recast)
+- [TS Parsec](https://github.com/microsoft/ts-parsec)

@@ -294,3 +294,7 @@ My time was primarily spent between the following resources when working on this
 - [Parser Combinators by Scott Wlaschin on F# for Fun and Profit](https://fsharpforfunandprofit.com/posts/understanding-parser-combinators)
 
 Also, if you just wan to learn to program in Gleam you can take a look on [Exercism](https://exercism.org/tracks/gleam)
+
+Additonally, some more generally related information:
+
+- [My notes on working with the Typescript AST](/docs/javascript/typescript-ast)
