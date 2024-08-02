@@ -408,7 +408,7 @@ git config core.ignorecase false
 # Find Bad Commits using Bisect
 
 1. Checkout the branch where the bad commit exists
-2. Run `git bisect start` to start a bisect session
+2. Run `git bisect start` to start a bisect session. If you're looking for a PR you can also use the `--first-parent` flag here which will make it easier to find merges only for example
 3. Checkout a commit that is known to be bad and run `git bisect bad`
 4. Checkout a commit that is known to be good and run `git bisect good`
 5. Then the bisect tool will automatically checkout another commit
@@ -416,8 +416,26 @@ git config core.ignorecase false
 - Do your checks
 - If good then run `git bisect good`, otherwise run `git bisect bad`
 
-6. The process will run until you find the last bad commit, you can then try to figure out what was changed in that commit
-7. Optionally, you can checkout the HEAD of your branch, then run `git checkout <LAST_WORKING_COMMIT_HASH> .` to get the last working files in your branch and you can remove changes until you are left with some change that would be the one that caused the bug
+The overall flow for this will be something like
+
+```sh
+git bisect start # or git bisect start --first-parent
+git bisect good # to label a commit as good
+git bisect bad # to label a commit as bad
+# the tool will checkout another commit, you then mark this as good or bad
+```
+
+6. The process will run until you find the last bad commit, you can then try to figure out what was changed in that commit.
+
+If you need to view the changes made you can do `git bisect log`. You can also save this to a file with something like `git bisect log | my-log-file.txt`. You can then edit that file to make changes to the log if you made a mistake along the way and you can replay the changes using `git bisect replay my-log-file.txt`
+
+Like so:
+
+```sh
+git bisect log | my-log-file.txt
+# edit the my-log-file.txt` to correct a mislabeling, etc.
+git bisect replay my-log-file.txt
+```
 
 # Git User Configs
 
