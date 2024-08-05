@@ -339,3 +339,26 @@ def search [
   }
 }
 ```
+
+## Notifiy
+
+A little script that's also useful to have is this one that will notify you when a task completes. It's a handy way to be notified when a long running task completes
+
+> This uses AppleScript as per [the example on stackexchange](https://apple.stackexchange.com/questions/57412/how-can-i-trigger-a-notification-center-notification-from-an-applescript-or-shel) so it will only work on MacOS. I'm sure there's a similar way to accomplish this on other operating systems
+
+```sh
+def "notify" [title: string = "Task Complete"] {
+  print $in
+
+  let $command = 'display notification "' + $title + '" with title "Shell Process Complete" sound name "Frog"'
+  osascript -e $command
+}
+```
+
+You can include the above in your nushell config and use it as follows:
+
+```sh
+my-command long-task | notify "My Long Task is Completed"
+```
+
+It will also handle printing the output from the task being run
