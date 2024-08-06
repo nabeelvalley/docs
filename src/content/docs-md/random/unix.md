@@ -136,3 +136,11 @@ And you can use `-` to just swap back to the last directory
 cd -
 # after, now in apps/something-else
 ```
+
+# Tail/Watch a file as it changes
+
+You can get the tail of a file and watch it as it changes using:
+
+```sh
+tail -f ./path/to/file
+```
