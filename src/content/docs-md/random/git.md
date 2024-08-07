@@ -533,3 +533,19 @@ Or with a Regex:
 ```sh
 git log -p --all -G 'some regex here'
 ```
+
+## Speeding things Up
+
+> Some general commands that should help speed up git as per [this GitTower Post](https://www.git-tower.com/blog/git-performance/)
+
+Running the following in a repo should speed up the behaviour of git in general
+
+```sh
+git config feature.manyFiles true
+git update-index --index-version 4
+git config core.fsmonitor true
+git fsmonitor--daemon status
+git config core.untrackedcache true
+git config core.commitgraph true
+git config fetch.writeCommitGraph true
+```
