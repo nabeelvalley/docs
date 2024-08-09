@@ -379,6 +379,8 @@ Which can then be used as
 "Hello World!" | example
 ```
 
+Additionally, note that `example "Hello World!"` will not work since `$in` params cannot be passed positionally and can only be used part of a pipeline
+
 It's also possible to use `$in` when we epect a closure which lets us leave out the parameter definition, for example, we can run `ls` in all subdirectories of an input like so:
 
 ```sh
