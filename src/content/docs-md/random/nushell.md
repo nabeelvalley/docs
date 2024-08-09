@@ -362,3 +362,31 @@ my-command long-task | notify "My Long Task is Completed"
 ```
 
 It will also handle printing the output from the task being run
+
+# The `$in` Param and Closures
+
+Nushell functions can also use an implicit input parameter, this can be used when defining a function, for example:
+
+```sh
+def example[] {
+  echo $in 
+}
+```
+
+Which can then be used as 
+
+```sh
+"Hello World!" | example
+```
+
+It's also possible to use `$in` when we epect a closure which lets us leave out the parameter definition, for example, we can run `ls` in all subdirectories of an input like so:
+
+```sh
+# Using a normal closure
+ls | each { |f| ls $f.name }
+
+# Using `$in`
+ls | each { ls $in.name }
+```
+
+The `{ ls $in.name }` is the same as a closure like `{|f| ls $f.name }` so it's a bit easier to type in this scenario as well.
