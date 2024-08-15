@@ -39,13 +39,13 @@ The problem here is that the user of this function has to provide both generics 
 We can also try the following where we just provide the `name`, but this won't work:
 
 ```ts
-const getName = getProperty("name"); // Argument of type 'string' is not assignable to parameter of type `never`
+const getName = getProperty("name"); // Error: Argument of type 'string' is not assignable to parameter of type `never`
 ```
 
 This is because the function doesn't know what type it's dealing with. The obvious next thing we can try is just provide a single type argument, but this doesn't work either since typescript needs us to provide both generics since we're not defaulting the second one
 
 ```ts
-const getName = getProperty<Data>("name"); // Expected 2 type arguments, but got 1
+const getName = getProperty<Data>("name"); // Error: Expected 2 type arguments, but got 1
 ```
 
 > We _could_ default the type of `K` which would take away our error but would also completely remove the benefit of it being a generic parameter in this case which is to narrow down the type the function returns
