@@ -549,3 +549,5 @@ git config core.untrackedcache true
 git config core.commitgraph true
 git config fetch.writeCommitGraph true
 ```
+
+For more details for dealing with Large Git Repos there's some nice info on [the GitButler Site](https://blog.gitbutler.com/git-tips-3-really-large-repositories/) y
