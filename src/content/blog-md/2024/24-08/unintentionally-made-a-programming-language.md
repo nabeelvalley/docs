@@ -1,6 +1,16 @@
+---
+title: A Visual Language for Image Manipulation
+description: I accidentally created a programming language for editing photos
+subtitle: 24 August 2024
+---
+
+I've spent the past few weeks building a concept photo editing application that allows users to visually define and compose shaders to transform an image in ways that are really challenging or impossible in other image manipulation software
+
+For readers of my website it's probably not too much of a surprise that I've been spending a lot of time learning about [Parser Combinators](../20-07/parser-combinators-and-gleam) as well as [Shaders](../../../docs/shaders/intro-to-shaders). Armed with this information, it looks like I accidentally created a Visual Programming Language - this post will talk about how that all works
+
 # Why
 
-Every time I've shown anyone this the first question was "Why do you need this?". I think it's fair to say that no one _really_ **needs** this. This exists to satisfy the artistic urge to do create something new. I've spent so much time feeling limited by the tools I have for working with images are lacking in creative expression. I think there's an intersection between computational/generative art and photography that's underserved and it's a space I would like to play in. I wanted to create a tool that allows creative **exploration** of images and helps break away from the "filter" based approach that dominates how we edit images
+Every time I've shown anyone the app the first question was "Why do you need this?". I think it's fair to say that no one _really_ **needs** this. This exists to satisfy the artistic urge to do create something new. I've spent so much time feeling limited by the tools I have for working with images are lacking in creative expression. I think there's an intersection between computational/generative art and photography that's underserved and it's a space I would like to play in. I wanted to create a tool that allows creative **exploration** of images and helps break away from the "filter" based approach that dominates how we edit images
 
 It also seemed like a challenge, it begged to be done.
 
