@@ -6,7 +6,7 @@ subtitle: 24 August 2024
 
 I've spent the past few weeks building a concept photo editing application that allows users to visually define and compose shaders to transform an image in ways that are really challenging or impossible in other image manipulation software
 
-For readers of my website it's probably not too much of a surprise that I've been spending a lot of time learning about [Parser Combinators](../20-07/parser-combinators-and-gleam) as well as [Shaders](../../../docs/shaders/intro-to-shaders). Armed with this information, it looks like I accidentally created a Visual Programming Language - this post will talk about how that all works
+For readers of my website it's probably not too much of a surprise that I've been spending a lot of time learning about [Parser Combinators](/blog/20-07/parser-combinators-and-gleam) as well as [Shaders](/docs/shaders/intro-to-shaders). Armed with this information, it looks like I accidentally created a Visual Programming Language - this post will talk about how that all works
 
 # Why
 
