@@ -25,12 +25,15 @@ const blog = collection
 const meta = getMeta()
 
 interface Props {
-  blogs?: [number, number]
+  count?: number
+  omit?: number
 }
+
+const withExcluded = blog.filter((_, i) => i !== Astro.props.omit)
 
 const hasSidebar = Astro.slots.has('sidebar')
 
-const posts = blog.slice(...(Astro.props.blogs || [0, 5]))
+const posts = withExcluded.slice(0, Astro.props.count || 6)
 ---
 
 <Layout>

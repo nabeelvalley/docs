@@ -26,17 +26,9 @@ const blog = collection
 
 const meta = getMeta()
 
-const recentPost = blog[0]
-const posts = blog.slice(1, 6)
+const recentIndex = blog.findIndex(b => b.data.feature)
 
-const projects = allProjects.slice(0, 10)
-const docsItem = {
-  title: 'Docs',
-  subtitle: meta.buildDate,
-  description: 'My personal notes on software development and related topics',
-  cta: 'Go to docs',
-  url: '/docs',
-}
+const recentPost = blog[recentIndex]
 
 const recentPostItem = {
   ...recentPost.data,
@@ -46,7 +38,7 @@ const recentPostItem = {
 ---
 
 <Base>
-  <Page blogs={[1, 6]}>
+  <Page omit={recentIndex} >
     <Feature {...recentPostItem} />
   </Page>
 </Base>
