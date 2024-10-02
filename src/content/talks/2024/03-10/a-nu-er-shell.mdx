@@ -1,0 +1,59 @@
+---
+title: A Nu-er Shell
+subtitle: 17 April 2024
+description: An introduction to Nushell
+published: false
+---
+
+import { Slide, Presentation, SlideOnly } from '@/components/slides'
+
+<Presentation />
+
+<Slide>
+
+# Working With Data
+
+```ts
+let url = 'https://dummyjson.com/todos'
+
+http get $url --full
+
+http get $url 
+    | get todos 
+    | where completed == false 
+    | select id todo userId 
+    | to yaml
+```
+
+</Slide>
+
+<Slide>
+
+# Parsing 
+
+```nu 
+http get https://raw.githubusercontent.com/elastic/examples/refs/heads/master/Common%20Data%20Formats/apache_logs/apache_logs 
+    | save http-logs.txt   
+
+let template = '{ip} - - [{date}] "{method} {url} {protocol}" {status} {size} "{served}" "{useragent}"' 
+
+let logs = open http-logs.txt 
+    | lines 
+    | parse $template
+
+$logs
+    | where method == POST
+    | select url status useragent
+    | print 
+
+$logs
+    | where method == GET
+    | where url =~ ".png"
+    | where size != "-"
+    | into int size
+    | where size > 500_000
+    | select url status served size
+    | print 
+```
+
+</Slide>
