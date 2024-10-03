@@ -2,7 +2,7 @@
 title: A Nu-er Shell
 subtitle: 17 April 2024
 description: An introduction to Nushell
-published: false
+published: true
 ---
 
 import { Slide, Presentation, SlideOnly } from '@/components/slides'
@@ -11,49 +11,190 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 <Slide>
 
-# Working With Data
+# Nushell
 
-```ts
-let url = 'https://dummyjson.com/todos'
+</Slide>
 
-http get $url --full
+<Slide>
 
-http get $url 
-    | get todos 
-    | where completed == false 
-    | select id todo userId 
-    | to yaml
+Nushell is a shell that makes use of the Nu Programming Language
+
+- Cross-platform
+- Everything is data
+- Extensible
+- Composition based
+- Strongly typed
+
+</Slide>
+
+<Slide>
+
+# Data
+
+- Traditional shells, e.g. bash, treat everything as strings
+- Nushell treats input streams as data that can be transformed
+- Uses the Nu Language for transforming data
+- Wraps common commands into data-rich ones, e.g. `ls`, `open`
+
+```nu
+> ls
+
+╭──┬──────────┬────┬───────┬─────────╮
+│ #  │      name     │ type │    size    │   modified    │
+├──┼──────────┼────┼───────┼─────────┤
+│ 0 │ MOCK_DATA.json │ file │ 100.9 KiB │ 15 hours ago  │
+│ 1 │ README.md      │ file │   1.7 KiB │ 3 minutes ago │
+│ 2 │ http-data.nu   │ file │     169 B │ 14 hours ago  │
+│ 3 │ http-logs.nu   │ file │     432 B │ 15 hours ago  │
+│ 4 │ http-logs.txt  │ file │   2.3 MiB │ 15 hours ago  │
+│ 5 │ query-data.nu  │ file │     160 B │ 15 hours ago  │
+╰──┴──────────┴────┴──────┴──────────╯
 ```
 
 </Slide>
 
 <Slide>
 
-# Parsing 
+# Pipelines
 
-```nu 
-http get https://raw.githubusercontent.com/elastic/examples/refs/heads/master/Common%20Data%20Formats/apache_logs/apache_logs 
-    | save http-logs.txt   
+- A functional programming technique
+- Feels a bit like LINQ
+- Can be chained together and composed
+
+```nu
+git log --oneline | lines | parse $template
+```
+
+- Lots of builtin function, e.g. `lines`, `parse`, `map`, `where`, `find`, `filter`, `each`, `glob`,  `watch` ... and more!
+
+</Slide>
+
+<Slide>
+
+# File Formats
+
+- Supports many common file formats as data
+  - CSV
+  - JSON
+  - YAML
+- Can add support for custom formats easily
+- Easily convert between simple formats
+
+```nu
+open data.csv | to json | save data.json
+```
+
+</Slide>
+
+<Slide>
+
+# The Nu Language
+
+```nu
+# compose with command utilities
+let contents = cat my-file.txt
+
+print $contents
+
+# define custom functions/commands
+def "my custom command" [name:string] {
+    "Hello " + $name
+}
+
+# use a module
+use my_module.nu
+
+# load a source file into scope
+source my_file.nu
+
+# create an alias
+alias gito = git log --oneline
+```
+
+</Slide>
+
+<Slide>
+
+# Demo
+
+> Examples below
+
+</Slide>
+
+<Slide>
+
+# Nushell
+
+- Supports pretty much anything available in a file
+- Easily configurable - `$nu.config-path`
+
+> Show my setup
+
+</Slide>
+
+
+<Slide>
+
+# Examples
+
+```nu
+const url = 'https://dummyjson.com/todos'
+
+# This is the main method, running --help will show docs for all subcommands
+def example [] {
+    print "Working with HTTP Data"
+}
+
+def "example get_full" [] {
+    http get $url --full
+}
+
+def "example filter_todos" [] {
+    http get $url 
+        | get todos 
+        | where completed == false 
+        | select id todo userId 
+        | to yaml
+}
+
 
 let template = '{ip} - - [{date}] "{method} {url} {protocol}" {status} {size} "{served}" "{useragent}"' 
 
-let logs = open http-logs.txt 
-    | lines 
-    | parse $template
 
-$logs
-    | where method == POST
-    | select url status useragent
-    | print 
+let logs = "https://raw.githubusercontent.com/elastic/examples/refs/heads/master/Common%20Data%20Formats/apache_logs/apache_logs"
 
-$logs
-    | where method == GET
-    | where url =~ ".png"
-    | where size != "-"
-    | into int size
-    | where size > 500_000
-    | select url status served size
-    | print 
+def "example download_logs" [] {
+    http get $logs
+        | save http-logs.txt   
+}
+
+def "example parse_logs" [] {
+    open http-logs.txt 
+        | lines 
+        | parse $template
+}
+
+def "example filter_logs" [] {
+    example parse_logs
+        | where method == POST
+        | select url status useragent
+}
+    
+def "example filter_pngs" [] {
+    example parse_logs
+        | where method == GET
+        | where url =~ ".png"
+        | where size != "-"
+        | into int size
+        | where size > 500_000
+        | select url status served size
+}
+
+def "example live_convert" [] {
+    watch input.csv { open input.csv | to json | save output.yaml } 
+}
+
+alias helpme = example --help
 ```
 
 </Slide>
