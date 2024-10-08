@@ -392,3 +392,64 @@ ls | each { ls $in.name }
 ```
 
 The `{ ls $in.name }` is the same as a closure like `{|f| ls $f.name }` so it's a bit easier to type in this scenario as well.
+
+## Parsing
+
+The `parse` function can be used to read some string into a usable data structure, take the following file for example:
+
+```
+john smith, age: 24
+jack smith, age: 54
+```
+
+The parse command lets us structure that using:
+
+```
+open data.txt | lines | parse "{name} {surname}, age: {age}"
+
+╭───┬──────┬─────────┬─────╮
+│ # │ name │ surname │ age │
+├───┼──────┼─────────┼─────┤
+│ 0 │ john │ smith   │ 24  │
+│ 1 │ jack │ smith   │ 54  │
+╰───┴──────┴─────────┴─────╯
+```
+
+## Input
+
+You can take in user input using the `input` function, this allows for dynamic imput. This is handy for doing a search over some list, for example composing it with the above:
+
+```sh
+open data.txt | lines | parse "{name} {surname}, age: {age}" | input list 'Search for User' --fuzzy 
+```
+
+## Closures
+
+Nushell does something quite interesting with closures. Since everything is immutable it's possible to do environment-changing operations in a somewhat contained way.
+
+For example, I can `do` some stuff like moving to a different folder, but I will not be affected outside of the closure
+
+```sh
+# in the `root` folder
+do { cd ./my-child | ls } # within the closure i am inside of the `my-child` folder
+# back to the `root` folder
+```
+
+Or  I can `cd` into each folder and `ls` each of them, while remaining in my parent folder.
+
+```sh
+# in the `root` folder
+ls | where type == dir | each { cd $in.name | ls }
+# back to the `root` folder
+```
+
+
+## Parallel
+
+Due to the isolation that closures afford us, we can also run these in parallel, nushell has parallel methods of some commands, e.g. the `each` command, which can be used with `par-each`:
+
+```sh
+ls | where type == dir | par-each { cd $in.name | ls }
+```
+
+This works the same but is much faster for large/complex tasks
