@@ -453,3 +453,11 @@ ls | where type == dir | par-each { cd $in.name | ls }
 ```
 
 This works the same but is much faster for large/complex tasks
+
+## Timer
+
+Nushell also has a `timeit` command that can be used to time the execution of any block, for example:
+
+```sh
+timeit { ls | each { print $in.name } }
+```
