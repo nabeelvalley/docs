@@ -4,7 +4,7 @@ subtitle: 24 October 2024
 published: false
 ---
 
-import { Slide, Presentation, SlideOnly } from '@/components/slides'
+import { Slide, Presentation, SlideOnly, Note, About } from '@/components/slides'
 
 <Presentation />
 
@@ -14,21 +14,40 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 </Slide>
 
+<Slide>
+<About />
+
+<Note>
+We can skip over this
+</Note>
+</Slide>
+
+
 <Slide centered>
 
 # The web we lost
+
+<Note>
+- changed since invention
+- academic sharing => space to explore
+</Note>
 
 </Slide>
 
 How we use the internet had changed numerous times since it's invention. What started of as a repository for sharing academic quickly spiraled into a new world for people to build and explore. 
 
-In 2010, Tim Burners Lee wrote that the inteneryt was a method by which "any person could share information with anyone else, anywhere"
+In 2010, Tim Burners Lee wrote that the internet was a method by which "any person could share information with anyone else, anywhere"
 
 <Slide centered large>
 
 > "The world wide web went live, on my physical desktop in Geneva, Switzerland, in December 1990. It consisted of one Web site and one browser, which happened to be on the same computer. The simple setup demonstrated a profound concept: that **any person could share information with anyone else, anywhere.**"
 >
 > - Tim Burners Lee, Long Live the Web: A Call for Continued Open Standards and Neutrality
+
+<Note>
+- In 2010 Tim Burners Lee wrote
+- "any person could share information with anyone else, anywhere"
+</Note>
 
 </Slide>
 
@@ -38,6 +57,14 @@ This golden era was short lived however, with collapse of the dot com bubble and
 
 ![Goldman Sachs article about the dotcom bubble covered by a cookie banner](./dotcom-bubble.png)
 
+<Note>
+- golden era short lived
+- Dotcom bubble
+- Consolidation of internet power
+- run world economy
+</Note>
+
+
 </Slide>
 
 Facebook toppling entire governments within a single news cycle
@@ -45,6 +72,10 @@ Facebook toppling entire governments within a single news cycle
 <Slide centered>
   
 ![Cookie banner covering New York Times article on big tech's breach of trust](./big-tech-trust.png)
+
+<Note>
+- facebook toppling governments
+</Note>
   
 </Slide>
 
@@ -54,6 +85,11 @@ Or Google gatekeeping information access at the price of ads and cookies
 
 ![CNBC article of Google antitrust case covered by cookie banner](./google-antitrust.png)
 
+<Note>
+- google gatekeeping info at price of ads and cookies
+</Note>
+  
+
 </Slide>
 
 Oh, or that time that Microsoft tried to be the only browser
@@ -61,6 +97,11 @@ Oh, or that time that Microsoft tried to be the only browser
 <Slide centered>
 
 ![Microsoft vs US Gov Wikipedia page](./microsoft-antitrust.png)
+
+<Note>
+- microsoft browser monopoly
+- wikipedia no cookie banner, makes you think huh
+</Note>
 
 </Slide>
 
@@ -72,6 +113,14 @@ Yeah, Wikipedia actually doesn't have a cookie banner. Makes you think, huh.
 
 - How did I get here?
 - How do I leave?
+
+<Note>
+- course of the talk 
+- where the past decades left us 
+- problems we're faced with 
+- mechanisms to understand where we are
+- think about what the future of the internet can look like
+</Note>
 
 </Slide>
 
@@ -87,6 +136,11 @@ Most of us have been in this industry long enough to have heard of Conway's law 
 >
 > — Melvin E. Conway, How Do Committees Invent?
 
+<Note>
+- conway's law
+- system's design mirrors the structure of the organization that designed it
+</Note>
+
 </Slide>
 
 This law is often used to talk about the development and architecture of the software we build.
@@ -97,6 +151,11 @@ It lets us think about why highly coupled organizations produce highly coupled s
 
 > It's difficult to manage software that is not well aligned to our structure
 
+<Note>
+- we can think about why software is unmaintainable
+- architecture is not aligned to the structure of the org
+</Note>
+
 </Slide>
 
 It also lets us consider why some software ends up being inherently unmanageable because of how the the architecture doesn't align to the way a company operates
@@ -105,6 +164,14 @@ It also lets us consider why some software ends up being inherently unmanageable
 
 ![A curb cut](./curb-cut-effect.jpg)
 
+<Note>
+- phenomenon in which disabled-friendly features benefit browder groups than intended
+- made for wheelchairs
+- benefits
+    - mothers with prams
+    - you and your much too large cart of groceries
+</Note>
+
 </Slide>
 
 There's a phenomenon known as the Curb Cut Effect in which disability-friendly features end up benefiting groups much larger than they were intended for. An example is in the Curb Cut above. Although initially designed for wheelchairs it ends up serving mothers with prams and you with your much-too-large cart of groceries
@@ -112,6 +179,13 @@ There's a phenomenon known as the Curb Cut Effect in which disability-friendly f
 <Slide centered large>
 
 ## The software we use
+
+<Note>
+- curb cuts let us navigate our spaces 
+- sofware design forces us into patterns of behaviour 
+- inversion of conways law
+    - herds communities into specific shapes
+</Note>
 
 </Slide>
 
@@ -125,6 +199,15 @@ There's a lot of danger when we consider who does this and the intentionality be
 
 ## Who's the product
 
+<Note>
+- software we use is free
+- do we think google just sells ads? 
+- is value from the data in their ad platform?
+- see product in real life, see later online 
+- platforms know us better than we know ourselves
+- behavior directed in so many unidentifiable ways
+</Note>
+
 </Slide>
 
 Most of the software we use on a daily basis is "free". It's often not a huge leap to understand how these companies make money - do we think Google "just sells ads" or does the value come from the data they've built into their ad platform
@@ -134,6 +217,21 @@ Oftentimes we look at our phones and see a product that we just walked past in a
 <Slide centered>
 
 ## Teenage face coverings
+
+<Note>
+
+- Early this year young people started covering their faces 
+- concern for how photos would be used 
+- fear of beeing deepfaked
+
+- right to be concerned
+
+- people using video and audio deepfakes to scam 
+- we're the product
+- our data fuels the money printers
+- our attention is the paper it's printed on
+
+</Note>
 
 </Slide>
 
@@ -147,6 +245,14 @@ It's clear to see that we're the product, our data is the fuel that's fed to the
 
 ## We can change things
 
+<Note>
+
+- There is hope
+- We're in a position to change things 
+- people who care about using technology to improve the world around us
+
+</Note>
+
 </Slide>
 
 Don't despair, I think we're in a position to change this. Not just as people who make the internet but (I hope) as people who care about using technology to improve the world around us
@@ -155,6 +261,23 @@ Don't despair, I think we're in a position to change this. Not just as people wh
 <Slide centered>
 
 ## The Dark Forest
+
+<Note>
+ 
+- book the Three Body Problem
+    - Dark forest theory of the universe 
+    - sending message gets no response 
+    - universe seemingly empty
+    - actually it's quiet
+    - everything in hiding away from predators
+- dark forest theory of the web in 2019
+    - internet as a dark forest
+    - predators = ads, trolls, bots
+    - rest of us have hidden into own private spaces 
+    - unable to reach anyone significantly far away from us
+- feels like the opposite of the internet
+
+</Note>
 
 </Slide>
 
@@ -168,17 +291,50 @@ This seems like the opposite of what the internet is meant to be. This seems the
 
 <Slide centered>
 
-![Generative AI Websites](./generative-websites.png)
+## Expanding Dark Forest
+
+<Note>
+
+- Maggie Appleton  - Expanding Dark forest and generative AI 
+- impact that gen AI will have on content 
+- difficult to tell real peolpe from AI 
+- content of the web will be lost in a sea of SEO garbage
+
+</Note>
 
 </Slide>
 
 About a year ago Maggie Appleton published an article called "The Expanding Dark Forest and Generative AI". In it she talks about the impact that tools like Generative AI will have on the content around us. How it will become difficult for us to tell real people from AI, and how the information and content of the web will be lost in a mess of SEO optimized garbage
+
+<Slide centered>
+
+![Generative AI Websites](./generative-websites.png)
+
+<Note>
+
+- A short while later we see tweet about AI marketing
+- thousands of articles 
+- every chatGPT article, every midjourney image - hurts us in the long term 
+- destroys the internet we have worked to build
+
+</Note>
+
+</Slide>
 
 Just a few months ago I saw a tweet where someone in marketing shared how they managed to ramp up the traffic to their content sites by generating hundreds of thousands of articles. Every ChatGPT generated article, every Midjourney image - hurts us more and more in the long term and destroys the internet we've all worked so hard to create
 
 <Slide centered highlight>
 
 # 404 Internet Not Found
+
+<Note>
+
+- it looks like we're losing the web 
+- we've discussed the current state 
+- and how technology influences behavior
+- but there's another internet out there
+
+</Note>
 
 </Slide>
 
@@ -191,6 +347,18 @@ The thing is, this isn't the only way to use the internet. There's a whole world
 ## An internet that can be
 
 > Honesty, utility, community
+
+<Note>
+
+I have a vision of a web that's more than just ads and cookie banners
+
+- honesty = use it to express ourselves, personal
+- utility = get things done, news, taxes, notes 
+- community = meet friends, share moments we care about, schedule next dinner
+- as developers we're in a position to make this ideallistic vision accessible 
+- there are a few ways we can do this
+
+</Note>
 
 </Slide>
 
@@ -208,6 +376,20 @@ As developers, we have a bit of a responsibility here. We're in a position to ma
 
 > Digital gardens and the small web
 
+<Note>
+ 
+- small web of people 
+- participate on our own terms, just an HTML file 
+- growing trend of calling these spaces digital gardens
+- public spaces, privately curated
+- take the form of websites or wikis, can have communites
+- organic spaces, explore ideas, share thoughts, express ourselves
+- linkable, indexable pieces of our mind we put out into the world 
+- take control of the internet we use
+- allow people to find us and us to find them
+
+</Note>
+
 </Slide>
 
 The small web is an internet made of people. Where we all can participate on our own terms. It's as easy a single HTML file
@@ -224,6 +406,17 @@ These are linkable and indexable pieces of our mind that we put into the world. 
 
 > Open source, open formats
 
+<Note>
+
+- Most of the things we use can be =  open source + open formats
+- Contribute to code as well as educate those around us
+- Better experiences with propreity software with open formats
+    - Open Document Format 
+    - Markdown 
+    - HTML - like PDFs but you can copy text from it
+
+</Note>
+
 </Slide>
 
 Open source is great. Most of the things we use the internet for on a daily basis can be done using a combination of open source software or open formats
@@ -234,11 +427,21 @@ There are loads of open source applications that we can use and make easier for 
 
 Above this, there are ways that we can make our experiences within propreity software better well by making use of open formats like ODF or even markdown
 
+Or heck, even HTML - it's like a PDF but you can actualy copy text from it
+
 <Slide centered>
 
 ## Social
 
 > Independent but not isolated
+
+<Note>
+
+- Owning spaces doesn't mean they need to be isolated 
+- Small web can be connected 
+- not just Hyperlinks - but a lot more
+
+</Note>
 
 </Slide>
 
@@ -248,6 +451,14 @@ Owning our spaces doesn't mean they need to be isolated. The small web can also 
 
 ![Blog Rolls](./blogroll-opml.png)
 
+<Note>
+
+- groups of blogs or websites 
+- interconnected communities 
+- around a purpose or just some friends
+
+</Note>
+
 </Slide>
 
 Blogrolls are groups of blogs and personal websites that are interconnected. Often driven by a specific purpose or theme but it can just as well be a group of your friends
@@ -256,16 +467,46 @@ Blogrolls are groups of blogs and personal websites that are interconnected. Oft
 
 ![RSS Logo](./rss-logo.png)
 
+<Note>
+
+- share content 
+- more importantly consume it how we want 
+- respect our preferences and privacy
+
+</Note>
+
 </Slide>
 
 RSS feeds let us share our content, and more importantly - consume it in ways that we want and respect our privacy
 
-Additionally, there are also open standards such as WebMentions that enable us to share content across the web
+<Slide>
+
+![Webmentions website](./webmentions.png)
+
+<Note>
+
+- open standards like web mentions 
+- enable us to interact with content across the web
+- kind of cross-site comments/tweets
+
+</Note>
+
+</Slide>
+
+Additionally, there are also open standards such as WebMentions that enable us to share content across the web. Kind of like cross-site comments or tweets
 
 <Slide centered>
 
 # 301 Moved Permanently
 
+<Note>
+
+- While it looks a little bleak, we can change our trajectory 
+- By being aware of how we fit into the context of the internet
+- We can leave things better than we found it
+
+</Note>
+
 </Slide>
 
-So, while the web we have looks a little bleak, there are things that we can do to change the trajectory of the internet and hopefully leave it bettern than we found it
+So, while the web we have looks a little bleak, there are things that we can do to change the trajectory of the internet. Through understanding how we fit into the greater context of the web we can hopefully leave it better than we found it
