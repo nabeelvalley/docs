@@ -86,6 +86,7 @@
 
   const setPresenter = () => {
     presenter = true;
+    document.body.classList.add("presentation-presenter")
     syncWriter(slide);
   };
   
@@ -277,9 +278,20 @@
 
     }
 
-    
-    .presentation-presenter #presentation-content {
-      border: solid 8px var(--color-brand);
+    &.presentation-presenter {
+      .presentation-slide {
+        border: none;
+        border-bottom: solid 8px var(--color-brand);
+      }
+
+      .presentation-note {
+        position: absolute;
+        bottom: 24px;
+        opacity: .9;
+        right: 24px;
+        left: 50%;
+        z-index: 999;
+      }
     }
   }
 
@@ -297,5 +309,25 @@
 
   .presentation-prev {
     transform: translateX(-100%);
+  }
+
+  .presentation-note {
+    display: none;
+  }
+
+  .presentation-presenter {
+    .presentation-slide {
+      border: dotted 8px var(--color-brand);
+    }
+
+    /* ensure that notes are visible if presentation mode is active, even if
+    not presenting */
+    .presentation-note {
+      display: block;
+      /* intentionally obnoxios color to draw attention */
+      background-color: crimson;
+      padding: 24px;
+      color: white;
+    }
   }
 </style>
