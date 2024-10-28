@@ -285,6 +285,9 @@ We can add and re-visit locations in vim using marks. Creating a mark can be don
 
 We can view marks with `'` and go to a mark with `'` followed by the letter of the mark, e.g. `'a` to go to the `a` mark above
 
+
+> Lowercase letters are single-file marks and capital letters are for marks that can be made across files. So `mA` can be navigated to from another file using `'A`
+
 You can also use marks compositionally, e.g delete until a specific mark with `d'a` where `'a` refers to the mark
 
 Lastly, marks can be deleted using `:delmarks` followed by the letter for the mark, e.g. `:delmarks a`
