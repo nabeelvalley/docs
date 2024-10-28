@@ -276,3 +276,13 @@ We can then use this macro as needed to implement a count
 As mentioned above, we often want to put numbers on a line and we can manipulate that however we want afterwards, we can use`:put =range(1,100)` to put values 1-100
 
 Of different combinations of the `range` function like `range(1,10,2)` which puts every `2`nd number
+
+## Marks
+
+> [Vim wiki on using marks](https://vim.fandom.com/wiki/Using_marks)
+
+We can add and re-visit locations in vim using marks. Creating a mark can be done with `m` followed by a register for the mark. e.g. `ma` will add a mark `a`
+
+We can view marks with `'` and go to a mark with `'` followed by the register of the mark, e.g. `'a` to go to the `a` mark above
+
+You can also use marks compositionally, e.g delete until a specific mark with `d'a` where `'a` refers to the mark
