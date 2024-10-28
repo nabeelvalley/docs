@@ -281,8 +281,8 @@ Of different combinations of the `range` function like `range(1,10,2)` which put
 
 > [Vim wiki on using marks](https://vim.fandom.com/wiki/Using_marks)
 
-We can add and re-visit locations in vim using marks. Creating a mark can be done with `m` followed by a register for the mark. e.g. `ma` will add a mark `a`
+We can add and re-visit locations in vim using marks. Creating a mark can be done with `m` followed by a letter for the mark. e.g. `ma` will add a mark `a`
 
-We can view marks with `'` and go to a mark with `'` followed by the register of the mark, e.g. `'a` to go to the `a` mark above
+We can view marks with `'` and go to a mark with `'` followed by the letter of the mark, e.g. `'a` to go to the `a` mark above
 
 You can also use marks compositionally, e.g delete until a specific mark with `d'a` where `'a` refers to the mark
