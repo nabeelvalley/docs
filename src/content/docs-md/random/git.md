@@ -551,3 +551,17 @@ git config fetch.writeCommitGraph true
 ```
 
 For more details for dealing with Large Git Repos there's some nice info on [the GitButler Site](https://blog.gitbutler.com/git-tips-3-really-large-repositories/) y
+
+# Tools on Top of Git
+
+## LazyGit
+
+[LazyGit](https://github.com/jesseduffield/lazygit) is a terminal UI for Git. Using it can be done by running the `lazygit` command and it's the default git UI in LazyVim so it fits pretty well together
+
+Additionally, lazygit allows for a custom difftool to be configured, this can be done through the `lazygit` config and can be done as per [the docs on configuring a custom pager](https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md)
+
+Some diff tools that can be used with LazyGit (or even just your normal git installation)
+
+- [Difftastic](https://github.com/Wilfred/difftastic) provides syntax-based diffs and has the nicest output of any of the diff tools I've found so far
+- [Diff so Fancy](https://github.com/so-fancy/diff-so-fancy) provides syntax-based diffs, similar to Difftastic
+- [Delta](https://github.com/dandavison/delta) is a "pretty" diff tool and can do syntax-based diffing using `diff-so-fancy` with the `delta --diff-so-fancy` flag provided
