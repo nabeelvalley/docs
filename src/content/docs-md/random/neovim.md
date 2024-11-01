@@ -352,3 +352,7 @@ vim.opt.shellcmdflag = '-c'
 vim.opt.shellquote = ""
 vim.opt.shellxquote = ""
 ```
+
+# Telescope + Quickfix
+
+[Telescope](https://github.com/nvim-telescope/telescope.nvim) is used often as a UI for finding stuff and integrates with a lot of other tools in the Neovim ecosystem. Something particularly handy with telescope is the ability to create a quickfix list from a telescope search/filter. This can be done from Telescope with `ctrl + q` which will close telescope and open a quickfix list with the current set of results
