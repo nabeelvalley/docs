@@ -86,7 +86,6 @@ Lastly, we can define the implementation of the URL replacer which is effectivel
 
 ```ts
 const createTypedUrl = <const TUrl extends string>(url: TUrl) => (params: PathParams<TUrl>) => {
-    console.log(params)
     return url.replace(/\{\w+\}/g, (val) => {
         const key = val.slice(1,-1)
         return  (params as Record<string, string>)[key] || val
