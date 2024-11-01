@@ -61,11 +61,11 @@ type PathParams<TUrl extends string> = Record<PathKeys<TUrl>, string>
 A little test of the above types shows us:
 
 ```ts
-type Keys = PathKeys<'/api/users/{id}/details/{prop}'>
-//   ^? type Keys = "id" | "prop"
+type Keys = PathKeys<'/users/{userId}/projects/{projectId}'>
+//   ^? type Keys = "userId" | "projectId"
 
-type Params = PathParams<'/api/users/{id}/details/{prop}'>
-//   ^? type Params = { userId: string; prop: string; }
+type Params = PathParams<'/users/{userId}/projects/{projectId}'>
+//   ^? type Params = { userId: string; projectId: string; }
 ```
 
 So great, that works and we can use that as the basis for building up more general function for creating these "safe urls"
