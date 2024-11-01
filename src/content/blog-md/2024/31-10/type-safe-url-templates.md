@@ -4,7 +4,7 @@ description: Making URL template replacements safe
 subtitle: 31 October 2024
 ---
 
-> I do not support doing the below, but I keep seeing people do it so I thought it's at least a fun little excercise to make it safe
+> I don't think the below is a good idea, but I thought it was a fun little Typescript excercise so here you go
 
 Something I see as a sort of recurring pattern is people doing template replacements in URLs, particularly something like this:
 
@@ -18,7 +18,7 @@ Now, while you can more simply make this template a function like so:
 const template = (userId:string, projectId:string) => `/users/${userId}/projects/${projectId}`
 ```
 
-For some reason people don't like to do that, I think it's that it looks like a lot of duplication and perhaps they just don't believe in making their own (who am I to know)
+For some reason people don't like to do that, I think it's that it looks like a lot of duplication and perhaps they just don't believe in making their own functions (who am I to know)
 
 More often than I'd like, I instead see people doing this:
 
