@@ -65,7 +65,7 @@ type Keys = PathKeys<'/api/users/{id}/details/{prop}'>
 //   ^? type Keys = "id" | "prop"
 
 type Params = PathParams<'/api/users/{id}/details/{prop}'>
-//   ^? type Params = { id: string; prop: string; }
+//   ^? type Params = { userId: string; prop: string; }
 ```
 
 So great, that works and we can use that as the basis for building up more general function for creating these "safe urls"
@@ -97,21 +97,21 @@ const createTypedUrl = <const TUrl extends string>(url: TUrl) => (params: PathPa
 Using this looks like so:
 
 ```ts
-const template = '/api/users/{id}/details/{status}' as const
+const template = '/users/{userId}/projects/{projectId}' as const
 
 /**
  * A little factory for making typed URLs from the given template
  */
 const typedUrl = createTypedUrl(template)
-//    ^? const typedUrl: (params: PathParams<"/api/users/{id}/details/{status}">) => string
+//    ^? const typedUrl: (params: PathParams<"/users/{userId}/projects/{projectId}">) => string
 
 const url = typedUrl({
-    id: '123',
-    status: 'active'
+    userId: '123',
+    projectId: '456'
 })
-// ^? const url: `/api/users/${string}/details/${string}`
+// ^? const url: `/users/${string}/projects/${string}`
 
-console.log(url) // '/api/users/123/details/active'
+console.log(url) // '/users/123/projects/456'
 ```
 
 Now, is this better than random string replacements? Yes. Is it better than just using string interpolation? No.
