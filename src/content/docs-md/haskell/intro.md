@@ -383,4 +383,73 @@ Additionally, we also have some number types:
 
 When working with numbers the `fromIntegral` function can be used to convert between number types, namely swapping between floating point and integer number types which is sometimes needed
 
+# Functions 
+
+Functions in Haskell have some interesting functionality when compared to most other languages. The first of this is how we can define different implementations for functions using pattern matching 
+
+## Pattern Matching 
+
+Pattern matching when defining a function is done by essentially providing multiple implementations for a function that match to the same type signature but different concrete parameters. For example, the below function reacts differently depending on the `name` that is provided:
+
+```haskell
+sayHi :: String -> String
+sayHi "Bob" = "Good morning, sir!"
+sayHi name = "Hello " ++ name
+```
+
+And when using this we can see how the inputs are handled:
+
+```haskell
+ghci> sayHi "Jeff"
+"Hello Jeff"
+
+ghci> sayHi "Bob"
+"Good morning, sir!"
+```
+
+We can use this idea to implement something like an implementation of the triangular number calculation that uses a  but differentiating the recursive base case as a pattern
+
+```haskell
+triangleNum :: (Integral a) => a -> a
+triangleNum 0 = 0
+triangleNum n = n + triangleNum (n - 1)
+```
+
+And we can use that to get the first 10 triangular numbers:
+
+```haskell
+ghci> [triangleNum x | x <- [1..10]]
+[1,3,6,10,15,21,28,36,45,55]
+```
+
+Pattern matching can also be done in more interesting ways, for example we can use it with tuples like so: 
+
+```haskell
+isFirstOne :: (Integral a, Integral b) => (a, b) -> String
+isFirstOne (1, _) = "Yes"
+isFirstOne (_, _) = "No"
+```
+
+And similarly for lists, for example:
+
+
+```haskell
+tryFirstTwo :: [a] -> [a]
+tryFirstTwo (x : y : xs) = [x, y]
+tryFirstTwo (x : xs) = [x]
+tryFirstTwo [] = []
+```
+
+When defining patterns, it's important to keep the most specific patterns first, since they are matched in order (the compiler will warn you if your order is incorrect so that's nice). Note that non-exhaustive patterns will be a runtime error so it's important to ensure that we handle these as well 
+
+Another nice benefit of pattern matching is that we can use it for destructuring elements, for example with a tuple 
+
+
+```haskell
+addPair :: (Num a) => (a, a) -> a
+addPair (x, y) = x + y
+```
+
+## Guards
+
 
