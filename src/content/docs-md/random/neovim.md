@@ -356,3 +356,10 @@ vim.opt.shellxquote = ""
 # Telescope + Quickfix
 
 [Telescope](https://github.com/nvim-telescope/telescope.nvim) is used often as a UI for finding stuff and integrates with a lot of other tools in the Neovim ecosystem. Something particularly handy with telescope is the ability to create a quickfix list from a telescope search/filter. This can be done from Telescope with `ctrl + q` which will close telescope and open a quickfix list with the current set of results
+
+Using telescope this way is a nice method to get quickfix lists from a few other things:
+
+- LSP references
+- LazyGit Status (faster than the viewing the git file tree)
+- Ripgrep
+- Telescope file search
