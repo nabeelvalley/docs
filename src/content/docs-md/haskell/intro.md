@@ -17,7 +17,7 @@ To write the first bits of Haskell we can use the REPL which, once installed, ca
 
 Math can be done in a fairly normal fashion:
 
-```haskell
+```hs
 gchi> 5 + 17
 22
 
@@ -30,7 +30,7 @@ gchi> 5 / 2
 
 And booleans similarly:
 
-```haskell
+```hs
 ghci> True && False
 False
 
@@ -40,7 +40,7 @@ True
 
 And equality:
 
-```haskell
+```hs
 ghci> 5 == 5
 True
 
@@ -58,21 +58,21 @@ All these basic operators are functions in Haskell that work using infix notatio
 
 Functions can be called using the name of the function followed by the arguments, separated by spaces
 
-```haskell
+```hs
 gchi> succ 5
 6
 ```
 
 Or with multiple arguments
 
-```haskell
+```hs
 ghci> min 9 10
 9
 ```
 
 If a function takes two parameters we can call it using infix notation with backticks surrounding the function name, for example the `min` function:
 
-```haskell
+```hs
 ghci> 9 `min` 10
 9
 ```
@@ -81,13 +81,13 @@ ghci> 9 `min` 10
 
 We can define our own functions using a syntax like:
 
-```haskell title="double.hs"
+```hs title="double.hs"
 doubleMe x = x + x
 ```
 
 We can put that into a file, e.g. called `double.hs`, and load it into the REPL with `:l`:
 
-```haskell
+```hs
 ghci> :l double
 [1 of 2] Compiling Main             ( double.hs, interpreted )
 Ok, one module loaded.
@@ -95,14 +95,14 @@ Ok, one module loaded.
 
 We can then use the function that was defined
 
-```haskell
+```hs
 ghci> doubleMe 5
 10
 ```
 
 A function that takes multiple arguments can be defined by separating the arguments by a space
 
-```haskell title="double.hs"
+```hs title="double.hs"
 doubleMe x = x + x
 
 doubleUs x y = doubleMe x + doubleMe y
@@ -112,7 +112,7 @@ In the above cases, Haskell is able to determine the types of our function as: `
 
 We can make a function that does some conditional stuff using then`if .. then .. else` expression
 
-```haskell title="double.hs"
+```hs title="double.hs"
 doubleSmall x =
   if x < 100
     then x * 2
@@ -123,7 +123,7 @@ doubleSmall x =
 
 Functions that take no parameters are also called definitions or names, we can defined a function that is equal to some string value as follows:
 
-```haskell
+```hs
 bobsName = "Bob Smith"
 ```
 
@@ -133,38 +133,38 @@ bobsName = "Bob Smith"
 
 Lists store elements of the same type. Lists can be defined using `[]` with elements separated by commas
 
-```haskell
+```hs
 myList = [1, 2, 3, 4]
 ```
 
 They can also be concattenated with `++`
 
-```haskell
+```hs
 biggerList = [1, 2, 3, 4] ++ [5, 6]
 ```
 
 `++` can also be used with strings:
 
-```haskell
+```hs
 "hello" ++ " " ++ "world"
 ```
 
 When concatenating elements Haskell needs to traverse the entire list which can negatively impact performance. An alternative way of adding an item to a list is the the cons (`:`) operator:
 
-```haskell
+```hs
 ghci> 1 : [2, 3, 4]
 ```
 
 Elements can be accessed from a list using `!!`
 
-```haskell
+```hs
 ghci> [1, 2, 3, 4] !! 2
 3
 ```
 
 Lists can also be compared. Comparison of lists are done item by item, for example a list
 
-```haskell
+```hs
 ghci> [1,2,3] > [4,5,6]
 False
 ghci> [1,2,3] > [0,1,2]
@@ -195,7 +195,7 @@ Calling `head`, `tail`, `last`, or `init` on an empty list will throw an error
 
 Ranges allow us to define sequences of enumerable values. Ranges can be defined using a start and end value
 
-```haskell
+```hs
 ghci> [1..10]
 [1,2,3,4,5,6,7,8,9,10]
 
@@ -203,9 +203,9 @@ ghci> ['a'..'k']
 "abcdefghijk"
 ```
 
-They can even be defined using the first two values in the case where we want to use a step larger than 1 
+They can even be defined using the first two values in the case where we want to use a step larger than 1
 
-```haskell 
+```hs
 ghci> [1,3..20]
 [1,3,5,7,9,11,13,15,17,19]
 
@@ -215,7 +215,7 @@ ghci> ['a','d'..'z']
 
 Additionally, ranges can also be infinite by not specifying the end of the range. We can see the result of doing this by taking some elements from the range as below:
 
-```haskell 
+```hs
 ghci> take 10 [1..]
 [1,2,3,4,5,6,7,8,9,10]
 
@@ -230,11 +230,11 @@ There are also a few useful functions for working with ranges such as:
 
 ## List Comprehensions
 
-List comprehensions are like __Set Comprehensions__ in math and allow us to define some general sets using a set of predicates
+List comprehensions are like **Set Comprehensions** in math and allow us to define some general sets using a set of predicates
 
 A set comprehension follows the structure of `[ expression | variable <- values, predicate]`. This is more clear in practice:
 
-```haskell
+```hs
 ghci> [x^3 - 1 | x <- [1..5]]
 [0,7,26,63,124]
 
@@ -245,18 +245,18 @@ ghci> [x^3 - 1 | x <- [1..10], x `mod` 2 /= 0]
 [0,26,124,342,728]
 ```
 
-These can also be used with multiple variables in order to produce permutations of a multi-variable expression 
+These can also be used with multiple variables in order to produce permutations of a multi-variable expression
 
-```haskell 
+```hs
 ghci> [a ++ " " ++ b | a <- ["hello", "hi"], b <- ["world", "bob"]]
 ["hello world","hello bob","hi world","hi bob"]
 ```
 
-## Tuples 
+## Tuples
 
 Tuples work pretty much the same as in other languages. A tuple lets us store multiple values together. Items in a tuple can be different types, we can use this as we'd expect
 
-```haskell 
+```hs
 ghci> (1, 'a')
 (1,'a')
 
@@ -269,12 +269,12 @@ ghci> [(x, y) | x <- [1..3], y <- ['a'..'c']]
 
 When a tuple has only two elements we refer to it as a `pair`. Pairs have some methods for working with them, namely:
 
-- `fst` - gets the first item from a tuple 
-- `snd` - gets the second item from a tuple 
+- `fst` - gets the first item from a tuple
+- `snd` - gets the second item from a tuple
 
 It's not too difficult to implement these functions, an example implementation may look like so:
 
-```haskell
+```hs
 fst' (x,_) = x
 
 snd' (_,y) = y
@@ -282,7 +282,7 @@ snd' (_,y) = y
 
 And we can compare our usage with the base implementation
 
-```haskell
+```hs
 ghci> fst' (1,2)
 1
 ghci> snd' (1,2)
@@ -294,21 +294,20 @@ ghci> snd (1,2)
 2
 ```
 
-Another nice function for working with tuples is `zip` which takes two lists and iterates over them and outputs a list of tuples 
+Another nice function for working with tuples is `zip` which takes two lists and iterates over them and outputs a list of tuples
 
-
-```haskell
+```hs
 ghci> zip [1,2,3] ['a','b','c']
 [(1,'a'),(2,'b'),(3,'c')]
 ```
 
-# Types 
+# Types
 
-Haskell is statically typed. Thus far we haven't had to annotate the types of our functions since the language is pretty good at inferring the types of stuff 
+Haskell is statically typed. Thus far we haven't had to annotate the types of our functions since the language is pretty good at inferring the types of stuff
 
 We can use `:t` in the REPL to view the type of something
 
-```haskell
+```hs
 ghci> :t 5
 5 :: Num a => a
 
@@ -321,16 +320,16 @@ ghci> :t "Hello"
 
 We can specify the types of a function by writing it above a function implementation, for example:
 
-```haskell
+```hs
 doubleMe :: Int -> Int
 doubleMe x = x + x
 ```
 
-## Type Variables 
+## Type Variables
 
 We can look at the types of some more complex values
 
-```haskell
+```hs
 ghci> :t fst
 fst :: (a, b) -> a
 
@@ -347,7 +346,6 @@ We can also see that functions can specify a constraint on their type variables,
 
 Lastly, it's also important to note that functions don't differentiate between multiple inputs an outputs. So a function that takes multiple input just uses `->` to separate values, this is because functions can partially apply them which yields another functions
 
-
 ## Type Classes
 
 A typeclass is like an interface that defines some kind of behavior. (They seem a bit like traits in Rust)
@@ -361,7 +359,7 @@ Some common typeclasses are:
 
 The `read` function is interesting because it lets us read a value into multiple different types. In cases where this type cannot be inferred you can specify the type that something needs to be read into using `:: Type` which lets us provide a value to a type variable
 
-```haskell 
+```hs
 ghci> read "7" :: Int
 7
 
@@ -375,23 +373,23 @@ ghci> read "[1,2,3]" :: [Float]
 Additionally, we also have some number types:
 
 - `Num` - the base number type
-- `Int` - a bounded integer 
-- `Integer` - a non-bounded integer 
+- `Int` - a bounded integer
+- `Integer` - a non-bounded integer
 - `Float` - a single precision, floating point number
-- `Double` - a double precision, floating point number 
-- `Enum` - an enumerable value, these can be used in ranges 
+- `Double` - a double precision, floating point number
+- `Enum` - an enumerable value, these can be used in ranges
 
 When working with numbers the `fromIntegral` function can be used to convert between number types, namely swapping between floating point and integer number types which is sometimes needed
 
-# Functions 
+# Functions
 
-Functions in Haskell have some interesting functionality when compared to most other languages. The first of this is how we can define different implementations for functions using pattern matching 
+Functions in Haskell have some interesting functionality when compared to most other languages. The first of this is how we can define different implementations for functions using pattern matching
 
-## Pattern Matching 
+## Pattern Matching
 
 Pattern matching when defining a function is done by essentially providing multiple implementations for a function that match to the same type signature but different concrete parameters. For example, the below function reacts differently depending on the `name` that is provided:
 
-```haskell
+```hs
 sayHi :: String -> String
 sayHi "Bob" = "Good morning, sir!"
 sayHi name = "Hello " ++ name
@@ -399,7 +397,7 @@ sayHi name = "Hello " ++ name
 
 And when using this we can see how the inputs are handled:
 
-```haskell
+```hs
 ghci> sayHi "Jeff"
 "Hello Jeff"
 
@@ -407,9 +405,9 @@ ghci> sayHi "Bob"
 "Good morning, sir!"
 ```
 
-We can use this idea to implement something like an implementation of the triangular number calculation that uses a  but differentiating the recursive base case as a pattern
+We can use this idea to implement something like an implementation of the triangular number calculation that uses a but differentiating the recursive base case as a pattern
 
-```haskell
+```hs
 triangleNum :: (Integral a) => a -> a
 triangleNum 0 = 0
 triangleNum n = n + triangleNum (n - 1)
@@ -417,14 +415,14 @@ triangleNum n = n + triangleNum (n - 1)
 
 And we can use that to get the first 10 triangular numbers:
 
-```haskell
+```hs
 ghci> [triangleNum x | x <- [1..10]]
 [1,3,6,10,15,21,28,36,45,55]
 ```
 
-Pattern matching can also be done in more interesting ways, for example we can use it with tuples like so: 
+Pattern matching can also be done in more interesting ways, for example we can use it with tuples like so:
 
-```haskell
+```hs
 isFirstOne :: (Integral a, Integral b) => (a, b) -> String
 isFirstOne (1, _) = "Yes"
 isFirstOne (_, _) = "No"
@@ -432,24 +430,168 @@ isFirstOne (_, _) = "No"
 
 And similarly for lists, for example:
 
-
-```haskell
+```hs
 tryFirstTwo :: [a] -> [a]
 tryFirstTwo (x : y : xs) = [x, y]
 tryFirstTwo (x : xs) = [x]
 tryFirstTwo [] = []
 ```
 
-When defining patterns, it's important to keep the most specific patterns first, since they are matched in order (the compiler will warn you if your order is incorrect so that's nice). Note that non-exhaustive patterns will be a runtime error so it's important to ensure that we handle these as well 
+When defining patterns, it's important to keep the most specific patterns first, since they are matched in order (the compiler will warn you if your order is incorrect so that's nice). Note that non-exhaustive patterns will be a runtime error so it's important to ensure that we handle these as well
 
-Another nice benefit of pattern matching is that we can use it for destructuring elements, for example with a tuple 
+Another nice benefit of pattern matching is that we can use it for destructuring elements, for example with a tuple
 
-
-```haskell
+```hs
 addPair :: (Num a) => (a, a) -> a
 addPair (x, y) = x + y
 ```
 
 ## Guards
 
+Guards allow us to branch based on a condition. They're very similar to `if/else` statements and are evaluated in order
 
+A simple guard can check some conditions:
+
+```hs
+howBig num
+  | num <= 0 = "Nothing really"
+  | num < 1 = "Really small"
+  | num >= 10 = "Wow that's a big number"
+  | otherwise = "Nothing notable here"
+```
+
+## Where Bindings
+
+Where bindings let us define local values within a function and can be done by using `where` with each binding on a different line:
+
+```hs
+f x = m * x + c
+  where
+    m = 10
+    c = 20
+```
+
+These are also usually indented for readability
+
+Where bindings can also pattern match just as we would when defining a function:
+
+```hs
+f x = m * x' + c
+  where
+    (m, c) = (10, 20)
+    x' = sqrt x
+```
+
+## Let Expressions
+
+These are very similar to where bindings but can be used anywhere and are expressions in themselves, the values in the `let` part are accessible in the `in` part
+
+Otherwise, they work as you'd expect
+
+```hs
+f x =
+    let
+      m = 10
+      c = 20
+    in m * x + c
+```
+
+Or with pattern matching:
+
+```hs
+f x =
+  let m = 10
+      c = 20
+      x' = sqrt x
+   in m * x' + c
+```
+
+An important distinction is that let expressions can be used in any place where we may need an expression, and evaluate to the `in` part
+
+```hs
+f xs =
+  [ let m = 10
+        c = 20
+     in m * x + c
+    | x <- xs
+  ]
+```
+
+You can even define functions in them, of course:
+
+```hs
+f xs =
+  [ let f' x = 10 * x + 20
+     in f' x
+    | x <- xs
+  ]
+```
+
+You can also use it in the predicate section of a list comprehension and do stuff with that:
+
+```hs
+f xs =
+  [y | x <- xs, let y = 10 * x + 20, y > 30.0]
+```
+
+> This seems a bit syntax-dense to me, but I see why being able to refer to the value bound in the let expression could be useful
+
+## Case Expression
+
+Case expressions let us pattern match within a function and get the resulting expression. This is pretty much as you'd expect as well
+
+```hs
+nameOf c = case c of
+  'a' -> "Alice"
+  'b' -> "Bob"
+  c -> [c]
+```
+
+Pattern matching in function definitions is actually just syntax sugar for case expressions so you can define the `name` function using a where binding with which would be the same as a case expression:
+
+```hs
+hi c = "Hi " ++ name c
+  where
+    name 'a' = "Alice"
+    name 'b' = "Bob"
+    name c = [c]
+```
+
+# Recursion
+
+Recursion works as normal. A nice benefit we have in haskell is that we can define the recursive base case as a pattern definition:
+
+```hs
+biggest [] = error "list is empty"
+biggest [x] = x
+biggest (x : xs)
+  | x > rest = x
+  | otherwise = rest
+  where
+    rest = biggest xs
+```
+
+We can also define infinitely recursive functions, for example:
+
+```hs
+ones = 1 : ones
+```
+
+And because haskell supports infinite lists, we don't have to have an escape condition. This is useful and can be composed with other things, for example:
+
+```hs
+ghci> take 5 ones
+[1,1,1,1,1]
+```
+
+And that just works as expected
+
+```hs
+quicksort :: (Ord a) => [a] -> [a]
+quicksort [] = []
+quicksort (x : xs) =
+  quicksort smaller ++ [x] ++ quicksort bigger
+  where
+    smaller = [a | a <- xs, a <= x]
+    bigger = [a | a <- xs, a > x]
+```
