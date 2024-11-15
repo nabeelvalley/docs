@@ -595,3 +595,133 @@ quicksort (x : xs) =
     smaller = [a | a <- xs, a <= x]
     bigger = [a | a <- xs, a > x]
 ```
+
+# Higher Order Functions
+
+Functions that can take a function as parameters or return another function are called higher order functions
+
+## Curried Functions
+
+Every function in haskell only takes a single parameter. Functions that look like they take multiple parameters are in fact functions that return functions that take the remaining parameters. We can call these curried functions
+
+An example of this is the `max` function, it can be used in the following two equivalent manners:
+
+```hs
+ghci> max 1 2
+2
+
+ghci> (max 1) 2
+2
+```
+
+This is because `max 1` returns a function that takes the second value. This idea lets us partially apply functions that require multiple parameters, for example:
+
+```hs
+triple :: a -> b -> c -> (a, b, c)
+triple a b c = (a, b, c)
+
+with1 :: b -> c -> (Integer, b, c)
+with1 = triple 1
+
+with12 :: c -> (Integer, Integer, c)
+with12 = triple 1 2
+```
+
+In the above, we can see that the `with1` and `with2` are partially applied versions of the `triple` function in which `a` or `a` and `b` are provided
+
+Infix functions can also be applied partially using sections - a section is done by surrounding the function with parenthesis and putting a parameter on one side. This means that we can also apply it differently depending on how we want to use it, for example:
+
+```hs
+divByTwo = (/ 2)
+
+twoDivBy = (2 /)
+```
+
+It's clear when we use it how this works:
+
+```hs
+ghci> divByTwo 10
+5.0
+
+ghci> twoDivBy 10
+0.2
+```
+
+## Higher Order Functions
+
+We can define higher order functions as normal functions
+
+```hs
+applyTwice :: (t -> t) -> t -> t
+applyTwice f x = f (f x)
+```
+
+We can then provide it with a function:
+
+```hs
+excited s = s ++ "!"
+veryExcited = applyTwice excited
+```
+
+## Maps and Filters
+
+Two common higher order functions are `map` and `filter`
+
+- `map` - applies a function to each value of a list
+- `filter` - returns a list with only items that return true from a predicate function
+
+These functions are defined in the standard library. A basic definition for them might look as follows:
+
+```hs
+map :: (a -> b) -> [a] -> [b]
+map _ [] = []
+map f (x : xs) = f x : map f xs
+
+filter :: (a -> Bool) -> [a] -> [a]
+filter f (x : xs)
+  | f x = x : filter f xs
+  | otherwise = filter f xs
+```
+
+Or even using list comprehension:
+
+```hs
+map f xs = [f x | x <- xs]
+
+filter f xs = [x | x <- xs, f x]
+```
+
+And using it as such:
+
+```hs
+ghci> map (*2) [1,2,3,4]
+[2,4,6,8]
+
+ghci> filter even [1,2,3,4]
+[2,4]
+```
+
+As we can see from the implementation, this behavior can be done using list comprehension pretty much directly. The usage of each really just depends on what is more readable ina given scenario
+
+Since haskell is lazy, mapping or filtering lists multiple times still only iterates through the list once
+
+## Lambdas
+
+When working with higher order functions we often have a function that we'd just like to use once, to do this we can define a lambda which is an anonymous function. They are defined using the `\p1 p2 -> expression`
+
+For example:
+
+```hs
+\x -> x + 5
+```
+
+Often we need to surround them in parenthesis since they will extend to the end of the line otherwise. Using it is done as follows:
+
+```hs
+ghci> map (\x -> x + 5) [1..5]
+[6,7,8,9,10]
+```
+
+## Folds and Scans
+
+Stopping at "Only folds and horses"
