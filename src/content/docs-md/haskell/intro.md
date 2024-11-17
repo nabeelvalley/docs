@@ -559,7 +559,7 @@ hi c = "Hi " ++ name c
 
 # Recursion
 
-Recursion works as normal. A nice benefit we have in haskell is that we can define the recursive base case as a pattern definition:
+Recursion works as normal. A nice benefit we have in Haskell is that we can define the recursive base case as a pattern definition:
 
 ```hs
 biggest [] = error "list is empty"
@@ -577,7 +577,7 @@ We can also define infinitely recursive functions, for example:
 ones = 1 : ones
 ```
 
-And because haskell supports infinite lists, we don't have to have an escape condition. This is useful and can be composed with other things, for example:
+And because Haskell supports infinite lists, we don't have to have an escape condition. This is useful and can be composed with other things, for example:
 
 ```hs
 ghci> take 5 ones
@@ -602,7 +602,7 @@ Functions that can take a function as parameters or return another function are 
 
 ## Curried Functions
 
-Every function in haskell only takes a single parameter. Functions that look like they take multiple parameters are in fact functions that return functions that take the remaining parameters. We can call these curried functions
+Every function in Haskell only takes a single parameter. Functions that look like they take multiple parameters are in fact functions that return functions that take the remaining parameters. We can call these curried functions
 
 An example of this is the `max` function, it can be used in the following two equivalent manners:
 
@@ -663,6 +663,12 @@ excited s = s ++ "!"
 veryExcited = applyTwice excited
 ```
 
+A very useful higher order function is `flip`, which is basically flips the arguments to a function:
+
+```hs
+flip f x y = f y x
+```
+
 ## Maps and Filters
 
 Two common higher order functions are `map` and `filter`
@@ -673,37 +679,37 @@ Two common higher order functions are `map` and `filter`
 These functions are defined in the standard library. A basic definition for them might look as follows:
 
 ```hs
-map :: (a -> b) -> [a] -> [b]
-map _ [] = []
-map f (x : xs) = f x : map f xs
+map' :: (a -> b) -> [a] -> [b]
+map' _ [] = []
+map' f (x : xs) = f x : map' f xs
 
-filter :: (a -> Bool) -> [a] -> [a]
-filter f (x : xs)
-  | f x = x : filter f xs
-  | otherwise = filter f xs
+filter' :: (a -> Bool) -> [a] -> [a]
+filter' f (x : xs)
+  | f x = x : filter' f xs
+  | otherwise = filter' f xs
 ```
 
 Or even using list comprehension:
 
 ```hs
-map f xs = [f x | x <- xs]
+map' f xs = [f x | x <- xs]
 
-filter f xs = [x | x <- xs, f x]
+filter' f xs = [x | x <- xs, f x]
 ```
 
 And using it as such:
 
 ```hs
-ghci> map (*2) [1,2,3,4]
+ghci> map' (*2) [1,2,3,4]
 [2,4,6,8]
 
-ghci> filter even [1,2,3,4]
+ghci> filter' even [1,2,3,4]
 [2,4]
 ```
 
 As we can see from the implementation, this behavior can be done using list comprehension pretty much directly. The usage of each really just depends on what is more readable ina given scenario
 
-Since haskell is lazy, mapping or filtering lists multiple times still only iterates through the list once
+Since Haskell is lazy, mapping or filtering lists multiple times still only iterates through the list once
 
 ## Lambdas
 
@@ -724,4 +730,108 @@ ghci> map (\x -> x + 5) [1..5]
 
 ## Folds and Scans
 
-Stopping at "Only folds and horses"
+When working with recursion we often run into an edge case with the empty list, this is a pretty common pattern called folding. Folds reduce a list to some single value
+
+We can use the fold-left method `foldl` to implement a `sum` function:
+
+```hs
+sum' xs = foldl (\acc x -> acc + x) 0 xs
+```
+
+`foldl` takes a lambda to handle the accumulation, the initial value, and the array. Note that for the above case in which we're writing the `sum` function, it can be replaced more simply as:
+
+```hs
+sum' :: (Num a) => [a] -> a
+sum' = foldl (+) 0
+```
+
+The same idea can be applied to the `elem` method:
+
+```hs
+elem' y = foldl (\acc x -> x == y || acc) False
+```
+
+Equally, you can use a fold-right which does the same but iterates from the right. Additionally, the lambda arguments are flipped around:
+
+```hs
+elem' y = foldr (\x acc -> x == y || acc) False
+```
+
+Folds are pretty powerful and can be used to implement lots of other standard library functions
+
+A nice compositional example is how we can use these methods with `flip` to do something like reverse a list:
+
+```hs
+reverse' xs = foldl (flip (:)) [] xs
+```
+
+## Function Application
+
+Function application is done using the `$` operator and is defined as such:
+
+```hs
+($) :: (a -> b) -> a -> b
+```
+
+The purpose of this is to reduce the precedence of function application. This means that instead of doing `e(f(g x))` we can do `e $ f $ g x`
+
+So we can rewrite something like:
+
+```hs
+ghci> sum (filter (> 10) (21:[7..15]))
+86
+```
+
+As
+
+```hs
+ghci> sum $ filter (> 10) $ 21:[7..15]
+86
+```
+
+Thus, effectively reducing the precedence of function application
+
+Additionally, this can also be used to apply a function dynamically, for example:
+
+```hs
+ghci> map ($ 10) [(1+), (2+), (3+)]
+[11,12,13]
+```
+
+## Function Composition
+
+Function composition is defined mathematically as `(f.g)(x) = f(g(x))`. In Haskell this is the same:
+
+```hs
+(.) :: (b -> c) -> (a -> b) -> a -> c
+```
+
+Using this, we can convert:
+
+```hs
+ghci> negate (abs (product [-1, 5, 4]))
+-20
+```
+
+Into:
+
+```fs
+ghci> (negate . abs . product) [-1, 5, 4]
+-20
+```
+
+Or using what we just learnt about the function application:
+
+```hs
+ghci> negate . abs . product $ [-1, 5, 4]
+-20
+```
+
+This mechanism also makes it possible to write functions in a more point-free style, for example:
+
+```hs
+f :: (Num a) => [a] -> a
+f = negate . abs . product
+```
+
+# Modules
