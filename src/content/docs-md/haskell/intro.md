@@ -835,3 +835,484 @@ f = negate . abs . product
 ```
 
 # Modules
+
+A module is a collection of related functions and types. A program is a collection of modules
+
+Modules can be imported in a few different ways, for the sake of example we will use some standard library modules
+
+To import everything:
+
+```hs
+-- import everything from a module into the global scope
+import Data.List
+```
+
+To import everything but require the fully qualified name:
+
+```hs
+-- import everything from a module into the global scope
+import qualified Data.List
+
+
+-- members must be accessed as Data.List.name
+```
+
+Import a module but provide an alias for qualifying:
+
+```hs
+-- everything from module is in scope as L
+import qualified Data.List as L
+
+
+-- members must be accessed as L.name
+```
+
+Import specific stuff:
+
+```hs
+-- only named imports will be in global scope
+import Data.List (nub, sort)
+```
+
+Import everything except some stuff:
+
+```hs
+-- everything other than nub and sort will be in scope
+import Data.List hiding (nub, sort)
+```
+
+## Data.List
+
+Has some useful methods for working with lists, some of these that are useful are:
+
+In addition to the list functions from the [Lists section](#lists), we also have:
+
+- `intersperse` - puts an element between list items
+- `intercalate` - puts an element between list items and then flattens the result
+- `transpose` - transposes a list of lists
+- `fold1'` and `foldl1'` - stricter versions of the lazy `fold` methods, used when the base `fold` implementation yields a stack overflow for large lists
+- `concat` - flattens a list of lists one level
+- `concatMap` - the same as mapping into a list and then concatenating the results
+- `and` - takes a list of booleans and returns if all items are `True`
+- `or` - takes a list of booleans and returns if any items are `True`
+- `all` - like `and`, but takes a predicate and a list
+- `any` - like `or`, but takes a predicate and a list
+- `iterate` - takes an iterator function and a starting value, returns an infinite list
+- `splitAt` - splits a list at that many items
+- `takeWhile` - takes all items of list while a predicate is `True`
+- `dropWhile` - drops all items of list while a predicate is `True`
+- `span` - returns a tuple of the result of `takeWhile` and `dropWhile`
+- `break` - splits a list where the predicate is first `True` (kind of the opposite of span)
+- `sort` - sorta a list of `Ord`
+- `group` - groups adjacent elements if they're equal
+- `inits` - like `init` but recursively gets all growing lists from the start
+- `tails` - like `tail` but recursively gets all growing lists from the end
+- `isInfixOf` - is list contained in other list
+- `isPrefixOf` - list starts with other list
+- `isSuffixOf` - list ends with other list
+- `isSubsequenceOf` - list contains other list
+- `partition` - takes a predicate and separates items that meet the predicate from those that don't
+- `find` - finds an element that meets a specific predicate, returns a `Maybe`
+- `elemIndex` - gets a `Maybe` index of the element in the list
+- `elemIndices` - gets a indices of the elements in the list
+- `findIndex` - gets a `Maybe` index of the element that satisfies a predicate
+- `findIndices` - gets list of indices of elements that satisfy predicate
+- `zipWith3`, `zipWith4`, etc. - zips a list of varying sizes
+- `lines` - splits string into lines
+- `words` - splits string into words
+- `nub` - deduplicates list
+- `delete` - deletes the first occurrence of element in list
+- `\\` - removes all elements to the right from the left: `left \\ right`
+- `union` - returns a union of two lists, removes duplicates from the second list
+- `intersect` - intersection of two lists
+- `insert` - inserting into a sorted list keeps the list sorted
+- `sortBy`, `groupBy`, `insertBy`, `maximumBy`, etc. - take a function to determine the order of two elements and apply that to the relevant method
+
+## Data.Char
+
+Functions for working with Chars
+
+- `isControl`
+- `isSpace` - any whitespace character
+- `isLower`
+- `isUpper`
+- `isAlpha`
+- `isAlphaNum`
+- `isPrint`
+- `isDigit`
+- `isOctDigit`
+- `isHexDigit`
+- `isLetter`
+- `isMark
+- `isNumber`
+- `isPunctuation`
+- `isSymbol`
+- `isSeparator`
+- `isAscii`
+- `isAsciiUpper`
+- `isAsciiLower`
+- `digitToInt` - converts a char to an int if it is in ranges `0..9`, `a..f` or `A..F`
+- `intToDigit` - converts `0..15` to `0..9,a..f`
+- `ord` - convert character to their number
+- `chr` - convert number to character
+
+## Data.Map
+
+Methods for working with association lists or dictionaries
+
+Maps are made from a list of tuples with a key and value
+
+```hs
+import qualified Data.Map as Map
+
+myMap = Map.fromList [("a", 1), ("b", 2)]
+```
+
+- `Map.fromList` - creates a map from a list of tuples
+- `Map.empty` - creates an empty map
+- `Map.insert` - inserts an item into a map
+- `Map.null` - checks if a map is empty
+- `Map.size` - gets the size of a mpa
+- `Map.singleton` - creates a singleton map from a key and value
+- `Map.map` - works like `List.map`
+- `Map.filter` - works like `List.filter`
+- `Map.member` - check if item is member of map
+- `Map.toList` - creates a list of key/value pairs
+- `Map.fromListWith` - like `Map.fromList` but takes a function for creating a map from the items for each key, since this can have duplicates
+- `Map.insertWith` - same as `Map.fromListWith` but for insertion
+- `Map.lookup` - gets the item from a map
+
+## Data.Set
+
+All elements in a set are unique. Sets are implemented as trees and are ordered. Operations like inserting, deleting, checking for existence, are much faster than for lists
+
+```hs
+import qualified Data.Set as Set
+```
+
+Many of these methods are similar to their `List` or `Map` equivalents
+
+- `Set.fromList`
+- `Set.difference`
+- `Set.null`
+- `Set.union`
+- `Set.singleton`
+- `Set.size`
+- `Set.insert`
+- `Set.isSubsetOf`
+- `Set.isProperSubsetOf`
+- `Set.filter`
+
+## Defining a Module
+
+When defining a module we specify the name of the module and then the items that it exports followed by `where`, for example:
+
+```hs title="QuickMath.hs"
+module QuickMath
+  ( myAdd,
+    myDivide,
+    myMultiply,
+    mySubtract,
+  )
+where
+
+myAdd a b = a + b
+
+mySubtract a b = a - b
+
+myMultiply a b = a * b
+
+myDivide a b = a / b
+```
+
+The name of the module file should also match name of the module, e.g. `QuickMath.hs` for the above
+
+# Custom Types and TypeClasses
+
+## Algebraic data types
+
+Algebraic types can be defined using `data Name = T1 | T2`, for example, we can define a type of `Food` like so:
+
+```hs
+data Food = Cake Int | Cereal Float
+```
+
+However, if we try to print out our `Food` we have an error, in order to make it printable we need to make it Showable, that can be done as:
+
+```hs
+data Food = Cake Int | Cereal Float deriving (Show)
+```
+
+We can introduce intermediate types as well, e.g. for our flavours:
+
+```hs
+data Flavor = Chocolate | Plain deriving (Show)
+
+data Food = Cake Flavor Int | Cereal Flavor Float deriving (Show)
+```
+
+We can make methods that work with the custom data types we defined as normal:
+
+```hs
+mass :: Food -> Float
+mass (Cake _ slices) = 100.0 * fromIntegral slices
+mass (Cereal _ weight) = weight
+
+eat :: Food -> Food
+eat (Cake n s) = Cake n (s - 1)
+eat (Cereal n w) = Cereal n (w - 100)
+```
+
+So we can use this as:
+
+```hs
+food = Cake Chocolate 12
+m = mass food
+```
+
+## Records
+
+If we want to have lots of properties in our type it would be nice if we could label them a little better, we can do that using records which are an alternative way to write data types:
+
+```hs
+data Ingredient = Ingredient
+  { name :: String,
+    percentage :: Float
+  }
+
+data Specs = Specs
+  { food :: Food,
+    ingredients :: [Ingredient],
+    bestBefore :: String
+  }
+```
+
+And used as:
+
+```hs
+flour = Ingredient {name = "Flour", percentage = 60}
+
+sugar = Ingredient {name = "Sugar", percentage = 30}
+
+butter = Ingredient {name = "Butter", percentage = 10}
+
+cake =
+  Specs
+    { food = Cake Plain 10,
+      bestBefore = "Next week",
+      ingredients =
+        [ flour,
+          sugar,
+          butter
+        ]
+    }
+```
+
+## Type Parameters
+
+Algebraic types can also type type parameters using the syntax as:
+
+```hs
+data Menu a b = Breakfast | Lunch a | Dinner b
+```
+
+We can have one or more parameters and use it as needed as we can see above
+
+## Derived Instances
+
+As we've seen with deriving typeclasses, we can derive behavior for these types, they're a little like interfaces or traits in other languages. Some typeclasses that we can derive are: `Show`, `Read`, `Eq`, `Ord`, `Bounded`, `Enum`
+
+For a simple example, we can define a data type for our meals:
+
+```hs
+data Meal = Breakfast | MorningSnack | Lunch | AfternoonSnack | Dinner | MidnightSnack deriving (Show, Eq, Ord, Enum, Bounded)
+```
+
+And that can be used as:
+
+```hs
+ghci> minBound :: Meal
+Breakfast
+
+ghci> succ Lunch
+AfternoonSnack
+
+ghci> [Breakfast .. Dinner]
+[Breakfast,MorningSnack,Lunch,AfternoonSnack,Dinner]
+```
+
+## Type Synonyms
+
+These provide a way for us to give an alternative name to an existing type, for example, rewriting our `Food` data type above:
+
+```hs
+type Slices = Int
+
+type Weight = Float
+
+data Food = Cake Flavor Slices | Cereal Flavor Weight deriving (Show)
+```
+
+This makes it a bit easier to understand the intention of the different fields in our type
+
+We can also use these to define concrete types that specify type constructors (generic types):
+
+```hs
+data Menu a b = Breakfast | Lunch a | Dinner b
+
+type HomeMenu = Menu Food Ingredient
+```
+
+## Recursive Data Structures
+
+Data structures can also be recursive, an example of this is how the `List` type is defined:
+
+```hs
+data List a = Empty | Cons a (List a)
+```
+
+We can define our own type for recipes recursively like so:
+
+```hs
+type Previous = String
+
+data Recipe = Done | Recipe Previous Recipe deriving (Show)
+```
+
+## Infix Function Definitions
+
+Functions that are made up of only special characters are automatically infix. So we can define a function for composing recipes:
+
+```hs
+infixr 5 |->
+
+(|->) :: Previous -> Recipe -> Recipe
+a |-> b = Recipe a b
+```
+
+In the above, we see that we can also define the `fixity` of a function, this lets us specify the precedence of this function. The above function lets us defined a recipe in "reverse" as so:
+
+```hs
+x =
+  "Chop vegetables" |-> "Fry onion" |-> "Boil potatoes" |-> "Mix" |-> Done
+```
+
+The resulting recipe looks like so:
+
+```hs
+Recipe "Chop vegetables" (
+  Recipe "Fry onion" (
+    Recipe "Boil potatoes" (
+      Recipe "Mix" Done
+    )
+  )
+)
+```
+
+> Note this isn't really a natural way to depict this, but for the purpose of depicting fixity it gives us something to work with
+
+## Typeclasses
+
+As mentioned previously, typeclasses provide additional behavior to types, the `Eq` typeclass is defined in the prelude as:
+
+```hs
+class Eq a where
+    (==) :: a -> a -> Bool
+    (/=) :: a -> a -> Bool
+    x == y = not (x /= y)
+    x /= y = not (x == y)
+```
+
+In this definitions, equality is defined recursively.
+
+We can also implement our own definition of equality by ensuring we have implemented all the relevant function definitions. For the sake of equality we only need to implement one of the definitions since they're defined recursively
+
+We can implement equality for two food types provided their `mass` is the same, so:
+
+```hs
+instance Eq Food where
+  (==) a b = mass a == mass b
+```
+
+Or, alternatively, written in infix notation:
+
+```hs
+instance Eq Food where
+  a == b = mass a == mass b
+```
+
+We can also implement `Show`:
+
+```hs
+instance Show Food where
+  show (Cake Chocolate _) = "a delicious chocolate cake"
+  show (Cereal Chocolate _) = "some delicious cereal cake"
+  show _ = "ew gross"
+```
+
+Note that in the `where` we can simply define the `show` function using some pattern matching. We can also define this externally and reuse it inside our typeclass instance:
+
+```hs
+showFood :: Food -> String
+showFood (Cake Chocolate _) = "a delicious chocolate cake"
+showFood (Cereal Chocolate _) = "some delicious cereal cake"
+showFood _ = "ew gross"
+
+instance Show Food where
+  -- reference the existing showFood function
+  show = showFood
+```
+
+Since this has been defined, the `Food` type no longer needs to derive `Show` on it's own since it has a concrete implementation
+
+It's also possible to derive for type constructors, for example, you could derive equality for `Maybe` like:
+
+```hs
+instance (Eq m) => Eq (Maybe m) where
+    Just x == Just y = x == y
+    Nothing == Nothing = True
+    _ == _ = False
+```
+
+Note that since we are comparing `x == y` we need to ensure that the types are `Eq`, so we can only implement a typeclass for a type constructor provided that the given type implements `Eq`, this is similar to generic constraints in functions
+
+## The Functor Typeclass
+
+The Functor typeclass is basically used for anything that can be mapped over, e.g. `Lists` implement this, this is defined as follows:
+
+```hs
+class Functor f where
+    fmap :: (a -> b) -> f a -> f b
+```
+
+For lists, `map` is defined simply as:
+
+```hs
+instance Functor [] where
+    fmap = map
+```
+
+We can implement `Functor` for `Maybe` as:
+
+```hs
+instance Functor Maybe where
+    fmap f (Just x) = Just (f x)
+    fmap f Nothing = Nothing
+```
+
+## Kinds
+
+Type constructors are like functions that work over types to get concrete types. A `Kind` is a way to talk about the "type of a type", we can view the kind of something using `:k` in GHCI, for example:
+
+```hs
+ghci> :k Int
+Int :: *
+
+ghci> :k Maybe
+Maybe :: * -> *
+
+ghci> :k Functor
+Functor :: (* -> *) -> Constraint
+```
+
+The `*` represents where a concrete type is required. For example `Int` returns a concrete type, whereas `Maybe` takes one concrete type and returns a concrete type
