@@ -78,7 +78,7 @@ console.log("Can't access value here");
 
 What's great is that this `safe` check is re-run whenever we want to access the `value`, this means that we can make certain properties available based on some other state that can be checked in the `safe` method
 
-Furthermore, the Typescript compiler itself will prevent you from accessing `value` if we determine it is unsafe. This protects us both at a runtime as well as compile time
+This approach means that at compile time the Typescript compiler will check that we are only accessing `value` within a context that we have defined to be okay by way of our `isSafe` method. Additionally, since we can specify the behavior of `isSafe` we end up with a a check that works at the intersection of compile-time and runtime 
 
 # Note
 
