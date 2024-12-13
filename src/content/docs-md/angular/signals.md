@@ -3,7 +3,7 @@ title: Signals Basics
 description: Basic overview of Angular Signals
 ---
 
-> Notes on AngularArchitects Angular Signals Video
+> Notes on [AngularArchitects Angular Signals Video](https://www.youtube.com/watch?v=6W6gycuhiN0)
 
 # Why Signals
 
