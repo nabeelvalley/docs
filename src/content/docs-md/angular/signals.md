@@ -178,3 +178,50 @@ Effectively, signals will only be evaluated during change detection. Hence, `com
 
 This is not the mechanism to use when an `effect` depends on EVERY change to a signal
 
+## Dynamic Dependency Tracking
+
+Given the following code:
+
+```ts
+effect(() => {
+  if (this.name() === 'ben') {
+    console.log(this.age())
+  }
+})
+```
+
+The `effect` above will only run when `this.a() === 'show'`. This means that the effect is only triggered when the condition is satisified  
+
+## Writing Signals from Effect
+
+It's also important to note that we cannot write to a signal from an `effect` since it can create a dependency loop. It is possible to disbable this safeguard but not recommended
+
+This can be done by using `allowSignalWrites` as below:
+
+```ts
+effect(() => {
+  if (this.name() === "ben") {
+    this.age.set("10")
+  }
+}, {
+  allowSignalWrites: true
+})
+```
+
+## Untracked
+
+Within a reactive context such a `effect` we may want to run some other code but ensure that we don't trigger any signal changes we can use `untracked`, in the below this means that anything that `printName` does will not trigger a new change
+
+
+```ts
+effect(() => {
+  // create a subscription to `name`
+  this.name();
+
+  // function is executed outside of a reactive context
+  untracked(() => {
+    this.printName();
+  })
+})
+ ```
+ 
