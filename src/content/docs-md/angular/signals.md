@@ -301,3 +301,8 @@ The `model` will then emit whenever the signal is updated, e.g. using `set` or `
 # ExpressionChangedAfterItHasBeenCheckedError
 
 Often in Angular we can run into the `ExpressionChangedAfterItHasBeenCheckedError` when we change the value of something during rendering. If we encounter this error during a function that's signal-based, it's likely that this happens at a boundary where we are working with something that's not a signal - e.g. `RxJS`
+
+# References
+
+- [AngularArchitects Angular Signals Video](https://www.youtube.com/watch?v=6W6gycuhiN0)
+- [Angular Signals](https://angular.dev/guide/signals)
