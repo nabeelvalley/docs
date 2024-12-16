@@ -223,5 +223,81 @@ effect(() => {
     this.printName();
   })
 })
- ```
- 
+```
+
+# Component Communication
+
+Angular also provides signal equivalents for existing component communication decorators, namely:
+
+| Decorator          | Signal              |
+| ------------------ | ------------------- |
+| `@Input`           | `input()`           |
+| `@Output`          | `output()`          | 
+| `@Input + @Output` | `model()`           |
+| `@ViewChild`       | `viewChild()`       | 
+| `@ViewChildren`    | `viewChildren()`    | 
+| `@ContentChild`    | `contentChild()`    | 
+| `@ContentChildren` | `contentChildren()` | 
+
+## Inputs
+
+Inputs can be done using `input`. Within this we can define an input as optional using:
+
+```ts
+title = input<string>();
+```
+
+Or as requires as:
+
+```ts
+title = input.required<string>();
+```
+
+Next, this can be used in the parent just as:
+
+```html
+<app-signals title="hello" />
+```
+
+## Outputs
+
+Outputs work as follows:
+
+```ts
+onAdd = output<User>()
+```
+
+The output will now be consumed as normal and still functions as an `EventEmitter` as before. From the component we can emit values as we'd expect:
+
+```ts
+this.onAdd.emit(user)
+```
+
+And from a consumer, it's bound as normal as well:
+
+```html
+<app-signals title="hello" (onAdd)="log($event)" />
+```
+
+## Models
+
+When doing 2-way binding it's possible to simplify the configuration of the signals using `model()`
+
+So the following input/output combination:
+
+```ts
+selected = input<User>();
+selectedChange = output<User>();
+```
+
+Can become:
+
+```ts
+selected = model<User>();
+```
+
+The `model` will then emit whenever the signal is updated, e.g. using `set` or `update`
+
+# ExpressionChangedAfterItHasBeenCheckedError
+
+Often in Angular we can run into the `ExpressionChangedAfterItHasBeenCheckedError` when we change the value of something during rendering. If we encounter this error during a function that's signal-based, it's likely that this happens at a boundary where we are working with something that's not a signal - e.g. `RxJS`
