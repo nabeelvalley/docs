@@ -57,7 +57,6 @@ export class RedBlackBinarySearchTree<K extends Key, V> extends BinarySearchTree
     h.color = 'red'
 
     return x
-
   }
 
   private flipColors(h: Node<K, V>) {

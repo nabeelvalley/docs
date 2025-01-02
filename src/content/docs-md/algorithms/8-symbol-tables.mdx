@@ -265,11 +265,9 @@ To represent a red-black BST we use the BST definition we had previously but
 
 Sometimes when working with a tree we may end up with a right-leaning red link. We may want to update this to rotateLeft instead which can be done as follows:
 
-// Snippet for rotateLeft
-
 <Snippet
   path="algorithms/symbol-table/red-black-binary-search-tree.ts"
-  collapse={['1-32', '46-999']}
+  collapse={['1-37', '49-999']}
 />
 
 The important part of the left rotation is that it maintains symmetric order and perfect black balance
@@ -278,11 +276,9 @@ The important part of the left rotation is that it maintains symmetric order and
 
 Sometimes to insert a value it is necessary to temporarily rotat a link right, this can also be done as follows:
 
-// Snippet for rotateRight
-
 <Snippet
   path="algorithms/symbol-table/red-black-binary-search-tree.ts"
-  collapse={['1-32', '46-999']}
+  collapse={['1-49', '61-999']}
 />
 
 ### Flip Colors
@@ -292,11 +288,9 @@ When a node has two child links that are both red this represents a 4-node. In o
 1. Convert the parent link to red
 2. Convert the 2 child links to black
 
-// Snippet for colorFlip
-
 <Snippet
   path="algorithms/symbol-table/red-black-binary-search-tree.ts"
-  collapse={['1-32', '46-999']}
+  collapse={['1-61', '71-999']}
 />
 
 ### Insertion
@@ -313,11 +307,9 @@ When inserting we want to maintain the 2-3 accordance.
   - Rotate to make lean left if needed
   - Repeat case 1 or 2 up the tree if needed
 
-// Snippet for put
-
 <Snippet
   path="algorithms/symbol-table/red-black-binary-search-tree.ts"
-  collapse={['1-32', '46-999']}
+  collapse={['1-71', '101-999']}
 />
 
 
