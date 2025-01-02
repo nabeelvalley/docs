@@ -1,10 +1,16 @@
 import { describe, expect, test } from 'vitest'
 import { compareNumbers } from '../sorting/compare'
 import { BinarySearchTree } from './binary-search-tree'
+import { RedBlackBinarySearchTree } from './red-black-binary-search-tree'
 
-describe(BinarySearchTree, () => {
+const implementations = [
+  BinarySearchTree,
+  RedBlackBinarySearchTree
+] as const
+
+describe.each(implementations)("Impl: %o", (Sut) => {
   test('should put items into tree', () => {
-    const sut = new BinarySearchTree<number, string>(compareNumbers)
+    const sut = new Sut<number, string>(compareNumbers)
 
     const nums = [5, 2, 7, 6, 8, 4]
 
@@ -19,7 +25,7 @@ describe(BinarySearchTree, () => {
   })
 
   test('should get the max value', () => {
-    const sut = new BinarySearchTree<number, string>(compareNumbers)
+    const sut = new Sut<number, string>(compareNumbers)
 
     const nums = [5, 2, 7, 6, 8, 4]
 
@@ -32,7 +38,7 @@ describe(BinarySearchTree, () => {
   })
 
   test('should get the min value', () => {
-    const sut = new BinarySearchTree<number, string>(compareNumbers)
+    const sut = new Sut<number, string>(compareNumbers)
 
     const nums = [5, 2, 7, 6, 8, 4]
 
@@ -45,7 +51,7 @@ describe(BinarySearchTree, () => {
   })
 
   test('should get the floor value', () => {
-    const sut = new BinarySearchTree<number, string>(compareNumbers)
+    const sut = new Sut<number, string>(compareNumbers)
 
     const nums = [5, 2, 7, 6, 8, 4]
 
@@ -58,7 +64,7 @@ describe(BinarySearchTree, () => {
   })
 
   test('should get the ceil value', () => {
-    const sut = new BinarySearchTree<number, string>(compareNumbers)
+    const sut = new Sut<number, string>(compareNumbers)
 
     const nums = [5, 2, 7, 6, 8, 4]
 

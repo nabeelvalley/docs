@@ -5,6 +5,8 @@ title: Symbol Tables
 
 import Snippet from '@/components/Snippet.astro'
 
+> Notes based on [Algorithms, Part 1](https://www.coursera.org/learn/algorithms-part1/) on Coursera
+
 # Symbol Table API
 
 The idea is to have some kind of key-value association
@@ -175,7 +177,7 @@ Implementing the above recursively leads to us having an ordered queue of keys
 
 ### Deletion
 
-To delete we can implement a few different solutions. The lazy approach is to remove the value of a key but then we end up accumulating keys in our table
+To delete we can implement a few different solutions. The lazy approach is to remove the value at a key but then we end up accumulating keys in our table
 
 A more general method for deleting nodes is called **Hibbard Deletion**
 
@@ -188,4 +190,194 @@ A more general method for deleting nodes is called **Hibbard Deletion**
 
 The problem with the Hibbard deletion process leads to the tree becoming imbalanced over time since we are replacing the right subtree constantly
 
-After a lot of deletes the shape of the tree changes which has a considerable negative impact on the performance of the data structure
+After a lot of deletes the shape of the tree changes which has a considerable negative impact on the performance of the data structure. This leads to operations on the tree being `O(sqrt(N))`
+
+## 2-3 Trees 
+
+Generalize BSTs to provide some flexibility in defining performance by using trees that can either have:
+
+1. 2-node: one key, two children
+2. 3-node: two keys, three children
+
+- Perfect balance: every path from root to end has the same length
+- Symmetric order: in-order traversal returns keys in ascending order
+
+### Searching
+
+- Compare search key against keys in node
+- Find relevant link
+  - Smaller than both keys = left
+  - Larget than both keys = right
+  - Between keys = between link
+- Follow the relevant link recursively
+
+### Insertion
+
+- Search for key
+- Either
+  - If at 2-node: Replace 2-node with a 3-node
+  - If at 3-node: 
+    - Create a temp 4-node
+    - Move middle key of 4-node into parent
+    - Split remaining into 2 2-nodes
+    - Do this recursively up as needed
+
+Splitting nodes is a local transformation and thereby has a constant number of operations
+
+### Invariants
+
+- Maintain symmetric order and perfect balance
+- Each transformation should maintain symmetric order and perfect balance
+
+### Performance
+
+Since we have perfect balance, every path from the root to the end has the same lenght
+
+Tree height:
+
+- Worst case: lg N (all 2-nodes)
+- Best case: log3 N (all 3 nodes)
+
+### Implementation
+
+Implementation of this is possible but it's quite complicated and there is an easier way to implement this          
+
+## Left-leaning Red-Black BSTs
+
+- Represent a 2-3 tree as a BST
+- Use internal left-leaning links as 3-nodes
+
+This is a BST such that:
+
+- No node has 2 red likns connected to it
+- Every path from root to link has the same number of black links
+- Red links lean right
+
+### Search
+
+Search is exactly the same as for a BST but is much faster due to the tree remaining balanced
+
+### Representation
+
+To represent a red-black BST we use the BST definition we had previously but 
+
+### Left Rotation
+
+Sometimes when working with a tree we may end up with a right-leaning red link. We may want to update this to rotateLeft instead which can be done as follows:
+
+// Snippet for rotateLeft
+
+<Snippet
+  path="algorithms/symbol-table/red-black-binary-search-tree.ts"
+  collapse={['1-32', '46-999']}
+/>
+
+The important part of the left rotation is that it maintains symmetric order and perfect black balance
+
+### Right Rotation
+
+Sometimes to insert a value it is necessary to temporarily rotat a link right, this can also be done as follows:
+
+// Snippet for rotateRight
+
+<Snippet
+  path="algorithms/symbol-table/red-black-binary-search-tree.ts"
+  collapse={['1-32', '46-999']}
+/>
+
+### Flip Colors
+
+When a node has two child links that are both red this represents a 4-node. In order to split a 4-node it is simply necessary to
+
+1. Convert the parent link to red
+2. Convert the 2 child links to black
+
+// Snippet for colorFlip
+
+<Snippet
+  path="algorithms/symbol-table/red-black-binary-search-tree.ts"
+  collapse={['1-32', '46-999']}
+/>
+
+### Insertion
+
+When inserting we want to maintain the 2-3 accordance. 
+
+- Case 1  - insert into a 2-node at the bottom
+  - Do a normal BST insert, color new link red
+  - If new red link is right, rotate it left
+- Case 2 - Insert into a tree with exactly 2 nodes
+  - Do a normal BST insert, color new link red
+  - Rotate to balance 4 node if needed
+  - Flip colors to pass red link up one level
+  - Rotate to make lean left if needed
+  - Repeat case 1 or 2 up the tree if needed
+
+// Snippet for put
+
+<Snippet
+  path="algorithms/symbol-table/red-black-binary-search-tree.ts"
+  collapse={['1-32', '46-999']}
+/>
+
+
+### Performance
+
+Lerft leaning red-black trees will approach lg 2 N hehght, in the worst case it will be 2 lg N
+
+## B Trees
+
+Given some contstraints such as a file system, we have the following:
+
+- Locate a page - slow
+- Read a page - fast
+
+We want to optimize in order to minimize the number of propbes that need to be done in order to locate a page
+
+B-trees generalize 2-3 trees by allowing up to M-1 key-link pairs per node where M is as large as possible for the given usecase
+
+- At least 2 key-link paris at root
+- At least M/2 key-link paris in other nodex
+- External nodes contain client keys
+- Internal nodes contain copies of keys to guide search
+
+In practive, the number of probes in a B-tree is at most 4, an optimization that's possible is to keep the root page in memory at all times
+
+## Performance Overview
+
+| Implementation                  | Guarantee |        |        | Average   |           |         | Ordered Iteration |
+| ------------------------------- | --------- | ------ | ------ | --------- | --------- | ------- | ----------------- |
+|                                 | search    | insert | delete | search    | insert    | delete  |                   |
+| Sequential Search (Linked List) | N         | N      | N      | N/2       | N         | N/2     | no                |
+| Binary Search (Ordered Array)   | lg N      | N      | N      | lg N      | N/2       | N/2     | yes               |
+| BST                             | N         | N      | N      | 1.39 lg N | 1.39 lg N | sqrt(N) | yes               |
+| 2-3 Tree                        | c lg N    | c lg N | c lg N | c lg N    | c lg N    | c lg N  | yes               |
+| Left Leaning Red-Black Tree     | 2 lg N    | 2 lg N | 2 lg N | lg N      | lg N      | lg N    | yes               |
+
+
+## Applications of Symbol Tables and Binary Search Trees
+
+### 1D Range Search
+
+Extension of the ordered symbol table withL
+
+- Insert key-value pair
+- Search for key k
+- Delete key k
+- Range search: find all keys between k1 and k2
+- Range count: count number of keys between k1 and k2
+
+A geometric interpretation of this is to think of keys as points on a line
+
+There are a few different ways to implement this:
+
+| Data structure      | insert | range count | range search | 
+| ------------------- | ------ | ----------- | -------------|
+| Unordered Array     | 1      | N           | N            |
+| Ordered Array       | N      | log N       | R + log N    |
+| BST with Rank field |        | log N       | R + log N    |
+
+Where:
+
+- N = number of keys
+- R = number of keys that match

@@ -22,7 +22,7 @@ class Node<K extends Key, V> {
 }
 
 export class BinarySearchTree<K extends Key, V> {
-  private root?: Node<K, V>
+  protected root?: Node<K, V>
 
   private readonly compare: Compare<K>
 
