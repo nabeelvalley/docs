@@ -1,0 +1,52 @@
+---
+published: true
+title: Hash tables
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+> Notes based on [Algorithms, Part 1](https://www.coursera.org/learn/algorithms-part1/) on Coursera
+
+# Hashing
+
+Hashing is done by saving items in a key-indexed table such that the index is some function of a key. The hash function then computes an array index from a specifc key
+
+Some challenges we can run into are:
+
+- Computing the hash function
+- Equality testing
+- Collision resolution - how do we handle keys with the same hash
+
+This is an instance of a space-time tradeoff where we use more space to speed up our lookups
+
+## Computing a hash function
+
+- Ideally, we want to scramble keys uniquely to produce a table index
+- Efficient to compute
+- Each table index is uniquely likely - problematic in practice
+
+Practically, we need a different approach for each type of key
+
+Different languages may implement this differently, Java uses **Horner's method** for calculating this and you can utilize your own version for defining custom hashing fuctions
+
+# Separate Chaining
+
+Since it's likely that we will have collisions, we need a way to avoid collisions
+
+Separate chanining uses an array of _M < N_ linked lists with each lista at a position corresponding to s much more constrained hash value that may be repeated
+
+- Hash: map key to integer _i_ between _0_ and _M - 1_
+- Insert: put at front of ith chain (if not already there)
+- Search: Search only the _ith_ chain
+
+This basically buckets the lists we have so that we can reduce how many items we need to look through
+
+We can use some other data structure for the specific chain but we could use some other kind of list that's more efficient to navigate
+
+## Analysis
+
+It can be noted that our space vs time efficiency is related to the size of each chain as well as the complexity of the hashing
+
+This mechanism is suited for cases where we have a relatively simple hashing function and we don't need ordered iteration
+
+
