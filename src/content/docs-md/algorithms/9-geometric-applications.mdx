@@ -1,0 +1,161 @@
+---
+published: true
+title: Geometric Applications
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+> Notes based on [Algorithms, Part 1](https://www.coursera.org/learn/algorithms-part1/) on Coursera
+
+# 1D Range Search
+
+Extension of the ordered symbol table with
+
+- Insert key-value pair
+- Search for key k
+- Delete key k
+- Range search: find all keys between k1 and k2
+- Range count: count number of keys between k1 and k2
+
+A geometric interpretation of this is to think of keys as points on a line
+
+There are a few different ways to implement this:
+
+| Data structure      | insert | range count | range search | 
+| ------------------- | ------ | ----------- | -------------|
+| Unordered Array     | 1      | N           | N            |
+| Ordered Array       | N      | log N       | R + log N    |
+| BST with Rank field |        | log N       | R + log N    |
+
+Where:
+
+- N = number of keys
+- R = number of keys that match
+
+# Orthogonal Line Segment Intersections
+
+Given N horizontal and vertical segments, find all intersections
+
+The brute force algorithm is going to be quadratic
+
+## Sweep-line algorithm
+
+An algorithm that can be used to solve this is using an algorithm in which we sweep a line from left to right:
+
+When we encounter a horizontal line:
+
+  - hitting the left endpoint we add a y-coordinate into a BST
+  - hitting the right endpoint removes the y-coordinate from a BST
+
+When we hit a vertical line:
+
+  - range search for the interval of y-endpoints
+
+Complexity is N log N + R
+
+Where N is the number of lines and R is the number of points to return
+
+Using this mechanism it effectively reduces a 2D search into a 1D range search
+
+# Kd Trees
+
+An extension of BSTs that are used fr processing sets of points in space. In this scenario our keys are 2D. These extend the BST as follows:
+
+- 2D keys
+- 2D range search
+- 2D range search
+
+This effectively means that we want to search for points (2D keys) within a rectangle (2D range)
+
+A solution to solve this problem is by using a tree to represent the divions within 2D space - these are called **Space Partitioning Trees** which are basic BSTs but keys are alternated for each level
+
+These trees work by taking points, we partition the plane recursively by alternating by horizontal and vertical spaces, this is more simply alternating through the keys, and each level of the tree represents a specific key, in this case X and Y
+
+## Range Search 
+
+Range search in this kind of tree works as follows:
+
+- Start at root
+- Check if the current node lies in the rectangle
+- Recursively search left/bottom if any children can fall in rectangle
+- Recursively search right/top if any children can fall in rectangle
+
+## Search Performance
+
+Typical performance of this is _R + log N_, in the worst case it can be _R + sqrt(N)_
+
+## Closest Search
+
+Finding the clsoest point works as follows:
+
+- Start at root
+- Check distance from point in node to query point, keep this if it's the closest point
+- Recursively search left/bottom if it could contain a closer point
+- Recursively search right/top if it could contain a closer point
+- Organize method so taht it begins by searching for the query point
+- Update the closest point if we find a closer point along the way
+
+## Closest Search Performance
+
+Typically this is _log N_, worst case is _N_
+
+## Application of Closest Search
+
+Kd trees can be used to simulate bird flocking under the following ruleset, these are called **Boids**
+
+- Collision avoidance: point awat from K nearest boids
+- Flock centering: point towards the center of mass of K nearest boids
+- Velocity matching: update velocity to the average of K nearest boids
+
+## Expanding to K Dimensions
+
+The 2D tree can be expanded by simply recusively partitioning the 2D tree by cycling through however many dimensions there is in our data
+
+# Interval Search Trees
+
+A data structure is needed to hold sets of overlapping intervals and we want to be able to get all intervals that may overlap another interval
+
+Some of the methods that we need to be available are:
+
+- Insert an interval _(lo, hi)_
+- Search for an interval _(lo, hi)_
+- Delete an interval _(lo, hi)_
+- Get intersecting intervals _(lo, hi)[]_
+
+> Assuming that no interval shares the same lo endpoint
+
+We can solve this by creating a BST:
+
+- The lo endpoint is the key
+- At each node we store:
+  - The interval for the node
+  - The max hi endpoint in the subtree
+
+## Insertion
+
+When inserting we do a normal BST, but we need to update the subtree max value by traversing back up the tree once we have inserted our new value
+
+## Searching
+
+When searching for any interval that intersects an interval
+
+- If interval intersects a node, return
+- Else if left is null go right
+- Else if max in left is less than _lo_, go right
+- Else go left
+
+# Rectangle Intersection
+
+2D rectangle intersection can be done using the sweep line algorithm such that each intersection results in an interval being added or removed. Once we reach a left edge or a rectangle we can use the intersection search to improve the performance of this check
+
+Overall this leads to an algorithm that takes _N log NN + R log N_ to find _R_ intersections in a set of _N_ rectangles
+
+# Summary
+
+| Problem                                        | Solution                        |
+| ---------------------------------------------- | ------------------------------- | 
+| 1D Range Search                                | BST                             | 
+| 2D Orthogonal Line Segment Intersection Search | Sweep Line + 1D Range Search    |
+| Kd Range Search                                | Kd Tree                         |
+| 1D Interval Search                             | Interval Search Tree            |
+| 2D Orthoginal Rectangle Intersection Search    | Sweep Line + 1D Interval Search |

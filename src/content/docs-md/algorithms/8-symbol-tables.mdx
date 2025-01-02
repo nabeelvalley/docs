@@ -345,31 +345,3 @@ In practive, the number of probes in a B-tree is at most 4, an optimization that
 | BST                             | N         | N      | N      | 1.39 lg N | 1.39 lg N | sqrt(N) | yes               |
 | 2-3 Tree                        | c lg N    | c lg N | c lg N | c lg N    | c lg N    | c lg N  | yes               |
 | Left Leaning Red-Black Tree     | 2 lg N    | 2 lg N | 2 lg N | lg N      | lg N      | lg N    | yes               |
-
-
-## Applications of Symbol Tables and Binary Search Trees
-
-### 1D Range Search
-
-Extension of the ordered symbol table withL
-
-- Insert key-value pair
-- Search for key k
-- Delete key k
-- Range search: find all keys between k1 and k2
-- Range count: count number of keys between k1 and k2
-
-A geometric interpretation of this is to think of keys as points on a line
-
-There are a few different ways to implement this:
-
-| Data structure      | insert | range count | range search | 
-| ------------------- | ------ | ----------- | -------------|
-| Unordered Array     | 1      | N           | N            |
-| Ordered Array       | N      | log N       | R + log N    |
-| BST with Rank field |        | log N       | R + log N    |
-
-Where:
-
-- N = number of keys
-- R = number of keys that match
