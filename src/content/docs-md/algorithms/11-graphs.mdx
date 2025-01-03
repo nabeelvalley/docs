@@ -1,0 +1,130 @@
+---
+published: true
+title: Undirected Graphs
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+> Notes based on [Algorithms, Part 2](https://www.coursera.org/learn/algorithms-part2/) on Coursera
+
+# Undirected Graphs
+
+A graph is a set of vertices connected pairwise by edges. Graphs can be huge and have complex properties
+
+## Terminology
+
+- Path: Sequence of vertices conencted by edges
+- Cycle: Path whose first and last vertices are the same
+
+## Common Graph Problems
+
+- Path: Is there a path between _s_ and _t_
+- Shortest path: what is the shortest path between _s_ and _t_
+- Cycle: Is there a cycle
+- Euler tour: Is there a cycle that visits each edge exactly once
+- Hamilton tour: Is there a cycle that uses each vertex exactly once
+- Connectivity: Is there a way to connect all vertices
+- MST: What is the best way to connect all of the vertices
+- Biconnectivity: Is there a vertex whose removal disconnects the graph
+- Planarity: Can you draw the graph on a plane without crossing edges
+- Graph Isomorphishm: Do two adjancey lists represent the same graph
+
+One of the biggest challenges is to determine the difficulty of these problems
+
+# Graph API
+
+In general, we can define the Graph API as follows:
+
+<Snippet path="algorithms/graphs/definition.ts" />
+
+## Representations
+
+There are different ways we can represent graphs
+
+### Drawing
+
+We can represent graphs by drawing them, this can provide intuition about the structure but can be misleading
+
+
+### List of Vertices
+
+We can also represent graphs using a list of vertices, different representations may impose challenges in representing self-loops or parallel edges
+
+### List of Edges
+
+Maintaining a list of edge-pairs in a Set/Linked List/Array/etc.
+
+### Adjacency Matrix
+
+Maintain a two dimensional V-by-V boolean array, for each edge v-w we set `adj[v][w] = adj[w][v] = true` Which is a very efficient method for lookups but is very poor spacially
+
+### Adjacency List
+
+Maintain a vertex-indexed array of lists, this can be any Bag implementation in general
+
+A simple implementation of an adjacency list using a bag can be seen below
+
+<Snippet path="algorithms/graphs/bag-graph.ts" />
+
+The adjacency mechanism works well since in real world applications graphs tend to have a lot of vertices but a small average number of edges per vertex
+
+## Performance Characteristics
+
+| Representation   | Space | Add Edge | Edge Between V and W | Iterate over Vertices |
+| ---------------- | ----- | -------- | -------------------- | --------------------- |
+| List of Edges    | E     | I        | E                    | E                     |
+| Adjacency Matrix | V^2   | I        | I                    | V                     |
+| Adjacency List   | E + V | I        | degree(V)            | degree(V)             |
+
+# Depth First Search
+
+## Maze Exploration
+
+We can search for a path though a maze using a Depth first search such that:
+
+- Vertex = Intersection
+- Edge = Passage
+
+### Tremaux Maze Exploration
+
+An early algorithm for exploring a maze is the **Tremaux Maze Exploration** Algorithm which goes as follows:
+
+- Unroll a ball of string behind you
+- Mark each visited intersection and visited passage
+- Retrace steps when no unvisited options exist
+
+## Algorithm
+
+To find a path from one vertex to another
+
+1. Mark current vertex as visited
+2. Recursively visit all unmarked vetices adjacent to current vertex
+
+## Applications
+
+- Find all vertices connected to a given source 
+- Find a path between two vertices
+
+## Graph Processing Pattern
+
+We can implement this using the following design pattern by decoupling the Graph Data type from the processing of the graph itself
+
+1. Create a graph object
+2. Pass the graph to the processing method
+3. Query the graph processing method for information
+
+We can decopuple this by creating a `Paths` type that contains the logic of holding a `Graph` and a `source` vertex. The API of `Paths` can look like so:
+
+<Snippet path="algorithms/graphs/path-definition.ts" />
+
+## Implementation
+
+We can implement DFS using our pattern as seen below:
+
+<Snippet path="algorithms/graphs/dfs.ts" />
+
+The implementation above uses two internal properties - `marked` to track whether a vertex was visited, and `edgeTo` to mark where that vertex was reached from
+
+DFS marks all connected vertices in a time proportional to the sum of their degrees
+
+After the DFS is done it becomes possible to find connected vertices in constant time and we can find a path if one exists in a time proportional to its length
