@@ -345,3 +345,26 @@ In practive, the number of probes in a B-tree is at most 4, an optimization that
 | BST                             | N         | N      | N      | 1.39 lg N | 1.39 lg N | sqrt(N) | yes               |
 | 2-3 Tree                        | c lg N    | c lg N | c lg N | c lg N    | c lg N    | c lg N  | yes               |
 | Left Leaning Red-Black Tree     | 2 lg N    | 2 lg N | 2 lg N | lg N      | lg N      | lg N    | yes               |
+
+# Sets
+
+Basically just a set without anything to do with `value`
+
+- `add(key)`
+- `contains(key)`
+- `remove(key)`
+- `size`
+- `iterator`
+
+# Indexing
+
+- File indexing: Build a Symbol Table with `key` as some search term, and `value` as a `Set<File>`
+- Concordance indexing: Build a Symbol Table with `key` and `value` as `Set<Integer>` where we reference the position in the array where a given `key` occurs
+ 
+# Sparse Vectors/Matrices
+
+In many usecases we have matrices with very few non-zero values and very large sizes, we can take advantage of these by using Symbol tables to only store the keys and values, otherwise we can assume a `0`
+
+In the case of a vector, we can use a Symbol Table such that `SparseVector == ST<Integer, Float>`
+
+In the case of a matrix we can use the definition of a Sparse Vector such that `SparseMatrix == ST<Integer, SparseVector> == ST<Integer, ST<Integer, Float>`

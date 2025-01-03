@@ -49,4 +49,58 @@ It can be noted that our space vs time efficiency is related to the size of each
 
 This mechanism is suited for cases where we have a relatively simple hashing function and we don't need ordered iteration
 
+# Open Addressing
+
+A method for this uses an algorithm called **Linear Probing** Use an array instead of using a linked list, an empty element indicates where we can add a value
+
+- Hash: Make key to integer i between _0_ and _M-1_
+- Insert: Put at table _i_ if free, if not try _i+1 .. i+n_
+- Search: Check _i_, if no match then continue to _i+1 .. i+n_
+
+> Note that this limits the number of available spaces to the size of the array
+
+It's essential that the array can be resized when the number of keys grows beyond the number spaces in our array, in practice it's preferable to keep the array about half full
+
+A simple implementation of this can be done by storing an array of keys and an array of values
+
+## Clustering
+
+Storage can become a concern in cases of hash tables like this since it is very space inefficient. A problem that compounds this is the occurence of clustering which leads to much longer operations when working with a Linear Probing based hash table
+
+In order to identify the performance of an alogorithm like this we can refer to **Knuth's Parking Problem**
+
+- If Half full - with _M/2_ cars, mean displacement is _~3/2_
+- If full, with _M_ cars, mean displacement is _~sqrt(pi * M / 8)_
+
+**Knuth's Theorem** says that under a uniform hashing assumption, the avaerage number of probes in a linear probing hash table of size _M_ that contains _N = aM_ keys is:
+
+- Search hit: _~(1/2)(1 + 1/(1-a))_
+- Search miss/insert: _~(1/2)(1 + 1/((1-a)^2)_
+
+We have the following scenarios:
+
+- _M_ too large: more space than needed
+- _M_ too small: search time increases
+- Typically uses: _a = N/M ~1/2_
+
+# Alternative Hashing Methods
+
+- **Two probe hashing** for separate-chaining
+- **Double hashing** for linear probing
+- **Cuckoo hashing** for linear probing
+
+# Comparison with Balanced Search Trees
+
+Hash tables are simpler to code and are fast for simple keys
+
+Balanced search trees have a stronger performance guarantee
+
+# Additional Context
+
+Java 1.1 made use of a hashing function that only looked at every 8th position in a string in order to decrease then time spent on hashing, this led to really bad performance with typical data that may have collisions on these kinds of positions, for example URLs
+
+Another thing that can happen is that if you're using a publicly know hash function it becomes possible to attack your service such that your hash table becomes very slow and can be a vulnerability for denial of service attacks
+
+We often also make use of some one-way hash functions that make it hard to find the original input, such as MD4/5, SHA, etc. These methods are typically too expensive for use in symbol tables
+
 
