@@ -5,19 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Workers</title>
+
+    <!-- script for launching web workers -->
     <script type="module" src="./worker-launcher.js"></script>
+
+    <!-- script to register service worker -->
+    <script type="module" src="./register-service-worker.js"></script>
   </head>
   <body>
-    <input id="input" />
-    <button id="button">Send Message</button>
-    <button id="blocking">Do Blocking Thing</button>
+    <h1>Images that will br proxied to Service Worker</h1>
     <div>
       <img src="placeholder?height=400&width=500" />
       <img src="placeholder?height=200&width=500" />
     </div>
-    <div id="messages"></div>
-
-    <script type="module" src="./main.js"></script>
-    <script type="module" src="./register-service-worker.js"></script>
   </body>
 </html>
