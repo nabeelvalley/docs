@@ -1,5 +1,3 @@
-console.log("i am still here2");
-
 self.addEventListener("install", () => console.log("installed"));
 
 self.addEventListener("activate", () => console.log("activated"));

@@ -1,0 +1,108 @@
+---
+title: Web Workers and Vite
+description: An overview of using Web Workers with Vite
+subtitle: 06 January 2025
+published: true
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+Web workers provide a mechanism for running code outside of the main thread using Javascript. They are currently supported in the browser as well as in Node.js, but for the purpose of this post we'll look at how to use them from within the browser
+
+# Vanilla
+
+Web workers can be used directly from the browser using some script tags. For the sake of example, we'll use the following HTML file with it's related script tags:
+
+<Snippet path="web-workers/plain/index.html" />
+
+In the above, we can see three scripts referenced, we'll take a look at these as we talk about the mechanisms for using web workers
+
+## Workers
+
+Web workers are simply Javascript modules that are loaded by some other code dynamically as a `Worker`
+
+If we assume we have some worker called `simple-worker.js` in the same directory of our page, we can load it using the following code:
+
+```js
+const worker = new Worker("./simple-worker.js");
+```
+
+Upon doing this, the `simple-worker.js` script will be loaded and executed. 
+
+Now, the real value of workers comes from the ability to get data from the code that launches it, this is done using `worker.postMessage`, this allows us to send any data we want to the worker we have defined, so we can do this in our script, an example of this can be seen below:
+
+<Snippet path="web-workers/plain/simple-worker-launcher.js" />
+
+On the other side of this conversation we have the actual worker script/module. This actually looks really simple:
+
+<Snippet path="web-workers/plain/simple-worker.js" />
+
+This file uses `self.addEventListener` to listen to `messsage`s sent to the worker, when a message is received, the worker can decide what to do with it - what's important to know is that this handler does not block the main thread so it can be as intensive as we want
+
+The worker can also be more complex, for example we can see in the below message that the worker receives a message via `self.addEventListener`, after doing some intensive processing, it calls `self.postMessage` to basically respond to the parent
+
+The parent can then listen to these messages with `worker.addEventListener`
+
+<Snippet path="web-workers/plain/worker-launcher.js" />
+
+And we can see the worker that sends messages as well:
+
+<Snippet path="web-workers/plain/worker.js" />
+
+## ServiceWorkers 
+
+`ServiceWorkers` are a special kind of worker that acts as a proxy between the application and network and can interact with network requests even when the device is not connected to the server
+
+Service workers have different events that may be triggered, commonly is the `installed`, `activated`, and `fetch` event among others, we add listners for these events the same as we did in the above
+
+<Snippet path="web-workers/plain/service-worker.js" />
+
+In the above file, we intercept requests to the `placeholder` url and proxy it by making a new request to `https://placeholder.co`, we could do anything here though, even responding with our own data if we want
+
+`ServiceWorkers` are special though since an application can only have a single `ServiceWorker`. Creating a `ServiceWorker` is done using `navigator.serviceWorker.register` and not using `new Worker`, an example of service worker registration can be seen below:
+
+<Snippet path="web-workers/plain/register-service-worker.js" />
+
+# Vite
+
+In practice we're rarely using some random Javascript files though and often have more complex scenarios with external dependencies or even stuff like Typescript involved, in this case we need to consider things like bundling as well as somehow resolving the name of the file we need to load. Thankfully modern bundlers like Vite have a solution for us
+
+In the case of Vite specifically, it provides us with an API that we can use while importing files that Vite uses to infer that a file should be treated as a worker. Vite does this by using the `?worker` at the end of the import path
+
+Assume we have some Vite-based project that uses a worker such as the one below. That worker also imports some code from another file we have and we expect it all to be bundled correctly:
+
+<Snippet path="web-workers/vite/src/canvas-worker.ts" />
+
+We can see that we have a `fun` function that is called when we receive the `message` as before, we also have a type specified for the data we expect to receive
+
+When we import something using `?worker` Vite creates a constructor for us that will initialize the worker without us having to manually pass the path to the file, so a consumer of this file can now use the worker a bit like this:
+
+```ts
+import CanvasWorker from './canvas.worker?worker'
+import type { InvokeParams } from './canvas.worker'
+
+const worker = new CanvasWorker()
+
+worker.postMessage({ canvas: offscreen } satisfies InvokeParams, [offscreen])
+```
+
+Note that we also use the `type` import above so we can keep the type definition of the data our worker expects in the same palce as the worker
+
+A more full example of this can be seen below:
+
+<Snippet path="web-workers/vite/src/canvas.ts" />
+
+Something that's also interesting to note is the second parameter of `postMessage`, this is an array of `TransferrableObjects` that are specific objects that the browser allows us to share between the main thread and worker threads. In the above example we're using a `OffscreenCanvas` but this can be any of the objects that are defined as `TransferrableObjects`
+
+# Conclusion
+
+Overall, web workers are pretty fun to play around with and really increase the options available to us when working to make applications more performant. Modern tools like Vite also make using them pretty easy
+
+There's a lot that you can do with workers and I've simply provided you with a small overview of the functionality, looking at the MDN documentation is always a good place to go to learn more
+
+# References
+
+- [MDN Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
+- [MDN Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+- [Web Workers in Vite](https://v3.vitejs.dev/guide/features.html#web-workers)
+- [Speed up Canvas Operations with OffscreenCanvas](https://web.dev/articles/offscreen-canvas)
