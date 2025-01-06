@@ -9,7 +9,10 @@ import allProjects from '../data/projects.json'
 import Feature from '../components/Feature.astro'
 import { getCollection } from 'astro:content'
 
+import { slugSegments} from '@/lib/pages'
+
 const blogCollections = await Promise.all([
+  getCollection('talks'),
   getCollection('blog-md'),
   getCollection('blog-ipynb'),
 ])
@@ -33,7 +36,7 @@ const recentPost = blog[recentIndex]
 const recentPostItem = {
   ...recentPost.data,
   title: recentPost.data.title || 'Title Not Provided',
-  link: `/blog/${recentPost.id.split('.')[0]}`,
+  link: `/${slugSegments[recentPost.collection]}/${recentPost.id.split('.')[0]}`,
 }
 ---
 

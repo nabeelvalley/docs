@@ -7,7 +7,10 @@ import LinkBlock from '../components/LinkBlock.astro'
 import Feature from '../components/Feature.astro'
 import { getCollection } from 'astro:content'
 
+import { slugSegments} from '@/lib/pages'
+
 const blogCollections = await Promise.all([
+  getCollection('talks'),
   getCollection('blog-md'),
   getCollection('blog-ipynb'),
 ])
@@ -53,7 +56,7 @@ const posts = withExcluded.slice(0, Astro.props.count || 6)
             title={post.data.title}
             description={post.data.description}
             subtitle={post.data.subtitle}
-            link={`/blog/${post.id.split('.')[0]}`}
+            link={`/${slugSegments[post.collection]}/${post.id.split('.')[0]}`}
           />
         ))}
       </aside>
