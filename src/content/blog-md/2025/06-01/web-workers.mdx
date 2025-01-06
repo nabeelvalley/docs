@@ -73,7 +73,7 @@ Assume we have some Vite-based project that uses a worker such as the one below.
 
 <Snippet path="web-workers/vite/src/canvas.worker.ts" />
 
-We can see that we have a `fun` function that is called when we receive the `message` as before, we also have a type specified for the data we expect to receive
+We can see that we have a `run` function that is called when we receive the `message` as before, we also have a type specified for the data we expect to receive
 
 When we import something using `?worker` Vite creates a constructor for us that will initialize the worker without us having to manually pass the path to the file, so a consumer of this file can now use the worker a bit like this:
 
@@ -90,7 +90,7 @@ Note that we also use the `type` import above so we can keep the type definition
 
 A more full example of this can be seen below:
 
-<Snippet path="web-workers/vite/src/canvas.ts" />
+<Snippet path="web-workers/vite/src/canvas.worker.ts" />
 
 Something that's also interesting to note is the second parameter of `postMessage`, this is an array of `TransferrableObjects` that are specific objects that the browser allows us to share between the main thread and worker threads. In the above example we're using a `OffscreenCanvas` but this can be any of the objects that are defined as `TransferrableObjects`
 
