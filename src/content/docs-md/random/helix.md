@@ -83,3 +83,15 @@ Motions can be repeated using a number followed by a motion, e.g `2w` moves 2 wo
 Match model lets you select content around something such as brackets or other objects. This works by typing `m` in normal mode, from there you can follow the menus to select more specifically
 
 > Stopped on ch 13 of `hx --tutor`
+
+# Shell Commands
+
+Running shell commands from the terminal is possible using `:sh` followed by the command. You can also insert the path of the active file using `<Ctrl+r>%` to paste the data from register `%` which contains the current file path
+
+So you can run a command with the given file like:
+
+```
+:sh command <Ctrl+r>% 
+```
+
+Which will pass the current file to the shell command
