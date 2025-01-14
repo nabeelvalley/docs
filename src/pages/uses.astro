@@ -1,0 +1,17 @@
+---
+import Title from '../components/Title.astro'
+import uses from '../data/uses.json'
+import LinkBlock from '../components/LinkBlock.astro'
+import Base from '../layouts/Base.astro'
+import ImageSectionBlock from '../components/ImageSectionBlock.astro'
+import LinkGrid from '../components/LinkGrid.astro'
+---
+
+<Base>
+  <Title title="Uses" />
+
+  <LinkGrid>
+    {uses.map((u) => <LinkBlock {...u} />)}
+    <LinkGrid />
+  </LinkGrid>
+</Base>
