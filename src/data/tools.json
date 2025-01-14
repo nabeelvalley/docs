@@ -13,5 +13,10 @@
     "title": "Glow",
     "description": "Render markdown on the CLI, with pizzazz",
     "link": "https://github.com/charmbracelet/glow"
+  },
+  {
+    "title": "lazygit",
+    "description": "simple terminal UI for git commands",
+    "link": "https://github.com/jesseduffield/lazygit"
   }
 ]
