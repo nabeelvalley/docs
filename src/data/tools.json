@@ -18,5 +18,15 @@
     "title": "lazygit",
     "description": "simple terminal UI for git commands",
     "link": "https://github.com/jesseduffield/lazygit"
+  },
+  {
+    "title": "fzf",
+    "description": "A command-line fuzzy finder",
+    "link": "https://github.com/junegunn/fzf"
+  },
+  {
+    "title": "ripgrep",
+    "description": "a command line-oriented search tool that recursively searches the current directory for a regex pattern",
+    "link": "https://github.com/BurntSushi/ripgrep"
   }
 ]
