@@ -1,5 +1,10 @@
 [
   {
+    "title": "Nushell",
+    "description": "A new type of shell",
+    "link": "https://www.nushell.sh"
+  },
+  {
     "title": "Helix",
     "description": "A post-modern text editor",
     "link": "https://helix-editor.com"
