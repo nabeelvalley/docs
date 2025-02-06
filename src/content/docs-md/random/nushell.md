@@ -339,6 +339,19 @@ def search [
   }
 }
 ```
+## Watch Mode
+
+> [watch command docs](https://www.nushell.sh/commands/docs/watch.html)
+
+Nushell has builtin support for watching files and running a comand when they change
+
+You can do this using the `watch` command:
+
+```sh
+watch /some/path { echo "things have changed" }
+watch /some/path {|op, path, new_path| echo "things have changed" }
+watch /some/path --glob=**/*.json { echo "things have changed" }
+```
 
 ## Notifiy
 
