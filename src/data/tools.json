@@ -25,6 +25,11 @@
     "link": "https://github.com/jesseduffield/lazygit"
   },
   {
+    "title": "tig",
+    "description": "text-mode interface for git",
+    "link": "https://jonas.github.io/tig/"
+  },
+  {
     "title": "fzf",
     "description": "A command-line fuzzy finder",
     "link": "https://github.com/junegunn/fzf"
@@ -33,5 +38,10 @@
     "title": "ripgrep",
     "description": "a command line-oriented search tool that recursively searches the current directory for a regex pattern",
     "link": "https://github.com/BurntSushi/ripgrep"
+  },
+  {
+    "title": "bat",
+    "description": "A cat(1) clone with wings",
+    "link": "https://github.com/sharkdp/bat"
   }
 ]
