@@ -1,0 +1,118 @@
+---
+title: Typescript Workers in NodeJS 
+description: Basic Setup for using workers in NodeJS with Typescript 
+subtitle: 12 February 2025
+published: true
+---
+
+Using worker threads with Typescript is pretty straightforward, this probably depends a bit on your setup but the below idea seems to work for me
+
+# Single File Worker
+
+In NodeJS we can use a sort of self-referrential worker such that depending on the context in which the file is loaded the behavior will differ, for example:
+
+```ts title="main.ts"
+import { Worker, isMainThread, parentPort, workerData } from "node:worker_threads";
+
+// the worker is the current file
+const workerFileName = __filename
+
+// define a type for the data we want to share
+type WorkerData = {
+  id: number,
+  name: string
+}
+
+// check if we're on the main or worker thread
+if (isMainThread) {
+  // launch a worker thread
+  const worker = new Promise((resolve, reject) => {
+    const worker = new Worker(workerFileName, {
+      // pass data to the worker
+      workerData: {
+        id: "my-worker",
+        name: "Bob"
+      }
+    })
+
+    worker.addListener("message", (result) => resolve(result))
+    worker.addListener("error", reject)
+  })
+
+  worker.then(console.log)
+} else {
+  // do stuff for the worker thread
+  console.log("Running in worker", workerData as WorkerData)
+  const message = `Hello ${workerData.name} from worker`
+
+  // return back to the parent thread
+  parentPort?.postMessage({ message })
+}
+```
+
+In the above file we can see a few things that are important to using workers:
+
+1. A check is done using `isMainThread` to determine if the file is being executed as a worker. the handling for the worker is based on this
+2. A reference to the file which should be run in the worker thread, the `__filename` variable is defined by NodeJS and holds the name of the curent file - this will be the compiled file name so we don't need to figure that out on our own 
+3. A worker is created using `new Worker`, since the worker is an event based API in the above example it's being wrapped in a `Promise` 
+4. Data can be passed to the worker via the `workerData` property, this will then be put into the `workerData` variable from `node:worker_threads` in the worker thread
+5. Data is sent back to the worker using `parentPort.postMessage`. This is the same even that's being listened for the `Promise` to resolve in `worker.addListener("message", resolve)`
+
+# Multi File Worker
+
+Extending the above to work with multiple files is pretty simple, the only additional trick we need is to export the `__filename` from our worker file to the place where we want to construct the worker
+
+So, the updated code can then be broken into two files as follows:
+
+First, the worker is pretty similar to the one above, except now we export the `__filename` as `workerFileName`
+
+```ts title="worker.ts"
+import { isMainThread, parentPort, workerData } from "node:worker_threads";
+
+export const workerFileName = __filename
+
+export type WorkerData = {
+  id: number,
+  name: string
+}
+
+if (!isMainThread) {
+  console.log("Running in worker", workerData)
+  const message = `Hello ${workerData.name} from worker`
+  parentPort?.postMessage({ message })
+} else {
+  console.log("Worker was run in the main thread")
+}
+```
+
+The `main.ts` file then makes use of this exported file name to invoke the worker. Note that this is now just a normal script and will be executed in the main thread as normal
+
+```ts title="main.ts"
+import { Worker } from "node:worker_threads"
+
+// import the worker file name from where we defined the worker
+import { workerFileName } from "./worker"
+
+const workers = [1, 2, 3, 4].map(id => new Promise((resolve, reject) => {
+  const worker = new Worker(workerFileName, {
+    workerData: {
+      id,
+      name: `Bob ${id}`
+    }
+  })
+
+  worker.addListener("message", (result) => resolve({ id, result }))
+  worker.addListener("error", reject)
+}))
+
+async function main() {
+  const results = await Promise.all(workers)
+  console.log(results)
+}
+
+main()
+```
+
+# References
+
+- [NodeJS Worker Threads](https://nodejs.org/api/worker_threads.html)
