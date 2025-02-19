@@ -113,6 +113,23 @@ async function main() {
 main()
 ```
 
+# Uncompiled Worker Using `ts-node`
+
+When executing workers it's also possible to execute the Typescript file directly instead of relying on the compilation. This can be useful for cases where the Javascript code is compiled to a single file or in situations where you don't have control over the execution environment
+
+Executing a Typescript worker can be done by using `ts-node` when running the worker, an example of this is:
+
+```ts title="uncompiled-ts-worker.ts"
+const worker = new Worker("my-worker.ts", {
+    env: process.env,
+    stdout: true,
+    execArgv: ["-r", "ts-node/register", "--no-warnings"],
+  })
+
+// do stuff with the worker
+```
+
+
 # References
 
 - [NodeJS Worker Threads](https://nodejs.org/api/worker_threads.html)
