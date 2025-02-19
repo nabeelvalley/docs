@@ -121,9 +121,10 @@ Executing a Typescript worker can be done by using `ts-node` when running the wo
 
 ```ts title="uncompiled-ts-worker.ts"
 const worker = new Worker("my-worker.ts", {
-    env: process.env,
-    stdout: true,
     execArgv: ["-r", "ts-node/register", "--no-warnings"],
+    workerData: {
+      id
+    }
   })
 
 // do stuff with the worker
