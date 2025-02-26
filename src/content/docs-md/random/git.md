@@ -552,6 +552,18 @@ git config fetch.writeCommitGraph true
 
 For more details for dealing with Large Git Repos there's some nice info on [the GitButler Site](https://blog.gitbutler.com/git-tips-3-really-large-repositories/) y
 
+## Automatically Applying Git Diffs/Patches
+
+> [StackOverflow on Git patches](https://stackoverflow.com/questions/2249852/how-to-apply-a-patch-generated-with-git-format-patch)
+
+Sometimes it's handy to take a git diff/patch from one place and apply it to another. A simple way to do this is using the following method:
+
+1. Pipe the git diff into a file: `git diff 12345..67890 --no-ext-diff | mychanges.patch` (`--no-ext-diff` uses the default git diff format)
+2. You can then apply the changes using `git apply` like: `cat mychanges.patch | git apply`
+
+Other handy commands here are `git apply --stat mychanges.patch` to get the status of the patch or `git apply --check mychanges.patch` to dry run/detect errors
+
+
 # Tools on Top of Git
 
 ## LazyGit
@@ -565,3 +577,5 @@ Some diff tools that can be used with LazyGit (or even just your normal git inst
 - [Difftastic](https://github.com/Wilfred/difftastic) provides syntax-based diffs and has the nicest output of any of the diff tools I've found so far
 - [Diff so Fancy](https://github.com/so-fancy/diff-so-fancy) provides syntax-based diffs, similar to Difftastic
 - [Delta](https://github.com/dandavison/delta) is a "pretty" diff tool and can do syntax-based diffing using `diff-so-fancy` with the `delta --diff-so-fancy` flag provided
+
+> Note that the above diff tools can modify your global diff, to get this to work as normal you can stick on the `--no-ext-diff` flag, e.g. `git diff HEAD --no-ext-diff` will get you back to the normal git diff
