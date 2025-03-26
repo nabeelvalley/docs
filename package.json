@@ -60,7 +60,7 @@
     "remark-math": "^6.0.0",
     "rollup-plugin-polyfill-node": "^0.13.0",
     "sanitize-html": "^2.10.0",
-    "sharp": "^0.32.5",
+    "sharp": "^0.33.5",
     "slugify": "^1.6.5",
     "ts-node": "^10.9.1",
     "tweakpane": "^4.0.3",
