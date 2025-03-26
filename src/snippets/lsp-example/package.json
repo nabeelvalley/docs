@@ -1,0 +1,9 @@
+{
+  "name": "example-lsp",
+  "version": "1.0.0",
+  "license": "MIT",
+  "bin": "./cli.js",
+  "devDependencies": {
+    "@types/node": "^22.13.13"
+  }
+}
