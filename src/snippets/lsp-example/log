@@ -1,0 +1,34 @@
+
+Received
+
+Content-Length: 2011
+
+{"jsonrpc":"2.0","method":"initialize","params":{"capabilities":{"general":{"positionEncodings":["utf-8","utf-32","utf-16"]},"textDocument":{"codeAction":{"codeActionLiteralSupport":{"codeActionKind":{"valueSet":["","quickfix","refactor","refactor.extract","refactor.inline","refactor.rewrite","source","source.organizeImports"]}},"dataSupport":true,"disabledSupport":true,"isPreferredSupport":true,"resolveSupport":{"properties":["edit","command"]}},"completion":{"completionItem":{"deprecatedSupport":true,"insertReplaceSupport":true,"resolveSupport":{"properties":["documentation","detail","additionalTextEdits"]},"snippetSupport":true,"tagSupport":{"valueSet":[1]}},"completionItemKind":{}},"formatting":{"dynamicRegistration":false},"hover":{"contentFormat":["markdown"]},"inlayHint":{"dynamicRegistration":false},"publishDiagnostics":{"tagSupport":{"valueSet":[1,2]},"versionSupport":true},"rename":{"dynamicRegistration":false,"honorsChangeAnnotations":false,"prepareSupport":true},"signatureHelp":{"signatureInformation":{"activeParameterSupport":true,"documentationFormat":["markdown"],"parameterInformation":{"labelOffsetSupport":true}}}},"window":{"workDoneProgress":true},"workspace":{"applyEdit":true,"configuration":true,"didChangeConfiguration":{"dynamicRegistration":false},"didChangeWatchedFiles":{"dynamicRegistration":true,"relativePatternSupport":false},"executeCommand":{"dynamicRegistration":false},"fileOperations":{"didRename":true,"willRename":true},"inlayHint":{"refreshSupport":false},"symbol":{"dynamicRegistration":false},"workspaceEdit":{"documentChanges":true,"failureHandling":"abort","normalizesLineEndings":false,"resourceOperations":["create","rename","delete"]},"workspaceFolders":true}},"clientInfo":{"name":"helix","version":"25.01.1 (e7ac2fcd)"},"processId":34756,"rootPath":"/example-lsp","rootUri":"file:///example-lsp","workspaceFolders":[{"name":"example-lsp","uri":"file:///example-lsp"}]},"id":0}
+
+Sending
+
+Content-Length: 197
+
+{"jsonrpc":"2.0","id":0,"result":{"capabilities":{"codeActionProvider":true,"executeCommandProvider":{"commands":["_example.doSomethingCool"]}},"serverInfo":{"name":"example-lsp","version":"0.0.1"}}}
+
+Received
+
+Content-Length: 52
+
+{"jsonrpc":"2.0","method":"initialized","params":{}}Content-Length: 238
+
+{"jsonrpc":"2.0","method":"textDocument/didOpen","params":{"textDocument":{"languageId":"example","text":"this is some example file this is some content\n","uri":"file:///example-lsp/example.example","version":0}}}
+
+Not responding to notification textDocument/didOpen
+
+Received
+
+Content-Length: 276
+
+{"jsonrpc":"2.0","method":"textDocument/codeAction","params":{"context":{"diagnostics":[],"triggerKind":1},"range":{"end":{"character":13,"line":0},"start":{"character":8,"line":0}},"textDocument":{"uri":"file:///example-lsp/example.example"}},"id":1}
+
+Sending
+
+Content-Length: 119
+
+{"jsonrpc":"2.0","id":1,"result":[{"title":"Do something cool","kind":"quickfix","command":"_example.doSomethingCool"}]}
