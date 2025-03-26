@@ -1,0 +1,252 @@
+---
+title: Getting Familar with the Language Server Protocol
+description: Building a Basic Language Server with JavaScript
+subtitle: 26 March 2025
+published: true
+---
+
+import Snippet from '@/components/Snippet.astro'
+
+> Note that the code here serves as a high level example for the development of a language server and is in no means intended to be a production-ready implementation
+
+# The Language Server Protocol
+
+> [Language Server Protocol Specification](https://microsoft.github.io/language-server-protocol/)
+
+The Language Server Protocol (LSP) is a specification for communication between code editing applications and language servers that provide information about the programming language being worked with
+
+The protocol enables language related functionality such as diagnostics or documentation to be implemented once and reused in all editors that support LSP
+
+The specification uses [JSON RPC 2.0](https://www.jsonrpc.org/specification) for communicating between the editor and language server
+
+# Creating a Basic Language Server
+
+## Input and Output
+
+A basic language server can be created using standard in and out as the communication mechanism for the server. This is quite easy to get access to using Node.js as we can get it from `process` like so:
+
+```js
+const { stdout, stdin } = require("process")
+```
+
+`stdout` and `stdin` are streams, we can read from the `stdin` stream using the `data` event, and we can write to `stdout` directly
+
+The code editor that's managing the language server will pass data to it using `stdin`, responses need to be sent using `stdout`
+
+Each message that's sent/received consists of two parts:
+
+1. A headers section containing a `Content-Length` header structured like `Content-Length: 123`
+2. A content section
+
+The header and content sections are separated by `\r\n\r\n`
+
+The overall structure looks like this (`\r\n` shown as well since they are a strictly considered in the message)
+
+```txt
+Content-Length: 123\r\n
+\r\n
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "example/method",
+  "params": {
+    ...
+  }
+}
+```
+
+There are two types of messages, namely `Request`s and `Notification`s. `Request` messages require a response. The `id` of the message is relevant and is sent back with a response, a `Response` looks a bit like this:
+
+```txt
+Content-Length: 123\r\n
+\r\n
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    ...
+  }
+}
+```
+
+The other type of message is a `Notification`. `Notification` messages don't require a `Response`. Additionally, they will not have an `id` and will look something like this:
+
+```txt
+Content-Length: 123\r\n
+\r\n
+{
+  "jsonrpc": "2.0",
+  "params": {
+    ...
+  }
+}
+```
+
+## Initializing the Project
+
+> I'm assuming you've got some basic idea of how Node.js works and that you're familiar with the overall idea of creating a CLI tool with Node.
+
+Since the language server needs a command, we need to do a little thing with `npm` to register the server as a command. This can be done by first defining our language server as a `bin`. To do this we need a JS file with the language server
+
+In this example, I'm creating a folder with the following two files:
+
+1. `cli.js` - the language server
+2. `package.json`
+
+In the `cli.js` you can simply add something like:
+
+```js
+#!/usr/bin/env node
+
+console.log("Hello from Language Server")
+```
+
+Next, you'll need to add the following to a `package.json` file:
+
+```json
+{
+  "name": "example-lsp",
+  "version": "1.0.0",
+  "license": "MIT",
+  "bin": "./cli.js",
+}
+```
+
+The `name` and `bin` fields are needed so that `npm` knows how to call your command after installing it.
+
+Once the above two files are in place, you can install/register your command using:
+
+```js
+npm i -g
+```
+
+This will make the `example-lsp` command available and it will automatically run the `cli.js` file
+
+## Linking to an Editor
+
+> The example below is for Helix, on other editors this process is different and is not the focus of this post
+
+Language servers are started by or connected to from the code editing application. I'm using [Helix](https://helix-editor.com/) which uses a config file that specifies the available language servers. We can reference the server we've created in Helix's `languages.toml` file like so:
+
+```toml
+# define the language server
+[language-server.example]
+command = "example-lsp"
+
+# associate a language with the language server
+[[language]]
+name = "example"
+scope = "source.example"
+file-types = ["example"]
+language-servers = ["example"]
+```
+
+> Seeing your editor's logs may vary so I'm not going to get too into that, but if you're trying to debug issues with a language server that's probably a good place to start
+
+## Handling Messages
+
+Once we've got our editor setup, we should be able to open a file with a `.example` extension which will trigger our LSP
+
+When the language server is started it will receive an `initialize` event which will look something like this:
+
+```txt
+Content-Length: 2011
+
+{"jsonrpc":"2.0","method":"initialize","params":{"capabilities":{"general":{"positionEncodings":["utf-8","utf-32","utf-16"]},"textDocument":{"codeAction":{"codeActionLiteralSupport":{"codeActionKind":{"valueSet":["","quickfix","refactor","refactor.extract","refactor.inline","refactor.rewrite","source","source.organizeImports"]}},"dataSupport":true,"disabledSupport":true,"isPreferredSupport":true,"resolveSupport":{"properties":["edit","command"]}},"completion":{"completionItem":{"deprecatedSupport":true,"insertReplaceSupport":true,"resolveSupport":{"properties":["documentation","detail","additionalTextEdits"]},"snippetSupport":true,"tagSupport":{"valueSet":[1]}},"completionItemKind":{}},"formatting":{"dynamicRegistration":false},"hover":{"contentFormat":["markdown"]},"inlayHint":{"dynamicRegistration":false},"publishDiagnostics":{"tagSupport":{"valueSet":[1,2]},"versionSupport":true},"rename":{"dynamicRegistration":false,"honorsChangeAnnotations":false,"prepareSupport":true},"signatureHelp":{"signatureInformation":{"activeParameterSupport":true,"documentationFormat":["markdown"],"parameterInformation":{"labelOffsetSupport":true}}}},"window":{"workDoneProgress":true},"workspace":{"applyEdit":true,"configuration":true,"didChangeConfiguration":{"dynamicRegistration":false},"didChangeWatchedFiles":{"dynamicRegistration":true,"relativePatternSupport":false},"executeCommand":{"dynamicRegistration":false},"fileOperations":{"didRename":true,"willRename":true},"inlayHint":{"refreshSupport":false},"symbol":{"dynamicRegistration":false},"workspaceEdit":{"documentChanges":true,"failureHandling":"abort","normalizesLineEndings":false,"resourceOperations":["create","rename","delete"]},"workspaceFolders":true}},"clientInfo":{"name":"helix","version":"25.01.1 (e7ac2fcd)"},"processId":34756,"rootPath":"/example-lsp","rootUri":"file:///example-lsp","workspaceFolders":[{"name":"example-lsp","uri":"file:///example-lsp"}]},"id":0}
+```
+
+We want to try to view and process this message on the language server.The first thing we're going to run into when trying do this is that we can't log things anymore since the `stdout` is used as a way to send messages to the code editor - so instead, we can output our logs to a file
+
+A little `log` function will do that:
+
+```js
+const { appendFileSync } = require("fs")
+
+function log(contents) {
+  const logMessage = typeof contents === 'string' ? contents : JSON.stringify(contents)
+  return appendFileSync('./log', "\n" + logMessage + "\n")
+}
+```
+
+So this will output the logs to a file called `log` and can be super useful to debug/inspect any issues that come up
+
+Now, to receive a message we can listen to the `data` even on `stdin` and respond by logging on `stdout`
+
+The `initialize` message expects a response with some basic information about the language server. Reading this message and responding can be done as follows:
+
+```js
+const { stdout, stdin } = require("process")
+const { appendFileSync } = require("fs")
+
+function log(contents) {
+  const logMessage = typeof contents === 'string' ? contents : JSON.stringify(contents)
+  return appendFileSync('./log', "\n" + logMessage + "\n")
+}
+
+// listen to the `data` event on `stdin` returns a `Buffer`
+stdin.on('data', (buff) => {
+  // convert the buffer into lines
+  const message = buff.toString().split('\r\n')
+
+  // get the message content
+  const content = message[message.length - 1]
+
+  // parse the message content into a request
+  const request = JSON.parse(content)
+ 
+  // log the request to a file for later use
+  log(request)
+
+  if (message.method !== 'initialize') {
+    // currently we only support the initialize message
+    throw new Error("Unsupported message " + message.method)
+  }
+
+  // respond with a JSON RPC message
+  const result = JSON.stringify({
+    jsonrpc: "2.0",
+    // reference the ID of the request
+    id: request.id,
+    // the result depends on the type of message being responded to
+    result: {
+      capabilities: {
+        // we can add any functionality we want to support here as per the spec
+      },
+      serverInfo: {
+        name: "example-lsp",
+        version: "0.0.1"
+      }
+    }  
+  })
+  
+  // create the Content-Length header
+  const length = Buffer.byteLength(result, 'utf-8')
+  const header = `Content-Length: ${length}`
+  
+  // join the header and message into a response
+  const response = `${header}\r\n\r\n${result}`
+
+  // send the response
+  stdout.write(response)
+})
+```
+
+> Note that the above example assumes that the entire message is received completely at once - there is no actual guarantee of this but it's retained here for the sake of simplicity
+
+This is the basic flow for building a language server. Listening to events from some input, often `stdin/stdout` and responding to it using JSON RPC. The types of messages that can be received along with the expected response or behavior is all outlined in [the LSP Specification](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/)
+
+# Complete Example
+
+A more complete example showing the handling of multiple messages can be seen below:
+
+<Snippet path="lsp-example/package.json" />
+
+<Snippet path="lsp-example/cli.js" />
+
+# References
+
+- [Language Server Protocol Specification](https://microsoft.github.io/language-server-protocol/)
+- [Understanding the Language Server Protocol](https://medium.com/@malintha1996/understanding-the-language-server-protocol-5c0ba3ac83d2)
+- [Building a Language Server from Scratch](https://www.youtube.com/watch?v=Xo5VXTRoL6Q)
+- [VSCode Language Server Library](https://github.com/microsoft/vscode-languageserver-node)
+- [VSCode LSP Sample](https://github.com/microsoft/vscode-extension-samples/tree/main/lsp-sample)
