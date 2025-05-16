@@ -160,3 +160,13 @@ export type KeysEndingWith<S extends string, Obj> = keyof Obj & `${string}${S}`
  * @param F the fallback to use if `T extends never`
  */
 export type OrElse<T, F> = T extends never ? F : T
+
+/**
+  * Check if two types are exactly equal
+  *
+  * This is a direct copy from type-challenges:
+  * https://github.com/type-challenges/type-challenges/blob/main/utils/index.d.ts
+  */
+export type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends
+  (<T>() => T extends Y ? 1 : 2) ? true : false
