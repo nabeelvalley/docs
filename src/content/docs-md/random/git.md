@@ -347,6 +347,32 @@ git branch | grep -v "master" | xargs git branch -D
 
 # Get File From Specific Branch or Commit
 
+## Show File
+
+> From this [StackOverflow](https://stackoverflow.com/questions/7856416/view-a-file-in-a-different-git-branch-without-changing-branches) answer
+
+If you'd simply like to view a file as it stands in another branch you can use:
+
+```sh
+git show branch:file
+```
+
+So for example, we can do the following to view a specific file from a specific branch
+
+```sh
+git show feature/new-user:src/users/user.page.ts
+```
+
+You can also pipe this into `bat` for example to view the file with syntax highlighting
+
+```sh
+git show feature/new-user:src/users/user.page.ts | bat -l ts
+```
+
+## Checkout File
+
+If you'd like to checkout the file from into your current working tree you can use the following instead:
+
 > From this [StackOverflow](https://stackoverflow.com/questions/307579/how-do-i-copy-a-version-of-a-single-file-from-one-git-branch-to-another) answer
 
 To basically copy a version of a file from one branch or commit to another you can use `git checkout` with either providing the branch name or commit from which you want to get the file
@@ -562,7 +588,6 @@ Sometimes it's handy to take a git diff/patch from one place and apply it to ano
 2. You can then apply the changes using `git apply` like: `cat mychanges.patch | git apply`
 
 Other handy commands here are `git apply --stat mychanges.patch` to get the status of the patch or `git apply --check mychanges.patch` to dry run/detect errors
-
 
 # Tools on Top of Git
 
