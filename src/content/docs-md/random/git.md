@@ -354,7 +354,7 @@ git branch | grep -v "master" | xargs git branch -D
 If you'd simply like to view a file as it stands in another branch you can use:
 
 ```sh
-git show branch:file
+git show other_branch:path/to/file
 ```
 
 So for example, we can do the following to view a specific file from a specific branch
@@ -391,6 +391,20 @@ Or from a specific commit
 
 ```sh
 git checkout 211512 src/my-file.ts
+```
+
+## View Diff
+
+If you'd like to compare the file to what you have in your current branch you can use `git diff` like so:
+
+```sh
+git diff other_branch -- path/to/file
+```
+
+So this may look like so:
+
+```sh
+git diff feature/stuff -- src/stuff/my-stuff.html
 ```
 
 # Checkout Previous Branch
