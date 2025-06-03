@@ -474,3 +474,13 @@ Nushell also has a `timeit` command that can be used to time the execution of an
 ```sh
 timeit { ls | each { print $in.name } }
 ```
+
+## Passing Multiple Strings
+
+Nushell supports a spread-type operator for passing a list from input into a space-separated command kind of like xargs:
+
+```sh
+ ls *.json | get name | yarn prettier --write ...$in
+```
+
+> The `...$in` spreads the input stream into a space-separated list
