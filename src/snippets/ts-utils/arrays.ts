@@ -59,3 +59,23 @@ export type Eat<T extends unknown[]> = T extends [infer _, ...infer R]
 export type EatLast<T extends unknown[]> = T extends [...infer R, infer _]
   ? R
   : never
+
+/**
+ * Gets all possible indexes of A as an array
+ */
+export type Indexes<A extends any[]> = A extends [unknown, ... infer I] ? [...Indexes<I>, I['length']] : []
+
+/**
+ * Gets all possible indexes of A as a union
+ */
+export type Index<A extends any[]> = Indexes<A>[number]
+
+/**
+ * Exclude the given T from Arr
+ */
+export type ArrExclude<Arr, T, Acc extends unknown [] = []> = 
+  Arr extends [infer F, ...infer R]
+  ? T extends F
+    ? ArrExclude<R, T, Acc>
+    : ArrExclude<R, T, [...Acc, F]>
+  : Acc
