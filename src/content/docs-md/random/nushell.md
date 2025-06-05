@@ -428,6 +428,53 @@ open data.txt | lines | parse "{name} {surname}, age: {age}"
 ╰───┴──────┴─────────┴─────╯
 ```
 
+## Detecting Columns
+
+In simple cases instead of parsing some text you can also use `detect columns`. For example using a file like this:
+
+```
+Name       Age
+Bob Smith  25
+Jack Smith 82
+```
+
+We can use `detect columns` to automatically parse the simple structure for us:
+
+```
+open data.txt | detect columns
+
+╭───┬──────┬─────╮
+│ # │ Name │ Age │
+├───┼──────┼─────┤
+│ 0 │ Bob  │ 25  │
+│ 1 │ Jack │ 82  │
+╰───┴──────┴─────╯
+````
+
+If our table doesn't have headers we can still use `detect columns --no-headers` to prevent it trying to use the first row as a header:
+
+```
+ git status --porcelain | detect columns --no-headers
+
+╭───┬─────────┬──────────╮
+│ # │ column0 │ column1  │
+├───┼─────────┼──────────┤
+│ 0 │ A       │ data.txt │
+╰───┴─────────┴──────────╯
+```
+
+We can combine this with a `rename` to improve this structure of our output table:
+
+```
+git status --porcelain | detect columns --no-headers | rename status file
+
+╭───┬────────┬──────────╮
+│ # │ status │   file   │
+├───┼────────┼──────────┤
+│ 0 │ A      │ data.txt │
+╰───┴────────┴──────────╯
+```
+
 ## Input
 
 You can take in user input using the `input` function, this allows for dynamic imput. This is handy for doing a search over some list, for example composing it with the above:
