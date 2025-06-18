@@ -21,3 +21,4 @@ MIPS is a 3-address Assembly language. Depending on the specific implementation 
 - [University of Washington Lecture Slides](https://courses.cs.washington.edu/courses/cse378/09wi/lectures/)
 - [Online Compiler that supports MIPS as an output](https://godbolt.org/)
 - [Intro to MIPS](https://bh-cookbook.github.io/mips-asm/learning-mips-assembly-part-1.html)
+- [Hardware Lab NITC](https://hwlabnitc.github.io/MIPS/)
