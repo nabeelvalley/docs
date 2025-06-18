@@ -28,7 +28,7 @@ Typescript requires you to have a few things installed. I'm going to assume that
 You will also need to ensure that you have `sourceMap` enabled in your `tsconfig.json` file in order to have a bit of a decent debugging experience:
 
 
-```json title=tsconfig.json
+```json title="tsconfig.json"
 {
   "compilerOptions": {
 	// ... other stuff
