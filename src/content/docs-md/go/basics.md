@@ -508,23 +508,51 @@ type Person struct {
     lastName string
     age int
 }
+```
 
-func (p Person) valueReceiver() string {
+Structs can be instantiated using all the property names or using the values provided in the struct order:
+
+```go
+person1 := Person{firstName: "John", lastName: "Smith", age: 25}
+
+person2 := Person{"John", "Smith", 25}
+```
+
+## `new` struct
+
+In Go we can also create an instance of a struct where each value has the default value using the `new` function:
+
+```go
+// possible but not recommended as the values are zero-initialized so relatively meaningless
+person := new(Person)
+```
+
+## Methods
+
+These are functions that can be called on a struct directly using a Receiver argument that is defined after the `func` keyword:
+
+```go
+
+func (p Person) myValueReceiver() string {
     return "Hello " + p.firstName
 }
 
-func (p *Person) pointerReceiver() {
+func (p *Person) myPointerReceiver() {
     p.age++
 }
+```
 
+They can then be called using the syntax as seen below
+
+```go
 func main() {
-    person := Person(firstName: "John", lastName: "Smith", age: 25)
-    person2 := Person("John", "Smith", 25)
+    person := Person{firstName: "John", lastName: "Smith", age: 25}
+    person2 := Person{"John", "Smith", 25}
 
     person.firstName // John
 
-    person.valueReceiver() // Hello John
-    person.pointerReceiver() // person.age = 26
+    person.myValueReceiver() // Hello John
+    person.myPointerReceiver() // person.age = 26
 }
 ```
 
