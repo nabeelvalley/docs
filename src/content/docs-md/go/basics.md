@@ -6,41 +6,21 @@ subtitle: Notes on the GO Programming language
 
 - [YouTube Video](https://www.youtube.com/watch?v=SqrbIlUwR0U)
 - [GitHub](https://github.com/bradtraversy/go_crash_course)
+- [Exercism's Go Track](https://exercism.org/tracks/go/concepts)
 
-# Workspace
+# Installation
 
-Go is very specific in the way we set up our folders by making use of a specific structure for our workspace folders
+Follow the installation on the [Go Docs](https://go.dev/doc/install) for your operating system
 
-A workspace should have a `bin` and `src` folder in which our project code will reside, we typically use something like the following
-
-```
-go (workspace)
-    - bin
-    - src
-        -github.com
-            -username
-                - project1
-                    # project files
-                - project2
-                    # project files
-    - pkg
-```
-
-We need to set the `GOPATH` environment variable to the folder in which we want our workspace to be
-
-In my case I'm using `C:\repos\go`
-
-Next make the necessary directories
-
-# Install Package
-
-Install a package with the `go get` command, for example the `aws` package:
-
-```powershell
-go get github.com/aws/aws-sdk-go/aws
-```
+Once done with that, you will need to add `~/go/bin` to your `PATH`
 
 # Hello World
+
+First, create a new directory for your project. In it create a module to enable dependency tracking - you can do this with:
+
+```sh
+go mod init example/hello
+```
 
 Make a new project directory with a file called `main.go` with the following content
 
@@ -58,24 +38,40 @@ func main() {
 
 We can run this with the following command from the project dir
 
-```powershell
+```sh
 go run main.go
+```
+
+Or since it's a module, we can just do:
+
+```sh
+go run .
 ```
 
 # Build and Run
 
 We can build binaries for an application with `go install` which can then be executed from the terminal
 
-Build and run the package with the following command from the project directory
+The simplest way to build a program is using `go build` which will build it and output it in the current directory
 
-```powershell
+For example, we can build and run it as follows:
+
+```sh
+go build
+
+./hello
+```
+
+You can also install the package globally with:
+
+```sh
 go install
 ```
 
-And then from the `bin` directory
+Which will add this to `~/go/bin` and can just be run using:
 
-```powershell
-./01_hello.exe
+```sh
+hello
 ```
 
 # Variables and Data Types
@@ -97,6 +93,14 @@ There are a few different ways to create variables, note that if we create a var
 
 ```go
 var name string = "John"
+```
+
+Or with a separate declaration and initialization:
+
+```go
+var age int
+
+age = 5
 ```
 
 ## Type Inference
@@ -127,7 +131,7 @@ We can declare global variables by defining them outside of the main function
 
 ## Shorthand Method
 
-Inside of a function we can declare variables using the assignment operator with the following
+Inside of a function we can declare variables using the assignment operator with the following without having to specify the type of `var` keyword
 
 ```go
 name := "John
@@ -141,6 +145,75 @@ We can do multiple assignments as follows
 name, age := "John", 15
 ```
 
+## Booleans
+
+Booleans in Go a represented using a `bool` type and are either `true` or `false`
+
+```go
+var online = true
+
+var active bool
+```
+
+> Booleans are implicily initialized as `false`
+
+The boolean operators are:
+
+- `&&` - and
+- `||` - or
+- `!` - not
+
+## Numbers
+
+Go has basic numeric types for representing integers and floating point values. 
+
+Some of these are `int`, `float64`, and `uint` and conversion between types can be done using functions with the name of the respective type. For example:
+
+```go
+var x int = 5
+var y = float64()
+```
+
+Go supports the normal numerical operations such as `+`, `-`, `*`, `/`, and `%`. Note that for integer division the number is truncated back to an `int`
+
+> Numeric operations are only supported between numbers of the same type
+
+## Strings
+
+`string` is an immutable sequence of bytes and can be defined using double quotes:
+
+```go
+var str1 = "Hello"
+str2 := "World"
+```
+
+Concatenation of strings can be done using `+` like so:
+
+```go
+str3 := str1 + " " + str2
+```
+
+The `strings` package also has many methods for working with strings:
+
+```go
+import "strings"
+
+func caps(name string) {
+    strings.ToUpper(name)
+}
+```
+
+## String Formatting
+
+String formatting can be done using the `fmt` package which can format strings using `fmt.Sprintf` like so:
+
+```go
+str := fmt.Sprintf("int %d, int %03d, float %.3f, string %s", 5, 7, 1.5, "hello" )
+// str == "int 5, int 007, float 1.500, string hello"
+```
+
+> Lots of other formatting options also exist for string formatting and can be found in the docs
+
 # Packages
 
 ## Importing Packages
@@ -152,6 +225,20 @@ import (
     "fmt"
     "math"
 )
+```
+
+## Dependencies
+
+We can add dependencies to our Go module by simply importing them in the code that needs it, for example:
+
+```sh
+import "rsc.io/quote"
+```
+
+And then Go can automatically add it to our `go.mod` with:
+
+```sh
+go mod tidy
 ```
 
 ## Creating Packages
@@ -175,6 +262,48 @@ Functions are defined with the `func` keyword, the function name, inputs, and re
 ```go
 func greet(name string) string {
     return "Hello " + name
+}
+```
+
+> The convention is to start functions with an uppercase letter if they're public and lowercase if they're private
+
+Functions can also have multiple input parameters. If these are of the same type the type can just be specified once:
+
+```go
+go canMessage(visible, online bool) bool {
+    return visible && online
+}
+```
+
+## Variadic Functions
+
+A variadic function is a function that takes a variable number of arguments, this is done using `...` in the type of the function:
+
+```go
+func formatMany(format string, strs ...string) string {
+	result := ""
+
+	for _, str := range strs {
+		result += " " + fmt.Sprintf(format, str)
+	}
+
+	return result
+}
+
+func main() {
+	str := formatMany("Hello %s", "John", "Alice", "Bob")
+	fmt.Println(str)
+}
+```
+
+> The variadic parameter must be the last in the parameter list
+
+A slice can also be passed into a variadic function using `...` after the name of the variable:
+
+```go
+func main() {
+	names := []string{"John", "Alice", "Bob"}
+	str := formatMany("Hello %s", names...)
 }
 ```
 
@@ -212,6 +341,15 @@ We can also make slices by using the same notation as other languages
 ```go
 newSlice := mySlice[2:5]
 ```
+
+Elements can be added to a slice using the `append` function:
+
+```go
+mySlice := []int{1,2,3}
+mySlice = append(mySlice, 4,5,6)
+```
+
+> Note that `append` is not a pure function and the original slice may be modified
 
 # Conditionals
 
