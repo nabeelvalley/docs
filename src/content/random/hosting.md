@@ -36,6 +36,7 @@ Below is a list of some websites and platforms that provide free application hos
 - [Upstash](https://upstash.com/) - Redis and Kafka
 - [Xata](https://xata.io)
 - [IBM Cloudant](https://cloud.ibm.com/catalog/services/cloudant)
+- [Neon](https://neon.tech)
 
 # Vector Database
 
