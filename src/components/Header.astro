@@ -8,7 +8,7 @@ import { Search } from './Search'
     <div class="nav__title">
       <a href="/">
         Nabeel
-        <span class="nav__monogram">N</span>
+        <span class="nav__monogram"></span>
         Valley</a
       >
     </div>
@@ -88,7 +88,8 @@ import { Search } from './Search'
       height: 88px;
     }
 
-    .nav__monogram {
+    .nav__monogram::after {
+      content: "N" / "";
       user-select: none;
       font-family: var(--font-monogram);
     }
