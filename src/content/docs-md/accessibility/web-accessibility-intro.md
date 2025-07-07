@@ -100,3 +100,11 @@ Some considerations which are important for accessibility are:
 8. Customization
 9. Clear language
 10. Keyboard navigation
+
+# Additional Reading
+
+Some sites that do a good job of covering accessibility topics are:
+
+1. [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/TR/WCAG21/)
+2. [Sara Soueidan's Blog](https://www.sarasoueidan.com/)
+3. [Adrian Roselli's Blog](https://adrianroselli.com/)
