@@ -108,3 +108,5 @@ Some sites that do a good job of covering accessibility topics are:
 1. [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/TR/WCAG21/)
 2. [Sara Soueidan's Blog](https://www.sarasoueidan.com/)
 3. [Adrian Roselli's Blog](https://adrianroselli.com/)
+4. [Hidde's Blog](https://hidde.blog/)
+5. [The Web Accessibility Webring](https://a11y-webring.club/)
