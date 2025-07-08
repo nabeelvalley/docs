@@ -14,6 +14,10 @@ Some websites or content that cover accessibility topics
 3. [Adrian Roselli's Blog](https://adrianroselli.com/)
 4. [Hidde's Blog](https://hidde.blog/)
 
+# Courses
+
+1. [WCAG Digital Accessibility Foundations](https://www.w3.org/WAI/courses/foundations-course/)
+
 # Bookmarklets
 
 Bookmarklets that make checking accessibility easier
