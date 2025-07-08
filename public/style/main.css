@@ -109,7 +109,9 @@ img {
 .link,
 .rendered a {
   text-decoration: underline;
-  text-decoration: dotted underline var(--color-on-base);
+  text-decoration-color: var(--color-on-base);
+  text-decoration-style: solid;
+  text-decoration-style: dotted;
   transition: all 300ms;
 }
 
