@@ -4,4 +4,8 @@ services:
     image: ghcr.io/nabeelvalley/website:latest
     ports:
       - 8000:8000
+    ulimits: # needed to get around some weird docker issues
+      nofile:
+        soft: 1024
+        hard: 1024
     restart: unless-stopped 
