@@ -5,28 +5,31 @@ description: An introduction to Nushell
 published: true
 ---
 
-import { Slide, Presentation, SlideOnly } from '@/components/slides'
-
 > Take a look at [Nushell](https://www.nushell.sh/)
 
-<Presentation />
+<site-presentation />
 
-<Slide centered>
+<site-presentation-slide centered>
+<section>
+
 # ZOOOOOOM!
 
 > Is everything big enough and are we in dark mode?
 
-</Slide>
+</section>
+</site-presentation-slide>
 
-<Slide centered highlight>
+<site-presentation-slide centered highlight>
+<section>
 
 # Nushell
 
 > Go to demo
 
-</Slide>
+</section>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide><section>
 
 Nushell is a shell that makes use of the Nu Programming Language
 
@@ -36,9 +39,11 @@ Nushell is a shell that makes use of the Nu Programming Language
 - Composition based
 - Strongly typed
 
-</Slide>
+</section>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
+<section>
 
 # Data
 
@@ -60,9 +65,11 @@ Nushell is a shell that makes use of the Nu Programming Language
 ╰───┴─────────────┴──────┴───────────┴────────────────╯
 ```
 
-</Slide>
+</section>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
+<section>
 
 # Pipelines
 
@@ -76,9 +83,11 @@ git log --oneline | lines | parse $template
 
 - Lots of builtin function, e.g. `lines`, `parse`, `map`, `where`, `find`, `filter`, `each`, `glob`,  `watch` ... and more!
 
-</Slide>
+</section>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
+<section>
 
 # File Formats
 
@@ -93,9 +102,11 @@ git log --oneline | lines | parse $template
 open data.csv | to json | save data.json
 ```
 
-</Slide>
+</section>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
+<section>
 
 # The Nu Language
 
@@ -120,17 +131,21 @@ source my_file.nu
 alias gito = git log --oneline
 ```
 
-</Slide>
+</section>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
+<section>
 
 # Demo
 
 > Examples below
 
-</Slide>
+</section>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
+<section>
 
 # Nushell
 
@@ -139,10 +154,12 @@ alias gito = git log --oneline
 
 > Show my setup
 
-</Slide>
+</section>
+</site-presentation-slide>
 
 
-<Slide>
+<site-presentation-slide>
+<section>
 
 # Examples
 
@@ -159,27 +176,27 @@ def "example get_full" [] {
 }
 
 def "example filter_todos" [] {
-    http get $url 
-        | get todos 
-        | where completed == false 
-        | select id todo userId 
+    http get $url
+        | get todos
+        | where completed == false
+        | select id todo userId
         | to yaml
 }
 
 
-let template = '{ip} - - [{date}] "{method} {url} {protocol}" {status} {size} "{served}" "{useragent}"' 
+let template = '{ip} - - [{date}] "{method} {url} {protocol}" {status} {size} "{served}" "{useragent}"'
 
 
 let logs = "https://raw.githubusercontent.com/elastic/examples/refs/heads/master/Common%20Data%20Formats/apache_logs/apache_logs"
 
 def "example download_logs" [] {
     http get $logs
-        | save http-logs.txt   
+        | save http-logs.txt
 }
 
 def "example parse_logs" [] {
-    open http-logs.txt 
-        | lines 
+    open http-logs.txt
+        | lines
         | parse $template
 }
 
@@ -188,7 +205,7 @@ def "example filter_logs" [] {
         | where method == POST
         | select url status useragent
 }
-    
+
 def "example filter_pngs" [] {
     example parse_logs
         | where method == GET
@@ -200,10 +217,11 @@ def "example filter_pngs" [] {
 }
 
 def "example live_convert" [] {
-    watch input.csv { open input.csv | to json | save output.yaml } 
+    watch input.csv { open input.csv | to json | save output.yaml }
 }
 
 alias helpme = example --help
 ```
 
-</Slide>
+</section>
+</site-presentation-slide>

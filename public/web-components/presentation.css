@@ -1,0 +1,140 @@
+.presentation-progress {
+  display: none;
+}
+
+.presentation-overflow-hidden {
+  overflow: hidden;
+  visibility: hidden;
+
+  .presentation-hidden {
+    display: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-size: xx-large;
+  }
+
+  site-presentation-slide[large] {
+    font-size: x-large;
+  }
+
+  .presentation-progress {
+    transition: width 1000ms;
+    display: block;
+    visibility: visible;
+    position: absolute;
+    z-index: 20;
+    top: 0px;
+    left: 0px;
+    width: var(--presentation-progress);
+    height: 0.25rem;
+    background: var(--color-brand-muted);
+  }
+
+  site-presentation-slide {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    visibility: visible;
+
+    transition: transform 300ms ease-in-out;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--color-base);
+    color: var(--color-on-base);
+
+    box-sizing: border-box;
+    min-height: 100vh;
+    width: 100%;
+    padding: 2rem 4rem;
+
+    z-index: 10;
+    overflow: auto;
+
+    &[centered] {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &[highlight] {
+      background-color: var(--color-brand);
+      color: var(--color-on-brand);
+    }
+
+    .presentation-slide-only {
+      display: block;
+    }
+
+    .astro-code {
+      filter: none;
+    }
+
+    img {
+      max-height: 80vh;
+    }
+  }
+
+  &.presentation-presenter {
+    site-presentation-slide {
+      border: none;
+      border-bottom: solid 8px var(--color-brand);
+    }
+
+    .presentation-note {
+      position: absolute;
+      bottom: 24px;
+      opacity: 0.8;
+      right: 24px;
+      left: 25%;
+      z-index: 999;
+    }
+  }
+}
+
+.presentation-slide-only {
+  display: none;
+}
+
+.presentation-next {
+  transform: translateX(100%);
+}
+
+.presentation-current {
+  transform: translateX(0%);
+}
+
+.presentation-prev {
+  transform: translateX(-100%);
+}
+
+.presentation-note {
+  display: none;
+}
+
+.presentation-presenter {
+  .presentation-slide {
+    border: dotted 8px var(--color-brand);
+  }
+
+  /* ensure that notes are visible if presentation mode is active, even if
+   not presenting */
+  .presentation-note {
+    display: block;
+    /* intentionally obnoxios color to draw attention */
+    background-color: crimson;
+    padding: 24px;
+    color: white;
+    font-size: xx-large;
+  }
+}
