@@ -23,7 +23,7 @@ createButton.onclick = async () => {
 };
 
 const loginButton = document.createElement('button');
-loginButton.innerText = "Create Account";
+loginButton.innerText = "Log In";
 loginButton.onclick = async () => {
     if (!creds) {
         throw new Error("Credentials not created");
@@ -89,7 +89,7 @@ createButton.onclick = async () => {
 }
 
 const loginButton = document.createElement('button')
-loginButton.innerText = "Create Account"
+loginButton.innerText = "Log In"
 loginButton.onclick = async () => {
   if (!creds) {
     throw new Error("Credentials not created")
