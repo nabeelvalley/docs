@@ -3,5 +3,25 @@
     "title": "Typescript",
     "description": "JavaScript with syntax for types",
     "link": "https://www.typescriptlang.org"
+  },
+  {
+    "title": "Haskell",
+    "description": "A purely functional programming language that features referential transparency, immutability and lazy evaluation",
+    "link": "https://www.haskell.org/"
+  },
+  {
+    "title": "Rust",
+    "description": "A fast and memory-efficient: with no runtime or garbage collector",
+    "link": "https://www.rust-lang.org/"
+  },
+  {
+    "title": "Gleam",
+    "description": "A friendly language for building type-safe systems that scale!",
+    "link": "https://gleam.run/"
+  },
+  {
+    "title": "Go",
+    "description": "An open source programming language that makes it simple to build secure, scalable systems",
+    "link": "https://go.dev/"
   }
 ]
