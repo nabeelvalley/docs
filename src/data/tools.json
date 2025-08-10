@@ -43,5 +43,10 @@
     "title": "bat",
     "description": "A cat(1) clone with wings",
     "link": "https://github.com/sharkdp/bat"
+  },
+  {
+    "title": "hyperfine",
+    "description": "A command-line benchmarking tool",
+    "link": "https://github.com/sharkdp/hyperfine"
   }
 ]
