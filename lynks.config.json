@@ -1,0 +1,7 @@
+{
+  "root": "./src/content",
+  "aliases": {
+    "/docs": "./docs-md",
+    "/blog": "blog-md"
+  }
+}
