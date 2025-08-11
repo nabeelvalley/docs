@@ -382,9 +382,9 @@ In this post, we've covered the basics of using Docker to run your applications 
 
 For some more in-depth information on Docker and VSCode Development Containers you can look at the following resources:
 
-1. [My General Docker Notes](/docs/)
-   - [Docker Basics](/docs/containers-and-microservices/docker/)
-   - [Express Application with MongoDB](/docs/containers-and-microservices/build-an-express-app-with-mongo/)
-   - [Multi-stage Builds](/docs/containers-and-microservices/docker-multi-stage/)
+1. [My General Docker Notes](/docs/containers-and-microservices/docker)
+   - [Docker Basics](/docs/containers-and-microservices/docker)
+   - [Express Application with MongoDB](/docs/containers-and-microservices/build-an-express-app-with-mongo)
+   - [Multi-stage Builds](/docs/containers-and-microservices/docker-multi-stage)
 2. [Docker's Documentation](https://docs.docker.com/)
 3. [VSCode's Remote Containers Documentation](https://code.visualstudio.com/docs/remote/containers)
