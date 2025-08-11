@@ -1,5 +1,9 @@
 {
   "root": "./src/content",
+  "resolution": {
+    "strategy": "root",
+    "keepExtension": false
+  },
   "aliases": {
     "/docs": "./docs-md",
     "/blog": "blog-md"
