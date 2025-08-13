@@ -6,18 +6,20 @@ published: false
 
 <site-presentation />
 
-<site-presentation-slide centered large highlight>
+<site-presentation-slide centered>
 <section>
 
-# Type-first development
+# Me
+
+> Hi, I'm Nabeel Valley
 
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
-# Type-first development
+# Type-first development with Typescript
 
 - Types as a base
 - Business logic as transformations
@@ -26,12 +28,13 @@ published: false
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Runtime vs Compile Time
 
-- Compile time vs runtime
+> Types don't exist at runtime!
+
 - The compiler checks types
 - Unit tests check runtime
 - Type-only changes cannot create bugs
@@ -43,7 +46,7 @@ published: false
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Good Types
@@ -60,7 +63,7 @@ Good types allow us to:
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # A Running Thread
@@ -75,7 +78,7 @@ A Simple Multi-Step Form:
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # How can we model this using types?
@@ -83,7 +86,7 @@ A Simple Multi-Step Form:
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## An Initial Model
@@ -102,7 +105,7 @@ type TransferForm = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Interrogate the Model
@@ -130,7 +133,7 @@ type TransferForm = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Re-thinking our types
@@ -143,7 +146,7 @@ type TransferForm = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Can we better type our primitives?
@@ -155,7 +158,7 @@ type TransferAmount = number //??
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Branded Types
@@ -168,10 +171,12 @@ type TransferAmount = number //??
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## What is an Amount?
+
+> What business rules do we have around this?
 
 - Represents €
 - Must be positive
@@ -180,7 +185,7 @@ type TransferAmount = number //??
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Defining a Brand
@@ -189,7 +194,6 @@ type TransferAmount = number //??
 - Can be defined in a variety of ways
 - Exist only at the type level
 - Store validation in the type language
-
 - Usually consist of
 	- A primitive value
 	- A private brand indicator
@@ -197,21 +201,27 @@ type TransferAmount = number //??
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 	
-## Defining a Euro
+## Defining Branded Types
 
 ```ts
+// create a compile-time-only value
 declare const EuroBrand: unique symbol
 
 type Euro = number & { [EuroBrand]: true }
+
+declare const TransferAmounBrand: unique symbol
+
+// a transfer amout is a Euro + some validation
+type TransferAmount = Euro & { [TransferAmounBrand]: true }
 ```
 
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Creating a Euro Amount
@@ -229,7 +239,7 @@ function euro(value: number): Euro {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Validation
@@ -243,7 +253,7 @@ Once we have a Euro value, we can determine if it's a valid transfer amount
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section> 
 
 ## Type Predicates
@@ -260,7 +270,7 @@ function isTransferAmount(amount: Euro): amount is TransferAmount {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Using a Type Predicate
@@ -297,7 +307,7 @@ function assertTransferAmount(amount: Euro): asserts amount is TransferAmount {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Using an Assertion Function
@@ -318,18 +328,12 @@ function doSomethingOrThrow(amount: Euro) {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Relationships Between Types
 
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide>
-<section>
-
-## What's an Account?
+Can we narrow an `account` down more specifically than `string`?
 
 ```ts
 type AccountReference = string //??
@@ -338,7 +342,7 @@ type AccountReference = string //??
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Deriving Types
@@ -349,7 +353,7 @@ type AccountReference = string //??
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Generic Types
@@ -362,7 +366,7 @@ type AccountReference = string //??
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Builtin Generic Types
@@ -384,7 +388,7 @@ type PickedData = Pick<Data, 'ammount' | 'accountFrom'>
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Defining a Reference Type
@@ -410,7 +414,7 @@ function reference<M extends Model>(model: M): Reference<M> {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Deriving the Account Type
@@ -434,7 +438,7 @@ const accountReference = reference<AccountModel>
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Question the Domain
@@ -446,7 +450,7 @@ const accountReference = reference<AccountModel>
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## What about the Confirmation
@@ -464,7 +468,7 @@ We don't always need fancy types, usually we just need to think about what we ha
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Union Types
@@ -494,7 +498,7 @@ type TransferForm = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # A Detour through the World of Types
@@ -513,7 +517,7 @@ But, before we can model the rest of the process, we need a few more tools
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## What does our form need?
@@ -528,7 +532,7 @@ But, before we can model the rest of the process, we need a few more tools
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Deriving Types
@@ -546,7 +550,7 @@ Typescript provides us with mechanisms for defining complex types
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## The `keyof` keyword
@@ -608,7 +612,7 @@ type IsTrueNumber = IsNumber<true>
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## The `infer` keyword
@@ -632,7 +636,7 @@ type ByePrefix = PrefixOf<"bye_world">
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 
@@ -647,7 +651,7 @@ type ByePrefix = PrefixOf<"bye_world">
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 
@@ -680,7 +684,7 @@ const abcHasX = hasX(['a', 'b', 'c'])
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Expressing as Types
@@ -708,7 +712,7 @@ type ABCHasX = HasX<['a', 'b', 'c']>
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Back to Business
@@ -720,7 +724,7 @@ Is there a way that we can model statefully building this object up?
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Modeling the Process
@@ -734,14 +738,15 @@ As mentioned before, we have a multi-step form:
 1. Input Amount
 2. Select Account From
 3. Select Account To
-4. Confirm + Send
+4. Confirm
+5. Submit
 
 > At each step, the data must be valid before moving to the next
 
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Relate the Model to the Process
@@ -765,7 +770,7 @@ type TransferForm = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Defining a Single Step
@@ -784,7 +789,7 @@ type Step<Name extends string = string, Data = unknown> = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Defining the Steps
@@ -807,7 +812,7 @@ type ConfirmationStep = Step<'confirmation', Pick<TransferForm, 'confirmation'>>
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Defining the Process
@@ -818,7 +823,7 @@ type ConfirmationStep = Step<'confirmation', Pick<TransferForm, 'confirmation'>>
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Merging Data from Steps
@@ -839,7 +844,7 @@ type MergeSteps<Current extends Step, Previous extends Step> = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Representing All Steps
@@ -857,7 +862,7 @@ type TransferFormState = unknown // union of possible states
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Initially
@@ -874,7 +879,7 @@ const step0: TransferFormState = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## After Setting Amount
@@ -894,7 +899,7 @@ const step1: TransferFormState = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## After Selecting Accounts
@@ -915,7 +920,7 @@ const step2: TransferFormState = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## After Confirming
@@ -936,7 +941,7 @@ const step3: TransferFormState = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Reduce Repeated Types
@@ -949,7 +954,7 @@ const step3: TransferFormState = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Putting the Types Together
@@ -968,7 +973,7 @@ type MultiStepFormStates<Current extends Step, Steps extends Step[]> =
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Creating the Form Type
@@ -988,7 +993,7 @@ type TransferFormState = MultiStepFormStates<InitialStep, [
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Implications of Strict State
@@ -1002,7 +1007,7 @@ Having a strictly controlled state like this means that:
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Inferring Validity
@@ -1022,7 +1027,7 @@ if (state.name === 'confirmation') {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Compiler Guarantees
@@ -1038,7 +1043,7 @@ if (state.name === 'confirmation') {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Risks
@@ -1051,7 +1056,7 @@ if (state.name === 'confirmation') {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Recap
@@ -1059,7 +1064,7 @@ if (state.name === 'confirmation') {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Interrogate Your Models
@@ -1071,7 +1076,7 @@ if (state.name === 'confirmation') {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Look for Composition
@@ -1082,7 +1087,7 @@ if (state.name === 'confirmation') {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Methods of Composing Types
@@ -1097,7 +1102,7 @@ if (state.name === 'confirmation') {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 ## Tools For Building Complex Types
@@ -1112,7 +1117,7 @@ if (state.name === 'confirmation') {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # Why Bother?
@@ -1129,7 +1134,7 @@ if (state.name === 'confirmation') {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide>
+<site-presentation-slide centered>
 <section>
 
 # References & Further Reading
@@ -1142,6 +1147,3 @@ if (state.name === 'confirmation') {
 
 </section>
 </site-presentation-slide>
-
-<site-presentation-slide>
-<section>
