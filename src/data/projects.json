@@ -7,7 +7,7 @@
   },
   {
     "title": "synk",
-    "description": "A little CLI for working with databases during development for quick queries and automation",
+    "description": "An offline-first data synchronization library",
     "tags": ["ts", "lib", "websockets", "rpc"],
     "link": "https://github.com/sftsrv/synk"
   },
