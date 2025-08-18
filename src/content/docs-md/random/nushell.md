@@ -376,7 +376,31 @@ my-command long-task | notify "My Long Task is Completed"
 
 It will also handle printing the output from the task being run
 
-# The `$in` Param and Closures
+# The `$in` value and closures
+
+## Pass streams as arguments using `$in` 
+
+The `$in` can be implicitly accessed as the value that's piped into another command. Basically, this means that the following tao commands are equal:
+
+```nu
+# passing it normally
+echo (open hello.txt)
+
+# passing with $in
+open hello.txt | echo $in
+```
+
+## Passing Multiple Strings
+
+Nushell supports a spread-type operator for passing a list from input into a space-separated command kind of like xargs:
+
+```sh
+ls *.json | get name | yarn prettier --write ...$in
+```
+
+> The `...$in` spreads the input stream into a space-separated list
+
+## Usage with Functions and Closures
 
 Nushell functions can also use an implicit input parameter, this can be used when defining a function, for example:
 
@@ -406,7 +430,7 @@ ls | each { ls $in.name }
 
 The `{ ls $in.name }` is the same as a closure like `{|f| ls $f.name }` so it's a bit easier to type in this scenario as well.
 
-## Parsing
+# Parsing
 
 The `parse` function can be used to read some string into a usable data structure, take the following file for example:
 
@@ -483,7 +507,7 @@ You can take in user input using the `input` function, this allows for dynamic i
 open data.txt | lines | parse "{name} {surname}, age: {age}" | input list 'Search for User' --fuzzy 
 ```
 
-## Closures
+# Closures
 
 Nushell does something quite interesting with closures. Since everything is immutable it's possible to do environment-changing operations in a somewhat contained way.
 
@@ -503,8 +527,7 @@ ls | where type == dir | each { cd $in.name | ls }
 # back to the `root` folder
 ```
 
-
-## Parallel
+# Parallel
 
 Due to the isolation that closures afford us, we can also run these in parallel, nushell has parallel methods of some commands, e.g. the `each` command, which can be used with `par-each`:
 
@@ -514,20 +537,10 @@ ls | where type == dir | par-each { cd $in.name | ls }
 
 This works the same but is much faster for large/complex tasks
 
-## Timer
+# Timer
 
 Nushell also has a `timeit` command that can be used to time the execution of any block, for example:
 
 ```sh
 timeit { ls | each { print $in.name } }
 ```
-
-## Passing Multiple Strings
-
-Nushell supports a spread-type operator for passing a list from input into a space-separated command kind of like xargs:
-
-```sh
- ls *.json | get name | yarn prettier --write ...$in
-```
-
-> The `...$in` spreads the input stream into a space-separated list
