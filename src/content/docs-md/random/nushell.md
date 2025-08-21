@@ -544,3 +544,41 @@ Nushell also has a `timeit` command that can be used to time the execution of an
 ```sh
 timeit { ls | each { print $in.name } }
 ```
+
+# Pipes
+
+Pipes are done using `|`, for example:
+
+```sh
+cat myfile.txt | lines
+```
+
+We can also more specifically pipe the `stdout` or `strerr` streams using the following syntaxes
+
+```sh
+# stdout only
+dostuff | lines
+
+# stderr only
+dostuff err>| lines
+dostuff e>| lines
+
+# stderr + stdout
+dostuff out+err> lines
+dostuff o+e> lines
+```
+
+# Completion
+
+You can also capture the `stdout`, `stderr`, and `exit_code` using the `complete` command like so:
+
+```sh
+cat myfile.txt | complete
+
+╭───────────┬────────────────────────────────────────────╮
+│ stdout    │                                            │
+│ stderr    │ cat: myfile.txt: No such file or directory │
+│           │                                            │
+│ exit_code │ 1                                          │
+╰───────────┴────────────────────────────────────────────╯
+```
