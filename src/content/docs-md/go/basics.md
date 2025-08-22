@@ -245,6 +245,8 @@ go mod tidy
 
 Create a new folder and in it you can define the package name and some functions in it
 
+All files within the folder should have the same package name, for example the file `mypackage/mypackage.go` would look like so:
+
 ```go
 package mypackage
 
@@ -253,7 +255,7 @@ func myfunction() {
 }
 ```
 
-And then import the package by referring to its path in the import function
+We then import the package by referring to its folder path in the import function
 
 # Functions
 
@@ -520,11 +522,28 @@ person2 := Person{"John", "Smith", 25}
 
 ## `new` struct
 
-In Go we can also create an instance of a struct where each value has the default value using the `new` function:
+In Go we can also create an instance of a struct where each value has the default value using the `new` function which returns a pointer to the new struct
 
 ```go
-// possible but not recommended as the values are zero-initialized so relatively meaningless
 person := new(Person)
+```
+
+# Struct Initialization
+
+There are a few different ways to initialize structs, 
+
+- `var Type`/`Type{}` initializes a struct with all default values
+- `new` initializes a struct to all default values and returns a pointer to it
+    - Practical for generic functions where we can't actually do `&T{}`
+- `make` initilizes a `slice`, `map`, or `channel`
+
+```go
+// basically the same
+var user1 User
+user2 := User{}
+
+user3 := new(User)       // *User
+user4 := make([]User, 4) // []User
 ```
 
 ## Methods
@@ -532,11 +551,12 @@ person := new(Person)
 These are functions that can be called on a struct directly using a Receiver argument that is defined after the `func` keyword:
 
 ```go
-
+// receives a copy of the input
 func (p Person) myValueReceiver() string {
     return "Hello " + p.firstName
 }
 
+// received the original input, can mutate values of the original struct
 func (p *Person) myPointerReceiver() {
     p.age++
 }
@@ -619,6 +639,87 @@ rand.Seed(time.Now().UnixNano())
 num := rand.IntN(100)
 ```
 
+# Multiple Return Values
+
+Functions in go can return multiple values:
+
+```go
+func user(message string) (int, string) {
+	return 1, "Bob"
+}
+```
+
+These functions can be used by assigning multiple variables when calling, like:
+
+```go
+func main() {
+    // declares 2 variables
+	id, name1 := user()
+
+	if id < 0 {
+		panic("bad user")
+	}
+
+    // can use := as long as you are declaring at least 1 new variable
+    // e.g. name2 in this case
+	id, name2 := user()
+
+	log.Printf("%v %v %v", id, name1, name2)
+}
+```
+
+This is typically used with functions that can return errors as can be seen below
+
+# Typical Error Flow
+
+Functions that error will typically return an `error` alongside the value as a multi return, this would be used like:
+
+```go
+func app() string {
+    name, err := getUsername()
+
+    if err != nil {
+        // we had an error
+        return panic("User not found")
+    }
+
+    // did not have an error
+    log.Print(name)
+}
+```
+
+> If the `err` value is not `nil` it indicates that there was an error and the result of the function cannot be trusted to be correct
+
+As discussed above, the typical flow for multiple errors then looks like so:
+
+```go
+func main() {
+	s, err := doThing1()
+	if err != nil {
+		panic("Got an error 1")
+	}
+
+	i, err := doThing2()
+
+    if err != nil {
+		panic("Got an error 2")
+	}
+
+	doThing3(s, i)
+}
+```
+
+> Note that we also don't need to pick a different name for each `err`
+
+# Logging
+
+Nothing much, just nice to know that the `log` module exists and makes logging easier than `fmt.Println` if you're just debugging or adding normal logs. `fmt` is for formatting:
+
+```go
+log.Print("message: ", mymsg)
+log.Print("object: ", myobj)
+```
+
 # JSON
 
 Go has a builtin JSON library, it's pretty straightforward to use. It consists of defining the JSON properties of the struct you'd like to parse and then parsing it using a decoder
@@ -652,5 +753,38 @@ func main() {
 
 	fmt.Printf("Decoded JSON: %+v", output)
 	// Decoded JSON: {Name:Bob Age:25}
+}
+```
+
+# Defer Functions
+
+The `defer` keyword allows us to define something that will be executed after the parent function is returned, for example:
+
+```go
+func atEnd(message string) {
+	log.Print("end: ", message)
+}
+
+func main() {
+	defer atEnd("Main done")
+
+	log.Print("Starting main")
+}
+```
+
+The function can also be defined internally like so:
+
+```go
+func atEnd(message string) {
+	log.Print("end: ", message)
+}
+
+func main() {
+	defer atEnd("Main done")
+	defer func() {
+		log.Print("Just before the other defer")
+	}()
+
+	log.Print("Starting main")
 }
 ```
