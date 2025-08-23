@@ -1,34 +1,76 @@
 [
   {
+    "title": "Déjà vu",
+    "description": "Developers don't read documentation. Just bring it to them instead.",
+    "tags": [
+      "go",
+      "docs"
+    ],
+    "link": "https://github.com/sftsrv/dejavu",
+    "image": "/content/projects/dejavu.gif"
+  },
+  {
+    "title": "Lynks",
+    "description": "A CLI tool for interactively fixing links in markdown files",
+    "tags": [
+      "go",
+      "docs",
+      "linting"
+    ],
+    "link": "https://github.com/sftsrv/lynks"
+  },
+  {
     "title": "parz",
     "description": "A parser combinator library written in Gleam",
-    "tags": ["gleam", "lib", "parsing"],
+    "tags": [
+      "gleam",
+      "lib",
+      "parsing"
+    ],
     "link": "https://github.com/sftsrv/parz"
   },
   {
     "title": "synk",
     "description": "An offline-first data synchronization library",
-    "tags": ["ts", "lib", "websockets", "rpc"],
+    "tags": [
+      "ts",
+      "lib",
+      "websockets",
+      "rpc"
+    ],
     "link": "https://github.com/sftsrv/synk"
   },
   {
     "title": "SQLQ",
     "description": "A little CLI for working with databases during development for quick queries and automation",
-    "tags": ["ts", "cli", "sql"],
-    "link": "https://github.com/nabeelvalley/sqlq",
+    "tags": [
+      "ts",
+      "cli",
+      "sql"
+    ],
+    "link": "https://github.com/sftsrv/sqlq",
     "image": "/content/projects/sqlq.svg"
   },
   {
     "title": "Link Book",
     "description": "Quickly save links from around the web to a GitHub repository",
-    "tags": ["ts", "nextjs", "github", "automation"],
+    "tags": [
+      "ts",
+      "nextjs",
+      "github",
+      "automation"
+    ],
     "link": "https://link-book.vercel.app/",
     "image": "/content/projects/link-book.jpg"
   },
   {
     "title": "Articly",
     "description": "A read-it-later app with support for Web Pages, RSS Feeds, Podcasts, and Twitter Threads that sanitizes content and delivers a seamless reading experience with highlights and sharing functionality",
-    "tags": ["svelte", "ts", "supabase"],
+    "tags": [
+      "svelte",
+      "ts",
+      "supabase"
+    ],
     "cta": "Go to Articly",
     "link": "https://articly.vercel.app",
     "image": "/content/projects/articly.png"
@@ -36,21 +78,31 @@
   {
     "title": "ExifLib",
     "description": "A Rust Application and Library for Parsing EXIF Metadata from RAW Images",
-    "tags": ["rust", "cli"],
+    "tags": [
+      "rust",
+      "cli"
+    ],
     "cta": "Go to repo",
-    "link": "https://github.com/nabeelvalley/exiflib",
+    "link": "https://github.com/sftsrv/exiflib",
     "image": "/content/projects/exiflib.svg"
   },
   {
     "title": "Structured HTML",
     "description": "A little library for converting HTML into a structured data format",
-    "tags": ["ts", "html", "lib"],
+    "tags": [
+      "ts",
+      "html",
+      "lib"
+    ],
     "link": "https://github.com/sftsrv/structured-html"
   },
   {
     "title": "Photography Gallery Template",
     "description": "A configurable Gatsby site for quickly spinning up photo galleries with lightbox and download functionality built-in",
-    "tags": ["js", "gatsby"],
+    "tags": [
+      "js",
+      "gatsby"
+    ],
     "cta": "Go to repo",
     "link": "https://github.com/nabeelvalley/gallery-template/",
     "image": "/content/projects/photography-portfolio.png"
@@ -58,7 +110,11 @@
   {
     "title": "Form and Structure",
     "description": "An experiment in Svelte and Neumorphism. A Website about poetic form and structure, one of those 'always-a-work-in-progress' kind of things",
-    "tags": ["svelte", "js", "netlify"],
+    "tags": [
+      "svelte",
+      "js",
+      "netlify"
+    ],
     "cta": "Go to site",
     "link": "https://formandstructure.netlify.com/",
     "image": "/content/projects/form-and-structure.png"
@@ -66,63 +122,105 @@
   {
     "title": "Salaah Times",
     "description": "Web app to enable masaajid to manage and publish their salaah times for a given area. built with strapicms, mongo and react and an unnecessarily complicated docker build",
-    "tags": ["react", "strapi", "docker", "mongo-db"],
+    "tags": [
+      "react",
+      "strapi",
+      "docker",
+      "mongo-db"
+    ],
     "cta": "Go to GitHub",
     "link": "https://github.com/nabeelvalley/SalaahTimesApp"
   },
   {
     "title": "All the Greens",
     "description": "My plant journal. A playground using MDX and tailwind to create a personal journal aesthetic",
-    "tags": ["js", "gatsby", "mdx", "tailwindcss"],
+    "tags": [
+      "js",
+      "gatsby",
+      "mdx",
+      "tailwindcss"
+    ],
     "cta": "Go to site",
     "link": "https://all-the-greens.netlify.app/"
   },
   {
     "title": "Waddle.js",
     "description": "A collection of general-purpose javascript and typescript libraries",
-    "tags": ["ts", "js"],
+    "tags": [
+      "ts",
+      "js"
+    ],
     "cta": "View project",
     "link": "https://github.com/nabeelvalley/waddle.js"
   },
   {
     "title": "Project init",
     "description": "A cli for setting up codebases using preconfigured starter templates for different frameworks, languages, and configurations",
-    "tags": ["js", "npm", "npx"],
+    "tags": [
+      "js",
+      "npm",
+      "npx"
+    ],
     "cta": "View project",
     "link": "https://github.com/nabeelvalley/project-init"
   },
   {
     "title": "Pi Manager",
     "description": "A lightweight process and application manager for raspberry pi",
-    "tags": ["ts", "js", "raspberry-pi", "pm2"],
+    "tags": [
+      "ts",
+      "js",
+      "raspberry-pi",
+      "pm2"
+    ],
     "cta": "View project",
     "link": "https://github.com/nabeelvalley/pi-manager"
   },
   {
     "title": "Rak'ah",
     "description": "Information on the number of rak'ah for different salaat. essentially a fork of 'form and structure' with different content",
-    "tags": ["svelte", "js", "netlify"],
+    "tags": [
+      "svelte",
+      "js",
+      "netlify"
+    ],
     "cta": "Go to site",
     "link": "https://rakah.netlify.com/"
   },
   {
     "title": "Instagram backup",
     "description": "A github-actions powered instagram backup using f# and the instagram graph api to retreive and backup a user's instgram posts automatically",
-    "tags": ["f#", "graphql", "github", "cron"],
+    "tags": [
+      "f#",
+      "graphql",
+      "github",
+      "cron"
+    ],
     "cta": "Go to GitHub",
     "link": "https://github.com/nabeelvalley/ig-backup"
   },
   {
     "title": "Machine learning web services",
     "description": "Get data and train a model to deploy as a web service on cloud foundry",
-    "tags": ["python", "machine-learning", "cloud-foundry", "docker"],
+    "tags": [
+      "python",
+      "machine-learning",
+      "cloud-foundry",
+      "docker"
+    ],
     "cta": "Go to article",
     "link": "https://developer.ibm.com/tutorials/deploy-a-python-machine-learning-model-as-a-web-service/"
   },
   {
     "title": "Angular continuous deployment",
     "description": "Deploy an angular app to cloud foundry with a continuous delivery pipeline and node.js custom builds",
-    "tags": ["node.js", "angular", "ibm-cloud", "cloud-foundry", "cloud"],
+    "tags": [
+      "node.js",
+      "angular",
+      "ibm-cloud",
+      "cloud-foundry",
+      "cloud"
+    ],
     "cta": "Go to article",
     "link": "https://developer.ibm.com/tutorials/deploy-angular-apps-cloud-foundry-devops/"
   },
@@ -131,13 +229,19 @@
     "description": "I like my images to always be at a 3:2 ratio. This app resizes them in batches and adjusts the output dimensions for posting on the web",
     "cta": "Go to app",
     "link": "https://nabeels-image-resizer.netlify.app/",
-    "tags": ["js", "html"]
+    "tags": [
+      "js",
+      "html"
+    ]
   },
   {
     "title": "Keycode Debugger",
     "description": "Debugging input events across browsers and operating systems for the web can be extremely annoying. This is a little app that hopes to make that easier",
     "cta": "Go to app",
     "link": "https://keycode-debugger.netlify.app/",
-    "tags": ["js", "html"]
+    "tags": [
+      "js",
+      "html"
+    ]
   }
 ]

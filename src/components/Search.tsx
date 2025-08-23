@@ -21,8 +21,8 @@ const baseActions: Action[] = [
   {
     id: 'github',
     name: 'GitHub',
-    subtitle: '@nabeelvalley',
-    perform: () => window.open('https://github.com/nabeelvalley'),
+    subtitle: '@sftsrv',
+    perform: () => window.open('https://github.com/sftsrv'),
   },
   {
     id: 'twitter',
