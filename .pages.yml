@@ -3,6 +3,7 @@ content:
     label: Posts
     type: collection
     path: src/content
+    filename: "{fields.title}.md"
     fields: 
       - { name: title, label: Title, type: string, required: true }
       - { name: description, label: Description, type: string, required: true }
