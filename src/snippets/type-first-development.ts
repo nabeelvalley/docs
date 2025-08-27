@@ -1,9 +1,9 @@
 // helper type just for prettifying things
-export type Simplify<T> = T extends any[] | Date
-    ? T
-    : {
-        [K in keyof T]: T[K];
-    } & {}; 
+export type Simplify<T> = T extends any[] | Date | string | number | boolean
+  ? T
+  : {
+    [K in keyof T]: Simplify<T[K]>;
+  } & {};
 
 declare const EuroBrand: unique symbol
 
@@ -150,95 +150,173 @@ type ABCHasX = HasX<['a', 'b', 'c']>
 // multi step form
 
 // Each step has the name of the step + the data that results from that step
-type Step<Name extends string = string, Data = unknown> = {
-    name: Name,
+// if the data is not present it means the step is not complete
+export type Step<
+  Label extends string = string,
+  Data extends Record<string, unknown> = Record<string, unknown>,
+> =
+  {
+    label: Label;
     data: Data
-}
+  }
 
-type InitialStep = Step<'initial', {}>
+export type InitStep = Step<'Init', {}>
+export type AmountStep = Step<'Amount', Pick<TransferForm, 'amount'>>;
+export type AccountStep = Step<'Accounts', Pick<TransferForm, 'accountFrom' | 'accountTo'>>;
+export type ConfirmationStep = Step<'Confirmation', Pick<TransferForm, 'confirmation'>>;
+export type CompleteStep = Step<'Complete', {}>
 
-type AmountStep = Step<'amount', Pick<TransferForm, 'amount'>>
-//   ^? { name: 'amount', data: { amount: TransferAmount } }
+type EndTransition<P, N> =
+  P extends Step
+  ? N extends Step
+  ? ({
+    label: N['label'];
+    data: P['data'] & N['data'];
+  })
+  : never
+  : never
 
-type AccountStep = Step<'account', Pick<TransferForm, 'accountFrom' | 'accountTo'>>
-//   ^? { name: 'account', data: { accountFrom : AccountRef, accountTo: AccountRef } }
-
-type ConfirmationStep = Step<'confirmation', Pick<TransferForm, 'confirmation'>>
-//   ^? { name: 'confirmation', data: { confirmation: Confirmation } }
+type StartTransition<P, N> =
+  P extends Step
+  ? N extends Step
+  ? ({
+    label: N['label'];
+    data: P['data']
+  })
+  : never
+  : never
 
 const amount = euro(10)
 assertTransferAmount(amount)
 
-const accountFrom: AccountModel = {
-    id: 'ACC-1'
+const accountFrom: AccountModel = { id: 'ACC-1' }
+const accountTo: AccountModel = { id: 'ACC-2' }
+const confirmation: Confirmation = 'pending'
+
+const initStep: InitStep = {
+  label: 'Init',
+  data: {}
+}
+const amountStep: AmountStep = {
+  label: 'Amount',
+  data: {
+    amount,
+  }
+}
+const accountStep: AccountStep = {
+  label: 'Accounts',
+  data: {
+    accountFrom: accountReference(accountFrom),
+    accountTo: accountReference(accountTo),
+  }
+}
+const confirmationStep: ConfirmationStep = {
+  label: 'Confirmation',
+  data: {
+    confirmation,
+  }
+}
+const completeStep: CompleteStep = {
+  label: 'Complete',
+  data: {}
 }
 
-const accountTo: AccountModel = {
-    id: 'ACC-1'
-}
+function multiStepFormStates(steps: Step[], merged: Step[] = [steps[0]]) {
+  // we have no more states to merge, so we just return what we currently have
+  if (steps.length < 2) {
+    return merged
+  }
 
-const step0: TransferFormState = {
-    name: 'initial',
-    data: {}
-}
+  const [current, next, ...rest] = steps
 
-const step1: TransferFormState = {
-    name: 'amount',
+  // each state starts off with only the data from a previous state
+  const start: Step = {
+    label: next.label,
     data: {
-        ...step0.data,
-        amount,
+      ...current.data,
     }
-}
+  }
 
-const step2: TransferFormState = {
-    name: 'account',
+  // each step builds on the end state of the next state
+  const end: Step = {
+    label: next.label,
     data: {
-        ...step1.data,
-        accountFrom: accountReference(accountFrom),
-        accountTo: accountReference(accountTo),
+      ...current.data,
+      ...next.data
     }
+  }
+
+  return multiStepFormStates(
+    [end, ...rest],
+    [...merged, start]
+  )
 }
 
-const step3: TransferFormState = {
-    name: 'confirmation',
-    data: {
-        ...step2.data,
-        confirmation: 'accepted'
-    }
-}
+console.log("possible steps", multiStepFormStates(
+  [
+    initStep,
+    amountStep,
+    accountStep,
+    confirmationStep,
+    completeStep
+  ],
+))
 
-const state = step3
+// [
+//   {
+//     "label": "Init",
+//     "data": {}
+//   },
+//   {
+//     "label": "Amount",
+//     "data": {}
+//   },
+//   {
+//     "label": "Accounts",
+//     "data": {
+//       "amount": 100
+//     }
+//   },
+//   {
+//     "label": "Confirmation",
+//     "data": {
+//       "amount": 100,
+//       "accountFrom": "ACC-1",
+//       "accountTo": "ACC-2"
+//     }
+//   },
+//   {
+//     "label": "Complete",
+//     "data": {
+//       "amount": 100,
+//       "accountFrom": "ACC-1",
+//       "accountTo": "ACC-2"
+//     }
+//   }
+// ]
 
-// we can now do state name checks
-if (state.name === 'confirmation') {
-    // valid states mean we don't need to re-validate
-    console.log("form is completely filled", state)
-}
 
-type MergeSteps<Current extends Step, Previous extends Step> = {
-    // the name is for the step we're currently on
-    name: Current['name'],
-    // data adds onto the previous step
-    data: Previous['data'] & Current['data']
-}
+type MultiStepFormStates<Steps extends Step[], Merged extends Step[] = [Steps[0]]> = Steps extends [
+  infer Current,
+  infer Next,
+  ...infer Rest,
+]
+  ? Rest extends Step[]
+  ? MultiStepFormStates<
+    // Use the completed state of the current phase as the starting point for the next
+    [EndTransition<Current, Next>, ...Rest],
+    // Store the start of each step as this is what the step will have
+    [...Merged, StartTransition<Current, Next>]
+  >
+  // Rest does not contain steps, this should `never` happen
+  : never
+  // Processed all items, return final result
+  : Merged[number]
 
-// the distinct states for our form
-type MultiStepFormStates<Current extends Step, Steps extends Step[]> =
-    // infer to extract the steps
-    Steps extends [infer Next, ...infer Rest]
-    // verify that the inferred steps are defined
-    ? Next extends Step
-    ? Rest extends Step[]
-    // merge Current State with Next State
-    ? Current | MultiStepFormStates<MergeSteps<Next, Current>, Rest>
-    // no next state, return currrent state
-    : Current
-    : Current
-    // steps is empty, return current
-    : Current
 
-type TransferFormState = MultiStepFormStates<InitialStep, [
-    AmountStep,
-    AccountStep,
-    ConfirmationStep
-]>
+export type TransferFormState = MultiStepFormStates<
+  [InitStep, AmountStep, AccountStep, ConfirmationStep, CompleteStep]
+>;
+
+export type FormSteps = TransferFormState['label'][]
+
