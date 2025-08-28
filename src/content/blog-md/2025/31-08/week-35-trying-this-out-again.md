@@ -21,3 +21,7 @@ Trying to get back into some regular blogging rhythym since if I don't pay atten
 ## Mask
 
 Something I spotted a while back and kind of just skimmed over, [mask](https://github.com/jacobdeichert/mask) is a task runner (like `make`) that uses markdown for documenting commands. It seems great and is something I'd like to play around with in future
+
+## Gauge
+
+On the topic of markdown, [Gauge](https://gauge.org/) uses markdown docs to specify test specifications that are then backed by framework/language specific implementations to actually run those specs
