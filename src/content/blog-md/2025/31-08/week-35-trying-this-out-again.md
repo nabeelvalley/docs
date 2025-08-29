@@ -1,6 +1,6 @@
 ---
-title: Week 35, Trying this out again
-description: Golang, SwiftUI, and Corporates
+title: Week 35, Documentation matters
+description: Markdown, Golang, SwiftUI, and Corporates
 published: false
 feature: true
 subtitle: 31 August 2025
