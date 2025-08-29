@@ -13,4 +13,4 @@ subtitle: 07 September 2025
 
 ## TouchDesigner
 
-While diving into some art on the internet this name kept coming up. TouchDesigner is a node based application for creating generative art and art installations that work with loads of different input and output types
+While diving into some art on the internet this name kept coming up. [TouchDesigner](https://derivative.ca/) is a node based application for creating generative art and art installations that work with loads of different input and output types
