@@ -1,8 +1,10 @@
 ---
-title: week 40, year 2024 - ye olde web
+title: week 42, year 2024 - ye olde web
+description: Old websites
+published: false
+feature: false
 subtitle: 20 October 2024
 ---
-
 the past few weeks have been pretty much just a youtube-fueled mess of internet nostalgia and rain but from that i suppose we have a few nuggets of internet history
 
 # what i found
@@ -22,4 +24,3 @@ the [one terabyte of kilobyte age](https://oneterabyteofkilobyteage.tumblr.com/)
 ## the verge, 2004
 
 the verge has [a pretty cool microsite for it's "2004 week"](https://www.theverge.com/c/24247055/2004-tech-internet-gadgets-phones-pop-culture) which, alongside it's early 2000's design, has pretty some good articles talking about the early days of the internet
-
