@@ -1,6 +1,6 @@
 ---
 title: Week 36, Creativity
-description: Creative software and generative Aart
+description: Creative software and generative art
 published: false
 feature: true
 subtitle: 07 September 2025
