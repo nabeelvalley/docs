@@ -1,3 +1,6 @@
+media:
+  input: pubic/images/posts
+  output: /images/posts
 content:
   - name: posts
     label: Posts
@@ -11,4 +14,3 @@ content:
       - { name: feature, label: Feature, type: boolean }
       - { name: subtitle, label: Subtitle, type: date, options: { format: 'dd MMMM yyyy' }}
       - { name: body, label: Body, type: rich-text }
-  
