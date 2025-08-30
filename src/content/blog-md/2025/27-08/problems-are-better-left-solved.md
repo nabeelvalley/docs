@@ -5,7 +5,7 @@ published: true
 feature: true
 subtitle: 27 August 2025
 ---
-![Screen recording of Déjà vu](/projects/dejavu.gif)
+![dejavu cli usage](/content/projects/dejavu.gif)
 
 I don't enjoy writing Go. I like languages that challenge me, that make me think about processes, model the domain, and force me to be as complete as possible in my thinking. Go does none of this, but it seems to be the only language I program in lately
 
