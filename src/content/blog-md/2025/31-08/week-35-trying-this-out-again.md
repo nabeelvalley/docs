@@ -28,4 +28,4 @@ On the topic of markdown, [Gauge](https://gauge.org/) uses markdown docs to spec
 
 ## Pages CMS
 
-[PagesCMS](https://pagescms.org/) is a content management system I've been using for a while that provides a nice UI for working with markdown and JSON content and is actually what I'm writing this post on right now
+[Pages CMS](https://pagescms.org/) is a content management system I've been using for a while that provides a nice UI for working with markdown and JSON content and is actually what I'm writing this post on right now
