@@ -25,3 +25,7 @@ Something I spotted a while back and kind of just skimmed over, [mask](https://g
 ## Gauge
 
 On the topic of markdown, [Gauge](https://gauge.org/) uses markdown docs to specify test specifications that are then backed by framework/language specific implementations to actually run those specs
+
+## Pages CMS
+
+[PagesCMS](https://pagescms.org/) is a content management system I've been using for a while that provides a nice UI for working with markdown and JSON content and is actually what I'm writing this post on right now
