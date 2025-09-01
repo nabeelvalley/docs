@@ -35,4 +35,4 @@ The concern I share is broader though. I'm technical enough to find the document
 
 It's as simple as pushing you towards a specific web browser, or search engine, or forcing you to log into _Windows_ with your _Microsoft Account_ - because that's the only way to use the computer that you own
 
-Let's also not forget about [_Copilot_ that literally was recording every action users did](https://www.bbc.com/news/articles/cpwwqp6nx14o) with literal screenshots
+Let's also not forget about [_Copilot_ that was recording every action users did](https://www.bbc.com/news/articles/cpwwqp6nx14o) along with literal screenshots
