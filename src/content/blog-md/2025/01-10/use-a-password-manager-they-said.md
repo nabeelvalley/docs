@@ -36,3 +36,7 @@ The concern I share is broader though. I'm technical enough to find the document
 It's as simple as pushing you towards a specific web browser, or search engine, or forcing you to log into _Windows_ with your _Microsoft Account_ - because that's the only way to use the computer that you own
 
 Let's also not forget about [_Copilot_ that was recording every action users did](https://www.bbc.com/news/articles/cpwwqp6nx14o) along with literal screenshots
+
+Passwords are pretty important these days. It kind of sucks that big organizations are continuously pulling us into these closed systems that become harder to escape at every step. I struggle to suggest a good solution at this point other that just finding another password manager that's not controlled by a big corp - or well, write all your passwords on a piece of paper I guess
+
+There are also some other solutions like Yubikeys or [WebAuthn](https://en.wikipedia.org/wiki/WebAuthn) or other [FIDO stuff](https://en.wikipedia.org/wiki/FIDO_Alliance) but they're going to be hit or miss depending on what services or devices you're accessing and I don't really know what support for these kinds of technologies is like so I don't think a 100% migration is even really possible
