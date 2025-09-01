@@ -13,7 +13,7 @@ A few months ago the app notified me that _Autofill_ would stop working - I was 
 
 [This announcement](https://support.microsoft.com/en-us/account-billing/changes-to-microsoft-authenticator-autofill-09fd75df-dc04-4477-9619-811510805ab6) outlines the details but I absolutely love the solution
 
-Basically, you have to download _Edge_ in order to get passwords to autofill at the OS level_._ But what if you don't want to use that but just want your passwords? Well you can still use _Edge_ since that's now where passwords live
+Basically, you have to download _Edge_ in order to get passwords to autofill at the OS level. But what if you don't want to use that but just want your passwords? Well you can still use _Edge_ since that's now where passwords live
 
 Okay. So I downloaded _Edge_ on my phone (where I was using _Authenticator_) with the hope that I'd be able to export my passwords. Nope.
 
