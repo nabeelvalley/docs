@@ -31,7 +31,7 @@ So anyways, that's how everything got in there to begin with
 
 Well, my browser is where I'm drawing the line. It's one thing to copy and paste passwords out of an app, it's something else for most of my online interactions to go through the giant data collection service that is _Edge_
 
-The issue extends beyond me though. I'm technical enough to find the documentation and get my data migrated over. But what if you don't have a desktop. What if you don't really understand the implications of having a single organization tracking you across all your interactions
+The concern I share is broader though. I'm technical enough to find the documentation and get my data migrated over. But what if you don't know how do do all that export/import jazz, or you don't even have a desktop. What if you don't really understand the implications of having a single organization tracking you across all your interactions
 
 It's as simple as pushing you towards a specific web browser, or search engine, or forcing you to log into _Windows_ with your _Microsoft Account_ - because that's the only way to use the computer that you own
 
