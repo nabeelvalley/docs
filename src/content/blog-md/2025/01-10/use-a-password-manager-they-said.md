@@ -5,7 +5,7 @@ published: false
 feature: false
 subtitle: 01 September 2025
 ---
-I just had to boot up my computer to download **_Microsoft Edge_** because half way through the day I found out that the _Passwords_ tab has been removed from the _Authenticator_ app
+I just had to boot up my computer to download _Microsoft Edge_ because half way through the day I found out that the _Passwords_ tab has been removed from the _Microsoft Authenticator_ app
 
 A few months ago the app notified me that _Autofill_ would stop working - I was okay with this, I just started copying and pasting passwords. Next, the ability to add passwords was removed altogether - well okay, I haven't added a new password in a while so that's also fine. But then today I see that the passwords tab has been straight up removed
 
@@ -13,4 +13,20 @@ A few months ago the app notified me that _Autofill_ would stop working - I was 
 
 [This announcement](https://support.microsoft.com/en-us/account-billing/changes-to-microsoft-authenticator-autofill-09fd75df-dc04-4477-9619-811510805ab6) outlines the details but I absolutely love the solution
 
-So, you have to download Edge after that date. It's the only way to export your passwords. But get this - not just the mobile app, since [the Android app does not support password exporting](https://learn.microsoft.com/en-us/answers/questions/2389677/export-passwords-edge-for-androdi) you're going to have to do this on desktop
+Basically, you have to download _Edge_ in order to get passwords to autofill at the OS level_._ But what if you don't want to use that but just want your passwords? Well you can still use _Edge_ since that's now where passwords live
+
+Okay. So I downloaded _Edge_ on my phone (where I was using _Authenticator_) with the hope that I'd be able to export my passwords. Nope.
+
+Get this - since [the Android app does not support password exporting](https://learn.microsoft.com/en-us/answers/questions/2389677/export-passwords-edge-for-androdi) you're going to have to do this on desktop
+
+So then I downloaded the desktop app, and after installing the malware that is _Microsoft Edge_ on my computer, I can now export my passwords.
+
+Okay. Got the passwords. All good.
+
+Technically, yes. But my issue here isn't just technical.
+
+Let's first address my reason for using _Authenticator_. So when 2FA was becoming a thing, companies wanted you to have it. At some point, I had to install it so that corporate 2FA would work. And, well, I wasn't going to use multiple 2FA apps - and to be completely honest, I was just a lot less critical of the companies making some of these tools at the time
+
+So anyways, that's how everything got in there to begin with
+
+Well, my browser is where I'm drawing the line. It's one thing to copy and paste passwords out of an app, it's something different for everything
