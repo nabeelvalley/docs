@@ -1,27 +1,37 @@
 ---
 import Base from './Base.astro'
 import Title from '../components/Title.astro'
+import ReadingWidth from '../layouts/ReadingWidth.astro'
 
-const { title } = Astro.props
+const { title, hideTitle } = Astro.props
 ---
 
 <Base fullWidth>
-  <Title title={title} />
-
-  <slot name="links" />
-  <nav class="nav">
-    <ul class="nav__list">
-      <li class="nav__item link">
-        <a href="/photography/portraits/bw">Portraits</a>
-      </li>
-      <li class="nav__item link">
-        <a href="/photography/places">Places</a>
-      </li>
-      <li class="nav__item link">
-        <a href="/photography/nature">Nature</a>
-      </li>
-    </ul>
-  </nav>
-
+  <ReadingWidth>
+    <Title title={title} />
+  </ReadingWidth>
+  
   <slot name="gallery" />
+
+  <ReadingWidth>
+    <h2>Galleries</h2>
+  </ReadingWidth>
+
+  <ReadingWidth>
+    <slot name="links" />
+
+    <nav class="nav">
+      <ul class="nav__list">
+        <li class="nav__item link">
+          <a href="/photography/portraits/bw">Portraits</a>
+        </li>
+        <li class="nav__item link">
+          <a href="/photography/places">Places</a>
+        </li>
+        <li class="nav__item link">
+          <a href="/photography/nature">Nature</a>
+        </li>
+      </ul>
+    </nav>
+  </ReadingWidth>
 </Base>
