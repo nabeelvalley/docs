@@ -6,6 +6,10 @@ const schema = z.object({
   description: z.string().optional(),
   published: z.boolean().optional(),
   feature: z.boolean().optional(),
+
+  // post is a self contained page, renders without any navigation or layout
+  // intended for more complex pages being hosted within the collection
+  page: z.boolean().optional(),
 })
 
 const bookSchema = z.object({

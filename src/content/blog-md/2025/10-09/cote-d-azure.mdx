@@ -1,9 +1,16 @@
 ---
-import Layout from '../../../layouts/PhotographyPortfolio.astro'
-import Gallery from '../../../components/Gallery.astro'
-import PlacesLinks from '../../../components/PlacesLinks.astro'
-import ReadingWidth from '../../../layouts/ReadingWidth.astro'
+title: Côte d'Azur
+description: Some photos from the south of France
+subtitle: 10 September 2025
+published: true
+feature: true
+page: true
 ---
+
+import Layout from '../../../../layouts/PhotographyPortfolio.astro'
+import Gallery from '../../../../components/Gallery.astro'
+import PlacesLinks from '../../../../components/PlacesLinks.astro'
+import ReadingWidth from '../../../../layouts/ReadingWidth.astro'
 
 <Layout title="Côte d'Azur, September 2025">
   <section slot="gallery">
@@ -81,9 +88,9 @@ import ReadingWidth from '../../../layouts/ReadingWidth.astro'
       </p>
     </ReadingWidth>
 
-    <br>
-    <hr>
-    <br>
+    <br/>
+    <hr/>
+    <br/>
   </section>
 
   <PlacesLinks slot="links" />

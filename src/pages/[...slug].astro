@@ -66,10 +66,11 @@ const { Content, remarkPluginFrontmatter = {} } = await renderers[
   props.entry.collection
 ](props)
 
-const { title, subtitle, description } = props.entry.data
+const { title, subtitle, description, page } = props.entry.data
 const { lastModified } = remarkPluginFrontmatter
 ---
 
+{ page ? <Content /> :
 <Base title={title} description={description}>
   <Page>
     <article class="rendered">
@@ -81,3 +82,5 @@ const { lastModified } = remarkPluginFrontmatter
     </article>
   </Page>
 </Base>
+}
+
