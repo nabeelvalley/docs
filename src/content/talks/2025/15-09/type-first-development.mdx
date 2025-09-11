@@ -320,7 +320,7 @@ function euro(value: number): Euro {
 <site-presentation-slide centered>
 <section>
 
-# Validation
+## Validation
 
 Once we have a Euro value, we can determine if it's a valid transfer amount
 
@@ -374,7 +374,7 @@ function doSomething(amount: Euro) {
 <site-presentation-slide centered>
 <section>
 
-# Relationships Between Types
+## Relationships Between Types
 
 Can we narrow an `account` down more specifically than `string`?
 
@@ -549,9 +549,9 @@ type TransferForm = {
 <site-presentation-slide centered highlight>
 <section>
 
-## My Compiler is Sad
+# My Compiler is Sad
 
-> What do we see here?
+> We've made updates to all our types, but now the compiler has some issues
 
 ```
 ✘ [ERROR] TS2345: Argument of type 'undefined' is not assignable to parameter of type 'Confirmation'. [plugin angular-compiler]
@@ -593,243 +593,24 @@ type TransferForm = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide centered>
+<site-presentation-slide centered highlight>
 <section>
 
-## What does our form need?
+# Demo - `Bug 2`
 
-- Multi-step form wizard
-- Each step gets data from different fields
-- We want steps to be type-safe
-- State should be valid at all times
-
-> We need a few more tools to make this all posssible
+- Later on, we do some refactoring
+- We now see that the form ordering is broken for some reason
 
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide centered>
-<section>
-
-## Deriving Types
-
-Typescript provides us with mechanisms for defining complex types
-
-- `keyof` extracts keys from objects
-- **Mapped types** allow mapping from properties of one type onto another
-- `extends` checks if a type conforms to another type
-- `infer` lets us infer a precise type from a less precise type
-- **Recursion** enables complex composition of types
-
-> This is all more easily illustrated by example
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## The `keyof` keyword
-
-- `keyof` lets us get the keys of a given object
-
-Keyof is the simplest of the generic tools and looks like so:
-
-```ts
-type TransferForm = {
-  amount: TransferAmount
-  accountFrom: AccountRef
-  accountTo: AccountRef
-  confirmation: Confirmation
-}
-
-type TransferFormFields = keyof TransferForm
-//   ^? 'amount' | 'accountFrom' | 'accountTo' | 'confirmation'
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## Mapped types
-
-- Mapped types allow mapping from properties of one type onto another
-- Used with `keyof` to iterate through the properties of an object
-
-```ts
-type TransferFormLabels = {
-  // consists of mapping some set of keys to some set of values
-  [K in keyof TransferForm]: Capitalize<K>
-}
-
-// this is the only valid value for `labels` according to this type definition
-const labels: TransferFormLabels = {
-  amount: 'Amount',
-  accountFrom: 'AccountFrom',
-  accountTo: 'AccountTo',
-  confirmation: 'Confirmation'
-}
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## The `extends` keyword
-
-- `extends` checks if a type conforms to another type
-- Like a conditional expression for types
-
-> This is different to the `extends` keyword when working with classes
-
-```ts
-type IsNumber<X> = X extends number ? 'yes' : 'no'
-// kind of like:   x => typeof x == 'number' ? 'yes' : 'no' 
-
-type Is5Number = IsNumber<5>
-//   ^? 'yes'
-
-type IsTrueNumber = IsNumber<true>
-//   ^? 'no'
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## The `infer` keyword
-
-- `infer` lets us infer a precise type from a less precise type
-- Must be used with `extends`
-- Like asking the compiler:
-	- What can I put here to make this statement true
-
-```ts
-type PrefixOf<S> = S extends `${infer S}_${string}` ? S : never
-// like asking the compiler:               ^ what goes here to make this true
-
-type HelloPrefix = PrefixOf<"hello_world">
-//   ^? "hello"
-// 
-type ByePrefix = PrefixOf<"bye_world">
-//   ^? "bye"
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-
-## Recursive Types
-
-> Generic types are like functions, so we can use them in very similar ways
-
-- The type system is immutable
-- Recursion allows us to iterate without mutation
-- Try to keep small to isolate complexity
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-
-## Comparison with Functions
-
-Recursion in types is pretty much the same as using it in a normal function
-
-A recursive function to check if a list has `x` in it could look like this:
-
-```ts
-function hasX(arr: string[]): boolean {
-  if (arr.length > 0) {
-    const [first, ...rest] = arr
-
-    return first === 'x' ? true : hasX(rest)
-  } else {
-    return false
-  }
-}
-
-const axcHasX = hasX(['a', 'x', 'c'])
-//    ?^ true
-
-const abcHasX = hasX(['a', 'b', 'c'])
-//    ?^ false
-```
-
-> Recursive functions always need an exit condition to stop recursion
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## Expressing as Types
-
-As a type, the same function is quite similar
-
-```ts
-type HasX<Arr> =
-  Arr extends [infer First, ...infer Rest]
-  ? First extends 'x'
-  	? true
-  	: HasX<Rest>
-  : false
-
-
-type AXCHasX = HasX<['a', 'x', 'c']>
-//   ?^ true
-
-type ABCHasX = HasX<['a', 'b', 'c']>
-//   ?^ false
-```
-
-> Recursive types also need an exit condition to stop recursion
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-# Back to Business
-
-Is there a way that we can model statefully building this object up?
-
-> Can we use these new tools to model the multi-form process?
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
+<site-presentation-slide centered highlight>
 <section>
 
 ## Modeling the Process
 
-Types can be used to model processes and how data moves through them
-
-So now we've got the model, can we think about how it's built
-
-As mentioned before, we have a multi-step form:
-
-1. Input Amount
-2. Select Account From
-3. Select Account To
-4. Confirm
-5. Submit
-
-> At each step, the data must be valid before moving to the next
+- The form is made of distinct steps
+- Each state builds up the form's state 
 
 </section>
 </site-presentation-slide>
@@ -842,6 +623,7 @@ As mentioned before, we have a multi-step form:
 Looking at our steps, we can break the model into these parts:
 
 ```ts
+// at the start, we have an empty object
 type TransferForm = {
 	// at the end of step 1, this is defined
   amount: TransferAmount
@@ -865,12 +647,13 @@ type TransferForm = {
 
 - **The form is made up of multiple steps**
 - Data from steps are merged together to create the final model
+- Each step has a name so we can easily distinguish
 
 ```ts
 // Each step has the name of the step + the data that results from that step
 type Step<
-  Label extends string = string,
-  Data extends Record<string, unknown> = Record<string, unknown>,
+  Label extends string,
+  Data extends Record<string, unknown>
 > = {
     label: Label;
     data: Data
@@ -880,28 +663,21 @@ type Step<
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide centered>
+<site-presentation-slide centered highlight>
 <section>
 
 ## Defining the Steps
 
-- The data from each step of the form in isolation
+> The step we're in does not include the data resulting from that step
 
 ```ts
-type InitStep = Step<'Init', {}>
-//   ^? { label: "Init"; data: {}; }
+type AmountStep = Step<'Amount', {}>;
 
-type AmountStep = Step<'Amount', Pick<TransferForm, 'amount'>>;
-//   ^? { label: "Amount", data: { amount: TransferAmount} } 
+type AccountStep = Step<'Accounts', Pick<TransferForm, 'amount'>>;
 
-type AccountStep = Step<'Accounts', Pick<TransferForm, 'accountFrom' | 'accountTo'>>;
-//   ^? { label: "Accounts", data: { accountFrom: AccountRef, accountTo: AccountRef } } 
+type ConfirmationStep = Step<'Confirmation', Pick<TransferForm, 'amount' | 'accountFrom' | 'accountTo'>>;
 
-type ConfirmationStep = Step<'Confirmation', Pick<TransferForm, 'confirmation'>>;
-//   ^? { label: "Accounts", data: { confirmation: Confirmation } } 
-
-type CompleteStep = Step<'Complete', {}>
-//   ^? { label: "Init"; data: {}; }
+type CompleteStep = Step<'Complete', TransferForm>
 ```
 
 </section>
@@ -910,212 +686,39 @@ type CompleteStep = Step<'Complete', {}>
 <site-presentation-slide centered>
 <section>
 
-## Defining the Process
-
-- The form is made of multiple steps
-- **Data from steps are merged together to create the final model**
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## Merging Data from Steps
-
-- The next step should be merged with the data of the previous step
-
-We can describe this process as a type:
+## Possible Form States
 
 ```ts
-type MergeSteps<Current extends Step, Previous extends Step> = {
-  // the name is for the step we're currently on
-  name: Current['name'],
-  // data adds onto the previous step
-  data: Previous['data'] & Current['data']
-}
+type TransferFormState = AmountStep | AccountStep | ConfirmationStep | CompleteStep
 ```
 
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide centered>
+<site-presentation-slide centered highlight>
 <section>
 
-## Representing All Steps
+# Demo - `Strict`
 
-- A form is a set of steps
-- Data from each step should be merged with the next
-- Each step + data combination is distinct
+Having a strictly controlled state like this means that:
 
-```ts
-type TransferFormState = unknown // union of possible states
-```
-
-> Let's quickly look at what we want our steps to look like
+- We don't need to re-validate data
+- A valid state implies that all previous validation was done
+- The type system will not allow missing/partial data
 
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide centered>
+<site-presentation-slide centered highlight>
 <section>
 
-## Initially, Account Step
+## How does the Compiler Protect Us?
 
-At the start of the form we are in the `Amount` step, during this phase the user has not provided any data yet
+- Making changes to the states will break during compilation
+- We don't need to unit test the invalid states that were previously possible
+- When types are strict we can rely on the compiler to catch cases we've missed
 
-```ts
-const step1 = {
-  "label": "Amount",
-   "data": {}
-}
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## Account Step
-
-During this phase, we only have the amount
-
-```ts
-const step2 = {
-  "label": "Accounts",
-  "data": {
-    "amount": 100
-  }
-},
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## Confirmation Step
-
-Once the accounts are selected, this should be added to the `data` from the previous step, and so now we 
-
-```ts
-const step3 = {
-  label: 'Confirmation',
-  data: {
-    ...step2.data,
-    accountFrom: accountReference(accountFrom),
-    accountTo: accountReference(accountTo),
-  }
-}
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## After Confirming
-
-Once the status has been confirmed, this should be added to the `data`
-
-```ts
-const step4 = {
-  label: 'Complete',
-  data: {
-    ...step3.data,
-    confirmation: 'accepted'
-  },
-}
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## Using this Practically
-
-```ts
-export class App {
-  // signal that represents each of the specific states we have
-  state = signal<TransferFormState>({
-    label: 'Amount',
-    data: {}
-  });
-  
-  // rest of implementation
-}
-```
-
-> `TransferFormState` can be a union of the above steps. This is usually good enough
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-### Keeps our Templates Clean
-
-> Using a `switch` will ensures that this is all fully type-checked and valid
-
-```html
- @let s = state();
-
-@switch (s.label) {
-  @case('Amount') {
-  <app-amount-step (onSubmit)="handleAmountSubmit($event)" />
-  }
-  @case ('Accounts') {
-    <app-account-step (onSubmit)="handleAccountsSubmit($event)"/>
-  }
-  @case ('Confirmation') {
-    <app-confirmation-step
-      [accountFrom]="s.data.accountFrom"
-      [accountTo]="s.data.accountTo"
-      [amount]="s.data.amount"
-      (onSubmit)="handleConfirmationSubmit($event)"/>
-  }
-  @case ('Complete') {
-    <app-completed-message  [confirmation]="s.data.confirmation()" />
-  }
-}        
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-### Stepping is Simple
-
-- A step is simply a merging of the previous data with the new once, after ensuring we're in the step we expect
-
-> This is also fully type guarded
-
-```ts
-handleAmountSubmit(data: AmountStep['data']) {
-  const state = this.state();
-  if (state.label !== 'Amount') {
-    return;
-  }
-
-  this.state.set(
-    {
-      label: 'Accounts',
-      data: {
-        ...state.data,
-        ...data
-      },
-    },
-  );
-}
-```
+> The amount of benefit you get depends on the strictness of your types
 
 </section>
 </site-presentation-slide>
@@ -1258,19 +861,7 @@ export type TransferFormState = MultiStepFormStates<
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide centered>
-<section>
 
-# Implications of Strict State
-
-Having a strictly controlled state like this means that:
-
-- We don't need to re-validate data
-- A valid state implies that all previous validation was done
-- The type system will not allow missing/partial data
-
-</section>
-</site-presentation-slide>
 
 <site-presentation-slide centered>
 <section>
