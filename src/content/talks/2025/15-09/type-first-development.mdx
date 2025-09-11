@@ -9,6 +9,14 @@ published: false
 <site-presentation-slide centered>
 <section>
 
+# ZOOOOOOOM
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
 # Me
 
 > Hi, I'm Nabeel Valley
@@ -780,10 +788,13 @@ type TransferForm = {
 
 ```ts
 // Each step has the name of the step + the data that results from that step
-type Step<Name extends string = string, Data = unknown> = {
-  name: Name,
-  data: Data
-}
+type Step<
+  Label extends string = string,
+  Data extends Record<string, unknown> = Record<string, unknown>,
+> = {
+    label: Label;
+    data: Data
+  }
 ```
 
 </section>
@@ -797,16 +808,20 @@ type Step<Name extends string = string, Data = unknown> = {
 - The data from each step of the form in isolation
 
 ```ts
-type InitialStep = Step<'initial', {}>
+type InitStep = Step<'Init', {}>
+//   ^? { label: "Init"; data: {}; }
 
-type AmountStep = Step<'amount', Pick<TransferForm, 'amount'>>
-//   ^? { name: 'amount', data: { amount: TransferAmount } }
+type AmountStep = Step<'Amount', Pick<TransferForm, 'amount'>>;
+//   ^? { label: "Amount", data: { amount: TransferAmount} } 
 
-type AccountStep = Step<'account', Pick<TransferForm, 'accountFrom' | 'accountTo'>>
-//   ^? { name: 'account', data: { accountFrom : AccountRef, accountTo: AccountRef } }
+type AccountStep = Step<'Accounts', Pick<TransferForm, 'accountFrom' | 'accountTo'>>;
+//   ^? { label: "Accounts", data: { accountFrom: AccountRef, accountTo: AccountRef } } 
 
-type ConfirmationStep = Step<'confirmation', Pick<TransferForm, 'confirmation'>>
-//   ^? { name: 'confirmation', data: { confirmation: Confirmation } }
+type ConfirmationStep = Step<'Confirmation', Pick<TransferForm, 'confirmation'>>;
+//   ^? { label: "Accounts", data: { confirmation: Confirmation } } 
+
+type CompleteStep = Step<'Complete', {}>
+//   ^? { label: "Init"; data: {}; }
 ```
 
 </section>
@@ -865,14 +880,14 @@ type TransferFormState = unknown // union of possible states
 <site-presentation-slide centered>
 <section>
 
-## Initially
+## Initially, Account Step
 
-At the start of the form, we have no data
+At the start of the form we are in the `Amount` step, during this phase the user has not provided any data yet
 
 ```ts
-const step0: TransferFormState = {
-  name: 'initial',
-  data: {}
+const step1 = {
+  "label": "Amount",
+   "data": {}
 }
 ```
 
@@ -882,18 +897,17 @@ const step0: TransferFormState = {
 <site-presentation-slide centered>
 <section>
 
-## After Setting Amount
+## Account Step
 
-Once an amount is set, this should be added to the `data`
+During this phase, we only have the amount
 
 ```ts
-const step1: TransferFormState = {
-  name: 'amount',
-  data: {
-    ...step0.data,
-    amount,
+const step2 = {
+  "label": "Accounts",
+  "data": {
+    "amount": 100
   }
-}
+},
 ```
 
 </section>
@@ -902,15 +916,15 @@ const step1: TransferFormState = {
 <site-presentation-slide centered>
 <section>
 
-## After Selecting Accounts
+## Confirmation Step
 
-Once the accounts are selected, this should be added to the `data` from the previous step
+Once the accounts are selected, this should be added to the `data` from the previous step, and so now we 
 
 ```ts
-const step2: TransferFormState = {
-  name: 'account',
+const step3 = {
+  label: 'Confirmation',
   data: {
-    ...step1.data,
+    ...step2.data,
     accountFrom: accountReference(accountFrom),
     accountTo: accountReference(accountTo),
   }
@@ -928,15 +942,123 @@ const step2: TransferFormState = {
 Once the status has been confirmed, this should be added to the `data`
 
 ```ts
-const step3: TransferFormState = {
-  name: 'confirmation',
+const step4 = {
+  label: 'Complete',
   data: {
-    ...step2.data,
+    ...step3.data,
     confirmation: 'accepted'
-  }
+  },
 }
-
 ```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Using this Practically
+
+```ts
+export class App {
+  // signal that represents each of the specific states we have
+  state = signal<TransferFormState>({
+    label: 'Amount',
+    data: {}
+  });
+  
+  // rest of implementation
+}
+```
+
+> `TransferFormState` can be a union of the above steps. This is usually good enough
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+### Keeps our Templates Clean
+
+> Using a `switch` will ensures that this is all fully type-checked and valid
+
+```html
+ @let s = state();
+
+@switch (s.label) {
+  @case('Amount') {
+  <app-amount-step (onSubmit)="handleAmountSubmit($event)" />
+  }
+  @case ('Accounts') {
+    <app-account-step (onSubmit)="handleAccountsSubmit($event)"/>
+  }
+  @case ('Confirmation') {
+    <app-confirmation-step
+      [accountFrom]="s.data.accountFrom"
+      [accountTo]="s.data.accountTo"
+      [amount]="s.data.amount"
+      (onSubmit)="handleConfirmationSubmit($event)"/>
+  }
+  @case ('Complete') {
+    <app-completed-message  [confirmation]="s.data.confirmation()" />
+  }
+}        
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+### Stepping is Simple
+
+- A step is simply a merging of the previous data with the new once, after ensuring we're in the step we expect
+
+> This is also fully type guarded
+
+```ts
+handleAmountSubmit(data: AmountStep['data']) {
+  const state = this.state();
+  if (state.label !== 'Amount') {
+    return;
+  }
+
+  this.state.set(
+    {
+      label: 'Accounts',
+      data: {
+        ...state.data,
+        ...data
+      },
+    },
+  );
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## How Far Should we Go?
+
+- This is probably enough for most implementations
+- Use a union type if this is a once-off
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Thinking Like A Library Author
+
+- What if this is meant to be shared?
+- How can we provide a good interface for consumers?
+- Is complexity okay if it's contained?
 
 </section>
 </site-presentation-slide>
@@ -948,8 +1070,64 @@ const step3: TransferFormState = {
 
 - Lots of repetition to define all those states manually
 - Easy to make a mistake
+- This type can be complex to define
 
 > We can use the tools we've covered to make this more automatic
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## How Does Stepping Look as a Function?
+
+- It's helpful to look at Complex Types as Functions
+- Return of the recursion
+  - Since we can't use loops in types
+
+> Apologies in advance for the big code snippet you're about to see
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+```ts
+function multiStepFormStates(steps: Step[], merged: Step[] = [steps[0]]) {
+  // no more steps to merge, so return
+  if (steps.length < 2) {
+    return merged
+  }
+
+  const [current, next, ...rest] = steps
+
+  // each state starts off with only the data from a previous state
+  const start: Step = {
+    label: next.label,
+    data: {
+      ...current.data,
+    }
+  }
+
+  // each step builds on the end state of the next state
+  const end: Step = {
+    label: next.label,
+    data: {
+      ...current.data,
+      ...next.data
+    }
+  }
+
+  return multiStepFormStates(
+    // pass rest of entries to recurse through
+    [end, ...rest],
+    // pass results forward
+    [...merged, start]
+  )
+}
+```
 
 </section>
 </site-presentation-slide>
@@ -960,14 +1138,23 @@ const step3: TransferFormState = {
 ## Putting the Types Together
 
 ```ts
-type MultiStepFormStates<Current extends Step, Steps extends Step[]> =
-  Steps extends [infer Next, ...infer Rest]
-  	? Next extends Step
-  		? Rest extends Step[]
-  			? Current | MultiStepFormStates<MergeSteps<Next, Current>, Rest>
-  		: Current
-  	: Current
-  : Current
+type MultiStepFormStates<Steps extends Step[], Merged extends Step[] = [Steps[0]]> = Steps extends [
+  infer Current,
+  infer Next,
+  ...infer Rest,
+]
+  ? Rest extends Step[]
+    // recursive "call" to the "type function"
+    ? MultiStepFormStates<
+      // use the completed state of the current phase as the starting point for the next
+      [EndTransition<Current, Next>, ...Rest],
+      // store the start of each step as this is what the step will have
+      [...Merged, StartTransition<Current, Next>]
+    >
+    // rest does not contain steps, this should `never` happen
+    : never
+  // processed all items, return final result
+  : Merged[number]
 ```
 
 </section>
@@ -981,11 +1168,9 @@ type MultiStepFormStates<Current extends Step, Steps extends Step[]> =
 Using the `MultiStepFormStates` type, the `TransferFormStates` can be defined as follows
 
 ```ts
-type TransferFormState = MultiStepFormStates<InitialStep, [
-  AmountStep,
-  AccountStep,
-  ConfirmationStep
-]>
+export type TransferFormState = MultiStepFormStates<
+  [InitStep, AmountStep, AccountStep, ConfirmationStep, CompleteStep]
+>;
 ```
 
 > This type is also generic for any multi-step in the application!

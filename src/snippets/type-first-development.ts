@@ -302,17 +302,17 @@ type MultiStepFormStates<Steps extends Step[], Merged extends Step[] = [Steps[0]
   ...infer Rest,
 ]
   ? Rest extends Step[]
-  ? MultiStepFormStates<
-    // Use the completed state of the current phase as the starting point for the next
-    [EndTransition<Current, Next>, ...Rest],
-    // Store the start of each step as this is what the step will have
-    [...Merged, StartTransition<Current, Next>]
-  >
-  // Rest does not contain steps, this should `never` happen
-  : never
-  // Processed all items, return final result
+    // recursive "call" to the "type function"
+    ? MultiStepFormStates<
+      // use the completed state of the current phase as the starting point for the next
+      [EndTransition<Current, Next>, ...Rest],
+      // store the start of each step as this is what the step will have
+      [...Merged, StartTransition<Current, Next>]
+    >
+    // rest does not contain steps, this should `never` happen
+    : never
+  // processed all items, return final result
   : Merged[number]
-
 
 export type TransferFormState = MultiStepFormStates<
   [InitStep, AmountStep, AccountStep, ConfirmationStep, CompleteStep]
