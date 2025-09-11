@@ -726,10 +726,13 @@ Having a strictly controlled state like this means that:
 <site-presentation-slide centered>
 <section>
 
-## How Far Should we Go?
+# How Far Should we Go?
 
 - This is probably enough for most implementations
 - Use a union type if this is a once-off
+- Keep your types simple
+  - Different teams have different appetites for complexity
+  - Unnecessary complexity can impact 
 
 </section>
 </site-presentation-slide>
@@ -739,9 +742,13 @@ Having a strictly controlled state like this means that:
 
 ## Thinking Like A Library Author
 
-- What if this is meant to be shared?
-- How can we provide a good interface for consumers?
-- Is complexity okay if it's contained?
+> Types can get more complex as our usecases become more generic
+
+Some tools for highly generic types that are also handy to be aware of:
+
+- Mapped types and Recursion for deriving complex types
+- `extends` for conditional types
+- `infer` for asking the compiler for information
 
 </section>
 </site-presentation-slide>
@@ -749,149 +756,12 @@ Having a strictly controlled state like this means that:
 <site-presentation-slide centered>
 <section>
 
-## Reduce Repeated Types
+## A Note on `any`
 
-- Lots of repetition to define all those states manually
-- Easy to make a mistake
-- This type can be complex to define
+> `any` will destroy all benefits of strong types
 
-> We can use the tools we've covered to make this more automatic
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## How Does Stepping Look as a Function?
-
-- It's helpful to look at Complex Types as Functions
-- Return of the recursion
-  - Since we can't use loops in types
-
-> Apologies in advance for the big code snippet you're about to see
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-```ts
-function multiStepFormStates(steps: Step[], merged: Step[] = [steps[0]]) {
-  // no more steps to merge, so return
-  if (steps.length < 2) {
-    return merged
-  }
-
-  const [current, next, ...rest] = steps
-
-  // each state starts off with only the data from a previous state
-  const start: Step = {
-    label: next.label,
-    data: {
-      ...current.data,
-    }
-  }
-
-  // each step builds on the end state of the next state
-  const end: Step = {
-    label: next.label,
-    data: {
-      ...current.data,
-      ...next.data
-    }
-  }
-
-  return multiStepFormStates(
-    // pass rest of entries to recurse through
-    [end, ...rest],
-    // pass results forward
-    [...merged, start]
-  )
-}
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## Putting the Types Together
-
-```ts
-type MultiStepFormStates<Steps extends Step[], Merged extends Step[] = [Steps[0]]> = Steps extends [
-  infer Current,
-  infer Next,
-  ...infer Rest,
-]
-  ? Rest extends Step[]
-    // recursive "call" to the "type function"
-    ? MultiStepFormStates<
-      // use the completed state of the current phase as the starting point for the next
-      [EndTransition<Current, Next>, ...Rest],
-      // store the start of each step as this is what the step will have
-      [...Merged, StartTransition<Current, Next>]
-    >
-    // rest does not contain steps, this should `never` happen
-    : never
-  // processed all items, return final result
-  : Merged[number]
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## Creating the Form Type
-
-Using the `MultiStepFormStates` type, the `TransferFormStates` can be defined as follows
-
-```ts
-export type TransferFormState = MultiStepFormStates<
-  [InitStep, AmountStep, AccountStep, ConfirmationStep, CompleteStep]
->;
-```
-
-> This type is also generic for any multi-step in the application!
-
-</section>
-</site-presentation-slide>
-
-
-
-<site-presentation-slide centered>
-<section>
-
-## Inferring Validity
-
-The state is guaranteed to be valid if we're on a given step
-
-Extracting the final data of the form can be done using the state alone without rev-validating
-
-```ts
-// we can now do state name checks
-if (state.name === 'confirmation') {
-  // valid states mean we don't need to re-validate
-  submitForm(state.data)
-}
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-# Risks
-
-- Types can have a high complexity-density
-	- Small code, big scary (sometimes)
-- Overly strict types may be difficult for developers to work with
-- `any` can destroy quality of inferred types
+- It tells the compiler to ignore type checking for a specific value
+- This allows unsafe data to move through code that should be safe
 
 </section>
 </site-presentation-slide>
@@ -919,18 +789,7 @@ if (state.name === 'confirmation') {
 <site-presentation-slide centered>
 <section>
 
-## Look for Composition
-
-- Relationships exist between our models and how we use them
-- Typescript has tools for representing these relationships
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## Methods of Composing Types
+## Create and Compose Good Types
 
 - Branded Types
 - Generic Types
@@ -944,32 +803,10 @@ if (state.name === 'confirmation') {
 <site-presentation-slide centered>
 <section>
 
-## Tools For Building Complex Types
+## Model Your Business Processes
 
-> Complex types have some similar structures, learn once - use forever
-
-- Mapped Types
-- Recursive Types
-- `keyof` keyword
-- `extends` keyword
-- `infer` keyword
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-# Why Bother?
-
-- Single source of truth, less to maintain
-- The compiler tells you when things break
-- Reduced needs for unit testing
-- Types document processes
-- Great Autocomplete for other Devs
-- Low risk
-	- Complex types can be replaced with simpler types
-	- No runtime impact, type-only refactors can't introduce bugs
+- Tightly model how your state changes and moves through a system
+- Leverage the compiler by giving it as much information as possible
 
 </section>
 </site-presentation-slide>
