@@ -1,0 +1,1359 @@
+---
+title: Type-first development
+subtitle: 15 September 2025
+published: false
+---
+
+<site-presentation />
+
+<site-presentation-slide centered>
+<section>
+
+# ZOOOOOOOM
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Me
+
+> Hi, I'm Nabeel Valley
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Type-first development with Typescript
+
+- Types as a base
+- Business logic as transformations
+- Compiler guides implementation
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Runtime vs Compile Time
+
+> Types don't exist at runtime!
+
+- The compiler checks types
+- Unit tests check runtime
+- Type-only changes cannot create bugs
+	- Low risk to add
+	- Low risk to remove
+
+> The more we can put into our types, the less we need to test
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Good Types
+
+Good types allow us to:
+
+- Eliminate incorrect application state
+- Enforce business logic
+- Enable composition of business concepts
+- Simplify testing
+- Document code and processes
+- Make Autocomplete really nice
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# A Running Thread
+
+A Simple Multi-Step Form:
+
+1. Input Amount
+2. Select Account From
+3. Select Account To
+4. Confirm + Send
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# How can we model this using types?
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## An Initial Model
+
+> How do we define the data that our form holds?
+
+```ts
+type TransferForm = {
+  amount: number
+  accountFrom: string
+  accountTo: string
+  confirmation?: boolean
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Interrogate the Model
+
+> What questions arise from our model?
+
+```ts
+// does this represent a completed form or an in-progress one?
+type TransferForm = {
+	// is this any number?
+  amount: number
+
+	// do these strings have some specific format?
+	// how does this related to other data?
+	// can i fill these in before an amount is selected?
+  accountFrom: string
+  accountTo: string
+
+	// what does it mean if this is `undefined`?
+	// does it make sense for this to be `true` if the form is incomplete?
+  confirmation?: boolean
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Re-thinking our types
+
+- Is this _really_ just a `string` or `number`
+- Are these values actually optional
+- Is there some validation that needs to be applied here?
+- Are there relationships with other data?
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Can we better type our primitives?
+
+```ts
+type TransferAmount = number //??
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Branded Types
+
+- A wrapper over primitive values
+- Provides domain context
+- Enables more robust validation
+- Do not add runtime overhead
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## What is an Amount?
+
+> What business rules do we have around this?
+
+- Represents €
+- Must be positive
+- Must be less than 1 000 000
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Defining a Brand
+
+- Do not modify the original object
+- Can be defined in a variety of ways
+- Exist only at the type level
+- Store validation in the type language
+- Usually consist of
+	- A primitive value
+	- A private brand indicator
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+	
+## Defining Branded Types
+
+```ts
+// create a compile-time-only value
+declare const EuroBrand: unique symbol
+
+type Euro = number & { [EuroBrand]: true }
+
+declare const TransferAmounBrand: unique symbol
+
+// a transfer amout is a Euro + some validation
+type TransferAmount = Euro & { [TransferAmounBrand]: true }
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Creating a Euro Amount
+
+> Branding is usually done via a function
+
+```ts
+// We can create a Euro value from any number
+function euro(value: number): Euro {
+	// simply casts the value, does not modify it
+  return value as Euro
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Validation
+
+Once we have a Euro value, we can determine if it's a valid transfer amount
+
+- We want to encode this validation in the Types
+- Type predicates let us check that something is a given type
+- Assertion functions let us throw if it is not a given type
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section> 
+
+## Type Predicates
+
+- Conditionally narrow the type of something
+
+```ts
+// We can check if a Euro value is a Valid Transfer Amount
+function isTransferAmount(amount: Euro): amount is TransferAmount {
+  return amount > 0 && amount < 1_000_000
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Using a Type Predicate
+
+Predicates prevent us from doing type-specific things in places where the result is not true:
+
+```ts
+function doSomething(amount: Euro) {
+  if (isTransferAmount(amount)) {
+    // No Error
+    const valid: TransferAmount = amount
+  }
+
+
+  // @ts-expect-error Error: Type 'Euro' is not assignable to type 'TransferAmount'
+  const invalid: TransferAmount = amount
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Asssertion Functions
+
+Throw if a type requirement is not met, also narrows the type of something
+
+```ts
+function assertTransferAmount(amount: Euro): asserts amount is TransferAmount {
+  if (isTransferAmount(amount)) {
+    return
+  }
+
+  throw new Error("Invalid amount received")
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Using an Assertion Function
+
+The value we're working with is a valid type after the assertion function has been called
+
+```ts
+function doSomethingOrThrow(amount: Euro) {
+  assertTransferAmount(amount)
+
+  // would have thrown if not a valid TransferAmount
+  const valid: TransferAmount = amount
+
+  console.log(valid.toFixed(2))
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Relationships Between Types
+
+Can we narrow an `account` down more specifically than `string`?
+
+```ts
+type AccountReference = string //??
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Deriving Types
+
+- Single source of truth
+- Identify relationships between types
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Generic Types
+
+- Have input arguments, and an output type
+- Allow us to compose types from other types
+
+> Generic types are like functions that work at the type level
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Builtin Generic Types
+
+- Typescript has a bunch of Generic types builtin
+- All builtin types can be re-created from scratch
+
+```ts
+// makes all properties optional
+type PartialData = Partial<Data>
+
+// makes all properties required
+type RequiredData = Required<Data>
+
+// selects specific properties of data
+type PickedData = Pick<Data, 'ammount' | 'accountFrom'>
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Defining a Reference Type
+
+A generic type that lets us take anything that looks like a `Model` and get it's ID
+
+```ts
+// a model is something with an id
+interface Model {
+  id: unknown
+}
+
+// a "reference" is based on the type of the id of a Model
+// the `extends` keyword here works as a constraint
+type Reference<M extends Model> = M['id']
+
+// very similar to a generic function that would do the same
+function reference<M extends Model>(model: M): Reference<M> {
+  return model.id
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Deriving the Account Type
+
+We can use the type function with our `AccountModel`
+
+```ts
+type AccountModel = {
+  id: `ACC-${number}`
+}
+
+type AccountRef = Reference<AccountModel>
+
+// similarly we can preload the generic function
+const accountReference = reference<AccountModel>
+//    ^? (model: AccountModel) => Reference<AccountModel>
+```
+
+> If `AccountModel` ever changes, `AccountRef` will also change
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Question the Domain
+
+- Is this value _actually_ this type
+- Are there any states I'm not thinking about
+- Are there potential conflicts with how this is used?
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## What about the Confirmation
+
+```ts
+type Confirmation = boolean | undefined
+```
+We don't always need fancy types, usually we just need to think about what we have
+
+- Initially represented as an optional boolean:
+- What if it's undefined? Do we really only have two states?
+- Is `undefined` the same as `false`
+	- Assume that `false == denied` and `undefined == not yet selected`
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Union Types
+
+- Represents one of a fixed list of types
+- Useful for representing a set of explicit states
+
+```ts
+type Confirmation = 'pending' | 'accepted' | 'denied'
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## The Updated Model
+
+We can define the model we had above a bit more concretely now:
+
+```ts
+type TransferForm = {
+  amount: TransferAmount
+  accountFrom: AccountRef
+  accountTo: AccountRef
+  confirmation: Confirmation
+}
+```
+
+> This clears up any questions we had about the field
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# A Detour through the World of Types
+
+So far we've covered:
+
+- Branded Types
+- Generic Types
+- Assertion Functions
+- Type Predicates
+- Generic Types
+- Union Types
+
+But, before we can model the rest of the process, we need a few more tools
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## What does our form need?
+
+- Multi-step form wizard
+- Each step gets data from different fields
+- We want steps to be type-safe
+- State should be valid at all times
+
+> We need a few more tools to make this all posssible
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Deriving Types
+
+Typescript provides us with mechanisms for defining complex types
+
+- `keyof` extracts keys from objects
+- **Mapped types** allow mapping from properties of one type onto another
+- `extends` checks if a type conforms to another type
+- `infer` lets us infer a precise type from a less precise type
+- **Recursion** enables complex composition of types
+
+> This is all more easily illustrated by example
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## The `keyof` keyword
+
+- `keyof` lets us get the keys of a given object
+
+Keyof is the simplest of the generic tools and looks like so:
+
+```ts
+type TransferForm = {
+  amount: TransferAmount
+  accountFrom: AccountRef
+  accountTo: AccountRef
+  confirmation: Confirmation
+}
+
+type TransferFormFields = keyof TransferForm
+//   ^? 'amount' | 'accountFrom' | 'accountTo' | 'confirmation'
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Mapped types
+
+- Mapped types allow mapping from properties of one type onto another
+- Used with `keyof` to iterate through the properties of an object
+
+```ts
+type TransferFormLabels = {
+  // consists of mapping some set of keys to some set of values
+  [K in keyof TransferForm]: Capitalize<K>
+}
+
+// this is the only valid value for `labels` according to this type definition
+const labels: TransferFormLabels = {
+  amount: 'Amount',
+  accountFrom: 'AccountFrom',
+  accountTo: 'AccountTo',
+  confirmation: 'Confirmation'
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## The `extends` keyword
+
+- `extends` checks if a type conforms to another type
+- Like a conditional expression for types
+
+> This is different to the `extends` keyword when working with classes
+
+```ts
+type IsNumber<X> = X extends number ? 'yes' : 'no'
+// kind of like:   x => typeof x == 'number' ? 'yes' : 'no' 
+
+type Is5Number = IsNumber<5>
+//   ^? 'yes'
+
+type IsTrueNumber = IsNumber<true>
+//   ^? 'no'
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## The `infer` keyword
+
+- `infer` lets us infer a precise type from a less precise type
+- Must be used with `extends`
+- Like asking the compiler:
+	- What can I put here to make this statement true
+
+```ts
+type PrefixOf<S> = S extends `${infer S}_${string}` ? S : never
+// like asking the compiler:               ^ what goes here to make this true
+
+type HelloPrefix = PrefixOf<"hello_world">
+//   ^? "hello"
+// 
+type ByePrefix = PrefixOf<"bye_world">
+//   ^? "bye"
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+
+## Recursive Types
+
+> Generic types are like functions, so we can use them in very similar ways
+
+- The type system is immutable
+- Recursion allows us to iterate without mutation
+- Try to keep small to isolate complexity
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+
+## Comparison with Functions
+
+Recursion in types is pretty much the same as using it in a normal function
+
+A recursive function to check if a list has `x` in it could look like this:
+
+```ts
+function hasX(arr: string[]): boolean {
+  if (arr.length > 0) {
+    const [first, ...rest] = arr
+
+    return first === 'x' ? true : hasX(rest)
+  } else {
+    return false
+  }
+}
+
+const axcHasX = hasX(['a', 'x', 'c'])
+//    ?^ true
+
+const abcHasX = hasX(['a', 'b', 'c'])
+//    ?^ false
+```
+
+> Recursive functions always need an exit condition to stop recursion
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Expressing as Types
+
+As a type, the same function is quite similar
+
+```ts
+type HasX<Arr> =
+  Arr extends [infer First, ...infer Rest]
+  ? First extends 'x'
+  	? true
+  	: HasX<Rest>
+  : false
+
+
+type AXCHasX = HasX<['a', 'x', 'c']>
+//   ?^ true
+
+type ABCHasX = HasX<['a', 'b', 'c']>
+//   ?^ false
+```
+
+> Recursive types also need an exit condition to stop recursion
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Back to Business
+
+Is there a way that we can model statefully building this object up?
+
+> Can we use these new tools to model the multi-form process?
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Modeling the Process
+
+Types can be used to model processes and how data moves through them
+
+So now we've got the model, can we think about how it's built
+
+As mentioned before, we have a multi-step form:
+
+1. Input Amount
+2. Select Account From
+3. Select Account To
+4. Confirm
+5. Submit
+
+> At each step, the data must be valid before moving to the next
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Relate the Model to the Process
+
+Looking at our steps, we can break the model into these parts:
+
+```ts
+type TransferForm = {
+	// at the end of step 1, this is defined
+  amount: TransferAmount
+
+	// at the end of step 2, this is defined
+  accountFrom: AccountRef
+  accountTo: AccountRef
+
+	// at the end of step 3, this is defined
+  confirmation: Confirmation
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Defining a Single Step
+
+- **The form is made up of multiple steps**
+- Data from steps are merged together to create the final model
+
+```ts
+// Each step has the name of the step + the data that results from that step
+type Step<
+  Label extends string = string,
+  Data extends Record<string, unknown> = Record<string, unknown>,
+> = {
+    label: Label;
+    data: Data
+  }
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Defining the Steps
+
+- The data from each step of the form in isolation
+
+```ts
+type InitStep = Step<'Init', {}>
+//   ^? { label: "Init"; data: {}; }
+
+type AmountStep = Step<'Amount', Pick<TransferForm, 'amount'>>;
+//   ^? { label: "Amount", data: { amount: TransferAmount} } 
+
+type AccountStep = Step<'Accounts', Pick<TransferForm, 'accountFrom' | 'accountTo'>>;
+//   ^? { label: "Accounts", data: { accountFrom: AccountRef, accountTo: AccountRef } } 
+
+type ConfirmationStep = Step<'Confirmation', Pick<TransferForm, 'confirmation'>>;
+//   ^? { label: "Accounts", data: { confirmation: Confirmation } } 
+
+type CompleteStep = Step<'Complete', {}>
+//   ^? { label: "Init"; data: {}; }
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Defining the Process
+
+- The form is made of multiple steps
+- **Data from steps are merged together to create the final model**
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Merging Data from Steps
+
+- The next step should be merged with the data of the previous step
+
+We can describe this process as a type:
+
+```ts
+type MergeSteps<Current extends Step, Previous extends Step> = {
+  // the name is for the step we're currently on
+  name: Current['name'],
+  // data adds onto the previous step
+  data: Previous['data'] & Current['data']
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Representing All Steps
+
+- A form is a set of steps
+- Data from each step should be merged with the next
+- Each step + data combination is distinct
+
+```ts
+type TransferFormState = unknown // union of possible states
+```
+
+> Let's quickly look at what we want our steps to look like
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Initially, Account Step
+
+At the start of the form we are in the `Amount` step, during this phase the user has not provided any data yet
+
+```ts
+const step1 = {
+  "label": "Amount",
+   "data": {}
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Account Step
+
+During this phase, we only have the amount
+
+```ts
+const step2 = {
+  "label": "Accounts",
+  "data": {
+    "amount": 100
+  }
+},
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Confirmation Step
+
+Once the accounts are selected, this should be added to the `data` from the previous step, and so now we 
+
+```ts
+const step3 = {
+  label: 'Confirmation',
+  data: {
+    ...step2.data,
+    accountFrom: accountReference(accountFrom),
+    accountTo: accountReference(accountTo),
+  }
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## After Confirming
+
+Once the status has been confirmed, this should be added to the `data`
+
+```ts
+const step4 = {
+  label: 'Complete',
+  data: {
+    ...step3.data,
+    confirmation: 'accepted'
+  },
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Using this Practically
+
+```ts
+export class App {
+  // signal that represents each of the specific states we have
+  state = signal<TransferFormState>({
+    label: 'Amount',
+    data: {}
+  });
+  
+  // rest of implementation
+}
+```
+
+> `TransferFormState` can be a union of the above steps. This is usually good enough
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+### Keeps our Templates Clean
+
+> Using a `switch` will ensures that this is all fully type-checked and valid
+
+```html
+ @let s = state();
+
+@switch (s.label) {
+  @case('Amount') {
+  <app-amount-step (onSubmit)="handleAmountSubmit($event)" />
+  }
+  @case ('Accounts') {
+    <app-account-step (onSubmit)="handleAccountsSubmit($event)"/>
+  }
+  @case ('Confirmation') {
+    <app-confirmation-step
+      [accountFrom]="s.data.accountFrom"
+      [accountTo]="s.data.accountTo"
+      [amount]="s.data.amount"
+      (onSubmit)="handleConfirmationSubmit($event)"/>
+  }
+  @case ('Complete') {
+    <app-completed-message  [confirmation]="s.data.confirmation()" />
+  }
+}        
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+### Stepping is Simple
+
+- A step is simply a merging of the previous data with the new once, after ensuring we're in the step we expect
+
+> This is also fully type guarded
+
+```ts
+handleAmountSubmit(data: AmountStep['data']) {
+  const state = this.state();
+  if (state.label !== 'Amount') {
+    return;
+  }
+
+  this.state.set(
+    {
+      label: 'Accounts',
+      data: {
+        ...state.data,
+        ...data
+      },
+    },
+  );
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## How Far Should we Go?
+
+- This is probably enough for most implementations
+- Use a union type if this is a once-off
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Thinking Like A Library Author
+
+- What if this is meant to be shared?
+- How can we provide a good interface for consumers?
+- Is complexity okay if it's contained?
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Reduce Repeated Types
+
+- Lots of repetition to define all those states manually
+- Easy to make a mistake
+- This type can be complex to define
+
+> We can use the tools we've covered to make this more automatic
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## How Does Stepping Look as a Function?
+
+- It's helpful to look at Complex Types as Functions
+- Return of the recursion
+  - Since we can't use loops in types
+
+> Apologies in advance for the big code snippet you're about to see
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+```ts
+function multiStepFormStates(steps: Step[], merged: Step[] = [steps[0]]) {
+  // no more steps to merge, so return
+  if (steps.length < 2) {
+    return merged
+  }
+
+  const [current, next, ...rest] = steps
+
+  // each state starts off with only the data from a previous state
+  const start: Step = {
+    label: next.label,
+    data: {
+      ...current.data,
+    }
+  }
+
+  // each step builds on the end state of the next state
+  const end: Step = {
+    label: next.label,
+    data: {
+      ...current.data,
+      ...next.data
+    }
+  }
+
+  return multiStepFormStates(
+    // pass rest of entries to recurse through
+    [end, ...rest],
+    // pass results forward
+    [...merged, start]
+  )
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Putting the Types Together
+
+```ts
+type MultiStepFormStates<Steps extends Step[], Merged extends Step[] = [Steps[0]]> = Steps extends [
+  infer Current,
+  infer Next,
+  ...infer Rest,
+]
+  ? Rest extends Step[]
+    // recursive "call" to the "type function"
+    ? MultiStepFormStates<
+      // use the completed state of the current phase as the starting point for the next
+      [EndTransition<Current, Next>, ...Rest],
+      // store the start of each step as this is what the step will have
+      [...Merged, StartTransition<Current, Next>]
+    >
+    // rest does not contain steps, this should `never` happen
+    : never
+  // processed all items, return final result
+  : Merged[number]
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Creating the Form Type
+
+Using the `MultiStepFormStates` type, the `TransferFormStates` can be defined as follows
+
+```ts
+export type TransferFormState = MultiStepFormStates<
+  [InitStep, AmountStep, AccountStep, ConfirmationStep, CompleteStep]
+>;
+```
+
+> This type is also generic for any multi-step in the application!
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Implications of Strict State
+
+Having a strictly controlled state like this means that:
+
+- We don't need to re-validate data
+- A valid state implies that all previous validation was done
+- The type system will not allow missing/partial data
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Inferring Validity
+
+The state is guaranteed to be valid if we're on a given step
+
+Extracting the final data of the form can be done using the state alone without rev-validating
+
+```ts
+// we can now do state name checks
+if (state.name === 'confirmation') {
+  // valid states mean we don't need to re-validate
+  submitForm(state.data)
+}
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Compiler Guarantees
+
+- Controlled types means the compiler is our tester
+- We don't need to test code with invalid types
+- Scopes tests to specifically
+	- Complex logic
+	- Type-casting code
+
+> Using `any` in your code takes away these guarantees
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Risks
+
+- Types can have a high complexity-density
+	- Small code, big scary (sometimes)
+- Overly strict types may be difficult for developers to work with
+- `any` can destroy quality of inferred types
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Recap
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Interrogate Your Models
+
+- Question why fields in your model are the type they are
+- Define core truths and relationships between models
+- Think about what data types can accurately represent them
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Look for Composition
+
+- Relationships exist between our models and how we use them
+- Typescript has tools for representing these relationships
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Methods of Composing Types
+
+- Branded Types
+- Generic Types
+- Assertion Functions
+- Type Predicates
+- Generic Types
+- Union Types
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Tools For Building Complex Types
+
+> Complex types have some similar structures, learn once - use forever
+
+- Mapped Types
+- Recursive Types
+- `keyof` keyword
+- `extends` keyword
+- `infer` keyword
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Why Bother?
+
+- Single source of truth, less to maintain
+- The compiler tells you when things break
+- Reduced needs for unit testing
+- Types document processes
+- Great Autocomplete for other Devs
+- Low risk
+	- Complex types can be replaced with simpler types
+	- No runtime impact, type-only refactors can't introduce bugs
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# References & Further Reading
+
+- https://nabeelvalley.co.za/talks/2024/13-03/check-your-domain
+- https://www.learningtypescript.com/articles/branded-types
+- https://www.lucaspaganini.com/academy/assertion-functions-typescript-narrowing-5/
+- https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions
+- https://www.typescriptlang.org/docs/handbook/utility-types.html
+
+</section>
+</site-presentation-slide>
