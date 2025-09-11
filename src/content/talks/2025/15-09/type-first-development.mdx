@@ -601,10 +601,30 @@ type TransferForm = {
 - Later on, we do some refactoring
 - We now see that the form ordering is broken for some reason
 
+
 </section>
 </site-presentation-slide>
 
 <site-presentation-slide centered highlight>
+<section>
+
+# How can prevent this?
+
+> Looking at our form's code we see this
+
+```ts
+label = signal<'Amount' | 'Accounts' | 'Complete' | 'Confirmation'>('Amount');
+state = signal<Partial<Types.TransferForm>>({});
+```
+
+- There isn't a clear definition of the different states the form can be in
+- Can we tie all the valid states together to ensure things remain in sync?
+
+</section>
+</site-presentation-slide>
+
+
+<site-presentation-slide centered>
 <section>
 
 ## Modeling the Process
