@@ -27,7 +27,7 @@ providers: [
 
 The `PredefinedDependency` takes some inital configuration but in our application we have a usecase where something about our dependency may need to change at runtime, for example when a user logs in we may want to swap out the credentials used for the dependency. This would be fine if we were using the dependency directly, but since it is used in some library code we can't change it at that level
 
-# Configuring our own Dependencu
+# Configuring our own Dependency
 
 What we can do instead is provide our own class that extends the one that the library requires:
 
