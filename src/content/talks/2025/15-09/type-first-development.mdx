@@ -298,6 +298,12 @@ function doSomething(amount: Euro) {
 }
 ```
 
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
 ## Asssertion Functions
 
 Throw if a type requirement is not met, also narrows the type of something
@@ -488,6 +494,12 @@ We don't always need fancy types, usually we just need to think about what we ha
 type Confirmation = 'pending' | 'accepted' | 'denied'
 ```
 
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
 ## The Updated Model
 
 We can define the model we had above a bit more concretely now:
@@ -579,6 +591,12 @@ type TransferFormFields = keyof TransferForm
 //   ^? 'amount' | 'accountFrom' | 'accountTo' | 'confirmation'
 ```
 
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
 ## Mapped types
 
 - Mapped types allow mapping from properties of one type onto another
@@ -598,6 +616,12 @@ const labels: TransferFormLabels = {
   confirmation: 'Confirmation'
 }
 ```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
 
 ## The `extends` keyword
 
