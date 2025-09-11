@@ -17,6 +17,14 @@
     font-size: xx-large;
   }
 
+  p, ol, ul {
+    font-size: 1.2em;
+  }
+
+  li {
+    line-height: 1.2em;
+  }
+
   site-presentation-slide[large] {
     font-size: x-large;
   }
@@ -78,6 +86,10 @@
 
     .astro-code {
       filter: none;
+    }
+
+    .expressive-code {
+      max-width: 80vw;
     }
 
     img {

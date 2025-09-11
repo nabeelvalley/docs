@@ -52,7 +52,7 @@ pre {
   font-size: 1.1em;
 }
 
-p code {
+p code, li code, blockquote code {
   font-size: 1.1em;
   color: var(--color-brand);
 }

@@ -39,6 +39,18 @@ published: false
 <site-presentation-slide centered>
 <section>
 
+# What we're going to talk about
+
+- Why types matter
+- Effectively modeling your models
+- Using types to prevent invalid states
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
 # Runtime vs Compile Time
 
 > Types don't exist at runtime!
@@ -57,7 +69,7 @@ published: false
 <site-presentation-slide centered>
 <section>
 
-# Good Types
+## Good Types
 
 Good types allow us to:
 
@@ -74,14 +86,15 @@ Good types allow us to:
 <site-presentation-slide centered>
 <section>
 
-# A Running Thread
+## Compiler Guarantees
 
-A Simple Multi-Step Form:
+- Controlled types means the compiler is our tester
+- We don't need to test code with invalid types
+- Scopes tests to specifically
+	- Complex logic
+	- Type-casting code
 
-1. Input Amount
-2. Select Account From
-3. Select Account To
-4. Confirm + Send
+> Using `any` in your code takes away these guarantees
 
 </section>
 </site-presentation-slide>
@@ -89,7 +102,30 @@ A Simple Multi-Step Form:
 <site-presentation-slide centered>
 <section>
 
-# How can we model this using types?
+# Reference Example
+
+We'll use a multi-step form as an example usecase:
+
+1. Input amount
+2. Select accounts
+3. Confirm details
+4. Submit
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+# Part 1 - The Initial Form
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered highlight>
+<section>
+
+# Demo - `Base`
 
 </section>
 </site-presentation-slide>
@@ -116,9 +152,46 @@ type TransferForm = {
 <site-presentation-slide centered>
 <section>
 
-## Interrogate the Model
+# Part 2 - Code is Always Changing
 
-> What questions arise from our model?
+- Adding features to existing code is challenging
+- When our types aren't good, we may not catch some bugs
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered highlight>
+<section>
+
+# Demo - `Bug 1`
+
+- Changing requirements
+- Add a new step to the form
+- Backend requires that amount is in between `0` and `1 000 000`
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered highlight>
+<section>
+
+## Where is the bug?
+
+- During the input validation?
+- Between our state changes?
+- During form submission?
+
+> Loose types make it difficult to track down sources of invalid data
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Investigate the Model
+
+> Can I see the business rules easily from this type alone?
 
 ```ts
 // does this represent a completed form or an in-progress one?
@@ -144,12 +217,9 @@ type TransferForm = {
 <site-presentation-slide centered>
 <section>
 
-# Re-thinking our types
+## Evolving our Types
 
-- Is this _really_ just a `string` or `number`
-- Are these values actually optional
-- Is there some validation that needs to be applied here?
-- Are there relationships with other data?
+> Can we represent our data better so we can more easily follow it through our application?
 
 </section>
 </site-presentation-slide>
@@ -220,10 +290,10 @@ declare const EuroBrand: unique symbol
 
 type Euro = number & { [EuroBrand]: true }
 
-declare const TransferAmounBrand: unique symbol
+declare const TransferAmountBrand: unique symbol
 
 // a transfer amout is a Euro + some validation
-type TransferAmount = Euro & { [TransferAmounBrand]: true }
+type TransferAmount = Euro & { [TransferAmountBrand]: true }
 ```
 
 </section>
@@ -304,47 +374,6 @@ function doSomething(amount: Euro) {
 <site-presentation-slide centered>
 <section>
 
-## Asssertion Functions
-
-Throw if a type requirement is not met, also narrows the type of something
-
-```ts
-function assertTransferAmount(amount: Euro): asserts amount is TransferAmount {
-  if (isTransferAmount(amount)) {
-    return
-  }
-
-  throw new Error("Invalid amount received")
-}
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## Using an Assertion Function
-
-The value we're working with is a valid type after the assertion function has been called
-
-```ts
-function doSomethingOrThrow(amount: Euro) {
-  assertTransferAmount(amount)
-
-  // would have thrown if not a valid TransferAmount
-  const valid: TransferAmount = amount
-
-  console.log(valid.toFixed(2))
-}
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
 # Relationships Between Types
 
 Can we narrow an `account` down more specifically than `string`?
@@ -396,7 +425,7 @@ type PartialData = Partial<Data>
 type RequiredData = Required<Data>
 
 // selects specific properties of data
-type PickedData = Pick<Data, 'ammount' | 'accountFrom'>
+type PickedData = Pick<Data, 'amount' | 'accountFrom'>
 ```
 
 </section>
@@ -448,18 +477,6 @@ const accountReference = reference<AccountModel>
 ```
 
 > If `AccountModel` ever changes, `AccountRef` will also change
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-# Question the Domain
-
-- Is this value _actually_ this type
-- Are there any states I'm not thinking about
-- Are there potential conflicts with how this is used?
 
 </section>
 </site-presentation-slide>
@@ -521,18 +538,57 @@ type TransferForm = {
 <site-presentation-slide centered>
 <section>
 
-# A Detour through the World of Types
+## Update the Types
 
-So far we've covered:
+- Updated all code to use the new model
+- Can we rely on the compiler for any hints about our bug now?
 
-- Branded Types
-- Generic Types
-- Assertion Functions
-- Type Predicates
-- Generic Types
-- Union Types
+</section>
+</site-presentation-slide>
 
-But, before we can model the rest of the process, we need a few more tools
+<site-presentation-slide centered highlight>
+<section>
+
+## My Compiler is Sad
+
+> What do we see here?
+
+```
+✘ [ERROR] TS2345: Argument of type 'undefined' is not assignable to parameter of type 'Confirmation'. [plugin angular-compiler]
+
+    src/app/accounts-service.ts:24:40:
+      24 │     const result = signal<Confirmation>(undefined)
+
+✘ [ERROR] TS2322: Type 'Euro' is not assignable to type 'TransferAmount'.
+  Property '[TransferAmountBrand]' is missing in type 'Number & { [EuroBrand]: true; }' but required in type '{ [TransferAmountBrand]: true; }'. [plugin angular-compiler]
+
+    src/app/amount-step/amount-step.ts:53:25:
+      53 │     this.onSubmit.emit({ amount });
+         ╵                          ~~~~~~
+
+  '[TransferAmountBrand]' is declared here.
+
+    src/app/types.ts:15:38:
+      15 │ export type TransferAmount = Euro & { [TransferAmountBrand]: true };
+         ╵                                       ~~~~~~~~~~~~~~~~~~~~
+
+  The expected type comes from property 'amount' which is declared here on type 'Pick<TransferForm, "amount">'
+
+    src/app/types.ts:47:2:
+      47 │   amount: TransferAmount;
+         ╵   ~~~~~~
+```
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Quick Fixes
+
+- The compiler tells us where something isn't what it expects
+- We can add the necessary validation and initialization
 
 </section>
 </site-presentation-slide>
@@ -1239,22 +1295,6 @@ if (state.name === 'confirmation') {
 <site-presentation-slide centered>
 <section>
 
-# Compiler Guarantees
-
-- Controlled types means the compiler is our tester
-- We don't need to test code with invalid types
-- Scopes tests to specifically
-	- Complex logic
-	- Type-casting code
-
-> Using `any` in your code takes away these guarantees
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
 # Risks
 
 - Types can have a high complexity-density
@@ -1305,7 +1345,6 @@ if (state.name === 'confirmation') {
 - Generic Types
 - Assertion Functions
 - Type Predicates
-- Generic Types
 - Union Types
 
 </section>

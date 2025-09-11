@@ -9,9 +9,9 @@ declare const EuroBrand: unique symbol
 
 type Euro = number & { [EuroBrand]: true }
 
-declare const TransferAmounBrand: unique symbol
+declare const TransferAmountBrand: unique symbol
 
-type TransferAmount = Euro & { [TransferAmounBrand]: true }
+type TransferAmount = Euro & { [TransferAmountBrand]: true }
 
 // We can create a Euro value from any number
 function euro(value: number): Euro {
