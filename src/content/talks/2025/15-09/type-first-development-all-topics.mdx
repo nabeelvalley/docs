@@ -555,15 +555,34 @@ But, before we can model the rest of the process, we need a few more tools
 <site-presentation-slide centered>
 <section>
 
-## Deriving Types
+## The more advanced stuff
 
 Typescript provides us with mechanisms for defining complex types
 
+> TODO not all covered
+
 - `keyof` extracts keys from objects
 - **Mapped types** allow mapping from properties of one type onto another
+  - Key mapping `{ [P in keyof T & string as `on${Capitalize<P>}`]: true }`
+  - Key modifiers `{ readonly [P in K]: true }` or `{ readonly [P in K]?: true }` or `{ readonly [P in K]-?: true }`
 - `extends` checks if a type conforms to another type
 - `infer` lets us infer a precise type from a less precise type
 - **Recursion** enables complex composition of types
+  - Recursion limit: https://www.esveo.com/en/blog/how-to-workaround-the-max-recursion-depth-in-typescript/
+- **Readonly** types 
+- `satisfies`
+- `as const`
+- Implementations of internal types
+  - e.g `ConstructorParameters` with `abstract new(...)`
+  - `intrinsic` keyword 
+    - Why: https://github.com/microsoft/TypeScript/pull/40580
+- Template literal types limitations: https://github.com/microsoft/TypeScript/pull/40336
+- `NoInfer` https://www.totaltypescript.com/noinfer
+- Exceptions to `any`
+- `typeof` and Deriving types from values
+  - https://www.totaltypescript.com/any-considered-harmful#type-argument-constraints
+  - e.g. how we can use `type X = (typeof xs)[number]` then `isX = (maybe): maybe is X => xs.includes(maybe)`
+
 
 > This is all more easily illustrated by example
 
