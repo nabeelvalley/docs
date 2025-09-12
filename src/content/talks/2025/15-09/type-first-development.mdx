@@ -35,22 +35,10 @@ published: false
 <site-presentation-slide centered>
 <section>
 
-# Type-first development with Typescript
-
-- Types as a base
-- Business logic as transformations
-- Compiler guides implementation
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
 # What we're going to talk about
 
 - Why types matter
-- Effectively modeling your models
+- Effectively modeling your data
 - Using types to prevent invalid states
 
 </section>
@@ -253,10 +241,12 @@ type TransferAmount = number //??
 
 ## Branded Types
 
-- A wrapper over primitive values
-- Provides domain context
+- Provides domain context to type
 - Enables more robust validation
 - Do not add runtime overhead
+- Usually consist of
+	- A primitive value
+	- A private brand indicator
 
 </section>
 </site-presentation-slide>
@@ -275,20 +265,6 @@ type TransferAmount = number //??
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide centered>
-<section>
-
-## Defining a Brand
-
-- Do not modify the original object
-- Can be defined in a variety of ways
-- Exist only at the type level
-- Store validation in the type language
-- Usually consist of
-	- A primitive value
-	- A private brand indicator
-
-</section>
 </site-presentation-slide>
 
 <site-presentation-slide centered>
@@ -382,6 +358,40 @@ function doSomething(amount: Euro) {
 
 </section>
 </site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## What about the Confirmation
+
+```ts
+type Confirmation = boolean | undefined
+```
+We don't always need fancy types, usually we just need to think about what we have
+
+- Initially represented as an optional boolean:
+- What if it's undefined? Do we really only have two states?
+- Is `undefined` the same as `false`
+	- Assume that `false === denied` and `undefined === not yet selected`
+
+</section>
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+<section>
+
+## Union Types
+
+- Represents one of a fixed list of types
+- Useful for representing a set of explicit states
+
+```ts
+type Confirmation = 'pending' | 'accepted' | 'denied'
+```
+
+</section>
+</site-presentation-slide>
+
 
 <site-presentation-slide centered>
 <section>
@@ -496,39 +506,6 @@ const accountReference = reference<AccountModel>
 <site-presentation-slide centered>
 <section>
 
-## What about the Confirmation
-
-```ts
-type Confirmation = boolean | undefined
-```
-We don't always need fancy types, usually we just need to think about what we have
-
-- Initially represented as an optional boolean:
-- What if it's undefined? Do we really only have two states?
-- Is `undefined` the same as `false`
-	- Assume that `false == denied` and `undefined == not yet selected`
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
-## Union Types
-
-- Represents one of a fixed list of types
-- Useful for representing a set of explicit states
-
-```ts
-type Confirmation = 'pending' | 'accepted' | 'denied'
-```
-
-</section>
-</site-presentation-slide>
-
-<site-presentation-slide centered>
-<section>
-
 ## The Updated Model
 
 We can define the model we had above a bit more concretely now:
@@ -547,7 +524,7 @@ type TransferForm = {
 </section>
 </site-presentation-slide>
 
-<site-presentation-slide centered>
+<site-presentation-slide centered highlight>
 <section>
 
 ## Update the Types
@@ -612,6 +589,7 @@ type TransferForm = {
 
 - Later on, we do some refactoring
 - We now see that the form ordering is broken for some reason
+- Fix this issue
 
 > Code + Demo running alongside each other
 
@@ -791,7 +769,7 @@ Some tools for highly generic types that are also handy to be aware of:
 <site-presentation-slide centered>
 <section>
 
-## A Note on `any`
+## Using _Any_
 
 > `any` will destroy all benefits of strong types
 
