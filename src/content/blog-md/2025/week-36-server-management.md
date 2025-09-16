@@ -1,5 +1,5 @@
 ---
-title: Week 36, Server Management
+title: Week 37, Server Management
 description: Some utilities that simplify self hosting
 published: false
 feature: false
