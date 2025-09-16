@@ -5,6 +5,10 @@ published: false
 feature: false
 subtitle: 14 September 2025
 ---
+# Off topic
+
+I came across this explainer on the different types of async behavior in JS
+
 *   [https://github.com/traefik/traefik](https://github.com/traefik/traefik)
     
 *   [https://github.com/caddyserver/caddy](https://github.com/caddyserver/caddy)
