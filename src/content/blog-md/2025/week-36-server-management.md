@@ -9,7 +9,11 @@ subtitle: 14 September 2025
 
 I came across [this explainer](https://biomousavi.com/difference-between-process-nexttick-setimmediate-and-settimeout-in-node-js) on the different task queues and related methods in Node.js
 
-## What I Found
+# What I Found
+
+I've been looking into/exploring some solutions for self hosting and had a little exploration/review of some tools with [Kurt Lourens](https://kurtlourens.com/) on some of the tech that's available
+
+## Traefik
 
 *   [https://github.com/traefik/traefik](https://github.com/traefik/traefik)
     
