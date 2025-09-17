@@ -75,7 +75,13 @@ Merging objects together (like `Object.assign`) can be done with `add`
 Arrays can be accessed and indexed as you'd expect from the normal property syntax:
 
 ```jq
-.dependencies | keys
+.dependencies | keys[0]
+```
+
+Or, split via a pipe
+
+```jq
+.dependencies | keys | .[0]
 ```
 
 `keys` will return an array of the keys to us which is a normal JSON array, we can also get the length of this with the `length` function:
