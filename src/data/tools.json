@@ -11,7 +11,7 @@
   },
   {
     "title": "Yazi",
-    "description": "Blazing fast terminal file manager written in Rust, based on async I/O.",
+    "description": "Blazing fast terminal file manager written in Rust, based on async I/O",
     "link": "https://yazi-rs.github.io"
   },
   {
@@ -36,7 +36,7 @@
   },
   {
     "title": "ripgrep",
-    "description": "a command line-oriented search tool that recursively searches the current directory for a regex pattern",
+    "description": "A command line-oriented search tool that recursively searches the current directory for a regex pattern",
     "link": "https://github.com/BurntSushi/ripgrep"
   },
   {
@@ -48,5 +48,15 @@
     "title": "hyperfine",
     "description": "A command-line benchmarking tool",
     "link": "https://github.com/sharkdp/hyperfine"
+  },
+  {
+    "title": "jq",
+    "description": "A lightweight and flexible command-line JSON processor",
+    "link": "https://jqlang.org/"
+  },
+  {
+    "title": "sad",
+    "description": "CLI search and replace | Space Age seD",
+    "link": "https://github.com/ms-jpq/sad?tab=readme-ov-file"
   }
 ]
