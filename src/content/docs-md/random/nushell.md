@@ -179,6 +179,34 @@ Blocks of code are denoted using `{}`, for example:
 each { |it| print $it }
 ```
 
+### Filtering
+
+The most common way to filter data is using `where`, this has a few different ways it can be used
+
+The structure of `where` can be some kind of comparison of the form `where <field> <comparator> <value>`, e.g. `~=` does a "contains" comparison
+
+```sh
+ls | where name =~ "package" 
+```
+
+Alternatively, we can use `$it` to reference to a given input value, like `where <expression>`:
+
+```sh
+ls | where ($it.name | str starts-with "package")
+```
+
+`$it` is used for referencing each row of the input list. If we want to do something more complex, you can also use a closure:
+
+```sh
+ls | where {|i| $i.name | str starts-with "package"}
+```
+
+Or, inferring the the closure param with `$in` to make it easier to type:
+
+```sh
+ls | where {$in.name | str starts-with "package"}
+```
+
 ## Loading Data
 
 ### Open Files
