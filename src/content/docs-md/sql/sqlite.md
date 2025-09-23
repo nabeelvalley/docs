@@ -33,3 +33,4 @@ sqlite> SELECT * FROM Persons;
 
 - [SQLite Docs](https://www.sqlite.org/)
 - [Exercism SQLite Track](https://exercism.org/tracks/sqlite)
+- [SQLite Tutorials](https://www.sqlitetutorial.net/)
