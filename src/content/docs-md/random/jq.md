@@ -115,3 +115,8 @@ Each of these will return an iterator over the array values, so if we do somethi
 ```
 
 We'll get the length of each element as a string, instead of the total length of the array
+
+# References
+
+- [jq Docs](https://jqlang.org/)
+- [Navendu's jq Guide](https://navendu.me/posts/jq-interactive-guide/)
