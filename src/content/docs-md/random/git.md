@@ -526,6 +526,74 @@ Sometimes you may have multiple subdirectories in which you would like repositor
     email = other@email.com
 ```
 
+# Rebasing
+
+Rebasing lets us modify and restructure commits. It's can get kind of messy but is handy for cleaning up commit history for example
+
+Interactive rebasing is the easiest way to go about it in my opinion, this is done by starting a rebase session
+
+Say I've got a branch with the following history:
+
+```sh
+f1d5c91 (HEAD -> example-feature) fix typo
+b5cb5c3 add initial notes
+9ab331d (main) initial commit
+```
+
+And I want to squash the last two commmits. I can do this using `git rebase`. When rebasing like this we can provide the branch we want to rebase on top of:
+
+```sh
+git rebase main -i
+```
+
+Or the commit from which we'd like to start rebasing:
+
+```sh
+git rebase 9ab331d0 -i # this is the first commit, we want to rebase on top of this
+```
+
+We can also reference this hash using:
+
+```sh
+git rebase HEAD~2 -i
+```
+
+Once the rebase session has started, you'll see an editor open with some content like this followed by some instruction on what the different keywords do:
+
+```sh
+pick b5cb5c3 # add initial notes
+pick f1d5c91 # fix typo
+
+# Rebase 9ab331d..f1d5c91 onto 9ab331d (2 commands)
+#
+# Commands:
+# p, pick <commit> = use commit
+# r, reword <commit> = use commit, but edit the commit message
+# e, edit <commit> = use commit, but stop for amending
+# s, squash <commit> = use commit, but meld into previous commit
+# f, fixup [-C | -c] <commit> = like "squash" but keep only the previous
+#                    commit's log message, unless -C is used, in which case
+#                    keep only this commit's message; -c is same as -C but
+#                    opens the editor
+# ...
+```
+
+In our case, let's say we want to combine the `fix typo` commit into the previous commit, we can do this by editing the rebase file with the relevant command. For this we can use `fixup` which will squash the commit into the previous one and keep the previous message. We can edit the rebase file to look like this:
+
+```sh
+pick b5cb5c3 # add initial notes
+fixup f1d5c91 # fix typo
+```
+
+Then, save and close this file - the rebase process will run automatically and prompt you if required, e.g. for doing things like updating the commit messaage
+
+Once we're done rebasing, our log now looks like this:
+
+```sh
+7814a0e (HEAD -> example-feature) add initial notes
+9ab331d (main) initial commit
+```
+
 # Newer Git Stuff
 
 > From [Git Tips and Tricks](https://blog.gitbutler.com/git-tips-and-tricks/)
@@ -602,6 +670,44 @@ Sometimes it's handy to take a git diff/patch from one place and apply it to ano
 2. You can then apply the changes using `git apply` like: `cat mychanges.patch | git apply`
 
 Other handy commands here are `git apply --stat mychanges.patch` to get the status of the patch or `git apply --check mychanges.patch` to dry run/detect errors
+
+# Worktrees
+
+Worktrees help to separate work by effectively having multiple copies of the repository on your drive while maintaining a single git index
+
+## Create a Worktree
+
+Creating a worktree is done from the main repo directory, you can optionally give it a branch name with `-b`. If not provided this will just be the name of the worktree
+
+```sh
+git worktree add ../experiments -b experiment/thing-im-trying
+```
+
+You can then navigate to that directory with
+
+```sh
+cd ../experiments
+```
+
+> Note that you cannot have the same branch on multiple worktrees at the same time - each tree is linked to a specific branch
+
+Since the worktrees are also using the same git index, it's easy to do things like `cherry-pick` commits from branches in other worktrees without pushing it to a remote
+
+## Listing Worktrees
+
+Git can let us view the worktree and will provide us with information about the path and branch checkout out at each tree
+
+```sh
+git worktree list
+```
+
+## Removing Worktrees
+
+Removing a worktree will delete the directory but not the associated branches, this can be done with:
+
+```sh
+git worktree remove ../experiments
+```
 
 # Tools on Top of Git
 
