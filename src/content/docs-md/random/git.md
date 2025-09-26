@@ -709,6 +709,46 @@ Removing a worktree will delete the directory but not the associated branches, t
 git worktree remove ../experiments
 ```
 
+# Reflog
+
+> Some good examples of using the reflog can be found [in this tutorial](https://www.datacamp.com/tutorial/git-reflog)
+
+The reflog tracks all operations that were done in a repository and it enables us to move between those operations
+
+We can use the following command to view the reflog
+
+```sh
+git reflog
+```
+
+And the log will look something like this:
+
+```sh
+692a778 (HEAD -> example-feature) HEAD@{7}: commit: some content
+d834109 (main) HEAD@{8}: checkout: moving from main to example-feature
+d834109 (main) HEAD@{9}: merge example-feature: Fast-forward
+7814a0e HEAD@{10}: checkout: moving from example-feature to main
+d834109 (main) HEAD@{11}: rebase (finish): returning to refs/heads/example-feature
+d834109 (main) HEAD@{12}: rebase (fixup): Add content for special notes
+00e23a8 HEAD@{13}: rebase (reword): Add content for special notes
+0c6d933 HEAD@{14}: rebase: fast-forward
+7814a0e HEAD@{15}: rebase (start): checkout main
+```
+
+We can then move between different points in the history using the `checkout` command:
+
+```sh
+git checkout HEAD@{9}
+```
+
+Which will get the state of the repository at that specific point in time
+
+You can also checkout using time, like so:
+
+```sh
+git checkout HEAD@{1.day.ago}
+```
+
 # Tools on Top of Git
 
 ## LazyGit
