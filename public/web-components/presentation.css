@@ -17,7 +17,9 @@
     font-size: xx-large;
   }
 
-  p, ol, ul {
+  p,
+  ol,
+  ul {
     font-size: 1.2rem;
   }
 
@@ -78,10 +80,14 @@
     &[highlight] {
       background-color: var(--color-brand);
       color: var(--color-on-brand);
+
+      blockquote {
+        border-color: var(--color-on-brand);
+      }
     }
 
-    .presentation-slide-only {
-      display: block;
+    site-presentation-note {
+      display: none;
     }
 
     .astro-code {
@@ -93,7 +99,9 @@
     }
 
     img {
-      max-height: 80vh;
+      width: 100%;
+      max-height: 90vh;
+      max-width: 90vh;
     }
   }
 
@@ -103,18 +111,25 @@
       border-bottom: solid 8px var(--color-brand);
     }
 
-    .presentation-note {
+    site-presentation-note {
+      display: block;
       position: absolute;
       bottom: 24px;
-      opacity: 0.8;
       right: 24px;
       left: 25%;
       z-index: 999;
+
+      opacity: 0.95;
+      background-color: var(--color-on-base);
+      border: solid 4px var(--color-brand);
+      padding: 24px;
+      color: var(--color-base);
+      font-size: xx-large;
     }
   }
 }
 
-.presentation-slide-only {
+site-presentation-note.slide-only {
   display: none;
 }
 
@@ -128,25 +143,4 @@
 
 .presentation-prev {
   transform: translateX(-100%);
-}
-
-.presentation-note {
-  display: none;
-}
-
-.presentation-presenter {
-  .presentation-slide {
-    border: dotted 8px var(--color-brand);
-  }
-
-  /* ensure that notes are visible if presentation mode is active, even if
-   not presenting */
-  .presentation-note {
-    display: block;
-    /* intentionally obnoxios color to draw attention */
-    background-color: crimson;
-    padding: 24px;
-    color: white;
-    font-size: xx-large;
-  }
 }
