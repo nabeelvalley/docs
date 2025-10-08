@@ -48,6 +48,8 @@ When using an array, you can use the `map` function to transform each entry. Map
 .dependencies | to_entries | map({(.key): { name: .key, value: .value }})
 ```
 
+> Maps can also contain other operations and mappings within them - this is basically a new `jq` closure
+
 # Object Entries
 
 Getting the entries from an object can be done with the `to_entries` which returns an object with the shape `{key: K, value: V}`
@@ -115,6 +117,28 @@ Each of these will return an iterator over the array values, so if we do somethi
 ```
 
 We'll get the length of each element as a string, instead of the total length of the array
+
+# Filtering
+
+Filtering can be done using `select` on an iterator, there are a few utilities for this but at it's most basic we can use comparisons to check something like:
+
+```jq
+.tasks[] | select(.label == "important")
+```
+
+# Setting Properties
+
+Sometimes when transforming we may want to just update a specific property, this can be done by piping in an assignment like so:
+
+```jq
+.tasks[] | .label = "do later" 
+```
+
+Additionally, this can reference other data and even pipe on top of other assignments
+
+```jq
+.tasks[] | .oldLabel = .label | .label = "do later" | .done = true
+```
 
 # References
 
