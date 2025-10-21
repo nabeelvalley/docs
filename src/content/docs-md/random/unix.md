@@ -144,3 +144,11 @@ You can get the tail of a file and watch it as it changes using:
 ```sh
 tail -f ./path/to/file
 ```
+
+# Copy to Clipboard
+
+To copy contents to the clipboard you can simlpy pipe it to `pbcopy` like so:
+
+```sh
+cat hello.txt | pbcopy
+```
