@@ -161,6 +161,13 @@ jj bookmark set <bookmark-name>
 
 This command also  allows you to specify which bookmarks or commits you'd like to push using `-b` or `-c` respectively
 
+# Restore a file
+
+Restoring a file will reset the changes made to that file and can be done with:
+
+```sh
+> jj restore path/to/file.txt
+```
 
 # Conflict Resolution
 
