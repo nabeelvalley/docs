@@ -67,6 +67,14 @@ You can also view the diff for changes relative to your current HEAD by using:
 > jj diff
 ```
 
+Diffs can also be done relative to other refs, for example relative to `main` like so:
+
+```sh
+> jj diff --from main@origin
+```
+
+> There are, of course, other flags that are supported to enable additional functionality
+
 # Descriptions
 
 We can add a decription to our working copy with `jj describe`
