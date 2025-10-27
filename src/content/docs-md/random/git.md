@@ -530,6 +530,24 @@ Sometimes you may have multiple subdirectories in which you would like repositor
 
 Rebasing lets us modify and restructure commits. It's can get kind of messy but is handy for cleaning up commit history for example
 
+## Simple Rebase
+
+For a simple rebase, for example changing the target branch or moving some commits up to the latest HEAD of your main branch for example
+
+Rebasing a branch to another branch (e.g. `main`) can be done like so:
+
+```sh
+git rebase main
+```
+
+Another common use of this is to change the target branch, e.g. if I had a branch that was originally targeting `feature/wip` but I want to change it to target `main`, I can do:
+
+```sh
+git rebase --onto main feature/wip
+```
+
+## Complex Rebases
+
 Interactive rebasing is the easiest way to go about it in my opinion, this is done by starting a rebase session
 
 Say I've got a branch with the following history:
