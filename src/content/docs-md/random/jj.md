@@ -179,3 +179,14 @@ jj resolve path/to/file.txt
 
 Which will open a similar tool to the once used for interactive commits
 
+# Basic Workflow
+
+The bookmark concept can be a little tricky when working with git, basically here's a worflow that I find seems to work:
+
+1. Just start doing some work
+2. Use `jj bookmark create <bookmark>` to label your working area
+3. Use `jj describe` to set a description for your working area - this will become the commit message
+4. Use `jj commit` to make a commit
+5. Use `jj git push` to push the bookmark
+6. If you're still working on this bookmark, then you need to move the bookmark back to your working area with `jj bookmark set <bookmark>`
+7. Go back to 1.
