@@ -146,7 +146,7 @@ Updating a bookmark is `jj`'s way of adding a commit to a branch. This is kinda 
 When working relative to a bookmark, you can make changes. After comitting those changes, you can update the current commit to be the new bookmark for that change like so:
 
 ```sh
-jj bookmark set <bookmark-name>
+> jj bookmark set <bookmark-name>
 ```
 
 # Pushing Changes
@@ -174,7 +174,7 @@ Restoring a file will reset the changes made to that file and can be done with:
 `jj` has conflict resolution tooling builtin which can be accessed using `jj resolve` in the case of conflicts. Changes can be resolved using the resolution tool like so:
 
 ```sh
-jj resolve path/to/file.txt
+> jj resolve path/to/file.txt
 ```
 
 Which will open a similar tool to the once used for interactive commits
@@ -192,3 +192,13 @@ The bookmark concept can be a little tricky when working with git, basically her
 5. You can then move the bookmark to it's new location with `jj bookmark set <bookmark> -r@-` (the `@-` refers to the parent commit/revision)
 6. Use `jj git push -b <bookmark>` to push the bookmark
 7. Go back to 1.
+
+# Getting Commit Details
+
+The `jj show` command can be used to get details about a commit or revision. It's also possible to refer to the working area using `@`, which means that information about the current working area can be fetched with:
+
+```sh
+> jj show @
+```
+
+Additionally, the `-T` param can be used with some commands, including the `jj show` command, to structure the output
