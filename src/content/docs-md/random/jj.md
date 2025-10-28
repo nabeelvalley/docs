@@ -6,6 +6,10 @@ description: A Git-compatible version control system
 
 > [jj](https://github.com/jj-vcs/jj) is a Git-compatible version control system. Another useful reference is [Steve's JJ tutorial](https://steveklabnik.github.io/jujutsu-tutorial/introduction/introduction.html) or [JJ for Everyone](https://jj-for-everyone.github.io/)
 
+# Installation and Setup
+
+`jj` supports Nushell, so naturally the configuration and installation is in (the jj installation docs)[https://jj-vcs.github.io/jj/v0.23.0/install-and-setup/#nushell] - this will give some really nice autocomplete for Nushell which is great
+
 # Initializing
 
 To init `jj` in a repo that's currently using git, use:
@@ -189,7 +193,7 @@ The bookmark concept can be a little tricky when working with git, basically her
     2. Use `jj edit <bookmark/commit>` to select a commit to start working from, this is like branching from somewhere else
 3. Use `jj describe` to set a description for your working area - this will become the commit message
 4. Use `jj commit` to make a commit
-5. You can then move the bookmark to it's new location with `jj bookmark set <bookmark> -r@-` (the `@-` refers to the parent commit/revision)
+5. You can then move the bookmark to it's new location with `jj bookmark set <bookmark> -r @-` (the `@-` refers to the parent commit/revision)
 6. Use `jj git push -b <bookmark>` to push the bookmark
 7. Go back to 1.
 
