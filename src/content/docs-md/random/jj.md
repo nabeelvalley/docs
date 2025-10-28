@@ -109,6 +109,16 @@ The working copy can be moved around using `jj edit` and referencing a commit we
 > jj edit 
 ```
 
+# Working from Another Revision
+
+`jj` lets us create a working copy on top of another revision/bookmark, this can be done using `jj new`. Often we'd like to start working relative to some `main` bookmark, this looks like so:
+
+```sh
+> jj new main
+```
+
+This now moves our working copy to be on top of the `main` bookmark. Creating new bookmarks can then be done from this point
+
 # Commits
 
 > With `jj` you probably want to use bookmarks instead of commits
@@ -151,6 +161,12 @@ When working relative to a bookmark, you can make changes. After comitting those
 
 ```sh
 > jj bookmark set <bookmark-name>
+```
+
+We can set the bookmark to a specific revision using the `-r` flag. We can set the current working copy with `@` or the previous commit with `@-`
+
+```sh
+> jj bookmark set <bookmark-name> -r @-
 ```
 
 # Pushing Changes
