@@ -190,5 +190,5 @@ The bookmark concept can be a little tricky when working with git, basically her
 3. Use `jj describe` to set a description for your working area - this will become the commit message
 4. Use `jj commit` to make a commit
 5. You can then move the bookmark to it's new location with `jj bookmark set <bookmark> -r@-` (the `@-` refers to the parent commit/revision)
-6. Use `jj git push` to push the bookmark
+6. Use `jj git push <bookmark>` to push the bookmark
 7. Go back to 1.
