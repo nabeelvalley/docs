@@ -4,7 +4,7 @@ title: JJ
 description: A Git-compatible version control system
 ---
 
-> [jj](https://github.com/jj-vcs/jj) is a Git-compatible version control system. Another useful reference is [Steve's JJ tutorial](https://steveklabnik.github.io/jujutsu-tutorial/introduction/introduction.html)
+> [jj](https://github.com/jj-vcs/jj) is a Git-compatible version control system. Another useful reference is [Steve's JJ tutorial](https://steveklabnik.github.io/jujutsu-tutorial/introduction/introduction.html) or [JJ for Everyone](https://jj-for-everyone.github.io/)
 
 # Initializing
 
