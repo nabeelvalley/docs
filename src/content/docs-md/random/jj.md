@@ -184,9 +184,11 @@ Which will open a similar tool to the once used for interactive commits
 The bookmark concept can be a little tricky when working with git, basically here's a worflow that I find seems to work:
 
 1. Just start doing some work
-2. Use `jj bookmark create <bookmark>` to label your working area
+2. Branching is done with either:
+    1. Use `jj bookmark create <bookmark>` to label your working area as a new branch (this is from your current location in the tree)
+    2. Use `jj edit <bookmark/commit>` to select a commit to start working from, this is like branching from somewhere else
 3. Use `jj describe` to set a description for your working area - this will become the commit message
 4. Use `jj commit` to make a commit
-5. Use `jj git push` to push the bookmark
-6. If you're still working on this bookmark, then you need to move the bookmark back to your working area with `jj bookmark set <bookmark>`
+5. You can then move the bookmark to it's new location with `jj bookmark set <bookmark> -r@-` (the `@-` refers to the parent commit/revision)
+6. Use `jj git push` to push the bookmark
 7. Go back to 1.
