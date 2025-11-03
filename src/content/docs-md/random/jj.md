@@ -116,10 +116,10 @@ The working copy can be moved around using `jj edit` and referencing a commit we
 Rebasing can be done using `jj rebase` which allows you to move commits around. The simplest usecase for this is to move your working copy to a different bookmark, for example - moving the working copy to `main` can be done like so:
 
 ```sh
-> jj rebase -r @ -A main
+> jj rebase -r @ -d main
 ```
 
-> This moves `@` (the working copy) to `-A` (after) the `main` bookmark, effectively letting you "checkout" the main branch
+> This moves `@` (the working copy) to `-d` (destination) the `main` bookmark, effectively letting you "checkout" the main branch
 
 Generally using `jj rebase`, `jj new`, or `jj edit` are how you would "checkout" a bookmark, depending on the current state of your working copy and your intended change
 
