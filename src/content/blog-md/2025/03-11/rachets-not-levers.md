@@ -1,5 +1,5 @@
 ---
-title: Snippet: Rachets, not Levers - Chris Krycho
+title: "Snippet: Rachets, not Levers - Chris Krycho"
 description: Quote from Chris Krycho
 subtitle: 03 November 2025
 ---
