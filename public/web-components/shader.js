@@ -53,43 +53,60 @@ export async function setupCanvas(
     },
   })
 
-  const renderPassDescriptor = {
-    label: 'render pass descriptor',
-    colorAttachments: [
-      {
-        loadOp: 'clear',
-        storeOp: 'store',
-        clearValue: [0, 0, 0, 0],
-        view: ctx.getCurrentTexture().createView(),
-      },
-    ],
-  }
+    const uTime = device.createBuffer({
+      size: [4],
+      // @ts-ignore
+      usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
+    })
 
-  const bindGroup = device.createBindGroup({
-    layout: pipeline.getBindGroupLayout(0),
-    entries: [],
-  })
+  let curr = 1
 
   /**
    * @param {string} [saveTo]
    */
-  const render = (saveTo) => {
-    requestAnimationFrame(() => {
-      const encoder = device.createCommandEncoder({ label: 'command encoder' })
-      const pass = encoder.beginRenderPass(renderPassDescriptor)
-      pass.setPipeline(pipeline)
-      pass.setBindGroup(0, bindGroup)
+  function render(saveTo) {
+    curr += 0.1
 
-      pass.draw(6) // call our vertex shader 6 times
-      pass.end()
 
-      const commandBuffer = encoder.finish()
-      device.queue.submit([commandBuffer])
-      if (saveTo) {
-        // saving must be done during the render
-        downloadCanvas(canvas, saveTo)
-      }
+    // https://stackoverflow.com/questions/70284258/destroyed-texture-texture-used-in-a-submit-when-using-a-video-texture-in-ch
+    // render pass descriptor needs to be recreated since this doesn't live very long on the GPU
+    const renderPassDescriptor = {
+      label: 'render pass descriptor',
+      colorAttachments: [
+        {
+          loadOp: 'clear',
+          storeOp: 'store',
+          clearValue: [0, 0, 0, 0],
+          view: ctx.getCurrentTexture().createView(),
+        },
+      ],
+    }
+
+    const bindGroup = device.createBindGroup({
+      layout: pipeline.getBindGroupLayout(0),
+      entries: [{
+        binding: 0,
+        resource: { buffer: uTime }
+      }],
     })
+
+    const encoder = device.createCommandEncoder({ label: 'command encoder' })
+    const pass = encoder.beginRenderPass(renderPassDescriptor)
+
+    pass.setPipeline(pipeline)
+    pass.setBindGroup(0, bindGroup)
+
+    device.queue.writeBuffer(uTime, 0, new Float32Array([curr]));
+
+    pass.draw(6) // call our vertex shader 6 times
+    pass.end()
+
+    const commandBuffer = encoder.finish()
+    device.queue.submit([commandBuffer])
+    if (saveTo) {
+      // saving must be done during the render
+      downloadCanvas(canvas, saveTo)
+    }
   }
 
   return render

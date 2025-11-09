@@ -29,9 +29,12 @@
       return vsOutput;
     }
 
+    @group(0) @binding(0) var<uniform> uTime: f32;
+    
     @fragment fn fs(fsInput: VertexOutput) -> @location(0) vec4f {
-      var input__result = fsInput;
-      return vec4f(0.0, 1.0, 0.0, 1.0);
+      var red = abs(sin(uTime/10.0)) * fsInput.texcoord.x;
+      var blue = abs(cos(uTime/5.0)) * fsInput.texcoord.y;
+      return vec4f(red, 0.0, blue, 1.0);
     }
   </script>
 </site-shader-canvas>

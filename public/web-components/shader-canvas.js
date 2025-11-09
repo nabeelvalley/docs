@@ -52,7 +52,14 @@ class ShaderCanvas extends HTMLElement {
 
     const render = await setupCanvas(this.#canvas, this.#script.innerText)
 
-    render?.()
+    function renderLoop() {
+      requestAnimationFrame(() => {
+        render?.()
+        renderLoop()
+      })
+    }
+
+    renderLoop()
   }
 }
 
