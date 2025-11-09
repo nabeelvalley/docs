@@ -53,11 +53,11 @@ export async function setupCanvas(
     },
   })
 
-    const uTime = device.createBuffer({
-      size: [4],
-      // @ts-ignore
-      usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
-    })
+  const uTime = device.createBuffer({
+    size: [4],
+    // @ts-ignore
+    usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
+  })
 
   let curr = 1
 
