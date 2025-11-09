@@ -9,6 +9,15 @@
     "link": "/blog/2025/09-11/coat-rack"
   },
   {
+    "title": "Unnamed WebGPU Shader Based Image Editor",
+    "description": "A very complicated way to edit your images",
+    "tags": [
+      "shaders",
+      "photography"
+    ],
+    "link": "/blog/2024/24-08/unintentionally-made-a-programming-language"
+  },
+  {
     "title": "Déjà vu",
     "description": "Developers don't read documentation. Just bring it to them instead.",
     "tags": [

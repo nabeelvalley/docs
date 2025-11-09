@@ -2,9 +2,258 @@
 title: Shader Web Component
 subtitle: 09 November 2025
 description: Example of a web component for rendering Web GPU Shaders
-published: false
 ---
 
 import Example from './example.astro'
 
+So I want to use some more shaders and I want to also migrate everything over to use `wgsl` instead of `glsl` but it's kinda annoying to set them up every time so I made a little web component for using them, this is very much a work-in-progress, but here's it in action:
+
 <Example />
+
+Using the component looks like so:
+
+```html title="page.html"
+<script type="module" src="/web-components/shader-canvas.js"></script>
+
+<site-shader-canvas>
+  <canvas />
+  <script type="text/wgsl">
+    struct VertexOutput {
+      @builtin(position) position: vec4f,
+      @location(0) texcoord: vec2f,
+    };
+
+    @vertex fn vs(
+      @builtin(vertex_index) vertexIndex : u32
+    ) -> VertexOutput {
+      const pos = array(
+        vec2( 1.0,  1.0),
+        vec2( 1.0, -1.0),
+        vec2(-1.0, -1.0),
+        vec2( 1.0,  1.0),
+        vec2(-1.0, -1.0),
+        vec2(-1.0,  1.0),
+      );
+
+      var vsOutput: VertexOutput;
+  
+      let xy = pos[vertexIndex];
+      vsOutput.texcoord = pos[vertexIndex] * vec2f(0.5, 0.5) + vec2f(0.5);
+      vsOutput.position = vec4f(pos[vertexIndex], 0, 1);
+
+      return vsOutput;
+    }
+
+    @group(0) @binding(0) var<uniform> uTime: f32;
+    
+    @fragment fn fs(fsInput: VertexOutput) -> @location(0) vec4f {
+      var red = abs(sin(uTime/10.0)) * fsInput.texcoord.x;
+      var blue = abs(cos(uTime/5.0)) * fsInput.texcoord.y;
+      return vec4f(red, 0.0, blue, 1.0);
+    }
+  </script>
+</site-shader-canvas>
+```
+
+The component code is:
+
+```js title="/shader-canvas.js"
+// @ts-check
+import { setupCanvas } from './shader.js'
+
+class ShaderCanvas extends HTMLElement {
+  static observedAttributes = ['centered', 'highlight', 'large']
+
+  /** type {MutationObserver} */
+  #observer
+
+  /** @type {HTMLCanvasElement} */
+  #canvas
+
+  /** @type {HTMLScriptElement} */
+  #script
+
+  constructor() {
+    super()
+    this.#observer = new MutationObserver(() => this.#initialize())
+    this.#observer.observe(this, { childList: true })
+  }
+
+  disconnectedCallback() {
+    this.#observer.disconnect()
+  }
+
+  connectedCallback() {
+    this.#initialize()
+  }
+
+  async #initialize() {
+    console.log('here')
+    const initialized = this.#canvas && this.#script
+    if (initialized) {
+      return
+    }
+
+    const canvas = this.querySelector('canvas')
+
+    /** @type {HTMLScriptElement} */
+    const script = this.querySelector('script[type="text/wgsl"]')
+
+    if (!(script && canvas)) {
+      return
+    }
+
+    this.#observer.disconnect()
+
+    this.#canvas = canvas
+    this.#script = script
+
+    console.log(canvas, script)
+
+    const render = await setupCanvas(this.#canvas, this.#script.innerText)
+
+    function renderLoop() {
+      requestAnimationFrame(() => {
+        render?.()
+        renderLoop()
+      })
+    }
+
+    renderLoop()
+  }
+}
+
+customElements.define('site-shader-canvas', ShaderCanvas)
+```
+
+And the code for actually doing the shader rendering pipeline is and is a heavily simplified version of what I'm currently using for my [Image Editor](/blog/2024/24-08/unintentionally-made-a-programming-language)
+
+```js title="shader.js"
+// @ts-check
+
+/**
+ * @param {HTMLCanvasElement} canvas
+ * @param {string} shader - WebGPU Shader
+ * @returns {Promise<((saveTo?: string) => void) | undefined>} renderer function. Will be `undefined` if there is an instantiation error
+ */
+export async function setupCanvas(
+  canvas,
+  shader,
+) {
+  // @ts-ignore
+  const adapter = await navigator.gpu?.requestAdapter()
+  const device = await adapter?.requestDevice()
+  if (!device) {
+    return
+  }
+
+
+  /**
+   * @type {any}
+   */
+  const ctx = canvas?.getContext('webgpu')
+  if (!ctx) {
+    return
+  }
+
+  // @ts-ignore
+  const format = navigator.gpu.getPreferredCanvasFormat()
+  ctx.configure({
+    device,
+    format,
+  })
+
+  const module = device.createShaderModule({
+    label: 'base shader',
+    code: shader,
+  })
+
+  const pipeline = device.createRenderPipeline({
+    label: 'render pipeline',
+    layout: 'auto',
+    vertex: {
+      module,
+    },
+    fragment: {
+      module,
+      targets: [
+        {
+          format,
+        },
+      ],
+    },
+  })
+
+  const uTime = device.createBuffer({
+    size: [4],
+    // @ts-ignore
+    usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
+  })
+
+  let curr = 1
+
+  /**
+   * @param {string} [saveTo]
+   */
+  function render(saveTo) {
+    curr += 0.1
+
+
+    // https://stackoverflow.com/questions/70284258/destroyed-texture-texture-used-in-a-submit-when-using-a-video-texture-in-ch
+    // render pass descriptor needs to be recreated since this doesn't live very long on the GPU
+    const renderPassDescriptor = {
+      label: 'render pass descriptor',
+      colorAttachments: [
+        {
+          loadOp: 'clear',
+          storeOp: 'store',
+          clearValue: [0, 0, 0, 0],
+          view: ctx.getCurrentTexture().createView(),
+        },
+      ],
+    }
+
+    const bindGroup = device.createBindGroup({
+      layout: pipeline.getBindGroupLayout(0),
+      entries: [{
+        binding: 0,
+        resource: { buffer: uTime }
+      }],
+    })
+
+    const encoder = device.createCommandEncoder({ label: 'command encoder' })
+    const pass = encoder.beginRenderPass(renderPassDescriptor)
+
+    pass.setPipeline(pipeline)
+    pass.setBindGroup(0, bindGroup)
+
+    device.queue.writeBuffer(uTime, 0, new Float32Array([curr]));
+
+    pass.draw(6) // call our vertex shader 6 times
+    pass.end()
+
+    const commandBuffer = encoder.finish()
+    device.queue.submit([commandBuffer])
+    if (saveTo) {
+      // saving must be done during the render
+      downloadCanvas(canvas, saveTo)
+    }
+  }
+
+  return render
+}
+
+/**
+ * @param {HTMLCanvasElement} canvas
+ * @param {string} name
+ */
+function downloadCanvas(canvas, name) {
+  const data = canvas.toDataURL('image/png')
+  const link = document.createElement('a')
+
+  link.download = name.split('.').slice(0, -1).join('.') + '.png'
+  link.href = data
+  link.click()
+  link.parentNode?.removeChild(link)
+}
+```
