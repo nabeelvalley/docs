@@ -1,5 +1,14 @@
 [
   {
+    "title": "Coat Rack",
+    "description": "a Cloud for people who don't like clouds",
+    "tags": [
+      "platform",
+      "cloud"
+    ],
+    "link": "/blog/2025/09-11/coat-rack"
+  },
+  {
     "title": "Déjà vu",
     "description": "Developers don't read documentation. Just bring it to them instead.",
     "tags": [
