@@ -407,12 +407,38 @@ So this may look like so:
 git diff feature/stuff -- src/stuff/my-stuff.html
 ```
 
-# Checkout Previous Branch
+# Checkout/Switch Branches
+
+> Checking out/switching are similar taks with `switch` being the "newer" way to do things
+
+There are some alternative methods for checking out branches depending on what you want to do:
+
+## Checkout/Switch from Current Branch
+
+You can branch from your current branch with:
+
+```sh
+git checkout -b feature/my-new-branch
+```
+
+## Checkout/Switch from a Different Branch
+
+Or you can checkout from another branch (e.g. `main`) without switching to it first, this can be done with:
+
+```sh
+# you may want to update your local copy of `main` first
+git fetch origin main:main
+
+# and then switch to it
+git switch -c feature/my-new-branch main
+```
+
+# Checkout/Switch to Previous Branch
 
 When switching branches, we can easily go to the last branch we were on using:
 
 ```sh
-git checkout -
+git switch -
 ```
 
 # Get Commit Changes from another Branch (Cherry Picking)
