@@ -793,6 +793,14 @@ You can also checkout using time, like so:
 git checkout HEAD@{1.day.ago}
 ```
 
+# Rerere
+
+Git has a setting called `rerere` (reuse recorded resolution) which helps reduce the need to constantly re-resolve conflicts. This can be enabled with:
+
+```sh
+git config --global rerere.enabled true
+```
+
 # Tools on Top of Git
 
 ## LazyGit
