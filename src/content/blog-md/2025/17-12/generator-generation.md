@@ -6,21 +6,21 @@ subtitle: 17 December 2025
 description: Converting callback based APIs into Async Generators in JavaScript/Typescript
 ---
 
-So I was just going to write a short post about this handy function I made but I thought it would be a nice opportunity to build a little bit more of an understanding around the topic of generators more broadly.
+So I was just going to write a short post about this handy function I made, but I thought it would be a nice opportunity to build a little bit more of an understanding around the topic of generators more broadly
 
-Our end goal is going to be to define an abstraction that will allow us to convert any Callback-Based API into an Async Generator. Now, if those words don't mean much to you then welcome to the other side of JavaScript. If you're just here for the magic function however - feel free to skip to the end
+Our end goal is going to be to define an abstraction that will allow us to convert any Callback-Based API into an Async Generator. Now, if those words don’t mean much to you, then welcome to the other side of JavaScript. If you’re just here for the magic function, however, feel free to skip to the end
 
 # Promises
 
 Before diving into the complexity of generators, we're going to quickly kick off with a little introduction to `Promises` and how they relate to `async/await` and callback code
 
-Promises are used to make async code easier to work with and JavaScript has some nice syntax - like `async/await` that makes code using promises easier follow and understand. They're also the common way to represent async operations which is exactly what we're going to use them for.
+Promises are used to make async code easier to work with and JavaScript has some nice syntax - like `async/await` that makes code using promises easier follow and understand. They're also the common way to represent async operations which is exactly what we're going to use them for
 
 Before we can dive right into implementing our function for creating an `AsyncGenerator` from a callback based API, it's important to understand how we might go about wrapping a callback based API into a `Promise`
 
 ## Creating Promises from Callbacks
 
-Often we end up in cases where we've got some code that is callback based - this is a function, for example `setTimeout`, that will invoke the rest of our code asynchronously when some task is done or event is received. 
+Often we end up in cases where we've got some code that is callback based - this is a function, for example `setTimeout`, that will invoke the rest of our code asynchronously when some task is done or event is received
 
 A simple example of a callback based function is `setTimeout` which will resume the execution of our code after some specified amount of time:
 
@@ -30,7 +30,7 @@ setTimeout(() => {
 }, 1000)
 ```
 
-A common usecase is to convert this to a `Promise` so that consumers can work with this using `async` functions and `await`ing the relevant function call.
+A common usecase is to convert this to a `Promise` so that consumers can work with this using `async` functions and `await`ing the relevant function call
 
 The basic method for doing this consists of returning a `Promise` and handling the rejection or resolution within the callback. For example, we can create a promise-based version of `setTimeout` using this approach:
 
@@ -57,7 +57,7 @@ await sleep(1000)
 console.log('done')
 ```
 
-Granted, this isn't a huge difference - the value of this comes from when we have multiple of these kinds of calls nested within each other. Callback code is notorious for it's tendency towards chaos. My rule of thumb on this is basically "less indentation is easier to understand". And if we can avoid indentation and keep our code flat we can focus on the essential complexity of our application and not the cognitive load that comes with confusing scope, syntax, and callbacks.
+Granted, this isn't a huge difference - the value of this comes from when we have multiple of these kinds of calls nested within each other. Callback code is notorious for its tendency towards chaos. My rule of thumb on this is basically "less indentation is easier to understand". And if we can avoid indentation and keep our code flat we can focus on the essential complexity of our application and not the cognitive load that comes with confusing scope, syntax, and callbacks
 
 This is such a common problem in the JavaScript world, that Node.js even has a builtin function `node:util` called `promisify` that converts Node.js style callback functions into promise-based ones
 
@@ -74,7 +74,7 @@ async function doWork(){
 }
 ```
 
-The `doWork` function returns `Promise`, this is because the `async` keyword is some syntax sugar for creating a `Promise`.
+The `doWork` function returns `Promise`, this is because the `async` keyword is some syntax sugar for creating a `Promise`
 
 ## Promises vs Async
 
@@ -98,7 +98,7 @@ function getNumber() {
 
 ## Promise.withResolvers
 
-Another pattern that often comes us is the need to reach into the `Promise` constructor and grab onto it's `resolve` and `reject` methods and pass them around so that we can "remotely" compelete a `Promise`, as per MDN, the common pattern for doing this looks something like so:
+Another pattern that often comes us is the need to reach into the `Promise` constructor and grab onto its `resolve` and `reject` methods and pass them around so that we can "remotely" compelete a `Promise`, as per MDN, the common pattern for doing this looks something like so:
 
 ```ts
 function withResolvers<T>() {
@@ -123,11 +123,11 @@ Now that we've got an understanding of Promises, it's time to talk about Iterato
 
 # Iterators and Generators
 
-Iterators and generators enable iteration to work in JavaScript and are what lies behind objects that are iterable by way of a `for ... of` loop.
+Iterators and generators enable iteration to work in JavaScript and are what lies behind objects that are iterable by way of a `for ... of` loop
 
 ## Iterator
 
-An iterator is basically an object that will return a new value whenever it's `next` method is called.
+An iterator is basically an object that will return a new value whenever its `next` method is called
 
 A simple iterator can be defined as an object that has a `next` method that returns whether it's `done` or not.
 
@@ -263,7 +263,7 @@ for await (const v of countToAsync(5)) {
 }
 ```
 
-Interesting right? We're now using a `for await ... of` loop. If you were to run this, you'd also notice that there's a little pause between each value being logged.
+Interesting right? We're now using a `for await ... of` loop. If you were to run this, you'd also notice that there's a little pause between each value being logged
 
 # Unwrapping the Generator
 
@@ -347,7 +347,7 @@ Just like when defining the Async Generator before, we're just calling `sleep` b
 
 # Creating Generators from Callback Functions
 
-Well, it's been a long way, but we finally have all the tools we need to turn a callback based method into an iterator. So far, we've been using `setTimeout` for our callbacks, but generators return multiple values. We're going to create a little modified version of `setInterval` for this so that we can play around.
+Well, it's been a long way, but we finally have all the tools we need to turn a callback based method into an iterator. So far, we've been using `setTimeout` for our callbacks, but generators return multiple values. We're going to create a little modified version of `setInterval` for this so that we can play around
 
 The version we'll define is called `countInterval` and will emit a new number until the given value and then stop, this looks like so:
 
