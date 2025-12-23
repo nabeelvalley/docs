@@ -25,25 +25,25 @@ e.g. Given some set of items that are connected in a network
 
 In the above example we have some items that are connected. In the above set we can ask a question like "Is 3 connected to 9"
 
-# Implementation
+## Implementation
 
 In the implementation of the Union Find we will use a `UnionFind` data type that has `union` and `connected` methods
 
 <Snippet path="algorithms/union-find/interface.ts" />
 
-## Quick Find
+### Quick Find
 
 An implementation can be seen below:
 
 <Snippet path="algorithms/union-find/quick-find.ts" />
 
-## Quick Union
+### Quick Union
 
 Quick union is an implementation of union find that uses a tree to represent the data structure. In this implementation instead of storing the representative group we store the connections as a forest where each connected set is a tree
 
 <Snippet path="algorithms/union-find/quick-union.ts" />
 
-## Weighted Quick Union
+### Weighted Quick Union
 
 What slows down the quick union is traversing up through a long tree. THe idea here is to avoid tall trees, to do this we need to:
 
@@ -54,7 +54,7 @@ What slows down the quick union is traversing up through a long tree. THe idea h
 
 For this algorithm the depth of any node should be at most `lg N` (lg is shorthand for Log with base 2)
 
-## Weighted Quick Union with Path Compression
+### Weighted Quick Union with Path Compression
 
 By modifying the implementation to update the root of any item we read as we read it we can save a lot of read iterations in the future by updating each non-root node to move it a level up when we read it:
 
@@ -62,7 +62,7 @@ By modifying the implementation to update the root of any item we read as we rea
 
 Since we have flattened the tree at every pass the union time of this agorithm makes it less than `N + M lg* N` (lg\* is a super small value)
 
-# Complexity
+## Complexity
 
 | algorithm               | init | union       | find |
 | ----------------------- | ---- | ----------- | ---- |

@@ -8,7 +8,7 @@ A multi stage build is pretty much what it sounds like - It is a docker build wh
 In the below image on the first line we can see that we create the initial image using `FROM node:8` and call it `install-packages`. Therefter we install the application dependencies. Next in the production stage we start to build the second image, `FROM node:8` once again, however note that in the `COPY` lines we make use of a `--from=install-packages` flag which indicates that we should copy the files from the `install-packages` image instead of the local machine as we normally would do. The resulting image is the Production image. The Installation phase layers are discarded hence resulting in a smaller overall image without the unecessary build dependencies
 
 ```Dockerfile
-# Install Node Modules
+## Install Node Modules
 FROM node:8 as install-packages
 
 COPY app/package.json ./app/package.json
@@ -26,7 +26,7 @@ COPY app ./app
 WORKDIR /app
 RUN yarn build
 
-# Build Production Image
+## Build Production Image
 FROM node:8
 
 WORKDIR /

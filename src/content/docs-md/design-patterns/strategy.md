@@ -11,9 +11,9 @@ The strategy pattern defines a family of algorithms, encapsulates each one, and 
 
 This works by creating an object which wraps the behaviour we want to implement in a family of classes, allowing clients to choose which behaviour they would like to implement by referencing the interface that these behaviours implement.
 
-# Example
+## Example
 
-## Definition of Classes
+### Definition of Classes
 
 ```cs
 namespace DesignPatterns.Strategy
@@ -62,7 +62,7 @@ namespace DesignPatterns.Strategy
 }
 ```
 
-## Usage
+### Usage
 
 ```cs
 var user = new User(new LocalLoginStrategy()) {
@@ -79,7 +79,7 @@ user.SetLoginStrategy(new RemoteLoginStrategy());
 user.Login();
 ```
 
-# References
+## References
 
 - [Strategy Pattern - Christopher Okhravi](https://www.youtube.com/watch?v=v9ejT8FO-7I&list=PLrhzvIcii6GNjpARdnO4ueTUAVR9eMBpc)
 - [Strategy in C# - Refactoring Guru](https://refactoring.guru/design-patterns/strategy/csharp/example#:~:text=Strategy%20is%20a%20behavioral%20design,delegates%20it%20executing%20the%20behavior.)

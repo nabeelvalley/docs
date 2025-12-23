@@ -4,14 +4,14 @@ title: Mongo DB in Docker
 subtitle: Run a MongoDB Instance with Docker or Docker Compose
 ---
 
-# Considerations
+## Considerations
 
 To run MongDB in a Docker Container there are a few things to take note of:
 
 - You may need to configure auth
 - Volume storage to be set up
 
-# From Terminal
+## From Terminal
 
 To run a Docker container using a single command in the terminal you can run the following command:
 
@@ -25,7 +25,7 @@ You can also specify additional information like the volumes you would like to u
 docker run -d -p 27017:27017
 ```
 
-# From Compose
+## From Compose
 
 > More info can be found [here](https://medium.com/faun/managing-mongodb-on-docker-with-docker-compose-26bf8a0bbae3)
 

@@ -7,14 +7,14 @@ description: Docker Reference and Introductory information
 
 [Based on this Cognitive Class Course](https://courses.cognitiveclass.ai/courses/course-v1:IBMDeveloperSkillsNetwork+CO0101EN+v1/info)
 
-# Prerequisites
+## Prerequisites
 
 - Docker
 - WSL2 for Windows (ideally) (if using Windows)
 
-# Run a Container
+## Run a Container
 
-## Introduction
+### Introduction
 
 Containers are a group of processes that run in isolation, these processes must all be able to run on a shared kernel
 
@@ -22,7 +22,7 @@ Virtual machines are heavy and include an entire operating system, whereas with 
 
 Docker is a toolset to manage containers and integrate into our CI/CD pipelines. This allows us to ensure that all our running environments are identical. Furthermore Docker provides a standard interface for developers to work with
 
-## Running a Container
+### Running a Container
 
 To run a container on our local machine we use the Docker CLI
 
@@ -83,17 +83,17 @@ To get out of our container and back to our host we run
 exit
 ```
 
-## Running Multiple Containers
+### Running Multiple Containers
 
 Just run another container, basically
 
-### Ngix
+#### Ngix
 
 ```bash
 docker container run --detach --publish 8080:80 --name nginx nginx
 ```
 
-### Mongo
+#### Mongo
 
 ```bash
 docker container run --detach --publish 8081:27017 --name mongo mongo:3.4
@@ -116,7 +116,7 @@ It is important to remember that each container includes all the dependencies th
 
 A list of available Docker images can be found [here](https://store.docker.com/search?type=image&source=community)
 
-## Remove Containers
+### Remove Containers
 
 We can stop containers with
 
@@ -132,9 +132,9 @@ Then remove all stopped containers with
 docker system prune
 ```
 
-# CI/CD with Docker Images
+## CI/CD with Docker Images
 
-## Introduction
+### Introduction
 
 A Docker image is an archive of a container that can be shared and containers can be created from them
 
@@ -144,7 +144,7 @@ To create an image we use a Dockerfile which has instructions on how to build ou
 
 Docker is made of layers, image layers are build on top of the layers before them, based on this we only need to update or rebuild layers that are changed or need to be updated, based on this we try to keep the area where we are making modifications to the bottom of our Dockerfile in order to prevent unnecessary layers from being rebuilt constantly
 
-## Create a Python App
+### Create a Python App
 
 Make a simple python app in a directory that you want your app to be in which contains the following
 
@@ -165,7 +165,7 @@ This app will simply use Flask to expose a web server on port 5000 \(the default
 
 > Note that the concepts used for this app can be used for any application in any language
 
-## Create and Build the Docker Image
+### Create and Build the Docker Image
 
 Create a file named `Dockerfile` in the same directory with the following contents
 
@@ -223,7 +223,7 @@ We can view our container logs with
 docker container logs <CONTAINER ID>
 ```
 
-## Push to a Central Registry
+### Push to a Central Registry
 
 We can push our docker images to Docker Hub by logging in, tagging our image with our username, and then pushing the image
 
@@ -239,7 +239,7 @@ Thereafter we can log into Docker Hub via our browser and see the image
 
 ![Image on Docker Hub](/content/docs/assets/image%20%287%29.png)
 
-## Deploy a Change
+### Deploy a Change
 
 We can modify our `app.py` file and simply rebuild and push our update
 
@@ -254,7 +254,7 @@ We can view the history of our image with
 docker image history python-hello-world
 ```
 
-## Removing Containers
+### Removing Containers
 
 We can remove containers the same as before
 
@@ -263,15 +263,15 @@ docker container stop <CONTAINER IDS>
 docker system prune
 ```
 
-# Container Orchestration with Swarm
+## Container Orchestration with Swarm
 
-## Introduction
+### Introduction
 
 Orchestration addresses issues like scheduling and scaling, service discovery, server downtime, high availibility, A/B testing
 
 Orchestration solutions work by us declaring our desired state and it maintaining that state
 
-## Create a Swarm
+### Create a Swarm
 
 We will be using [Play-With-Docker](https://labs.play-with-docker.com/) for this part
 
@@ -305,7 +305,7 @@ docker node ls
 
 ![Complete Swarm](/content/docs/assets/image%20%2830%29.png)
 
-## Deploy a Service
+### Deploy a Service
 
 On node 1 we can create an ngix service
 
@@ -331,7 +331,7 @@ Because of the way the swarm works, if we send a request for a specific service,
 curl localhost:80
 ```
 
-## Scale the Service
+### Scale the Service
 
 If we want to replicate our service instances we can do so with
 
@@ -359,7 +359,7 @@ We can view our service logs with
 docker service logs ngix1
 ```
 
-## Rolling Updates
+### Rolling Updates
 
 We can do a rolling update of a service with
 
@@ -378,11 +378,11 @@ After a while we can view our ngix service instances to see that they have been 
 docker service ps nginx1
 ```
 
-## Reconciliation
+### Reconciliation
 
 Docker Swarm will automatically manage the state we tell it to, for example if a node goes down it will automatically create a new one to replace it
 
-## How Many Nodes?
+### How Many Nodes?
 
 We typically aim to have between three and seven manager nodes, in order to correctly apply the consensus algorithm, which requires more than half our nodes to be in agreement of state, the following is advised
 

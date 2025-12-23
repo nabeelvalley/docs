@@ -7,9 +7,9 @@ description: Introduction to building Android apps using the Kotlin Programming 
 
 > From [this Udacity Corse](https://classroom.udacity.com/courses/ud9012)
 
-# Building your First App
+## Building your First App
 
-## Create a Project
+### Create a Project
 
 To get started you will need to first install Android Studio and an Emulator if needed
 
@@ -23,7 +23,7 @@ To get started create a new Android Studio Project with the following settings, 
 | Minimum API Level | API Level 19: Android 4.4         |
 |                   | Use `androidx.*` artifacts        |
 
-## Set up an Emulator
+### Set up an Emulator
 
 1. In the debug toolbar click `Run (Green Play Button) > Add new Virtual Device` And select the `Pixel 2 with Play Store` and then select the newest API Emulator after downloading the image
 2. Once the Emulator is downloaded you can select it
@@ -31,7 +31,7 @@ To get started create a new Android Studio Project with the following settings, 
 
 > To use an app on your device configure the debugging [See Intro To Android Notes](/docs/android/introduction-to-androidd#Running-the-App)
 
-## What's in an App
+### What's in an App
 
 The application when using the `Android` project view, if you look at the application there are the following folders
 
@@ -93,7 +93,7 @@ The `R.layout.activity_main` is the layout that is being used, in the Layout fil
 
 The above layout can be previewed on Android Studio, but is essentially a `ConstraintLayout` with just a `TextView` in the center. The different nodes in the Layout file are called `Views`, there are many types of views
 
-## Update the Layout
+### Update the Layout
 
 For our first layout we'll use a `LinearLayout` with an Image and Button in it. For now just replace the current View COntents with:
 
@@ -153,7 +153,7 @@ Lastly double click on the word Roll, and a lightbulb should appear in the menu,
 
 We can then reference it in the layout by replacing `Roll` with `@string/roll`
 
-## Handle the Button
+### Handle the Button
 
 In order for us to access objects in the layout file we need to have a way to refer to the different elements, we can do this by searching for the relevant layout item. To make this easy we can define an ID for a view and this is generated as a constant in the `R` class and we can use `findViewById` in the Kotlin code and we can access this object
 
@@ -206,7 +206,7 @@ rollButton.setOnClickListener { handleDiceRoll() }
 
 Clicking the button now should display a random number
 
-## Use an Image
+### Use an Image
 
 First, download all the images from [here](https://github.com/udacity/andfun-kotlin-dice-roller/raw/master/DiceImages.zip) and unzip the folder
 
@@ -283,7 +283,7 @@ So our resulting `ImageView` will be:
         android:id="@+id/roll_button"/>
 ```
 
-## Gradle
+### Gradle
 
 Gradle is the build system that is used for android, it does a few different things:
 
@@ -356,7 +356,7 @@ dependencies {
 }
 ```
 
-## Updating App Compatability
+### Updating App Compatability
 
 Note that `androidx` is included as a dependency for the application, this is a collection of libraries that are used to provide compatability across different android API levels
 
@@ -395,7 +395,7 @@ If we want to be more correct about how we're handling the Image view we can als
 lateinit var diceImage: AppCompatImageView
 ```
 
-# Developing Layouts
+## Developing Layouts
 
 All visual elements are views and are children of the `View` class and have some common properties like height, width, background, and interactivity
 
@@ -408,7 +408,7 @@ Views are organised as a heirarchy and `ViewGroup`s are views that are used to c
 
 Deeper view heirarchies are more complex to render and can impact performance, the `ConstraintLayout` helps you to arrange more complex layouts without deep nesting of Views
 
-## Create Project
+### Create Project
 
 Create a new project called `About Me` with an Empty Activity
 
@@ -420,7 +420,7 @@ Create a new project called `About Me` with an Empty Activity
 | Minimum API Level | API Level 19: Android 4.4         |
 |                   | Use `androidx.*` artifacts        |
 
-## Set up Linear Layout
+### Set up Linear Layout
 
 Replace the existing layout for `activity_main.xml` and set the Root element to be a `LinearLayout`
 
@@ -491,7 +491,7 @@ With the following in the:
 </resources>
 ```
 
-## View Styling
+### View Styling
 
 We can modify the styles for a component, for spacing on a view we have the following:
 

@@ -5,7 +5,7 @@ subtitle: 08 June 2022
 description: Using typescript type conditions and Exclude to get keys commmon in parts of a union and an object with only common keys from that union
 ---
 
-# Overview
+## Overview
 
 Something that may come up in practice is a use for a type that allows us to enforce that an object has only the common properties for a given object
 
@@ -28,7 +28,7 @@ type BThing = {
 
 I would like a type that contains only the things that these objects have in common, namely `phone` and `email`
 
-# A Type for Common Object Keys
+## A Type for Common Object Keys
 
 This isn't something that typescript has out-of-the-box, however it can be implemented by using some type juggling
 
@@ -56,7 +56,7 @@ type Basic = CommonKeys<{}>
 // type Basic = never
 ```
 
-# A Type for Common Object
+## A Type for Common Object
 
 Next, we can use the `CommonKeys` type defined above to create a `Common` type which wne used with the intersection will result in a type that has all the keys common in all types from the intersection
 
@@ -76,7 +76,7 @@ type ABCommonObject = Common<AThing | BThing>
 
 And we can see that we have the desired result which is an object with the properties that are common between both input object types
 
-# Final Solution
+## Final Solution
 
 We can put the code from above together into the final solution which is just the two above types:
 

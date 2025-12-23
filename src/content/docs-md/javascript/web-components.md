@@ -8,13 +8,13 @@ subtitle: Notes on Web Components
 
 > Most code snippets used here are from the above series
 
-# Introduction
+## Introduction
 
 Web components are custom HTML Elements which are built with Javascript and make use of the Shadow DOM to encapsulate CSS and JS and user-defined HTML templates
 
 At present Web Components are available in most major browsers with polyfills for IE and Edge
 
-# HTML Templates
+## HTML Templates
 
 HTML templates allow us to define reusable pieces of HTML that will not be rendered until used by a script
 
@@ -83,7 +83,7 @@ Since templates are regulat HTML Elements, they can contain things like Javascri
 
 The problem witht the above method is that the styles and functionality of the component can still impact the rest of the DOM once an instance/s are created
 
-# Custom Elements
+## Custom Elements
 
 Custom elements are elements that can be defined by users. These elements must have a `-` in their names
 
@@ -284,7 +284,7 @@ While the above helps us to encapsulate functionality, it say's nothing of the s
 
 In order to do that we can make use of the Shadow DOM
 
-# Shadow DOM
+## Shadow DOM
 
 The Shadow DOM is an encapsulated section of the DOM which helps to isolate pieces of the DOM including any CSS
 
@@ -488,9 +488,9 @@ attributeChangedCallback(attrName, oldValue, newValue) {
 
 Currently the only reliable way to style components is with the `<style>` tag, these can however make use of `css variables` which pass through into the shadow DOM
 
-## Proposed functionality
+### Proposed functionality
 
-### Constructible Stylesheets
+#### Constructible Stylesheets
 
 This would allow stylesheets to be defined in JS and be applied on multiple nodes
 
@@ -525,7 +525,7 @@ class SomeCompoent extends HTMLElement {
 }
 ```
 
-### Part and Theme
+#### Part and Theme
 
 The `::part()` and `::theme()` selectors could allow you to expose elements of a component for styling
 
@@ -551,4 +551,4 @@ other-component::part(description) {
 
 `::theme()` is similar to `::part()` but it allows elements to be styled from anywhere whereas the latter requires it to be specifically selected
 
-# Tooling and Integration
+## Tooling and Integration

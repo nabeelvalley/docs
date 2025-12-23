@@ -5,7 +5,7 @@ title: JSX Components
 
 > [Based on this EdX course](https://courses.edx.org/courses/course-v1:Microsoft+DEV281x+1T2019/course/#block-v1:Microsoft+DEV281x+1T2019+type@chapter+block@8aeb17a4bc2d4ef7bba69a7c298f7f57)
 
-# Setting Up ReactJs
+## Setting Up ReactJs
 
 To add react to an HTML file we include the following scripts in the head
 
@@ -35,7 +35,7 @@ And in the body we can add a script to render an element as follows
 
 We can also create a ReactJs CodePen by including the above scripts and using the Babel Javascript Preprocessor
 
-# What is ReactJs
+## What is ReactJs
 
 React is a library that generates the view layer of an application based on its state. These applications are made from React Components which describe the properties and state of UI components
 
@@ -43,7 +43,7 @@ React makes use of a Virtual DOM and when component states are updated the React
 
 This turns out to be much faster than re-rendering the entire DOM
 
-# React Elements
+## React Elements
 
 React Elements are Objects that represent a DOM node and are written in `JSX`. React elements are different to React components
 
@@ -69,7 +69,7 @@ function updateNum() {
 setInterval(updateNum, 100)
 ```
 
-# JSX
+## JSX
 
 JSX is a syntax extension on Javascript that allows React Elements to be written in JS with HTML tags
 
@@ -83,7 +83,7 @@ var element = <h1>Hello World!</h1>
 var element = React.createElement('h1', null, 'Hello World!')
 ```
 
-## Embed JS
+### Embed JS
 
 Furthermore we can embed javascript expressions inside of elements using curly brackets
 
@@ -116,7 +116,7 @@ function calculateArea(x, y) {
 var element = <div>The Area is: {calculateArea(length, width)}</div>
 ```
 
-## Element Attributes
+### Element Attributes
 
 We can also use JSX for element attributes
 
@@ -127,7 +127,7 @@ var element = <img src={product.imageURL}></img>
 
 Note that the `"   "` in JSX indicates a string literal. Do not use this to pass in JS attributes
 
-## Empty Tags
+### Empty Tags
 
 JSX can simply be used with self closing tags as well
 
@@ -135,7 +135,7 @@ JSX can simply be used with self closing tags as well
 var element = <input className="nameInput" />
 ```
 
-## Style Objects
+### Style Objects
 
 As well as to define styles for an element
 
@@ -156,7 +156,7 @@ We can even define an element styles using the curly braces for the style object
 var element = <input style={{ width: 200, height: 100 }} />
 ```
 
-## Nested Elements
+### Nested Elements
 
 Elements can be nested within other elements, however these need to be wrapped in a single parent element
 
@@ -173,13 +173,13 @@ It is also recommended to surround these with parenthesis in order to avoid semi
 
 Also note that certain attributes are named differently in React, for example `class` is called `className`
 
-# React Components
+## React Components
 
 React components are reusable components
 
 React has two types of components, namely Functional and Class
 
-## Functional Components
+### Functional Components
 
 Functional components are just functions that output React Elements, by convention the first letter is capitalized and can be created by referencing the component name
 
@@ -193,7 +193,7 @@ var element = <HelloWorld />
 ReactDOM.render(<HelloWorld />, document.getElementById('root'))
 ```
 
-### Component Properties
+#### Component Properties
 
 Functional components can also have properties such as
 
@@ -223,7 +223,7 @@ ReactDOM.render(
 
 Anything passed through `props` will be accessible
 
-## Component Composition
+### Component Composition
 
 Functional components can include other components inside of them, such as in the following example which will output a list of shopping items
 
@@ -267,7 +267,7 @@ function ShoppingApp(props) {
 ReactDOM.render(<ShoppingApp />, document.getElementById('root'))
 ```
 
-## Conditional Rendering
+### Conditional Rendering
 
 We can render components based on conditional information by simply using `if-else` statements or a `conditional operator` inline
 

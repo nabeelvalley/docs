@@ -7,7 +7,7 @@ description: Using the .NET CLI to use the F# Interactive console and run F# Scr
 
 > Before you can use the following, you will need the [.NET Core SDK installed](https://dotnet.microsoft.com/download)
 
-# Open the F# Interactive Console
+## Open the F# Interactive Console
 
 To open an F# interactive console using the `dotnet` CLI. You can run the following command:
 
@@ -35,7 +35,7 @@ printer "Hello World";;
 
 Which will execute the above code and output `Hello World`
 
-# Run an F# Script
+## Run an F# Script
 
 F# scripts can be run using the `dotnet fsi` command as well, followed by the path to an F# script file:
 

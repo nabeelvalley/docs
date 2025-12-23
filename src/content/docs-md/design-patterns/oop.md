@@ -7,14 +7,14 @@ title: OOP Concepts
 
 - [Part 2](https://www.youtube.com/watch?v=yRJ1rRoMnIM&list=PLF206E906175C7E07&index=2)
 
-# Class
+## Class
 
 - A blueprint for an object
 - Fields
 - Parameters
 - Methods
 
-# Inheritance
+## Inheritance
 
 - What classes have in common
 - Abstracted features
@@ -22,41 +22,41 @@ title: OOP Concepts
 - Avoid duplicate
 - Anything in superclass will be reflected in all subclasses
 
-# Main
+## Main
 
 - Create objects
 - Allow them to interact
 
-# Encapsulation
+## Encapsulation
 
 Allows us to validate or perform input information for a field and use _Setters_ and _Getters_
 
-# Instance vs Local variables
+## Instance vs Local variables
 
 - Instance - Defined inside of a class
 - Local - Defined in a method
 
-# Polymorphism
+## Polymorphism
 
 - Allow the subclass to redifine methods in the parents
 - Refer to subclasses by their superclass type
 - Can treat the objects as if they're of the superclass type
 - Cannot access methods that only exist in the subclass
 
-# Abstract classes
+## Abstract classes
 
 - Cannot be an object in itself
 - May contain state and/or implementation
 - Subclasses cannot inherit protected fields
 
-# Interface
+## Interface
 
 - Does not contain an implementation
 - Only abstract methods
 - Allows classes of different inheritance trees can still communicate
 - Avoid interfaces that just force redefinition by subclasses
 
-# Code
+## Code
 
 `Animal.java`
 

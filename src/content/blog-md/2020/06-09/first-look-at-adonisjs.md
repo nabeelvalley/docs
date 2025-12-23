@@ -9,7 +9,7 @@ In this post, we'll take a look at building an API using the AdonisJS framework.
 
 Because we're going to be creating a REST API, you should have some experience making HTTP Requests, for our purposes we can use a website called [Postwoman](https://postwoman.io/) to interact with our API, but you can also use any other tool you prefer
 
-# About AdonisJS
+## About AdonisJS
 
 AdonisJS is an opinionated, Typescript-first web framework that provides a lot more "out of the box" functionality than the traditional framework or library in the Node.js ecosystem and is more comparable to something like .NET's WebAPI or MVC Framework than things like Express or Next in Node.js
 
@@ -25,7 +25,7 @@ Some of the built-in features and decisions that stand out for me are:
 
 There are a lot more features, and it would be impractical for me to talk about all of them in a single post. Overall, the framework seems to be very complete at this point
 
-# Prerequisites
+## Prerequisites
 
 We'll be using a Node.js and a SQL Database for this post, so if you're going to follow along with this post you will need to have a couple of things installed:
 
@@ -42,7 +42,7 @@ Alternatively, you can run a Docker image for the database which may be easier, 
 
 > To learn more about VSCode Dev Containers you can look at [my previous post](/blog/2020/25-07/developing-in-a-container-vscode/) on how to use Dev Containers
 
-# Initialize an Application
+## Initialize an Application
 
 Now that we've got all our necessary dependencies installed, we can initialize an application using the `npm init` command:
 
@@ -70,11 +70,11 @@ And start the app:
 npm start
 ```
 
-# The Ace CLI
+## The Ace CLI
 
 AdonisJS makes use of a command-line application called `ace`, `ace` can be used to do common tasks as well as custom tasks that we define. By default, it can scaffold controllers, commands, and a bunch of other things as well as run and build an AdonisJS application
 
-# Environment Variables
+## Environment Variables
 
 AdonisJS Makes use of Environment Variables do set the application configuration, in your generated files you should see a file named `.env`, this file contains the environment variables used by the application. Looking at this file will give us an idea of our current configuration:
 
@@ -105,7 +105,7 @@ If we open this page on our browser we will see the adonis logs kicked off in ou
 
 The first request may take some time, this is because the server is still starting itself up. In the meantime, however, let's discuss how we'll be accessing our API
 
-# Making Requests
+## Making Requests
 
 > You will need to use [Postwoman](https://postwoman.io/) or something similar when making requests
 
@@ -135,7 +135,7 @@ The `Route.get` portion states that this is a `GET` route on the `/` path with a
 
 However, for this post, we won't be defining our route's handler functions like this. We're going to make use of `controllers`
 
-# Controllers
+## Controllers
 
 AdonisJS uses `controllers` to structure our API. This makes use of a `class` which contains functions intended to work as an interface between the HTTP request and the work we want to do via a `provider`
 
@@ -201,7 +201,7 @@ We can then run `npm start` from the command line and make a `GET` request to `h
 ]
 ```
 
-# Database
+## Database
 
 Now that we've got some basic understanding of how AdonisJS maps routes to functionality, we can connect our application to a Database
 
@@ -233,7 +233,7 @@ If you open your `.env` file you will see the configuration for a `sqlite` datab
 `.env`
 
 ```bash
-# ... other config
+## ... other config
 DB_CONNECTION=sqlite
 DB_HOST=127.0.0.1
 DB_USER=lucid
@@ -338,7 +338,7 @@ Then make a `GET` request to `http://localhost:3333/health` to view your health-
 
 In the `lucid` section we will see if our database connection is working or any applicable error information.
 
-# Defining Models
+## Defining Models
 
 Once we've configured our database, we will want to interact with the data in it. Lucid makes use of `models` essentially as proxies for database tables. We can generate a `model` for our `User` with `ace` as follows:
 
@@ -394,7 +394,7 @@ export default class User extends BaseModel {
 
 > Any properties or methods defined in a class without the `@column` decorator will not be mapped to the database, we can just use these as normal functions in the class and implement utilities from them
 
-# Migrating the Database
+## Migrating the Database
 
 At this point, our database does not contain a `user` table, which will be used to store our data for the `User` model. We need to create a Database Migration which will add the required table and fields.
 
@@ -461,7 +461,7 @@ node ace migration:run
 
 > If there is an error in a migration script, we can rollback the migration with `node ace migration:rollback` which will run the `down` function in your migration
 
-# Interact with the Database
+## Interact with the Database
 
 Now that we've got our database, we can interact with it using the `User` model we defined earlier
 
@@ -539,11 +539,11 @@ Route.post('users', 'UsersController.post')
 ...
 ```
 
-# Consume the API
+## Consume the API
 
 Now that we've created API endpoints for listing all users and creating a user we can restart our development server with `npm start` and consume our API from wherever we want to make some HTTP requests
 
-## Create a User
+### Create a User
 
 To create a `User we need to make a`POST`request to`http://localhost:3333/users`and a Content-Type of`application/json`with the following as the`body` for our request:
 
@@ -582,7 +582,7 @@ Next, we can get a list of all Users by making a `GET` request to `http://localh
 ]
 ```
 
-# Summary
+## Summary
 
 My overall impression of AdonisJS is pretty good. The framework feels very stable and I had much fewer issues in the process of learning it and writing this post than I have had using other more popular frameworks.
 

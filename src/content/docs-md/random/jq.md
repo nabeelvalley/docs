@@ -8,7 +8,7 @@ description: Processing JSON with jq
 
 Jq is a command line tool for processing JSON. `jq` takes JSON from `stdin` and lets you do stuff with it
 
-# Basic Structure
+## Basic Structure
 
 The basic flow of working with `jq` is by piping something into it and passing a query, `jq` will then return the resulting JSON
 
@@ -18,7 +18,7 @@ cat package.json | jq ".dependencies"
 
 The rest of this doc will just cover the actual `jq` syntax without talking about all the wrapping boilerplate
 
-# Property Access
+## Property Access
 
 Accessing a single property can be done like so:
 
@@ -32,7 +32,7 @@ Nested properties can also be accessed using this kind of syntax:
 .scripts.build
 ```
 
-# Piping Results
+## Piping Results
 
 Piping results from one part of a query can be done with the `|`, for example we can also do nested property access like so:
 
@@ -40,7 +40,7 @@ Piping results from one part of a query can be done with the `|`, for example we
 .scripts | .build
 ```
 
-# Mapping
+## Mapping
 
 When using an array, you can use the `map` function to transform each entry. Mapping can use results from previous objects and returns a resulting object:
 
@@ -50,7 +50,7 @@ When using an array, you can use the `map` function to transform each entry. Map
 
 > Maps can also contain other operations and mappings within them - this is basically a new `jq` closure
 
-# Object Entries
+## Object Entries
 
 Getting the entries from an object can be done with the `to_entries` which returns an object with the shape `{key: K, value: V}`
 
@@ -64,7 +64,7 @@ However, if all you want are the `keys` you can use those respective functions. 
 .dependencies | keys
 ```
 
-# Merging Objects
+## Merging Objects
 
 Merging objects together (like `Object.assign`) can be done with `add`
 
@@ -72,7 +72,7 @@ Merging objects together (like `Object.assign`) can be done with `add`
 .dependencies | to_entries | map({(.key): { name: .key, value: .value }}) | add
 ```
 
-# Arrays
+## Arrays
 
 Arrays can be accessed and indexed as you'd expect from the normal property syntax:
 
@@ -94,7 +94,7 @@ Or, split via a pipe
 
 Which will give us the length of the array
 
-# Iterators
+## Iterators
 
 Arrays in `jq` can be accessed as a single array or as an iterator over values, iterators let us handle items one at a time or as a single array
 
@@ -118,7 +118,7 @@ Each of these will return an iterator over the array values, so if we do somethi
 
 We'll get the length of each element as a string, instead of the total length of the array
 
-# Filtering
+## Filtering
 
 Filtering can be done using `select` on an iterator, there are a few utilities for this but at it's most basic we can use comparisons to check something like:
 
@@ -126,7 +126,7 @@ Filtering can be done using `select` on an iterator, there are a few utilities f
 .tasks[] | select(.label == "important")
 ```
 
-# Setting Properties
+## Setting Properties
 
 Sometimes when transforming we may want to just update a specific property, this can be done by piping in an assignment like so:
 
@@ -140,7 +140,7 @@ Additionally, this can reference other data and even pipe on top of other assign
 .tasks[] | .oldLabel = .label | .label = "do later" | .done = true
 ```
 
-# References
+## References
 
 - [jq Docs](https://jqlang.org/)
 - [Navendu's jq Guide](https://navendu.me/posts/jq-interactive-guide/)

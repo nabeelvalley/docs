@@ -4,7 +4,7 @@ title: Configure Blockchain on Windows
 subtitle: Configuring Windows for Hyperledger
 ---
 
-# Script
+## Script
 
 Before running the below script, ensure that you are in Administrator Powershell and that your Execution Policy is set to Remote Signed, if not then first run the following command
 
@@ -28,17 +28,17 @@ This will install the necessary prerequisites and should also set up the environ
 
 (Don't know how accurate this script is as it may not necessarily work, but the instructions are as follows)
 
-# Received Instructions
+## Received Instructions
 
-## Install Git for Windows x64 to include Uname command
+### Install Git for Windows x64 to include Uname command
 
 https://curl.haxx.se/windows/
 
-## Extract binaries + add to Env Variables
+### Extract binaries + add to Env Variables
 
 https://store.docker.com/editions/community/docker-ce-desktop-windows
 
-## Install Windows Xxtras
+### Install Windows Xxtras
 
 Node JS - https://nodejs.org/download/release/v8.9.4/
 https://hyperledger-fabric.readthedocs.io/en/release-1.3/prereqs.html#id1
@@ -48,7 +48,7 @@ npm install --global windows-build-tools
 npm install --global grpc
 ```
 
-## Install Go
+### Install Go
 
 1. Set Env Variables, PATH, GOPATH
 2. Create Workspace
@@ -60,11 +60,11 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 ```
 
-## Install Python
+### Install Python
 
 https://www.python.org/downloads/release/python-2715/
 
-## Set up Docker Shared Drives
+### Set up Docker Shared Drives
 
 https://docs.docker.com/docker-for-windows/#shared-drives
 

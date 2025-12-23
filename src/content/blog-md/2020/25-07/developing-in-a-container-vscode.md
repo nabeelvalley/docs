@@ -11,7 +11,7 @@ The Remote Containers extension allows us to write code and develop applications
 
 In this post, I'll take a look at what a Docker container is, why we would want to use one as a development environment, and how we can go about setting one up for VSCode
 
-# Prerequisites
+## Prerequisites
 
 If you intend to follow along with this post you'll need to have the following installed:
 
@@ -22,7 +22,7 @@ If you intend to follow along with this post you'll need to have the following i
 - [Visual Studio Code's Docker Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
 - Some familiarity with using the command line
 
-# Docker Containers
+## Docker Containers
 
 A Container, in this context, is a simple virtual machine that contains the code required to run an application with all its dependencies
 
@@ -49,7 +49,7 @@ Hello from Docker
 ...
 ```
 
-# Docker Images
+## Docker Images
 
 Docker images are typically used to run applications in a production-type environment, every Docker container we run needs to be based on an image, every running container is like an instance of an image - similar to how objects are an instance of a class
 
@@ -59,7 +59,7 @@ We're going to go through some of the basics of Docker Images and Docker as woul
 
 To get started create a new folder and open it from Visual Studio Code and do the following:
 
-## Create an Application
+### Create an Application
 
 We'll need a simple "hello-world" web server using Node.js, for the sake of example. You can, however, use any language (or Languages) you want when creating an application to run within Docker. You do not need to have any dependencies for the specific application or language installed on your computer, we will handle this using Docker
 
@@ -96,7 +96,7 @@ working-directory
 |__ index.js
 ```
 
-## Create a Dockerfile
+### Create a Dockerfile
 
 There are a few steps that are the same for most `Dockerfile`s you'll be building:
 
@@ -110,16 +110,16 @@ There are a few steps that are the same for most `Dockerfile`s you'll be buildin
 `Dockerfile`
 
 ```dockerfile
-# step 1 - FROM baseImage
+## step 1 - FROM baseImage
 FROM node:12
 
-# step 2 - COPY source destination
+## step 2 - COPY source destination
 COPY . .
 
-# step 3 - EXPOSE port
+## step 3 - EXPOSE port
 EXPOSE 8080
 
-# step 4 - CMD stratupCommandArray
+## step 4 - CMD stratupCommandArray
 CMD ["node", "app.js"]
 ```
 
@@ -165,11 +165,11 @@ If you've never used Docker before and have got everything running this far, con
 
 Moving swiftly along
 
-# Development Containers
+## Development Containers
 
 So now that we understand a bit about containers and how we can go about using them in production, we'll look at why we may want to use them as a development environment
 
-## Why Develop in a Container
+### Why Develop in a Container
 
 As developers, we are far too familiar with the "it runs on my machine" dilemma. Development environments can be wildly inconsistent between different developers or different operating systems, and ensuring that our development code runs easily on everyone's computer can be challenging
 
@@ -177,7 +177,7 @@ Containers can help us to explicitly define our development environment, our app
 
 Visual Studio Code can help transport us into a container so that we work on our application in a well-defined environment, not just run our application within one while reducing the overall number of things we need to have installed on our computer
 
-## How to Develop in a Container
+### How to Develop in a Container
 
 To develop in a Container using Visual Studio Code we will need to have:
 
@@ -189,7 +189,7 @@ To develop in a Container using Visual Studio Code we will need to have:
 
 To configure our project for running in a container we need to first open the project folder (the folder we used previously) in Visual Studio Code
 
-### Use an Existing Dockerfile
+#### Use an Existing Dockerfile
 
 Once open use the keyboard shortcut `ctrl + shift + p` to open the Command Palette and search for `Remote-Containers: Add Development Container Configuration Files` and click `enter`, you will then have an option to use the existing Dockerfile `from Dockerfile` which will generate a `.devcontainer/devcontainer.json` file
 
@@ -291,7 +291,7 @@ You can switch from developing in a container back to your local environment wit
 
 Now that we're back on our local environment (and not docker) we can look at the other way we can set up our project for VSCode
 
-### Using a Preconfigured Dockerfile
+#### Using a Preconfigured Dockerfile
 
 Visual Studio Code's Remote Containers Extension provides some pre-configured `Dockerfile`s for common application or application framework types. One of the available preconfigured `Dockerfile`s is for working on Node.js applications
 
@@ -364,7 +364,7 @@ This is a bit different to ours because Visual Studio Code will handle the file 
 
 Now that the development container has been set-up, we can use `ctrl + shift + p` and `Remote-Containers: Reopen in Container` to open our development container, from here we can work on our application and run the application the same as we did before
 
-## Which Method to Use
+### Which Method to Use
 
 We've looked at two different methods for configuring our development container, either of which can be used in any project. Below are my recommendations:
 
@@ -374,11 +374,11 @@ Otherwise, if your development container needs to be different from your product
 
 Lastly, if you don't have an existing `Dockerfile` at all then I'd suggest using a predefined one so that even if it's not fully configured you've got a relatively good starting point, especially when working with more complex languages and frameworks as a custom `Dockerfile` for these can be some work to configure
 
-# Summary
+## Summary
 
 In this post, we've covered the basics of using Docker to run your applications in a container as well as how to define and build your images. We also looked at why we may want to use a container for development and how we can do this using Visual Studio Code
 
-## Further Reading
+### Further Reading
 
 For some more in-depth information on Docker and VSCode Development Containers you can look at the following resources:
 

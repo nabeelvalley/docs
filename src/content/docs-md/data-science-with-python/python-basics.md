@@ -4,19 +4,19 @@ title: Python Basics
 subtitle: General information on using Python for Data Science and Machine Learning
 ---
 
-# Python Basics
+## Python Basics
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/learn/data-science-with-python/)
 
-## Labs
+### Labs
 
 Jupyter Notebooks with Examples on these can be found in the `labs` folder
 
 The Labs are from [this Cognitive Class Course](https://cognitiveclass.ai/learn/data-science-with-python/) and are under the MIT License
 
-## Types
+### Types
 
-### Hello World
+#### Hello World
 
 We can simply print out a string in Python as follows
 
@@ -24,7 +24,7 @@ We can simply print out a string in Python as follows
 print('Hello, World!')
 ```
 
-### Python Version
+#### Python Version
 
 We can check our version as follows
 
@@ -35,15 +35,15 @@ print(sys.version)
 
 The `sys` module is a built-in module that has many system specific parameters and functions
 
-### Comments
+#### Comments
 
 Comments can be done by using the `#`
 
 ```py
-# Python comments
+## Python comments
 ```
 
-### Docstrings
+#### Docstrings
 
 Python also allows for use of docstrings which can appear immediately after a function, class definition, or at the top of a module, these are done as follows
 
@@ -59,7 +59,7 @@ hello()
 
 Also note that Python uses `'` and `"` to mean the same thing
 
-### Types of Objects
+#### Types of Objects
 
 Python is object oriented, and dynamically typed. We can get the type of a value in python with the `type` function
 
@@ -77,7 +77,7 @@ We can get information about a type using the `sys` object properties, for examp
 sys.float_info
 ```
 
-### Type Conversion
+#### Type Conversion
 
 We can use the following to convert between types
 
@@ -93,7 +93,7 @@ float(True) # 1.0
 bool(1) # True
 ```
 
-### Expressions
+#### Expressions
 
 Expressions in python can include integers, floats, and strings, depending on the operation
 
@@ -110,7 +110,7 @@ Integer division will round off to the nearest integer
 
 It is also helpful to note that Python will obey BODMAS
 
-### Variables
+#### Variables
 
 Variables can simply be assigned without being defined first, and are dynamically types
 
@@ -124,9 +124,9 @@ x = 'Hello'
 
 In a notebook we can simply evaluate the value of a variable or expression by placing it as the last line of a cell
 
-## Strings
+### Strings
 
-### Defining Strings
+#### Defining Strings
 
 Strings can be defined with either `'` or `"`, and can be a combination of any characters
 
@@ -136,7 +136,7 @@ Strings can be defined with either `'` or `"`, and can be a combination of any c
 "Hello World"
 ```
 
-### Indexing
+#### Indexing
 
 Strings are simply an ordered sequence of characters, we can index these as any other array with `[]` as follows
 
@@ -154,7 +154,7 @@ name[-1] # n
 name[-4] # J
 ```
 
-### Length
+#### Length
 
 We can get the length of a string with `len()`
 
@@ -162,7 +162,7 @@ We can get the length of a string with `len()`
 len(name) # 4
 ```
 
-### Slicing
+#### Slicing
 
 We can slice strings as follows
 
@@ -178,7 +178,7 @@ Or generally as
 string[start:end]
 ```
 
-### Stride
+#### Stride
 
 We can also input the stride, which will select every nth value within a certain range
 
@@ -194,7 +194,7 @@ name[::3] # Jnmh
 name[0:4:2] # Jh
 ```
 
-### Concatenation
+#### Concatenation
 
 We can concatenate strings as follows
 
@@ -204,7 +204,7 @@ text + text # HelloHello
 text * 3 # HelloHelloHello
 ```
 
-### Escape Characters
+#### Escape Characters
 
 At times we may need to escape some characters in a Python string, these are as follows
 
@@ -233,7 +233,7 @@ text = r'\%\n\n\t'
 text # '\%\n\n\t'
 ```
 
-### String Operations
+#### String Operations
 
 We have a variety of string operations such as
 
@@ -247,9 +247,9 @@ text.find('ell') # 1
 text.find('asnfoan') # -1
 ```
 
-## Tuples
+### Tuples
 
-### Define
+#### Define
 
 A tuple is a way for us to store data of different types, this can be done simply as follows
 
@@ -260,7 +260,7 @@ type(my_tuple) # tuple
 
 A key thing about tuples is that they are immutable. We can reassign the entire tuple, but not change its values
 
-### Indexing
+#### Indexing
 
 We can index a tuple the same way as a string or list using positive or negative indexing
 
@@ -269,7 +269,7 @@ my_tuple[1] # 3
 my_tuple[-2] # 3
 ```
 
-### Concatenation
+#### Concatenation
 
 We can also concatenate tuples
 
@@ -278,7 +278,7 @@ my_tuple += ('pies', 'are', 3.14)
 my_tuple # ('Hello', 3, 0.14, 'pies', 'are', 3.14)
 ```
 
-### Slice and Stride
+#### Slice and Stride
 
 We can slice and stride as usual with
 
@@ -288,7 +288,7 @@ my_tuple[::2]
 my_tuple[0:4:2]
 ```
 
-### Sorting
+#### Sorting
 
 We can sort a tuple with the `sorted` function
 
@@ -298,7 +298,7 @@ sorted(tuple)
 
 The `sorted` function will return a **list**
 
-### Nesting
+#### Nesting
 
 Since tuples can hold anything, they can also hold tuples
 
@@ -313,9 +313,9 @@ We can access elements of tuples with double indexing as follows
 my_tuple2[0][1] # 4
 ```
 
-## Lists
+### Lists
 
-### Defining
+#### Defining
 
 A list is an easy way for us to store data of any form, such as numbers, strings, tuples, and lists
 
@@ -325,7 +325,7 @@ Lists are mutable and have many operations that enable us to work with them more
 my_list = [1,2,3,'Hello']
 ```
 
-### Indexing
+#### Indexing
 
 Lists can also be indexed using the usual method both negatively and positively
 
@@ -334,9 +334,9 @@ my_list[1] # 2
 my_list[-1] # Hello
 ```
 
-### Operations
+#### Operations
 
-#### Slice and Stride
+##### Slice and Stride
 
 ```py
 my_list[start:end] # slicing
@@ -344,7 +344,7 @@ my_list[::stride]
 my_list[start:end:stride]
 ```
 
-#### Extend
+##### Extend
 
 Extend will add each object to the end of the list
 
@@ -354,7 +354,7 @@ my_list.extend([item1, item2])
 my_list # [1, 2, item1, item2]
 ```
 
-#### Append
+##### Append
 
 Append will add the input as a single object to the last value of the list
 
@@ -364,7 +364,7 @@ my_list.append([item1, item2])
 my_list # [1, 2, [item1, item2]]
 ```
 
-### Modify an element
+#### Modify an element
 
 List elements can be modified by referencing the index
 
@@ -374,7 +374,7 @@ my_list[1] = 3
 my_list # [1,3]
 ```
 
-### Delete an Element
+#### Delete an Element
 
 ```py
 my_list = [1,2,3]
@@ -384,7 +384,7 @@ my_list # [1,3]
 
 We can delete elements by index as well
 
-### String Splitting
+#### String Splitting
 
 We can split a string into a list as follows
 
@@ -396,7 +396,7 @@ my_list = 'hello, world, !'.split(',')
 my_list # ['hello', 'world', '!']
 ```
 
-### Cloning
+#### Cloning
 
 Lists are stored by reference in Python, if we want to clone a list we can do it as follows
 
@@ -404,20 +404,20 @@ Lists are stored by reference in Python, if we want to clone a list we can do it
 new_list = my_list[:]
 ```
 
-## Sets
+### Sets
 
 A set is a unique collection of objets in Python, sets will automatically remove duplicate items
 
-### Defining a Set
+#### Defining a Set
 
 ```py
 my_set = {1, 2, 3, 1, 2}
 my_set # {1, 2, 3}
 ```
 
-### Set Operations
+#### Set Operations
 
-#### Set from a List
+##### Set from a List
 
 We can create a set from a list with the `set` function
 
@@ -425,7 +425,7 @@ We can create a set from a list with the `set` function
 my_set = set(my_list)
 ```
 
-#### Add Element
+##### Add Element
 
 We can add elements to a set with
 
@@ -435,7 +435,7 @@ my_set.add("New Element")
 
 If the element already exists nothing will happen
 
-#### Remove Element
+##### Remove Element
 
 We can remove an element from a set with
 
@@ -443,7 +443,7 @@ We can remove an element from a set with
 my_set.remove("New Element")
 ```
 
-#### Check if Element is in Set
+##### Check if Element is in Set
 
 We can check if an element is in a set by using `in` which will return a `bool`
 
@@ -451,11 +451,11 @@ We can check if an element is in a set by using `in` which will return a `bool`
 "New Element" in my_set # False
 ```
 
-### Set Logic
+#### Set Logic
 
 When using sets we can compare them with one another
 
-#### Intersection
+##### Intersection
 
 We can find the intersection between sets with `&` or with the intersection function
 
@@ -464,7 +464,7 @@ set_1 & set_2
 set_1.intersection(set_2)
 ```
 
-#### Difference
+##### Difference
 
 We can fin d the difference in a specific set relative to another set with
 
@@ -474,7 +474,7 @@ set_1.difference(set_2)
 
 Which will give us the elements that `set_1` has that `set_2` does not
 
-#### Union
+##### Union
 
 We can get the union of two sets with
 
@@ -482,7 +482,7 @@ We can get the union of two sets with
 set_1.union(set_2)
 ```
 
-#### Superset
+##### Superset
 
 We can check if one set is a superset of another with
 
@@ -490,7 +490,7 @@ We can check if one set is a superset of another with
 set_1.issuperset(set_2)
 ```
 
-#### Subset
+##### Subset
 
 We can check if one set is a subset of another with
 
@@ -498,13 +498,13 @@ We can check if one set is a subset of another with
 set_1.isSubset(set_2)
 ```
 
-## Dictionaries
+### Dictionaries
 
 Dictionaries are like lists, but store data by a key instead of an index
 
 Keys can be strings, numbers, or any immutable object such as a tuple
 
-### Defining
+#### Defining
 
 We can define a dictionary as a set of key-value pairs
 
@@ -512,7 +512,7 @@ We can define a dictionary as a set of key-value pairs
 my_dictionary = {"key1": 1, "key2": "2", "key3": [3, 3, 3], "key4": (4, 4, 4), ('key5'): 5, (0, 1): 6, 92: 'hello'}
 ```
 
-### Accessing a Value
+#### Accessing a Value
 
 We can access a value by using its key, such as
 
@@ -522,7 +522,7 @@ my_dictionary[(0,1)] # 6
 my_dictionary[5] # 'hello'
 ```
 
-### Get All Keys
+#### Get All Keys
 
 We can get all the keys in a dictionary as follows
 
@@ -530,7 +530,7 @@ We can get all the keys in a dictionary as follows
 my_dictionary.keys()
 ```
 
-### Append a Key
+#### Append a Key
 
 Key-value pairs can be added to a dictionary as follows
 
@@ -538,7 +538,7 @@ Key-value pairs can be added to a dictionary as follows
 my_dictionary['New Key'] = new_value
 ```
 
-### Delete an Entry
+#### Delete an Entry
 
 We can delete an entry by key using
 
@@ -546,7 +546,7 @@ We can delete an entry by key using
 del('New Key)
 ```
 
-### Verify that Key is in Dictionary
+#### Verify that Key is in Dictionary
 
 We can use the `in` operator to check if a key exists in a dictionary
 
@@ -554,9 +554,9 @@ We can use the `in` operator to check if a key exists in a dictionary
 'My Key' in my_dictionary
 ```
 
-## Conditions and Branching
+### Conditions and Branching
 
-### Comparison Operators
+#### Comparison Operators
 
 We have a few different comparison operators which will produce a boolean based on their condition
 
@@ -569,7 +569,7 @@ We have a few different comparison operators which will produce a boolean based 
 | greater than or equal | `>=`     | `i >= 0 and i >= 1` |
 | less than or equal    | `<=`     | `i <= 2 and i <= 1` |
 
-### Logical Operators
+#### Logical Operators
 
 Python has the following logical operators
 
@@ -579,7 +579,7 @@ Python has the following logical operators
 | or        | `or`     | ` i == 1 or i == 2` |
 | not       | `not`    | `not(i != 0)`       |
 
-### String Comparison
+#### String Comparison
 
 When checking for equality Python will check if the strings are the same
 
@@ -591,11 +591,11 @@ Comparing strings is based on the ASCII Code for the string, for example `'B' > 
 
 When comparing strings like this the comparison will be done in order of the characters in the string
 
-## Branching
+### Branching
 
 Branching allows us to run different statements depending on a condition
 
-### If
+#### If
 
 The if statement will only run the code that forms part of its block if the condition is true
 
@@ -605,7 +605,7 @@ if i == 0:
   print('Hello')
 ```
 
-### If-Else
+#### If-Else
 
 An if-else can be done as follows
 
@@ -617,7 +617,7 @@ else:
   print('Bye')
 ```
 
-### Elif
+#### Elif
 
 If we want to have multiple if conditions, but only have the first one that is true be executed we can do
 
@@ -633,9 +633,9 @@ else:
   print('Bye')
 ```
 
-## Loops
+### Loops
 
-### For Loops
+#### For Loops
 
 A for loop in Python iterates through a list and executes its internal code block
 
@@ -646,7 +646,7 @@ for i in loop_vals:
 #1 6 2 9
 ```
 
-### Range
+#### Range
 
 If we want to iterate through the values without using a predefined list, we can use the range function to generate a list of values for us to to iterate through
 
@@ -673,7 +673,7 @@ for i in range(len(loop_vals)):
   print(loop_vals[i])
 ```
 
-### While Loops
+#### While Loops
 
 While loops will continue until the stop condition is no longer true
 
@@ -682,12 +682,12 @@ i = 0
 while (i < 10):
   print(i)
   i ++
-# 0 1 3 4 5 6 7 8 9
+## 0 1 3 4 5 6 7 8 9
 ```
 
-## Functions
+### Functions
 
-### Defining
+#### Defining
 
 Functions in Python are defined and called as follows
 
@@ -748,7 +748,7 @@ has_defaults(5) # 5 4
 has_defaults(5,6) # 5 6
 ```
 
-### Help
+#### Help
 
 We can get help about a function by calling the help function
 
@@ -758,7 +758,7 @@ help(print)
 
 Will give us help about the print function
 
-### Scope
+#### Scope
 
 Functions have access to variables that are globally defined, as well as their own local scope. Locally defined variables are not accessible from outside the function unless we declare it as global as follows
 
@@ -772,9 +772,9 @@ global_var # 5
 
 Note that the `global_var` will not be defined until our function is at least called once
 
-## Objects and Classes
+### Objects and Classes
 
-### Defining a Class
+#### Defining a Class
 
 We can define a class `Circle` which has a constructor, a radius and a colour as well as a function to increase its radius and to plot the Circle
 
@@ -800,7 +800,7 @@ class Circle(object):
     plt.show()
 ```
 
-### Instantiating an Object
+#### Instantiating an Object
 
 We can create a new `Circle` object by using the classes constructor
 
@@ -808,7 +808,7 @@ We can create a new `Circle` object by using the classes constructor
 red_circle = Circle(10, 'red')
 ```
 
-### Interacting with our Object
+#### Interacting with our Object
 
 We can use the `dir` function to get a list of all the methods on an object, many of which are defined by Python already
 
@@ -838,11 +838,11 @@ red_circle.radius # 20
 
 The `red_circle` can be plotted by calling the `draw_circle` function
 
-## Reading Files
+### Reading Files
 
 Note that the preferred method for reading files is [using `with`](#with)
 
-### Open
+#### Open
 
 We can use the built-in `open` function to read a file which will provide us with a `File` object
 
@@ -853,7 +853,7 @@ file1 = open(example1,'r')
 
 The `'r'` sets open to read mode, for write mode we can use `'w'`, and `'a'` for append mode
 
-#### Properties
+##### Properties
 
 `File` objects have some properties such as
 
@@ -862,7 +862,7 @@ file1.name
 file1.mode
 ```
 
-#### Read
+##### Read
 
 We can read the file contents to a string with the following
 
@@ -870,7 +870,7 @@ We can read the file contents to a string with the following
 file_content = file1.read()
 ```
 
-#### Close
+##### Close
 
 Lastly we need to close our `File` object with
 
@@ -884,7 +884,7 @@ We can verify that the file is closed with
 file1.closed # True
 ```
 
-### With
+#### With
 
 A better way to read files is by using using the `with` statement which will automatically close the file, even if we encounter an exception
 
@@ -895,7 +895,7 @@ with open(example1) as file1:
 
 We can also read the file in by pieces either based on characters or on lines
 
-### Read File by Characters
+#### Read File by Characters
 
 We can read the first four characters with
 
@@ -912,7 +912,7 @@ with open(example1,'r') as file1:
   content += file1.read(3)
 ```
 
-### Read File by Lines
+#### Read File by Lines
 
 Our `File` object looks a lot like a list with each line a new element in the list
 
@@ -939,7 +939,7 @@ with open(example1, 'r') as file1:
   content = file1.readlines()
 ```
 
-## Writing Files
+### Writing Files
 
 We can also make use of open to write content to a file as follows
 
@@ -958,7 +958,7 @@ with open(out_path, 'w') as out_file:
     out_file.write(line)
 ```
 
-## Copy a File
+### Copy a File
 
 We can copy data from one file to another by simultaneously reading and writing between the files
 
@@ -969,11 +969,11 @@ with open('readfile.txt','r') as readfile:
       writefile.write(line)
 ```
 
-## Pandas
+### Pandas
 
 Pandas is a library that is useful for working with data as a DataFrame in Python
 
-### Importing Pandas
+#### Importing Pandas
 
 The Pandas library will need to be installed and then imported into our notebook as
 
@@ -981,7 +981,7 @@ The Pandas library will need to be installed and then imported into our notebook
 import pandas as pd
 ```
 
-### Creating a DataFrame
+#### Creating a DataFrame
 
 We can create a new DataFrame in Pandas as follows
 
@@ -991,7 +991,7 @@ df = pd.DataFrame({'Name':['John','Jack','Smith','Jenny','Maria'],
                 'Height':[1.2,2.3,1.1,1.6,0.5]})
 ```
 
-### Read CSV as DataFrame
+#### Read CSV as DataFrame
 
 We can read a csv as a DataFrame with Pandas by doing the following
 
@@ -1000,7 +1000,7 @@ csv_path ='data.csv'
 df = pd.read_csv(csv_path)
 ```
 
-### Read XLSX as DataFrame
+#### Read XLSX as DataFrame
 
 We need to install an additional dependency to do this firstm and then read it with the `pd.read_excel` function
 
@@ -1010,7 +1010,7 @@ xlsx_path = 'data.xlsx'
 df = pd.read_excel(xlsx_path)
 ```
 
-### View DataFrame
+#### View DataFrame
 
 We can view the first few lines of our DataFrame as follows
 
@@ -1028,9 +1028,9 @@ Assume our data looks like the following
 | 3   | Jenny | 13  | 1.6    |
 | 4   | Maria | 42  | 0.5    |
 
-### Working with DataFrame
+#### Working with DataFrame
 
-#### Assigning Columns
+##### Assigning Columns
 
 We can read the data from a specific column as follows
 
@@ -1060,7 +1060,7 @@ age_vs_height = df[['Age', 'Height']]
 | 3   | 13  | 1.6    |
 | 4   | 42  | 0.5    |
 
-#### Reading Cells
+##### Reading Cells
 
 We can read a specific cell in one of two ways. The `iloc` fnction allows us to access a cell with the row and column index, and the `loc` function lets us do this with the row index and column name
 
@@ -1069,7 +1069,7 @@ df.iloc[1,2] # 2.3
 df.loc[1, 'Height'] # 2.3
 ```
 
-#### Slicing
+##### Slicing
 
 We can also do slicing using `loc` and `iloc` as follows
 
@@ -1092,7 +1092,7 @@ df.loc[0:2, 'Age':'Height']
 | 1   | 12  | 2.3    |
 | 2   | 34  | 1.1    |
 
-### Saving Data to CSV
+#### Saving Data to CSV
 
 Using Pandas, we can save our DataFrame to a CSV with
 
@@ -1100,7 +1100,7 @@ Using Pandas, we can save our DataFrame to a CSV with
 df.to_csv('my_dataframe.csv')
 ```
 
-## Arrays
+### Arrays
 
 The Numpy Library allows us to work with arrays the same as we would mathematically, in order to use Numpy we need to import it as follows
 
@@ -1110,9 +1110,9 @@ import numpy as np
 
 Arrays are similar to lists but are fixed size, and each element is of the same type
 
-### 1D Arrays
+#### 1D Arrays
 
-#### Defining an Array
+##### Defining an Array
 
 We can simply define an array as follows
 
@@ -1121,7 +1121,7 @@ a = np.array([1,2,3]) # casting a list to array
 
 ```
 
-#### Types
+##### Types
 
 An array can only store data of a single type, we can find the type of the data in an array with
 
@@ -1129,7 +1129,7 @@ An array can only store data of a single type, we can find the type of the data 
 a.dtype
 ```
 
-#### Manipulating Values
+##### Manipulating Values
 
 We can easily manipulate values in an array by changing them as we would in a list. The same can be done with splicing and striding operations
 
@@ -1148,7 +1148,7 @@ b = a[select] # array([1,2])
 a[select] = 0 # array([1,0,0])
 ```
 
-#### Attributes
+##### Attributes
 
 An array has various properties and functions such as
 
@@ -1162,7 +1162,7 @@ a.max() # max value
 a.min() # min value
 ```
 
-#### Array Operations
+##### Array Operations
 
 We have a few different operations on arrays such as
 
@@ -1176,7 +1176,7 @@ np.cross(u,v) # cross product
 u.T # transpose array
 ```
 
-#### Linspace
+##### Linspace
 
 The `linspace` function can be used to generate an array with values over a specific interval
 
@@ -1184,11 +1184,11 @@ The `linspace` function can be used to generate an array with values over a spec
 np.linspace(start, end, num=divisions)
 np.linspace(-2,2,num=5) # array([-2., -1.,  0.,  1.,  2.])
 np.linspace(0,2*np.pi,num=10)
-# array([0.        , 0.6981317 , 1.3962634 , 2.0943951 , 2.7925268 ,
-#        3.4906585 , 4.1887902 , 4.88692191, 5.58505361, 6.28318531])
+## array([0.        , 0.6981317 , 1.3962634 , 2.0943951 , 2.7925268 ,
+##        3.4906585 , 4.1887902 , 4.88692191, 5.58505361, 6.28318531])
 ```
 
-#### Plotting Values
+##### Plotting Values
 
 We can apply a function to these values by using array operations, such as those mentioned above as well as others like
 
@@ -1197,9 +1197,9 @@ x = np.linspace(0,2*np.pi, num=100)
 y = np.sin(x) + np.cos(x)
 ```
 
-### 2D Arrays
+#### 2D Arrays
 
-#### Defining a 2D Array
+##### Defining a 2D Array
 
 Two dimensional Arrays can be defined by a list that contains nested lists of the same size as follows
 
@@ -1209,7 +1209,7 @@ a = np.array([[11,12,13],[21,22,23],[31,32,33]])
 
 We can similarly make use of the previously defined array operations
 
-#### Accessing Values
+##### Accessing Values
 
 Values in a 2D array can be indexed in either one of two ways
 
@@ -1218,7 +1218,7 @@ a[1,2] # 23
 a[1][2] # 23
 ```
 
-#### Slicing
+##### Slicing
 
 We can perform slicing as follows
 
@@ -1227,11 +1227,11 @@ a[0][0:2] # array([11, 12])
 a[0:2,2] # array([13, 23])
 ```
 
-#### Mathematical Operations
+##### Mathematical Operations
 
 We can perform the usual mathematical operations with 2D arrays as with 1D
 
-## Dancing Man
+### Dancing Man
 
 The following Script will make a dancing man if run in Jupyter > because why not
 

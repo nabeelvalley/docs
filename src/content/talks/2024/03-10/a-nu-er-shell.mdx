@@ -12,7 +12,7 @@ published: true
 <site-presentation-slide centered>
 <section>
 
-# ZOOOOOOM!
+## ZOOOOOOM!
 
 > Is everything big enough and are we in dark mode?
 
@@ -22,7 +22,7 @@ published: true
 <site-presentation-slide centered highlight>
 <section>
 
-# Nushell
+## Nushell
 
 > Go to demo
 
@@ -45,7 +45,7 @@ Nushell is a shell that makes use of the Nu Programming Language
 <site-presentation-slide>
 <section>
 
-# Data
+## Data
 
 - Traditional shells, e.g. bash, treat everything as strings
 - Nushell treats input streams as data that can be transformed
@@ -71,7 +71,7 @@ Nushell is a shell that makes use of the Nu Programming Language
 <site-presentation-slide>
 <section>
 
-# Pipelines
+## Pipelines
 
 - A functional programming technique
 - Feels a bit like LINQ
@@ -89,7 +89,7 @@ git log --oneline | lines | parse $template
 <site-presentation-slide>
 <section>
 
-# File Formats
+## File Formats
 
 - Supports many common file formats as data
   - CSV
@@ -108,26 +108,26 @@ open data.csv | to json | save data.json
 <site-presentation-slide>
 <section>
 
-# The Nu Language
+## The Nu Language
 
 ```nu
-# compose with command utilities
+## compose with command utilities
 let contents = cat my-file.txt
 
 print $contents
 
-# define custom functions/commands
+## define custom functions/commands
 def "my custom command" [name:string] {
     "Hello " + $name
 }
 
-# use a module
+## use a module
 use my_module.nu
 
-# load a source file into scope
+## load a source file into scope
 source my_file.nu
 
-# create an alias
+## create an alias
 alias gito = git log --oneline
 ```
 
@@ -137,7 +137,7 @@ alias gito = git log --oneline
 <site-presentation-slide>
 <section>
 
-# Demo
+## Demo
 
 > Examples below
 
@@ -147,7 +147,7 @@ alias gito = git log --oneline
 <site-presentation-slide>
 <section>
 
-# Nushell
+## Nushell
 
 - Supports pretty much anything available in a file
 - Easily configurable - `$nu.config-path`
@@ -161,12 +161,12 @@ alias gito = git log --oneline
 <site-presentation-slide>
 <section>
 
-# Examples
+## Examples
 
 ```nu
 const url = 'https://dummyjson.com/todos'
 
-# This is the main method, running --help will show docs for all subcommands
+## This is the main method, running --help will show docs for all subcommands
 def example [] {
     print "Working with HTTP Data"
 }

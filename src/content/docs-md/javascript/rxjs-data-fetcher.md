@@ -4,11 +4,11 @@ title: useSWR-esque data fetching with RxJS
 description: A class that can be used for dynamic data fetching and status tracking using RxJS
 ---
 
-# Coming from React
+## Coming from React
 
 In the react-world something I've really enjoyed using is the [SWR](https://swr.vercel.app/) library for fetching data which allows consolidation of data into a hook that can be used to track error and loading states as well as keep the data accessible at all times for consuming components
 
-# Implementing this with RxJS
+## Implementing this with RxJS
 
 In RxJS we work with data as a stream, when fetching data we often have a resulting stream that will emit a value once the data has been fetched. The problem with this methodology is that we only have the resultant data but errors and loading states are not easily surfaced to consumers of this data unless they hook into the entire lifecycle for the momment the stream is created
 
@@ -118,7 +118,7 @@ const getData = <TData>(state: LoaderState<TData>): TData | undefined =>
   isDataState(state) ? state.data : undefined;
 ```
 
-# Using the Class
+## Using the Class
 
 We can use the class we defined by creating an instance of it
 

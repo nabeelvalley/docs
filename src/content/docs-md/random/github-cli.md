@@ -6,7 +6,7 @@ description: Quick tips for using the GitHub CLI
 
 > [GitHub CLI Website](https://cli.github.com)
 
-# Setup
+## Setup
 
 For MacOS the CLI can be installed with:
 
@@ -20,15 +20,15 @@ Once installed, you will need to log in using the CLI with:
 gh auth login
 ```
 
-# Help
+## Help
 
 For help on any command, as usual, you can append `--help` to the command you're trying to use for more details
 
-# Working with Repos
+## Working with Repos
 
 PR functionality is contained under `gh repo`
 
-## Create a Repo
+### Create a Repo
 
 To create a repo you can use:
 
@@ -38,7 +38,7 @@ gh repo create
 
 And then follow the prompts
 
-## Clone a Repo
+### Clone a Repo
 
 To clone a repo you can use the `gh repo clone` command with the name of the repo, for example to clone the repo that this file is in:
 
@@ -46,11 +46,11 @@ To clone a repo you can use the `gh repo clone` command with the name of the rep
 gh repo clone nabeelvalley/docs
 ```
 
-# Working with Pull Requests
+## Working with Pull Requests
 
 PR functionality is contained under `gh pr`
 
-## Create a PR
+### Create a PR
 
 You can create a pull request using:
 
@@ -80,7 +80,7 @@ Or
 gh pr create --title "Add some cool feature" --labels feature,cool --reviewer nabeelvalley --draft
 ```
 
-## List PRs
+### List PRs
 
 You can list PRs using
 
@@ -102,7 +102,7 @@ gh pr list -s closed --limit 100
 
 Which will get PRs that have both the `feature` and `cool` label
 
-# Working with JSON
+## Working with JSON
 
 Each of the CLI commands that output data let you get the data in JSON format along with specific fields
 

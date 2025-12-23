@@ -3,7 +3,7 @@ published: true
 title: Using the TypeScript AST
 ---
 
-# Generating Typescript using AST's
+## Generating Typescript using AST's
 
 > Some parsers other that the Typescript one is [Esprima](https://esprima.org/demo/parse.html), [Acorn](https://github.com/acornjs/acorn), these are Javascript Parsers> Other languages also have parsers as well as tools called `Parser Generators` that enable you to generate a parser for a given language or usecase
 
@@ -17,7 +17,7 @@ Using the typescript compiler you are able to parse TS into an AST as well as bu
 
 > You can also generate the `ts.` code using the [Typescript to AST Converter](https://ts-ast-viewer.com/)
 
-## Generate Types
+### Generate Types
 
 ```ts
 export type User = {
@@ -89,7 +89,7 @@ Next, we'll creata a `NodeArray` our of the two type declarations we want in our
 const nodes = factory.createNodeArray([userType, adminType])
 ```
 
-## Printing to Code
+### Printing to Code
 
 We can then print the two types out as Typescript code with the following:
 
@@ -135,7 +135,7 @@ export type Admin = {
 }
 ```
 
-# References
+## References
 
 In addition to using the AST Direcly, some libraries that are also handy for working with the Typescript AST are:
 

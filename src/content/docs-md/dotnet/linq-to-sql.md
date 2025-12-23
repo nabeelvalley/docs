@@ -11,11 +11,11 @@ Using the Microsoft [docs on LINQ to SQL](https://docs.microsoft.com/en-us/dotne
 
 > You will also need Visual Studio installed
 
-# Create the Database
+## Create the Database
 
 To get started first create the database based on the Script above by applying it from SQL Server Management Server or another database management tool
 
-# Typical Process
+## Typical Process
 
 The typical process for a LINQ to SQL application development is as follows:
 
@@ -24,11 +24,11 @@ The typical process for a LINQ to SQL application development is as follows:
 3. Add, change, and delete database items
 4. Use Stored Procedures
 
-# 1. Model Setup and Single Entity Query
+## 1. Model Setup and Single Entity Query
 
 > [Documentation here](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/walkthrough-simple-object-model-and-query-csharp)
 
-## Configure the Project
+### Configure the Project
 
 1. In Visual Studio create a new .NET Framework Console App called `LinqToSql`
 2. From the Solution Explorer right click on the Project and select `References > Add Reference` and add a reference to `System.Data.Linq` from the `Framework` section
@@ -38,7 +38,7 @@ The typical process for a LINQ to SQL application development is as follows:
 using System.Data.Linq;
 ```
 
-## Mapping a Class to Database Table
+### Mapping a Class to Database Table
 
 Now we can create a new class and map it to our database table. Create a file in the Project called `Models/Customer.cs` with the following class definition. This states that the Table Name for our `Customer` collection is Customer
 
@@ -89,7 +89,7 @@ namespace LinqToSql.Models
 }
 ```
 
-## Query Database
+### Query Database
 
 We need to create a link to our database using a `DataContext` object. The documentation makes use of the connection to the `mdf` file, however we'll use a `ConnectionString` instead as this makes more sense in practice
 
@@ -153,11 +153,11 @@ namespace LinqToSql
 }
 ```
 
-# 2. Query Across Relationships
+## 2. Query Across Relationships
 
 > [Documentation here](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/linq/walkthrough-querying-across-relationships-csharp)
 
-## Update the Data Model
+### Update the Data Model
 
 First, create the `Models/Order.cs` file with the following content:
 
@@ -290,7 +290,7 @@ namespace LinqToSql.Models
 }
 ```
 
-## Query Across Multiple Entities
+### Query Across Multiple Entities
 
 Now we can query this data from the `Program.cs` file with a query like the following:
 
@@ -304,7 +304,7 @@ foreach (Customer c in custOrderQuery)
 
 ```
 
-## Create a Strongly Typed Database View
+### Create a Strongly Typed Database View
 
 It can be easier to create a strongly typed view of the database by creating a `DataContext` object that we define instead of using the `GetTable` function to retrieve a specific table
 
@@ -340,7 +340,7 @@ As well as in our second query:
 IQueryable<Customer> custOrderQuery = db.Customers.Where(c => c.Orders.Any());
 ```
 
-# 3. Manipulating Data
+## 3. Manipulating Data
 
 To manipulate data we can use some of the functions provided to us by LINQ to SQL
 
@@ -350,7 +350,7 @@ We can update data in our database by followind a few basic steps
 2. Create, Update, or Delete the entity
 3. Submit changes to the datbase
 
-## Retrieve an Entity
+### Retrieve an Entity
 
 We can retrieve an entity by wuerying the database for it
 
@@ -358,7 +358,7 @@ We can retrieve an entity by wuerying the database for it
 Customer custToUpdate = db.Customers.Where(c => c.Orders.Any()).First();
 ```
 
-## Modify Entity
+### Modify Entity
 
 Next you we can modify the `City` and delete an `Order` from the customer
 
@@ -368,7 +368,7 @@ custToUpdate.City = "NEW CITY";
 db.Orders.DeleteOnSubmit(custToUpdate.Orders[0]);
 ```
 
-## Submit Changes
+### Submit Changes
 
 Lastly we can submit the changes to the database
 
@@ -376,11 +376,11 @@ Lastly we can submit the changes to the database
 db.SubmitChanges();
 ```
 
-# 4. Using Stored Procedures
+## 4. Using Stored Procedures
 
 In order to use existing Stored Procedures you can make use of the [`SQLMetal` tool](https://docs.microsoft.com/en-us/dotnet/framework/tools/sqlmetal-exe-code-generation-tool) or using the [`Object Relational Designer`](https://docs.microsoft.com/en-us/visualstudio/data-tools/linq-to-sql-tools-in-visual-studio2?view=vs-2019) in Visual Studio
 
-# Getting Started with the O/R Designer
+## Getting Started with the O/R Designer
 
 > [Documentation](https://docs.microsoft.com/en-us/visualstudio/data-tools/linq-to-sql-tools-in-visual-studio2?view=vs-2019)
 
@@ -394,7 +394,7 @@ You can modify and update information in this view although I would suggest doin
 
 Creating Methods from Stored Procedures can be done by pulling them in from the `Stored Procedures` folder on the DB to the `methods` section on the designer view
 
-# Shortcut
+## Shortcut
 
 You don't need to do all the above manually. From Visual Studio do the following:
 

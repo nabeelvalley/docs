@@ -5,9 +5,9 @@ subtitle: Introduction to Angular Basics
 description: Angular Tour of Heroes tutorial notes
 ---
 
-# Setup
+## Setup
 
-# Angular CLI
+## Angular CLI
 
 Before you can start developing angular applications you need to install the Angular CLI:
 
@@ -21,7 +21,7 @@ To view the CLI functionality you can use:
 ng help
 ```
 
-# App Initialization
+## App Initialization
 
 Create a new app with:
 
@@ -38,9 +38,9 @@ yarn start
 
 You can then open the application on [localhost:4200](http://localhost:4200)
 
-# The App
+## The App
 
-# Starter Files
+## Starter Files
 
 The Angular applcation that's generated will be found in the `src` directory with end-to-end tests in the `e2e` directory
 
@@ -68,7 +68,7 @@ Which we can then rendered in the _template_ by replacing its contents with:
 
 Additionally, the `styles.css` file contains global styles which will apply to every component
 
-## Components
+### Components
 
 To generate a new component you can use the `ng generate component` command:
 
@@ -110,7 +110,7 @@ We can then use this from the `app` component like so:
 <app-heroes></app-heroes>
 ```
 
-## Interfaces
+### Interfaces
 
 You can generate an interface with:
 
@@ -145,7 +145,7 @@ And in a `template` like so:
 <div><span>name: </span>{{hero.name}}</div>
 ```
 
-## Modules
+### Modules
 
 The `Modules` are how Angular understands how an application fits together and this allows us to provide some metadata about how an Angular app fits together and what dependencies it has. The top-level `AppModule` is decorated with `NgModule`
 
@@ -179,9 +179,9 @@ We can the use the FormModule for two-way data binding using an input in the `he
 
 Which binds the `hero.name` property between the `template` and `class` so that changes on one will reflect on the other. So updating the data in the `input` will update our class state as well as any other template references
 
-## Bindings
+### Bindings
 
-### Loops
+#### Loops
 
 To render a list of elements you can use `*ngFor`. So to render a list of heroes you can do the following:
 
@@ -193,7 +193,7 @@ To render a list of elements you can use `*ngFor`. So to render a list of heroes
 </li>
 ```
 
-### Events
+#### Events
 
 You can bind to click events using the `click` binding with an expression to evaluate on click
 
@@ -215,6 +215,6 @@ And then implementing a handler in the template:
   }
 ```
 
-### Conditionals
+#### Conditionals
 
 You can make use of conditionals with the `*ngIf` to selectively render a part of the template

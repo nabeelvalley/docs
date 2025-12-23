@@ -8,7 +8,7 @@ subtitle: Running JS Scripts on MongoDB
 
 JavaScript can be used to manipulate a MongoDB Database from within the `mongo` shell. To do this you can make use of the `mongo` shell
 
-# Create a Script
+## Create a Script
 
 To create a script, you simply need to create a `.js` file, the `db` object will be the current database (set when running the script) and pretty much holds the database reference
 
@@ -20,7 +20,7 @@ To create a script, you simply need to create a `.js` file, the `db` object will
 print(db)
 ```
 
-# Run a Script
+## Run a Script
 
 To run the script, you will do the following from the terminal:
 

@@ -10,9 +10,9 @@ SVG has provides us with two different gradient elements, namely `linearGradient
 
 Gradients work by defining them inside of a `defs` element so that they can be reused in multiple parts of an SVG and they must have an `id` attribute so they can be referenced by other elements
 
-# Defining Gradients
+## Defining Gradients
 
-## The `stop` Element
+### The `stop` Element
 
 When defining any type of gradient it's necessary to define a `stop`s. A `stop` defines a color and it's position and is always a child of a `linearGradient` or `radialGradient` element
 
@@ -32,7 +32,7 @@ Some examples of a `stop` using the above definitions can be seen below:
 <stop stop-color="#D5E73F" stop-opacity="0.7" offset="80%" />
 ```
 
-## The `linearGradient` Element
+### The `linearGradient` Element
 
 Linear gradients are gradients that change along a straight line (the gradient vector).
 
@@ -62,7 +62,7 @@ And a vertical one like so:
 <linearGradient id="linear" x1="0" y1="0" x2="0" y2="1">
 ```
 
-## The `radialGradient` Element
+### The `radialGradient` Element
 
 Radial Gradients are gradients that change along a a radius from a defined focal point
 
@@ -104,7 +104,7 @@ Or using `fr` instead:
 <radialGradient id="radial" fr="0.2" />
 ```
 
-# Using Gradients
+## Using Gradients
 
 Using SVG Gradients can be done by referencing the gradient from the `fill` or `stroke` property of an SVG element
 

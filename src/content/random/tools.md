@@ -4,17 +4,17 @@ title: Tools
 description: Some interesting web-based, open source tools
 ---
 
-# Drawing
+## Drawing
 
 - [TL Draw](https://www.tldraw.com)
 - [Globs](https://globs.design)
 - [Natto](https://natto.dev)
 
-# Environment Management
+## Environment Management
 
 - [Volta](https://volta.sh)
 
-# Shell
+## Shell
 
 - [Nushell](https://www.nushell.sh)
 - [Zoxide](https://github.com/ajeetdsouza/zoxide)

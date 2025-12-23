@@ -8,7 +8,7 @@ subtitle: Deploy a Node.js and Redis Container onto ECS with CDK Pipelines
 
 A good reference for this is also the [AWS Workshop Docs](https://cdkworkshop.com/20-typescript/70-advanced-topics/200-pipelines.html) and the [AWS Advanced Workshop Docs](https://cdk-advanced.workshop.aws/sample/target-construct.html)
 
-# Create CDK App
+## Create CDK App
 
 First, create a directory for your app and then `cd` into it:
 
@@ -34,7 +34,7 @@ yarn
 
 Now, do `git init` and push the application up to GitHub as the pipeline will source the code from there
 
-# Add our Application Files
+## Add our Application Files
 
 Before we jump right into the CDK and pipeline setup, we need an application to containerize. We're going to create a simple Node.js app which uses `express` and `redis`
 
@@ -127,7 +127,7 @@ CMD ["yarn", "start"]
 
 And that should be everything we need to do at this point in terms of the application itself - after all, using Redis with Node.js not the focus of this doc
 
-# Setup
+## Setup
 
 A CDK Pipeline consists of a few different stage, namely:
 
@@ -137,7 +137,7 @@ graph TD
   PublishAssets --> Stage1 --> Stage2 --> etc
 ```
 
-## Pipeline Stack
+### Pipeline Stack
 
 To define a pipeline we use the `@aws-cdk/core` package as the base, create a `lib/pipeline-stack.ts` file in which we'll define a `Stack` which represents our deployment pipeline:
 
@@ -182,7 +182,7 @@ And also add the following to the `context` section of your `cdk.json` file:
 "@aws-cdk/core:newStyleStackSynthesis": true
 ```
 
-## Pipeline Account Permissions
+### Pipeline Account Permissions
 
 First, install the `cdk` CLI at a project level with:
 
@@ -211,13 +211,13 @@ yarn cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/A
 
 > The above will create a `CDKToolkit` stack which you will be able to see in AWS's CloudFormation Console
 
-## GitHub Repo Permissions
+### GitHub Repo Permissions
 
 We need to provide AWS with credentials to our GitHub repo. To do this go to `GitHub > Settings > Developer settings > Personal access tokens` and create a token with access to `repo` and `admin:repo_hook` permissions
 
 Then add the token to AWS's Secrets Manager via the console with a `plaintext` value of the token you just generated above, then name the token `github-token` and complete the rest of the steps to store the new secret
 
-## Develop the Pipeline
+### Develop the Pipeline
 
 Now that we've got most of the scaffolding in place, we need to actually deploy our pipeline to AWS so that it's aware of the codebase and everything else it needs to hook into our git repo for the building and deployment of our project
 
@@ -342,7 +342,7 @@ Next, initialize the Pipeline in AWS by using `yarn cdk deploy`. This should be 
 yarn cdk deploy
 ```
 
-### Add App to Deployment
+#### Add App to Deployment
 
 To create deployments we need to have a class that inherits from `cdk.Stage`, in this `Stage` we specify all the requisites for an application deployment. We're deploying the `AppStack` application, we will reference it from a Stage called `AppStage` which will just create an instance of the application:
 
@@ -427,7 +427,7 @@ export class PipelineStack extends cdk.Stack {
 }
 ```
 
-## App Stack
+### App Stack
 
 Since our app will use a Docker container we need to install the `@aws-cdk/aws-ecs`, `@aws-cdk/aws-ec2` and `@aws-cdk/aws-ecs-patterns` packages:
 
@@ -779,9 +779,9 @@ export class AppStack extends cdk.Stack {
 
 We can kick off the pipeline by pushing to the GitHub repo we setup above which will cause all our services to be deployed. Once that's done we can go to the `Outputs` panel for the `Dev-AppStage` and open the `AppLoadBalancerDNS` url, this will open our application.
 
-# Test the App
+## Test the App
 
-## Set Data
+### Set Data
 
 With the server running you can create a new item with:
 
@@ -793,7 +793,7 @@ BODY "my test data"
 RESPONSE "OK"
 ```
 
-## Get Data
+### Get Data
 
 You can then get the value using the key with:
 
@@ -805,7 +805,7 @@ RESPONSE "my test data"
 
 And if all that works correctly then congratulations! You've successfully setup an application that uses multiple Docker Containers with CDK on AWS
 
-# References
+## References
 
 - [Taking AWS CDK for a spin for deploying docker containers - Jeff Bryner](https://blog.jeffbryner.com/2020/07/20/aws-cdk-docker-explorations.html)
 - [Building a modern cloud application with the AWS Cloud Development Kit - Nathan Peck](https://pages.awscloud.com/rs/112-TZM-766/images/2019_0911-CON_Slide-Deck.pdf)

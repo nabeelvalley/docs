@@ -7,7 +7,7 @@ published: true
 
 Using worker threads with Typescript is pretty straightforward, this probably depends a bit on your setup but the below idea seems to work for me
 
-# Single File Worker
+## Single File Worker
 
 In NodeJS we can use a sort of self-referrential worker such that depending on the context in which the file is loaded the behavior will differ, for example:
 
@@ -58,7 +58,7 @@ In the above file we can see a few things that are important to using workers:
 4. Data can be passed to the worker via the `workerData` property, this will then be put into the `workerData` variable from `node:worker_threads` in the worker thread
 5. Data is sent back to the worker using `parentPort.postMessage`. This is the same even that's being listened for the `Promise` to resolve in `worker.addListener("message", resolve)`
 
-# Multi File Worker
+## Multi File Worker
 
 Extending the above to work with multiple files is pretty simple, the only additional trick we need is to export the `__filename` from our worker file to the place where we want to construct the worker
 
@@ -113,7 +113,7 @@ async function main() {
 main()
 ```
 
-# Uncompiled Worker Using `ts-node`
+## Uncompiled Worker Using `ts-node`
 
 When executing workers it's also possible to execute the Typescript file directly instead of relying on the compilation. This can be useful for cases where the Javascript code is compiled to a single file or in situations where you don't have control over the execution environment
 
@@ -131,6 +131,6 @@ const worker = new Worker("my-worker.ts", {
 ```
 
 
-# References
+## References
 
 - [NodeJS Worker Threads](https://nodejs.org/api/worker_threads.html)

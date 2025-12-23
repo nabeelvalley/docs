@@ -5,7 +5,7 @@ subtitle: Miscellaneous Git Concepts
 description: Git tips and tricks
 ---
 
-# Stage Files Using Glob
+## Stage Files Using Glob
 
 Git allows the use of globbing to work with files, using this knowledge we're able to do something like stage files based on a glob pattern, so we can do something like stage all `.js` and `.ts` files with:
 
@@ -15,11 +15,11 @@ git add **/*.{js,ts}
 
 > You can create and test glob patterns on [GlobTester](https://globster.xyz/)
 
-# Revert Commits
+## Revert Commits
 
 > From [StackOverflow](https://stackoverflow.com/questions/1463340/how-to-revert-multiple-git-commits)
 
-## Revert Single Commit
+### Revert Single Commit
 
 Say we have a commit with id `b` below, and we would like undo changes that were introduced in that commit but still retain our history as is, something like:
 
@@ -43,7 +43,7 @@ git revert --no-commit HEAD~4
 
 Where `HEAD~4` means the 4th last commit from the current `HEAD` (latest commit)
 
-## Revert Multiple Commits
+### Revert Multiple Commits
 
 Say we have a commit with id `b` below, and we would like undo changes that were introduced in that all changes since that commit but still retain our history as is, something like:
 
@@ -67,11 +67,11 @@ git revert --no-commit HEAD~4..
 
 Where `HEAD~4` means the 4th last commit from the current `HEAD` (latest commit) and the `..` means a commit range till the latest commit
 
-# Submodules
+## Submodules
 
 Submodules allow you to include one git repository in another, for instance if we want to include a library in our codebase
 
-## Set Up a Test Repo
+### Set Up a Test Repo
 
 We can get started on a new test repository, just create a folder with some files and other folders in it and run:
 
@@ -86,7 +86,7 @@ git add .
 git commit -m "initial commit"
 ```
 
-## Add a Submodule
+### Add a Submodule
 
 Next, from the directory into which you want the submodule to be cloned into, you can run the following command:
 
@@ -123,7 +123,7 @@ git add .
 git commit -m "add submodules"
 ```
 
-## Cloning a Project with Submodules
+### Cloning a Project with Submodules
 
 When cloning a project that has submodules you can do either of the following:
 
@@ -156,7 +156,7 @@ Alternatively if you are cloning the project for the first time you should be ab
 git clone --recurse-submodules https://github.com/nabeelvalley/MyNewRepository.git
 ```
 
-# Pull Latest Changes from Submodule
+## Pull Latest Changes from Submodule
 
 To pull the latest changes from a submodule into the repository you can make use of the following command:
 
@@ -168,7 +168,7 @@ There's a lot more you can do with submodules but these are the basics, more inf
 
 It's also relevant to note that when working on submodules you can kind of treat them as a normal git repository and work on them like you would if they were such
 
-# [Clean Ignored Files](http://www.codeblocq.com/2016/01/Untrack-files-already-added-to-git-repository-based-on-gitignore/)
+## [Clean Ignored Files](http://www.codeblocq.com/2016/01/Untrack-files-already-added-to-git-repository-based-on-gitignore/)
 
 To remove files that are in your `.gitignore` but are not ignored by your repo, you can do the following:
 
@@ -183,7 +183,7 @@ git add .
 git commit -m ".gitignore fix"
 ```
 
-# Create an Orphan/Unrelated Branch
+## Create an Orphan/Unrelated Branch
 
 > Information from [this Stack Overflow Answer](https://stackoverflow.com/a/4288660)
 
@@ -203,7 +203,7 @@ git add .
 git commit -m 'Initial commit on new branch'
 ```
 
-# Using Git Flow
+## Using Git Flow
 
 To init Git Flow in a repo use `git flow` for the help menu:
 
@@ -292,7 +292,7 @@ Summary of actions:
 
 You can then continue to use the above methodology to manage branching, releases, etc.
 
-# Using Git from Another Tool
+## Using Git from Another Tool
 
 Sometimes it's useful to use git from another tool/application. To get a more standard/parseable output from git commands you can add the `--porcelain` flag. For example, with `git status` below:
 
@@ -323,7 +323,7 @@ Untracked files:
         wsl.md
 ```
 
-# Consistent Line Endings
+## Consistent Line Endings
 
 You can setup consistent line endings for repositories that are shared between Windows and \*nix systems by adding the following to a `.gitattributes` file
 
@@ -333,11 +333,11 @@ You can setup consistent line endings for repositories that are shared between W
 *.{bat,[bB][aA][tT]} text eol=crlf
 ```
 
-# Locate your SSH Key on Windows
+## Locate your SSH Key on Windows
 
 When using `git` with SSH you may have difficulties finding the location for the SSH keys to use, to find the SSH Key you need to navigate to `%HOMEDRIVE%%HOMEPATH%\.ssh\` To figure out where this folder is you can do the following: `start > run > %HOMEDRIVE%%HOMEPATH%`. The SSH Keys being used should be located in here
 
-# Delete All Branches other than Master
+## Delete All Branches other than Master
 
 Using `grep` and `xargs` you can do this using:
 
@@ -345,9 +345,9 @@ Using `grep` and `xargs` you can do this using:
 git branch | grep -v "master" | xargs git branch -D
 ```
 
-# Get File From Specific Branch or Commit
+## Get File From Specific Branch or Commit
 
-## Show File
+### Show File
 
 > From this [StackOverflow](https://stackoverflow.com/questions/7856416/view-a-file-in-a-different-git-branch-without-changing-branches) answer
 
@@ -369,7 +369,7 @@ You can also pipe this into `bat` for example to view the file with syntax highl
 git show feature/new-user:src/users/user.page.ts | bat -l ts
 ```
 
-## Checkout File
+### Checkout File
 
 If you'd like to checkout the file from into your current working tree you can use the following instead:
 
@@ -393,7 +393,7 @@ Or from a specific commit
 git checkout 211512 src/my-file.ts
 ```
 
-## View Diff
+### View Diff
 
 If you'd like to compare the file to what you have in your current branch you can use `git diff` like so:
 
@@ -407,13 +407,13 @@ So this may look like so:
 git diff feature/stuff -- src/stuff/my-stuff.html
 ```
 
-# Checkout/Switch Branches
+## Checkout/Switch Branches
 
 > Checking out/switching are similar taks with `switch` being the "newer" way to do things
 
 There are some alternative methods for checking out branches depending on what you want to do:
 
-## Checkout/Switch from Current Branch
+### Checkout/Switch from Current Branch
 
 You can branch from your current branch with:
 
@@ -421,19 +421,19 @@ You can branch from your current branch with:
 git checkout -b feature/my-new-branch
 ```
 
-## Checkout/Switch from a Different Branch
+### Checkout/Switch from a Different Branch
 
 Or you can checkout from another branch (e.g. `main`) without switching to it first, this can be done with:
 
 ```sh
-# you may want to update your local copy of `main` first
+## you may want to update your local copy of `main` first
 git fetch origin main:main
 
-# and then switch to it
+## and then switch to it
 git switch -c feature/my-new-branch main
 ```
 
-# Checkout/Switch to Previous Branch
+## Checkout/Switch to Previous Branch
 
 When switching branches, we can easily go to the last branch we were on using:
 
@@ -441,7 +441,7 @@ When switching branches, we can easily go to the last branch we were on using:
 git switch -
 ```
 
-# Get Commit Changes from another Branch (Cherry Picking)
+## Get Commit Changes from another Branch (Cherry Picking)
 
 Cherry picking allows us to get a specific commit from one branch and bring it into our current branch
 
@@ -455,7 +455,7 @@ For example, if we want to take the changes from commit `211512` into our branch
 git cherry-pick 211512
 ```
 
-# Automatically Set Upstream
+## Automatically Set Upstream
 
 When using git it can be annoying when pushing a new branch since it will always request that you setup the upstream/origin. You can configure git to do this automatically using the following command:
 
@@ -463,7 +463,7 @@ When using git it can be annoying when pushing a new branch since it will always
 git config --global push.autoSetupRemote true
 ```
 
-# Enable Case Sensitivity
+## Enable Case Sensitivity
 
 To ensure that git is case sensitive on non-case-sensitive systems (Windows) you can use the following command:
 
@@ -471,7 +471,7 @@ To ensure that git is case sensitive on non-case-sensitive systems (Windows) you
 git config core.ignorecase false
 ```
 
-# Find Bad Commits using Bisect
+## Find Bad Commits using Bisect
 
 1. Checkout the branch where the bad commit exists
 2. Run `git bisect start` to start a bisect session. If you're looking for a PR you can also use the `--first-parent` flag here which will make it easier to find merges only for example
@@ -488,7 +488,7 @@ The overall flow for this will be something like
 git bisect start # or git bisect start --first-parent
 git bisect good # to label a commit as good
 git bisect bad # to label a commit as bad
-# the tool will checkout another commit, you then mark this as good or bad
+## the tool will checkout another commit, you then mark this as good or bad
 ```
 
 6. The process will run until you find the last bad commit, you can then try to figure out what was changed in that commit.
@@ -499,11 +499,11 @@ Like so:
 
 ```sh
 git bisect log | my-log-file.txt
-# edit the my-log-file.txt` to correct a mislabeling, etc.
+## edit the my-log-file.txt` to correct a mislabeling, etc.
 git bisect replay my-log-file.txt
 ```
 
-# Git User Configs
+## Git User Configs
 
 > Refer to [this StackOverflow for more information](https://stackoverflow.com/questions/4220416/can-i-specify-multiple-users-for-myself-in-gitconfig/43654115#43654115)
 
@@ -511,7 +511,7 @@ Often when using git you may need to have multiple accounts on the same machine 
 
 To do this, you can use two solutions depending on your usecase:
 
-## Single Repository
+### Single Repository
 
 For a repository you can update the `.git/config` file for that repository using the following command:
 
@@ -521,7 +521,7 @@ For a repository you can update the `.git/config` file for that repository using
 git config set user.email "repo@email.com"
 ```
 
-## For a Subdirectory
+### For a Subdirectory
 
 Sometimes you may have multiple subdirectories in which you would like repositories within it to inherit a specific config, you can do this by:
 
@@ -530,12 +530,12 @@ Sometimes you may have multiple subdirectories in which you would like repositor
 `~/.gitignore`
 
 ```toml
-# default value to be used outside of subdirectory
+## default value to be used outside of subdirectory
 [user]
     name = Nabeel Valley
     email = nabeel@email.com
 
-# link to subdirectory config
+## link to subdirectory config
 [includeIf "gitdir:~/repos/my-other-repos/"]
     path = ~/repos/my-other-repos/.gitconfig
 ```
@@ -547,16 +547,16 @@ Sometimes you may have multiple subdirectories in which you would like repositor
 `~/repos/my-other-repos/.gitconfig`
 
 ```toml
-# override value that applies to this subdirectory only
+## override value that applies to this subdirectory only
 [user]
     email = other@email.com
 ```
 
-# Rebasing
+## Rebasing
 
 Rebasing lets us modify and restructure commits. It's can get kind of messy but is handy for cleaning up commit history for example
 
-## Simple Rebase
+### Simple Rebase
 
 For a simple rebase, for example changing the target branch or moving some commits up to the latest HEAD of your main branch for example
 
@@ -572,7 +572,7 @@ Another common use of this is to change the target branch, e.g. if I had a branc
 git rebase --onto main feature/wip
 ```
 
-## Complex Rebases
+### Complex Rebases
 
 Interactive rebasing is the easiest way to go about it in my opinion, this is done by starting a rebase session
 
@@ -608,18 +608,18 @@ Once the rebase session has started, you'll see an editor open with some content
 pick b5cb5c3 # add initial notes
 pick f1d5c91 # fix typo
 
-# Rebase 9ab331d..f1d5c91 onto 9ab331d (2 commands)
+## Rebase 9ab331d..f1d5c91 onto 9ab331d (2 commands)
 #
-# Commands:
-# p, pick <commit> = use commit
-# r, reword <commit> = use commit, but edit the commit message
-# e, edit <commit> = use commit, but stop for amending
-# s, squash <commit> = use commit, but meld into previous commit
-# f, fixup [-C | -c] <commit> = like "squash" but keep only the previous
-#                    commit's log message, unless -C is used, in which case
-#                    keep only this commit's message; -c is same as -C but
-#                    opens the editor
-# ...
+## Commands:
+## p, pick <commit> = use commit
+## r, reword <commit> = use commit, but edit the commit message
+## e, edit <commit> = use commit, but stop for amending
+## s, squash <commit> = use commit, but meld into previous commit
+## f, fixup [-C | -c] <commit> = like "squash" but keep only the previous
+##                    commit's log message, unless -C is used, in which case
+##                    keep only this commit's message; -c is same as -C but
+##                    opens the editor
+## ...
 ```
 
 In our case, let's say we want to combine the `fix typo` commit into the previous commit, we can do this by editing the rebase file with the relevant command. For this we can use `fixup` which will squash the commit into the previous one and keep the previous message. We can edit the rebase file to look like this:
@@ -638,11 +638,11 @@ Once we're done rebasing, our log now looks like this:
 9ab331d (main) initial commit
 ```
 
-# Newer Git Stuff
+## Newer Git Stuff
 
 > From [Git Tips and Tricks](https://blog.gitbutler.com/git-tips-and-tricks/)
 
-## Log changes to specific part of file
+### Log changes to specific part of file
 
 Log changes to a specific part of a file using:
 
@@ -662,7 +662,7 @@ You can also do this using the name of some symbol in your code and it will try 
 git log -L SymbolName:path/to/file
 ```
 
-## Git Maintenance
+### Git Maintenance
 
 Run the following in a repo to make git maintain the repo and keep things fast in the background using a CRON job (just run this in every repo)
 
@@ -670,7 +670,7 @@ Run the following in a repo to make git maintain the repo and keep things fast i
 git maintenance start
 ```
 
-## Searching for Specific Change
+### Searching for Specific Change
 
 > [StackOverflow Question](https://stackoverflow.com/questions/2839253/git-history-find-lost-line-by-keyword/2839319#2839319)
 
@@ -686,7 +686,7 @@ Or with a Regex:
 git log -p --all -G 'some regex here'
 ```
 
-## Speeding things Up
+### Speeding things Up
 
 > Some general commands that should help speed up git as per [this GitTower Post](https://www.git-tower.com/blog/git-performance/)
 
@@ -704,7 +704,7 @@ git config fetch.writeCommitGraph true
 
 For more details for dealing with Large Git Repos there's some nice info on [the GitButler Site](https://blog.gitbutler.com/git-tips-3-really-large-repositories/) y
 
-## Automatically Applying Git Diffs/Patches
+### Automatically Applying Git Diffs/Patches
 
 > [StackOverflow on Git patches](https://stackoverflow.com/questions/2249852/how-to-apply-a-patch-generated-with-git-format-patch)
 
@@ -715,11 +715,11 @@ Sometimes it's handy to take a git diff/patch from one place and apply it to ano
 
 Other handy commands here are `git apply --stat mychanges.patch` to get the status of the patch or `git apply --check mychanges.patch` to dry run/detect errors
 
-# Worktrees
+## Worktrees
 
 Worktrees help to separate work by effectively having multiple copies of the repository on your drive while maintaining a single git index
 
-## Create a Worktree
+### Create a Worktree
 
 Creating a worktree is done from the main repo directory, you can optionally give it a branch name with `-b`. If not provided this will just be the name of the worktree
 
@@ -737,7 +737,7 @@ cd ../experiments
 
 Since the worktrees are also using the same git index, it's easy to do things like `cherry-pick` commits from branches in other worktrees without pushing it to a remote
 
-## Listing Worktrees
+### Listing Worktrees
 
 Git can let us view the worktree and will provide us with information about the path and branch checkout out at each tree
 
@@ -745,7 +745,7 @@ Git can let us view the worktree and will provide us with information about the 
 git worktree list
 ```
 
-## Removing Worktrees
+### Removing Worktrees
 
 Removing a worktree will delete the directory but not the associated branches, this can be done with:
 
@@ -753,7 +753,7 @@ Removing a worktree will delete the directory but not the associated branches, t
 git worktree remove ../experiments
 ```
 
-# Reflog
+## Reflog
 
 > Some good examples of using the reflog can be found [in this tutorial](https://www.datacamp.com/tutorial/git-reflog)
 
@@ -793,7 +793,7 @@ You can also checkout using time, like so:
 git checkout HEAD@{1.day.ago}
 ```
 
-# Rerere
+## Rerere
 
 Git has a setting called `rerere` (reuse recorded resolution) which helps reduce the need to constantly re-resolve conflicts. This can be enabled with:
 
@@ -801,9 +801,9 @@ Git has a setting called `rerere` (reuse recorded resolution) which helps reduce
 git config --global rerere.enabled true
 ```
 
-# Tools on Top of Git
+## Tools on Top of Git
 
-## LazyGit
+### LazyGit
 
 [LazyGit](https://github.com/jesseduffield/lazygit) is a terminal UI for Git. Using it can be done by running the `lazygit` command and it's the default git UI in LazyVim so it fits pretty well together
 

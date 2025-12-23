@@ -10,7 +10,7 @@ So I was just going to write a short post about this handy function I made, but 
 
 Our end goal is going to be to define an abstraction that will allow us to convert any Callback-Based API into an Async Generator. Now, if those words don’t mean much to you, then welcome to the other side of JavaScript. If you’re just here for the magic function, however, feel free to skip to the end
 
-# Promises
+## Promises
 
 Before diving into the complexity of generators, we're going to quickly kick off with a little introduction to `Promises` and how they relate to `async/await` and callback code
 
@@ -18,7 +18,7 @@ Promises are used to make async code easier to work with and JavaScript has some
 
 Before we can dive right into implementing our function for creating an `AsyncGenerator` from a callback based API, it's important to understand how we might go about wrapping a callback based API into a `Promise`
 
-## Creating Promises from Callbacks
+### Creating Promises from Callbacks
 
 Often we end up in cases where we've got some code that is callback based - this is a function, for example `setTimeout`, that will invoke the rest of our code asynchronously when some task is done or event is received
 
@@ -61,7 +61,7 @@ Granted, this isn't a huge difference - the value of this comes from when we hav
 
 This is such a common problem in the JavaScript world, that Node.js even has a builtin function `node:util` called `promisify` that converts Node.js style callback functions into promise-based ones
 
-## Async/Await
+### Async/Await
 
 When working with promises, it's useful to define our methods using the `async` keyword, this allows us to work with a `Promise` using `await` and not have any callbacks
 
@@ -76,7 +76,7 @@ async function doWork(){
 
 The `doWork` function returns `Promise`, this is because the `async` keyword is some syntax sugar for creating a `Promise`
 
-## Promises vs Async
+### Promises vs Async
 
 For the sake of understanding, all that the `async` keyword does allow us to remove the `Promise` construction from our function - `async` functions are simply functions that return a `Promise` - these are alternative syntax for the same thing - so, the following two functions are the same:
 
@@ -96,7 +96,7 @@ function getNumber() {
 }
 ```
 
-## Promise.withResolvers
+### Promise.withResolvers
 
 Another pattern that often comes us is the need to reach into the `Promise` constructor and grab onto its `resolve` and `reject` methods and pass them around so that we can "remotely" compelete a `Promise`, as per MDN, the common pattern for doing this looks something like so:
 
@@ -121,11 +121,11 @@ This method is also a recent addition to the `Promise` class via `Promise.withRe
 
 Now that we've got an understanding of Promises, it's time to talk about Iterators and Generators
 
-# Iterators and Generators
+## Iterators and Generators
 
 Iterators and generators enable iteration to work in JavaScript and are what lies behind objects that are iterable by way of a `for ... of` loop
 
-## Iterator
+### Iterator
 
 An iterator is basically an object that will return a new value whenever its `next` method is called
 
@@ -205,7 +205,7 @@ for (const v of randomlyStopCounting()) {
 
 This is used the same as above, but the point at which this will return isn't really known beforehand. This dynamic behavior can come from lots of different places and not just from `Math.random` and it can allow some really interesting behaviors
 
-## Generators
+### Generators
 
 Defining the above iterators is fun and all, but it's quite messy. The higher-order syntax for defining these kinds of iterators is using `Generators`
 
@@ -237,7 +237,7 @@ for (const v of countTo(5)) {
 
 This also applies for the iterators above, I just find it so much more interesting in this case because there's no concept that someone is going to "call the `next` method again" which is so transparent in the iterator example above
 
-## Async Generators
+### Async Generators
 
 Now, we're taking one more step - what if I wanted to do some long running task between each `yield`? This could be anything from waiting for a `Promise` to resolve, or a network request, or some user event (oh wow - there's an idea for multi-step forms!)
 
@@ -265,13 +265,13 @@ for await (const v of countToAsync(5)) {
 
 Interesting right? We're now using a `for await ... of` loop. If you were to run this, you'd also notice that there's a little pause between each value being logged
 
-# Unwrapping the Generator
+## Unwrapping the Generator
 
 Now that we've seen what the inside of an iterator looks like - it's time to open the box and see what generators have inside
 
 Let's start with the sync version
 
-## Inside a Sync Generator
+### Inside a Sync Generator
 
 So if we re-define our `countTo` generator without using the `function*` and `yield` syntax sugar, we'll see something like this:
 
@@ -306,7 +306,7 @@ This looks **very** similar to an iterator - and that's because it is!
 
 The `Generator` type inherits from the `Iterator` and needs an additional `return` and `throw` methods. The `return` method allows the generator to handle any cleanup once the consumer is done iterating. The `throw` allows any handling of errors and any other cleanup tasks
 
-## Inside an Async Generator
+### Inside an Async Generator
 
 The async version of the above is almost identical - but we just sprinkle the `async` keyword around to make the respective methods all return a `Promise` as this is what the `AsyncGenerator` requires:
 
@@ -345,7 +345,7 @@ for await (const v of countToAsync(5)) {
 
 Just like when defining the Async Generator before, we're just calling `sleep` between each return value. We've also made the `return` and `throw` methods `async` as well
 
-# Creating Generators from Callback Functions
+## Creating Generators from Callback Functions
 
 Well, it's been a long way, but we finally have all the tools we need to turn a callback based method into an iterator. So far, we've been using `setTimeout` for our callbacks, but generators return multiple values. We're going to create a little modified version of `setInterval` for this so that we can play around
 
@@ -463,7 +463,7 @@ This isn't doing anything that we haven't covered before. The only interesting b
 
 That all being said, I think this implementation should make it clear how these pieces all fit together - there's a lot more detail that can be had in this discussion since each of these topics are fairly deep - but I hope this post was - if not useful - then at least interesting
 
-# References and Further Reading
+## References and Further Reading
 
 - [MDN: Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 - [MDN: Promise.withResolvers()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/withResolvers)

@@ -6,7 +6,7 @@ subtitle: Building an RPG using the Godot Game Engine
 
 > From the [Action RPG Series by HeartBeast](https://www.youtube.com/watch?v=mAbG8Oi-SvQ&list=PL9FzW-m48fn2SlrW0KoLT4n5egNdX-W9a)
 
-# Getting Started
+## Getting Started
 
 You will first need to [download the Godot Engine](https://godotengine.org/download/windows). You can use C# as the language but will require you to have the Visual Studio Build tools prereqs installed as well
 
@@ -16,7 +16,7 @@ YOu can then go to `Project > Project Settings` to confugire your project settin
 
 An appropriate window size for pixel art you can go to `Display > Window` and set a Width of `320` and Height of `180`, since this will make your game's preview window really small you'll also want to change the Test Height and Width, something like `1280 / 720` may work, and set a Stretch Mode to `2d` in the same menu
 
-# Adding Game Resources
+## Adding Game Resources
 
 To import resources you can select the `Import` tab at the top of the left panel to configure the import settings before importing your resources
 
@@ -26,7 +26,7 @@ Therafter, you can just drag the resources into the bottom left `FileSystem` pan
 
 You can then drag an image into the game area to see what it looks like in the scene
 
-# Setup the Scene Type
+## Setup the Scene Type
 
 Before you can start working you'll need to setup your Root Scene node, select 2D or 3D for the root scene node as appropriate, I'll be using 2D
 
@@ -39,7 +39,7 @@ Godot uses a collection of Scenes and Nodes to organize game content
 - Zoom in and out with your scroll wheel
 - Pan the scene by right clicking and dragging
 
-# Create a Character
+## Create a Character
 
 To add a Character to a game we will add a `KinematicBody2D` node and we can add this via the `+` button in the Scene panel
 
@@ -55,7 +55,7 @@ To only show a single image in the Sprite you need to go to the `Animation` sect
 
 When moving things around you may accidentally move around a child of a selected node instead of the node itself, to avoid this select the `Player` node on the left, and the icon with the two squares to `Make sure the object's children are not selectable` which will make sure that child elements of the `Player` node are not moved accidentally. To move a child, you can select it in the node list and move it while holding `alt`
 
-# Add a Script
+## Add a Script
 
 To make your `Player` movable you can add a script to it from the `Attach Script` button on the top of the left scene panel, and add a name for the script, I'm going to use `Player.gd`. The initialized script will look something like this:
 
@@ -64,17 +64,17 @@ To make your `Player` movable you can add a script to it from the `Attach Script
 ```py
 extends KinematicBody2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+## Declare member variables here. Examples:
+## var a = 2
+## var b = "text"
 
 
-# Called when the node enters the scene tree for the first time.
+## Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+## Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 ```
@@ -153,11 +153,11 @@ func _physics_process(delta):
 
 > The inclusion of `delta` ensures the speed remains constant regardless of the user's device or frame rate, however you can consider leaving this out as the `_physics_process` function _should_ be called at a constant rate unless the user's device starts lagging
 
-# Collisions
+## Collisions
 
 We can add a collider to handle collisions on objects, you can add a `CollisionShape2D` which will allow you to handle this, you will then need to select the shape that you want to use, our collisions will then be handled correctly using the `move_and_slide` function we set above
 
-# Scenes
+## Scenes
 
 Godot has the ability to convert anything to a scene, this allows us to re-use a specific collection of preconfigured nodes - similar to prefabs in Unity
 
@@ -169,7 +169,7 @@ By default, the order of elements in the scene is based on the position in the h
 
 > A Potential problem using `YSort` can be that it will sort based on the center of node, so you may need to consider the effects of that
 
-# Animation
+## Animation
 
 > Sprite animation can either be done with the `AnimationPlayer` or `AnimatedSprite` nodes. The `AnimationPlayer` is a more generic form of the latter
 
@@ -266,7 +266,7 @@ func _physics_process(delta):
 	set_velocity_from_input(delta)
 ```
 
-# Backgrounds
+## Backgrounds
 
 > If your world is a `YSort` you may need to change it back to a `Node2D` and have separte nodes for your background and environment, with a new `YSort` inside of it
 
@@ -276,7 +276,7 @@ Next, reimport your texture by clicking on it in the FileSystem, the clicking `I
 
 You can then resize the sprite in the `TextureRegion` to fit your game space
 
-# Tilemaps
+## Tilemaps
 
 To create a tilemap you need to add a `TileMap` node, set the `Cell Size` and then set the `Tile Set` to `New TileSet`
 

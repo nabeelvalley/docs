@@ -6,7 +6,7 @@ subtitle: Basic Concepts in the C Programming Language
 
 > Notes from [this YouTube Series](https://www.youtube.com/watch?v=CPjZKsUYSXg)
 
-# Prerequisites
+## Prerequisites
 
 In order to write some C we need to have a few things set up
 
@@ -40,7 +40,7 @@ RUN apt-get update \
 ENV DEBIAN_FRONTEND=dialog
 ```
 
-# Hello World
+## Hello World
 
 Let's create a file called `hello.c` with the following:
 
@@ -63,7 +63,7 @@ We can compile this file using `gcc hello.c` which will create an `a.out` file, 
 - We use `#include <stdio.h>` so that we can use the Standard I.O. library, we need this so we can `printf`
 - Each statement needs to end with a `;`
 
-# Variables
+## Variables
 
 To create variables you can use the following syntax will create an `int`:
 
@@ -89,7 +89,7 @@ Versus using correct casting for at least one of the values we get the correct d
 int z = (double) y / x; // 1.500
 ```
 
-## Variable Names
+### Variable Names
 
 Variable names should be limited to:
 
@@ -100,7 +100,7 @@ Variable names should be limited to:
 
 And should not start with a number
 
-# Printing
+## Printing
 
 In order to print in C we can use the `printf` function. When printing we make use of a formatting string, such as `%i` to print an int or `%s` to print a string
 
@@ -109,7 +109,7 @@ int x = 5;
 printf("%i", x);
 ```
 
-# Read Input
+## Read Input
 
 To read input we make use of the `scanf` function which will scan user input into a variable
 
@@ -155,11 +155,11 @@ printf("Hello, %s!\n", name);
 
 > When taking in a string like above we cannot receive spaces using `scanf`
 
-# Comments
+## Comments
 
 Commenting code can be dome using `//` for single line comments or `/* ..... */` for multi line comments
 
-# Data Types
+## Data Types
 
 Some of the data types in C are:
 
@@ -179,7 +179,7 @@ printf("bigNum: %i\nsmallNum: %f\n", bigNum, smallNum);
 
 Arrays allow us to store groups of data and are identified using `[]`. The `string` data type in C is based on a `char[]` which use double quotes when defining. It needs to be noted that the string needs a termination character which is a `\0` (you don't have to type this yourself)
 
-## Conversion Characters
+### Conversion Characters
 
 For reading text into other data types we make use of conversion characters:
 
@@ -192,7 +192,7 @@ For reading text into other data types we make use of conversion characters:
 
 We can use all of the above with the `printf` function, however when scanning in data we use`%lf` - double as scientific or decimal
 
-## Char
+### Char
 
 > C uses the ASCII Character Set using `7` bits, `8` bits would be the extended character set
 
@@ -216,7 +216,7 @@ printf("%c", myA);
 
 > The range of `char` values is `0 - 127`
 
-## Strings
+### Strings
 
 A string is a sequence of characters and is denoted using `"..."`. To declare a string we make use of a `char[]` like so:
 
@@ -230,7 +230,7 @@ If we want to define a character array without knowing the number of characters 
 char name[11]; // note this will only store 10 characters
 ```
 
-## Boolean
+### Boolean
 
 Boolean data can be set using the `_Bool` data type
 
@@ -254,11 +254,11 @@ int main()
 }
 ```
 
-# Operators
+## Operators
 
 Some of the basic operators in C are:
 
-## Arithmetic
+### Arithmetic
 
 - `+` add
 - `-` subtract
@@ -268,7 +268,7 @@ Some of the basic operators in C are:
 - `++` increment
 - `--` decrement
 
-## Relational
+### Relational
 
 - `==` equality
 - `!=` inequality
@@ -277,13 +277,13 @@ Some of the basic operators in C are:
 - `>=` greater than or equal
 - `<=` less than or equal
 
-## Logical
+### Logical
 
 - `&&` and
 - `||` or
 - `!`
 
-## Assignment
+### Assignment
 
 - `=` assign
 - `+=` add and assign

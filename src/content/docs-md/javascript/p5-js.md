@@ -6,7 +6,7 @@ subtitle: Introductory p5.js notes
 
 > Notes from [`p5.js`](https://p5js.org/) and [The Nature of Code](https://natureofcode.com/book/introduction/)
 
-# Random Walk
+## Random Walk
 
 Using `p5` we can create a random walker. With `p5` we usually structure stuff using OOP, for example we will define a random walker with the ability to take a new step as well as render itself:
 
@@ -119,7 +119,7 @@ class Walker {
 
 </details>
 
-# Vectors
+## Vectors
 
 `p5` also contains a Vector Class, this is a class of functions that allows us to work with vectors as mathematical structures
 

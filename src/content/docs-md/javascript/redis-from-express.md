@@ -4,7 +4,7 @@ title: Redis from Express
 subtitle: Using Redis from a Node.js Express App via Docker Compose
 ---
 
-# Setup Project
+## Setup Project
 
 Init an NPM project with Redis and Express:
 
@@ -16,7 +16,7 @@ npm init -y
 npm install express redis
 ```
 
-# Create Container
+## Create Container
 
 To start a Redis Container run:
 
@@ -24,7 +24,7 @@ To start a Redis Container run:
 docker run --name node-redis -p 6379:6379 -d redis redis-server --appendonly yes
 ```
 
-# Test A DB Query
+## Test A DB Query
 
 The following code should create a key-value pair on redis, you can add this to a file called `db.js`
 
@@ -52,7 +52,7 @@ const client = redis.createClient({
 
 Either way, you can run this using `node db.js` which should output the creation success
 
-# View the Data from DB
+## View the Data from DB
 
 You can login to the redis container via docker, and then from the command line you can log into the db itself with:
 
@@ -72,7 +72,7 @@ And we can even get the data from the DB using the `get` command:
 get bob
 ```
 
-# Create an Express Client
+## Create an Express Client
 
 A simple express client which will do key-value creates and lookups can be defined in an `index.js` file:
 
@@ -146,11 +146,11 @@ EXPOSE 8080
 CMD ["npm", "start"]
 ```
 
-# Test the App
+## Test the App
 
 And you should then be able to make requests to the application from something like Postman for creating and retreiving a record
 
-## Set
+### Set
 
 With the server running you can create a new item with:
 
@@ -162,7 +162,7 @@ BODY "my test data"
 RESPONSE "OK"
 ```
 
-## Get
+### Get
 
 You can then get the value using the key with:
 
@@ -172,7 +172,7 @@ GET localhost:8080/my-test-key
 RESPONSE "my test data"
 ```
 
-# Setting Up Compose
+## Setting Up Compose
 
 > Before moving on please ensure you stop the Redis container we previously started with `docker container stop node-redis`
 
@@ -241,7 +241,7 @@ services:
     entrypoint: redis-server --appendonly yes
 ```
 
-# Access Redis from Within Network
+## Access Redis from Within Network
 
 Now, it should be possible for us to access the redis instance using Service Discovery within the compose network, to do this we'll use the `REDIS_URL` environment variable we defined above which will make a connection to `redis://redis:6379` which will be resolved within the docker network that our application will run in
 

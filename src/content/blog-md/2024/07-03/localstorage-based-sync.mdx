@@ -9,7 +9,7 @@ import SynchronizedButton from '@/snippets/localstorage-sync/SynchronizedButton.
 import SynchronizedButtonRefactor from '@/snippets/localstorage-sync/SynchronizedButtonRefactor.astro'
 import Snippet from '@/components/Snippet.astro'
 
-# localStorage
+## localStorage
 
 localStorage is a method for persistent data storage in the browser. The storage itself is a simple key-value store with a synchronous API
 
@@ -29,7 +29,7 @@ Pretty neat right?
 
 For the purpose of this post we'll look into how we can use this as a method for sending data between different browser tabs of the same website
 
-# Storage Event
+## Storage Event
 
 Aside from just data storage - localStorage (as well as sessionStorage) provides us with a notification when the data in a storage is changed - this is called a `StorageEvent`. What's particularly interesting to us is that it's fired in all other tabs of a particular site when any a tab of that site modifies the data
 
@@ -43,7 +43,7 @@ window.addEventListener('storage', () => {
 
 Now, if you think about it for a short while, you may come to an interesting conclusion - we can talk to other tabs
 
-# Speaking to Tabs
+## Speaking to Tabs
 
 > Open this page in two different windows side-by-side for this example
 
@@ -60,7 +60,7 @@ The code for this can be seen below:
   path="SynchronizedButton.astro"
 />
 
-# Generic Implementation
+## Generic Implementation
 
 So overall, this is a pretty neat method for sharing data between pages, but we end up having to do some repetitive work when setting this up in many places or when working with anything that isn't a string (as you can see with the `parseInt`s required in the above example)
 
@@ -121,7 +121,7 @@ And for the the sake of being complete, we can see the refactored button running
 
 <SynchronizedButtonRefactor />
 
-# Further Reading
+## Further Reading
 
 - [MDN localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
 - [MDN storage event](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event)

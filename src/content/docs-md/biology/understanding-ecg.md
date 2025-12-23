@@ -6,9 +6,9 @@ published: false
 
 > Notes from **The ECG Made Easy (7ed)** by _John R. Hampton_ 
 
-# Main Features
+## Main Features
 
-## The Normal ECG
+### The Normal ECG
 
 Durations: 
 
@@ -44,7 +44,7 @@ T Wave
 
 - May be inverted in III, VR, V1, V2, V3 (in some people)
 
-## Conduction Problems
+### Conduction Problems
 
 First Degree Block
 
@@ -87,7 +87,7 @@ Bifascicular Block
 
 - Left Anterior Hemiblock + Right Bundle Branch Block
 
-## Supraventricular Rhythms
+### Supraventricular Rhythms
 
 Common Rhythms
 
@@ -108,7 +108,7 @@ Rhythm Abnormalities
 - Bradycardias
 
 
-### Characteristics of Supraventricular Rhythms
+#### Characteristics of Supraventricular Rhythms
 
 In general
 
@@ -148,7 +148,7 @@ May have a wide QRS if there is a bundle branch block or Wolfff-Parkinson-White 
 - Escape ryhthms
  - bradycardias, atrial fibrillation odes not occur as an escape rhythm
 
-## Ventricular Rhythms
+### Ventricular Rhythms
 
 Common Ventricular rhythms
 
@@ -164,7 +164,7 @@ Rhythm Abnormalities
 - Tachcardias
 - Bradycardias
 
-### Characteristics of Ventricular Rhythms
+#### Characteristics of Ventricular Rhythms
 
 In general
 
@@ -191,7 +191,7 @@ In general
   - look at the patient not the ECG
   - ECG is totally disorganized, patient will have lost consciousness
 
-## Myocardial Infraction
+### Myocardial Infraction
 
 Sequence of ECG changes
 
@@ -220,6 +220,6 @@ Site of infraction
 
 
 
-# Additional Resources
+## Additional Resources
 
 - [ECG Categorization Library](https://litfl.com/category/ecg-library/)

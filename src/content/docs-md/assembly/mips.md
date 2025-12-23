@@ -6,11 +6,11 @@ published: true
 
 > Notes on Working Through [Padraic Edgington's MIPS Assembly Series](https://www.youtube.com/watch?v=m1SukEtS4lc&list=PL1C2GgOjAF-KYdV5bH-xzoybEHreDZ3Kh)
 
-# Instruction Set
+## Instruction Set
 
 MIPS is a 3-address Assembly language. Depending on the specific implementation a certain subset of instructions may/may not be available
 
-# Resources
+## Resources
 
 - [MIPS Instruction Set](http://www.cburch.com/cs/330/reading/mips-ref.pdf)
 - [Exercism MIPS Track](https://exercism.org/tracks/mips)

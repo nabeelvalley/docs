@@ -4,9 +4,9 @@ title: Ubuntu Server Setup
 subtitle: Some Personal Preferences
 ---
 
-# SSH Setup
+## SSH Setup
 
-## 1. Install SSH
+### 1. Install SSH
 
 ```bash
 sudo apt update
@@ -16,13 +16,13 @@ sudo apt install openssh-server
 > Note using this SSH server you also connect for remote development using VSCode Remote Development,
 > Additionally you can install the VSCode docker extension to work with docker on the server
 
-## 2. Check SSH Status
+### 2. Check SSH Status
 
 ```bash
 sudo systemctl status ssh
 ```
 
-## 3. Start/Stop SSH Server
+### 3. Start/Stop SSH Server
 
 If the SSH server is not working for some reason you can stop/start as needed
 
@@ -31,7 +31,7 @@ sudo systemctl stop ssh
 sudo systemctl start ssh
 ```
 
-## 4. Log in From Remote
+### 4. Log in From Remote
 
 You can log in using the following command from a machine with SSH installed
 
@@ -51,7 +51,7 @@ Next use the relevant `inet` ip address of the form `x.x.x.x`, e.g. `192.168.0.2
 
 You should also be able to access applications running on this server on their respective ports at the relevant IP
 
-# RDP Setup
+## RDP Setup
 
 From Windows using RDP you will need to first install and activate the RDP Client, this can be done with
 
@@ -64,17 +64,17 @@ Then connect from RDP with the server IP and Username/Password
 
 > This is currently untested
 
-# Open Ports
+## Open Ports
 
 You can allow ports through your firewall (if this is a problem) with the following commans
 
 ```bash
-# sudo ufw allow <PORTNUMBER>
+## sudo ufw allow <PORTNUMBER>
 sudo ufw allow 8080
 sudo ufw status
 ```
 
-# VS Code Server Setup
+## VS Code Server Setup
 
 > Leaving this here for reference but just note that if you are using the VSCODE
 > Remote development extension this will be automatically installed on the server
@@ -86,7 +86,7 @@ You can run [`code-server`]() using a Docker Image with the following command
 docker run -it -p 8443:8443 --name vscode -v "${PWD}/repos:/home/coder/project" -d codercom/code-server --allow-http --no-auth
 ```
 
-# Docker
+## Docker
 
 I have not tested this installation method but it looks like docker provides an
 installation script that you can use on [GitHub](https://github.com/docker/docker-install)
@@ -98,7 +98,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
 ```
 
-# Jenkins
+## Jenkins
 
 Configuring Jenkins on an Ubuntu server can be done by following [these instructions](https://linuxize.com/post/how-to-install-jenkins-on-ubuntu-18-04/), or the following steps below:
 

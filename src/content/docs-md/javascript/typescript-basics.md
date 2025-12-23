@@ -4,7 +4,7 @@ title: Typescript Basics
 subtitle: Introduction and cheatsheet for basic Typescript concepts
 ---
 
-# Types
+## Types
 
 A `type` is the most basic thing in typescript and is an object structure
 
@@ -39,21 +39,21 @@ type OfficialData = {
 }
 ```
 
-## Types can be composed
+### Types can be composed
 
-### Merging types
+#### Merging types
 
 ```ts
 type FullOfficalPerson = Person & OfficialData
 ```
 
-### Optional types
+#### Optional types
 
 ```ts
 type MinOfficialPerson = Person | OfficialData | ID
 ```
 
-# Interfaces
+## Interfaces
 
 Next, we have interfaces, it's like a type, but can't be composed like the above types
 
@@ -69,7 +69,7 @@ interface BasePerson {
 }
 ```
 
-## Interfaces can be extended
+### Interfaces can be extended
 
 Interface extension is similar to type merging, but with a bit of a different syntax
 
@@ -81,11 +81,11 @@ interface AppUser extends BasePerson {
 }
 ```
 
-# Type helpers
+## Type helpers
 
 Typescript provides us with some base types that we can use to achieve interesting compositions
 
-## Arrays
+### Arrays
 
 Array types, can use `Array` or `[]` (both are the same)
 
@@ -96,7 +96,7 @@ type MyArray2 = ID[]
 
 > MyArray1 and MyArray2 are the same
 
-## Partial
+### Partial
 
 `Partial` makes all top-level properties of a type optional
 
@@ -112,7 +112,7 @@ interface CreateAppUser extends Partial<AppUser> {
 }
 ```
 
-## Required
+### Required
 
 We can also have the `Required` type, where all top-level props are required
 
@@ -120,7 +120,7 @@ We can also have the `Required` type, where all top-level props are required
 type FullAppUser = Required<AppUser>
 ```
 
-## Records
+### Records
 
 Another useful one is the `Record` type. which lets us specify an object's key and value type. Usually one or both of these are an option type
 
@@ -144,7 +144,7 @@ const associations: Record<PersonType, PersonType> = {
 }
 ```
 
-## Generics
+### Generics
 
 In the above examples, the helper types are using generics. Below is a generic that allows us to specify a user with type of an `id`
 
@@ -180,7 +180,7 @@ interface Thing<TID, TData> {
 }
 ```
 
-## Values
+### Values
 
 Values are (an object or function which matches the type). We can use the above defs in order to define a value
 
@@ -202,7 +202,7 @@ console.log(Person)
 
 This is because types don't exist at runtime. they're just a developer tool
 
-## Functions
+### Functions
 
 Types can also be used to defined functions (interfaces can't do this)
 
@@ -231,7 +231,7 @@ const getPersonAsync = async (id: ID): Promise<Person> => {
 }
 ```
 
-## Classes
+### Classes
 
 In general, we can also implement class properties like so
 
@@ -285,7 +285,7 @@ class PersonRepository implements Repository<Person, ID> {
 }
 ```
 
-## Examples
+### Examples
 
 Below is a link to the runnable Repl.it that has the above code defined
 
@@ -293,7 +293,7 @@ Below is a link to the runnable Repl.it that has the above code defined
 
 <iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@nabeelvalley/TypesScript-Playground?embed=true"></iframe>
 
-## Other Relevant Docs
+### Other Relevant Docs
 
 - [Template Literal Types](/blog/2021/16-08/typescript-template-literal-types)
 - [Type Narrowing](/blog/2022/31-05/type-guard)

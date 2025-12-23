@@ -7,7 +7,7 @@ published: true
 
 Patching packages is a task that's occasionally done to fix bugs or update behavior of 3rd party dependencies within a specific project. This is often done while waiting for a fix from the upstream library or when the library author does not agree with the change that is needed
 
-# Creating a Patch
+## Creating a Patch
 
 Say we have some package installed that we'd like to patch, for example we'll call this `my-package`. We currently have `my-package` version `1.1.1` installed and want to create a patch for that. We can kick this process off with:
 
@@ -33,7 +33,7 @@ This will do the following:
 
 The patch will be applied in future whenever dependencies are installed/added
 
-# Removing a Patch
+## Removing a Patch
 
 To remove a patch you can use the `pnpm patch-remove` command:
 
@@ -43,14 +43,14 @@ pnpm patch-remove my-package@1.1.1
 
 That will remove the patch from the `patches` directory as well as from the `pnpm-lock.yaml` file
 
-# Updating a Patch
+## Updating a Patch
 
 To update a patch you will need to remove it and then re-create it using the info above
 
-# Notes
+## Notes
 
 Patching is annoying, avoid it if you can
 
-# Resources
+## Resources
 
 PNPM has documentation for all of the above mentioned commands on the [Patching Dependencies Docs](https://pnpm.io/cli/patch)

@@ -7,7 +7,7 @@ description: Basics of using PowerQuery with PowerBI or Excel for common tasks a
 
 `Power Query` is query language which makes use of the `M` langauge to transform, manipulate, and query data and is used in different MS data applications such as PowerBI and Excel
 
-# Primitives and Operators
+## Primitives and Operators
 
 Power Query provides some basic literals such as numbers, text, booleans, and lists and they can be defined like so:
 
@@ -31,7 +31,7 @@ Additionally, there are the usual operators as well as some kind of special ones
 | Or `or`         |                                       | Logical `OR`     |
 | And `and`       |                                       | Logical `AND`    |
 
-# Expressions
+## Expressions
 
 An expression is a part of a query that can be evaluated, such as `"Hello"` or `Table.FromRows({{"Jeff"}, {"Smith"}}, {"Name"})`
 
@@ -45,7 +45,7 @@ in
     Table.FromRows(data, cols)
 ```
 
-# Functions
+## Functions
 
 Thera are also the function expression which can be defined using the following type of syntax for a single line function:
 
@@ -77,9 +77,9 @@ let
 in CreateTable("Col Name")
 ```
 
-# Misc
+## Misc
 
-## Pivot Multi-Hot-Encoded Entries as Many Separate Ones
+### Pivot Multi-Hot-Encoded Entries as Many Separate Ones
 
 `data`
 
@@ -124,7 +124,7 @@ Which will result in an output data table with:
 | 3   | In Progress |
 | 2   | Completed   |
 
-# A Time-Period Based Target Table
+## A Time-Period Based Target Table
 
 Targets are often measured using metrics like YTD or MTD in PowerBI, however this may not be the optimal method as it may alternatively be useful to get the target as a running total for the time period
 

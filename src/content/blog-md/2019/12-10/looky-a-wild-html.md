@@ -5,7 +5,7 @@ subtitle: 01 October 2019
 description: The first blog post, A quick journey through my design and development process for the site
 ---
 
-# Here at last
+## Here at last
 
 So, after far too long, we are here. A mostly-functional website, that I have not tested on a single iOS device which may prove to be problematic
 
@@ -13,7 +13,7 @@ So, after far too long, we are here. A mostly-functional website, that I have no
 
 For the past six months or so I've looked at myself with a full stack of irony knowing that I, a web developer, do not have **my own** website. Or well, not one I'd actually want anyone to see (\*cough cough\* I'm talking to you, Weebly)
 
-# The Design Process
+## The Design Process
 
 Well, the design process, especially when you're trying to satisfy your unattainable standard of perfection, can be difficult. I actually ran through a shocking number of iterations and end-to-end redesigns but I just could not seem to find something that satisfied me. Until one day, it all just sort of hit me at once
 
@@ -21,7 +21,7 @@ None of this nonsensical "cards and shadows" drama, no random floopy animations,
 
 I think I have a fair stock of those
 
-## Design v1
+### Design v1
 
 The first iteration that I have saved is this one, I had big dreams, there were going to be things moving all over the place, I was going to break the norm with **horizontal scrolling**, and just basically turn the site into a slide-show. But I didn't like the lack of fluidity with the overall design. Regardless, here are the first few screens:
 
@@ -38,7 +38,7 @@ During this initial phase I had sort figured out what my key goals were:
 
 By now I had decided on the three most important things, **#E44D90**, _Montserrat_, and `Nova Mono`, but there's still a lot I was unsure of
 
-## Design v2
+### Design v2
 
 This version mostly morphed out of the first one, I was trying to address two things primarily
 
@@ -51,7 +51,7 @@ Personally, I hate this design. But It was definitely valuable in telling me wha
 
 I've always disliked cards, and abusing it the way I was in that further deepened my hate. I felt kind of like _"Well if everyone else does it, maybe I should give it a shot?"_, to be fair it's probably not the cards, it's me
 
-## Design v3
+### Design v3
 
 This is what you're seeing now (Assuming you're reading this in October 2019) I love how this design places a strong emphasis on the imagery and text, there isn't really much else in the way of it aside from occasional underline. Simplicity
 
@@ -61,13 +61,13 @@ I addressed my remaining goals by sticking to a basic site layout with a fairly 
 
 That being said, and my heart being content. It was time to code
 
-# The _"Bashing your head against a wall"_ Process
+## The _"Bashing your head against a wall"_ Process
 
 I used React - Why? Because I used React. Sure, I could have went the Server-Side route and made sure I was sending normal HTML to people, but I wanted a sustainable component library that I could develop as well as super-quick responsiveness on the client, and from experience, I knew I could knock this out fastest with React. That being said, I kind of wish I had looked at setting up pre-rendering before I started, because I feel like it's going to be admin to add after (will basically need to refactor out all the `<Suspense/>`) tags
 
 Now, as any front-end developer should know in 2019, you gotta start with `npx create-react-app my-app` and after about three years of `node_modules` you're ready to go
 
-## Content Management System?
+### Content Management System?
 
 I'm not going to go into the details of the development because there isn't really anything too fancy going on here - the site is mostly static anyway. I will however just talk about the Content Management System
 
@@ -109,7 +109,7 @@ export default Markdown
 
 And that's pretty much it. It gets rendered into the page you're looking at now and that's all it takes really. It's a bit of a shame that my syntax highlighting CSS theme doesn't really do justice on JS, another TODO I suppose
 
-# Conclusion
+## Conclusion
 
 There were a couple of new things I learnt during this entire process, simple little things really like how to change the colour of the scrolly thing on your browser, or how to put together a mildly-reasonable file system to store the posts, but more than anything I enjoyed being able to just take something from pure concept to a final build that lines up pretty well with my initial vision
 

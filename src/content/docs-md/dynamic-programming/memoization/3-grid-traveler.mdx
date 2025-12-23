@@ -5,7 +5,7 @@ title: Grid Traveler Recursive Memoization
 
 import Snippet from '@/components/Snippet.astro'
 
-# Problem
+## Problem
 
 A traveler on a 2D grid begins in the top left and must travel to the bottom right corner by only moving down or right
 
@@ -35,7 +35,7 @@ From this idea we can see that the problem is somewhat recursive, we can visuali
 
 Any node that has a `0` or `1` can be considered the base case where we know the number of routes that can be travelled. Furthermore, we can also see that there are some repeated nodes
 
-# Base Implementation
+## Base Implementation
 
 <Snippet path="dynamic-programming/memoization/grid-traveler.ts" />
 
@@ -43,7 +43,7 @@ This implementation starts to look a lot like the [Fibonacci Implementation](./f
 
 In the tree for this implementation the time complexity will be $O(2^(m+n))$ and the space complexity is $O(n+m)$
 
-# With memoization
+## With memoization
 
 If we look at the tree we see that some subtrees are repeated directly, so we can try to memoize these.
 

@@ -5,7 +5,7 @@ title: Can Sum
 
 import Snippet from '@/components/Snippet.astro'
 
-# Problem
+## Problem
 
 Given a list of numbers write a function that will return if it is possible to sum the numbers to a given target. Each number can be used multiple times if needed. Can assume all numbers are positive
 
@@ -22,7 +22,7 @@ We can visualize the case where we try to check if we can reach the value with e
 
 If we have any base case that returns true we can return all the way back up the tree
 
-# Base Implementation
+## Base Implementation
 
 The brute force solution looks like this:
 
@@ -30,7 +30,7 @@ The brute force solution looks like this:
 
 The problem with this solution is that it grows relatively quickly. Looking at the tree above the max height can be no higher than the target sum. In terms of branching we create a branch for each item in the array at each step, the time complexity of this then looks like $O(n^m)$ with $n$ as the target and $m$ as the length of the array
 
-# With memoization
+## With memoization
 
 In the context of this problem we have cases in which the `canSum` function is being called with parameters that it has seen previously, we can apply the memoization as in other cases using this method
 

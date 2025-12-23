@@ -5,7 +5,7 @@ title: Can Construct
 
 import Snippet from '@/components/Snippet.astro'
 
-# Problem
+## Problem
 
 Given a target string and a list of strings return a boolean that indicates if the items in the string list can be combined to build the string in the target
 
@@ -24,7 +24,7 @@ We can consider a base case where:
 canConstruct('', [a,b,c]) = true
 ```
 
-# Base Implementation
+## Base Implementation
 
 We can work on shrinking the string by stepping and splitting off subscrings in our input data ensuring that we do not break the sequencing of the initial string, so we do not remove any segments from the middle of the string
 
@@ -34,7 +34,7 @@ We will split off substrings if they are within the start of our initial string
 
 In this implementation the height of this tree can be the length of the target word $m$, for every element we would do a check which is $n$, in this case the time complexity is $O(n^m * m)$ (the last $m$ because we're slicing the string on each iteration). The space complexity is the at most the length of our string of $m$ and the new string we have that is maybe also of length $m$, the space complexity is the $O(m^2)$
 
-# With memoization
+## With memoization
 
 We implement the memoization as in the previous examples
 

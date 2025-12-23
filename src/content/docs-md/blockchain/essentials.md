@@ -6,9 +6,9 @@ subtitle: Introduction and Overview of Blockchain as a Technology
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/blockchain-course/)
 
-# Discover Blockchain
+## Discover Blockchain
 
-## The Business Backdrop
+### The Business Backdrop
 
 Businesses are always operating with external organizations and markets. These business networks are fundamental to the operation of blockchain in this environment
 
@@ -22,7 +22,7 @@ Ledgers are the key to recording the flow of assets through an organisational ne
 
 At a very high level Blockchain is a distributed ledger with a shared set of business processes across the network
 
-## The Problem Area
+### The Problem Area
 
 Every member of the business network has their own copy of the ledger, and this is updated each time an asset flows through the network, this system is inefficient, expensive, and vulnerable to mistakes or even fraud
 
@@ -37,7 +37,7 @@ When we use this we end up with
 
 Based on this we have a single source of truth for all parties and transactions within the network
 
-## Requirements in a Business Environment
+### Requirements in a Business Environment
 
 Blockchain in a business environment requires four main components
 
@@ -46,32 +46,32 @@ Blockchain in a business environment requires four main components
 - Privacy
 - Trust
 
-### Shared Ledger
+#### Shared Ledger
 
 Each participant has their own copy which is shared between them, this is based on permission and control. This becomes the shared system within the network
 
-### Smart contracts
+#### Smart contracts
 
 Encoded version of business contracts. These are verifiable, and signed. Once these are distributed the contract will execute one the conditions are met.
 
-### Privacy
+#### Privacy
 
 Participants need confidentiality within the blockchain, as well as a system in which transactions must be authenticated and immutable
 
-### Trust
+#### Trust
 
 Selected members endorse or validate transactions, once these are endorsed they are added to the blockchain. This gives us a verifiable audit trail, transactions cannot be modified in any way once they have been added
 
-# Benefits of Blockchain
+## Benefits of Blockchain
 
 - Save Time
 - Remove Costs
 - Reduce Risk
 - Increase Trust
 
-# Asset Transfer Lab
+## Asset Transfer Lab
 
-## [Set up Hyperledger Composer Playground](https://github.com/hyperledger/composer)
+### [Set up Hyperledger Composer Playground](https://github.com/hyperledger/composer)
 
 Go to the [Composer Playground](https://composer-playground-unstable.mybluemix.net/login)
 
@@ -85,7 +85,7 @@ Then Create a Business Network
 
 We can click on _Connect Now_ and start making transactions such as creating participants and vehicles
 
-## Creating Transactions
+### Creating Transactions
 
 Create some members by navigating to the **Test** Section \(at the top\) and then **Members** from the Menu and clicking on **Create New** **Participant**
 
@@ -101,7 +101,7 @@ We can look at the transactions made from the **All Transactions** page
 
 ![Transaction History](/content/docs/assets/image%20%286%29.png)
 
-## Explore the Definitions
+### Explore the Definitions
 
 Head over to the editor screen and you will be able to see the different configuration available in our blockchain
 

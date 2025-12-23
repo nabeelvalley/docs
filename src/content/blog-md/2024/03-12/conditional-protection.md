@@ -4,7 +4,7 @@ description: Using type-guards to protect access to values
 subtitle: 03 December 2024
 ---
 
-# Type Guards
+## Type Guards
 
 So, type guards are really handy in Typescript as they let us check if something meets a certain requirement before moving along, for example, given the following user type:
 
@@ -37,7 +37,7 @@ if (isActive(user)) {
 // outside of this scope users are not active
 ```
 
-# Gaurded Class
+## Gaurded Class
 
 The above solution is usually good enough. But it's also possible to couple the types of these checks while not providing direct access to the underlying object. This is useful in cases where we may want to restrict access to some functionality unless a certain set of checks pass
 
@@ -80,7 +80,7 @@ What's great is that this `safe` check is re-run whenever we want to access the 
 
 This approach means that at compile time the Typescript compiler will check that we are only accessing `value` within a context that we have defined to be okay by way of our `isSafe` method. Additionally, since we can specify the behavior of `isSafe` we end up with a a check that works at the intersection of compile-time and runtime 
 
-# Note
+## Note
 
 The first idea of Type Guards is quite often used and should be good enough for normal use
 

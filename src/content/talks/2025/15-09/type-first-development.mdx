@@ -9,7 +9,7 @@ published: true
 <site-presentation-slide centered>
 <section>
 
-# ZOOOOOOOM
+## ZOOOOOOOM
 
 </section>
 </site-presentation-slide>
@@ -17,7 +17,7 @@ published: true
 <site-presentation-slide centered>
 <section>
 
-# Code + Demo Next to Each Other
+## Code + Demo Next to Each Other
 
 </section>
 </site-presentation-slide>
@@ -25,7 +25,7 @@ published: true
 <site-presentation-slide centered>
 <section>
 
-# Me
+## Me
 
 > Hi, I'm Nabeel Valley
 
@@ -35,7 +35,7 @@ published: true
 <site-presentation-slide centered>
 <section>
 
-# What we're going to talk about
+## What we're going to talk about
 
 - Why types matter
 - Effectively modeling your data
@@ -47,7 +47,7 @@ published: true
 <site-presentation-slide centered>
 <section>
 
-# Runtime vs Compile Time
+## Runtime vs Compile Time
 
 > Types don't exist at runtime!
 
@@ -65,7 +65,7 @@ published: true
 <site-presentation-slide centered>
 <section>
 
-## Good Types
+### Good Types
 
 Good types allow us to:
 
@@ -82,7 +82,7 @@ Good types allow us to:
 <site-presentation-slide centered>
 <section>
 
-## Compiler Guarantees
+### Compiler Guarantees
 
 - Controlled types means the compiler is our tester
 - We don't need to test code with invalid types
@@ -98,7 +98,7 @@ Good types allow us to:
 <site-presentation-slide centered>
 <section>
 
-# Reference Example
+## Reference Example
 
 We'll use a multi-step form as an example usecase:
 
@@ -113,7 +113,7 @@ We'll use a multi-step form as an example usecase:
 <site-presentation-slide centered>
 <section>
 
-# Part 1 - The Initial Form
+## Part 1 - The Initial Form
 
 </section>
 </site-presentation-slide>
@@ -121,7 +121,7 @@ We'll use a multi-step form as an example usecase:
 <site-presentation-slide centered highlight>
 <section>
 
-# Demo - `Base`
+## Demo - `Base`
 
 > Code + Demo running alongside each other
 
@@ -131,7 +131,7 @@ We'll use a multi-step form as an example usecase:
 <site-presentation-slide centered>
 <section>
 
-## An Initial Model
+### An Initial Model
 
 > How do we define the data that our form holds?
 
@@ -150,7 +150,7 @@ type TransferForm = {
 <site-presentation-slide centered>
 <section>
 
-# Part 2 - Code is Always Changing
+## Part 2 - Code is Always Changing
 
 - Adding features to existing code is challenging
 - When our types aren't good, we may not catch some bugs
@@ -161,7 +161,7 @@ type TransferForm = {
 <site-presentation-slide centered highlight>
 <section>
 
-# Demo - `Bug 1`
+## Demo - `Bug 1`
 
 - Changing requirements
 - Add a new step to the form
@@ -175,7 +175,7 @@ type TransferForm = {
 <site-presentation-slide centered highlight>
 <section>
 
-## Where is the bug?
+### Where is the bug?
 
 - During the input validation?
 - Between our state changes?
@@ -189,7 +189,7 @@ type TransferForm = {
 <site-presentation-slide centered>
 <section>
 
-## Investigate the Model
+### Investigate the Model
 
 > Can I see the business rules easily from this type alone?
 
@@ -217,7 +217,7 @@ type TransferForm = {
 <site-presentation-slide centered>
 <section>
 
-## Evolving our Types
+### Evolving our Types
 
 > Can we represent our data better so we can more easily follow it through our application?
 
@@ -227,7 +227,7 @@ type TransferForm = {
 <site-presentation-slide centered>
 <section>
 
-## Can we better type our primitives?
+### Can we better type our primitives?
 
 ```ts
 type TransferAmount = number //??
@@ -239,7 +239,7 @@ type TransferAmount = number //??
 <site-presentation-slide centered>
 <section>
 
-## Branded Types
+### Branded Types
 
 - Provides domain context to type
 - Enables more robust validation
@@ -254,7 +254,7 @@ type TransferAmount = number //??
 <site-presentation-slide centered>
 <section>
 
-## What is an Amount?
+### What is an Amount?
 
 > What business rules do we have around this?
 
@@ -268,7 +268,7 @@ type TransferAmount = number //??
 <site-presentation-slide centered>
 <section>
 	
-## Defining Branded Types
+### Defining Branded Types
 
 ```ts
 // create a compile-time-only value
@@ -288,7 +288,7 @@ type TransferAmount = Euro & { [TransferAmountBrand]: true }
 <site-presentation-slide centered>
 <section>
 
-## Creating a Euro Amount
+### Creating a Euro Amount
 
 > Branding is usually done via a function
 
@@ -306,7 +306,7 @@ function euro(value: number): Euro {
 <site-presentation-slide centered>
 <section>
 
-## Validation
+### Validation
 
 Once we have a Euro value, we can determine if it's a valid transfer amount
 
@@ -320,7 +320,7 @@ Once we have a Euro value, we can determine if it's a valid transfer amount
 <site-presentation-slide centered>
 <section> 
 
-## Type Predicates
+### Type Predicates
 
 - Conditionally narrow the type of something
 
@@ -337,7 +337,7 @@ function isTransferAmount(amount: Euro): amount is TransferAmount {
 <site-presentation-slide centered>
 <section>
 
-## Using a Type Predicate
+### Using a Type Predicate
 
 Predicates prevent us from doing type-specific things in places where the result is not true:
 
@@ -360,7 +360,7 @@ function doSomething(amount: Euro) {
 <site-presentation-slide centered>
 <section>
 
-## What about the Confirmation
+### What about the Confirmation
 
 ```ts
 type Confirmation = boolean | undefined
@@ -378,7 +378,7 @@ We don't always need fancy types, usually we just need to think about what we ha
 <site-presentation-slide centered>
 <section>
 
-## Union Types
+### Union Types
 
 - Represents one of a fixed list of types
 - Useful for representing a set of explicit states
@@ -394,7 +394,7 @@ type Confirmation = 'pending' | 'accepted' | 'denied'
 <site-presentation-slide centered>
 <section>
 
-## Relationships Between Types
+### Relationships Between Types
 
 Can we narrow an `account` down more specifically than `string`?
 
@@ -408,7 +408,7 @@ type AccountReference = string //??
 <site-presentation-slide centered>
 <section>
 
-## Deriving Types
+### Deriving Types
 
 - Single source of truth
 - Identify relationships between types
@@ -419,7 +419,7 @@ type AccountReference = string //??
 <site-presentation-slide centered>
 <section>
 
-## Generic Types
+### Generic Types
 
 - Have input arguments, and an output type
 - Allow us to compose types from other types
@@ -432,7 +432,7 @@ type AccountReference = string //??
 <site-presentation-slide centered>
 <section>
 
-## Builtin Generic Types
+### Builtin Generic Types
 
 - Typescript has a bunch of Generic types builtin
 - All builtin types can be re-created from scratch
@@ -454,7 +454,7 @@ type PickedData = Pick<Data, 'amount' | 'accountFrom'>
 <site-presentation-slide centered>
 <section>
 
-## Defining a Reference Type
+### Defining a Reference Type
 
 A generic type that lets us take anything that looks like a `Model` and get it's ID
 
@@ -480,7 +480,7 @@ function reference<M extends Model>(model: M): Reference<M> {
 <site-presentation-slide centered>
 <section>
 
-## Deriving the Account Type
+### Deriving the Account Type
 
 We can use the type function with our `AccountModel`
 
@@ -504,7 +504,7 @@ const accountReference = reference<AccountModel>
 <site-presentation-slide centered>
 <section>
 
-## The Updated Model
+### The Updated Model
 
 We can define the model we had above a bit more concretely now:
 
@@ -525,7 +525,7 @@ type TransferForm = {
 <site-presentation-slide centered highlight>
 <section>
 
-## Update the Types
+### Update the Types
 
 - Updated all code to use the new model
 - Can we rely on the compiler for any hints about our bug now?
@@ -536,7 +536,7 @@ type TransferForm = {
 <site-presentation-slide centered highlight>
 <section>
 
-# My Compiler is Sad
+## My Compiler is Sad
 
 > We've made updates to all our types, but now the compiler has some issues
 
@@ -572,7 +572,7 @@ type TransferForm = {
 <site-presentation-slide centered>
 <section>
 
-## Quick Fixes
+### Quick Fixes
 
 - The compiler tells us where something isn't what it expects
 - We can add the necessary validation and initialization
@@ -583,7 +583,7 @@ type TransferForm = {
 <site-presentation-slide centered highlight>
 <section>
 
-# Demo - `Bug 2`
+## Demo - `Bug 2`
 
 - Later on, we do some refactoring
 - We now see that the form ordering is broken for some reason
@@ -597,7 +597,7 @@ type TransferForm = {
 <site-presentation-slide centered highlight>
 <section>
 
-# How can prevent this?
+## How can prevent this?
 
 > Looking at our form's code we see this
 
@@ -616,7 +616,7 @@ state = signal<Partial<Types.TransferForm>>({});
 <site-presentation-slide centered>
 <section>
 
-## Modeling the Process
+### Modeling the Process
 
 - The form is made of distinct steps
 - Each state builds up the form's state 
@@ -627,7 +627,7 @@ state = signal<Partial<Types.TransferForm>>({});
 <site-presentation-slide centered>
 <section>
 
-## Relate the Model to the Process
+### Relate the Model to the Process
 
 Looking at our steps, we can break the model into these parts:
 
@@ -652,7 +652,7 @@ type TransferForm = {
 <site-presentation-slide centered>
 <section>
 
-## Defining a Single Step
+### Defining a Single Step
 
 - **The form is made up of multiple steps**
 - Data from steps are merged together to create the final model
@@ -675,7 +675,7 @@ type Step<
 <site-presentation-slide centered highlight>
 <section>
 
-## Defining the Steps
+### Defining the Steps
 
 > The step we're in does not include the data resulting from that step
 
@@ -695,7 +695,7 @@ type CompleteStep = Step<'Complete', TransferForm>
 <site-presentation-slide centered>
 <section>
 
-## Possible Form States
+### Possible Form States
 
 ```ts
 type TransferFormState = AmountStep | AccountStep | ConfirmationStep | CompleteStep
@@ -707,7 +707,7 @@ type TransferFormState = AmountStep | AccountStep | ConfirmationStep | CompleteS
 <site-presentation-slide centered highlight>
 <section>
 
-# Demo - `Strict`
+## Demo - `Strict`
 
 Having a strictly controlled state like this means that:
 
@@ -723,7 +723,7 @@ Having a strictly controlled state like this means that:
 <site-presentation-slide centered highlight>
 <section>
 
-## How does the Compiler Protect Us?
+### How does the Compiler Protect Us?
 
 - Making changes to the states will break during compilation
 - We don't need to unit test the invalid states that were previously possible
@@ -737,7 +737,7 @@ Having a strictly controlled state like this means that:
 <site-presentation-slide centered>
 <section>
 
-# How Far Should we Go?
+## How Far Should we Go?
 
 - This is probably enough for most implementations
 - Use a union type if this is a once-off
@@ -751,7 +751,7 @@ Having a strictly controlled state like this means that:
 <site-presentation-slide centered>
 <section>
 
-## Thinking Like A Library Author
+### Thinking Like A Library Author
 
 > Types can get more complex as our usecases become more generic
 
@@ -767,7 +767,7 @@ Some tools for highly generic types that are also handy to be aware of:
 <site-presentation-slide centered highlight>
 <section>
 
-## Using _Any_
+### Using _Any_
 
 > `any` will destroy all benefits of strong types
 
@@ -780,7 +780,7 @@ Some tools for highly generic types that are also handy to be aware of:
 <site-presentation-slide centered>
 <section>
 
-# Recap
+## Recap
 
 </section>
 </site-presentation-slide>
@@ -788,7 +788,7 @@ Some tools for highly generic types that are also handy to be aware of:
 <site-presentation-slide centered>
 <section>
 
-## Interrogate Your Models
+### Interrogate Your Models
 
 - Question why fields in your model are the type they are
 - Define core truths and relationships between models
@@ -800,7 +800,7 @@ Some tools for highly generic types that are also handy to be aware of:
 <site-presentation-slide centered>
 <section>
 
-## Create and Compose Good Types
+### Create and Compose Good Types
 
 - Branded Types
 - Generic Types
@@ -814,7 +814,7 @@ Some tools for highly generic types that are also handy to be aware of:
 <site-presentation-slide centered>
 <section>
 
-## Model Your Business Processes
+### Model Your Business Processes
 
 - Tightly model how your state changes and moves through a system
 - Leverage the compiler by giving it as much information as possible
@@ -825,7 +825,7 @@ Some tools for highly generic types that are also handy to be aware of:
 <site-presentation-slide centered>
 <section>
 
-# References & Further Reading
+## References & Further Reading
 
 - https://nabeelvalley.co.za/talks/2024/13-03/check-your-domain
 - https://www.learningtypescript.com/articles/branded-types

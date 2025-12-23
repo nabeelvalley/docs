@@ -7,7 +7,7 @@ description: Introduction to the Kotlin language and basic concepts
 
 > From [this Udacity course](https://classroom.udacity.com/courses/ud9011)
 
-# About Kotlin
+## About Kotlin
 
 Kotlin is a statically typed languge developed by JetBrains that makes use of:
 
@@ -22,21 +22,21 @@ The language also differentiates between Nullable and NonNullable data as well a
 
 Kotlin also can interoperate with Java bidirectionally
 
-# Prerequisites
+## Prerequisites
 
 - A JAVA/Kotlin IDE such as IntelliJ IDEA or Android Studio if you're working on an Android App
 - JDK
 
 > For some basic stuff you can use the [Kotlin Playground](https://play.kotlinlang.org/)
 
-# Setting Up a Project
+## Setting Up a Project
 
 1. New Project
 2. Kotlin > JVM | IDEA
 
 From a toolbar you can go to `tools > kotlin > REPL`
 
-# Hello World
+## Hello World
 
 A Hello World Program may look like the following:
 
@@ -50,9 +50,9 @@ printHello()
 
 We can see that a function is defined with `fun` and the only other notable feature in the above code is the lack of semicolons at the end of the line
 
-# Operators and Variables
+## Operators and Variables
 
-## Operators
+### Operators
 
 | Operation | Name           | Function Representation |
 | --------- | -------------- | ----------------------- |
@@ -65,7 +65,7 @@ We can see that a function is defined with `fun` and the only other notable feat
 
 Basic types have default operators and functions that can be overloaded as well as allows you to convert basic types automatically however numbers will not implicitly convert as this can cause problems and they must be explicitly cast
 
-## Variables
+### Variables
 
 Kotlin has immutable and mutable variables
 
@@ -109,7 +109,7 @@ myVariable?.doThing() ?: 0
 
 If `myVariable` is `null` then it will return `0` otherwise it will return the function result
 
-## Constants
+### Constants
 
 We can create constants using `const val` at a top level and classes declared using `object` because these are evaluated at compile time
 
@@ -137,7 +137,7 @@ class MyClass {
 }
 ```
 
-# Strings
+## Strings
 
 We can define strings using the `"..."` as normal, additionally we can use the `$` sign in a string to display a value inline
 
@@ -153,9 +153,9 @@ val cows = 12
 "I have $(fish + cows) animals in total"
 ```
 
-# Conditions
+## Conditions
 
-## If-Else
+### If-Else
 
 We can use `If-Else` as follows:
 
@@ -186,7 +186,7 @@ if (fish in 1..20)
     println("Wow")
 ```
 
-## Switch / When
+### Switch / When
 
 Kotlin also has switch statements, which make use of the `when` keyword:
 
@@ -210,9 +210,9 @@ when {
 }
 ```
 
-# Data Collections
+## Data Collections
 
-## Arrays
+### Arrays
 
 We can create an Array with
 
@@ -234,7 +234,7 @@ for ((index, element) in myArr.withIndex()) {
 }
 ```
 
-## Lists
+### Lists
 
 We can create lists using:
 
@@ -250,7 +250,7 @@ val myMutableList = mutableListOf("val1", "val2")
 
 > Similar constructor functions exist for other collection types with the concept of mutable and immutable collection types
 
-## Ranges
+### Ranges
 
 You can also create ranges, we can use the following methods of creating a range:
 
@@ -275,11 +275,11 @@ val myData = Array(10){ 1000.0.pow(it) }
 
 Which will result in a 10 item array with each element being `1000^index`
 
-## Sequences
+### Sequences
 
 Kotlin also has a datatype known as a `Sequence` which is like a lazy list, the values in this are only evaluated when read and not calculated immediately when operated on
 
-## Maps
+### Maps
 
 Maps are essentially key-value pairs that make use of `pairs` (see later)
 
@@ -308,7 +308,7 @@ colours.getOrElse("sad") { "no colour found" }
 
 Maps are immutable by default, we can make a mutable map with `mutableMapOf`
 
-## Pairs
+### Pairs
 
 Pairs allow us to define a pair of data that are mapped to each other in some way, these can also be chained
 
@@ -338,9 +338,9 @@ These are useful for returning multiple pieces of data from a function and destr
 
 > You also have triples that can be created with `Triple(el1, el2, el3)`
 
-# Functions
+## Functions
 
-## Main
+### Main
 
 The `main` function has all the main parts of a Kotlin function
 
@@ -360,7 +360,7 @@ We can create a new Kotlin file in the `src` directory called `main.kt` with the
 
 The `main` function is the default entrypoint for a Kotlin application. Click the green run icon next to the line numbers on the left to run the function
 
-## Defining and Using Functions
+### Defining and Using Functions
 
 A function to return the day of the week as text can look something like:
 
@@ -403,7 +403,7 @@ We can run the main function with arguments as well using the Debug Configuratio
 
 From the above we can see that everything in Kotlin is a value, even the result of a `when` or `if` statement
 
-## Default Values
+### Default Values
 
 Function params can also have a default value, for example:
 
@@ -423,7 +423,7 @@ fun addNumbers(x: Int = getInitValue(), y: Int = 2) {
 
 When defining a function like the above we should avoid using expensive function calls as these are evaluated at call time
 
-## Single Line Functions
+### Single Line Functions
 
 Single expression functions like the above can also be defined like this:
 
@@ -439,7 +439,7 @@ fun addNumbers(x: Int = getInitValue(), y: Int = 2) = x + y
 
 We can then just use that like we would any other function
 
-## Lambdas
+### Lambdas
 
 A Lambda, also known as an anonymous function, and is an expression that makes a function. These can take arguments or not. The syntax is seen below:
 
@@ -459,7 +459,7 @@ val minusFive: (Int) -> Int = { x: Int -> x - 5 }
 val addAny: (Int,Int) -> Int = { x: Int, y: Int ->  x + y }
 ```
 
-## Higher Order Functions
+### Higher Order Functions
 
 Higher Order Functions are functions that can take other functions, an example of this is the built-in `with` function. We can create a function that takes another function as an operator, we usually use `block` to reference the function we are receiving:
 
@@ -513,7 +513,7 @@ val priceWithTax = newHouse
 
 You can see that `apply` is really useful for initializing an object and `let` is useful for essentially summarizing an object or doing some operations with it
 
-## Inlines
+### Inlines
 
 Every time we call a lambda Kotlin creates a new lambda object instance, there can be a lot of overhead to create the function instance. We can instead use `inline` to tell the compiler to inline a function call where it is used (similar to C++)
 
@@ -525,15 +525,15 @@ inline fun addStuff(x: Int, y: Int): Int {
 }
 ```
 
-# Single Abstract Method (SAM)
+## Single Abstract Method (SAM)
 
 SAMs are essentially interfaces with a single methods on them
 
 In Kotlin we can pass lambdas to Java functions that require SAMs
 
-# OOP
+## OOP
 
-## Create a Class
+### Create a Class
 
 We typically organize classes into packages. `Right Click on src > New Package` then you can fill in the package name. Thereafter create a new Kotlin file in the package directory
 
@@ -679,7 +679,7 @@ class MyClass {
 
 > In Kotlin we typically try to avoid using multiple constructors, if we need to do something like that we will create a helper function outside our class that we can use to set up a constructor
 
-## Inheritence
+### Inheritence
 
 The default class inherits from `Any`, however to inherit from a class we use the word `open` to say that a class or property can be inherited or overriden
 
@@ -708,7 +708,7 @@ class FancyHouse(
 }
 ```
 
-## Interfaces
+### Interfaces
 
 Kotlin allows us two forms of inheritence: Interfaces and Abstracts. Interfaces cannot have a constructor or any logic
 
@@ -752,7 +752,7 @@ open class House (
 }
 ```
 
-## Abstract
+### Abstract
 
 We can add an abstract class for some predefined functionality, let's create one called `Livable` with a population
 
@@ -779,7 +779,7 @@ open class House (
 
 The house class now has the `population` property as well as a result of the inheritance
 
-## Using Inherited Classes
+### Using Inherited Classes
 
 We can specify the inherited classes as parameters to functions where we would like to use some specific functionality, for example in a function where we want to use the `extend` function we can just ask for `ICanRenovate`
 
@@ -789,7 +789,7 @@ fun extendItem(item: ICanRenovate) = item.extend(1, 1)
 
 Kotlin also allows you to define preset classes that can be delegated for inheritence which allows us to implement certain functionality in an instance that can be reused
 
-## Singletons
+### Singletons
 
 We can create a class that can only have a single instance with the `object` keyword -> AKA singleton
 
@@ -821,7 +821,7 @@ open class House (
 
 Interface delegation allows us to use composition to plug in select functionality and should be considered for the kinds of usecases that we would use abstract classes for in other languages
 
-## Data Classes
+### Data Classes
 
 Often we have classes that are defined just for storing data, we can use a `data` class in Kotlin for doing that
 
@@ -840,7 +840,7 @@ val ( postalNumber, postalStreet ) = postal
 
 > The number of values in the decomposition must match the number of properties and are defined based on the order they are in the class
 
-## Enums
+### Enums
 
 In Kotlin Enums are defined using the `enum` keyword and they can haver properties and methods
 
@@ -852,11 +852,11 @@ enum class Suburb {
 }
 ```
 
-## Sealed Class
+### Sealed Class
 
 A sealed class is a class that can only be used within the same file. These classes are static at compile time as well as all its references this means that the compiler can do additional safety checking that wouldn't otherwise be possible
 
-# Extenstion Methods
+## Extenstion Methods
 
 Extension methods are functions that extend functionality of a class without modifying the class itself. Inside of the function `this` refers to the current object instance
 
@@ -885,7 +885,7 @@ val String.isApple: Boolean
     get() = this == "Apple"
 ```
 
-## Generic Classes
+### Generic Classes
 
 Kotlin also allows us to create generics using a similar notation to other languages, such as `MyClass<T>` which is a generic Class of `T`, we can also do the same for function arguments
 
@@ -948,7 +948,7 @@ inline fun <reified T: MyClass> isTypeValid(data: MyClass)
 
 We can use generics for extension methods as well
 
-# Annotations
+## Annotations
 
 Annotations are used by the compiler and many are supplied with the language itself and are generally used when interoperating with Java
 
@@ -984,7 +984,7 @@ class MyClass {
 }
 ```
 
-# Labelled Breaks
+## Labelled Breaks
 
 These allow us to break out of a loop in a more controlled manner by breaking out to the block outside of the label, they are defined with `@labelName`
 

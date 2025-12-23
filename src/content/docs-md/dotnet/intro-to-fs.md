@@ -11,7 +11,7 @@ Mostly based on the content [here](https://fsharpforfunandprofit.com)
 
 F# is a functional language that runs in the .NET Core ecosystem. It's a weird language.
 
-# Install and Run
+## Install and Run
 
 Before you can get started with F# you will need to install it, there are a few different options available depending on your choice of operating system and editor, these instructions can be found [here](https://docs.microsoft.com/en-us/dotnet/fsharp/get-started/install-fsharp?tabs=windows#install-f-with-visual-studio)
 
@@ -21,13 +21,13 @@ You can run F# code using Visual Studio and starting a new F# project, console a
 
 Alternatively you can run F# in Visual Studio Code using the same method as above with the`Ionide F# Language Support` extension
 
-# Syntax
+## Syntax
 
 F# is whitespace sensitive and uses indentation to denote code blocks
 
 F# makes use of implicit typing however you can explicitly state types as well
 
-## Variables
+### Variables
 
 Variables are immutable by default and are defined using the `let` keyword.
 
@@ -52,7 +52,7 @@ let list2 = 1 :: list1 // [1;2;3;4;5]
 let list3 = [0;1] @ list1 //[0;1;2;3;4;5]
 ```
 
-## Mutable and Reference Values
+### Mutable and Reference Values
 
 You can create Mutable variables which would allow the value to be changed, this can be done using the `mutable` keyword as follows
 
@@ -73,7 +73,7 @@ refValue := 1
 let plus1 = !refValue + 1
 ```
 
-## Functions
+### Functions
 
 Functions are defined with the `let` keyword as well and the parameters are written after the name
 
@@ -174,7 +174,7 @@ let sumOfSquaresLambda list =
 sumOfSquaresLambda [1..10]
 ```
 
-## Modules
+### Modules
 
 Functions can be grouped as Modules using the `module` keyword, with additional functions/variables defined inside of them using the `let`
 
@@ -256,7 +256,7 @@ Modules in which submodules/types make use of one another need to have the paren
 module rec RecursiveModule
 ```
 
-## Switch Statements
+### Switch Statements
 
 Switch statements can be used with the `match ... with` keyword, `|` to separate comparators, and `->` for the resulting statement. An `_` is used to match anything (`default`)
 
@@ -284,9 +284,9 @@ isInputNumber (Some 5)
 isInputNumber None
 ```
 
-# Complex Data Types
+## Complex Data Types
 
-# Tuples
+## Tuples
 
 Tuples are sets of variables, they are separated by commas
 
@@ -295,7 +295,7 @@ let twoNums = 1,2
 let threeStuff = false,"a",2
 ```
 
-## Record Types
+### Record Types
 
 Record Types are defined with named fields separated by `;`
 
@@ -304,7 +304,7 @@ type Person = { First:string; Last:string }
 let john = {First="John"; Last="Test"} // Person
 ```
 
-## Union Types
+### Union Types
 
 Union Types have choices separated by `|'
 
@@ -332,7 +332,7 @@ let workerJeff = Worker jeff
 let johnny = Manager [workerJohn;workerJeff]
 ```
 
-# Printing
+## Printing
 
 Printing can be done using the `printf` and `printfn` functions which are similar to `Console.Write` and `Console.WriteLine` functions in `C#`
 
@@ -342,21 +342,21 @@ printfn "string: %s, generic: %A" "Hello" [1;3;5]
 printfn "tuple: %A, Person: %A, Temp: %A, Employee: %A, Manager: %A" threeStuff john tempC workerJeff johnny
 ```
 
-# Key Concepts
+## Key Concepts
 
 F# has four key concepts that are used when aproaching problems
 
-## Function Oriented
+### Function Oriented
 
 F# is a functional language and functions are `first-class` entities and can be used as any other value/variable
 
 This enables you to write code using functional composition in order to build complex functions out of basic functions
 
-## Expressions over Statements
+### Expressions over Statements
 
 F# prefers to make use of expressions instead of statements. Variables tend to be declared at the same time they are assigned and do not need to be 'set-up' for use, such as in the typical case of an `if-else` statement
 
-## Algebraic Types
+### Algebraic Types
 
 Types are based on the concept of `algebraic types` where compound types are built out of their composition with other types
 
@@ -374,7 +374,7 @@ type Temp =
     | DegreesF of int
 ```
 
-## Flow Control with Matching
+### Flow Control with Matching
 
 Instead of making use of `if ... else`, `switch ... case`, `for`, `while` among others like most languages, F# uses `patttern-matchin` using `match ... with` to handle much of the functionality of the above
 
@@ -405,7 +405,7 @@ match myList with
     // recursively call the function
 ```
 
-## Pattern Matching with Union Types
+### Pattern Matching with Union Types
 
 Union Types can also be used in matching and a function based on them can be used to correctly handle and apply the arguments, provided the return type is consistent
 

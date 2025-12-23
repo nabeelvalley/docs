@@ -4,7 +4,7 @@ title: Introduction to Bluetooth
 subtitle: Connecting to, and Reading Data from Bluetooth Devices using Python and Bleak
 ---
 
-# Overview
+## Overview
 
 Bluetooth Low Energy (BLE) devices make use of a few different concepts for reading and writing data. At a high level, bluetooth data is organized as follows:
 
@@ -16,11 +16,11 @@ Each characteristic contains the following attributes:
 - **UUID** - A unique ID for this characteristic, this can be a 16-bit, approved UUID from [this list](https://btprodspecificationrefs.blob.core.windows.net/assigned-values/16-bit%20UUID%20Numbers%20Document.pdf) or a custom 128 bit as specified by the device manufacturer
 - **Value** - The actual value contained in a characteristic. How this value is interpreted is based on the UUID and is either a standard value or a custom manufacturer-specific value
 
-# Reading Bluetooth Data
+## Reading Bluetooth Data
 
 I'm going to be using Bleak with Python to read Bluetooth data and characteristics. Although it's also possible to use the _nrf Connect_ app or another bluetooth debugging tool to do much of the same kind of stuff I'm doing here
 
-## Install Bleak
+### Install Bleak
 
 In order to connect to bluetooth devices I'm using a library called Bleak. To install Bleak you can use the following command:
 
@@ -28,7 +28,7 @@ In order to connect to bluetooth devices I'm using a library called Bleak. To in
 pip3 install bleak
 ```
 
-## Scan for Devices
+### Scan for Devices
 
 To scan for devices we can use the `BleakScanner.discover` method:
 
@@ -60,7 +60,7 @@ An example can be seen below:
 24:71:89:CC:09:05: Device Name
 ```
 
-## List Services and Characteristics
+### List Services and Characteristics
 
 To list the services of a device we can make use of the `BleakClient` class. To do this we need a client address as we saw above:
 
@@ -203,30 +203,30 @@ async def main(address):
     await client.stop_notify(heart_rate_char)
 ```
 
-# References
+## References
 
-## Overview
+### Overview
 
 A good overview of how Bluetooth and how GATT (The Generic Attribute Profile) for a bluetooth device structures data can be found in [Getting Started with Bluetooth Low Energy by Kevin Townsend, Carles Cufí, Akiba, Robert Davidson](https://www.oreilly.com/library/view/getting-started-with/9781491900550/). A good overview of what we'll be using can be found on [Chapter 1 - Introduction](https://www.oreilly.com/library/view/getting-started-with/9781491900550/ch01.html) and [Chapter 4 - GATT (Services and Characteristics)](https://www.oreilly.com/library/view/getting-started-with/9781491900550/ch04.html)
 
-## Library
+### Library
 
 A library I've found to be fairly simple for using to play around with Bluetooth is [Bleak]() which is a multi-platform library for Python
 
 > I've had some issues using Bleak with Windows so I would recommend a Linux-based OS instead
 
-## Debugging Tool
+### Debugging Tool
 
 A useful and easy to use tool for snooping around for bluetooth activity and exploring bluetooth data is the [nrf Connect Android App](https://play.google.com/store/apps/details?id=no.nordicsemi.android.mcp&hl=en_ZA&gl=US)
 
-## Reverse Engineering
+### Reverse Engineering
 
 An approach for reverse engineering the data structure for a simple bluetooth device can be found on [BLE Reverse engineering — Mi Band 5](https://medium.com/@_celianvdb/ble-reverse-engineering-mi-band-5-c3deed12c7)
 
-## List of Bluetooth IDs
+### List of Bluetooth IDs
 
 A database of bluetooth numbers can be found in the [Bluetooth numbers database](https://github.com/NordicSemiconductor/bluetooth-numbers-database) as well as the previously mentioned {Bluetooth specifications document}(https://btprodspecificationrefs.blob.core.windows.net/assigned-values/16-bit%20UUID%20Numbers%20Document.pdf)
 
-# Next Ideas
+## Next Ideas
 
 It may be worth looking into creating a Bluetooth Server. The library installed on Raspberry Pi is Bluez and it looks it supports creating a Bluetooth Server. The documentation for Bluez can be found [here](http://www.bluez.org/). Additionally, there's also the [Bluetooth for Linux developers](https://www.bluetooth.com/bluetooth-resources/bluetooth-for-linux/) which goes through creating a device that acts as a Bluetooth LE peripheral which could be useful in simulating a BLE device

@@ -9,7 +9,7 @@ import Snippet from '@/components/Snippet.astro'
 
 Web workers provide a mechanism for running code outside of the main thread using Javascript. They are currently supported in the browser as well as in Node.js, but for the purpose of this post we'll look at how to use them from within the browser
 
-# Vanilla
+## Vanilla
 
 Web workers can be used directly from the browser using some script tags. For the sake of example, we'll use the following HTML file with it's related script tags:
 
@@ -17,7 +17,7 @@ Web workers can be used directly from the browser using some script tags. For th
 
 In the above, we can see three scripts referenced, we'll take a look at these as we talk about the mechanisms for using web workers
 
-## Workers
+### Workers
 
 Web workers are simply Javascript modules that are loaded by some other code dynamically as a `Worker`
 
@@ -49,7 +49,7 @@ And we can see the worker that sends messages as well:
 
 <Snippet path="web-workers/plain/worker.js" />
 
-## ServiceWorkers 
+### ServiceWorkers 
 
 `ServiceWorkers` are a special kind of worker that acts as a proxy between the application and network and can interact with network requests even when the device is not connected to the server
 
@@ -63,7 +63,7 @@ In the above file, we intercept requests to the `placeholder` url and proxy it b
 
 <Snippet path="web-workers/plain/register-service-worker.js" />
 
-# Vite
+## Vite
 
 In practice we're rarely using some random Javascript files though and often have more complex scenarios with external dependencies or even stuff like Typescript involved, in this case we need to consider things like bundling as well as somehow resolving the name of the file we need to load. Thankfully modern bundlers like Vite have a solution for us
 
@@ -94,13 +94,13 @@ A more full example of this can be seen below:
 
 Something that's also interesting to note is the second parameter of `postMessage`, this is an array of `TransferrableObjects` that are specific objects that the browser allows us to share between the main thread and worker threads. In the above example we're using a `OffscreenCanvas` but this can be any of the objects that are defined as `TransferrableObjects`
 
-# Conclusion
+## Conclusion
 
 Overall, web workers are pretty fun to play around with and really increase the options available to us when working to make applications more performant. Modern tools like Vite also make using them pretty easy
 
 There's a lot that you can do with workers and I've simply provided you with a small overview of the functionality, looking at the MDN documentation is always a good place to go to learn more
 
-# References
+## References
 
 - [MDN Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
 - [MDN Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)

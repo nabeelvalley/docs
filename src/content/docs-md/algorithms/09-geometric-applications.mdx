@@ -7,7 +7,7 @@ import Snippet from '@/components/Snippet.astro'
 
 > Notes based on [Algorithms, Part 1](https://www.coursera.org/learn/algorithms-part1/) on Coursera
 
-# 1D Range Search
+## 1D Range Search
 
 Extension of the ordered symbol table with
 
@@ -32,13 +32,13 @@ Where:
 - N = number of keys
 - R = number of keys that match
 
-# Orthogonal Line Segment Intersections
+## Orthogonal Line Segment Intersections
 
 Given N horizontal and vertical segments, find all intersections
 
 The brute force algorithm is going to be quadratic
 
-## Sweep-line algorithm
+### Sweep-line algorithm
 
 An algorithm that can be used to solve this is using an algorithm in which we sweep a line from left to right:
 
@@ -57,7 +57,7 @@ Where N is the number of lines and R is the number of points to return
 
 Using this mechanism it effectively reduces a 2D search into a 1D range search
 
-# Kd Trees
+## Kd Trees
 
 An extension of BSTs that are used fr processing sets of points in space. In this scenario our keys are 2D. These extend the BST as follows:
 
@@ -71,7 +71,7 @@ A solution to solve this problem is by using a tree to represent the divions wit
 
 These trees work by taking points, we partition the plane recursively by alternating by horizontal and vertical spaces, this is more simply alternating through the keys, and each level of the tree represents a specific key, in this case X and Y
 
-## Range Search 
+### Range Search 
 
 Range search in this kind of tree works as follows:
 
@@ -80,11 +80,11 @@ Range search in this kind of tree works as follows:
 - Recursively search left/bottom if any children can fall in rectangle
 - Recursively search right/top if any children can fall in rectangle
 
-## Search Performance
+### Search Performance
 
 Typical performance of this is _R + log N_, in the worst case it can be _R + sqrt(N)_
 
-## Closest Search
+### Closest Search
 
 Finding the clsoest point works as follows:
 
@@ -95,11 +95,11 @@ Finding the clsoest point works as follows:
 - Organize method so taht it begins by searching for the query point
 - Update the closest point if we find a closer point along the way
 
-## Closest Search Performance
+### Closest Search Performance
 
 Typically this is _log N_, worst case is _N_
 
-## Application of Closest Search
+### Application of Closest Search
 
 Kd trees can be used to simulate bird flocking under the following ruleset, these are called **Boids**
 
@@ -107,11 +107,11 @@ Kd trees can be used to simulate bird flocking under the following ruleset, thes
 - Flock centering: point towards the center of mass of K nearest boids
 - Velocity matching: update velocity to the average of K nearest boids
 
-## Expanding to K Dimensions
+### Expanding to K Dimensions
 
 The 2D tree can be expanded by simply recusively partitioning the 2D tree by cycling through however many dimensions there is in our data
 
-# Interval Search Trees
+## Interval Search Trees
 
 A data structure is needed to hold sets of overlapping intervals and we want to be able to get all intervals that may overlap another interval
 
@@ -131,11 +131,11 @@ We can solve this by creating a BST:
   - The interval for the node
   - The max hi endpoint in the subtree
 
-## Insertion
+### Insertion
 
 When inserting we do a normal BST, but we need to update the subtree max value by traversing back up the tree once we have inserted our new value
 
-## Searching
+### Searching
 
 When searching for any interval that intersects an interval
 
@@ -144,13 +144,13 @@ When searching for any interval that intersects an interval
 - Else if max in left is less than _lo_, go right
 - Else go left
 
-# Rectangle Intersection
+## Rectangle Intersection
 
 2D rectangle intersection can be done using the sweep line algorithm such that each intersection results in an interval being added or removed. Once we reach a left edge or a rectangle we can use the intersection search to improve the performance of this check
 
 Overall this leads to an algorithm that takes _N log NN + R log N_ to find _R_ intersections in a set of _N_ rectangles
 
-# Summary
+## Summary
 
 | Problem                                        | Solution                        |
 | ---------------------------------------------- | ------------------------------- | 

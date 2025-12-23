@@ -1,4 +1,4 @@
-# Run a Database Migration on RDS with CDK Custom Resources
+## Run a Database Migration on RDS with CDK Custom Resources
 
 > Refer to [Custom cloud infrastructure as code with AWS CDK - CloudFormation Custom Resources Lambda Backend](https://www.youtube.com/watch?v=u7FdDFta2XI)
 
@@ -10,7 +10,7 @@ This enables us to run pretty much any code or before or after a particular reso
 
 > Note that there are other types of custom resources, but we'll be specifically using one that uses a Lambda as its basis
 
-# Setup the CDK App
+## Setup the CDK App
 
 To create a CDK app, you will need to use the `cdk` CLI, init a new app like this:
 
@@ -43,7 +43,7 @@ Next, since we'll need to create Custom Resources as the packages needed to conf
 
 Now that we've got all the dependencies in place, we can move on to actually building our the functionality
 
-# Define the Stacks
+## Define the Stacks
 
 Our app will make use of two stack, one to setup the database and one to handle the migration by way of a Custom Resource, the stacks will need the following respectively:
 
@@ -52,7 +52,7 @@ Our app will make use of two stack, one to setup the database and one to handle 
 
 Once that's all done, we can actually create the Lambda which will carry our our migration
 
-## `DatabaseStack`
+### `DatabaseStack`
 
 1. Definition of a `secret` for our DB Credentials, we will want to export this for use by our `MigrateStack` by way of a `public` property on our class
 
@@ -186,7 +186,7 @@ export class DatabaseStack extends cdk.Stack {
 }
 ```
 
-## MigrateStack
+### MigrateStack
 
 1. `Props` defintion so the `DatabaseStack` Exports can be provided:
 
@@ -312,7 +312,7 @@ export class MigrateStack extends cdk.Stack {
 }
 ```
 
-# The Migration Lambda
+## The Migration Lambda
 
 The Migration Lambda itself is pretty much just a function that will use the Postgres Client for Node.js to run some SQL queries against the database - you can implement this however you want, and I would suggest using some kind of ORM if needed, but again, to keep it simple we're going to just run some regular SQL, we can do this in a file called `lib/database-migrate-lambda.ts` which is what we actually referenced above when creating the `NodeJS` Lambda
 
@@ -396,7 +396,7 @@ export const handler = async (event: EventType): Promise<any> => {
 }
 ```
 
-# Deploy the App Stacks
+## Deploy the App Stacks
 
 So, we've defined two stacks for our application, but we're not yet ready to deploy since we need to actually get CDK to recognize and deploy these stacks.
 
@@ -431,6 +431,6 @@ yarn cdk deploy --all
 
 This will take a while to deploy, and the `cdk` CLI will ask you for some confirmations while it runs, once done you can look for the Lambda in CloudWatch to view the results of the deploy, however if there are any errors while running you will see it in the terminal or CloudFormation output
 
-# Final Notes
+## Final Notes
 
 The above setup is just intended to be a starting point for using Lambdas to run custom logic on application deploys. This isn't a database setup I'd recommend but it should allow you

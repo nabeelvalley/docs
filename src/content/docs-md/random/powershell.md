@@ -5,7 +5,7 @@ subtitle: Tips and Tricks
 description: Powershell tips and tricks
 ---
 
-# Modify Prompt
+## Modify Prompt
 
 > Based on [this](https://superuser.com/questions/446827/configure-the-windows-powershell-to-display-only-the-current-folder-name-in-the)
 
@@ -36,7 +36,7 @@ function prompt {
 }
 ```
 
-# Adding Aliases
+## Adding Aliases
 
 > Based on [this](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/set-alias?view=powershell-6)
 
@@ -54,7 +54,7 @@ function repo {
 }
 ```
 
-# View File Tree
+## View File Tree
 
 You can view the folder and file tree in powershell using the `tree` command.
 
@@ -99,7 +99,7 @@ And for another directory:
 tree ./path/to/dir /f
 ```
 
-# Symlinks
+## Symlinks
 
 > Support for `mklink` only exists on newer versions of Windows, otherwise you may need to use `New-Item`
 
@@ -121,7 +121,7 @@ mklink data.txt ./main/data.txt
 
 > For more info see [this page](https://superuser.com/questions/1307360/how-do-you-create-a-new-symlink-in-windows-10-using-powershell-not-mklink-exe_
 
-# Git Status for Sub-Directories
+## Git Status for Sub-Directories
 
 Check which folders have modified files (only goes one level deep)
 
@@ -157,14 +157,14 @@ Get-ChildItem -Directory | ForEach-Object {
 Write-Host $notGit;
 ```
 
-# Zip and Unzip a File
+## Zip and Unzip a File
 
 ```ps1
 Compress-Archive .\DirectoryToZip .\NewFileName.zip
 Expand-Archive .\FileToUnzip.zip .\DestinationDirectoryName
 ```
 
-# Copy and Paste Files
+## Copy and Paste Files
 
 Copy the current directory with:
 
@@ -184,7 +184,7 @@ Paste Item with:
 Get-Clipboard -Format FileDropList | Copy-Item
 ```
 
-# Send an Email
+## Send an Email
 
 From [this StackOverflow Answer](https://stackoverflow.com/questions/12460950/how-to-pass-credentials-to-the-send-mailmessage-command-for-sending-emails)
 
@@ -227,7 +227,7 @@ Function Send-EMail {
 }
 ```
 
-# Troubleshooting Path Commands
+## Troubleshooting Path Commands
 
 If a command is not running the application/version of the application you'd expect you can try the following steps:
 
@@ -257,7 +257,7 @@ Get-Command node
 
 3. In order to ensure that the correct application/command takes precedence move it higher up your path
 
-# Create Drive Aliases
+## Create Drive Aliases
 
 On Windows you can alias specific folders as virtual drives (for easy reference or to get around file length restrictions)
 
@@ -284,7 +284,7 @@ To remove a drive run the following command:
 > subst R: /D
 ```
 
-# What Process is Using a Port
+## What Process is Using a Port
 
 To view what process is using a specific port you can run the following command:
 
@@ -298,7 +298,7 @@ You can also use the following command:
 netstat -ano | findstr : 8000
 ```
 
-# Killing Process by ID
+## Killing Process by ID
 
 If you have the PID, for example using one of the above commands, you can kill us using `taskkill`, for example for killing PID 1234
 
@@ -306,7 +306,7 @@ If you have the PID, for example using one of the above commands, you can kill u
 taskkill /PID 1234 /F
 ```
 
-# Zipping Files
+## Zipping Files
 
 To zip all the files in a directory you can use the following:
 
@@ -320,7 +320,7 @@ To zip a directory, including the root directory in the Zip use the following:
 Compress-Archive -Path ./dir_to_zip -DestinationPath Compress-Archive -Path ./* -DestinationPath ./output_file.zip
 ```
 
-# Search for Devices on Network
+## Search for Devices on Network
 
 To view the IP's of the different devices that are currently connected to your network you can use the following command:
 
@@ -328,7 +328,7 @@ To view the IP's of the different devices that are currently connected to your n
 arp -a
 ```
 
-# Connect to RDP
+## Connect to RDP
 
 To use an RDP file you can make use of the `mstsc` command with a path to the RDP file you want to connec with:
 
@@ -338,11 +338,11 @@ mstsc ./my-cool-server.rdp
 
 Which will then open the RDP file
 
-# Switch to Home Directory
+## Switch to Home Directory
 
 You can switch to your home directory on Powershell with `cd ~`, the `~` directory represents the user's home, same as in other OS's and shells
 
-# My Current \$PROFILE
+## My Current \$PROFILE
 
 Yout Powershell is a script that runs whenever you open a new powershell instance, the functions available in it become part of your session so you can just call them from the terminal. The path to this file is stored in every Powershell instance as the `$PROFILE` variable
 
@@ -355,46 +355,46 @@ notepad $PROFILE
 My current profile which has some common commands is here:
 
 ```ps1
-# POWERSHELL CONFIGURATION FUNCTIONS
-# ==================================
-# THESE ARE CALLED BY POWERSHELL ITSELF
+## POWERSHELL CONFIGURATION FUNCTIONS
+## ==================================
+## THESE ARE CALLED BY POWERSHELL ITSELF
 
-# SETS CUSTOM PROMPT, THIS FUNCTION GETS CALLED ON PS SETUP
+## SETS CUSTOM PROMPT, THIS FUNCTION GETS CALLED ON PS SETUP
 function prompt {
   $p = Get-Location
   "$p
 !"
 }
 
-# ENVIRONMENT FUNCTIONS
-# =====================
-# CONFIGURE ENVIRONMENT
+## ENVIRONMENT FUNCTIONS
+## =====================
+## CONFIGURE ENVIRONMENT
 
-# REFRESH SESSION ENVIRONMENT VARIABLES
+## REFRESH SESSION ENVIRONMENT VARIABLES
 function _refresh {
   $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 }
 
-# GENERAL UTILITIES
-# =================
+## GENERAL UTILITIES
+## =================
 
-# NAVIGATION
-# ^^^^^^^^^^
+## NAVIGATION
+## ^^^^^^^^^^
 
-# CD TO MY REPOSITORIES
+## CD TO MY REPOSITORIES
 function _repo {
   Set-Location c:\repos
 }
 
-# CD TO MY DOCS
+## CD TO MY DOCS
 function _docs {
   Set-Location C:\repos\PersonalSite\static\content\docs
 }
 
-# GIT
-# ^^^
+## GIT
+## ^^^
 
-# MERGE GIT "DEVELOP" TO "MASTER"
+## MERGE GIT "DEVELOP" TO "MASTER"
 function _quickmerge {
   git push
   git checkout master
@@ -403,8 +403,8 @@ function _quickmerge {
   git checkout develop
 }
 
-# COMMIT ALL SUBMODULE'S FILES AND RUN SAME COMMIT ON PARENT REPO
-# FOR THE UPDATED SUBMODULE. RUN FROM SUBMODULE DIRECOTRY
+## COMMIT ALL SUBMODULE'S FILES AND RUN SAME COMMIT ON PARENT REPO
+## FOR THE UPDATED SUBMODULE. RUN FROM SUBMODULE DIRECOTRY
 function _updatesub  {
   param(
     [string]$commitMessage
@@ -422,10 +422,10 @@ function _updatesub  {
   cd $submoduleFolder
 }
 
-# FILE MANIPULATION
-# ^^^^^^^^^^^^^^^^^
+## FILE MANIPULATION
+## ^^^^^^^^^^^^^^^^^
 
-# COPY SOMETHING TO YOUR CLIPBOARD
+## COPY SOMETHING TO YOUR CLIPBOARD
 function _copy {
   param(
     [string]$fileToCopy
@@ -434,12 +434,12 @@ function _copy {
   Get-Item $fileToCopy | Set-Clipboard
 }
 
-# PASTE WHAT'S ON YOUR CLIPBOARD
+## PASTE WHAT'S ON YOUR CLIPBOARD
 function _paste {
   Get-Clipboard -Format FileDropList | Copy-Item
 }
 
-# RENAME A FILE
+## RENAME A FILE
 function _rename {
   param(
     [string]$currentFile,
@@ -449,7 +449,7 @@ function _rename {
   Rename-Item -Path $currentFile $newName
 }
 
-# COPY AND RENAME FILE
+## COPY AND RENAME FILE
 function _dupe {
    param(
     [string]$currentFile,

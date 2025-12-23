@@ -5,7 +5,7 @@ subtitle: 03 August 2022
 description: Software development tools and languages I'm using at the moment
 ---
 
-# Programming Languages
+## Programming Languages
 
 I've primarily switched over to Typescript as my language for building applications, but I've also been learning Rust for the purpose of building some low-level libraries
 
@@ -13,7 +13,7 @@ For Typescript, something I've been finding to be really informative is the [Typ
 
 For Rust, the [Rust Book](https://doc.rust-lang.org/book/) along with the [No Boilerplate YouTube Channel](https://www.youtube.com/c/NoBoilerplate) have been really informative
 
-# Frameworks
+## Frameworks
 
 The current version of my website is built using [11ty](https://www.11ty.dev) which is a static site generator which uses Javascript and templates for generating HTML from a variety of data sources - in my case just JSON and Markdown files
 
@@ -27,7 +27,7 @@ For other projects I'd like to give the [Remix Framework](https://remix.run) a s
 
 I've also been playing around with [Tauri](https://tauri.app/) for building desktop applications. Tauri uses a Rust backend with a bring-your-own client approach and pretty much uses any client side javascript framework - I'm looking towards [Svelte](https://svelte.dev/) for this since it keeps things a lot more vanilla which is a good break from working with the other major frameworks
 
-# Code Editor
+## Code Editor
 
 I'm back to VSCode after a short stint with [NeoVim](http://neovim.io).
 
@@ -43,7 +43,7 @@ As far as VSCode is concerned, some things I've been using are:
 - Rust Analyzer Extension (rust-lang.rust-analyzer)
 - Fix Extension (withfig.fig)
 
-# Terminal
+## Terminal
 
 Some terminal tools I've been enjoying recently are:
 

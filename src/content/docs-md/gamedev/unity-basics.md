@@ -6,13 +6,13 @@ subtitle: Basic Game Development using Unity
 
 > Notes from [this series](https://www.youtube.com/watch?v=_uO5B7bP9jo&list=PLX2vGYjWbI0TiP080ELGDurOmz5NAg5CI)
 
-# Setting Up
+## Setting Up
 
 Create a new 3D Project with the Universal Render Pipeline and select a folder to save the project to, if this is the first time creating a Unity Project it may take some time to load
 
 You may also need to set Visual Studio as the Editor using `Edit > Preferences > External Tools` and selecting Visual Studio as the External Script Editor. Even if you want to use VSCode just set this up once so that the `csproj` files are generated. Alternatively, you can select VSCode, select the generated files you want, and then click `Regenerate Project Files`
 
-# Scenes
+## Scenes
 
 Scenes are ways to store and separate sections of your game, like levels for example, typically scenes are saved in `Assets/Scenes`. To Create a Scene use `File > New Scene` and save it with a name
 
@@ -28,7 +28,7 @@ We can add simple objects to the Scene by using primitives, we can create these 
 
 The standard Unity lighting and physics systems use the measurement base unit to be 1m
 
-# Materials
+## Materials
 
 To set a colour or texture you make use of a Material, these are stored in `Assets/Materials`, you can create a new Material by right clicking on the folder and selecting `Create > Material`
 
@@ -44,11 +44,11 @@ A Shiny material may look more like:
 - Matallic Map: `0`
 - Smoothness: `0.75`
 
-# RigidBody
+## RigidBody
 
 To use physics a game object needs a RigidBody component. To do this you need to select `Add Component > RigidBody` in a component inspector
 
-# Player Movement
+## Player Movement
 
 Player movement can be handled using the Input System pacakge to apply forces with a script that's attached to an object
 
@@ -58,7 +58,7 @@ You will also need to go to `File > Build Settings` and select the architecture 
 
 Next, on a Player object select `Add Component > Player Input` and then create an `Input Action` Asset. To create this select `Create Actions` in the Input Action Inspector and save it in `Assets/Inputs`. If you get a `NullReferenceException` when trying to do this it may still have created the action but not assigned it to the object, if that happens just drag it into the `Actions` field of the object
 
-# Scripting
+## Scripting
 
 Scripts are stored in `Assets/Scripts` which make use of C#. To create a new script you can do `Assets > Create` or select an object, and select `Add Component > New Script` in the inspector which will create an attach a script at once.
 
@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour
 
 > `public` variables can be modified from the Object Inspector when associating a script
 
-# Camera Movement
+## Camera Movement
 
 When setting up movement for the camera you will typically set it up as a child of a game object, this can be done by dragging the Camera object over the game object you want to use, such as the player, in the Object Hierarchy
 
@@ -222,7 +222,7 @@ public class CameraController : MonoBehaviour
 }
 ```
 
-# Rotating Objects
+## Rotating Objects
 
 We can create a cube that can be used as a simple collectible, we can make this rotate by using the `Update` function and setting the rotation based on this:
 
@@ -243,7 +243,7 @@ public class PickupController : MonoBehaviour
 }
 ```
 
-# Prefabs
+## Prefabs
 
 A Prefab is an asset that functions as a Game Object template. Prefabs can be accessed in different scenes, and we can make a change to a single instance or to the Prefab itself and it will update across scenes if we update a single object
 
@@ -251,7 +251,7 @@ To create a Prefab select the Game Object from the heirarchy into the `Assets/Pr
 
 To contain instances of this prefab we can create an empty Game Object, e.g. `PrefabParent` and place instances of the Prefab within that
 
-# Collisions
+## Collisions
 
 We use the `OnTriggerEnter` function that triggers when a collision is detected, we then use the Unity Tagging system to identify what object type the collision happened with
 
@@ -314,7 +314,7 @@ public class PlayerController : MonoBehaviour
 
 ```
 
-# Storing State Information
+## Storing State Information
 
 We may want to store state information like scores, there are a few ways we can do this, one of which would be keeping it stored in a variable on our Player object, and updating the variable when needed, for example:
 
@@ -348,7 +348,7 @@ public class PlayerController : MonoBehaviour
 }
 ```
 
-# Adding UI
+## Adding UI
 
 To add some UI Text you can use the `UI > TextMeshPro`, we can move around text as well as use anchoring to position it in the canvas, you can additionally use `shift + alt + click` in the `Rect Transform` in the Object Inspector to change the way the position types work
 

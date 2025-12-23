@@ -8,7 +8,7 @@ subtitle: Notes on the Dart language
 
 To get started with Dart you can use [DartPad](https://dartpad.dev/)
 
-# Hello World
+## Hello World
 
 A simple Hello World in dart looks like so:
 
@@ -20,7 +20,7 @@ void main() {
 
 In Dart we require semicolons and the entrypoint is the `main` function
 
-# Variables
+## Variables
 
 We declare variables like this:
 
@@ -46,7 +46,7 @@ String name = "John";
 String person = "My name is $name and I am $age years old";
 ```
 
-# Functions
+## Functions
 
 Functions make use of the following structure:
 
@@ -100,7 +100,7 @@ sumN(1,2, {c: 3})
 sumN(1,2, {c: 3, d: 4})
 ```
 
-# Lists
+## Lists
 
 Lists in Dart are defined using the `[]` notation
 
@@ -141,7 +141,7 @@ myList.map((el){
 }).toList()
 ```
 
-# Classes
+## Classes
 
 Classes are defined using the `class` keyword, with the properties defined within the class. The `new` keyword is not needed
 
@@ -213,7 +213,7 @@ class Person extends NotCat {
 
 When using the above we need to be sure to also call the constructor of the base class from the inheriting class using `super`
 
-# Const and Final
+## Const and Final
 
 A `const` variable is one that's value is constant at compile time, a `final` variable is one that is only assigned to once
 
@@ -244,7 +244,7 @@ We can then create an instance of this like so:
 var myCard =  QuoteCard(quote: myQuote)
 ```
 
-# Maps
+## Maps
 
 Maps are like dictionaries/key-value pairs
 
@@ -262,11 +262,11 @@ print(person["name"])
 
 This is used in flutter when doing routing for pages
 
-# Async
+## Async
 
 Async code is code that finishes some time after being called but is not blocking. We use a combination of `async`, `await`, and `Futures`
 
-## Futures
+### Futures
 
 A function that makes use of a Future that simply does a delay looks like this:
 
@@ -317,7 +317,7 @@ class _SelectLocationState extends State<SelectLocation> {
 }
 ```
 
-## Async/Await
+### Async/Await
 
 Sometimes however we have some asynchronous code that needs to run sequentially we can make use of `async` and `await`
 
@@ -344,7 +344,7 @@ void getData() async {
 }
 ```
 
-# Exceptions
+## Exceptions
 
 To handle exceptions in dart we can use a `try-catch`:
 
@@ -375,7 +375,7 @@ try {
 }
 ```
 
-## Cascade operator
+### Cascade operator
 
 Dart has a cascade operator `..` which allows a function to return the instance of the initial object and not the result of a function call:
 
@@ -411,9 +411,9 @@ querySelector('#confirm') // Get an object.
   ..onClick.listen((e) => window.alert('Confirmed!'));
 ```
 
-# Conditionals
+## Conditionals
 
-## If-Else
+### If-Else
 
 ```dart
 if (isCar) {
@@ -439,7 +439,7 @@ if (age > 35) {
 }
 ```
 
-## Ternary
+### Ternary
 
 We can use a ternary operator like so:
 

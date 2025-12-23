@@ -5,13 +5,13 @@ description: Haskell learning note
 
 > Notes based on [Learn you a Haskell](https://learnyouahaskell.com/)
 
-# Prerequisites
+## Prerequisites
 
 Setup a Haskell Environment as per the [Getting Started Docs](https://www.haskell.org/get-started) as well as install the Haskell extension for your editor
 
 > This installation process is a little slow, but stay with it I guess. (it's still easier than the Ocaml install)
 
-# Syntax Basics
+## Syntax Basics
 
 To write the first bits of Haskell we can use the REPL which, once installed, can be accessed with the `ghci` command
 
@@ -77,7 +77,7 @@ ghci> 9 `min` 10
 9
 ```
 
-## Functions
+### Functions
 
 We can define our own functions using a syntax like:
 
@@ -129,7 +129,7 @@ bobsName = "Bob Smith"
 
 > Function names must start with a lowercase letter and can contain a `'`, e.g. `bob'sName = "BobSmith"`
 
-## Lists
+### Lists
 
 Lists store elements of the same type. Lists can be defined using `[]` with elements separated by commas
 
@@ -191,7 +191,7 @@ Some functions for working with lists are:
 
 Calling `head`, `tail`, `last`, or `init` on an empty list will throw an error
 
-## Ranges
+### Ranges
 
 Ranges allow us to define sequences of enumerable values. Ranges can be defined using a start and end value
 
@@ -228,7 +228,7 @@ There are also a few useful functions for working with ranges such as:
 - `cycle` - which repeats the elements of a given list to produce an infinite range
 - `repeat` - creates an infinite range of a repeated value
 
-## List Comprehensions
+### List Comprehensions
 
 List comprehensions are like **Set Comprehensions** in math and allow us to define some general sets using a set of predicates
 
@@ -252,7 +252,7 @@ ghci> [a ++ " " ++ b | a <- ["hello", "hi"], b <- ["world", "bob"]]
 ["hello world","hello bob","hi world","hi bob"]
 ```
 
-## Tuples
+### Tuples
 
 Tuples work pretty much the same as in other languages. A tuple lets us store multiple values together. Items in a tuple can be different types, we can use this as we'd expect
 
@@ -301,7 +301,7 @@ ghci> zip [1,2,3] ['a','b','c']
 [(1,'a'),(2,'b'),(3,'c')]
 ```
 
-# Types
+## Types
 
 Haskell is statically typed. Thus far we haven't had to annotate the types of our functions since the language is pretty good at inferring the types of stuff
 
@@ -325,7 +325,7 @@ doubleMe :: Int -> Int
 doubleMe x = x + x
 ```
 
-## Type Variables
+### Type Variables
 
 We can look at the types of some more complex values
 
@@ -346,7 +346,7 @@ We can also see that functions can specify a constraint on their type variables,
 
 Lastly, it's also important to note that functions don't differentiate between multiple inputs an outputs. So a function that takes multiple input just uses `->` to separate values, this is because functions can partially apply them which yields another functions
 
-## Type Classes
+### Type Classes
 
 A typeclass is like an interface that defines some kind of behavior. (They seem a bit like traits in Rust)
 
@@ -381,11 +381,11 @@ Additionally, we also have some number types:
 
 When working with numbers the `fromIntegral` function can be used to convert between number types, namely swapping between floating point and integer number types which is sometimes needed
 
-# Functions
+## Functions
 
 Functions in Haskell have some interesting functionality when compared to most other languages. The first of this is how we can define different implementations for functions using pattern matching
 
-## Pattern Matching
+### Pattern Matching
 
 Pattern matching when defining a function is done by essentially providing multiple implementations for a function that match to the same type signature but different concrete parameters. For example, the below function reacts differently depending on the `name` that is provided:
 
@@ -446,7 +446,7 @@ addPair :: (Num a) => (a, a) -> a
 addPair (x, y) = x + y
 ```
 
-## Guards
+### Guards
 
 Guards allow us to branch based on a condition. They're very similar to `if/else` statements and are evaluated in order
 
@@ -460,7 +460,7 @@ howBig num
   | otherwise = "Nothing notable here"
 ```
 
-## Where Bindings
+### Where Bindings
 
 Where bindings let us define local values within a function and can be done by using `where` with each binding on a different line:
 
@@ -482,7 +482,7 @@ f x = m * x' + c
     x' = sqrt x
 ```
 
-## Let Expressions
+### Let Expressions
 
 These are very similar to where bindings but can be used anywhere and are expressions in themselves, the values in the `let` part are accessible in the `in` part
 
@@ -536,7 +536,7 @@ f xs =
 
 > This seems a bit syntax-dense to me, but I see why being able to refer to the value bound in the let expression could be useful
 
-## Case Expression
+### Case Expression
 
 Case expressions let us pattern match within a function and get the resulting expression. This is pretty much as you'd expect as well
 
@@ -557,7 +557,7 @@ hi c = "Hi " ++ name c
     name c = [c]
 ```
 
-# Recursion
+## Recursion
 
 Recursion works as normal. A nice benefit we have in Haskell is that we can define the recursive base case as a pattern definition:
 
@@ -596,11 +596,11 @@ quicksort (x : xs) =
     bigger = [a | a <- xs, a > x]
 ```
 
-# Higher Order Functions
+## Higher Order Functions
 
 Functions that can take a function as parameters or return another function are called higher order functions
 
-## Curried Functions
+### Curried Functions
 
 Every function in Haskell only takes a single parameter. Functions that look like they take multiple parameters are in fact functions that return functions that take the remaining parameters. We can call these curried functions
 
@@ -647,7 +647,7 @@ ghci> twoDivBy 10
 0.2
 ```
 
-## Higher Order Functions
+### Higher Order Functions
 
 We can define higher order functions as normal functions
 
@@ -669,7 +669,7 @@ A very useful higher order function is `flip`, which is basically flips the argu
 flip f x y = f y x
 ```
 
-## Maps and Filters
+### Maps and Filters
 
 Two common higher order functions are `map` and `filter`
 
@@ -711,7 +711,7 @@ As we can see from the implementation, this behavior can be done using list comp
 
 Since Haskell is lazy, mapping or filtering lists multiple times still only iterates through the list once
 
-## Lambdas
+### Lambdas
 
 When working with higher order functions we often have a function that we'd just like to use once, to do this we can define a lambda which is an anonymous function. They are defined using the `\p1 p2 -> expression`
 
@@ -728,7 +728,7 @@ ghci> map (\x -> x + 5) [1..5]
 [6,7,8,9,10]
 ```
 
-## Folds and Scans
+### Folds and Scans
 
 When working with recursion we often run into an edge case with the empty list, this is a pretty common pattern called folding. Folds reduce a list to some single value
 
@@ -765,7 +765,7 @@ A nice compositional example is how we can use these methods with `flip` to do s
 reverse' xs = foldl (flip (:)) [] xs
 ```
 
-## Function Application
+### Function Application
 
 Function application is done using the `$` operator and is defined as such:
 
@@ -798,7 +798,7 @@ ghci> map ($ 10) [(1+), (2+), (3+)]
 [11,12,13]
 ```
 
-## Function Composition
+### Function Composition
 
 Function composition is defined mathematically as `(f.g)(x) = f(g(x))`. In Haskell this is the same:
 
@@ -834,7 +834,7 @@ f :: (Num a) => [a] -> a
 f = negate . abs . product
 ```
 
-# Modules
+## Modules
 
 A module is a collection of related functions and types. A program is a collection of modules
 
@@ -881,7 +881,7 @@ Import everything except some stuff:
 import Data.List hiding (nub, sort)
 ```
 
-## Data.List
+### Data.List
 
 Has some useful methods for working with lists, some of these that are useful are:
 
@@ -928,7 +928,7 @@ In addition to the list functions from the [Lists section](#lists), we also have
 - `insert` - inserting into a sorted list keeps the list sorted
 - `sortBy`, `groupBy`, `insertBy`, `maximumBy`, etc. - take a function to determine the order of two elements and apply that to the relevant method
 
-## Data.Char
+### Data.Char
 
 Functions for working with Chars
 
@@ -956,7 +956,7 @@ Functions for working with Chars
 - `ord` - convert character to their number
 - `chr` - convert number to character
 
-## Data.Map
+### Data.Map
 
 Methods for working with association lists or dictionaries
 
@@ -982,7 +982,7 @@ myMap = Map.fromList [("a", 1), ("b", 2)]
 - `Map.insertWith` - same as `Map.fromListWith` but for insertion
 - `Map.lookup` - gets the item from a map
 
-## Data.Set
+### Data.Set
 
 All elements in a set are unique. Sets are implemented as trees and are ordered. Operations like inserting, deleting, checking for existence, are much faster than for lists
 
@@ -1003,7 +1003,7 @@ Many of these methods are similar to their `List` or `Map` equivalents
 - `Set.isProperSubsetOf`
 - `Set.filter`
 
-## Defining a Module
+### Defining a Module
 
 When defining a module we specify the name of the module and then the items that it exports followed by `where`, for example:
 
@@ -1027,9 +1027,9 @@ myDivide a b = a / b
 
 The name of the module file should also match name of the module, e.g. `QuickMath.hs` for the above
 
-# Custom Types and TypeClasses
+## Custom Types and TypeClasses
 
-## Algebraic data types
+### Algebraic data types
 
 Algebraic types can be defined using `data Name = T1 | T2`, for example, we can define a type of `Food` like so:
 
@@ -1070,7 +1070,7 @@ food = Cake Chocolate 12
 m = mass food
 ```
 
-## Records
+### Records
 
 If we want to have lots of properties in our type it would be nice if we could label them a little better, we can do that using records which are an alternative way to write data types:
 
@@ -1108,7 +1108,7 @@ cake =
     }
 ```
 
-## Type Parameters
+### Type Parameters
 
 Algebraic types can also type type parameters using the syntax as:
 
@@ -1118,7 +1118,7 @@ data Menu a b = Breakfast | Lunch a | Dinner b
 
 We can have one or more parameters and use it as needed as we can see above
 
-## Derived Instances
+### Derived Instances
 
 As we've seen with deriving typeclasses, we can derive behavior for these types, they're a little like interfaces or traits in other languages. Some typeclasses that we can derive are: `Show`, `Read`, `Eq`, `Ord`, `Bounded`, `Enum`
 
@@ -1141,7 +1141,7 @@ ghci> [Breakfast .. Dinner]
 [Breakfast,MorningSnack,Lunch,AfternoonSnack,Dinner]
 ```
 
-## Type Synonyms
+### Type Synonyms
 
 These provide a way for us to give an alternative name to an existing type, for example, rewriting our `Food` data type above:
 
@@ -1163,7 +1163,7 @@ data Menu a b = Breakfast | Lunch a | Dinner b
 type HomeMenu = Menu Food Ingredient
 ```
 
-## Recursive Data Structures
+### Recursive Data Structures
 
 Data structures can also be recursive, an example of this is how the `List` type is defined:
 
@@ -1179,7 +1179,7 @@ type Previous = String
 data Recipe = Done | Recipe Previous Recipe deriving (Show)
 ```
 
-## Infix Function Definitions
+### Infix Function Definitions
 
 Functions that are made up of only special characters are automatically infix. So we can define a function for composing recipes:
 
@@ -1211,7 +1211,7 @@ Recipe "Chop vegetables" (
 
 > Note this isn't really a natural way to depict this, but for the purpose of depicting fixity it gives us something to work with
 
-## Typeclasses
+### Typeclasses
 
 As mentioned previously, typeclasses provide additional behavior to types, the `Eq` typeclass is defined in the prelude as:
 
@@ -1276,7 +1276,7 @@ instance (Eq m) => Eq (Maybe m) where
 
 Note that since we are comparing `x == y` we need to ensure that the types are `Eq`, so we can only implement a typeclass for a type constructor provided that the given type implements `Eq`, this is similar to generic constraints in functions
 
-## The Functor Typeclass
+### The Functor Typeclass
 
 The Functor typeclass is basically used for anything that can be mapped over, e.g. `Lists` implement this, this is defined as follows:
 
@@ -1300,7 +1300,7 @@ instance Functor Maybe where
     fmap f Nothing = Nothing
 ```
 
-## Kinds
+### Kinds
 
 Type constructors are like functions that work over types to get concrete types. A `Kind` is a way to talk about the "type of a type", we can view the kind of something using `:k` in GHCI, for example:
 

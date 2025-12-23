@@ -7,13 +7,13 @@ description: Using Rust to parse EXIF metadata from image files
 
 > The complete Rust code discussed in this post can be found in the [exiflib GitHub repo](https://github.com/nabeelvalley/exiflib)
 
-# Introduction
+## Introduction
 
 Image files, such as JPEG, PNG, and RAW formats from digital cameras and software, contain metadata about the image. This metadata can contain information ranging from the make and model of the camera used to the specific shooting conditions under which a picture was taken
 
 Reading this data depends on the image format used. This post looks at specifically reading metadata from images that use the Exchangeable Image File Format (EXIF) for storing metadata
 
-# The Rust Programming Language
+## The Rust Programming Language
 
 The [Rust programming language](https://www.rust-lang.org/) is used to read and process the image files. Rust is a general-purpose programming language with an emphasis on performance and type safety
 
@@ -21,7 +21,7 @@ While this post doesn't cover the specifics of programming in Rust, any code sam
 
 It's also worth noting that this post covers a lot of bit-level processing of image files, to get a basic understanding of binary data works take a look at the previous post on [Understanding Binary File Formats](../20-08/understanding-binary-files)
 
-# The Exchangeable Image File Format (EXIF)
+## The Exchangeable Image File Format (EXIF)
 
 The Exchangeable Image File Format (EXIF) is based on the Tag Image File Format (TIFF) specification for storing metadata. This data is organised into Image File Directories (IFDs) within an image file
 
@@ -39,11 +39,11 @@ The EXIF section in an image file is structured as follows:
 |                         | Data Entries          | Data Count x 12 bytes/entry |
 | Additional Data Section |                       |                             |
 
-# Reading EXIF Data
+## Reading EXIF Data
 
 Reading EXIF data is done by reading the bytes in the file. The following examples will use a JPEG from a Fujifilm X-T200 as a reference, though the same concepts can be applied to understanding data from any file format that stores metadata using the EXIF structure
 
-## Under the Hood of an Image File
+### Under the Hood of an Image File
 
 Below is a snippet of the Hex data for a JPEG file alongside the bytes decoded as text:
 
@@ -71,7 +71,7 @@ The byte order section is the most important thing to note on this first line as
 
 Additionally, the data entries section and the additional data section are broadly marked off, to understand where data is located in this file
 
-## Reading a File as Bytes
+### Reading a File as Bytes
 
 Rust provides a method for reading a file in the standard library is `fs::read` which can be used by providing it with a path to the file to read, the code for this looks like so:
 
@@ -85,7 +85,7 @@ The result of this is a `Vec[u8]` which means a vector (or list) of bytes - the 
 
 The `file` is what is used to read the bytes from and will be the data source for reading the EXIF data
 
-## Finding the EXIF Starting Point
+### Finding the EXIF Starting Point
 
 To find the starting point of the EXIF data we can scan through the file until we find the `Exif\0\0` pattern, a function can be defined for searching for a pattern in a list of bytes:
 
@@ -117,7 +117,7 @@ let exif_range = get_sequence_range(file, EXIF_MARKER)?;
 
 Note that in the above function the `EXIF_MARKER` is defined as the `Exif\0\0` text converted to bytes, this is passed as the search pattern to the `get_sequence_range` function. This gets the EXIF header location which is used to find the Byte order (Endian) marker
 
-## Getting the Byte Order
+### Getting the Byte Order
 
 Once we know the location of the EXIF marker, the byte order values go from the 6th and 7th byte after the start of the marker. Since this is done using a range, this means that the range goes from 6 to 8, since the end value is not included in the range, this can be see defined below:
 
@@ -157,7 +157,7 @@ The code above also finds the `bytes`, which defines the file's bytes but trims 
 
 Following the Endian bytes are 2 bytes which specify the Magic Number (42) as mentioned above - this can also be checked to verify the byte order of the file but is not covered in this post
 
-## Getting the IFD Data Start Location and Count
+### Getting the IFD Data Start Location and Count
 
 Immediately after the Magic Number is four bytes that specify where the IFD data starts, in the snippet above, these bytes are `08 00 00 00` which convert to the value of `8`, this informs us that the IFD data starts from 8 bytes from the Endian marker
 
@@ -174,7 +174,7 @@ let ifd0_count = u16::from_offset_endian_bytes(&endian, ifd, ifd0_offset)?;
 
 The function which gets the `ifd0_offset` does the lookup of bytes from the range 4 to 8, relative to the Endian marker
 
-## Reading Entries in the IFD
+### Reading Entries in the IFD
 
 As a reference example, the bytes for the first entry in the IFD above will be used to understand the data and how it's stored
 
@@ -190,7 +190,7 @@ After the bytes indicate the count, the next section consists of the entries. Ea
 - The Component Length states how many bytes the data for the entry consists of
 - The data can either be the actual data, or a value that gives the offset to the data, depending on the Component Lenght
 
-### Tag ID
+#### Tag ID
 
 Reading the Tag is done by parsing the first two bytes of an entry - This converts the value into a 16-bit unsigned integer (a positive integer)
 
@@ -204,7 +204,7 @@ The value of the tag is a 16-bit unsigned integer, but it's more commonly repres
 
 The value of the tag above `0F 01` can be converted to hex for the Little Endian notation resulting in `0x010F`, the lookup table states that this tag identifies the `Make` property in the Exif data
 
-### Data Format
+#### Data Format
 
 The data stored in an entry can be of 12 different formats, each of these associated with a format value - the format value can be read by reading from byte index 2 in the entry, like so:
 
@@ -298,7 +298,7 @@ let format_value = u16::from_offset_endian_bytes(endian, entry, 2)?;
 let format = get_tag_format(&format_value)?;
 ```
 
-### Component Length
+#### Component Length
 
 The Component length specifies the number of components for the tag format being read - for most tag formats this will be 1, however, for specific values like `AsciiString` or `Undefined`, this may be different in which case it specifies the length of the string or how many bytes are required respectively
 
@@ -308,7 +308,7 @@ The value for the component length can be found by reading the relevant bytes in
 let component_length = u32::from_offset_endian_bytes(endian, entry, 4)?;
 ```
 
-### Data
+#### Data
 
 Once the component length is known, getting the total length of the data to be read is done by multiplying the component length by the bytes per component - since different components need different amounts of data
 
@@ -408,17 +408,17 @@ Putting all the above together, reading the tag above will give:
 | `0F 01`  | `02 00`      | `09 00 00 00`    | `9E 00 00 00` |
 | `0x010f` | ASCII String | 9                | FUJIFILM\0    |
 
-### Reading Additional Entries
+#### Reading Additional Entries
 
 Once a single entry can be read - reading additional entries follows the same pattern. Since the bytes per entry is fixed - always 12 - and the number of entries is known from the IFD count, each entry can be iterated over by going 12 bytes at a time and reading their data individually. A more detailed implementation of this as well as the rest of the code can be found on the [exiflib GitHub repo](https://github.com/nabeelvalley/exiflib)
 
-# Conclusion
+## Conclusion
 
 This post provides a basic outline on reading EXIF data from an image, as well as covers the byte structure for reading EXIF entries from an image file. There's a lot more to reading EXIF data from images, but at a high level the parsing covered here should form a basic grounding in how reading this data works
 
 For further reference and inspiration take a look a the reference list at the end of this post as well as the [exiflib GitHub repo](https://github.com/nabeelvalley/exiflib) mentioned previously
 
-# References
+## References
 
 Implementation details and guidance for reading metadata from:
 

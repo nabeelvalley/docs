@@ -27,7 +27,7 @@ providers: [
 
 The `PredefinedDependency` takes some inital configuration but in our application we have a usecase where something about our dependency may need to change at runtime, for example when a user logs in we may want to swap out the credentials used for the dependency. This would be fine if we were using the dependency directly, but since it is used in some library code we can't change it at that level
 
-# Configuring our own Dependency
+## Configuring our own Dependency
 
 What we can do instead is provide our own class that extends the one that the library requires:
 
@@ -50,7 +50,7 @@ providers: [
 ]
 ```
 
-# Usage
+## Usage
 
 Since we have swapped out our dependency, we can modify the implementation of to do what we want:
 
@@ -104,6 +104,6 @@ class MyConfigurableDependency(){
 
 ... Or something like that depending on what you want to do, but that's just normal OOP and less to do with Angular
 
-# References
+## References
 
 - [Depencency Injection Documentation](https://angular.io/guide/dependency-injection-providers)

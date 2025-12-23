@@ -4,7 +4,7 @@ title: Custom form controls in Template Driven Forms
 description: Using template driven forms to more easily manage state and validation of form data
 ---
 
-# Problem
+## Problem
 
 Given the below form I am able to manage the data and validation state of my component automatically as driven by the underlying Angular and HTML implementation
 
@@ -51,7 +51,7 @@ export class ExampleFormComponent {
 
 However, as soon as I move my `input` into a different component I am usually forced to do lots of weird things that steer me further away from a more simplified HTML-directed form. For the sake of simplicity and maintainability however I would like to be able to define a component that is able to take advantage of the Angular/HTML form integration while also providing me with the benefits of a component-based form input
 
-# Implementing a ControlValueAccessor
+## Implementing a ControlValueAccessor
 
 In order to do this, I can move the input into a new component provided that the component implements the `ControlValueAccessor` interface and the `Validation` interface if I would also like to use Angular Validation with my component
 

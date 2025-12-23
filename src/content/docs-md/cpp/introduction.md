@@ -6,7 +6,7 @@ subtitle: Basic Concepts in the C++ Programming Language
 
 [Based on this EdX Course](https://courses.edx.org/courses/course-v1:Microsoft+DEV210x+1T2019a/course/)
 
-# Basic Structure
+## Basic Structure
 
 A C++ program has a specific structure in terms of how it's written
 
@@ -30,15 +30,15 @@ The `std::` part indicates that `cout` is part of the `std` namespace
 
 Lastly, we can return values from a method using the `return` statement
 
-# Compilation
+## Compilation
 
 C++ code needs to be compiled. This is preprocessed > compiled > linked. The compiler checks the syntax, etc.
 
 Once the compiler has completed its tasks the linker is involved in taking all the object files and linking them together into an executable
 
-# Language overview
+## Language overview
 
-## Formatting
+### Formatting
 
 C++ is case sensitive and consits of a few different additional elements
 
@@ -52,7 +52,7 @@ C++ is case sensitive and consits of a few different additional elements
 
 > The compiler ignores whitespace for the most part with some exceptions such as `if` statements
 
-## Statements
+### Statements
 
 C++ makes use of a variety of different statements, such as
 
@@ -63,7 +63,7 @@ C++ makes use of a variety of different statements, such as
 - Function declarations
 - Executable statements (note the `hello world` above)
 
-## Types
+### Types
 
 C++ has lot of different data types built in - non-standard types start with an `_`
 
@@ -73,7 +73,7 @@ Doing something like assigning an `int` to a `float` will lead to truncation
 
 Assigning a `non-bool` to a `bool` will lead to pretty much anything besides `0`
 
-# Variables
+## Variables
 
 You can create a variable using the following syntacxes in which a variable is initialised and defined
 
@@ -82,7 +82,7 @@ int myVar = 0;
 int myOtherVar{0};
 ```
 
-## Constants
+### Constants
 
 Constants are named memory locations and their value does not change during runtime. They must be assigned values when initialised
 
@@ -93,7 +93,7 @@ const int k = 3;
 int const l = 4;
 ```
 
-## Casting
+### Casting
 
 We can cast variables from one data type to another. Sometimes these may lead to a loss of data and other times not
 
@@ -118,7 +118,7 @@ auto = 3 / 2; // int
 auto j = 3.0 / 2; //double
 ```
 
-# Arrays
+## Arrays
 
 C++ provides support for complex data types, referred to as compound data types as they usually store more than one piece of data
 
@@ -140,7 +140,7 @@ int newNum = myArray[2];
 
 In C++ an array is simply a pointer to a memory location and accessing an index that is not in the range of the array will return some random value - the next value in memory
 
-# Strings
+## Strings
 
 Strings are an array of characters, a string must end with the `\0` (`null`) character in order to tell the compiler where it ends
 
@@ -171,7 +171,7 @@ string myString = "Hello";
 std::string newString = "Bye";
 ```
 
-# Structures
+## Structures
 
 Structs allow us to store more complex information as a compound data type. They are known as user-defined types
 
@@ -199,7 +199,7 @@ cout << john.name << endl;
 
 As seen above, properties can be accessed or assigned using the dot notation
 
-# Unions
+## Unions
 
 Unions are like structs but can only data in one of it's fields at a time
 
@@ -217,7 +217,7 @@ myParticle.speed = 10; // the position no longer has a value
 
 Unions are useful for working with memory-limited devices
 
-# Enumerables
+## Enumerables
 
 Enums are a means of creating symbolic constants, by default these values will start at 0 but we can define them to start at a different number
 
@@ -235,7 +235,7 @@ enum Day {Sunday = 1, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday};
 Day sadDay = Monday; // 2
 ```
 
-# Operators
+## Operators
 
 The available mathematical operators are as follows
 
@@ -244,7 +244,7 @@ The available mathematical operators are as follows
 == != > < >= <= && || !
 ```
 
-## Conditional Operators
+### Conditional Operators
 
 COnditional Operators in C++ (aka Ternary Operators) take three values, the first of which is a condition, and the second or third are evaluated based on the result of the condition
 
@@ -253,9 +253,9 @@ int i = 1, j = 2;
 cout << ( i > j ? i : j ) << " is greater." << endl;
 ```
 
-# Flow Control
+## Flow Control
 
-## If Statements
+### If Statements
 
 C++ makes use of boolean operators in order to build `if` statements
 
@@ -293,7 +293,7 @@ else
 }
 ```
 
-## Switch Statements
+### Switch Statements
 
 We can use these when the case of complex `if-else` statements
 
@@ -318,7 +318,7 @@ switch (test)
 
 Switch operators support `intrisic` data types and `enums`
 
-## For Loops
+### For Loops
 
 For loops look like this:
 
@@ -339,7 +339,7 @@ for (initialization; continueCondition; iterator)
 }
 ```
 
-## While Loops
+### While Loops
 
 While loops follow the traditional `C-type` syntax
 
@@ -363,7 +363,7 @@ while (i < 5)
 
 If the condition is not initally met, the loop will not run
 
-## Do-While Loops
+### Do-While Loops
 
 A `do-while` loop is like a `while` loop but the condition is checked at the end of the loop, and will hence always run at least once
 
@@ -376,7 +376,7 @@ do
 
 > Note the semicolon at the end
 
-# Functions
+## Functions
 
 Functions are defined by Name, Return Type, and Arguments. Functions with the same Name and Return type but different numbers arguments are allowed, the compiler will figure out which one you are trying to use based on the number of arguments
 
@@ -390,7 +390,7 @@ int Sum(int x, int y)
 }
 ```
 
-## Prototypes
+### Prototypes
 
 A complete function signature/prototype consists of the following
 
@@ -411,7 +411,7 @@ int Sum(int x, int y);
 
 By default data is passed to functions by value and not by reference
 
-## Inline Functions
+### Inline Functions
 
 Inline functions are functions that are are essentially pieces of code that the compiler will inject into the place where it is being called instead of making a function call
 
@@ -428,7 +428,7 @@ inline void swap(int & a, int & b)
 }
 ```
 
-## Storage Classes and Scope
+### Storage Classes and Scope
 
 > "A storage class in the context of C++ variable declarations is a type specifier that governs the lifetime, linkage, and memory location of objects"
 
@@ -473,9 +473,9 @@ int main()
 }
 ```
 
-# Classes
+## Classes
 
-## Definition
+### Definition
 
 Classes are definitions for custom types and defines the behaviour and characteristics of a type
 
@@ -494,7 +494,7 @@ class Rectangle
 
 Members can be accessed with `dot` notation
 
-## Initialization
+### Initialization
 
 We can create a new instance of a class using a few different methods
 
@@ -514,7 +514,7 @@ void main()
 
 > Uninitialized values will have junk data, don't do this
 
-## Encapsulation
+### Encapsulation
 
 Encapsulation is used to describe accesibility of class members, this is used to restrict the way in which class data can be manipulated
 
@@ -539,7 +539,7 @@ private:
 };
 ```
 
-## Constructors
+### Constructors
 
 Muliple constructors can be created with different parameters, the compiler will figure out which one to use for a specific instance based on the input arguments, we can see a lot of different examples [here](https://docs.microsoft.com/en-us/cpp/cpp/constructors-cpp?view=vs-2019)
 
@@ -611,7 +611,7 @@ int Rectangle::GetWidth() { return _width; }
 int Rectangle::GetHeight() { return _height; }
 ```
 
-# Immutable Objects
+## Immutable Objects
 
 We can create `const` objects but we need to also explicitly define member functions that will not modify the object as `const` as well
 

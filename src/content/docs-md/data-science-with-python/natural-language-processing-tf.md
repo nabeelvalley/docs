@@ -4,11 +4,11 @@ title: NLP with Tensorflow
 subtitle: Natural Language Processing with Tensorflow for Python
 ---
 
-# Natural Language Processing
+## Natural Language Processing
 
 > From [this Playlist](https://www.youtube.com/watch?v=fNxaJsNG3-s&list=PLQY2H8rRoyvwLbzbnKJ59NkZvQAW9wLbx&index=1)
 
-## Tokenization and Sequence Analysis
+### Tokenization and Sequence Analysis
 
 Natural language processing makes use of something called tokenization, this is a method of encoding text in a numeric form. An example of this would be assigning each unique word in our data an associated number
 
@@ -30,8 +30,8 @@ tokenizer = Tokenizer(num_words=20)
 tokenizer.fit_on_texts(sentences)
 
 print(tokenizer.word_index)
-# {'i': 1, 'am': 2, 'a': 3, 'person': 4, 'what': 5, 'is': 6, 'hey': 7, 'how': 8,
-# 'are': 9, 'you': 10, 'doing': 11, 'today': 12}
+## {'i': 1, 'am': 2, 'a': 3, 'person': 4, 'what': 5, 'is': 6, 'hey': 7, 'how': 8,
+## 'are': 9, 'you': 10, 'doing': 11, 'today': 12}
 ```
 
 The above `Tokenizer` will only tokenize the `20` most common words, the list of words are available as a `word_index` property
@@ -48,7 +48,7 @@ We can use it like so:
 sequences = tokenizer.texts_to_sequences(sentences)
 
 print(sequences)
-# [[1, 2, 3, 4], [5, 2, 1], [5, 6, 3, 4], [7, 8, 9, 10, 11, 12]]
+## [[1, 2, 3, 4], [5, 2, 1], [5, 6, 3, 4], [7, 8, 9, 10, 11, 12]]
 ```
 
 Sometimes, a `Tokenizer` may get words that it's never seen before it may not know how to handle these. By default the `Tokenizer` will just leave these out. The problem with doing this is that we loose the sentence lengths
@@ -64,15 +64,15 @@ Another issue when using a neural network is that we typically need to provide d
 ```py
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-# ...
+## ...
 
 padded = pad_sequences(sequences)
 
 print(padded)
-# [[0  0  2  3  4  5]
-#  [0  0  0  6  3  2]
-#  [0  0  6  7  4  5]
-#  [8  9 10 11 12 13]]
+## [[0  0  2  3  4  5]
+##  [0  0  0  6  3  2]
+##  [0  0  6  7  4  5]
+##  [8  9 10 11 12 13]]
 ```
 
 We can see that the shorter sentences have been padded with `0` on the left. If we want the `0`s at the end or want to set a maximum length or truncation, we can specify those too:
@@ -86,10 +86,10 @@ padded = pad_sequences(
 )
 
 print(padded)
-# [[ 2  3  4  5  0]
-#  [ 6  3  2  0  0]
-#  [ 6  7  4  5  0]
-#  [ 8  9 10 11 12]]
+## [[ 2  3  4  5  0]
+##  [ 6  3  2  0  0]
+##  [ 6  7  4  5  0]
+##  [ 8  9 10 11 12]]
 ```
 
 Once we've got our data into a structure like we do above we can make use of a neural network to build a model
@@ -123,7 +123,7 @@ with open('./nlp/Sarcasm_Headlines_Dataset.json') as f:
 
 test_size = int(len(headlines) * 0.2)
 
-# TF needs this to be an array
+## TF needs this to be an array
 headlines_test = np.array(headlines[0:test_size])
 headlines_train = np.array(headlines[test_size:])
 

@@ -9,7 +9,7 @@ The Observer pattern is used to enable one object to subscribe to some changes o
 
 This pattern allows a client (observer) to subscribe to messages/changes from a subject (an observarble), provided the observable is made aware of all observers
 
-# Example
+## Example
 
 A broad idea of the what an observable and observer would contain may look something like this:
 
@@ -35,7 +35,7 @@ namespace DesignPatterns.Observer
 }
 ```
 
-## Definition of Classes
+### Definition of Classes
 
 An example implementation is seen below:
 
@@ -134,7 +134,7 @@ namespace DesignPatterns.Observer
 }
 ```
 
-## Usage
+### Usage
 
 ```cs
 // instantiate observable
@@ -160,7 +160,7 @@ Using this kind of framework, we can have other classes that extend the `IObserv
 
 Implementations can differ between different languages/frameworks, you can view implementations in different languages [on Refactoring Guru](https://refactoring.guru/design-patterns/observer)
 
-# References
+## References
 
 - [Observer Pattern - Christopher Okhravi](https://www.youtube.com/watch?v=_BpmfnqjgzQ&list=PLrhzvIcii6GNjpARdnO4ueTUAVR9eMBpc&index=2) > - [Observer in C# - Refactoring Guru](https://refactoring.guru/design-patterns/observer)
 - [Observer Design Pattern - Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern)

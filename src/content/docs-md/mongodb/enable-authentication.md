@@ -4,7 +4,7 @@ title: Authentication with MongoDB
 subtitle: Configure MongoDB Authentication and Authorization
 ---
 
-# Configuration File
+## Configuration File
 
 > [The Docs](https://docs.mongodb.com/manual/reference/configuration-options/)
 
@@ -23,27 +23,27 @@ And the default file looks soomething like this:
 `mongod.conf`
 
 ```yml
-# mongod.conf
+## mongod.conf
 
-# for documentation of all options, see:
-#   http://docs.mongodb.org/manual/reference/configuration-options/
+## for documentation of all options, see:
+##   http://docs.mongodb.org/manual/reference/configuration-options/
 
-# Where and how to store data.
+## Where and how to store data.
 storage:
   dbPath: C:\Program Files\MongoDB\Server\4.0\data
   journal:
     enabled: true
-#  engine:
-#  mmapv1:
-#  wiredTiger:
+##  engine:
+##  mmapv1:
+##  wiredTiger:
 
-# where to write logging data.
+## where to write logging data.
 systemLog:
   destination: file
   logAppend: true
   path: C:\Program Files\MongoDB\Server\4.0\log\mongod.log
 
-# network interfaces
+## network interfaces
 net:
   port: 27017
   bindIp: 127.0.0.1
@@ -58,7 +58,7 @@ net:
 #sharding:
 ```
 
-# Securing an Instance
+## Securing an Instance
 
 > [The Docs](https://docs.mongodb.com/manual/administration/security-checklist/)
 
@@ -74,11 +74,11 @@ To secure an instance there are a few steps we should take such as:
 8. Run Mongo with Secure Enabled
 9. (Misc Compliance Related things)
 
-## 1. Enable Access Control
+### 1. Enable Access Control
 
 > [The Docs](https://docs.mongodb.com/manual/tutorial/enable-authentication/)
 
-### Enabling a User Admin
+#### Enabling a User Admin
 
 To Enable access-control on an instance you will need to first:
 
@@ -126,13 +126,13 @@ If we try to use the DB now and are not authenticated we will get a `db command 
 
 > Note that if you do not restart the database authentication will not be enforced
 
-### Creating First User on Localhost
+#### Creating First User on Localhost
 
 > [Docs on the Localhost Exception](https://docs.mongodb.com/manual/core/security-users/#localhost-exception)
 
 If a database is started with the `--auth` param or the `security.authorization=enabled`, and the first login is done from `localhost` you will be allowed to create the initial user
 
-### Users and Roles
+#### Users and Roles
 
 > [Docs on User Roles](https://docs.mongodb.com/manual/reference/built-in-roles/)
 
@@ -169,9 +169,9 @@ db.createUser({
 
 The created user will then be created on the `admin` database and will have access to the `dbTest` and `dbOtherData` databases
 
-## Using the User
+### Using the User
 
-### From the Mongo Shell
+#### From the Mongo Shell
 
 You can now exit the mongo shell and re-login with your new username and password:
 
@@ -196,7 +196,7 @@ Thereafter, you should be able to execute queries with the limitations of the ro
 
 If trying to do something that was not allowed for your user you will see an authorization error
 
-### From an Application
+#### From an Application
 
 An example Node.js application that makes use of the above user will look like the following:
 

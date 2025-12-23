@@ -7,75 +7,75 @@ import Snippet from '@/components/Snippet.astro'
 
 > Notes based on [Algorithms, Part 1](https://www.coursera.org/learn/algorithms-part1/) on Coursera
 
-# Mergesort
+## Mergesort
 
 One of the two classical sorting algorithms, the other is QuickSort
 
 Mergesort is the basic sort in lots of different languages
 
-# Algorithm
+## Algorithm
 
 - Divide an array into two halfs
 - Recursively sort each half
 - Merge the two halves
 
-# Merging
+## Merging
 
 Based on the idea of merging, think about an array `a` that has 2 halfs that have been sorted - how could we merge the two arrays?
 
-## Merging Algorithm
+### Merging Algorithm
 
 Before merging, we copy the input array `a` into `aux`. To merge we move keep track of three indexes: `i` and `j` are indexes in the first and second halfs of the `aux` array, we then iterate across the input array `a`. At each iteration we compare the values in `aux[i]` and `aux[j]` and set the smaller value to `a[k]`, we then increment the intex of whichever half was smaller (`i` or `j`). Then we move to the next iteration of `k`
 
 Furthermore, if we are at the end of `i` or `j` then we just use the other one
 
-## Merging Implementation
+### Merging Implementation
 
 <Snippet path="algorithms/sorting/mergesort-merge.ts" />
 
-# Sorting
+## Sorting
 
-## Sorting Algorithm
+### Sorting Algorithm
 
 The sorting algorithm splits the array recursively and and runs `merge` on it. This works since the smallest version of this array will always consist of 2 items which can always be considered to be 2 sorted halves
 
-## Sorting Implementation
+### Sorting Implementation
 
 <Snippet path="algorithms/sorting/mergesort.ts" />
 
 > It is important to note that the `aux` array is allocated once and not within `merge` or `sort`. This is to prevent many additional arrays being created due to the fact that the algorithm is recursive
 
-# Comparison with Insertion Sort
+## Comparison with Insertion Sort
 
 | Items     | Insertion Sort `O(N^2)` | Merge Sort `O(N Log N)` |
 | --------- | ----------------------- | ----------------------- |
 | 1 Million | 2.8 hours               | 1 second                |
 | 1 Billion | 317 years               | 18 mins                 |
 
-## Mergesort with Insertion
+### Mergesort with Insertion
 
 Since mergesort is recursive there can be a large function call overhead. For smaller values we can avoid this by using insertion sort (or another elementary sort) when the size of the subarray is smaller than a specific amount as part of our recursive exit condition:
 
 <Snippet path="algorithms/sorting/mergesort-with-insertion.ts" />
 
-# Analysis of Mergesort
+## Analysis of Mergesort
 
 - Uses at most `N lg N` comparisons and `6N lg N` accesses
 - Uses `2N` space
 
-# Bottom Up Mergesort
+## Bottom Up Mergesort
 
-## Algorithm
+### Algorithm
 
 If we think about the array as small subarrays of size 1, and merge those in pairs to get subarrays of size 2, then 4, and so on. Since we are working with small subarrays we can use our existing merge implementation as previously
 
-## Implementation
+### Implementation
 
 We can implement mergesort like this which allows us to avoid recursion
 
 <Snippet path="algorithms/sorting/mergesort-bottom-up.ts" />
 
-# Sorting Complexity
+## Sorting Complexity
 
 > Computational complexity is a framework for studying the efficiency of algorithms for solving a particular problem
 
@@ -87,7 +87,7 @@ We need the following for defining computational complexity
 - Lower bound - limit for all different algorithms for solving a problem
 - Optimal algorithm - the best possible algorithm for solving a given problem - the upper bound for this algorithm is approximately the same as the lower bound for a problem
 
-## The Sorting Problem
+### The Sorting Problem
 
 The idea of a lower bound identifies the minimum number of compares needed to ensure that a the sorting problem is solved - this can be determined using a decision tree
 
@@ -103,7 +103,7 @@ Cases where there may be a more optimal case:
 - Lots of duplicate keys (3-way Quick Sort)
 - Certain digit/character comparisons (Radix Sort)
 
-# Comparators
+## Comparators
 
 Comparators are a mechanism for sorting based on some specific value, in our case we have been using the `compare` function that we provide
 
@@ -115,7 +115,7 @@ The `compare` method provided must be a `total order`, for example if we are com
 
 In the above implementations as long as we provide a `compare` function that works for our data
 
-# Stability
+## Stability
 
 I a typical use we often want to sort by one key and then by another, in this case we want to ensure that we don't unsort a previous sort when running a new sort, so e.g. if we order by name and then age we still might want our data to be be stil relatively sorted
 

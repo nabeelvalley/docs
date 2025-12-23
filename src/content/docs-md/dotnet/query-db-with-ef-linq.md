@@ -8,9 +8,9 @@ subtitle: Use Entity Framework and LINQ to Connect to and Query an Existing Data
 
 Sometimes you want to use a database but don't want to deal with the difficulties created by SQL
 
-# Setting Up
+## Setting Up
 
-## Create Project
+### Create Project
 
 First, you will need a database to connect to, this can be done by any method, but I will use the `Northwind` database for this. The SQL Setup Script can be found [here](https://raw.githubusercontent.com/microsoft/sql-server-samples/master/samples/databases/northwind-pubs/instnwnd.sql)
 
@@ -20,7 +20,7 @@ Once that's done you can create a new project for running or queries
 dotnet new console -n DBPlayground
 ```
 
-## Add Packages
+### Add Packages
 
 You will also need some packages installed on your application to make this all work
 
@@ -29,7 +29,7 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 dotnet add package Microsoft.EntityFrameworkCore.Design
 ```
 
-## Add EF Global
+### Add EF Global
 
 And you'll also need to install the `ef` tool if you don't already have it:
 
@@ -37,7 +37,7 @@ And you'll also need to install the `ef` tool if you don't already have it:
 dotnet tool install --global dotnet-ef
 ```
 
-# Scaffold Models
+## Scaffold Models
 
 Now that you have everything installed, you can go ahead and run the following to scaffold your code models. I am connecting to `SQLEXPRESS` on the Northwind database but you can use any connection string that works for your purpose
 
@@ -47,7 +47,7 @@ dotnet ef dbcontext scaffold "Server=localhost\SQLEXPRESS;Database=Northwind;Tru
 
 The above will output generated models that align to the data in your database in the `Models` folder
 
-# Using the Connection
+## Using the Connection
 
 When we ran the above it will have generated a `DBContext` file. In our case `NorthwindContext` which is the class for our Database. We can use this as follows:
 

@@ -5,11 +5,11 @@ subtitle: Getting Started with Nuxt.js
 description: Getting Started with Nuxt.js
 ---
 
-# Introduction
+## Introduction
 
 Nuxt.js is server-side framework based on Vue, the content here is kind of from this [DesignCourse Video](https://www.youtube.com/watch?v=IkrbIFZz_IM) and [this video](https://www.youtube.com/watch?v=T4qLTXGvJ7k&t=1901s) but with TypeScript. The overall code from the video can be found [here](https://github.com/designcourse/nuxt-2-tutorial-project)
 
-# Getting Started
+## Getting Started
 
 To create a new app you can run:
 
@@ -26,7 +26,7 @@ cd my-app
 yarn dev
 ```
 
-# Generated Files
+## Generated Files
 
 Once we have run the project creation we will see the following folders in our application:
 
@@ -51,7 +51,7 @@ We also have the `layouts/default.vue` which has our basic page layout:
 
 In here we can see the section which will render our `nuxt` component which is the root for our Nuxt application
 
-# Creating a Layout
+## Creating a Layout
 
 We'll create some partials for our layout in a `layout/partials` directory
 
@@ -115,7 +115,7 @@ Next, we can import and use the `Nav` component in our default layout like so:
 </script>
 ```
 
-## Including Global Resources
+### Including Global Resources
 
 To include external resources or do anything that we would normally do in our `head` element in HTML, we can do via the `nuxt.config.js` file. For example if we would like to add a link to a font we can do so by adding a `link` to our head
 
@@ -140,7 +140,7 @@ head: {
 
 If we would like to include a `css` file we have locally we can also do this in the same config file by referencing the path like `@assets/styles/main.css`
 
-# Pages
+## Pages
 
 Nuxt makes use of file based routing, based on this our main page for our site will be located in the `pages/index.vue` file. We can clean up the unecessary content in this file and just leave the following:
 
@@ -164,7 +164,7 @@ Each `page` component will essentially be rendered into the `nuxt` element. We c
 
 Once we have the `about` page we should be able to click on our links and view the different pages
 
-## Page Metadata
+### Page Metadata
 
 If we would like to provide some metadata we can export a `head` function from our component in which we specify some metadata. We need to do this in the component's `script` tag:
 
@@ -185,7 +185,7 @@ export default Vue.extend({
 
 Note that if we intend to use our metadata like we do above we need to be sure to remove the relevant meta from out `nuxt.config.js` as well
 
-## Router Transitions
+### Router Transitions
 
 Nuxt also has built-in router transitions, these make use of the `page-enter-active` and `page-leave-active` classes to apply the transitions. We can update our `layout/default.vue` file with an animation to apply it
 
@@ -242,7 +242,7 @@ Nuxt also has built-in router transitions, these make use of the `page-enter-act
 
 We can also apply transitions to specific elements on a page by exporting a `transition` property with the name of the transition, and including the CSS for an animation. If we create a transition like `transition: 'floop'`, we will need to have the CSS transitions defined like aboe but using the class names `floop-enter-active` and `floop-leave-active` so they can be applied
 
-# Retrieve Data
+## Retrieve Data
 
 We can retrieve data on the client or on the server using the `fetch` method on a component
 
@@ -317,7 +317,7 @@ We can render the component with the awareness of the `fetch` state like so:
 </template>
 ```
 
-# Build and Run To build and run the final application just do:
+## Build and Run To build and run the final application just do:
 
 ```
 yarn build

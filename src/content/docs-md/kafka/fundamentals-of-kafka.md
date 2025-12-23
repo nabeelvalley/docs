@@ -8,7 +8,7 @@ subtitle: Data Streaming and Big Data using Apache Kafka
 
 > AWS = MSK, Azure = Kafka
 
-# Introduction
+## Introduction
 
 > Kafka is a distributed event log and pub/sub service
 
@@ -48,21 +48,21 @@ Used in industries like:
 - Gaming
 - Government
 
-# Fundamentals
+## Fundamentals
 
-## Producer
+### Producer
 
 Producers are things that create data that needs to go into a Kafka Cluser
 
-## Broker
+### Broker
 
 A broker is an individual machine/container/vm which is what Kafka uses to actually run this. A Kafka cluser is made up of a bunch of different brokers which allows for distribution of this data
 
-## Consumer
+### Consumer
 
 Comsumers are applications that comsume data from Kafka and can then pass that data into other locations. Consumers basically Poll Kafka for any messages or events
 
-## Architecture
+### Architecture
 
 The Kafka architecture looks like the diagram below, in the below diagram we use `Zookeepers` to handle things like consensus in a cluser
 
@@ -76,7 +76,7 @@ graph LR
 
 Producers are decoupled from consumers so that they can be added or removed as needed. Additionally, consumers can also be added and they will be able to consume an entire history of events and not just the current ones
 
-## Topics, Partitions, and Segments
+### Topics, Partitions, and Segments
 
 Scaling is handled by splitting up a topic into partitions, this means that each partition within a topic can be placed into its own location/server which enables Kafka to scale such that we don't run out of actual computation and I/O
 
@@ -91,7 +91,7 @@ Kafka has some different ideas of the types of topics we can use. Namely:
 - Compacted topics allow us to retreive the latest record from a topic per key
   - Something like the latest change to a record or set of records
 
-## Records
+### Records
 
 A piece of data in Kafka looks like so:
 
@@ -107,11 +107,11 @@ classDiagram
 
 Messages with the same `Key` always end up in the same partition, a usecase for this is to use something like a producer's device ID (e.g. ID of an IoT Device) gets stored to a single partition and the order of these are gauranteed
 
-## Broker Replication
+### Broker Replication
 
 Brokers replicate each partition, usually 3 replicants, per partition, and these are broken down into a **Leader** and **Followers** for each partition. These are managed by brokers
 
-# General Comparisons with other Tech:
+## General Comparisons with other Tech:
 
 - [Kafka vs SQS vs Kinesis](https://dzone.com/articles/evaluating-message-brokers-kafka-vs-kinesis-vs-sqs)
 - [Event Streaming DB with AWS](https://medium.com/nikeengineering/moving-faster-with-aws-by-creating-an-event-stream-database-dedec8ca3eeb)

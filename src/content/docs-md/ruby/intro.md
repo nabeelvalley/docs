@@ -1,6 +1,6 @@
 > From the [Ruby Documentation](https://www.ruby-lang.org/en/documentation/quickstart/)
 
-# Interactive Ruby
+## Interactive Ruby
 
 We can use `irb` to run an interactive Ruby shell, when open, it will look like this:
 
@@ -25,7 +25,7 @@ Hello World
 
 We can also see that the result of the `puts` command is `nil` which is the Ruby version of a nothing value
 
-# Math
+## Math
 
 We can do basic math using IRB as well, like so:
 
@@ -42,9 +42,9 @@ irb(main):008:0> Math.acos(1)
 => 0.0
 ```
 
-# Methods
+## Methods
 
-## Defining a Method
+### Defining a Method
 
 We can define a method using `def` and `end`, so a method that prints `Hello World` would look like this:
 
@@ -63,7 +63,7 @@ irb(main):019:1> end
 => :hi
 ```
 
-## Calling a Method
+### Calling a Method
 
 We can then call a method using either the name of the method, or the name followed by `()` if the method has no inputs
 
@@ -76,7 +76,7 @@ Hello World
 => nil
 ```
 
-## Method Parameters
+### Method Parameters
 
 We can define `hi` such that it takes a `name` parameter like so:
 
@@ -124,7 +124,7 @@ or
 hi "bob"
 ```
 
-# Classes
+## Classes
 
 Classes are defined using the `class` keyword
 

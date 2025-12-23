@@ -6,22 +6,22 @@ subtitle: Create a basic application using EasyOCR and Flask that uses Machine L
 
 A simple application to use EasyOCR and Flask to create a WebApp that is able to process images and return the relevant text
 
-# Requirements/Dependencies
+## Requirements/Dependencies
 
 The application has the following dependencies which should be in a `requirements.txt` file:
 
 `requirements.txt`
 
 ```
-# This file is used by pip to install required python packages
-# Usage: pip install -r requirements.txt
+## This file is used by pip to install required python packages
+## Usage: pip install -r requirements.txt
 
-# Flask Framework
+## Flask Framework
 flask
 easyocr
 ```
 
-# Application Code
+## Application Code
 
 The application configures a `Flask` app with the `EasyOCR` library and a simple HTML form with a file upload:
 
@@ -79,6 +79,6 @@ def upload_file():
     '''
 ```
 
-# Run the Application
+## Run the Application
 
 The application can be run with the `flask run` command from the application directory (the directory with the `app.py` file)

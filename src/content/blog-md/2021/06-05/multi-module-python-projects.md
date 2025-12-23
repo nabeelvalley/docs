@@ -7,7 +7,7 @@ description: "How to work with modules and handle the 'ModuleNotFoundError: No m
 
 When creating a multi-module project for Python, especially when coming from another language ecosystem, you may encounter issues importing code from other files, let's take a look at this
 
-# The Modules
+## The Modules
 
 In our project, we've got the following files:
 
@@ -36,7 +36,7 @@ def hello_p2_s1_m1():
   return "hello"
 ```
 
-# The Main
+## The Main
 
 Now that we've got our files with their functions separated, we try using them from the `main.py` file:
 
@@ -50,7 +50,7 @@ print(p1m1.hello_p1_m1())
 print(p2n1m1.hello_p2_s1_m1())
 ```
 
-# The Error
+## The Error
 
 Now, we try to run this using `python`:
 
@@ -67,7 +67,7 @@ Traceback (most recent call last):
 ImportError: No module named package1.module1
 ```
 
-# The Solution
+## The Solution
 
 Now, this can be pretty annoying, but the solution is very simple. Python identifies a `module` as a single file, and the assumption that leads to the issue above is that we assume a `package` has the same convention of just being a directory
 

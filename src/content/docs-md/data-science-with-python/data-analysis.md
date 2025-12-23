@@ -3,15 +3,15 @@ published: true
 title: Data Analysis
 ---
 
-# Data Analysis With Python
+## Data Analysis With Python
 
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/data-analysis-python/)
 
-## Labs
+### Labs
 
 The Labs for the course are located in the `Labs` folder are from CognitiveClass and are licensed under MIT
 
-## Introduction
+### Introduction
 
 The data being analysed will be based on a used-car analysis and how to estimate the price of a used car based on its characteristics
 
@@ -20,7 +20,7 @@ The data being analysed will be based on a used-car analysis and how to estimate
 - Importing and Exporting Data
 - Basic Insights from the Data
 
-### Understanding the Data
+#### Understanding the Data
 
 Thhe Data being used is the Autos dataset from the Machine Learning Database at [archive.ics.uci](https://archive.ics.uci.edu/ml/machine-learning-databases/autos/)
 
@@ -80,45 +80,45 @@ The _price_ is the value that we would like to predict given the other features
 
 > Note that this dataset is from 1995 and therefore the prices may seem a little low
 
-### Python Libraries
+#### Python Libraries
 
-#### Scientific Computing Libraries
+##### Scientific Computing Libraries
 
-##### Pandas
+###### Pandas
 
 Pandas is a library for working with Data Structures, primarily DataFrames
 
-##### NumPy
+###### NumPy
 
 NumPy is a library for working with Arrays and Matrices
 
-##### SciPy
+###### SciPy
 
 SciPy includes functions for assisting in mathematical analysis as well as some basic visualizations
 
-#### Visualization
+##### Visualization
 
-##### Matplotlib
+###### Matplotlib
 
 Matplotlib is the most commonly used Python library for data visualization
 
-##### Seaborn
+###### Seaborn
 
 Seaborn is based on Matplotlib and provides functionality such as heat maps, time series, and viollin plots
 
-#### Algorithmic Libraries
+##### Algorithmic Libraries
 
-##### Scikit-learn
+###### Scikit-learn
 
 Machine learning, regression, classification,etc.
 
-##### Statsmodels
+###### Statsmodels
 
 Explore data, estimate statistical models, and perform statistical tests
 
-### Import and Export Data
+#### Import and Export Data
 
-#### Importing
+##### Importing
 
 When importing data we need ot take a few things into consideration such as
 
@@ -135,7 +135,7 @@ import numpy as np
 ```
 
 ```python
-# read the online file by the URL provides above, and assign it to variable "df"
+## read the online file by the URL provides above, and assign it to variable "df"
 path="https://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data"
 
 df = pd.read_csv(path,header=None)
@@ -549,7 +549,7 @@ df.head(10)
 
 Next we can remove the missing values from the price column as follows
 
-#### Analyzing Data
+##### Analyzing Data
 
 Pandas has a few different methods to undertand the data
 
@@ -1065,7 +1065,7 @@ import pandas_profiling
 pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/planets.csv').profile_report()
 ```
 
-## Preprocessing Data
+### Preprocessing Data
 
 Data preprocessing is the process of cleaning the data in order to get data from its raw form to a more usable format
 
@@ -1077,7 +1077,7 @@ This can include different stages such as
 - Data binning
 - Turning categorical values into numerical values
 
-### Missing Values
+#### Missing Values
 
 When no data value is stored for a specific feature in an obsevation
 
@@ -1702,42 +1702,42 @@ We'll replace the missing data as follows
   - "price": 4 missing data
     - Because price is what we want to predict, it does not help if it is not there
 
-#### Normalized Losses
+##### Normalized Losses
 
 ```python
 avg_1 = df['normalized-losses'].astype('float').mean(axis = 0)
 df['normalized-losses'].replace(np.nan, avg_1, inplace = True)
 ```
 
-#### Bore
+##### Bore
 
 ```python
 avg_2=df['bore'].astype('float').mean(axis=0)
 df['bore'].replace(np.nan, avg_2, inplace= True)
 ```
 
-#### Stroke
+##### Stroke
 
 ```python
 avg_3 = df["stroke"].astype("float").mean(axis = 0)
 df["stroke"].replace(np.nan, avg_3, inplace = True)
 ```
 
-#### Horsepower
+##### Horsepower
 
 ```python
 avg_4=df['horsepower'].astype('float').mean(axis=0)
 df['horsepower'].replace(np.nan, avg_4, inplace= True)
 ```
 
-#### Peak RPM
+##### Peak RPM
 
 ```python
 avg_5=df['peak-rpm'].astype('float').mean(axis=0)
 df['peak-rpm'].replace(np.nan, avg_5, inplace= True)
 ```
 
-#### Number of Doors
+##### Number of Doors
 
 First we need to check which door count is the most common
 
@@ -1755,18 +1755,18 @@ And then replace invalid values with that
 df["num-of-doors"].replace(np.nan, "four", inplace = True)
 ```
 
-#### Price
+##### Price
 
 And then lastly drop the columns with a missing price
 
 ```python
 df.dropna(subset=["price"], axis=0, inplace = True)
 
-# reset index, because we droped two rows
+## reset index, because we droped two rows
 df.reset_index(drop = True, inplace = True)
 ```
 
-#### Clean Data
+##### Clean Data
 
 The we can view our dataset which has no missing values
 
@@ -1942,7 +1942,7 @@ df.head()
 <p>5 rows × 26 columns</p>
 </div>
 
-### Formatting Data
+#### Formatting Data
 
 Now we nee to ensure that our data is correctly formatted
 
@@ -1955,7 +1955,7 @@ We can also apply mathematical to our data as well as type conversions and colum
 
 Sometimes the incorrect data type may be set by default to the correct type, it may be necessary for us to convert our data to the correct type for analysis. We can convert datatypes using the `df.astype()` function, and check types with `df.dtypes`
 
-#### Data Types
+##### Data Types
 
 ```python
 df.dtypes
@@ -1989,7 +1989,7 @@ df.dtypes
     price                 object
     dtype: object
 
-#### Convert types
+##### Convert types
 
 We can easily convert our data to the correct types with
 
@@ -2034,12 +2034,12 @@ df.dtypes
     price                float64
     dtype: object
 
-#### Standardization
+##### Standardization
 
 Standardization is the process of taking data from one format to another that may be more meaningful for us to use, such as converting our fuel consumption
 
 ```python
-# transform mpg to L/100km by mathematical operation (235 divided by mpg)
+## transform mpg to L/100km by mathematical operation (235 divided by mpg)
 df['city-L/100km'] = 235/df['city-mpg']
 df[['city-mpg','city-L/100km']].head()
 ```
@@ -2499,7 +2499,7 @@ df.head()
 <p>5 rows × 28 columns</p>
 </div>
 
-#### Renaming Columns
+##### Renaming Columns
 
 If there is a need for us to rename columns we can do so with `df.rename()`, for example
 
@@ -2507,7 +2507,7 @@ If there is a need for us to rename columns we can do so with `df.rename()`, for
 df.rename(columns={'"highway-mpg"':'highway-consumption'}, inplace=True)
 ```
 
-### Data Normalization
+#### Data Normalization
 
 This is an important part of data preprocessing
 
@@ -2515,7 +2515,7 @@ We may need to normalize our variables such that the range of our data is more c
 
 There are several differnet ways to normalize data
 
-#### Simple Feature Scaling
+##### Simple Feature Scaling
 
 $$
 x_{new}=\frac{x_{old}}{x_{max}}
@@ -2525,7 +2525,7 @@ $$
 df['length'] = df['length']/df['length'].max()
 ```
 
-#### Min-Max
+##### Min-Max
 
 $$
 x_{new}=\frac{x_{old}-x_{min}}{x_{max}-x_{min}}
@@ -2536,7 +2536,7 @@ df['length'] = (df['length']-df['length'].min())/
                (df['length'].max()-df['length'].min())
 ```
 
-#### Z-Score
+##### Z-Score
 
 The resulting values hover around zero, and are in terms of their standard deviation from the mean
 
@@ -2549,7 +2549,7 @@ df['length'] = (df['length']-df['length'].mean())/
                df['length'].std()
 ```
 
-#### Normalization
+##### Normalization
 
 Next we will normalize our values using the _Simple Feature Scaling Method_
 
@@ -2625,7 +2625,7 @@ df[["length","width","height"]].head()
 </table>
 </div>
 
-### Binning
+#### Binning
 
 Binning is grouping values together into bins, this can sometimes improve accuracy of predictive models and help us to better understand the data distribution
 
@@ -2776,7 +2776,7 @@ df[['horsepower','horsepower-binned']].head(20)
 </table>
 </div>
 
-#### Visualization
+##### Visualization
 
 We can use `matplotlib` to visualize the number of vehicles in each of our bins with the following
 
@@ -2786,10 +2786,10 @@ from matplotlib import pyplot as plt
 
 a = (0,1,2)
 
-# draw historgram of attribute "horsepower" with bins = 3
+## draw historgram of attribute "horsepower" with bins = 3
 plt.hist(df["horsepower"], bins = 3)
 
-# set x/y labels and plot title
+## set x/y labels and plot title
 plt.xlabel("Horsepower")
 plt.ylabel("Count")
 plt.title("Horsepower Bins")
@@ -2798,7 +2798,7 @@ plt.show()
 
 ![png](/publicimages-an/output_57_0.png)
 
-### Categorical to Quantatative
+#### Categorical to Quantatative
 
 Most statistical models cannot take in objects as strings, in order to do this we provide a dummy variable that contains whether or not an entry is a certain string variable, we can do this in pandas with `pd.get_dummies()`
 
@@ -2808,7 +2808,7 @@ This method will automatically generate a dummy vector for the provided datafram
 dummy_value = pd.get_dummies(df['value'])
 ```
 
-#### Fuel
+##### Fuel
 
 We will do this for the 'fuel-type' column in our data
 
@@ -2933,10 +2933,10 @@ dummy_fuel.head()
 Then we will add this column to our dataset
 
 ```python
-# merge data frame "df" and "dummy_fuel"
+## merge data frame "df" and "dummy_fuel"
 df = pd.concat([df, dummy_fuel], axis=1)
 
-# drop original column "fuel-type" from "df"
+## drop original column "fuel-type" from "df"
 df.drop("fuel-type", axis = 1, inplace=True)
 ```
 
@@ -3112,18 +3112,18 @@ df.head()
 <p>5 rows × 30 columns</p>
 </div>
 
-#### Aspiration
+##### Aspiration
 
 We will do the same as above with our aspiration variable
 
 ```python
-# get indicator variables of aspiration and assign it to data frame "dummy_variable_2"
+## get indicator variables of aspiration and assign it to data frame "dummy_variable_2"
 dummy_aspiration = pd.get_dummies(df['aspiration'])
 
-# change column names for clarity
+## change column names for clarity
 dummy_aspiration.rename(columns={'std':'aspiration-std', 'turbo': 'aspiration-turbo'}, inplace=True)
 
-# show first 5 instances of data frame "dummy_variable_1"
+## show first 5 instances of data frame "dummy_variable_1"
 dummy_aspiration.head()
 ```
 
@@ -3181,10 +3181,10 @@ dummy_aspiration.head()
 </div>
 
 ```python
-# merge data frame "df" and "dummy_variable_1"
+## merge data frame "df" and "dummy_variable_1"
 df = pd.concat([df, dummy_aspiration], axis=1)
 
-# drop original column "fuel-type" from "df"
+## drop original column "fuel-type" from "df"
 df.drop('aspiration', axis = 1, inplace=True)
 ```
 
@@ -3360,7 +3360,7 @@ df.head()
 <p>5 rows × 31 columns</p>
 </div>
 
-### Exporting
+#### Exporting
 
 Then we can export our clean data to a CSV as follows
 
@@ -3368,7 +3368,7 @@ Then we can export our clean data to a CSV as follows
 df.to_csv('clean_df.csv')
 ```
 
-## Exploratory Data Analysis
+### Exploratory Data Analysis
 
 Exploratory Data Analysis (EDA) is an approach to analyze data in order to
 
@@ -3377,7 +3377,7 @@ Exploratory Data Analysis (EDA) is an approach to analyze data in order to
 - Uncover relationships between varables
 - Identify important variables that impact our problem
 
-### Descriptive Statistics
+#### Descriptive Statistics
 
 When analyzing data it is important to describe the data giving a few short summaries. We have a few different ways to do this, such as
 
@@ -3386,13 +3386,13 @@ When analyzing data it is important to describe the data giving a few short summ
 - `sns.boxplot()` to generate box plots
 - `plt.scatter()` Scatter plots show the relationship between the predictor and target variables
 
-### Correlation
+#### Correlation
 
 Correlation is a measure to what exctent different vriables are interdependent
 
 > Correlation does not imply causation
 
-#### Pearson Correlation
+##### Pearson Correlation
 
 We can make use of Pearson correlation to measure the strength of correlation between two features, this has two values
 
@@ -3414,7 +3414,7 @@ We can find our correlation values for two variables with
 from scipy import stats
 ```
 
-##### Wheel Base and Price
+###### Wheel Base and Price
 
 ```python
 pearson_coef, p_value = stats.pearsonr(df['wheel-base'], df['price'])
@@ -3423,7 +3423,7 @@ print("The Pearson Correlation Coefficient is", pearson_coef, " with a P-value o
 
     The Pearson Correlation Coefficient is 0.584641822266  with a P-value of P = 8.07648827073e-20
 
-##### Horsepower and Price
+###### Horsepower and Price
 
 ```python
 pearson_coef, p_value = stats.pearsonr(df['horsepower'], df['price'])
@@ -3432,7 +3432,7 @@ print("The Pearson Correlation Coefficient is", pearson_coef, " with a P-value o
 
     The Pearson Correlation Coefficient is 0.809574567004  with a P-value of P = 6.36905742826e-48
 
-#### Positive Correlation
+##### Positive Correlation
 
 We can visualize our data using some of the visualizations we described above such as by comparing engine size to price
 
@@ -3492,7 +3492,7 @@ df[["engine-size", "price"]].corr()
 
 From this we can see that engine size is a fairly good predictor of price
 
-#### Negative Correlation
+##### Negative Correlation
 
 We can also look at the correation between highway mileage and price
 
@@ -3544,7 +3544,7 @@ df[['highway-mpg', 'price']].corr()
 
 Where we can note a Negative Linear Relationship
 
-#### Weak Correlation
+##### Weak Correlation
 
 We can the compare Peak RPM and price
 
@@ -3676,7 +3676,7 @@ plt.show()
 
 ![png](/publicimages-an/output_90_1.png)
 
-#### Descriptive Statistics
+##### Descriptive Statistics
 
 Next we can find some descriptive statistics about our data by the following
 
@@ -4006,12 +4006,12 @@ df.describe(include=['object'])
 </table>
 </div>
 
-##### Value Counts
+###### Value Counts
 
 We can get an indication as to the frequencies of our categorical values with the following
 
 ```python
-# drive-wheel counts as a variable
+## drive-wheel counts as a variable
 drive_wheels_counts = df['drive-wheels'].value_counts().to_frame()
 drive_wheels_counts.rename(columns={'drive-wheels': 'value_counts'}, inplace=True)
 drive_wheels_counts
@@ -4063,7 +4063,7 @@ drive_wheels_counts
 </div>
 
 ```python
-# engine-location as variable
+## engine-location as variable
 engine_loc_counts = df['engine-location'].value_counts().to_frame()
 engine_loc_counts.rename(columns={'engine-location': 'value_counts'}, inplace=True)
 engine_loc_counts.index.name = 'engine-location'
@@ -4109,7 +4109,7 @@ engine_loc_counts.head(10)
 </table>
 </div>
 
-#### Grouping Data
+##### Grouping Data
 
 It can be helpful to group data in order to see if there is a correlation between a certain categorical data and some other variable
 
@@ -4394,7 +4394,7 @@ plt.show()
 
 ![png](/publicimages-an/output_106_0.png)
 
-### Analysis of Variance (ANOVA)
+#### Analysis of Variance (ANOVA)
 
 If we want to analyze a categorical variable and see the correlation between different categories
 
@@ -4405,7 +4405,7 @@ ANOVA is a statistical test that hels find the correlation between different gro
 - F-Test score is the variation between sample group means divided by variation within the sample group
 - P-Value is a measure of confidence and show if the obtained result is statistically significant
 
-##### Drive Wheels
+###### Drive Wheels
 
 ```python
 grouped_test2=df[['drive-wheels','price']].groupby(['drive-wheels'])
@@ -4486,10 +4486,10 @@ grouped_test2.get_group('4wd')['price']
 
 To obtain the ANOVA values, we use the `stats.f_oneway` function from scipy for the correlation between drive wheels and price
 
-##### Drive Wheels and Price
+###### Drive Wheels and Price
 
 ```python
-# ANOVA
+## ANOVA
 f_val, p_val = stats.f_oneway(grouped_test2.get_group('fwd')['price'], grouped_test2.get_group('rwd')['price'], grouped_test2.get_group('4wd')['price'])
 
 print( "ANOVA results: F=", f_val, ", P =", p_val)
@@ -4499,7 +4499,7 @@ print( "ANOVA results: F=", f_val, ", P =", p_val)
 
 This shows a large F and small P, meaning that there is a strong corelation between the three drive types and the price, however does this apply for each individual comparison of drive type?
 
-##### FWD and RWD
+###### FWD and RWD
 
 ```python
 f_val, p_val = stats.f_oneway(grouped_test2.get_group('fwd')['price'], grouped_test2.get_group('rwd')['price'])
@@ -4509,7 +4509,7 @@ print( "ANOVA results: F=", f_val, ", P =", p_val )
 
     ANOVA results: F= 130.553316096 , P = 2.23553063557e-23
 
-##### 4WD and RWD
+###### 4WD and RWD
 
 ```python
 f_val, p_val = stats.f_oneway(grouped_test2.get_group('4wd')['price'], grouped_test2.get_group('rwd')['price'])
@@ -4529,15 +4529,15 @@ print("ANOVA results: F=", f_val, ", P =", p_val)
 
     ANOVA results: F= 0.665465750252 , P = 0.416201166978
 
-## Model Development
+### Model Development
 
 A model can be thought of as a mathematical equation used to predict a value given a specfic input
 
 More relevant data will allow us to more accurately predict an outcome
 
-### Linear Regression
+#### Linear Regression
 
-#### Simple Linear Regression
+##### Simple Linear Regression
 
 SLR helps us to identify a relationship between two independant variables in the form of
 
@@ -4787,7 +4787,7 @@ print(lm_eq)
 
     yhat = 38423.3058582 + -821.733378322x
 
-#### Multiple Linear Regression
+##### Multiple Linear Regression
 
 MLR is used to explain the relationship between 1 continuous target and 2 or more predictors
 
@@ -4829,9 +4829,9 @@ print('intercept: ' + str(lm.intercept_), '\ncoefficients: ' + str(lm.coef_))
     intercept: -15806.6246263
     coefficients: [ 53.49574423   4.70770099  81.53026382  36.05748882]
 
-### Model Evaluation using Visualization
+#### Model Evaluation using Visualization
 
-#### Regression Plot
+##### Regression Plot
 
 Regression plots gives us a good estimate of:
 
@@ -4851,7 +4851,7 @@ plt.ylim(0,)
 plt.show()
 ```
 
-##### Single Linear Regression
+###### Single Linear Regression
 
 We can visualize SLR as follows
 
@@ -4876,7 +4876,7 @@ plt.ylim(0,)
 
 ![png](/publicimages-an/output_130_1.png)
 
-#### Residual Plot
+##### Residual Plot
 
 A Residual plot represents the error between the actual and predicted value, the results should have 0 mean if the linear assumption is applicable
 
@@ -4898,7 +4898,7 @@ plt.show()
 
 ![png](/publicimages-an/output_132_0.png)
 
-#### Distribution Plot
+##### Distribution Plot
 
 We use this to look at the distribution of the actual vs predicted values for our model
 
@@ -4910,7 +4910,7 @@ sns.distplot(yhat, hist=False, label='Fitted Values', ax=ax1)
 plt.show()
 ```
 
-##### Multiple Linear Regression
+###### Multiple Linear Regression
 
 Using A Distribution Plot is more valuable when looking at MLR model performance
 
@@ -4936,7 +4936,7 @@ plt.close()
 
 ![png](/publicimages-an/output_135_0.png)
 
-### Polynomial Regression and Pipelines
+#### Polynomial Regression and Pipelines
 
 Polynomial Regression is a form of regression used to describe curvilinear relationships in which our predictor variable is not linear
 
@@ -4955,7 +4955,7 @@ model = np.polyfit(X,Y,n)
 print(np.polydl(f))
 ```
 
-#### Visualization
+##### Visualization
 
 Visualizing Polynomial regression plots is a bit more work but can be done with the function below
 
@@ -4995,7 +4995,7 @@ PlotPolly(p,x,y, 'highway-mpg')
 
 ![png](/publicimages-an/output_140_0.png)
 
-### Multi Dimension Polynomial Regression
+#### Multi Dimension Polynomial Regression
 
 Polynomial regression can also be done in multiple dimensions, for example a second order approximation would look like the following
 
@@ -5044,11 +5044,11 @@ Z_pr.shape
 
     (201, 15)
 
-### Pre-Processing
+#### Pre-Processing
 
 `sklearn` has some preprocessing functionality such as
 
-#### Normalization
+##### Normalization
 
 We can train a scaler and normalize our data based on that as follows
 
@@ -5063,7 +5063,7 @@ X_scaled = scale.transform(X[['feature1','feature2',..., 'featureN']])
 
 There are other normalization functions available with which we can preprocess our data
 
-#### Pipelines
+##### Pipelines
 
 There are many steps to getting a prediction, such as Normalization, Polynomial Transformation, and training a Linear Regression Model
 
@@ -5131,14 +5131,14 @@ ypipe[0:4]
 
     array([ 13102.74784201,  13102.74784201,  18225.54572197,  10390.29636555])
 
-### In-Sample Evaluation
+#### In-Sample Evaluation
 
 Two important measures that determine how well a model fits a speficic dataset are
 
 - Mean Squared Error (MSE)
 - R-Squared ($R^2$)
 
-#### Mean Squared Error
+##### Mean Squared Error
 
 We simply find the difference between the average square error of our prediction when compared to our data
 
@@ -5150,7 +5150,7 @@ from sklearn.metrics import mean_squared_error
 mean_squared_error(X['target'],Y_predicted_sample)
 ```
 
-#### R-Squared
+##### R-Squared
 
 $R^2$ is the coefficient of determination
 
@@ -5168,14 +5168,14 @@ We can get the $R^24$ value with `lm.score()`
 
 A negative $R^2$ can be a sign of overfitting
 
-#### In-Sample Evaluation of Models
+##### In-Sample Evaluation of Models
 
 We can evaluate our models with the following
 
 ```python
 #highway_mpg_fit
 lm.fit(X, Y)
-# Find the R^2
+## Find the R^2
 lm.score(X, Y)
 ```
 
@@ -5200,9 +5200,9 @@ mean_squared_error(df['price'], Yhat)
     31635042.944639895
 
 ```python
-# fit the model
+## fit the model
 lm.fit(Z, df['price'])
-# Find the R^2
+## Find the R^2
 lm.score(Z, df['price'])
 ```
 
@@ -5237,7 +5237,7 @@ mean_squared_error(df['price'], p(x))
 
     20474146.426361222
 
-### Prediction and Decision Making
+#### Prediction and Decision Making
 
 We should use visualization, numerical evaluation, and model comparison in order to see if the model values makes sense
 
@@ -5268,7 +5268,7 @@ plt.show()
 
 ![png](/publicimages-an/output_171_0.png)
 
-#### Conclusion
+##### Conclusion
 
 From the results above (yes, they're a mess but it's all pretty much just from the CC Lab file) we can note the $R^2$ and MSE values are as follows
 
@@ -5287,29 +5287,29 @@ Polynomial Fit: Using Highway-mpg as a Predictor Variable of Price.
 - R-squared: 0.6741946663906514
 - MSE: 2.05 x 10^7
 
-#### SLR vs MLR
+##### SLR vs MLR
 
 Usually having more variables helps the prediction, however if you do not have enough data you can run into trouble or many of the variables may just be noise and not be very useful
 
 The MSE for MLR is Smaller than for SLR, and the $R^2$ for MLR is higher as well, MSE and $R^2$ both seem to indicate that MLR is a better fit than SLR
 
-#### SLR vs Polynomial
+##### SLR vs Polynomial
 
 The MSE for the Polynomial Fit is less than for the SLR and the $R^2$ is higher meaning that the Polynomial Fit is a better predictor based on 'highway-mpg' than the SLR
 
-#### MLR vs Polynomial
+##### MLR vs Polynomial
 
 The MSE for the MLR is smaller than for the Polynomial Fit, and the MLR also has a higher $R^2$ therefore the MLR is as better fit than the Polynomial in this case
 
-#### Overall
+##### Overall
 
 The MLR has the lowest $R^2$ and the highest MSE, meaning that it is the best fit of the three models that have been evaluate
 
-## Model Evaluation
+### Model Evaluation
 
 Model Evaluation tells us how our model works in the real wold. In-Sample evaluation does not give us an indication as to how our model performs under real lifr circumstances
 
-### Training and Test Sets
+#### Training and Test Sets
 
 We typically split our data into a training and testing set and use to build and evaluate our model respectively
 
@@ -5327,13 +5327,13 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split(x_data,y_data,test_size=0.3,random_state=0)
 ```
 
-### Generalization Performance
+#### Generalization Performance
 
 Generalization Error is a measure of how well our data does at predicting previously unseen data
 
 The error we obtain using our testing data is an approximation of this error
 
-### Cross Validation
+#### Cross Validation
 
 Cross validation involves us splitting the data into folds and using a fold for testing and the remainder for training, and we make use of each combination of training, and evalution
 
@@ -5353,7 +5353,7 @@ from sklearn.model_selection import cross_val_predict
 yhat = cross_val_predict(lr,X,Y,cv=n)
 ```
 
-### Overfitting, Underfitting, and Model Selection
+#### Overfitting, Underfitting, and Model Selection
 
 The goal of model selection is to try to select the best function to fit our model, if our model is too simple we will have model that does not appropriately fit our data, whereas if we have a model that is too complex, it wil perfectly fit our testing data but will not be good at approximating new data
 
@@ -5375,7 +5375,7 @@ for n in order:
     rsq_test.append(lr.score(x_test_pr, y_test))
 ```
 
-### Ridge Regression
+#### Ridge Regression
 
 Ridge Regression prevents overfitting
 
@@ -5395,7 +5395,7 @@ We will usually start off with a small value of $\alpha$ such as 0.0001 and incr
 
 Furthermore we can use Cross Validation to identify an optimal $\alpha$
 
-### Grid Search
+#### Grid Search
 
 Grid Search allows us to scan through multiple free parameters
 
@@ -5431,6 +5431,6 @@ scores = grid.cv_results_
 
 The `scores` dictionary will store the results for each hyperparameter combination given our inputs
 
-## Conclusion
+### Conclusion
 
 For more specific examples of the different setions look at the appropriate Lab

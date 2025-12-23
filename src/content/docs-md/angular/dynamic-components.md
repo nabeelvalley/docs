@@ -10,7 +10,7 @@ The problem we can run into with trying to do something like this in Angular how
 
 For the purpose of this post we'll dive into a short example of a component in Angular that renders a list of components with the assumtion that the components meet a specific class that we define so that other components can inherit from, doing this as a class and not an interface also cleans up the fact that we want the input to be defined as `@Input()` and reduces code written on implementing members
 
-# Base Component
+## Base Component
 
 Firstly, we need to define a base component that our other components will extend, this should have any inputs that we would like to share with our implemnted components as well as the dynamic component we will define
 
@@ -29,7 +29,7 @@ export class BaseComponent {
 
 > The template and selector of this component don't really matter as we will never actually render this component
 
-# Implementation Component
+## Implementation Component
 
 Now that we have defined out base, we can define an implementation of this component that renders the `text` in a `div`:
 
@@ -59,7 +59,7 @@ export class ComponentB extends BaseComponent {}
 
 These are the two components that our `DynamicComponent` will be used to render
 
-# Dynamic Component
+## Dynamic Component
 
 Defining the dynamic component requires a few different pieces to come together
 

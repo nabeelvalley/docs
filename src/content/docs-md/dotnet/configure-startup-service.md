@@ -6,7 +6,7 @@ subtitle: Configuring Startup Services and in .NET Core Web APIs
 
 You can think of a service simply as a reusable class instance that can be reused in different controllers. This can be injected via dependency injection where it is needed
 
-# Define a Service
+## Define a Service
 
 To create a new service, you will first need to define a `class` that provides the relevant functionality. We can define a simple class for a service as follows:
 
@@ -26,7 +26,7 @@ public class MyCat {
 }
 ```
 
-# Add Service
+## Add Service
 
 You can the define this as a service in your `startup.cs` file's `ConfigureServices` method with the `services<T>.AddScoped` function to create a service that can be used by your controllers
 
@@ -87,7 +87,7 @@ public class CatController : Controller
 
 Note that the `MyCat` service is injected into our controller simply by us defining it in the constructor as a dependency
 
-# Different ConnectedServices by Environment
+## Different ConnectedServices by Environment
 
 Using the above approach combined with the Visual Studio Connected Services / `svcutil` functionality you can set up a different service instance based on your environment configuration with something like this:
 

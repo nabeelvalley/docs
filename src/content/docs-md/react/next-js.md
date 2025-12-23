@@ -5,13 +5,13 @@ subtitle: Getting Started with Next.js
 description: Getting Started with Next.js
 ---
 
-# Introduction
+## Introduction
 
 Next.js is framework for building single page applications using React, Next.js allows us to use a combination of SSR and Prerendering to build our applications based on the data requirements
 
 > Notes from [Next.js Documentation](https://nextjs.org/learn/basics/getting-started). This is slightly different to the documentation because I am using a Typescript setup
 
-# Setting Up
+## Setting Up
 
 To set up a new Next.js application we will need install the relevant dependencies
 
@@ -46,7 +46,7 @@ export default Index
 
 And then run `yarn dev` to start the Dev server. You should be able the index page on `http://localhost:3000`
 
-# Linking Pages
+## Linking Pages
 
 We can first create a new page `about.tsx` in the `pages` directory:
 
@@ -83,7 +83,7 @@ export default Index
 
 The `Link` is a wrapper component which only accepts an `href`, any other attributes needed for our link need to be included in the `a` component
 
-# Shared Components
+## Shared Components
 
 Like you would expect from when we use React on its own we can create shared components. Components are created in the `components` directory. We'll create a header and layout component and implement this on our pages
 
@@ -147,9 +147,9 @@ export default withLayout(Index)
 export default withLayout(About)
 ```
 
-# Dynamic Pages
+## Dynamic Pages
 
-## Query Params
+### Query Params
 
 We can create dynamic pages based on the data from the URL Query parameters a user has when visiting the page. We can update the `index` page to have a list of posts that we will link to:
 
@@ -204,7 +204,7 @@ const Post: NextPage = () => {
 export default withLayout(Post)
 ```
 
-## Route Params
+### Route Params
 
 Usually we may want to link to specific pages on our site and the above method of using query params for everything is not ideal, we can also set up dynamic urls such that a post's url will be something like `/post/post_id` for example. Next.js allows us to build our routes using our folder structure as well as a special syntax for the filenames. For example a page like above may be in file like `pages/post/[id].tsx`
 
@@ -263,7 +263,7 @@ export default withLayout(Post)
 
 > Note how this is almost exactly like in the previous case where we used the query parameter to populate our page but now we use the `id`
 
-# Fetching Page Data
+## Fetching Page Data
 
 To fetch data we'll use `isomorphic-unfetch` which works on both the browser and on the client side. We need to add this to our application:
 
@@ -361,7 +361,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 }
 ```
 
-# Styling
+## Styling
 
 For styling components `next.js` has a few different methods to style components, for the moment my preferred way of doing this is using CSS Modules. To create and use a module we need to do the following:
 
@@ -404,7 +404,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 export default MyApp
 ```
 
-# API Routes
+## API Routes
 
 API Routes are found in the `pages/api` directory. These are simple functions which handle the relevant API Route
 
@@ -506,7 +506,7 @@ const Index: NextPage = () => {
 export default withLayout(Index)
 ```
 
-# Run in Production
+## Run in Production
 
 To run the application in production you simply need to build it with:
 

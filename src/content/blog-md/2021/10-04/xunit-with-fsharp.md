@@ -9,7 +9,7 @@ An important part of writing any software is testing. Unit testing is an automat
 
 This post will take a look at the process of setting up a new F# library and two methods of configuring XUnit to test your project's code
 
-# Create a Project
+## Create a Project
 
 Before we can start testing we need a project that we can run tests on
 
@@ -38,14 +38,14 @@ module Say =
         sprintf "Hello %s" name
 ```
 
-# Adding Tests
+## Adding Tests
 
 Depending on our preferred project structure we can either:
 
 1. Add tests in a separate project
 2. Add test files alongside lib files
 
-## Method 1: Create Tests in Separate Project
+### Method 1: Create Tests in Separate Project
 
 The standard method of .NET unit testing with XUnit is to make use of separate Project and Test solutions, so a normal test setup would look something like:
 
@@ -81,7 +81,7 @@ Then we can create a file in our test project called `LibraryTests.fs` which wil
 ...
 ```
 
-## Method 2: Create Tests Alongside Lib Files
+### Method 2: Create Tests Alongside Lib Files
 
 The second method I'm going to discuss is keeping our `test.fs` files alongside the code that the file is testing. The structure of our project is something more like this:
 
@@ -118,7 +118,7 @@ Then we can create a file in our project called `Library.test.fs` which will con
 
 It's important to note that this file must be added below the `Library.fs` file as it will reference it for tests to run
 
-# Test Files
+## Test Files
 
 > More detailed information on XUnit can be found in [Unit Testing notes](/docs/dotnet/unit-testing-intro)
 
@@ -135,7 +135,7 @@ XUnit tests can be broken into 2 types:
 1. Single-case tests without input parameters inputs are labelled `Fact`
 2. Multi-case tests which make use of input parameters are labelled `Theory` and use `InlineData`
 
-## Fact
+### Fact
 
 Let's add the following content into our test file into one that tests the `hello` function from our `Lib` code with the input `"Name"`
 
@@ -161,7 +161,7 @@ F# allows us to name our functions using special characters provided they're enc
 
 Additionally, there's the normal XUnit test setup which includes calling our test function with some input and asserting something about it using `Assert.Equal` from `XUnit`
 
-## Theory
+### Theory
 
 We can add a `Theory` to test our function with multiple different inputs:
 
@@ -206,7 +206,7 @@ let ``Say.hello -> concantenated string`` (name:string, expected: string) =
     Assert.Equal(expected, result)
 ```
 
-# Running Tests
+## Running Tests
 
 In order to run tests we can use the `dotnet-cli`. Depending on the method used you can run your test from the project's root directory using the following command:
 
@@ -215,7 +215,7 @@ In order to run tests we can use the `dotnet-cli`. Depending on the method used 
 
 Alternatively, tests can also be run from your IDE or Visual Studio Code with the `Ionide` and `.NET Core Test Explorer` extensions installed
 
-# Additional Resources
+## Additional Resources
 
 If you'd like a deeper look into F# or XUnit here are some of my other posts which cover those:
 

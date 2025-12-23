@@ -5,11 +5,11 @@ title: FeathersJS Basics
 
 > Notes from [this Coding Garden Series](https://www.youtube.com/watch?v=eXnKKnaoA08&list=PLM_i0obccy3uvP4ZMI6NwTzM0BvYBQ7Xd&index=1) on FeathersJS
 
-# Simple Feathers Service
+## Simple Feathers Service
 
 To create a super simple `feathers` service you can do the following:
 
-## Init App
+### Init App
 
 ```sh
 mkdir feathers-service
@@ -19,7 +19,7 @@ yarn init -y
 yarn add @feathersjs/feathers
 ```
 
-## Create Feathers Instance
+### Create Feathers Instance
 
 Next up, create an `app.js` file with the following to initialize a feathers app:
 
@@ -30,7 +30,7 @@ const feathers = require('@feathersjs/feathers')
 const app = feathers()
 ```
 
-## Create Service
+### Create Service
 
 You can then create a service, each service needs to have a class which defines what methods are available in the service, for example the `MessageService` below defines a `find` and `create` method:
 
@@ -58,7 +58,7 @@ class MessageService {
 }
 ```
 
-## Register Service
+### Register Service
 
 We can then register a service by using `app.use` with a name for the service followed by an instance of the service class:
 
@@ -66,7 +66,7 @@ We can then register a service by using `app.use` with a name for the service fo
 app.use('messages', new MessageService())
 ```
 
-## Listen to Events
+### Listen to Events
 
 We can use the `app.service('...').on` method to add a handler to an event on a service which will allow us to react to the service events:
 
@@ -76,7 +76,7 @@ app.service('messages').on('created', (message) => {
 })
 ```
 
-## Interact with Service
+### Interact with Service
 
 We can interact with a service by referencing a method in a service:
 
@@ -94,7 +94,7 @@ const main = async () => {
 main()
 ```
 
-## Expose as REST and Web Socket
+### Expose as REST and Web Socket
 
 Once we've defined a `feathers` service we can expose it as a REST endpoint as well as a Web Socket automatically using feathers' `express`
 
@@ -161,7 +161,7 @@ app.listen(3030).on('listening', () => {
 
 Now, you can start the application with `node app.js` and go to `http://localhost:3030/messages` where you can see the list of messages that are currently in the service
 
-## Connect from Browser
+### Connect from Browser
 
 Create an `index.html` file, from here we'll be connecting to the feathers backend we've configured using the `feathersjs` and `socketio` clients for the browser:
 
@@ -260,7 +260,7 @@ Then, in the `index.html` we can use the following js to subscribe to the socket
 </html>
 ```
 
-# Init Feathers Application
+## Init Feathers Application
 
 The previous app that's been configured is a very simple service. To make a more complete `feathers` app we will make use of the CLI
 
@@ -297,35 +297,35 @@ Below are the options I've chosen:
 ? What is the database connection string? nedb://../data
 ```
 
-## Config
+### Config
 
 Once created you can find the application config in the `config/default.json` file. In the config files you can do something like `"PORT"` as a value which will automatically replace it with an environment variable called `PORT`, this can apply to any environment variable you want to use in your config file
 
-## Entrypoint
+### Entrypoint
 
 The entrypoint to a `feathers` application is the `index.ts` file which imports the `app` as well as some logging config, etc.
 
 Additionally, there's the `app.ts` file which pretty much configures an express app for `feathers` with a lot of the usual configuration settings, body parsers, and middleware
 
-## Models and Hooks
+### Models and Hooks
 
 The User Model and Class Files specify the default behaviour for the specific `user` entity. Additionally this also uses `hooks` to allow us to run certain logic before and after a service is run as well as manage things like authentication
 
-## Channels
+### Channels
 
 The `channel.ts` file is where connections are handled as well as assign users to channels in which they have access to as well as manage what channels get which events published to them
 
-## Authentication
+### Authentication
 
 The `authentication.ts` defines an AuthenticationService and configures the auth providers that are available
 
-## Configure
+### Configure
 
 The `app.configure` function is used all over a feathers app. A `configure` function is a function that takes the `app` function.
 
 `app.configure` takes a function that takes the `app` and is able to configure additional things and create services from the `app`. The `configure` function essentially allows us to break out application into smaller parts
 
-## Feathers Services
+### Feathers Services
 
 Feathers services are an object or class instance that implements specific methods, they can do things like:
 
@@ -400,7 +400,7 @@ export class Users extends Service<User> {
 }
 ```
 
-## Hooks
+### Hooks
 
 Hooks allow us to make use of reusable components that gets implemented as middleware on all service methods. An example implentation of these are the `user` hooks which do some authentication as well as output data cleansing:
 
@@ -477,6 +477,6 @@ export default {
   ...
 ```
 
-## Service vs Hooks
+### Service vs Hooks
 
 Services and Hooks are very similar, we will primarily make use of services for functionality that is specific to a service and we will make use of hooks when the functionality is something that can be abstracted and shared with different services

@@ -5,7 +5,7 @@ title: R Basics
 
 > [Based on this EdX Course](https://www.edx.org/course/data-science-r-basics)
 
-# Configuration
+## Configuration
 
 Before starting the course make sure you install the library with the relevant datasets included
 
@@ -16,7 +16,7 @@ library(dslabs)
 
 From the dslabs library you can use the data sets as needed
 
-# Objects
+## Objects
 
 In order to store a value as a variable we use the assignment variable
 
@@ -30,7 +30,7 @@ To display this object we can use
 print(a)
 ```
 
-# Functions
+## Functions
 
 A Data Analysis process is typically a series of functions applied to data
 
@@ -70,15 +70,15 @@ log(x=5, base=3)
 
 Otherwise the arguments are evaluated in order
 
-# Comments
+## Comments
 
 Commenting in R is done with the `#` symbol:
 
 ```r
-# This is a comment
+## This is a comment
 ```
 
-# Data Types
+## Data Types
 
 R makes use of different data types, in R we typically use _DataFrames_ to store data, these can store a mixture of different data types in a collection
 
@@ -123,7 +123,7 @@ We can use the `==` as the logical operator
 [2] "Male" "Female"
 ```
 
-# Vectors
+## Vectors
 
 The most basic data unit in R is a `Vector`
 
@@ -166,7 +166,7 @@ We can access an element of a vector with either a single access or multi-access
 [4] 380 124
 ```
 
-# Vector Coercion
+## Vector Coercion
 
 Coercion is an attempt by R to guess the type of a variable if it's of a different type of the rest of the values
 
@@ -188,7 +188,7 @@ If we want to force a coercion we can use the `as.character` function or `as.num
 
 If R is unable to coerse a value it will result in `NA` which is very common with data sets as it refers to missing data
 
-# Sorting
+## Sorting
 
 The `sort` function will sort a vector in increasing order, however this gives us no relation to the positions of that data. We can use the `order` function to reuturn the index of the values that are sorted
 
@@ -222,13 +222,13 @@ which.min(data$total) # index of minimum value
 
 The `rank` function will return the index of the sizes of the vectors
 
-# Vector Aritmetic
+## Vector Aritmetic
 
 Aritmetic operations occur element-wise
 
 If we operate with a single value the operation will work per element, however if we do this with two vectors, we will add it element-wise, `v3 <- v1 + v2` will mean `v3[1] <- v1[1] + v2[1]` and so on
 
-# Indexing
+## Indexing
 
 R provides ways to index vectors based on properties on another vector, this allows us to make use of logical comparators, etc.
 
@@ -243,7 +243,7 @@ index <- large_tots && small_size
 [3] FALSE TRUE FALSE TRUE FALSE
 ```
 
-# Indexing Functinos
+## Indexing Functinos
 
 - `which` will give us the indexes which are true `which(data$total > 200)` this will only return the values that are true
 - `match` returns the values in one vector where another occurs `match(c(20, 14, 5), data$size)` will return only the values in which data$size == 20 \|\| 14 \|\| 5
@@ -258,7 +258,7 @@ index <- large_tots && small_size
 
 These functions are very useful for subsetting datasets
 
-# Data Wrangling
+## Data Wrangling
 
 The `dplyr` package is useful for manipulating tables of data
 
@@ -280,7 +280,7 @@ We can combine functions using the pipe operator:
 dataTable %>% select(name, rate) %>% filter(rate <= 0.7)
 ```
 
-# Creating Data Frames
+## Creating Data Frames
 
 we can create a data frame with the `data.frame` function as follows:
 
@@ -299,7 +299,7 @@ data <- data.frame(names = c("John","James", "Jenny"),
                    stringsAsFactors = FALSE)
 ```
 
-# Basic Plots
+## Basic Plots
 
 We can make simple plots very easily with the following functions:
 
@@ -308,29 +308,29 @@ We can make simple plots very easily with the following functions:
 - `hist(dataFrame$size)`
 - `boxplot(rate~catergory, data=dataFrame)`
 
-# Programming Basics
+## Programming Basics
 
-# Conditionals
+## Conditionals
 
 ```r
-# Can evalutate all elements of a vector
+## Can evalutate all elements of a vector
 if (test_expression) {
     statement1
 } else {
     statement2
 }
 
-# Will reuturn a result
+## Will reuturn a result
 ifelse(comparison, trueReturn, falseReturn)
 
-# Will return true if any value in vector meets condition
+## Will return true if any value in vector meets condition
 any(condition)
 
-# Will return true if all values meet condition
+## Will return true if all values meet condition
 all(condition)
 ```
 
-# Functions
+## Functions
 
 Functions in R are objects, if we need to write a function in R we can do this wth the following:
 
@@ -343,7 +343,7 @@ myfunction <- function(arg1, arg2, optional=TRUE ){
 
 This will make use of the usual lexical scoping
 
-# For Loops
+## For Loops
 
 ```r
 for (i in sequence) {
@@ -353,7 +353,7 @@ for (i in sequence) {
 
 At the end of our loop the index value will hold it's last value
 
-# Other Functions
+## Other Functions
 
 In R we rarely use for-loops We can use other functions like the following:
 

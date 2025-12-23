@@ -6,7 +6,7 @@ subtitle: Notes on the ASP.NET Boilerplate MVC Framework/Template
 
 [Refer to](https://github.com/aodendaal/aspnetboilerplate-core-ng)
 
-# Infrastructure Layer
+## Infrastructure Layer
 
 Inside of `.EFCore/DbContext` we add a `dbSet` for each entity
 
@@ -18,7 +18,7 @@ Thereafter we do a migration to add any new elements
 
 Inside `EFCore/Seed/Host` the default admin is generated when the database is started for the first time. Additional users or entities can be generated on seeding as well, this will be executed every time the database is started up
 
-## Classes, Interfaces and Abstracts
+### Classes, Interfaces and Abstracts
 
 - Class: contains methods and properties
 - Interface: can only inherit interfaces, always public – cannot have private members
@@ -28,7 +28,7 @@ Inside `EFCore/Seed/Host` the default admin is generated when the database is st
 
 Can only inherit from one class at a time, however we can use multiple interfaces
 
-# Application Layer
+## Application Layer
 
 Inside of the .Core we include all our business logic, rules & Entities
 Classes with rule-sets and properties
@@ -51,7 +51,7 @@ Other Entity Extensions/Inheritances:
 - `IMayHaveTenant`
 - `IMustHaveTenant`
 
-## AppService
+### AppService
 
 Add a folder with the entity name and expose it to the application layer via the `.Application` folder, the name should end in `AppService`:
 
@@ -89,7 +89,7 @@ public class CustomerAppService : ApplicationService
 
 We do not directly expose our objects to the domain layer, this is passed by way of a DTO
 
-## Service Manager
+### Service Manager
 
 We can define a new class in the `.Core/Invoice`
 
@@ -113,27 +113,27 @@ public class InvoicesManager : DomainService
 
 Thereafter we define an AppService and Dto for the `invoice` and `lineItem`
 
-# Authentication
+## Authentication
 
 Makes use of a token which system will use to verify the access of a user, this token is returned on login and is carried in the header.
 
-## Roles
+### Roles
 
 We can create multiple roles which would define the permissions for a user. The domain layer is where the business rules sit and therefore permissions and roles are defined in the domain layer in the .Core/Roles/StaticRoleNames.cs In this file we reserve a name in the tenant list,
 
 Next we move to the AppRoleConfig.cs and add a static role definition for each role we need in the application
 
-## Permissions
+### Permissions
 
 Permission Names are stored in the PermissionNames.cs file, the actual permissions are stored in the AuthorizationProvider.cs file
 
-## Seeding
+### Seeding
 
-### Roles
+#### Roles
 
 In the .EfCore/EfCore/Seed/Tenant/TenantRoleAndUserBuilder.cs we use the same code that creates an Admin role and copy and rename where needed, this will verify that there is no role and will create on initialization. This is only run once, during DB initialization
 
-### Permissions
+#### Permissions
 
 In the Tenant Builder we specify our permissions for a specific role type, however this will require us to use the granted permissions and the permission checker for a role
 
@@ -161,7 +161,7 @@ BoilerPlate makes use of two service types:
 
 Technically no difference in what these can do, this definition is for purpose differentiation
 
-# Setting up an Entity
+## Setting up an Entity
 
 1. Make a folder for Entity inside of Project.Core
 2. Create a class inside of folder, make the class public and in idealize a FullAuditedEntity:

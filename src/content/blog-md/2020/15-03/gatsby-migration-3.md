@@ -5,7 +5,7 @@ subtitle: 15 March 2020
 description: Adding dynamic pages to a Gatsby site
 ---
 
-# Introduction
+## Introduction
 
 So far we've created the initial react application as with a few routes for our `Home`, `Blog`, and `404` pages. In this post we'll look at how we can set up our `Post` component to render our pages dynamically based on the JSON data we have. We'll also extend this so that we can have some more content in a markdown file that we'll parse and add to our Gatsby data
 
@@ -13,7 +13,7 @@ So far we've created the initial react application as with a few routes for our 
 2. [Rendering the "Dumb" pages with Gatsby](/blog/2020/01-02/gatsby-migration-2)
 3. **Rendering the "Smart" page with Gatsby** (This post)
 
-# Setting Up
+## Setting Up
 
 We're going to make our data a little more complex by creating two additional markdown files in our `static/posts` directory to enable us to have more content with each post
 
@@ -22,14 +22,14 @@ Create the following markdown files in the application and align the names with 
 1. `static/posts/post-1.md`
 2. `static/posts/post-2.md`
 
-# Gatsby Plugins
+## Gatsby Plugins
 
 To read the data from our files we're going to do the following:
 
 1. Use the `gatsby-source-filesystem` to read our files into the Gatsby Data Layer
 2. Define our own plugin that can read the file content, parse the markdown, and add it into the data layer
 
-## Reading the File Metadata
+### Reading the File Metadata
 
 To read our file data we will need to first install the `gatsby-source-filesystem` plugin. Plugins in Gatsby enable us to ingest or transform data in our application. We then make use of GraphQL to query the data from the relevant component
 
@@ -98,7 +98,7 @@ This should yield the following JSON with our file meta data in it:
 }
 ```
 
-## Processing the Files
+### Processing the Files
 
 Now that we have our metadata for each file in the file system, we're going to create a plugin that will allow us to read the file data and add it the GraphQL data layer
 
@@ -273,15 +273,15 @@ This should give us the relevant post data:
 }
 ```
 
-# Create Pages
+## Create Pages
 
 Now that we've got all our data for the pages in one place we can use the `onCreatePages` API to create our posts, and the `Post` component to render the pages
 
-## Setting Up
+### Setting Up
 
 Before we really do anything we need to rename the `Blog.js` file to `blog.js` as well as create the `src/components` directory and move the `Post.js` file into it, you may need to restart your application again using `yarn start`
 
-## Create Pages Dynamically
+### Create Pages Dynamically
 
 In our site root create a `gatsby-node.js` file which exposes an `onCreatePages` function:
 
@@ -337,7 +337,7 @@ exports.createPages = async ({ graphql, actions }) => {
 }
 ```
 
-## Render the Page Data
+### Render the Page Data
 
 From the Post component we need to:
 
@@ -397,7 +397,7 @@ You can also see that we have significantly reduced the complexity in the `Post`
 
 If you look at the site now you should be able to navigate through all the pages as you'd expect to be able to
 
-# Summary
+## Summary
 
 By now we have completed the the entire migration process - converting our static and dynamic pages to use Gatsby. In order to bring the dynamic page generation functionality to our site we've done the following:
 

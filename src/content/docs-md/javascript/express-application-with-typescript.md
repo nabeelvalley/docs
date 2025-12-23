@@ -5,20 +5,20 @@ title: Express with Typescript
 
 > [Based on this Medium Article](https://medium.com/@gardikoury/typescript-with-node-and-express-js-why-when-and-how-eb6bc73edd5d)
 
-# Introduction
+## Introduction
 
 Typescript is basically statically typed ES6 with the ability to compile to javascript, this allows us to code in a manner that better equips us to catch type errors before runtime
 
-# Setting Up a Typescript Application
+## Setting Up a Typescript Application
 
-## A New Application
+### A New Application
 
 ```bash
 npm init
 npm install typescript -a
 ```
 
-## Initialising a Typescript Project
+### Initialising a Typescript Project
 
 In the `package.json` add a script to run typescript
 
@@ -99,9 +99,9 @@ After which we can uncomment the `outDir` property in the `tsconfig.json` file t
 
 ```
 
-# Setting Up Server
+## Setting Up Server
 
-## Installing Express
+### Installing Express
 
 We need to install Express and Express Types so that Typescript can be type aware
 
@@ -110,7 +110,7 @@ npm install express -s
 npm install @types/express -s
 ```
 
-## Building the Server
+### Building the Server
 
 Now we can create a simple express server with the following file
 
@@ -130,9 +130,9 @@ app.listen(3000, function () {
 });
 ```
 
-# Running the App
+## Running the App
 
-## Compile the Application
+### Compile the Application
 
 The App must be compiled before it can be run, we do this with the following command
 
@@ -142,7 +142,7 @@ npm run tsc
 
 Which will place our `app.ts` file into the build folder
 
-## Run the Server
+### Run the Server
 
 We can run the application by simply doing
 
@@ -152,7 +152,7 @@ node .\build\app.js
 
 And viewing the application at `localhost:3000`
 
-# Running without Transpiling
+## Running without Transpiling
 
 We can run the typescript directly without transpiling with the following
 

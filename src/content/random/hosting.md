@@ -6,11 +6,11 @@ description: Services that are either self or cloud hosted that have a free tier
 
 Below is a list of some websites and platforms that provide free application hosting and dev services
 
-# Static
+## Static
 
 - [Netlify](https://www.netlify.com/)
 
-# Backend
+## Backend
 
 - [Heroku](https://www.heroku.com/) - Free tier shutting down
 - [Deta](https://deta.space/)
@@ -26,7 +26,7 @@ Below is a list of some websites and platforms that provide free application hos
 - [Platform.sh](https://platform.sh/)
 - [Gigalixir](https://www.gigalixir.com/) - Elixer Hosting
 
-# Database
+## Database
 
 - [Supabase](https://supabase.com/)
 - [Firebase](http://firebase.google.com)
@@ -38,25 +38,25 @@ Below is a list of some websites and platforms that provide free application hos
 - [IBM Cloudant](https://cloud.ibm.com/catalog/services/cloudant)
 - [Neon](https://neon.tech)
 
-# Vector Database
+## Vector Database
 
 - [Milvus](https://milvus.io/)
 
-# CRON
+## CRON
 
 - [Zeplo](https://www.zeplo.io/)
 
-# CICD
+## CICD
 
 - [Buddy](https://buddy.works/pricing)
 
-# Self Hosted
+## Self Hosted
 
-## Aplication Backends
+### Aplication Backends
 
 - [AppWrite](https://appwrite.io) - Basically a host-your-own firebase
 - [Parse](https://parseplatform.org/) - Nodejs Application Server with storage, aauth, and application management
 
-## Apps
+### Apps
 
 - [Affine](https://affine.pro/)

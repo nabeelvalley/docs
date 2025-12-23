@@ -25,13 +25,13 @@ In this post, we're going create a GitHub action that uses the Twitter API to up
 5. Add our Twitter Secrets in GitHub
 6. Configure a GitHub Action that will run our script (an action, within an action)
 
-# Prerequisites
+## Prerequisites
 
 - [Git](https://git-scm.com/downloads)
 - [Node.js](http://nodejs.org/)
 - [Visual Studio Code](https://code.visualstudio.com/) or any other Code Editor
 
-# Create a GitHub Repo
+## Create a GitHub Repo
 
 For us to run our action we'll need a GitHub Repository to use, to create a Repo go to [GitHub](https://github.com/) and sign in, thereafter go the ['Create a new repository page'](https://github.com/new) and fill in the details, be sure to select `Initialize this repository with a README`, pick `Node` as the `.gitignore` file, and select a license if you'd like to
 
@@ -56,7 +56,7 @@ TWITTER_ACCESS_SECRET=
 
 In the next step, we're going to get the credentials from Twitter, we'll add them into the file above when we're done
 
-# Get Some Twitter Cred.
+## Get Some Twitter Cred.
 
 Twitter exposes the Twitter Developer API that allows us to do all kinds of useful and pointless things by interacting with Twitter's data
 
@@ -85,7 +85,7 @@ TWITTER_ACCESS_SECRET=xxxxxxxxxxxxxxxxxxxxx
 
 Now that we've got our credentials set up, we can start to work on the application
 
-# Using the Twitter API
+## Using the Twitter API
 
 We're going to be writing a script that runs on Node.js (JavaScript) and makes use of the Twitter API using the `twit` library for Node.js and the GitHub libraries for working with GitHub actions
 
@@ -280,7 +280,7 @@ main()
 
 Now that we've written the functionality for our action we'll want to turn it into an action
 
-# Configure the Action Metadata
+## Configure the Action Metadata
 
 For GitHub to recognise our code as an action, we need to create an `action.yml` file that contains a description of our action. Our `action.yml` file needs to have the following information:
 
@@ -310,13 +310,13 @@ The fields we've got above are all pretty much required. The above fields are th
 
 Now that we've defined our action, we will want to configure it to run. But before we can do that, we'll want to set up our secrets
 
-# Setting Up Secrets in GitHub
+## Setting Up Secrets in GitHub
 
 Now that we've got our action defined, we're almost ready to write a Workflow that will use this action. However, our action requires environment variables (that we've got saved in our `.env` file) but we don't want these to be pushed to GitHub as part of our source code. The way to set up these environment variables in GitHub is called a `secret`
 
 To add our environment variables in GitHub you'll need to open your Repo on GitHub and navigate to `Settings > Secrets` then click `New secret` and add your first secret. If we use our `.env` file as a reference we'll want to create a secret for each line in the file. To do this look at the name of the environment variable (everything before the `=`) and set this as the `Name` for the secret, then look at the value (everything after the `=`) and set this as the `Value` for the secret then click `Add secret`. Do this for every line in your `.env` file (every environment variable`
 
-# Create a Workflow
+## Create a Workflow
 
 Workflows are GitHub's way of tying together a bunch of actions to run. Often, we will want to run multiple actions. We place these into what's called a `step` in a `job`. Each Workflow can have multiple `steps` and `jobs` and a repository can have multiple workflows
 
@@ -474,7 +474,7 @@ jobs:
           bio: ${{ github.event.inputs.bio }}
 ```
 
-# Run the Action
+## Run the Action
 
 To run the action, we first need to get everything to GitHub. From Repo directory, in the terminal, run the following commands:
 
@@ -488,7 +488,7 @@ Then, go to your repository on GitHub and click on the `Actions` tab. You should
 
 From GitHub, you are also able to inspect and view any logs or errors from a Workflow run. If the workflow fails you can also take a look at the output that was thrown by the step that resulted in the failure
 
-# Summary
+## Summary
 
 And that's about it. We've taken a look at how you can use GitHub actions to automate a pretty silly task, but there's a lot more to using GitHub Actions, and the sky's the limit in terms of what you can use them for
 

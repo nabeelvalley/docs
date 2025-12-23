@@ -7,7 +7,7 @@ import Snippet from '@/components/Snippet.astro'
 
 > Notes based on [Algorithms, Part 1](https://www.coursera.org/learn/algorithms-part1/) on Coursera
 
-# Hashing
+## Hashing
 
 Hashing is done by saving items in a key-indexed table such that the index is some function of a key. The hash function then computes an array index from a specifc key
 
@@ -19,7 +19,7 @@ Some challenges we can run into are:
 
 This is an instance of a space-time tradeoff where we use more space to speed up our lookups
 
-## Computing a hash function
+### Computing a hash function
 
 - Ideally, we want to scramble keys uniquely to produce a table index
 - Efficient to compute
@@ -29,7 +29,7 @@ Practically, we need a different approach for each type of key
 
 Different languages may implement this differently, Java uses **Horner's method** for calculating this and you can utilize your own version for defining custom hashing fuctions
 
-# Separate Chaining
+## Separate Chaining
 
 Since it's likely that we will have collisions, we need a way to avoid collisions
 
@@ -43,13 +43,13 @@ This basically buckets the lists we have so that we can reduce how many items we
 
 We can use some other data structure for the specific chain but we could use some other kind of list that's more efficient to navigate
 
-## Analysis
+### Analysis
 
 It can be noted that our space vs time efficiency is related to the size of each chain as well as the complexity of the hashing
 
 This mechanism is suited for cases where we have a relatively simple hashing function and we don't need ordered iteration
 
-# Open Addressing
+## Open Addressing
 
 A method for this uses an algorithm called **Linear Probing** Use an array instead of using a linked list, an empty element indicates where we can add a value
 
@@ -63,7 +63,7 @@ It's essential that the array can be resized when the number of keys grows beyon
 
 A simple implementation of this can be done by storing an array of keys and an array of values
 
-## Clustering
+### Clustering
 
 Storage can become a concern in cases of hash tables like this since it is very space inefficient. A problem that compounds this is the occurence of clustering which leads to much longer operations when working with a Linear Probing based hash table
 
@@ -83,19 +83,19 @@ We have the following scenarios:
 - _M_ too small: search time increases
 - Typically uses: _a = N/M ~1/2_
 
-# Alternative Hashing Methods
+## Alternative Hashing Methods
 
 - **Two probe hashing** for separate-chaining
 - **Double hashing** for linear probing
 - **Cuckoo hashing** for linear probing
 
-# Comparison with Balanced Search Trees
+## Comparison with Balanced Search Trees
 
 Hash tables are simpler to code and are fast for simple keys
 
 Balanced search trees have a stronger performance guarantee
 
-# Additional Context
+## Additional Context
 
 Java 1.1 made use of a hashing function that only looked at every 8th position in a string in order to decrease then time spent on hashing, this led to really bad performance with typical data that may have collisions on these kinds of positions, for example URLs
 

@@ -7,13 +7,13 @@ description: Build, debug, and deploy serverless applications on AWS using SST a
 
 > Prior to doing any of the below you will require your `~/.aws/credentials` file to be configured with the credentials for your AWS account
 
-# Serverless Stack Framework
+## Serverless Stack Framework
 
 SST Framework is a framework built on top of CDK for working with Lambdas and other CDK constructs
 
 It provides easy CDK setups and a streamlined debug and deploy process and even has integration with the VSCode debugger to debug stacks on AWS
 
-## Init Project
+### Init Project
 
 To init a new project use the following command:
 
@@ -23,7 +23,7 @@ npx create-serverless-stack@latest my-sst-app --language typescript
 
 Which will create a Serverless Stack applocation using TypeScript
 
-## Run the App
+### Run the App
 
 You can run the created project in using the config defined in the `sst.json` file:
 
@@ -45,11 +45,11 @@ npm run start
 
 Additionally, running using the above command will also start the application with hot reloading enabled so when you save files the corresponding AWS resources will be redeployed so you can continue testing
 
-## The Files
+### The Files
 
 The application is structured like a relatively normal Lambda/CDK app with `lib` which contains the following CDK code:
 
-### Stack
+#### Stack
 
 `lib/index.ts`
 
@@ -111,7 +111,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (
 }
 ```
 
-## Add a new Endpoint
+### Add a new Endpoint
 
 Using the defined constructs it's really easy for us to add an additional endpoint:
 
@@ -175,7 +175,7 @@ export default class MyStack extends sst.Stack {
 }
 ```
 
-## VSCode Debugging
+### VSCode Debugging
 
 SST supports VSCode Debugging, all that's required is for you to create a `.vscode/launch.json` filw with the following content:
 
@@ -213,7 +213,7 @@ SST supports VSCode Debugging, all that's required is for you to create a `.vsco
 
 This will then allow you to run `Debug SST Start` which will configure the AWS resources using the `npm start` command and connect the debugger to the instance so you can debug your functions locally as well as make use of the automated function deployment
 
-## Add a DB
+### Add a DB
 
 > From [these docs](https://serverless-stack.com/examples/how-to-create-a-crud-api-with-serverless-using-dynamodb.html)
 
@@ -310,7 +310,7 @@ npm install uuid
 npm install aws-sdk
 ```
 
-## Define Common Structures
+### Define Common Structures
 
 We'll also create some general helper functions for returning responses of different types, you can view the details for their files below but these just wrap the response in a status and header as well as stringify the body
 
@@ -372,7 +372,7 @@ type Note = {
 export default Note
 ```
 
-## Access DB
+### Access DB
 
 Once we've got a DB table defined as above, we can then access the table to execute different queries
 
@@ -382,7 +382,7 @@ We would create a DB object instance using:
 const db = new DynamoDB.DocumentClient()
 ```
 
-### Create
+#### Create
 
 A `create` is the simplest one of the database functions for us to implement, this uses the `db.put` function with the `Item` to save which is of type `Note`:
 
@@ -392,7 +392,7 @@ const create = async (tableName: string, item: Note) => {
 }
 ```
 
-### Get
+#### Get
 
 We can implement a `getOne` function by using `db.get` and providing the full `Key` consisting of the `userId` and `noteId`
 
@@ -412,7 +412,7 @@ const getOne = async (tableName: string, noteId: string, userId: string) => {
 }
 ```
 
-### GetAll
+#### GetAll
 
 We can implement a `getByUserId` function which will make use of `db.query` and use the `ExpressionAttributeValues` to populate the `KeyConditionExpression` as seen below:
 
@@ -432,11 +432,11 @@ const getByUserId = async (tableName: string, userId: string) => {
 }
 ```
 
-## Define Lambdas
+### Define Lambdas
 
 Now that we know how to write data to Dynamo, we can implement the following files for the endpoints we defined above:
 
-### Create
+#### Create
 
 `src/notes/create.ts`
 
@@ -495,7 +495,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (
 }
 ```
 
-### Get
+#### Get
 
 `src/notes/get.ts`
 
@@ -628,7 +628,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (
 }
 ```
 
-### GetAll
+#### GetAll
 
 `src/notes/getAll.ts`
 
@@ -687,7 +687,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (
 }
 ```
 
-### Testing
+#### Testing
 
 Once we've got all the above completed, we can actually test our endpoints and create and read back data
 
@@ -751,7 +751,7 @@ GET htttps://AWS_ENDPOINT_HERE/notes?userId=USER_ID
 ]
 ```
 
-## Creating Notes Using a Queue
+### Creating Notes Using a Queue
 
 When working with microservices a common pattern is to use a message queue for any operations that can happen in an asynchronous fashion, we can create an SQS queue which we can use to stage messages and then separately save them at a rate that we're able to process them
 
@@ -786,7 +786,7 @@ lambda1 -> sqs
            sqs -> lambda4           // send an email
 ```
 
-### Create Queue
+#### Create Queue
 
 SST provides us with the `sst.Queue` class that we can use for this purpose
 
@@ -876,7 +876,7 @@ export default class MyStack extends sst.Stack {
 }
 ```
 
-### Update the Create Handler
+#### Update the Create Handler
 
 Since we plan to create notes via a queue we will update our `create` function in the handler to create a new message in the `queue`, this is done using the `SQS` class from `aws-sdk`:
 
@@ -1007,7 +1007,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (
 }
 ```
 
-### Add Queue-Based Create Handler
+#### Add Queue-Based Create Handler
 
 Now that we've updated our logic to save the notes into the `queue`, we need to add the logic for the `src/consumers/createNote.handler` consumer function as we specified above, this handler will be sent an `SQSEvent` and will make use of the DynamoDB Table we gave it permissions to use
 
@@ -1120,7 +1120,7 @@ export const handler: SQSHandler = async (event) => {
 
 This completes the implementation of the asynchronous saving mechanism for notes. As far as a consumer of our API is concerned, nothing has changed and they will still be able to use the API exactly as we had in the [Testing section above](#testing)
 
-# Deploy
+## Deploy
 
 Thus far, we've just been running our API in `debug` mode via the `npm run start` command, while useful for testing this adds a lot of code to make debugging possible, and isn't something we'd want in our final deployed code
 
@@ -1130,7 +1130,7 @@ Deploying using `sst` is still very easy, all we need to do is run the `npm run 
 npm run deploy
 ```
 
-# Teardown
+## Teardown
 
 Lastly, the `sst` CLI also provides us with a function to teardown our `start`/`deploy` code. So once you're done playing around you can use this to teardown all your deployed services:
 

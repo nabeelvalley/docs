@@ -7,20 +7,20 @@ import Snippet from '@/components/Snippet.astro'
 
 > Notes based on [Algorithms, Part 1](https://www.coursera.org/learn/algorithms-part1/) on Coursera
 
-# Symbol Table API
+## Symbol Table API
 
 The idea is to have some kind of key-value association
 
 - Insert a value with a specified key
 - Given a key, search for the corresponding value
 
-## Basic Table API
+### Basic Table API
 
 The basic idea is to use an **Associative Array** such that we have the following definition:
 
 <Snippet path="algorithms/symbol-table/definition.ts" />
 
-## Keys and Values
+### Keys and Values
 
 For Values:
 
@@ -42,7 +42,7 @@ The requirements for equality are as follows:
 
 > For the sake of simplicity we'll keep our implementation of keys to types that can be compared directly using the javascript `===` operator
 
-## Elementary Implementation
+### Elementary Implementation
 
 - Unordered List/Sequential Search
   - We could keep a list with a key-value pair in the array
@@ -61,7 +61,7 @@ The requirements for equality are as follows:
 
 The best above implementation is the binary search but it's still fairly slow for insertion - we want to find an implementation that's more efficient than this
 
-## Ordered Operations
+### Ordered Operations
 
 When considering a symbol table it may sometimes be relevant to do things like
 
@@ -76,7 +76,7 @@ The API for an ordered symbol table is as follows
 
 <Snippet path="algorithms/symbol-table/definition.ts" />
 
-## Binary Search Trees
+### Binary Search Trees
 
 Enables us to provide an efficient implementation of symbol tables
 
@@ -91,9 +91,9 @@ In a binary search tree each node has a key and every key is larger than all tre
 
 To implement this we will extend the implementation of a linked list which is doubly linked such
 
-### BST Operations
+#### BST Operations
 
-#### Get
+##### Get
 
 When searching a binary tree, we start at the root and compare the value:
 
@@ -110,7 +110,7 @@ The implementation of this can be seen below:
   collapse={['1-32', '46-999']}
 />
 
-#### Insert
+##### Insert
 
 Follow a similar process as we did for searching, but when we get to a null node then we insert the new node there
 
@@ -121,7 +121,7 @@ An important distinction in the insertion implementation is that we recursively 
   collapse={['1-45', '67-999']}
 />
 
-### Tree Shape
+#### Tree Shape
 
 In the case of a BST the number of compares in the above operations is 1+node depth
 
@@ -129,9 +129,9 @@ Depending on how insertion works, we can end up in a tree which is heavily skewe
 
 The implementation of a BST is very similar to the idea behind how quicksort works
 
-### Ordered BST Operations
+#### Ordered BST Operations
 
-#### Max and Min
+##### Max and Min
 
 To find the max value just keep moving right and to find the min value we just keep moving to the left
 
@@ -140,7 +140,7 @@ To find the max value just keep moving right and to find the min value we just k
   collapse={['1-67', '81-999']}
 />
 
-#### Floor and Ceil
+##### Floor and Ceil
 
 To get the floor we need to consider the following:
 
@@ -155,17 +155,17 @@ The ceiling implementation is the same but we traverse the other way instead. We
   collapse={['1-81', '127-999']}
 />
 
-#### Counts
+##### Counts
 
 Implementing counts can be done by adding a count field to each node which is the number of nodes in that subtree
 
 The way we maintain this is by setting the count of a node as `1+size(left)+size(right)`
 
-#### Rank
+##### Rank
 
 Implementing Rank makes use of these subcounts to determine which sides of a tree to traverse and get the next resulting values in a recursive manner
 
-#### In Order Traversal
+##### In Order Traversal
 
 The method for traversing the tree in order is as follows:
 
@@ -175,7 +175,7 @@ The method for traversing the tree in order is as follows:
 
 Implementing the above recursively leads to us having an ordered queue of keys
 
-### Deletion
+#### Deletion
 
 To delete we can implement a few different solutions. The lazy approach is to remove the value at a key but then we end up accumulating keys in our table
 
@@ -192,7 +192,7 @@ The problem with the Hibbard deletion process leads to the tree becoming imbalan
 
 After a lot of deletes the shape of the tree changes which has a considerable negative impact on the performance of the data structure. This leads to operations on the tree being `O(sqrt(N))`
 
-## 2-3 Trees 
+### 2-3 Trees 
 
 Generalize BSTs to provide some flexibility in defining performance by using trees that can either have:
 
@@ -202,7 +202,7 @@ Generalize BSTs to provide some flexibility in defining performance by using tre
 - Perfect balance: every path from root to end has the same length
 - Symmetric order: in-order traversal returns keys in ascending order
 
-### Searching
+#### Searching
 
 - Compare search key against keys in node
 - Find relevant link
@@ -211,7 +211,7 @@ Generalize BSTs to provide some flexibility in defining performance by using tre
   - Between keys = between link
 - Follow the relevant link recursively
 
-### Insertion
+#### Insertion
 
 - Search for key
 - Either
@@ -224,12 +224,12 @@ Generalize BSTs to provide some flexibility in defining performance by using tre
 
 Splitting nodes is a local transformation and thereby has a constant number of operations
 
-### Invariants
+#### Invariants
 
 - Maintain symmetric order and perfect balance
 - Each transformation should maintain symmetric order and perfect balance
 
-### Performance
+#### Performance
 
 Since we have perfect balance, every path from the root to the end has the same lenght
 
@@ -238,11 +238,11 @@ Tree height:
 - Worst case: lg N (all 2-nodes)
 - Best case: log3 N (all 3 nodes)
 
-### Implementation
+#### Implementation
 
 Implementation of this is possible but it's quite complicated and there is an easier way to implement this          
 
-## Left-leaning Red-Black BSTs
+### Left-leaning Red-Black BSTs
 
 - Represent a 2-3 tree as a BST
 - Use internal left-leaning links as 3-nodes
@@ -253,15 +253,15 @@ This is a BST such that:
 - Every path from root to link has the same number of black links
 - Red links lean right
 
-### Search
+#### Search
 
 Search is exactly the same as for a BST but is much faster due to the tree remaining balanced
 
-### Representation
+#### Representation
 
 To represent a red-black BST we use the BST definition we had previously but 
 
-### Left Rotation
+#### Left Rotation
 
 Sometimes when working with a tree we may end up with a right-leaning red link. We may want to update this to rotateLeft instead which can be done as follows:
 
@@ -272,7 +272,7 @@ Sometimes when working with a tree we may end up with a right-leaning red link. 
 
 The important part of the left rotation is that it maintains symmetric order and perfect black balance
 
-### Right Rotation
+#### Right Rotation
 
 Sometimes to insert a value it is necessary to temporarily rotat a link right, this can also be done as follows:
 
@@ -281,7 +281,7 @@ Sometimes to insert a value it is necessary to temporarily rotat a link right, t
   collapse={['1-49', '61-999']}
 />
 
-### Flip Colors
+#### Flip Colors
 
 When a node has two child links that are both red this represents a 4-node. In order to split a 4-node it is simply necessary to
 
@@ -293,7 +293,7 @@ When a node has two child links that are both red this represents a 4-node. In o
   collapse={['1-61', '71-999']}
 />
 
-### Insertion
+#### Insertion
 
 When inserting we want to maintain the 2-3 accordance. 
 
@@ -313,11 +313,11 @@ When inserting we want to maintain the 2-3 accordance.
 />
 
 
-### Performance
+#### Performance
 
 Lerft leaning red-black trees will approach lg 2 N hehght, in the worst case it will be 2 lg N
 
-## B Trees
+### B Trees
 
 Given some contstraints such as a file system, we have the following:
 
@@ -335,7 +335,7 @@ B-trees generalize 2-3 trees by allowing up to M-1 key-link pairs per node where
 
 In practive, the number of probes in a B-tree is at most 4, an optimization that's possible is to keep the root page in memory at all times
 
-## Performance Overview
+### Performance Overview
 
 | Implementation                  | Guarantee |        |        | Average   |           |         | Ordered Iteration |
 | ------------------------------- | --------- | ------ | ------ | --------- | --------- | ------- | ----------------- |
@@ -346,7 +346,7 @@ In practive, the number of probes in a B-tree is at most 4, an optimization that
 | 2-3 Tree                        | c lg N    | c lg N | c lg N | c lg N    | c lg N    | c lg N  | yes               |
 | Left Leaning Red-Black Tree     | 2 lg N    | 2 lg N | 2 lg N | lg N      | lg N      | lg N    | yes               |
 
-# Sets
+## Sets
 
 Basically just a set without anything to do with `value`
 
@@ -356,12 +356,12 @@ Basically just a set without anything to do with `value`
 - `size`
 - `iterator`
 
-# Indexing
+## Indexing
 
 - File indexing: Build a Symbol Table with `key` as some search term, and `value` as a `Set<File>`
 - Concordance indexing: Build a Symbol Table with `key` and `value` as `Set<Integer>` where we reference the position in the array where a given `key` occurs
  
-# Sparse Vectors/Matrices
+## Sparse Vectors/Matrices
 
 In many usecases we have matrices with very few non-zero values and very large sizes, we can take advantage of these by using Symbol tables to only store the keys and values, otherwise we can assume a `0`
 

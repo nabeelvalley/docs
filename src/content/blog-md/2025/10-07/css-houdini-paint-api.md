@@ -12,7 +12,7 @@ The CSS Houdini APIs use the idea of "worklets" which are basically JS files tha
 
 For the sake of this example, I'll be looking specifically at the CSS Painting API to build a custom CSS `paint` worklet
 
-# The CSS `paint` function
+## The CSS `paint` function
 
 Before getting into specifics around how to implement a worklet, it's nice to see what we're trying to get to. Worklets are effectively JS functions that we can "call" from our CSS code to modify how an element is rendered. The CSS Painting API exposes a `paint` function in CSS. Let's assume we have a worklet called `myCustomPainter`
 
@@ -32,7 +32,7 @@ And we can style this using the CSS `paint` function with the name of our workle
 
 This will invoke our worklet to `paint` a custom background for our element
 
-# The Methods Available
+## The Methods Available
 
 The CSS Paint API exposes a few different methods and bits of functionality to us
 
@@ -93,7 +93,7 @@ declare type PaintRenderingContext = CanvasRenderingContext2D
 declare type PaintSize = { height: number, width: number }
 ```
 
-# Defining a Worklet
+## Defining a Worklet
 
 A simple Paint class without any input properties looks something like this:
 
@@ -131,7 +131,7 @@ import { MyCustomPainter } from "./my-painter";
 MyCustomPainter.registerPaint()
 ```
 
-# Taking Inputs
+## Taking Inputs
 
 In order for our worklet to do something fun we will probably want to take some inputs. We can specifiy which CSS properties (or custom properties) we want to use as an input - we do this via `inputProperties`. We can also register a custom property by using `CSS.registerProperty`
 
@@ -199,7 +199,7 @@ It's also nice to note that since we've specified that `--custom-painter-color` 
 
 And that's really about it. The API is pretty simple but powerful and makes it possible to do so much
 
-# The Complete Worklet
+## The Complete Worklet
 
 ```html title="index.html"
 <h1 class="fancy">Hello world</h1>
@@ -296,7 +296,7 @@ declare type PaintRenderingContext = CanvasRenderingContext2D
 declare type PaintSize = { height: number, width: number }
 ```
 
-# References
+## References
 
 There are loads of things you can do with the Houdini APIs, some things I recommend reading and taking a look at on this topic are:
 
@@ -305,7 +305,7 @@ There are loads of things you can do with the Houdini APIs, some things I recomm
 - [CSS Houdini Experiments](https://css-houdini.iamvdo.me/)
 - [MDN CSS Houdini Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_properties_and_values_API/Houdini)
 
-# Notes
+## Notes
 
 It's kinda annoying how many moving parts this has and that makes it a little challenging to include a live example on this blog. Hopefully the other examples I've linked above will serve this purpose
 

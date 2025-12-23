@@ -5,7 +5,7 @@ title: Fibonacci with Tabulation
 
 import Snippet from '@/components/Snippet.astro'
 
-# Problem
+## Problem
 
 Calculate the nth number in the Fibbonnaci sequence with:
 
@@ -23,7 +23,7 @@ The tabulation strategy consists of building a table but we think of the problem
 
 In this tabular representation something important to note is that for the value of `n=6` we have an array with the **indices 0 to 6** and a **length of 7**
 
-# Tabulation Implementation
+## Tabulation Implementation
 
 For our implementation we will define a table that has a position for each value we want. For our starting seed we will define an array of 0s and a 1 at index 1, from here we will step through each item and add it to the following two items. This is a bit of a different perspective on the Fibonacci problem than in the [Recursive Fibonacci example](/dynamic-programming/memoization/2-fib)
 

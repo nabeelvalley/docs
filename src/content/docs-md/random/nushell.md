@@ -6,15 +6,15 @@ description: Nushell Commands and Usage
 
 > [Nushell Docs](https://www.nushell.sh)
 
-# About
+## About
 
 Nushell makes use of command outputs as data that can be transformed, it makes use of pipes that connnect commands together in a functional-programming usage style
 
-# Thinking in Nu
+## Thinking in Nu
 
 Nushell works with results using pipes, this is similar to `>` in bash but isn't exactly the same
 
-## Immutability
+### Immutability
 
 Variables are immutable, however values can be shadowed, so I can create a shadowing `x` based on a previous `x` like so:
 
@@ -22,7 +22,7 @@ Variables are immutable, however values can be shadowed, so I can create a shado
 let x = $x + 1
 ```
 
-## Scoping
+### Scoping
 
 Nushell uses scoped environmments in blocks, so a command can use a value within its scope like so:
 
@@ -33,9 +33,9 @@ ls | each { |it|
 }
 ```
 
-# Fundamentals
+## Fundamentals
 
-### Types of Data
+#### Types of Data
 
 The `describe` command returns the type of a variable
 
@@ -43,7 +43,7 @@ The `describe` command returns the type of a variable
 42 | describe
 ```
 
-### Conversions
+#### Conversions
 
 The `into` command can convert variable types
 
@@ -55,7 +55,7 @@ The `into` command can convert variable types
 "1.2" | into decimal
 ```
 
-### Strings
+#### Strings
 
 Strings can be created as:
 
@@ -64,11 +64,11 @@ Strings can be created as:
 3. Interpolated: `$"my number = (40 + 2)"`
 4. Bare: `hello`
 
-### Bools
+#### Bools
 
 Booleans are simply `true` and `false`
 
-### Dates
+#### Dates
 
 Dates can be in the following formats:
 
@@ -76,7 +76,7 @@ Dates can be in the following formats:
 - `2022-02-02T14:30:00`
 - `2022-02-02T14:30:00+05:00`
 
-### Durations
+#### Durations
 
 Nushell has the following durations:
 
@@ -101,11 +101,11 @@ Or in calculations
 30day / 1sec
 ```
 
-### Ranges
+#### Ranges
 
 Ranges can be done as `1..3` for example, by default the end is inclusive, ranges can also be open ended `..2` or `2..`
 
-### Records
+#### Records
 
 Records hold key-value pairs, and may or may not have commas between entry names:
 
@@ -133,7 +133,7 @@ Or
 {name: john age: 5}."age"
 ```
 
-### Lists
+#### Lists
 
 Lists are ordered sequences of data and use `[]` with optional `,` separators. The below will create alist of strings
 
@@ -155,7 +155,7 @@ Or using ranges:
 [sam fred george] | range 0..1
 ```
 
-### Tables
+#### Tables
 
 Tables can be created with the following syntax:
 
@@ -171,7 +171,7 @@ Tables can also be created from json
 
 > Internally tables are just a list of records
 
-### Blocks
+#### Blocks
 
 Blocks of code are denoted using `{}`, for example:
 
@@ -179,7 +179,7 @@ Blocks of code are denoted using `{}`, for example:
 each { |it| print $it }
 ```
 
-### Filtering
+#### Filtering
 
 The most common way to filter data is using `where`, this has a few different ways it can be used
 
@@ -207,9 +207,9 @@ Or, inferring the the closure param with `$in` to make it easier to type:
 ls | where {$in.name | str starts-with "package"}
 ```
 
-## Loading Data
+### Loading Data
 
-### Open Files
+#### Open Files
 
 Files can be opened with the `open` command:
 
@@ -225,7 +225,7 @@ If a file extension isn't what the type usually has, we can still parse the file
 open Cargo.lock | from toml
 ```
 
-### Manipulating Strings
+#### Manipulating Strings
 
 String data can be manipulated using things like the `lines` command which will split each line into a row:
 
@@ -251,7 +251,7 @@ And lastly, we can transform it into a table with formal column names with some 
 open people.txt | lines | split column "|" first_name last_name job | str trim
 ```
 
-### Fetch Urls
+#### Fetch Urls
 
 We can also fetch remote files which will then also be converted into data like so:
 
@@ -259,9 +259,9 @@ We can also fetch remote files which will then also be converted into data like 
 fetch https://blog.rust-lang.org/feed.xml
 ```
 
-# Cheatsheet
+## Cheatsheet
 
-## Moving around the File System
+### Moving around the File System
 
 Nushell provides commands for normal file-system related tasks which are similar to common commands such as:
 
@@ -269,7 +269,7 @@ Nushell provides commands for normal file-system related tasks which are similar
 ./hello/world # will cd to the directory
 ```
 
-## Listing Files
+### Listing Files
 
 ```sh
 ls
@@ -287,7 +287,7 @@ Or even globs
 ls **/*.md
 ```
 
-## Globs
+### Globs
 
 You can also use the `glob` method directly to find files recursively:
 
@@ -298,7 +298,7 @@ glob **/*.png
 > The `glob` method returns a list of strings versus the `ls` method which returns a list of file objects
 
 
-### Stopping All Docker Containers
+#### Stopping All Docker Containers
 
 The Docker CLI outputs data that's nicely structured for working with the NuShell table structure.
 
@@ -308,7 +308,7 @@ We can kill all containers by parsing the data into a table and stopping them in
 docker container ls | from ssv | select "CONTAINER ID" | each { |i| docker container stop $i."CONTAINER ID" } 
 ```
 
-## Config
+### Config
 
 Some utils from my current `config.nu`, primarily for working with Git
 
@@ -326,7 +326,7 @@ alias gprune = git remote prune origin
 alias conf = code $nu.config-path
 alias env = code $nu.env-path
 
-# Deletes all branches other than the current branch
+## Deletes all branches other than the current branch
 def gclean [] {
   git branch 
   | lines 
@@ -355,7 +355,7 @@ def dev [repo:string] {
   code $"~/repos/$repo"
 }
 
-# Search for a string or regex using `rg -i`
+## Search for a string or regex using `rg -i`
 def search [
     regex:string, # regex or string to search on 
     -i # Run the search as case insensitive
@@ -367,7 +367,7 @@ def search [
   }
 }
 ```
-## Watch Mode
+### Watch Mode
 
 > [watch command docs](https://www.nushell.sh/commands/docs/watch.html)
 
@@ -381,7 +381,7 @@ watch /some/path {|op, path, new_path| echo "things have changed" }
 watch /some/path --glob=**/*.json { echo "things have changed" }
 ```
 
-## Notifiy
+### Notifiy
 
 A little script that's also useful to have is this one that will notify you when a task completes. It's a handy way to be notified when a long running task completes
 
@@ -404,21 +404,21 @@ my-command long-task | notify "My Long Task is Completed"
 
 It will also handle printing the output from the task being run
 
-# The `$in` value and closures
+## The `$in` value and closures
 
-## Pass streams as arguments using `$in` 
+### Pass streams as arguments using `$in` 
 
 The `$in` can be implicitly accessed as the value that's piped into another command. Basically, this means that the following tao commands are equal:
 
 ```nu
-# passing it normally
+## passing it normally
 echo (open hello.txt)
 
-# passing with $in
+## passing with $in
 open hello.txt | echo $in
 ```
 
-## Passing Multiple Strings
+### Passing Multiple Strings
 
 Nushell supports a spread-type operator for passing a list from input into a space-separated command kind of like xargs:
 
@@ -428,7 +428,7 @@ ls *.json | get name | yarn prettier --write ...$in
 
 > The `...$in` spreads the input stream into a space-separated list
 
-## Usage with Functions and Closures
+### Usage with Functions and Closures
 
 Nushell functions can also use an implicit input parameter, this can be used when defining a function, for example:
 
@@ -449,16 +449,16 @@ Additionally, note that `example "Hello World!"` will not work since `$in` param
 It's also possible to use `$in` when we epect a closure which lets us leave out the parameter definition, for example, we can run `ls` in all subdirectories of an input like so:
 
 ```sh
-# Using a normal closure
+## Using a normal closure
 ls | each { |f| ls $f.name }
 
-# Using `$in`
+## Using `$in`
 ls | each { ls $in.name }
 ```
 
 The `{ ls $in.name }` is the same as a closure like `{|f| ls $f.name }` so it's a bit easier to type in this scenario as well.
 
-# Parsing
+## Parsing
 
 The `parse` function can be used to read some string into a usable data structure, take the following file for example:
 
@@ -480,7 +480,7 @@ open data.txt | lines | parse "{name} {surname}, age: {age}"
 ╰───┴──────┴─────────┴─────╯
 ```
 
-## Detecting Columns
+### Detecting Columns
 
 In simple cases instead of parsing some text you can also use `detect columns`. For example using a file like this:
 
@@ -527,7 +527,7 @@ git status --porcelain | detect columns --no-headers | rename status file
 ╰───┴────────┴──────────╯
 ```
 
-## Input
+### Input
 
 You can take in user input using the `input` function, this allows for dynamic imput. This is handy for doing a search over some list, for example composing it with the above:
 
@@ -535,27 +535,27 @@ You can take in user input using the `input` function, this allows for dynamic i
 open data.txt | lines | parse "{name} {surname}, age: {age}" | input list 'Search for User' --fuzzy 
 ```
 
-# Closures
+## Closures
 
 Nushell does something quite interesting with closures. Since everything is immutable it's possible to do environment-changing operations in a somewhat contained way.
 
 For example, I can `do` some stuff like moving to a different folder, but I will not be affected outside of the closure
 
 ```sh
-# in the `root` folder
+## in the `root` folder
 do { cd ./my-child | ls } # within the closure i am inside of the `my-child` folder
-# back to the `root` folder
+## back to the `root` folder
 ```
 
 Or  I can `cd` into each folder and `ls` each of them, while remaining in my parent folder.
 
 ```sh
-# in the `root` folder
+## in the `root` folder
 ls | where type == dir | each { cd $in.name | ls }
-# back to the `root` folder
+## back to the `root` folder
 ```
 
-# Parallel
+## Parallel
 
 Due to the isolation that closures afford us, we can also run these in parallel, nushell has parallel methods of some commands, e.g. the `each` command, which can be used with `par-each`:
 
@@ -565,7 +565,7 @@ ls | where type == dir | par-each { cd $in.name | ls }
 
 This works the same but is much faster for large/complex tasks
 
-# Timer
+## Timer
 
 Nushell also has a `timeit` command that can be used to time the execution of any block, for example:
 
@@ -573,7 +573,7 @@ Nushell also has a `timeit` command that can be used to time the execution of an
 timeit { ls | each { print $in.name } }
 ```
 
-# Pipes
+## Pipes
 
 Pipes are done using `|`, for example:
 
@@ -584,19 +584,19 @@ cat myfile.txt | lines
 We can also more specifically pipe the `stdout` or `strerr` streams using the following syntaxes
 
 ```sh
-# stdout only
+## stdout only
 dostuff | lines
 
-# stderr only
+## stderr only
 dostuff err>| lines
 dostuff e>| lines
 
-# stderr + stdout
+## stderr + stdout
 dostuff out+err> lines
 dostuff o+e> lines
 ```
 
-# Completion
+## Completion
 
 You can also capture the `stdout`, `stderr`, and `exit_code` using the `complete` command like so:
 

@@ -9,7 +9,7 @@ Implementing an attribute for a WebAPI or class in C# can help to reduce duplica
 
 In this post I'm going to cover the following:
 
-# Attribute Types and Execution Order
+## Attribute Types and Execution Order
 
 There are a few different attribute types that we can handle on a WebAPI that provide us with the ability to wrap some functionality around our endpoints, below are some of the common attributes that we can implement and the order in which they execute ([StackOverflow](https://stackoverflow.com/questions/19249511/difference-between-iactionfilter-and-iauthorizationfilter))
 
@@ -18,7 +18,7 @@ There are a few different attribute types that we can handle on a WebAPI that pr
 3. Result - `IResultFilter`
 4. Exception - `IExceptionFilter`
 
-## IActionFilter
+### IActionFilter
 
 The `IActionFilter` executes before and after a method is executed and contains two different methods for doing this, namely the `OnActionExecuting` and `OnActionExecuted` methods respectively. A basic implemtation of `IActionFilter` would look like this:
 
@@ -64,7 +64,7 @@ The order of logging which we see will be as follows:
 3. `Executing Get` when the controller is executed
 4. `OnActionExecuted` when the controller is done executing
 
-## IAuthorizationFilter
+### IAuthorizationFilter
 
 The `IAuthorizationFilter` executes as the first filter on a controller's method call
 
@@ -104,7 +104,7 @@ The order of logging which we see will be as follows:
 2. `OnAuthorization` when the controller is called
 3. `Executing Get` when the controller is executed
 
-# Modify Response Data
+## Modify Response Data
 
 An attribute's `context` parameter gives us ways by which we can access the `HttpContext` as well as set the result of a method call so that it can be handled down the line. For example, we can implement our CustomAuthorize attribute with the following:
 
@@ -122,7 +122,7 @@ public void OnAuthorization(AuthorizationFilterContext context)
 
 This will mean that if we set the `context.Result` in our method then the controller will not be executed and the endpoint will return the `UnauthorizedResult` early. You can also see that we're able to access things like the `HttpContext` which makes it easy for us to view the request/response data and do things based on that
 
-# Attribute on a Class
+## Attribute on a Class
 
 Note that it's also possible to apply the above to each method in a class by adding the attribute at the top of the class declaration:
 
@@ -135,7 +135,7 @@ public class WeatherForecastController : ControllerBase
   ...
 ```
 
-# Attributes with Input Parameters
+## Attributes with Input Parameters
 
 We are also able to create attributes that enable the consumer to modify their behaviour by taking input parameters to the constructor, we can update our `LogStatus` attribute to do something like add a prefix before all logs:
 
@@ -184,7 +184,7 @@ So the new output will look like so:
 3. `Executing Get` when the controller is executed
 4. `WeatherForecast-Get:OnActionExecuted` when the controller is done executing
 
-# Attribute Setting at Class and Method Level
+## Attribute Setting at Class and Method Level
 
 Since an attribute can be implemented at a class and method level it's useful for us to be able to implement it at a class and the override the behaviour or add behaviour for a specific method
 

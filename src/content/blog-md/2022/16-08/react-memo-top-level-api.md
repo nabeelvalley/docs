@@ -5,11 +5,11 @@ subtitle: 16 August 2022
 description: Using the react top-level API for debouncing and selectively rendering a component for better performance
 ---
 
-# React Top Level API
+## React Top Level API
 
 The React library contains some functions at it's top level scope. Amongst these are the built-in hooks (like `useState`, `useCallback`, etc.) as well as some other functions for manipulating React Elements directly - which I've covered in a previous post on [The React Top Level API](../01-03/react-top-level-api.md)
 
-# Component Rendering
+## Component Rendering
 
 By default, React will trigger a component render whenever there is a change to its `state` or `props`. `React.memo` allows us to take control of the `props` triggered render by giving us a way to look into the prop-change process
 
@@ -17,7 +17,7 @@ By default, React will trigger a component render whenever there is a change to 
 
 Doing the above is useful for complex components that don't necessarily need to be rendered every time their props are changed
 
-# API Definition
+## API Definition
 
 [The React Docs](https://reactjs.org/docs/react-api.html#reactmemo) give us the following example for the `React.memo` HOC:
 
@@ -41,7 +41,7 @@ The component `MyComponent` will be rendered whenever props are changed, however
 
 We can then use `MyComponentMemo` in place of `MyComponent` to take control of when the component is rendered
 
-# Rendering On a Specific Type of Change
+## Rendering On a Specific Type of Change
 
 Say we have the specific component `TimeDisplay` which shows the time that's being passed into it from `App`:
 
@@ -125,16 +125,16 @@ export default function App() {
 }
 ```
 
-# Conclusion
+## Conclusion
 
 From the above implementation we can see that it's possible to delay rendering of a component using `React.memo` if the component doesn't need to be re-rendered, hence improving performance by decreasing the number of renders react needs to carry out
 
-# REPL
+## REPL
 
 The REPL with the example above can seen below:
 
 <iframe height="700px" width="100%" src="https://replit.com/@nabeelvalley/react-memo-demo?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
 
-# References
+## References
 
 - [The React Docs](https://reactjs.org/docs/react-api.html#reactmemo)

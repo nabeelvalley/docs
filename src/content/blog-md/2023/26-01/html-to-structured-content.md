@@ -5,13 +5,13 @@ subtitle: 26 January 2023
 description: Transforming HTML into structured data to work with EditorJS
 ---
 
-# Isn't HTML a structure?
+## Isn't HTML a structure?
 
 HTML content is structured as a tree - while this is useful for the medium, this structure isn't very convenient for transforming into data that can be used outside of the web or with libraries that use content in a more flat structure
 
 While building [Articly](https://articly.vercel.app) I wanted to use a library called [EditorJS](https://editorjs.io) for displaying and making text content interactive. An immediate problem I ran into was importing content into the editor since it requires the data in a specific format - which is not HTML but rather an array of objects with simplified content
 
-# StackOverflow is helpful sometimes
+## StackOverflow is helpful sometimes
 
 In order to get the content into the EditorJS format, I needed to find a way to transform the HTML that I had from scraping the web and reading RSS feeds into something I could use as some kind of base
 
@@ -49,7 +49,7 @@ function treeHTML(element, object) {
 
 Using the above as a guideline, I concluded that the main thing that I need was to iterate over the HTML content in a way that would allow me to build a content array which is recursive - the idea at this point is not to remove the tree structure, but rather to transform it into something that's a bit easier to work with
 
-# A different tree
+## A different tree
 
 Now that I had an idea of how to approach the problem, the next step was to define the structure I wanted, below is the final structure I decided on:
 
@@ -162,7 +162,7 @@ The `transformed` data looks something like this:
 
 Not too dissimilar to the structure raw HTML we would have had if we just used `DOMParser` directly, however it now has a lot less noise
 
-# Deforestation
+## Deforestation
 
 As I mentioned earlier, we need to transform the data into a flat array of items - so the question that comes up now is - how do we do that?
 
@@ -205,7 +205,7 @@ This is our end goal. In order to get here we still have to figure out two thing
 1. How can we separate out the containers from the content
 2. How can we transform the content into the structure that's useful to us
 
-# Separating the leaves from the wood
+## Separating the leaves from the wood
 
 If we think as containers as having no meaningful data, and just being containers for content, then we can conclude that a way to view the data structure is as an array of content - the container is the array, and the content is the items in the array
 
@@ -267,7 +267,7 @@ Much better, but now we've introduced something weird - instead of just returnin
 
 So this is pretty great, and is the general idea of how we can unwrap things - next up we can talk about transforming the specific elements into useful data blocks
 
-# Building blocks
+## Building blocks
 
 EditorJS has different sections - blocks as it calls them - of content. These are simple Javascript objects that represent the data for the block
 
@@ -349,7 +349,7 @@ const convertImage = (data: TransformResult): ImageBlock | undefined =>
     : undefined
 ```
 
-# Putting it all together
+## Putting it all together
 
 So now that we know how to transform the HTML into something useful, remove the wrappers, and represent individual HTML sections as content blocks, we can put it all together into something that lets us convert a section of HTML fully:
 
@@ -462,7 +462,7 @@ const convert = (el: Element): Block[] => {
 }
 ```
 
-# Adding more content types
+## Adding more content types
 
 That's about it, to handle more specific types of content or other HTML elements is just a matter of following the recipe that we did above:
 
@@ -472,7 +472,7 @@ That's about it, to handle more specific types of content or other HTML elements
 
 If you roll this out for loads of elements you'll eventually have a pretty robust converter
 
-# Conclusion
+## Conclusion
 
 That's it! We've covered the basics for building a transformer like this, and once you have a good feel for how this works, the concepts can be applied to loads of different usecases
 

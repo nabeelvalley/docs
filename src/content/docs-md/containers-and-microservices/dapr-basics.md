@@ -1,4 +1,4 @@
-# What is Dapr?
+## What is Dapr?
 
 > Abbreivation for "Distributed Application Runtime"
 
@@ -6,7 +6,7 @@ Dapr is a runtime/framework for developing event-driven microservices and cloud-
 
 Dapr can be installed by following the relevant instructions from [the documentation](https://docs.dapr.io/getting-started/install-dapr-cli/)
 
-# Getting Started
+## Getting Started
 
 When using Dapr it's recommended that you also have Docker installed
 
@@ -45,7 +45,7 @@ d-----         3/16/2021   4:10 PM                components
 -a----         3/16/2021   4:10 PM            187 config.yaml
 ```
 
-# Run a Component
+## Run a Component
 
 To run an application/component on Dapr, you use the `dapr run` command
 

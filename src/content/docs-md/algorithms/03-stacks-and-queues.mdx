@@ -5,7 +5,7 @@ title: Stacks and Queues
 
 import Snippet from '@/components/Snippet.astro'
 
-# Stacks and Queues
+## Stacks and Queues
 
 - Collections of objects
 - Some simple operations: insert, remove, iterate, and test if empty
@@ -13,19 +13,19 @@ import Snippet from '@/components/Snippet.astro'
   - Stack - pop and push (LIFO)
   - Queue - enqueue and dequeue (FIFO)
 
-# Modular Programming
+## Modular Programming
 
 For the purpose of these types of data structures we want to completely separate the details of implementation from the specific client that we want to use. We want to design our libraries so that clients can choose different implementations and allows us to focus on performance where we would like to
 
-# Bags, Queues, and Stacks
+## Bags, Queues, and Stacks
 
-## Stack
+### Stack
 
 A stack stores some data, and should have the following interface:
 
 <Snippet path="algorithms/stack/definition.ts" />
 
-### Linked List
+#### Linked List
 
 Considering the above, we can implement this using a few different methods. For the first implement this using a linked list:
 
@@ -33,7 +33,7 @@ Considering the above, we can implement this using a few different methods. For 
 
 In this case pushing and popping is a constant time operation
 
-### Array
+#### Array
 
 And using an array:
 
@@ -41,13 +41,13 @@ And using an array:
 
 > Note that we have used the non-trivial implementation to demonstrate the general concept since in Javascript the builtin array type does everything we would need anyway. As a general note in array based implementations is that we need to consider that an array has a specific capacity that will need to be accounted for when pusing or popping elements. Even though this isn't really something we need to consider in Javascript the implementation assumes a bit of a more general concept of how arrays work
 
-### Considerations
+#### Considerations
 
 - Underflow: We probably want to throw if a client tries to pop from an empty stack
 - Overflow: We can use a resizing array to handle this and not require the client to provide us with a capacity
 - Loitering: Currently we still hold a reference to popped items in the stack, we can update our implementation to replace that reference in our array to better handle this
 
-## Resizing Arrays
+### Resizing Arrays
 
 To resize our array we will need to do some kind of copy every time we want to extend our array. Since copying an array is expensive we want to avoid having to do this too frequently. One strategy for choosing when to do this is called **repeated doubling** in which once we have filled the array we create a new array that is double the size of our old array and copy all the items into that
 
@@ -57,7 +57,7 @@ In this implementation the cost of inserting an item is `N` for cases where we a
 
 In the above implementation we do not resize shrink the array when the array is half full since we can end up in a situation where the consumer frequently pushes or pops value around this mark which will cause frequent array resizes and will be very expensive. A bit of a more general solution to this could be to wait until the array is a quarter full and then resize it to half the size which will help avoid some of this resizing
 
-### Tradeoffs
+#### Tradeoffs
 
 - Linked-list
   - Every operation takes constant time in the worst case
@@ -66,11 +66,11 @@ In the above implementation we do not resize shrink the array when the array is 
   - Every operation takes a constant amortized time
   - Less wasted space
 
-## Queue
+### Queue
 
 The definition of a Queue looks very similar to the Stack but the enqueue and dequeue operations work slightly differently
 
-### Linked List
+#### Linked List
 
 In a linked-list implementation we add items at the start of the list and remove them from the end
 
@@ -78,11 +78,11 @@ From an implementation standpoint we also need to keep track of the `last` and `
 
 <Snippet path="algorithms/queue/linked-list.ts" />
 
-## Iterators
+### Iterators
 
 An iterator is a data structure that implements the iterator and iterable interfaces in the respective language. This enables us to work with in loops and other language specific functionality
 
-## Javascript Definition
+### Javascript Definition
 
 In Javascript, the relevant definitions look like so:
 
@@ -114,23 +114,23 @@ interface IterableIterator<T> extends Iterator<T> {
 }
 ```
 
-## Range Iterator
+### Range Iterator
 
 For the purpose of our example, we can implement an iterator that will iterate over a range
 
 <Snippet path="algorithms/iterator/range.ts" />
 
-## Bag
+### Bag
 
 In some cases we don't particularly care about the sequencing but we just want t be able to add items and iterate throught the items that we added in any order - this is called a bag. The interface for how we can define a bag looks like such:
 
 <Snippet path="algorithms/iterator/bag.ts" />
 
-# Applications
+## Applications
 
 Lots of languages have the functionality that we discussed above but the reason you may want to implement your own is because these implementations try to address a lot of general cases but may not meet specific requirements that you require for your implementation, for example builtin library code may compromise between read and write operations for a list which may cause a read-heavy algorithm to be very slow unlike a more specialized implementation which can be designed to have more specific performance characteristics to the problem at hand
 
-## Dijkstra's two stack algorithm
+### Dijkstra's two stack algorithm
 
 THe two stack algorithm for arithmetic operation can be used to evaluate infix expressions. The algorithm is as follows:
 

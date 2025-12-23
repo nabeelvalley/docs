@@ -5,13 +5,13 @@ description: Using the Helix Code Editor
 
 > This is basically a summary of the `helix --tutor`
 
-# Introduction
+## Introduction
 
 Helix uses `HJKL` for basic movement. `:w` is used to save, `:q` is used to quit. When doing these shortcuts helix will also show the command menu with some relevant docs or autocompletions
 
 Something that differentiates Helix from Vim is that Helix is is based on the subject-verb pattern versus Vim that uses the verb-subject pattern for commands
 
-# Basic Motions
+## Basic Motions
 
 > Most motions act on a selection
 
@@ -74,17 +74,17 @@ Something that differentiates Helix from Vim is that Helix is is based on the su
 | `mdm` or `md<delimiter>` | Delete surrounding delimiter pair            |
 | `ms<delimiter>`          | Add surrounding delimiter pair               |
 
-# Repeating Motions
+## Repeating Motions
 
 Motions can be repeated using a number followed by a motion, e.g `2w` moves 2 words forward
 
-# Match Mode
+## Match Mode
 
 Match model lets you select content around something such as brackets or other objects. This works by typing `m` in normal mode, from there you can follow the menus to select more specifically
 
 > Stopped on ch 13 of `hx --tutor`
 
-# Shell Commands
+## Shell Commands
 
 Running shell commands from the terminal is possible using `:sh` followed by the command. You can also insert the path of the active file using `<Ctrl+r>%` to paste the data from register `%` which contains the current file path
 

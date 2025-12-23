@@ -8,13 +8,13 @@ subtitle: Notes on the GO Programming language
 - [GitHub](https://github.com/bradtraversy/go_crash_course)
 - [Exercism's Go Track](https://exercism.org/tracks/go/concepts)
 
-# Installation
+## Installation
 
 Follow the installation on the [Go Docs](https://go.dev/doc/install) for your operating system
 
 Once done with that, you will need to add `~/go/bin` to your `PATH`
 
-# Hello World
+## Hello World
 
 First, create a new directory for your project. In it create a module to enable dependency tracking - you can do this with:
 
@@ -48,7 +48,7 @@ Or since it's a module, we can just do:
 go run .
 ```
 
-# Build and Run
+## Build and Run
 
 We can build binaries for an application with `go install` which can then be executed from the terminal
 
@@ -74,7 +74,7 @@ Which will add this to `~/go/bin` and can just be run using:
 hello
 ```
 
-# Variables and Data Types
+## Variables and Data Types
 
 Go has the following data types
 
@@ -89,7 +89,7 @@ Go has the following data types
 
 There are a few different ways to create variables, note that if we create a variable and do not use it we will get an error
 
-## Var
+### Var
 
 ```go
 var name string = "John"
@@ -103,13 +103,13 @@ var age int
 age = 5
 ```
 
-## Type Inference
+### Type Inference
 
 ```go
 var name = "John"
 ```
 
-## Get Type
+### Get Type
 
 We can make use of the following function to get the type of a variable
 
@@ -117,7 +117,7 @@ We can make use of the following function to get the type of a variable
 fmt.Printf("%T",name)
 ```
 
-## Constants
+### Constants
 
 We can define constants with the `const` keyword
 
@@ -125,11 +125,11 @@ We can define constants with the `const` keyword
 const name = "John"
 ```
 
-## Global Variables
+### Global Variables
 
 We can declare global variables by defining them outside of the main function
 
-## Shorthand Method
+### Shorthand Method
 
 Inside of a function we can declare variables using the assignment operator with the following without having to specify the type of `var` keyword
 
@@ -137,7 +137,7 @@ Inside of a function we can declare variables using the assignment operator with
 name := "John
 ```
 
-## Multiple Assignments
+### Multiple Assignments
 
 We can do multiple assignments as follows
 
@@ -145,7 +145,7 @@ We can do multiple assignments as follows
 name, age := "John", 15
 ```
 
-## Booleans
+### Booleans
 
 Booleans in Go a represented using a `bool` type and are either `true` or `false`
 
@@ -163,7 +163,7 @@ The boolean operators are:
 - `||` - or
 - `!` - not
 
-## Numbers
+### Numbers
 
 Go has basic numeric types for representing integers and floating point values. 
 
@@ -178,7 +178,7 @@ Go supports the normal numerical operations such as `+`, `-`, `*`, `/`, and `%`.
 
 > Numeric operations are only supported between numbers of the same type
 
-## Strings
+### Strings
 
 `string` is an immutable sequence of bytes and can be defined using double quotes:
 
@@ -203,7 +203,7 @@ func caps(name string) {
 }
 ```
 
-## String Formatting
+### String Formatting
 
 String formatting can be done using the `fmt` package which can format strings using `fmt.Sprintf` like so:
 
@@ -214,9 +214,9 @@ str := fmt.Sprintf("int %d, int %03d, float %.3f, string %s, props %+v", 5, 7, 1
 
 > Lots of other formatting options also exist for string formatting and can be found in the docs
 
-# Packages
+## Packages
 
-## Importing Packages
+### Importing Packages
 
 We can import multiple packages by declaring each package in the `import` statement on a different line
 
@@ -227,7 +227,7 @@ import (
 )
 ```
 
-## Dependencies
+### Dependencies
 
 We can add dependencies to our Go module by simply importing them in the code that needs it, for example:
 
@@ -241,7 +241,7 @@ And then Go can automatically add it to our `go.mod` with:
 go mod tidy
 ```
 
-## Creating Packages
+### Creating Packages
 
 Create a new folder and in it you can define the package name and some functions in it
 
@@ -257,7 +257,7 @@ func myfunction() {
 
 We then import the package by referring to its folder path in the import function
 
-# Functions
+## Functions
 
 Functions are defined with the `func` keyword, the function name, inputs, and return types and values
 
@@ -277,7 +277,7 @@ go canMessage(visible, online bool) bool {
 }
 ```
 
-## Variadic Functions
+### Variadic Functions
 
 A variadic function is a function that takes a variable number of arguments, this is done using `...` in the type of the function:
 
@@ -309,11 +309,11 @@ func main() {
 }
 ```
 
-# Arrays and Slices
+## Arrays and Slices
 
 In Go arrays are fixed length, and a slice is an array without a fixed size
 
-## Arrays
+### Arrays
 
 Arrays are fixed in size and can be defined with
 
@@ -330,7 +330,7 @@ Or with initial values
 myArr := [2]string{"Hello", "World"}
 ```
 
-## Slices
+### Slices
 
 A slice is essentially an array that does not have a fixed size
 
@@ -353,11 +353,11 @@ mySlice = append(mySlice, 4,5,6)
 
 > Note that `append` is not a pure function and the original slice may be modified
 
-# Conditionals
+## Conditionals
 
 Conditionals do not require parenthesis, however they can be used
 
-## If Else
+### If Else
 
 ```go
 if x < y {
@@ -369,7 +369,7 @@ if x < y {
 }
 ```
 
-## Swtich/Case
+### Swtich/Case
 
 ```go
 switch x {
@@ -382,7 +382,7 @@ switch x {
 }
 ```
 
-# Loops
+## Loops
 
 There are two methods for building for loops
 
@@ -400,7 +400,7 @@ for i := 1; i <= 10; i++ {
 }
 ```
 
-# Maps
+## Maps
 
 Maps are key-value pairs and can be defined and accessed with
 
@@ -423,7 +423,7 @@ We can also declare a map with initial values
 emails := map[string]int{"Bob":35, "John":5}
 ```
 
-# Range
+## Range
 
 Range is used for looping through values
 
@@ -451,7 +451,7 @@ for k, v := range emails {
 }
 ```
 
-# Pointers
+## Pointers
 
 A pointer allows us to point to the memory address of a specific value, we can get the pointer for a value with the `&` sign
 
@@ -476,7 +476,7 @@ a == 10 // true
 
 The reason to use pointers can be more efficient when passing values
 
-# Closures
+## Closures
 
 We can define anonymous functions to declare anonymous functions that can be used as closures
 
@@ -498,7 +498,7 @@ func main() {
 }
 ```
 
-# Structs
+## Structs
 
 Structs are like classes
 
@@ -520,7 +520,7 @@ person1 := Person{firstName: "John", lastName: "Smith", age: 25}
 person2 := Person{"John", "Smith", 25}
 ```
 
-## `new` struct
+### `new` struct
 
 In Go we can also create an instance of a struct where each value has the default value using the `new` function which returns a pointer to the new struct
 
@@ -528,7 +528,7 @@ In Go we can also create an instance of a struct where each value has the defaul
 person := new(Person)
 ```
 
-# Struct Initialization
+## Struct Initialization
 
 There are a few different ways to initialize structs, 
 
@@ -546,7 +546,7 @@ user3 := new(User)       // *User
 user4 := make([]User, 4) // []User
 ```
 
-## Methods
+### Methods
 
 These are functions that can be called on a struct directly using a Receiver argument that is defined after the `func` keyword:
 
@@ -576,7 +576,7 @@ func main() {
 }
 ```
 
-# Interfaces
+## Interfaces
 
 ```go
 type Shape interface {
@@ -604,7 +604,7 @@ func getArea(s Shape) float64 {
 }
 ```
 
-# Web
+## Web
 
 To work with HTTP requests we can use the`net/http` package which allows us to define a function to handle a specific route
 
@@ -626,7 +626,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-# Randomness
+## Randomness
 
 The `math/rand` package offers some utilities for generaating random numbers
 
@@ -639,7 +639,7 @@ rand.Seed(time.Now().UnixNano())
 num := rand.IntN(100)
 ```
 
-# Multiple Return Values
+## Multiple Return Values
 
 Functions in go can return multiple values:
 
@@ -670,7 +670,7 @@ func main() {
 
 This is typically used with functions that can return errors as can be seen below
 
-# Typical Error Flow
+## Typical Error Flow
 
 Functions that error will typically return an `error` alongside the value as a multi return, this would be used like:
 
@@ -711,7 +711,7 @@ func main() {
 
 > Note that we also don't need to pick a different name for each `err`
 
-# Logging
+## Logging
 
 Nothing much, just nice to know that the `log` module exists and makes logging easier than `fmt.Println` if you're just debugging or adding normal logs. `fmt` is for formatting:
 
@@ -720,7 +720,7 @@ log.Print("message: ", mymsg)
 log.Print("object: ", myobj)
 ```
 
-# JSON
+## JSON
 
 Go has a builtin JSON library, it's pretty straightforward to use. It consists of defining the JSON properties of the struct you'd like to parse and then parsing it using a decoder
 
@@ -756,7 +756,7 @@ func main() {
 }
 ```
 
-# Defer Functions
+## Defer Functions
 
 The `defer` keyword allows us to define something that will be executed after the parent function is returned, for example:
 

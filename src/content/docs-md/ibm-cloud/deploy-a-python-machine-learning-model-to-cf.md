@@ -1,4 +1,4 @@
-# Deploy a Python Machine Learning Model as a CF Web Service
+## Deploy a Python Machine Learning Model as a CF Web Service
 
 An important part of machine learning is model deployment, deploying a machine learning mode so that other applications can consume the model in production.
 
@@ -6,11 +6,11 @@ An effective way to deploy a machine learning model for consumption is be means 
 
 This tutorial will cover the steps required from getting your data and training a model with it to deploying your model as a web service to Cloud Foundry
 
-# Learning Objectives
+## Learning Objectives
 
 Upon completion of this tutorial you will know how to export a machine learning model and create a web service that will expose your model for other applications to use by means of a Cloud Foundry Application or Docker Container.
 
-# Prerequisites
+## Prerequisites
 
 This tutorial requires the following:
 
@@ -22,13 +22,13 @@ This tutorial requires the following:
 - [IBM Cloud CLI](https://console.bluemix.net/docs/cli/index.html)
 - Docker and a Docker Hub Account
 
-# Estimated Time
+## Estimated Time
 
 This tutorial should take between 15 and 30 minutes to complete.
 
-# Steps
+## Steps
 
-## Get the data
+### Get the data
 
 The first step of deploying a machine learning model is having some data to train a model on. The data to be generated will be a two-column dataset that conforms to a Linear Regression Approximation.
 
@@ -61,7 +61,7 @@ df.head()
 df.to_csv('data.csv', sep=',')
 ```
 
-## Train the model
+### Train the model
 
 Once the data has been exported a machine learning model can be trained on it. This tutorial will use the Scikit-Learn Linear Regression model.
 
@@ -108,7 +108,7 @@ import pickle
 pickle.dump(lm, open("../deploy/linearmodel.pkl","wb"))
 ```
 
-## Expose the model as a web service
+### Expose the model as a web service
 
 Exposing the model as a web service can be done by creating a Python Flask application with an endpoint that can take a JSON body of features and return a prediction based on those features
 
@@ -193,7 +193,7 @@ Or from Powershell with:
 Invoke-RestMethod -Method POST -Uri http://localhost:9099/predict -Body '{"features":[0]}'
 ```
 
-## Deployment Configuration
+### Deployment Configuration
 
 There are two methods of configuring the application deployment that are covered here, namely using the Cloud Foundry Python Runtime or using the Cloud Foundry Docker Runtime
 
@@ -201,7 +201,7 @@ If you would like to deploy the application using the Cloud Foundry Python Runti
 
 If you would like to deploy the application as a Docker Image, skip ahead to the [Configure the Cloud Foundry Docker Deployment Section](#configure-the-cloud-foundry-docker-deployment)
 
-### Configure the Cloud Foundry Python Deployment
+#### Configure the Cloud Foundry Python Deployment
 
 In order to deploy to Cloud Foundry, a few additional files need to be created inside of your deploy folder
 
@@ -243,7 +243,7 @@ Upon completing the above, your `deploy` directory should be as follows:
     - runtime.txt
 ```
 
-### Configure the Cloud Foundry Docker Deployment
+#### Configure the Cloud Foundry Docker Deployment
 
 If it is preferred to make use of a Docker image that can be run via the Cloud Foundry Runtime or any other Docker runtime for deployment, the following steps can be followed instead
 
@@ -316,7 +316,7 @@ Upon completing the above, your `deploy` directory should be as follows:
     - requirements.txt
 ```
 
-## Deploy the Application from the CLI
+### Deploy the Application from the CLI
 
 Lastly, you will deploy the application to Cloud Foundry on IBM Cloud, this will be done with the [IBM Cloud CLI](https://console.bluemix.net/docs/cli/index.html).
 
@@ -394,9 +394,9 @@ Or from Powershell with:
 Invoke-RestMethod -Method POST -Uri http://<HOSTNAME>.<REGION>.mybluemix.net/predict -Body '{"features":[0]}'
 ```
 
-# Troubleshooting
+## Troubleshooting
 
-## Python not found/recognized
+### Python not found/recognized
 
 If you encounter the following error from bash:
 
@@ -418,7 +418,7 @@ At line:1 char:1
 
 Ensure that Python is in your `PATH`, the process for doing this is dependant on your Python installation and OS and is not covered here
 
-## ModuleNotFound
+### ModuleNotFound
 
 If you encounter a `ModuleNotFound` when importing a Python package
 
@@ -443,7 +443,7 @@ Or within a Jupyter Notebook by running the following from a cell
 !pip install <PACKAGE NAME>
 ```
 
-## Unicode Decode Error
+### Unicode Decode Error
 
 If when importing the model binary into the app, you encounter the following error
 
@@ -457,7 +457,7 @@ Ensure that you are reading the file in binary mode with `rb` and not just `r` i
 model = pickle.load(open("linearmodel.pkl","rb"))
 ```
 
-## Underlying connection closed - Powershell
+### Underlying connection closed - Powershell
 
 If you encounter the following error when testing your endpoints from Powershell
 
@@ -473,13 +473,13 @@ At line:1 char:1
 
 Ensure that you are using the `http://<HOSTNAME>.<REGION>.mybluemix.net` endpoint above, and not the HTTPS.
 
-# Summary
+## Summary
 
 You have successfully completed the process of training and deploying your Python machine learning model as a Web Service as well as interacting with it by means of an HTTP POST to the service in order to make prediction.
 
 You can also read more about using [Flask as a Python Web Framework](http://flask.pocoo.org/) and about [Developing Machine Learning models with Python](https://cognitiveclass.ai/courses/machine-learning-with-python/).
 
-# Resources
+## Resources
 
 Some additional resources that can be helpful for additional information:
 
@@ -490,7 +490,7 @@ Some additional resources that can be helpful for additional information:
 - [Cloud Foundry Manifests](https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html)
 - [Cloud Foundry Python Buildpacks](https://docs.cloudfoundry.org/buildpacks/python/index.html)
 
-# Related Content
+## Related Content
 
 - [Deep learning models using Watson Studio Neural Network Modeler and Experiments](https://developer.ibm.com/tutorials/create-and-experiment-with-dl-models-using-nn-modeler/)
 - [Build a handwritten digit recognizer in Watson Studio and PyTorch](https://developer.ibm.com/patterns/handwritten-digit-recognizer-in-watson-studio-and-pytorch/)

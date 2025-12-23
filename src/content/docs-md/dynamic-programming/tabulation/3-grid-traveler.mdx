@@ -5,7 +5,7 @@ title: Grid Traveler with Tabulation
 
 import Snippet from '@/components/Snippet.astro'
 
-# Problem
+## Problem
 
 The same problem as the [Grid Traveler problem](/dynamic-programming/memoization/3-grid-traveler)
 
@@ -23,7 +23,7 @@ In the implementation here we will go through the grid and increment each valid 
 
 We can understand the fact that the top rows and columns are all 0 and will never change as when we are in a 0xn or mx0 grid there will be 0 ways to move to the end from that position
 
-# Tabulation Implementation
+## Tabulation Implementation
 
 For our implementation we will define a table that has a position for each value we want. For our starting seed we will define an array of 0s and a 1 at index 1, from here we will step through each item and add it to the following two items. This is a bit of a different perspective on the Fibonacci problem than in the [Recursive Fibonacci example](/dynamic-programming/memoization/2-fib)
 

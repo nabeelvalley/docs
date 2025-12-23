@@ -15,17 +15,17 @@ When shooting in Black and White (henceforth B&W) there are some things we need 
 
 Now, of course, other considerations can be made but most of these boil down to how you use these three elements. For the most part, I'll be discussing how _colour_ comes into play from an editing perspective, but this should give you an awareness of how this applies when shooting too
 
-# Brightness
+## Brightness
 
 When I refer to brightness in this context I am not referring to the exposure of the image but rather the distribution of brightness across the image itself, where are your shadows and highlights, how bright is your subject in relation to your background, etc.
 
 Typically when we are working with a B&W image we try to have our subject be a little brighter (or much brighter) than everything else, this helps us to draw the viewer's attention more easily, of course, this is only one of the factors
 
-# Texture
+## Texture
 
 When shooting B&W we also look for texture, I would argue that texture is to a black and white picture what colour is to a colour one. Texture helps us to differentiate between different elements in a photo and is very evident when used a lot of strong contrast. Sometimes you want a lot of texture, sometimes you don't - it is, however, important that you acknowledge how it contributes to an image
 
-# Colour
+## Colour
 
 My focus in this post is primarily colour because I think it's the easiest to play around with and can make the biggest impact to a picture when editing (how else does anyone get B&W these days?)
 
@@ -55,7 +55,7 @@ If we were to simply convert this image to a B&W one we get the following:
 
 From the above we see that the distinction between our red and green elements isn't really visible anymore, this is because of the impact that colour mixing has on our image. Mixing allows us to control the way the different colours are seen in the image and most photo editing tools have some version of a Black and White Mixer that allows us to apply a colour filter to a Black and White image
 
-## Neutral Filtering
+### Neutral Filtering
 
 This is the "natural" way that a B&W conversion works, using this method for any two colours at approximately the same brightness we should see the same brightness in the B&W version
 
@@ -69,7 +69,7 @@ If we look at the neutral version of our image we can observe that the brightnes
 
 In photography, there are few well-known colour filters which can be placed in front of your lens to achieve what we are doing here digitally. Commonly we have red, green, blue, and yellow filters. We'll just be looking at the red and green filters that were used to edit this image
 
-## Red Filter
+### Red Filter
 
 In a picture like this where our subject is red, we can use a red filter to increase the brightness of the red portions of our image. To do this we would bump up the red and orange sections of our colours while trying to maintain a smooth change from one colour to the next to prevent any sharp changes in the brightness of our image
 
@@ -83,7 +83,7 @@ Additionally, I've also made the green slightly darker to add some additional co
 
 Using a method like this we can draw our focus back to the red elements a little more than if we had left the brightnesses as they were in the Neutral image while pushing down the brightness of our green elements so we don't have the two competing for focus
 
-## Green Filter
+### Green Filter
 
 We can also do something like the above using a filter that brightens the green and darkens the red
 

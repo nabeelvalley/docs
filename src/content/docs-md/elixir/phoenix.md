@@ -4,7 +4,7 @@ title: Web Apps using the Elixer Phoenix Framework
 
 > Notes based on [Phoenix Framework REST API Crash Course](https://www.youtube.com/watch?v=9xaN44PNxps)
 
-# Prerequisites
+## Prerequisites
 
 Probably take a look at the [Elixir Notes](./intro) first
 
@@ -19,7 +19,7 @@ It's also handy to have the following installed if using VSCode:
 - [Elixir Language Server for VSCode](https://marketplace.visualstudio.com/items?itemName=JakeBecker.elixir-ls)
 - [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
 
-# Create the Application
+## Create the Application
 
 Mix is a build tool for Elixir - To create the application we will use the `mix` CLI along with the Phoenix template
 
@@ -43,7 +43,7 @@ In future, when updating dependencies the following command can be used to insta
 mix deps.get
 ```
 
-# Application Structure
+## Application Structure
 
 The application code is laid out as follows:
 
@@ -69,7 +69,7 @@ Some of the important files we have are:
 - `config/dev.ex` - development config - particularly database config
 - `lib/elixirphoenix_web/router.ex` - application routes
 
-# Routing
+## Routing
 
 We can take a look at the `router.ex` file to view our initial app structure:
 
@@ -140,7 +140,7 @@ The above is rendering the `:home` page which we can find by the `lib/elixirphoe
 <h1>Hello World</h1>
 ```
 
-## Creating a Route
+### Creating a Route
 
 In general, we follow the following process when adding routes to our application:
 
@@ -189,11 +189,11 @@ In the `heex` file above, the elixir code that is embedded in the template is de
 
 > `HEEx` stands for **HTML + Embedded Elixir**
 
-# Working with Data
+## Working with Data
 
 Phoenix
 
-# Defining a JSON resource
+## Defining a JSON resource
 
 We can use phoenix and mix to generate and inialize a resource using the Mix CLI
 
@@ -215,7 +215,7 @@ The above commands will generate the relvant modules and JSON code for interacti
 
 Overall, when working with phoenix, we use the Model-View-Controller architecture (MVC), when building an API, we can think of the JSON structure as the view for the sake of our API
 
-## Hooking up the Generated Code
+### Hooking up the Generated Code
 
 After running the above command we will have some instructions telling us to add some content to the `router.ex` file. We're going to first create a new scope and add it into that scope:
 
@@ -273,7 +273,7 @@ defmodule Elixirphoenix.Posts.Post do
 end
 ```
 
-## Working with Resourecs
+### Working with Resourecs
 
 Which we then access from the controller that we exposed earlier in our router:
 
@@ -400,7 +400,7 @@ defmodule ElixirphoenixWeb.PostJSON do
 end
 ```
 
-## Viewing Routes
+### Viewing Routes
 
 We can get a view of the routes that our application has available using the following command:
 
@@ -430,7 +430,7 @@ The above shows us the routes that exist in our app. Phoenix is largely conventi
 
 We can also see that the POST and PATCH for our resource point to the `:update` method. This is because by default the POST and PATCH both work like a PATCH. If you want replace data you can create a separate method that would work as a normal POST method
 
-## Resource Relationships
+### Resource Relationships
 
 We can create another resource for Users that can have posts associated with them, we can generate this using the following:
 
@@ -587,7 +587,7 @@ defp data(%Post{} = post) do
 end
 ```
 
-## Getting Nested Data
+### Getting Nested Data
 
 If we want to get the posts when getting a user, we can make it such that we include the data. This is done from the context where we can add `Repo.preload(:post)` into the `get_user` as well as our `list_users` functions:
 

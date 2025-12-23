@@ -7,25 +7,25 @@ published: true
 This post outlines the general methodology and operation of Spring applications with Kotlin. For the sake of example we
 will be building a project management application backend
 
-# References
+## References
 
 - [Spring](https://spring.io)
 - [Spring Boot with Kotlin & JUnit](https://www.youtube.com/watch?v=TJcshrJOnsE&list=PL6gx4Cwl9DGDPsneZWaOFg0H2wsundyGr)
 
-# About Spring
+## About Spring
 
 The Spring framework comes with lots of infrastructure for working with some common application needs like dependency
 injection, transaction management, web apps, data access, and messaging
 
 Spring boot provides an opinionated setup for building Spring applications using the framework
 
-# Initializing an Application
+## Initializing an Application
 
 To initialize an application we can use the [Spring initializr](https://start.spring.io/) and select the project
 configuration that we would like. For this case adding selecting Maven, Kotlin, and Java 17 along with the Spring Web
 Dependency
 
-# Running the Application
+## Running the Application
 
 The initialized application will have the Spring dev tools preinstalled. You can run the application in hot reloading
 mode using them as follows:
@@ -39,7 +39,7 @@ mvn spring-boot:run
 
 So, with that noted - just hit the play button
 
-# Defining a Controller
+## Defining a Controller
 
 To define a controller we can simply create a class with the `@RequestController` to register the controller
 and `@RequestMapping` to register the endpoint within this controller
@@ -75,7 +75,7 @@ data class Data(val name: String, val age: Int)
 fun getHello() = Data("Bob Smith", 45)
 ```
 
-# Project Structure Overview
+## Project Structure Overview
 
 Some of the important parts of the generated project are the following:
 
@@ -101,7 +101,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-# Models
+## Models
 
 The data layer for our application will consist of different models. We can define these inside of our application
 code, for example we can create a class called `Project` which we can define as a data class as such:
@@ -117,7 +117,7 @@ data class Project(
 );
 ```
 
-# Data Sources
+## Data Sources
 
 Data sources are retrieval and storage (aka database). This will allow us to provide us some method of getting data and
 exchanging implementations of our storage layer
@@ -158,7 +158,7 @@ class InMemoryProjectRepository : IProjectRepository {
 
 It is also important to note that the repository implementation has the `@Repository` attribute
 
-# Testing
+## Testing
 
 Testing will be done using `JUnit`. Creating test classes can be done by adding the relevant file into the `test/kotlin`
 directory
@@ -197,7 +197,7 @@ private val data = mutableListOf(
 )
 ```
 
-# Services
+## Services
 
 Services are defined using a class with the `@Service` annotation and generally imply that we will be using some kind of
 data service or other data.
@@ -222,11 +222,11 @@ class ProjectService(private val repository: IProjectRepository) {
 }
 ```
 
-# Controllers
+## Controllers
 
 Controllers are used for mapping services to HTTP endpoints. We can define a controller like so:
 
-## Get All
+### Get All
 
 ```kotlin
 package nabeelvalley.springkotlin.controller
@@ -303,7 +303,7 @@ Additionally, we will use `MockMvc` and `@AutoConfigureMockMvc` to mock HTTP req
 overhead. Using `@Autowired constructor` with this uses the Spring boot constructor dependency injection for the
 relevant members in the constructor
 
-## Get One
+### Get One
 
 Using the methodology above we can implement controllers for getting one project by doing the following:
 
@@ -375,7 +375,7 @@ class ProjectController(private val service: ProjectService) {
 }
 ```
 
-## Query Params
+### Query Params
 
 We can handle query params in our application by using the `RequestParam` annotation:
 
@@ -423,7 +423,7 @@ class InMemoryProjectRepository : IProjectRepository {
 > method to define a default in the method param. However under other circumstances we can default a parameter by
 > defining it like so: `fun doStuff(text: String? = "")`
 
-## Exceptions
+### Exceptions
 
 If for some reason we are unable to use pattern matching and more functional methods for handling excpetions, Spring
 Boot allows us to define an `ExceptionHandler` for our controller, for example, if we were to have some codepath throw
@@ -451,7 +451,7 @@ class ProjectController(private val service: ProjectService) {
 }
 ```
 
-## POST and PUT endpoints
+### POST and PUT endpoints
 
 We can define endpoints that use POST or PUT using the relevant mapping annotation. In order to receive data in the body
 we would also use the `@RequestBody` annotation. Furthermore we can use the `@ResponseStatus` to annotate that status
@@ -470,7 +470,7 @@ class ProjectController(private val service: ProjectService) {
 
 > Note that you would still need to implement any service or repository level tasks as needed
 
-## Other HTTP Methods
+### Other HTTP Methods
 
 As needed, we can also implement other HTTP methods like `PATCH` and `DELETE` similar to the `POST` and `GET` methods
 above respectively

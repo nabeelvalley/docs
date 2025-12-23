@@ -5,9 +5,9 @@ description: Elixir syntax and basic concepts
 
 > Notes from the [Elixir Programming Introduction YouTube Video](https://www.youtube.com/watch?v=-lgtb-YSUWE)
 
-# Installation and Setup
+## Installation and Setup
 
-## Installation
+### Installation
 
 1. Follow the installation instructions as per the [Elixir Docs](https://elixir-lang.org/install.html) for your operating system
 2. Install the Elixir Language Server for VSCode (`JakeBecker.elixir-ls`)
@@ -15,7 +15,7 @@ description: Elixir syntax and basic concepts
 
 You can text the installation by opening the Elixir repl using `iex` (interactive elixir) in your terminal
 
-## Running Code
+### Running Code
 
 To start writing some code, we just need to create a file wih an `exs` extension
 
@@ -31,13 +31,13 @@ elixir intro.exs
 
 > In general, we use `exs` for code that we will run using the interpreter and `ex` for code we will compile
 
-## Mix
+### Mix
 
 Mix is a tool for working with Elixir code. We can use the `mix` command to create and manage Elixir projects
 
-# Programming in Elixir
+## Programming in Elixir
 
-## Creating a Project
+### Creating a Project
 
 We can create an example project with some code in it by using `mix new`, we can create a project like so:
 
@@ -92,7 +92,7 @@ defmodule Example do
 end
 ```
 
-### Interacting with a Module
+#### Interacting with a Module
 
 We can compile the project using:
 
@@ -109,7 +109,7 @@ iex -S mix
 Thereafter we will find ourself with the module loaded into the interactive session, we can interact with the code that we loaded via the module like:
 
 ```sh
-# within the Elixir REPL
+## within the Elixir REPL
 iex(1)> Example.hello
 ```
 
@@ -121,7 +121,7 @@ mix run -e "Example.hello"
 
 In the case when we use `mix` the result of the function will not be output since it is nit printed using `IO.puts`
 
-### Running a Project
+#### Running a Project
 
 > Something important to know - code outside of the module definition is executed when the code is compiled, not during runtime
 
@@ -158,13 +158,13 @@ In the above, we use the `_` prefix to denote that we're not using those paramet
 We can run the above code using either `mix` or `mix run`:
 
 ```sh
-# `mix` is shorthand for `mix run`
+## `mix` is shorthand for `mix run`
 mix run
 ```
 
 The above line with `Supervisor.start_link` isn't really doing anything as yet - but it is needed to satisfy the requirement of Elixir that the app returns a supervision tree
 
-### Dependencies
+#### Dependencies
 
 Dependencies in Elixir can be installed using `hex` which is Elixir's package manager. We can set this up by using:
 
@@ -206,9 +206,9 @@ defmodule Example do
 end
 ```
 
-## Syntax
+### Syntax
 
-### Defining Variable Bindings
+#### Defining Variable Bindings
 
 ```elixir
 def main() do
@@ -232,7 +232,7 @@ def main() do
 end
 ```
 
-### Atoms and Strings
+#### Atoms and Strings
 
 Atoms are kind of like an alternative to a string. These values have the same name and value and are constant - these cannot be randomly defined by users
 
@@ -246,7 +246,7 @@ atm = :"Hello World"
 
 > We can also have spaces and special characters in atoms provided we enclose it in quotes
 
-### Conditional Statements
+#### Conditional Statements
 
 Conditions use the following syntax:
 
@@ -262,7 +262,7 @@ end
 
 We can do equality checking using `===` or `==` which is less strict (a bit like javascript)
 
-### Case Statements
+#### Case Statements
 
 ```elixir
 status = Enum.random([:gold, :silver, :bronze, :something_else])
@@ -278,7 +278,7 @@ end
 
 In the above, we use the `_` as a default case
 
-### Strings
+#### Strings
 
 `IO.puts` prints a string and adds a newline at the end. Strings can contain special characters and expressions as well as as various other things like unicode character codes
 
@@ -289,16 +289,16 @@ message = "Our new Employee is:\n  - #{name}"
 IO.puts(message)
 ```
 
-### Numbers
+#### Numbers
 
 ```elixir
-# integer
+## integer
 x = 5
 
-# float
+## float
 y= 3.0
 
-# if all inputs are int then z is int, otherwise it will be a float
+## if all inputs are int then z is int, otherwise it will be a float
 z = x + y
 ```
 
@@ -324,7 +324,7 @@ r = Float.ceil(x,2)
 
 The same goes for integers, their methods are located in the `Integer` namespace
 
-### Compound Types
+#### Compound Types
 
 Compound types are types that consist of many other values
 
@@ -335,7 +335,7 @@ time = Time.new(16,30,0,0)
 IO.inspect(time)
 ```
 
-### Dates and Times
+#### Dates and Times
 
 We can create dates and times using their respective constructors:
 
@@ -363,7 +363,7 @@ dt = DateTime.new!(date, time)
 IO.puts(DateTime.to_string(dt))
 ```
 
-### Tuples
+#### Tuples
 
 Tuples allow us to store multiple values in a single variable. Tuples have a fixed number of elements and they can be different data types. Tuples use `{}`
 
@@ -409,7 +409,7 @@ bob = Tuple.append(bob, :active)
 IO.puts("#{name} #{age} #{status}")
 ```
 
-### Lists
+#### Lists
 
 Lists are used when we have a list of elements but we don't know how many elements we will have. Lists use `[]`
 
@@ -431,7 +431,7 @@ Enum.each(users, fn {name, age} ->
 
 We can also use the `Enum.each` method to iterate over these values as we can see above
 
-### Maps
+#### Maps
 
 Maps are key-value pairs. Maps use `%{}`
 
@@ -452,7 +452,7 @@ IO.puts("#{name} #{age}")
 
 Maps are expecially useful since we will also get autocomplete for the fields that are in the map.
 
-### Structs
+#### Structs
 
 Structs are used for defining types that have got defined structures
 
@@ -478,7 +478,7 @@ user = %User{name: "Bob Smith", age: 55}
 IO.puts(user.name)
 ```
 
-### Random
+#### Random
 
 We can get a random int using the following:
 
@@ -488,7 +488,7 @@ random = :rand.uniform(11) -1
 
 Whenever we use the `:name` syntax for accessing a namespace it means we are referring to some Erlang based code
 
-### Piping
+#### Piping
 
 We can get user input using the `IO.gets` method:
 
@@ -498,7 +498,7 @@ guess = IO.gets("Guess a number between 1 and 10: ") |> String.trim() |> Integer
 
 In the above example we also use function piping to trim and parse the input string
 
-### Pattern Matching
+#### Pattern Matching
 
 The above leads to the result being either a value or an error, we can use pattern matching to interpret this value:
 
@@ -544,7 +544,7 @@ case guess do
 end
 ```
 
-### List Comprehension
+#### List Comprehension
 
 List comprehension is used for doing some operation for each item in a list, the syntax is as follows:
 
@@ -572,7 +572,7 @@ evens = for n <- values, n > 50, do: "Value is: #{n}"
 
 > The condition in the above example is `n > 50` but this can be anything that evaluates to a boolean
 
-### Appending to Lists
+#### Appending to Lists
 
 If we want to append to a list we can use the `++` operator:
 
@@ -582,7 +582,7 @@ values = [25, 50, 75, 100]
 added_values = values ++ [101, 102]
 ```
 
-### Prepending to a List
+#### Prepending to a List
 
 We can use the `|` operator to prepend to a list using the following syntax:
 
@@ -592,21 +592,21 @@ values = [25, 50, 75, 100]
 added_values = [101, 102 | values]
 ```
 
-### Function Arity
+#### Function Arity
 
 The arity of a function refers to how many parameters the fuction takes. In elixir functions use the `/` t ndicate the arity. This is because we may have multiple functions with the same name in a module that each have a different arity. For example, there are two versions of `String.split` which take one and two parameters. We refer to these as `String.split/1` and `String.split/2` respectively:
 
 ```elixir
-# split by whitespace `String.split/1`
+## split by whitespace `String.split/1`
 a = String.split("hello world, how are you?")
 IO.inspect(a)
 
-# split by comma `String.split/2`
+## split by comma `String.split/2`
 a = String.split("hello world, how are you?", ",")
 IO.inspect(a)
 ```
 
-### Passing Functions as Parameters
+#### Passing Functions as Parameters
 
 We can pass anonymous functions to other functions:
 
@@ -626,7 +626,7 @@ result = Enum.map(values, &Integer.to_string/1)
 
 > The `&` operator converts a function to an anonymous function. This requires that we also specify the arity of a function so that we can pass the correct instance as a callback
 
-### Defining Functions
+#### Defining Functions
 
 We can define functions using the `def name do ... end` syntax:
 

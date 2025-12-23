@@ -7,9 +7,9 @@ description: Introduction to the Rust Programming Language
 
 > These notes are based on working through [The Rust Programming Language Book](https://doc.rust-lang.org/book/title-page.html). It can also be accessed using `rustup docs --book`
 
-# Getting Started
+## Getting Started
 
-## Hello World
+### Hello World
 
 To create a hello-world program simply create a new folder with a file called `main.rs` which defines a `main` function with the following:
 
@@ -39,7 +39,7 @@ A few things to note on the `main.rs` file above:
 2. `println!` is a macro (which apparently we will learn about in chapter 19)
 3. semicolons `;` are required at the end of each statement
 
-## Cargo
+### Cargo
 
 Cargo is Rust's built-in package manager, to create a new project with Cargo use:
 
@@ -67,7 +67,7 @@ name = "rust_intro"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+## See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 ```
@@ -81,9 +81,9 @@ You can now use cargo to build and run the application:
 5. `cargo build --release` builds a release version of the application
 6. `cargo doc --open` opens cargo docs for all crates in the current project
 
-# A Basic Program
+## A Basic Program
 
-## Basic Program
+### Basic Program
 
 Let's define a basic program below which takes an input from stdin, stores it in a variable, and prints it out to the stdout
 
@@ -131,7 +131,7 @@ The `read_line` function returns an `io::Result`, in Rust, `Result` types are en
 
 Leaving out the `expect` will result in a compiler warning but the program will still be able to run and compile
 
-## Adding a Dependency
+### Adding a Dependency
 
 To add a dependency we need to add a new line to the `Cargo.toml` file with the dependency name and version. We'll need to add the `rand` dependency to generate a random number
 
@@ -144,7 +144,7 @@ rand = "0.8.3"
 
 Then, run `cargo build` to update dependencies and build the application. Next, you can use `cargo update`
 
-## Generating a Random Number
+### Generating a Random Number
 
 To generate a random number we'll import `rand::Rng` and use it as follows:
 
@@ -154,7 +154,7 @@ let secret_number = rand::thread_rng().gen_range(1..101);
 
 Even though we're not using the `Rng` import directly, it's required in scope for the other functions we are using. `Rng` is called a trait and this defines what methods/functions we can call from a crate
 
-## Parsing Input to a Number
+### Parsing Input to a Number
 
 To parse the input to a number we can use the `parse` on strings like so:
 
@@ -174,7 +174,7 @@ io::stdin()
 let guess: u32 = guess.trim().parse().expect("please enter a number!");
 ```
 
-## Matching
+### Matching
 
 The `match` expression is used for flow-control/pattern matching and allows us to do something or return a specific value based on the branch that the code matches.
 
@@ -190,7 +190,7 @@ match result {
 }
 ```
 
-## Looping
+### Looping
 
 To loop, we can use the `loop` flow-control structure:
 
@@ -224,7 +224,7 @@ match result {
 }
 ```
 
-## Final Product
+### Final Product
 
 Combining all the stuff mentioned above, the final code should look something like this:
 
@@ -274,11 +274,11 @@ fn main() {
 }
 ```
 
-# Core Concepts
+## Core Concepts
 
-## Variables and Mutability
+### Variables and Mutability
 
-### Variables
+#### Variables
 
 By default variables are immutable, but the `mut` keyword lets us create a mutable variable as discussed above:
 
@@ -289,7 +289,7 @@ let mut b = 6; // mutable
 b = 7;
 ```
 
-### Constants
+#### Constants
 
 Rust also makes use of the concept of a constant which will always be the same for the lifetime of a program within their defined scope, and can be defined at any scope (including the global scope). By convention these are also capitalized:
 
@@ -299,7 +299,7 @@ const MAX_TIME_SECONDS = 5 * 60;
 
 Constants can make use of a few simple operations when defining them but can't be anything that would need to be evaluated at runtime for example. This is a key distinction between a constant and an immutable variable
 
-### Shadowing
+#### Shadowing
 
 Shadowing allows us to redeclare a variable with a specific scope and will shadow the previous declaration after it's new definition
 
@@ -324,7 +324,7 @@ let spaces = "    ";
 let spaces = spaces.len();
 ```
 
-## Data Types
+### Data Types
 
 Rust is a statically typed language. In most cases we don't need to explicitly define the type of a variable, however in cases where the compiler can't infer the type we do need to specify it, e.g. when parsing a string to a number:
 
@@ -338,7 +338,7 @@ We need to specify that the result of the parsing should be a `u32`, or if we wa
 let num: i32 = "-23".parse().expect("Not a valid int");
 ```
 
-### Scalar Types
+#### Scalar Types
 
 Rust has 4 scalar types, namely;
 
@@ -347,7 +347,7 @@ Rust has 4 scalar types, namely;
 - Booleans
 - Characters
 
-#### Integers
+##### Integers
 
 An integer is a number without a fraction component. The available integer types are:
 
@@ -373,11 +373,11 @@ let a: u16 = 5_000;
 let a = 5_000u16;
 ```
 
-#### Floats
+##### Floats
 
 Rust has two types of floats, `f32` for single-precision and `f64` for double-precision values. The default is `f64` which is about the same speed as `f32` on modern CPUs but with added precision
 
-#### Operations
+##### Operations
 
 The following operations are supported for integer and float operations:
 
@@ -399,7 +399,7 @@ let floored = 2 / 3; // Results in 0
 let remainder = 43 % 5;
 ```
 
-#### Booleans
+##### Booleans
 
 Booleans are defined in rust as either `true` or `false` using the `bool` type:
 
@@ -408,7 +408,7 @@ let t = true;
 let f: bool = false;
 ```
 
-#### Characters
+##### Characters
 
 Character types are defined using `char` values specified with single quotes `'` and store a Unicode scalar value which supports a bit more than ASCII
 
@@ -418,14 +418,14 @@ let z = 'Z';
 let u = '😄';
 ```
 
-### Compound Types
+#### Compound Types
 
 Compound types are used to group multiple values into a single type, Rust has two compound types:
 
 - Tuple
 - Array
 
-#### Tuples
+##### Tuples
 
 Tuples are groups of values. They have a fixed length once declared. Tuples can be defined as with or without an explicit type, for example:
 
@@ -452,7 +452,7 @@ let t = tup.1;
 let a = tup.2;
 ```
 
-#### Arrays
+##### Arrays
 
 Arrays can hold a collection of the same type of value.
 
@@ -482,9 +482,9 @@ let r = a[2];
 
 Note that when accessing an array's elements outside of the valid range you will also get an `index our of bounds` error during runtime
 
-## Functions
+### Functions
 
-### Defining a Function
+#### Defining a Function
 
 Functions are defined using the `fn` keyword along with `()` and `{}` for it's arguments and body respectively
 
@@ -500,7 +500,7 @@ And can be called as you would in other languages:
 my_function();
 ```
 
-### Parameters
+#### Parameters
 
 Function parameters are defined using a name and type, like so:
 
@@ -511,7 +511,7 @@ fn print_sum(a: i32, b: i32) {
 }
 ```
 
-### Statements and Expressions
+#### Statements and Expressions
 
 Functions may have multiple statements and can have an optional ending expression. Statements do not return values whereas expressions do
 
@@ -526,7 +526,7 @@ let x = {
 
 In the above case, `x` will have the value of the last expression in the block, in this case `10`. As we've also seen above, expressions don't contain a `;`. Adding a `;` to an expression turns it into a statement
 
-### Function Return Values
+#### Function Return Values
 
 As we've discussed in the case of a block above, a block can evaluate to the ending expression of that block. So in the case of a function, we can return a value from a function by having it be the ending expression, however we must also state the return value of the function or it will not compile
 
@@ -538,7 +538,7 @@ fn add_nums(a: i32, b: i32) -> i32 {
 }
 ```
 
-## Comments
+### Comments
 
 Comments make use of `//` and is required at the start of each line a comment is on:
 
@@ -550,9 +550,9 @@ let a = 5; // comment after statement
 // comment
 ```
 
-## Control Flow
+### Control Flow
 
-### If / Else
+#### If / Else
 
 `if` statements will branch based on a `bool` expression. They can optionally contain multiple `else if` branches, and an `else` branch:
 
@@ -594,9 +594,9 @@ if number > 5 {
 }
 ```
 
-### Loops
+#### Loops
 
-#### `loop`
+##### `loop`
 
 We can use the `loop` keyword to define a loop that we can escape by using the `break` keyword:
 
@@ -683,7 +683,7 @@ let last = loop {
 
 In the above we are able to set `last` to the value of the `count` when the loop breaks
 
-#### `while`
+##### `while`
 
 We also have a `while` loop which will continue for as long as a specific condition is true
 
@@ -697,7 +697,7 @@ while count < 3 {
 }
 ```
 
-#### `for`
+##### `for`
 
 A `for` loop allows us to iterate through the elements in a collection, we can do this as:
 
@@ -717,13 +717,13 @@ for element in 1..6 {
 }
 ```
 
-# Ownership
+## Ownership
 
 Ownership is a concept of Rust that enables it to be memory safe without the need for a garbage collector
 
 Ownership is implemented as a set of rules that are checked during compile time and does not slow down the program while it runs
 
-## Stack and Heap
+### Stack and Heap
 
 Data stored on the stack must have a known, fixed size, data that has an unknown or changing size must be stored on the heap. The heap is less organized. Adding values to the heap is called `allocating`. When storing data on the heap we also store a reference to its address on the stack. We call this a `pointer`. When storing data to a stack we make use of `pushing`
 
@@ -733,13 +733,13 @@ When code calls a function, the values passed to the function as well as its var
 
 Ownership keeps track of what data is on the heap, reduces duplication, and cleans up unused data
 
-## Ownership Rules
+### Ownership Rules
 
 - Each value in Rust has a variable that's called its _owner_
 - There can only be one owner at a time
 - When an owner goes out of scope the value is dropped
 
-## Variable Scope
+### Variable Scope
 
 We can see the scope of a variable `s` in a given block below:
 
@@ -753,7 +753,7 @@ We can see the scope of a variable `s` in a given block below:
 // ❌ not in scope
 ```
 
-## The String Type
+### The String Type
 
 The types covered earlier are all fixed-size, but strings may have different, possibly unknown sizes
 
@@ -775,7 +775,7 @@ let mut s = String::from("hello");
 s.push_str(" world");
 ```
 
-## Memory and Allocation
+### Memory and Allocation
 
 In the case of a string literal the text contents ae known at compile time and is hardcoded into the executable. The `String` type can be mutable, which means that:
 
@@ -784,7 +784,7 @@ In the case of a string literal the text contents ae known at compile time and i
 
 Rust does this by automatically returning memory once the variable that owns it is no longer in scope by calling a `drop` function
 
-### Moving a Variable
+#### Moving a Variable
 
 When assigning and passing values around, we have two cases in Rust, for values which live on the stack:
 
@@ -819,7 +819,7 @@ value borrowed here after moverustc(E0382)
 main.rs(2, 9): move occurs because `x` has type `std::string::String`, which does not implement the `Copy` trait
 ```
 
-### Cloning a Variable
+#### Cloning a Variable
 
 If we do want to create an actual deep copy of data from the heap, we can use the `clone` method. So on the `String` type this would look like:
 
@@ -830,7 +830,7 @@ let y = x.clone();
 
 Using this, both `x` and `y` will be dropped independent of one another
 
-## Ownership and Functions
+### Ownership and Functions
 
 When passing a variable to a function the new function will take ownership of a variable, and unless we return ownership back to the caller the value will be dropped:
 
@@ -864,7 +864,7 @@ fn return_ownership(data: String) -> String {
 }
 ```
 
-## References and Borrowing
+### References and Borrowing
 
 The issue with ownership handling as discussed above is that it's often the case that we would want to use the variable that was passed to a function and that the caller may want to retain ownership of it
 
@@ -885,7 +885,7 @@ fn borrows(data: &String) {
 }
 ```
 
-### Mutable References
+#### Mutable References
 
 By default, references are immutable and the callee can't modify it's value. If we want to make a reference mutable we make use of `&mut`
 
@@ -930,7 +930,7 @@ Race conditions occur when the following behaviors occur:
 - At least one of the pointers is being used to write to the data
 - There's no mechanism to synchronize access to the data
 
-### Dangling References
+#### Dangling References
 
 In other languages with pointers it's possible to create a pointer that references a location in memory that may have been cleared. With Rust the compiler ensures that there are no dangling references. For example, the below function will not compile:
 
@@ -991,14 +991,14 @@ fn dangle() -> String {
 
 Though the code is now valid, we stil get a warning because `result` is not used, however this will not prevent compilation and the above code will still run
 
-### Rules of References
+#### Rules of References
 
 The following are the basic rules for working with references
 
 - You can either have onme mutatble reference or any number of immuatable references to a variable simultaneously
 - References must always be valid
 
-## The Slice Type
+### The Slice Type
 
 The slice type is a reference to a sequence of elements in a collection instead of the collection itself. Since a slice is a kind of reference in itself it doesn't have ownership of the original collection
 
@@ -1130,7 +1130,7 @@ fn first_word(s: &str) -> &str { // take a slice
 
 The above will work with refernecs to `String` and `str`
 
-### Other Slice Types
+#### Other Slice Types
 
 Slices apply to general collections, so we can use it with an array like so:
 
@@ -1147,17 +1147,17 @@ Slices can also be used by giving them a start element and a length, like so:
 let slice = &a[2, 3];
 ```
 
-## Summary
+### Summary
 
 Ownership, borrowing, and slices help us ensure memory safety and control as we have seen above
 
-# Structs
+## Structs
 
 A struct is a data type used for packaging and naming related values.
 
 Structs are similar to tuples in that they can hold multiple pieces of data
 
-## Defining a Struct
+### Defining a Struct
 
 We can define structs using the `struct` keyword:
 
@@ -1231,7 +1231,7 @@ let a = user.email; // moved error
 
 This is because the value has been moved to the new struct
 
-### Tuple Structs
+#### Tuple Structs
 
 Tuple structs can be defined using the following syntax:
 
@@ -1245,7 +1245,7 @@ And can then be used like:
 let origin = Point(0, 0, 0);
 ```
 
-### Unit Type Structs
+#### Unit Type Structs
 
 You can also define a struct that has no data (is unit) by using this syntax:
 
@@ -1259,7 +1259,7 @@ fn main() {
 
 Unit structs are useful when we want to define a type that implements a trait or some other type but doesn't have any data on the type itself
 
-### Printing Structs
+#### Printing Structs
 
 In order to make a struct printable we can use a `Debug` attribute with a debugging print specifier of `{:?}` like this:
 
@@ -1311,7 +1311,7 @@ And the output:
 
 We can see that the value assigned to `height` is logged as well as assigned to the `rect` struct
 
-## Method Syntax
+### Method Syntax
 
 Methods aan be added to structs using the `impl` block. Everything in this block is a part of the `Rectangle` struct
 
@@ -1354,7 +1354,7 @@ fn main() {
 }
 ```
 
-### Multiple Parameters
+#### Multiple Parameters
 
 We can give methods multiple parameters by defining them after `self`
 
@@ -1384,7 +1384,7 @@ fn main() {
 }
 ```
 
-### Associated Functions
+#### Associated Functions
 
 Functions defined in an `impl` block are called associated functions because they're associated with the type named in the `impl` block
 
@@ -1411,15 +1411,15 @@ fn main() {
 
 The above syntax tells us that the function is namespaced by the struct. This syntax is used for associated functions as well as namespaces created by modules
 
-### Multiple Impl Blocks
+#### Multiple Impl Blocks
 
 Note that it is also allowed for us to have multiple `impl` blocks for a struct, though not necessary in the cases we've done here
 
-# Enums and Pattern Matching
+## Enums and Pattern Matching
 
 Enums in Rust are most like algebraic data types in functional languages like F#
 
-## Defining an Enum
+### Defining an Enum
 
 Enums can be defined using the `enum` keyword:
 
@@ -1494,7 +1494,7 @@ impl Message {
 }
 ```
 
-### The Option Enum
+#### The Option Enum
 
 The Option Enum defined in the standard library and is defined like so:
 
@@ -1511,7 +1511,7 @@ Option types help us avoid null values and ensure that we correctly handle for w
 
 In general, in order to handle an `Option` value we need to ensure that we handle the `None` and `Some` values
 
-## The Match Control Flow Construct
+### The Match Control Flow Construct
 
 The `match` construct allows us to compare a value against a set of patterns and then execute based on that, it's used like this:
 
@@ -1606,7 +1606,7 @@ fn nothing(answer: Answer) -> () {
 }
 ```
 
-## If-Let Control Flow
+### If-Let Control Flow
 
 In Rust, something that's commonly done is to do something based on a single pattern match, the previous example can be done like this using `if let` which is a little cleaner
 
@@ -1630,7 +1630,7 @@ fn is_yes(answer: Answer) -> bool {
 }
 ```
 
-# Packages, Crates, and Modules
+## Packages, Crates, and Modules
 
 As programs grow, there becomes a need to organize and separate code to make it easier to manage
 
@@ -1639,7 +1639,7 @@ As programs grow, there becomes a need to organize and separate code to make it 
 - Modules and Use: Let you control organization, scope, and privacy
 - Paths: A way of naming an item such as a struct, function, or module
 
-## Packages and Crates
+### Packages and Crates
 
 A package is one or more crate that provide a set of functionality. A package contains a `Cargo.toml` file that describes ho to build a crate
 
@@ -1651,7 +1651,7 @@ Cargo follows a convention that `src/main.rs` is a binary crate with the name of
 
 A package can have additional binary crates by placing them in the `src/bin` directory. Each file in here will be a separate binary crate
 
-## Defining Modules to Control Scope and Privacy
+### Defining Modules to Control Scope and Privacy
 
 - Starts from the crate root, either `src/main.rs` or `src/lib.rs`
 - Modules are declared in the root file using the `mod` keyword. The compiler will look for the module in the following locations. For example, a module called `garden`
@@ -1668,7 +1668,7 @@ We can create modules using `cargo new --lib <LIB NAME>`
 
 The `src/lib.rs` and `src/main.rs` are called crate roots and things accessed relative to here are accessed by the `crate` module
 
-## Referencing Items by Paths
+### Referencing Items by Paths
 
 Paths can ee referenced in one of two ways:
 
@@ -1695,11 +1695,11 @@ pub fn eat_at_restaurant() {
 
 Also note the `pub` keyword which allows us to access the relevant submodules and function
 
-### Best Practices for Packages with a Binary and Library
+#### Best Practices for Packages with a Binary and Library
 
 When a package has a binary `src/main.rs` crate root and a `src/lib.rs` crate root, both crates will have the package name by default, in this case you should have the minimum necessary code in the `main.rs` to start the binary, while keeping the public API in the `lib.rs` good so that it can be used by other consumers easily. Like this, the binary crate uses the library crate and allows it to be a client of the library
 
-### Relative Paths with Super
+#### Relative Paths with Super
 
 Modules can use the `super` path to access items from a higher level module:
 
@@ -1716,7 +1716,7 @@ mod back_of_house {
 }
 ```
 
-## Bring Paths into Scope
+### Bring Paths into Scope
 
 We can bring paths into scope using the `use` keyword, this makes it easier to access an item from a higher level scope
 
@@ -1765,7 +1765,7 @@ pub mod private_module {
 }
 ```
 
-### Idiomatic Paths
+#### Idiomatic Paths
 
 In the above examples, we're importing paths to functions and using them directly, however, this isn't the preferred way to do this in rust, it's instead preferred to keep the last-level of the path in order to identify that the path is part of another module. So for example, instead of the above use this instead:
 
@@ -1807,7 +1807,7 @@ fn function2() -> io::Result<()> {
 
 This is to ensure that we refer to the correct value
 
-### Renaming Imports
+#### Renaming Imports
 
 In order to get around naming issues, we can also use `as` to rename a specific import - so the above example can be written like:
 
@@ -1824,7 +1824,7 @@ fn function2() -> IoResult<()> {
 }
 ```
 
-### Re-exporting Names
+#### Re-exporting Names
 
 We can re-export an item with `pub use`, like so:
 
@@ -1844,7 +1844,7 @@ pub fn eat_at_restaurant() {
 
 This is often useful to restructure the imports from a client perspective when our internal module organization is different than what we want to make the public API
 
-### Nested Paths
+#### Nested Paths
 
 When importing a lo of stuff from a similar path, you can join the imports together in a few ways
 
@@ -1884,7 +1884,7 @@ use std::collections::*;
 
 The Glob operator is often used when writing tests to bring a specific module into scope
 
-# Common Collections
+## Common Collections
 
 Collections allow us to store data that can grow and shrink in size
 
@@ -1892,11 +1892,11 @@ Collections allow us to store data that can grow and shrink in size
 - Strings are collections of characters
 - Hash Maps allow us to store a value with a particular key association
 
-## Vectors
+### Vectors
 
 Vectors allow us to store a list of a single data type.
 
-### Creating a Vector
+#### Creating a Vector
 
 When creating a vector without initial items you need to provide a type annotation:
 
@@ -1916,7 +1916,7 @@ The above can also be using the `vec!` macro
 let b = vec![1, 2, 3];
 ```
 
-### Updating Values
+#### Updating Values
 
 In order to update the values of a vector we must first define it as mutable, thereafter we can add items to it using the `push` method
 
@@ -1927,7 +1927,7 @@ c.push(2);
 c.push(3);
 ```
 
-### Dropping a Vector Drops its Elements
+#### Dropping a Vector Drops its Elements
 
 When a vector gets dropped, all of it's contents are dropped - which means that if there are references to an element we will have a compiler error
 
@@ -1939,7 +1939,7 @@ When a vector gets dropped, all of it's contents are dropped - which means that 
 } // <- v goes out of scope and is freed here
 ```
 
-### Reading Elements
+#### Reading Elements
 
 We can read elements using either `[]` notation or the `.get` method:
 
@@ -1990,7 +1990,7 @@ For more information about this error, try `rustc --explain E0502`.
 
 The reason for the above error is that vectors allocate items in memory next to one another, which means that adding a new element to a vector may result in the entire vector being reallocated, which would impact any existing references
 
-### Looping over Elements
+#### Looping over Elements
 
 We can use a `for in` loop to iterate over elements in a vector, like so:
 
@@ -2021,7 +2021,7 @@ for i in &mut e {
 
 And will add 10 to each item in the list
 
-### Using Enums to Store Multiple Types
+#### Using Enums to Store Multiple Types
 
 Vectors can only store values that are the same type. In order to store multiple types of data we can store them as enums with specific values. For example, if we want to store a list of users
 
@@ -2048,7 +2048,7 @@ fn main() {
 }
 ```
 
-### Remove the Last Element
+#### Remove the Last Element
 
 We can use the `pop` method to remove the last element from the vector
 
@@ -2056,11 +2056,11 @@ We can use the `pop` method to remove the last element from the vector
 let popped = users.pop();
 ```
 
-## UTF-8 Encoded Text as Strings
+### UTF-8 Encoded Text as Strings
 
 The `String` type differs from `str` in that it is growable, mutable, and owned
 
-### Creating a String
+#### Creating a String
 
 Strings are created using the `new` function:
 
@@ -2080,7 +2080,7 @@ An alternative to the above is:
 let s = String::from("hello");
 ```
 
-### Updating a String
+#### Updating a String
 
 We can use functions like `push_str` to add to a string:
 
@@ -2114,13 +2114,13 @@ let s3 = format!("{}-{}", s1, s2);
 println!("{}, {}, {}", s1, s2, s3);
 ```
 
-### Indexing into Strings
+#### Indexing into Strings
 
 Rust doesn't support string indexing. This is due to how `String` is implemented internally and that the resulting string value may not always be the expected value in the string
 
 This is especially relevant with non-numeric characters - since rust supports all UTF-8 Characters, something that seems like a simple string may be encoded as a non-trivial sequence of characters
 
-### Slicing Strings
+#### Slicing Strings
 
 Since indexing isn't a good idea in rust since the return value can be unexpected - it's usually more appropriate to create a slice:
 
@@ -2129,11 +2129,11 @@ let s1 = String::from("💻");
 println!("{}", s1.len()); // len is 4
 ```
 
-## Hash Maps
+### Hash Maps
 
 Hash maps store key-value pairs as `HashMap<K, V>`. This is bsically a map/object/dictionary and works like so:
 
-### Importing
+#### Importing
 
 To use a hash map, we need to import it:
 
@@ -2141,7 +2141,7 @@ To use a hash map, we need to import it:
 use std::collections::HashMap;
 ```
 
-### Adding Items
+#### Adding Items
 
 ```rs
 let mut users = HashMap::new();
@@ -2163,7 +2163,7 @@ The `zip` method gathers data into an iterator of tuples, and the `collect` meth
 
 We specify `HashMap<_,_>` to tell the collect method that we want a hash map back and not someother kind of collection. We use the `_` because rust can still infer the type of the key and value
 
-### Get a Value by Key
+#### Get a Value by Key
 
 We can get a value by key using the `.entry` method
 
@@ -2176,7 +2176,7 @@ println!("{:?}", bob);
 
 > Note that `users` needs to be defined as mutable in order for the us to use the `.entry` method
 
-### Update Item
+#### Update Item
 
 We can update an item by just setting the key and value like when we added them initially:
 
@@ -2186,7 +2186,7 @@ users.insert("bob@email.com", "Bob's New Name");
 let new_bob = users.entry("bob@email.com");
 ```
 
-### Update Item if Exists
+#### Update Item if Exists
 
 Another usecase is updating a value in a map only if the value does not exist, this can be done using the `.or_insert` method. We can see that here the entry for bob is not updated:
 
@@ -2198,11 +2198,11 @@ let new_bob = users.entry("bob@email.com");
 println!("{:?}", new_bob);
 ```
 
-# Error Handling
+## Error Handling
 
 Rust uses the `Result<T,E>` type for recoverable errors, and `panic!` for errors that should stop execution
 
-### Unrecoverable Errors with `panic!`
+#### Unrecoverable Errors with `panic!`
 
 We can panic like so:
 
@@ -2230,7 +2230,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 exit status 101
 ```
 
-## Recoverable Errors with Result
+### Recoverable Errors with Result
 
 Usually if we encounter an error that we can handle, we should return a `Result`
 
@@ -2294,7 +2294,7 @@ fn main() {
 
 The `?` operator will do an early return in the result of an `Err` in the above case. The `?` operator can only be used for types that implement `FromResidual` like `Result` or `Option`
 
-## When to Panic
+### When to Panic
 
 Generally, we use `unwrap` or `expect` when prototyping or writing tests, but other than this it can be okay to use `.unwrap` in a case where the compiler thinks that we may have a `Result` but due to the specific circumstance we know that we won't have an error
 
@@ -2310,9 +2310,9 @@ fn main() {
 
 Otherwise it is advisable to panic when it's possible that code could end up in a bad state, for example if a user enters data in an incorrect format
 
-# Generics, Traits, and Lifetimes
+## Generics, Traits, and Lifetimes
 
-### Generic Functions
+#### Generic Functions
 
 We can define generic functons using the following structure:
 
@@ -2326,7 +2326,7 @@ For example, a function that finds the first vue in a slice would be defined lik
 fn first<T>(list: &[T]) -> T
 ```
 
-### Generic Structs
+#### Generic Structs
 
 We can use a generic in a struct like so:
 
@@ -2337,7 +2337,7 @@ struct Datum<X,Y> {
 }
 ```
 
-### Generic Enums
+#### Generic Enums
 
 Enums work the same as structs, for example the `Option` enum:
 
@@ -2357,7 +2357,7 @@ enum Result<T, E> {
 }
 ```
 
-### Method Definitions
+#### Method Definitions
 
 methods can also be implemented on generic structs and enums, for example
 
@@ -2374,13 +2374,13 @@ impl<X,Y> Datum<X,Y> {
 }
 ```
 
-## Traits
+### Traits
 
 A trait defines funcionality that a specific type can have and share with other types. This helps us define shared behaviour in an abstract way
 
 We can use traits to enforce constriants on generics so that we can specify that it meets a specific requirement
 
-### Defining a Trait
+#### Defining a Trait
 
 A trait can be defined usnig the `trait` keyword, for example, we can define a trait called `Identifier` with a `get_id` method:
 
@@ -2390,7 +2390,7 @@ pub trait Identifier {
 }
 ```
 
-### Implement a Trait
+#### Implement a Trait
 
 We then create a type that implements this like so:
 
@@ -2407,7 +2407,7 @@ impl Identifier for User {
 }
 ```
 
-### Default Implementations
+#### Default Implementations
 
 Traits can also have a default implementation, for example we can have a `Validity` trait which looks like this:
 
@@ -2425,7 +2425,7 @@ impl Validity for User {
 }
 ```
 
-### Traits as Parameters
+#### Traits as Parameters
 
 We can specify a trait as a function parameter like so:
 
@@ -2471,7 +2471,7 @@ where
 }
 ```
 
-### Conditional Trait Implementation
+#### Conditional Trait Implementation
 
 Traits can also be generically implemented for a generic, like so:
 
@@ -2481,11 +2481,11 @@ impl<T: Display> ToString for T {
 }
 ```
 
-## Validate References with Lifetimes
+### Validate References with Lifetimes
 
 Lifetimes are a kind of generic that ensures that a reference's data is valid for as long as we need them to be
 
-### Prevent Dangling References
+#### Prevent Dangling References
 
 Lifetimes aim to prevent dangling references
 
@@ -2615,7 +2615,7 @@ fn longest<'a>(x: &'a str, y: &str) -> &'a str {
 }
 ```
 
-### Lifetimes in Structs
+#### Lifetimes in Structs
 
 We can define structs to hold refernces, however if this is done then it becomes necessary to have a lifetime annotation to each reference in the struct's definition. Struct lifetime definitions look like so:
 
@@ -2625,11 +2625,11 @@ struct ImportantExcerpt<'a> {
 }
 ```
 
-### Lifetime Elision
+#### Lifetime Elision
 
 Often in rust we have cases where the compiler can identify a lifetime rule based on patterns in a function's body, in this case we don't necessarily need to specify the lifetime. The rules that the compiler uses to identify these are called _lifetime elision rules_
 
-### Lifetimes on Method Definitions
+#### Lifetimes on Method Definitions
 
 Lifetimes on methods are specified like so:
 
@@ -2643,19 +2643,19 @@ impl<'a> ImportantExcerpt<'a> {
 
 By default, the lifetime of the result is always the same as the lifetime ofthe struct, which means that we don't need to specify it in the input or output values
 
-### The Static Lifetime
+#### The Static Lifetime
 
 The `'static` lifetime is a lifetime of a value that's stored in the program's inary and is always available. All string literals are `'static`
 
-# Automated Tests
+## Automated Tests
 
-## How to Write Tests
+### How to Write Tests
 
-### File Structure
+#### File Structure
 
 A test file should contain tests in their own isolated module using the `#[cfg(test)]` attribute, and each test having the `#[test]` attribute on it. We usually also want our test to make use of code from a module we want to test, we can do this by using the `super:**` import which would be the module exported from the file we're in
 
-### Writing Tests
+#### Writing Tests
 
 In the `src/lib.rs` file add the following content implementing what was discussed above:
 
@@ -2702,7 +2702,7 @@ The following are some of the other test macros we can use:
 | `assert_eq!` | Check that two values are equal     |
 | `assert_neq` | Check that two values are not equal |
 
-### Running Tests
+#### Running Tests
 
 To run tests, use `cargo test` which will automatically run all tests within the project using:
 
@@ -2710,7 +2710,7 @@ To run tests, use `cargo test` which will automatically run all tests within the
 cargo run
 ```
 
-### Testing for Panics
+#### Testing for Panics
 
 We can also state that a test should panic by using the `#[should_panic]` attribute on a specific test:
 
@@ -2741,7 +2741,7 @@ mod tests {
 }
 ```
 
-### Return `Result` from a Test
+#### Return `Result` from a Test
 
 Instead of panicking we can also get a test to return a `Result`, for example:
 
@@ -2759,11 +2759,11 @@ mod tests {
 }
 ```
 
-## Controlling Test Runs
+### Controlling Test Runs
 
 By default, the test runner will compile and run all tests in parallel, but we can control this more specifically
 
-### Consecutive Test Runs
+#### Consecutive Test Runs
 
 We can limit the number of threads to get tests to run sequentially
 
@@ -2771,7 +2771,7 @@ We can limit the number of threads to get tests to run sequentially
 cargo test -- --test-threads=1
 ```
 
-### Show Test Output
+#### Show Test Output
 
 By default, any prints from within a test will not be shown, if we want to see these we can instead use:
 
@@ -2779,7 +2779,7 @@ By default, any prints from within a test will not be shown, if we want to see t
 cargo test -- --show-output
 ```
 
-### Running Tests by Name
+#### Running Tests by Name
 
 We can specify a set of tests to run like so:
 
@@ -2793,7 +2793,7 @@ So if we want to run all tests with the word `hello`:
 cargo test hello
 ```
 
-### Ignoring a Test Unless Specified
+#### Ignoring a Test Unless Specified
 
 We can make the default test runner ignore a specific test with the `#[ignore]` attribute. The test runnner will then only run it if we specify that it should:
 
@@ -2801,25 +2801,25 @@ We can make the default test runner ignore a specific test with the `#[ignore]` 
 cargo test -- --ignored
 ```
 
-## Conventions
+### Conventions
 
-### Unit Tests
+#### Unit Tests
 
 Unit tests are usually contained in the same file as the code being tested in a module called `tests`
 
-### Integration Tests
+#### Integration Tests
 
 Integration tests are stored in a `tests` directory, cargo knows to find integration tests here
 
 Additionally, for code we want to share between integration tests we can create a module in the `tests` directory and import it from there
 
-# Functional Language Features
+## Functional Language Features
 
-## Closures
+### Closures
 
 Closures are anonymous functions that can capture their outer scope
 
-### Defining Closures
+#### Defining Closures
 
 Closures can be defined in the following ways:
 
@@ -2834,7 +2834,7 @@ let add_one_v3 = |x| { x + 1 };
 let add_one_v4 = |x| x + 1  ;
 ```
 
-### Capturing the Environment
+#### Capturing the Environment
 
 A simple closure which immutably borrows `a` which is defined externally can be created and used like so:
 
@@ -2848,7 +2848,7 @@ fn main() {
 }
 ```
 
-### Borrowing Mutably
+#### Borrowing Mutably
 
 Closures can also make use of mutable borrows. For example, the below closure will add an item to a `Vec`:
 
@@ -2863,7 +2863,7 @@ fn main() {
 }
 ```
 
-### Types of Closures
+#### Types of Closures
 
 There are three traits that closures can implement, depending on which ones they have the compiler will enforce their usage in certain places:
 
@@ -2871,13 +2871,13 @@ There are three traits that closures can implement, depending on which ones they
 - `FnMut` - Does not move captured values out of its body but may mutate captured values. Can be called more than once
 - `Fn` - Pure closures, don't move captured values or mutate them, can be called more than once
 
-## Iterators
+### Iterators
 
 Iterators allow us to perform a sequence of operations over a sequence.
 
 Iterators in Rust are lazy and are not computed until a method that consumes the iterator is called
 
-### The Iterator Trait
+#### The Iterator Trait
 
 All iterators implement the `Iterator` trait along with a `next` method and `Item` type:
 
@@ -2891,7 +2891,7 @@ pub trait Iterator {
 }
 ```
 
-### Consuming Adaptors
+#### Consuming Adaptors
 
 Methods that call the `next` method are called _consuming adaptors_ because calling them uses up the iterator
 
@@ -2899,7 +2899,7 @@ These methods take ownership of the iterator which means that after they are cal
 
 Examples of this are the `sum` or `collect` methods
 
-### Iterator Adaptors
+#### Iterator Adaptors
 
 Methods that transform the iterator are called _iterator adaptors_ and they turn the iterator from one type of iterator into another. These can be chainged in order to handle more complex iterator processes
 
@@ -2907,7 +2907,7 @@ Since iterator adaptors are lazy we need to call a consuming adaptor in order to
 
 Examples of this are the `map` or `filter` methods
 
-## Example of Closures and Iterator
+### Example of Closures and Iterator
 
 An example using iterators with closures can be seen below:
 
@@ -2922,7 +2922,7 @@ pub fn search<'a>(contents: &'a str, query: &str) -> Vec<&'a str> {
 }
 ```
 
-# Smart Pointers
+## Smart Pointers
 
 A pointer is a general concept for a varaible that contains an addres in memory
 
@@ -2938,7 +2938,7 @@ Some other smart pointers in the standard library include:
 - `Rc<T>` - counting references to allow for multiple ownership
 - `Ref<T>`, `RefMut<T>` - enforce borrowing rules ar runtime
 
-## `Box<T>`
+### `Box<T>`
 
 A box is the most straightforward smart pointer, it allows us to store data on the heap along with a pointer to the data on the heap
 
@@ -2948,7 +2948,7 @@ Boxes don't have a performance overhead and don't do lot - often used in the fol
 - Large amount of data that we want to transfer ownership of but don't want the data to be copied
 - When you want to own a data but don't care about the specific type but rather a trait implementation
 
-### Using `Box<T>` to Store Data on the Heap
+#### Using `Box<T>` to Store Data on the Heap
 
 Using the `Box::new` we can create a value that will be stored on the heap
 
@@ -2961,7 +2961,7 @@ fn main() {
 
 Often it doesn't make sense to store simple values like `i32` on the heap, this is usually used for more complex data
 
-### Recursive Types using Boxes
+#### Recursive Types using Boxes
 
 Recursive types are problematic since rust can't tell the size of the type at compile time. In order to help, we can `Box` a value in the recursive type
 

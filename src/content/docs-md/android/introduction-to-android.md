@@ -7,7 +7,7 @@ description: Introduction to the Android framework and basic concepts
 
 > From the [Android Docs](https://developer.android.com/guide) and [this section](https://developer.android.com/training/basics/firstapp/index.html)
 
-# Creating a Project
+## Creating a Project
 
 1. Download and install Android Studio
 2. Create a new Empty Activity Project with Kotlin selected as the language and make use of `androidx.*` artifacts
@@ -24,7 +24,7 @@ Android Studio should now set up the initial project
 
 After creating the app there should be a gradle download which may take a while
 
-# Generated Files and Structure
+## Generated Files and Structure
 
 There are a couple of different files that are generated in the application directory that we created. The files relevant to the application development are contained in the `app/src` directory
 
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 
 4. Additionally there are `build.gradle` files for different parts of the application that are used by Gradle to build the application
 
-# Running the App
+## Running the App
 
 To run the application on a device you will need to do the following:
 
@@ -109,7 +109,7 @@ To run the application on a device you will need to do the following:
 3. On Android Studio click on `File > Sync Project with Gradle Files`, this will ensure that the correct debugging options show up in the debug toolbar
 4. In the Debuging toolbar click on the Run button, this should show a list of devices and you can select your device from here
 
-# Editing the UI
+## Editing the UI
 
 The UI is built using XML, however it can also be edited through the Android Studio Layout Editor which is probably easier for now. Different components are called `View`s and these are contained in `ViewGroup`s
 
@@ -148,7 +148,7 @@ Now let's make the text box responsive:
 3. Select the button and set the right margin to `16dp`
 4. From the Layout menu on the `EditText` and click twice on the horizontal constraints and set them to be `Match Constraints`
 
-# String Localization
+## String Localization
 
 We can add localizations for strings by adding them to the `app/res/values/strings.xml` file directly or using the Translations Editor
 
@@ -207,7 +207,7 @@ The resulting layout should be as follows:
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
-# Handling Events
+## Handling Events
 
 We can handle the click event on the `Submit` button by using an event handler in our `MainActivity.kt` file, we just need to add a handler function to the class
 
@@ -291,7 +291,7 @@ class MainActivity : AppCompatActivity() {
 
 Lastly from the design view from the `activity_main.xml` you should be able to select the `handleSubmit` option in the `onClick` dropdown which will set the handler to the function we created
 
-# Create a New Activity
+## Create a New Activity
 
 From the Project Window right click on the `app` folder and select `New > Activity > Empty Activity` and call it `DisplayMessageActivity`
 

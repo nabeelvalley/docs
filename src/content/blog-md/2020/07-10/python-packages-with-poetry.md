@@ -11,27 +11,27 @@ Python package management is typically quite a mess. Managing packages with `pip
 
 Poetry is a package manager that abstracts a lot of the typical Python dependency and environment management away from the user
 
-# Install Poetry
+## Install Poetry
 
 Before you can install `poetry` you need to have Python installed
 
 To install `poetry` you can do one of the following depending on your OS:
 
-## Windows Powershell
+### Windows Powershell
 
 ```ps1
 (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -
 ```
 
-## Bash
+### Bash
 
 ```sh
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 ```
 
-# Initialize Poetry
+## Initialize Poetry
 
-## Create a New Project
+### Create a New Project
 
 If you're starting a new project, you can run the following:
 
@@ -41,7 +41,7 @@ poetry new my-project
 
 The above will generate a `pyproject.toml` file with the project settings. Alternatively you can use the following to add `poetry` to an existing project
 
-## Add to Existing Project
+### Add to Existing Project
 
 To add `poetry` to an existing project, run the following:
 
@@ -49,9 +49,9 @@ To add `poetry` to an existing project, run the following:
 poetry init
 ```
 
-# Using Poetry
+## Using Poetry
 
-## Add Dependency
+### Add Dependency
 
 To manage dependencies you can use the `poetry add` command. For example, if we would like to install `flask`
 
@@ -59,7 +59,7 @@ To manage dependencies you can use the `poetry add` command. For example, if we 
 poetry add flask
 ```
 
-## Run Application
+### Run Application
 
 To run an application using the virtual environment created by `poetry` you can use the `poetry run` command, followed by the command you want to run:
 
@@ -73,7 +73,7 @@ Running a `flask` app would look something like this:
 poetry run flask run
 ```
 
-# Create a Shell
+## Create a Shell
 
 To create a shell in the `poetry` virtual environment run:
 

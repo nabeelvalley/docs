@@ -5,7 +5,7 @@ title: Count Construct
 
 import Snippet from '@/components/Snippet.astro'
 
-# Problem
+## Problem
 
 Given a target string and a list of strings return the number of ways that
 the items in the string list can be combined to build the string in the target
@@ -26,7 +26,7 @@ We can consider a base case where:
 canConstruct('', [a,b,c]) = true
 ```
 
-# Base Implementation
+## Base Implementation
 
 The implementation of this is pretty similar to the [Can Construct](./7-can-construct) problem
 
@@ -34,7 +34,7 @@ The implementation of this is pretty similar to the [Can Construct](./7-can-cons
 
 The complexity of this is the same as the Can Construct implementation with a time complexity $O(n^m * m)$ and space complexity of $O(m^2)$
 
-# With memoization
+## With memoization
 
 We implement the memoization as in the previous examples
 

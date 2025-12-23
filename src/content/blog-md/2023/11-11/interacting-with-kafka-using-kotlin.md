@@ -5,13 +5,13 @@ description: Producing, Consuming, and Processing Kafka Event Streams
 published: true
 ---
 
-# Overview
+## Overview
 
 The purpose of this post is to illustrate a method of interacting with Kafka using Kotlin in a functional programming style while using Kotlin coroutines for a multi-threading. We will be interacting with the [Kafka Client for Java](https://docs.confluent.io/kafka-clients/java/current/overview.html) and will be building a small library on top of this for the purpose of simplifying communication and handling tasks like JSON Serialization
 
 > If you would like to view the completed source code, you can take a look at the [kotlin-kafka GitHub repository](https://github.com/nabeelvalley/kotlin-kafka)
 
-## Kafka
+### Kafka
 
 According to then [Kafka Website](https://kafka.apache.org/):
 
@@ -31,13 +31,13 @@ From a more detailed perspective, Kafka internally handles storage of event stre
 - The Consumer API for subscription
 - The Streams API for processing stream data
 
-## Kotlin
+### Kotlin
 
 Kotlin is a statically typed programming language built on the Java Virtual Machine that provides interop with Java code
 
-# The Code
+## The Code
 
-## Config
+### Config
 
 To get some admin stuff out of the way, before you can really do any of this you will to have a `.env` file in the project that you can load which contains some application configuration, for the purpose of our application we require the following config in this file - below is some example content
 
@@ -105,11 +105,11 @@ import java.util.Properties
 open class Config(internal val properties: Properties) {}
 ```
 
-## Working with JSON Data
+### Working with JSON Data
 
 An important part of what we want our client to handle is the JSON serialization and deserialization when sending data to Kafka. Sending JSON data is not a requirement of Kafka as a platform, but it's the usecase that we're building our library around and so is something we need to consider
 
-### Serialization
+#### Serialization
 
 Serialization in this context refers to the process of converting our Kotlin classes into a string and back to a Kotlin class. For this discussion we will refer to a class that is able to do this bidirectional conversion as a `Serializer`.
 
@@ -130,7 +130,7 @@ interface ISerializer<T : Any> {
 }
 ```
 
-### JSON Serialization
+#### JSON Serialization
 
 Given the definition of a serializer we can define a JSON serializer that uses the `kotlinx.serialization` library and implements our `ISerializer` as follows:
 
@@ -155,7 +155,7 @@ class JsonSerializer<T : Any>(type: KClass<T>) : ISerializer<T> {
 
 The above code is a little funky since we're using reflection on the actual class of the input data to define our serializer, other than we're just using the `kotlinx` serializer to handle the data transformation. The thing that matters in this context is that we are able abstract the reflection aspect of the serializer, this will help make the final interface we provide to the user for working with Kafka simpler
 
-### Serde Serializer
+#### Serde Serializer
 
 Now that we have defined a simple representation of a serializer that provides some interop with the Kotlin data types, we need to implement the other side of this which is a `SerdeSerializer` which is what the Kafka Clients need to work with. The requirements of this serializer are a little different to the one we defined above. This serializer needs to:
 
@@ -223,7 +223,7 @@ class Serializer<T : Any>(private val serializer: ISerializer<T>) : Serde<T> {
 
 As far as serialization and deserialization goes, this should be everything we need for working with JSON data
 
-## Producing Data
+### Producing Data
 
 Producing data is a method by which a client sends data to a Kafka topic. We can define this as a type as follows:
 
@@ -335,7 +335,7 @@ class Producer<T : Any>(
 
 At this point we have a complete implementation of a producer
 
-### Using the Producer
+#### Using the Producer
 
 In our application code we can instantiate and use the producer as follows:
 
@@ -376,7 +376,7 @@ We use `runBlocking` since our producer needs a coroutine scope in which to send
 
 An interesting to note is that we are passing the `class` of our data to the serializer to create an instance - this is the usage of the funky reflection thing we saw previously
 
-## Consuming Data
+### Consuming Data
 
 Our code for consuming data will follow a similar pattern to what we use to consume the data in the previous section
 
@@ -475,7 +475,7 @@ class Consumer<T : Any>(
 }
 ```
 
-### Using the Consumer
+#### Using the Consumer
 
 Using the `Consumer` follows a very similar pattern to the producer, however we need to create a loop that will poll for data and handle as necessary when data is received:
 
@@ -505,7 +505,7 @@ fun instantiateAndConsume(properties: Properties): Unit {
 
 In the above, we use a `while(true)` loop to re-poll continuously but this can freely change on the implementation, similar to with the producer code
 
-## Stream Processing
+### Stream Processing
 
 In Kafka, we can think of a stream process as a combination of a consumer and producer such that data comes in from a topic and is sent to a different topic
 
@@ -635,7 +635,7 @@ The above class makes use of the `produced` and `consumed` properties which are 
 
 And that's about it as far as our implementation for streaming goes
 
-### Using the Stream Processor
+#### Using the Stream Processor
 
 We can use the stream processor code:
 
@@ -689,11 +689,11 @@ In the above example we are simply mapping a single record using `mapValues`, th
 
 The processor we define is what will be executed on records or groups of records depending on how we want to handle the resulting data
 
-# Conclusion
+## Conclusion
 
 In this post we've covered the basic implementation of how we can interact with Kafka using the Kotlin programming language and built a small library that takes us through the basic use cases of Serializing, Producing, Consuming, and Processing stream data
 
-# References
+## References
 
 - [Introduction to Kafka](https://kafka.apache.org/intro)
 - [Java Kafka Client](https://docs.confluent.io/kafka-clients/java/current/overview.html)

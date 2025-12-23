@@ -5,7 +5,7 @@ subtitle: Unit Testing Private Members with XUnit
 description: Unit Testing Private Members with XUnit
 ---
 
-# Testing Private Members
+## Testing Private Members
 
 In order to test the values of private members (if for some reason that's necessary) you will need to make use of reflection. The following two functions will make it possible to access a private `field` or `property`
 
@@ -25,7 +25,7 @@ private CastType GetPrivateProperty<BaseType, CastType>(object obj, string field
 }
 ```
 
-## Abastract Testing Class
+### Abastract Testing Class
 
 Additionally the Testing Class can inherit from the following base abstract
 
@@ -73,7 +73,7 @@ And then the testing class simply needs to be defined as:
 public class MyTestingClass : AccessPrivateMemberBase
 ```
 
-# Inherited Members
+## Inherited Members
 
 A more generic version of the above is also able to test for members that are in inherited classes (which the above will fail at):
 

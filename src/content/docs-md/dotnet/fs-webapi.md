@@ -1,4 +1,4 @@
-# F# .NET Core Web API
+## F# .NET Core Web API
 
 So we're going to be taking a bit of a look on how you can go about building your first F# Web API using .NET Core. I'm going to cover a lot of the basics, a lot of which should be familiar to anyone who has worked with .NET Web Applications and F# in general.
 
@@ -6,7 +6,7 @@ Along the way I'm also going to go through some important concepts that I feel a
 
 > If you're totally new to F# though you may want to take a look at <a href="https://fsharpforfunandprofit.com/">F# for Fun and Profit</a> or my personal quick reference documentation over on <a href="https://github.com/nabeelvalley/Docs/blob/master/dotnet/intro-to-fs.md">GitHub</a>
 
-# Getting Started
+## Getting Started
 
 Assuming you've got the .NET Core SDK with F# installed, you can simply create a new project with the following:
 
@@ -26,7 +26,7 @@ dotnet run
 
 Which should start the application on `https://localhost:5001` and `http://localhost:5000`, you can see the current existing endpoint at `/weatherforecast`, this is handled by the `Controllers/WeatherForecastController.fs` file
 
-# Looking Around
+## Looking Around
 
 Looking at the structure of the project files you should see the following:
 
@@ -176,11 +176,11 @@ type WeatherForecastController (logger : ILogger<WeatherForecastController>) =
         |]
 ```
 
-# Creating a Controller
+## Creating a Controller
 
 Creating a new controller is not particularly complex given that we have the above as a starting point.
 
-# Get Handler
+## Get Handler
 
 We're going to create a handler that is able to return a simple message for an `even` param, and a `404` for a `odd` param in order to look at how we can return actual response codes in cases where we aren't always able to return something of a constant type
 
@@ -278,7 +278,7 @@ match result with
 | _ -> sprintf "Hello %d" result |> this.Ok :> IActionResult
 ```
 
-# Post Handler
+## Post Handler
 
 We can also create a `POST` handler that will pretty much do the same as the above handler, we can pretty much just take the values from the function body and pass it to the previous handler we put together
 
@@ -301,7 +301,7 @@ member this.Post(data : PostData) : IActionResult =
 
 And that's really all that's needed
 
-# Conclusion
+## Conclusion
 
 So yeah, that's pretty much it - Not that bad right? I feel like there are a couple of things that feel a little bit weird because of the pieces of OOP running around from C# that add a bit more overhead than I'd like, but it's .NET, that's inevitable
 

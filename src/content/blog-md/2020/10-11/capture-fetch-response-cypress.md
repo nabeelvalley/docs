@@ -7,7 +7,7 @@ description: Capture and Use Fetch Requests and Responses in Cypress
 
 To capture the result of a `fetch` request with Cypress you will need to make use of `cy.route2`
 
-# Setup
+## Setup
 
 The `cy.route2` command needs to be enabled in your `cypress.json` file before usage, to do so add the following:
 
@@ -19,7 +19,7 @@ The `cy.route2` command needs to be enabled in your `cypress.json` file before u
 }
 ```
 
-# Usage
+## Usage
 
 Next, using the command to capture requests to a route looks a bit like this in a test:
 

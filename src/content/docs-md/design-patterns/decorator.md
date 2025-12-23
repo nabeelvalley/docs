@@ -17,11 +17,11 @@ The _decorator_ inherits from the _component_ and also has a property of type _c
 
 The functioning of the decorator pattern makes use of recursion
 
-# Example
+## Example
 
 We could implement a multi-factor authentication type model by using the decorator pattern using something like the following:
 
-## Base Classes
+### Base Classes
 
 Before we can create our concrete implementations we need to establish the base classes for our Logins and Decorators to work from, we can simply create two classes in which our `AbstractLogin` is the main root, and our `LoginDecorator` inherits from `AbstractLogin`
 
@@ -41,7 +41,7 @@ public abstract class LoginDecorator : AbstractLogin
 }
 ```
 
-## Login Implementation
+### Login Implementation
 
 We can implement our login as any class that inherits from the `Login` and carries out a login functionality, like so:
 
@@ -58,7 +58,7 @@ public class LocalUser : AbstractLogin
 }
 ```
 
-## Decorator Implementation
+### Decorator Implementation
 
 Lastly, we need to implement decorators such that each decorator will make some reference/call to the inner `AbstractLogin` in order to carry out the login behaviour and extend on it's behaviour
 
@@ -130,7 +130,7 @@ public class SMSPinLoginDecorator : LoginDecorator
 }
 ```
 
-## Using the Decorator Pattern
+### Using the Decorator Pattern
 
 Given the way we've configured our decorator each one takes an instance of `AbstractLogin` in the constructor, this could be initialized in any method but this one is straightforward to use
 
@@ -167,7 +167,7 @@ Based on the way the decorator pattern works we could even make things more comp
 
 The way the pattern works means there's no limit to how many layers you are able to decorate with and allows for very complex implementation and abstraction when using this kind of pattern
 
-# References
+## References
 
 - [Decorator Pattern - Christopher Okhravi](https://www.youtube.com/watch?v=GCraGHx6gso&t=830s)
 - [Decorator Pattern - Refactoring Guru](https://refactoring.guru/design-patterns/decorator)

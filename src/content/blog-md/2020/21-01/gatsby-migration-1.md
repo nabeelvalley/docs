@@ -5,7 +5,7 @@ subtitle: 21 January 2020
 description: Building a basic React site with basic dynamic data loading
 ---
 
-# Introduction
+## Introduction
 
 Lately I've been a little concerned with my current SPA approach on my personal site as well as a few others. More specifically the high initial load time due to the calls to the backend to retrieve content
 
@@ -21,7 +21,7 @@ For the sake of completeness, this series will be broken into four posts coverin
 2. [Rendering the "Dumb" pages with Gatsby](/blog/2020/01-02/gatsby-migration-2)
 3. [Rendering the "Smart" page with Gatsby](/blog/2020/15-03/gatsby-migration-3)
 
-# The React App
+## The React App
 
 First we're going to be starting off with a new React app that we will work on changing into a Gatsby one parts `2` and `3`, we'll then focus on using plugins to enhance our content in `4`
 
@@ -49,7 +49,7 @@ Next `cd gatsby-to-be` and run `yarn start`, you should be able to visit the app
 
 Looking at the generated files we have a `public` directory with some icons, an `index.html` file into which our React application will run once built, and a `src` directory that has the application code. The `index.js` file is what loads the application into the DOM and the `App.js` file which is the main component for our application
 
-# Hard Coded Pages
+## Hard Coded Pages
 
 We will create the following three hard-coded pages in the `src/pages` directory
 
@@ -123,7 +123,7 @@ export default NotFound
 
 </details>
 
-# Dynamic Post Page
+## Dynamic Post Page
 
 Next up we'll create a component that can render out content for a blog post. This will consist of a few `hooks` which are react functions that we can use to sort of control the data in a function
 
@@ -233,7 +233,7 @@ The two data files we have to pull content from in the `public/posts` directory 
 
 </details>
 
-# App Layout and Routes
+## App Layout and Routes
 
 Lastly, we'll specify our application layout with the relevant routes in the `App.js` file, referencing the components we have created, we do this using the `BrowserRouter`. When we switch the project over to a Gatsby one, the `App.js` file will be converted into our `Layout` component to wrap our different pages
 
@@ -282,7 +282,7 @@ export default App
 
 In the above component we can see that where we are rendering the `Post` component we have a parameter in the route called `slug`, this parameter will be passed in to the `Post` component as part of the `match` object
 
-# Summary
+## Summary
 
 We have built a fairly simple application that makes use of both static and data-based pages, we have also tied all of these together using the `App` component and a `Router` with the following routes:
 

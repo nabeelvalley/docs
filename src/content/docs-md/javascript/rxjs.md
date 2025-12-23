@@ -10,14 +10,14 @@ description: Basic introduction to RxJS and Streams in Javascript
 - [Laith Academy on Youtube](https://www.youtube.com/watch?v=tGWBy6Vqq9w)
 - [RxJS Marbles](https://rxmarbles.com)
 
-# Overview
+## Overview
 
 - RxJS is an implementation of ReactiveX in js
 - ReactiveX is a way of programming with observable streams
 
 > "ReactiveX is a combination of the best ideas from the Observer pattern, the Iterator pattern, and functional programming" ~ [ReactiveX](http://reactivex.io)
 
-# Installation
+## Installation
 
 1. Create a new typescript static site project:
 
@@ -43,7 +43,7 @@ yarn add rxjs
 yarn start
 ```
 
-# Importing RxJS
+## Importing RxJS
 
 To import something from RxJS from the `index.ts` file you can use the following:
 
@@ -55,11 +55,11 @@ console.log(Observable)
 
 This should log the `Observable` object from RxJS
 
-# Observables
+## Observables
 
 > A stream is a series of events that are emitted over time. An observable provides a means to emit and respond to stream events
 
-## Create an Observable
+### Create an Observable
 
 We can create an observable that emits `string` values with the following:
 
@@ -69,7 +69,7 @@ const observable = new Observable<string>((observer) => {
 })
 ```
 
-## Subscribe to an Observable
+### Subscribe to an Observable
 
 However, we won't see events emitted unless we have `observers`, in order to get the value we need to define an observer by with the `subscribe` method. In this case due to how the observable was defined the `value` will be of type `string`:
 
@@ -79,7 +79,7 @@ const observer = observable.subscribe((value) => {
 })
 ```
 
-## Observable Events
+### Observable Events
 
 The events that we can respond to on an observable are `next`, `error`, and `complete`
 
@@ -102,7 +102,7 @@ observable.subscribe(
 )
 ```
 
-## Unsubscribe
+### Unsubscribe
 
 To unsubscribe you can use the `observer.unsubscribe` method:
 
@@ -128,7 +128,7 @@ setTimeout(() => {
 }, 5000)
 ```
 
-## Multiple Observers
+### Multiple Observers
 
 We can create multiple observers simply by using the `observable.subscribe` method:
 
@@ -158,7 +158,7 @@ setTimeout(() => {
 }, 5000)
 ```
 
-## Child Subscriptions
+### Child Subscriptions
 
 If we want to create linked/child observers we can call the `observer.add` and `observer.remove` methods to add new observers instead of the `observable.subscribe` which will ensure that the child observers are unsubscribed when the parent is:
 
@@ -193,7 +193,7 @@ setTimeout(() => {
 
 However, if we don't remove it, it will automatically
 
-## Hot or Cold
+### Hot or Cold
 
 A **cold** observable is an observable whose producer is only activated once a subscription has been created
 
@@ -223,7 +223,7 @@ const observable = new Observable<string>((observer) => {
 
 Now, the `observerLate` will only print out from `tick 2` instead of all the ticks
 
-## From Event
+### From Event
 
 You can create an observable from DOM events by using the `fromEvent` function:
 
@@ -231,7 +231,7 @@ You can create an observable from DOM events by using the `fromEvent` function:
 const observable = fromEvent(document, 'mousemove')
 ```
 
-# Subjects
+## Subjects
 
 A subject is simultaneously an observer and an observable which means we are able to send events using the subject and are also able to subscribe to the subject
 
@@ -261,7 +261,7 @@ In the above, `observer2` will only react to the second message
 
 There are four types of subjects:
 
-### Normal Subject
+#### Normal Subject
 
 A `Normal` subject will allow observers to only receive events received after it subscribed, this is what was used above as well:
 
@@ -283,7 +283,7 @@ observer2.unsubscribe()
 subject.next('third message')
 ```
 
-### Behavior Subject
+#### Behavior Subject
 
 A `Behavior` subject will allow observers to receive all events received after it subscribed as well as:
 
@@ -311,7 +311,7 @@ subject.next('fourth message')
 
 In the above, `observer1` gets the `welcome` event as well as the `first`, `second`, and `third` messages, and `observer2` gets the `second` and `third` messages only even though the `second` message was fired before `observer2` subscribed
 
-### Replay Subject
+#### Replay Subject
 
 A `Replay` subject allows you to specify a buffer of events that should be replayed to new subscribers
 
@@ -362,7 +362,7 @@ setTimeout(() => {
 
 In the above, `observer2` will receive ticks `4` and `5` even though it only starts listening at tick `6`. The observer receives a time-based buffer of messages - `200ms` in this case - and not a count-based one. The `20` provided to the `ReplaySubject` constructor is the max number of messages that should be bufferred
 
-### Async Subject
+#### Async Subject
 
 The async subject only emits the last value and will only do so once the `complete` method has been called on the subject
 
@@ -382,7 +382,7 @@ subject.complete()
 
 In the above example, the `observer` will only receive the `final result` once the `.complete` method is called on the subject, kind of like a promise where there is only one actual result
 
-## Operators
+### Operators
 
 Lots of operators, these can be understood using Marble Diagrams
 
@@ -393,16 +393,16 @@ There are two types of operators
 - Static operators - Used to create observables
 - Instance operators - Methods on Observable Instances
 
-### Marble Diagrams
+#### Marble Diagrams
 
 Marble diagrams show us how an operator applies to the observable stream over time
 
 - `X` represents an error
 - `|` represents an observable completion
 
-### Using Operators
+#### Using Operators
 
-#### Merge Operator
+##### Merge Operator
 
 Used to merge the results from two different observables. This will combine the results from two observables into a single observable
 
@@ -425,7 +425,7 @@ mergedObservable.subscribe(console.log)
 
 The `mergedObservable` will log the data that is emitted from both the observables
 
-#### Map Operator
+##### Map Operator
 
 The Map Operator can be used to transform the data from the observable
 
@@ -444,7 +444,7 @@ observable.subscribe(console.log)
 
 In the above, we use `map` to create an observable operator that can be used to get the length of the message passed. In this example we will just log out the lengths of each message, `10` and `17` respectively
 
-#### SkipUntil
+##### SkipUntil
 
 Allows us to emit events from one observable until a second one starts emitting events
 

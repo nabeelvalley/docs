@@ -4,11 +4,11 @@ title: Hyperledger Fabric Part 2
 subtitle: Intro to Hyperledger Fabric via the Docs
 ---
 
-# [Add an Org to a Channel](https://hyperledger-fabric.readthedocs.io/en/latest/channel_update_tutorial.html)
+## [Add an Org to a Channel](https://hyperledger-fabric.readthedocs.io/en/latest/channel_update_tutorial.html)
 
 This extends on the network from `byfn` by adding a new Organization to the channel. Chaincode updates are handled by an organization admin and not a chaincode or application developer
 
-## Environment Setup
+### Environment Setup
 
 First we set up the environment by using the `byfn.sh` script, we do this by first clearning up any previous artifacts, generating new artifacts, and launching the network as follows:
 
@@ -20,7 +20,7 @@ First we set up the environment by using the `byfn.sh` script, we do this by fir
 
 If you run into a `Permission denied` error, run it again with `sudo`
 
-## Add Org3 to the Channel
+### Add Org3 to the Channel
 
 Newt we should be able to add Org3 to the channel with the `eyfn.sh` script as follows
 
@@ -46,7 +46,7 @@ Once we are done, we can look at the logs and then run the following script to b
 ./eyfn.sh down
 ```
 
-## Add Org3 to the Channel Manually
+### Add Org3 to the Channel Manually
 
 Before starting, modify the `docker-compose-cli.yaml` in the `first-network` directory to set the `FABRIC_LOGGING_SPEC` to `DEBUG`
 
@@ -87,7 +87,7 @@ Now, bring up the initial network with the following commands:
 
 This will get us to the same network state as before we executed the `./eyfn.sh up` command
 
-### Generate the Org3 Crypto Material
+#### Generate the Org3 Crypto Material
 
 In a new terminal cd into the `org3-artifacts` directory and generate the crypto material for Org3 using the `org3-crypto.yaml` and the `configtx.yaml` files
 
@@ -120,7 +120,7 @@ cd ../ && cp -r crypto-config/ordererOrganizations org3-artifacts/crypto-config/
 
 Now we have all the required material to update the channel
 
-### Prepare the CLI Environment
+#### Prepare the CLI Environment
 
 We will mak use of the `configtxlator` tool which provides a stateless REST API aside from the SDK as well as allows us to easily convert between different data representations/formats
 
@@ -137,7 +137,7 @@ export CHANNEL_NAME=mychannel
 
 > If you need to restart the CLI container, you will need to redefine the above variables (obviously)
 
-### Fetch the Configuration
+#### Fetch the Configuration
 
 Now that we have defined the two environment variables we can fetch the most recent config block for the channel. We will then save a binary protobuf channel configuration block to a `config_block.pb` file with the following command
 
@@ -157,7 +157,7 @@ From here we can see that the most recent block is from the `byfn` script and it
 - Block1 - Org 1 Anchor Peer update
 - Block 2 - Org 2 Anchor Peer update
 
-### Convert Config to JSON
+#### Convert Config to JSON
 
 We will now make use of the `configxlator` tool to decode the channel conifguration blok into JSON as well as strip away any metadata and creator signatures that are irrlevant to us as humans with the `jq` tool
 
@@ -165,7 +165,7 @@ We will now make use of the `configxlator` tool to decode the channel conifgurat
 configtxlator proto_decode --input config_block.pb --type common.Block | jq .data.data[0].payload.data.config > config.json
 ```
 
-### Add the Org3 Crypto Material
+#### Add the Org3 Crypto Material
 
 Up until this point the steps for making any config update will be the same, from here the steps are specific to adding a channel
 
@@ -209,7 +209,7 @@ Lastly, we will convert the final JSON deltas into a protobuf file as follows
 configtxlator proto_encode --input org3_update_in_envelope.json --type common.Envelope --output org3_update_in_envelope.pb
 ```
 
-### Sign and Submit the Update
+#### Sign and Submit the Update
 
 We have the updated proto in the `org3_update_in_envelope.json` file in the conainerm however we need signatures from the required admin users before the conffig change can we written to the ledger
 
@@ -240,7 +240,7 @@ And then sign the update with this peer as well
 peer channel update -f org3_update_in_envelope.pb -c $CHANNEL_NAME -o orderer.example.com:7050 --tls --cafile $ORDERER_CA
 ```
 
-## Cofiguring Leader Election
+### Cofiguring Leader Election
 
 The default leader mode is dynamic for new peers. New peers are bootstrapped with the genesis block that does not contain information about the Org they are in. New peers are unable to verify blocks until they get a channel configuration transaction, they therefore must have a leader mode in order to receive blocks from the Ordering service
 
@@ -258,7 +258,7 @@ CORE_PEER_GOSSIP_USELEADERELECTION=true
 CORE_PEER_GOSSIP_ORGLEADER=false
 ```
 
-## Join Org3 to the Channel
+### Join Org3 to the Channel
 
 Until this point the channel config has been updated to include `Org3`, meaning that new peers on `Org3` can jon the channel `mychannel`
 
@@ -304,7 +304,7 @@ export CORE_PEER_ADDRESS=peer1.org3.example.com:7051
 peer channel join -b mychannel.block
 ```
 
-## Upgrade and Invoke Chaincode
+### Upgrade and Invoke Chaincode
 
 The new chaincode policy has been put in place to include Org3, we can install the updated chaincode on Org3 with the following:
 
@@ -339,19 +339,19 @@ peer chaincode invoke -o orderer.example.com:7050  --tls $CORE_PEER_TLS_ENABLED 
 peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
 ```
 
-# Chaincode for Developers
+## Chaincode for Developers
 
 Chaincode is a program in Go, Node or Java that implements the prescribed Chaincode Interface. It runs in a secured docker container isolated from the peer process and intiializes and manages ledger state by way of transactions
 
 Chaincode handles business logic agreed by members of a network, similar to a smart contract. Chaincode can be invoked to update or query the ledger, and with the correct permissions even invoke other chaincode
 
-## The Chaincode API
+### The Chaincode API
 
 Any chaincode program must implement the `Chaincode` interface, whose methods are called in response to received transactions. Particularly the `Init` method is called when a chaincode receives an `instantiate` or `upgrade` transaction
 
 The other interface available is the `ChaincodeStubInterface` and allows chaincodes to access and modify the ledger and make invocations to other chaincode
 
-## Simple Asset Chaincode
+### Simple Asset Chaincode
 
 We will make use of a simple chaincode built with Go (I will look at implementing this with Node as well, but the documentation uses Go for the time being)
 
@@ -361,7 +361,7 @@ The Go Installation Instructions for Fabric can be found [here](https://hyperled
 
 Make the directory in your Go workspace `go/src/sacc`. You can easily `cd` to this by using the `$GOPATH` environment variable, in the Go workspace, make the directory `src/sacc` in which we can add the chaincode
 
-## Housekeeping
+### Housekeeping
 
 The chaincode file will need to import the necessary packages and have a struct which can define the asset
 
@@ -380,7 +380,7 @@ type SimpleAsset struct {
 }
 ```
 
-## Initialization
+### Initialization
 
 We need to provide the `Init` function, this is called when te chaincode is initialized or when chaincode is upgraded. When writing a chaincode upgrade be sure to modify the `Init` function to be empty if there is no migration that needs to be done
 
@@ -434,7 +434,7 @@ func (t *SimpleAsset) Init(stub shim.ChaincodeStubInterface) peer.Response {
 }
 ```
 
-## Invoking the Chaincode
+### Invoking the Chaincode
 
 `Invoke` is called per transaction, and may either be a `get` or `set` method. `set` will create a new asset by specifying the key-value pair
 
@@ -486,7 +486,7 @@ func (t *SimpleAsset) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 }
 ```
 
-## Implementing the Chaincode Functionality
+### Implementing the Chaincode Functionality
 
 Next we can define the chaincode implementation by defining the `get` and `set` functions. We will make use of the `PutState` and `GetState` functions to do this
 
@@ -522,7 +522,7 @@ func get(stub shim.ChaincodeStubInterface, args []string) (string, error) {
 }
 ```
 
-## Starting the Chaincode
+### Starting the Chaincode
 
 Lastly, we need to implement the `main` method that will call the `shim.Start` function
 
@@ -535,7 +535,7 @@ func main() {
 }
 ```
 
-## Final Chaincode
+### Final Chaincode
 
 The overall chaincode will be as follows
 
@@ -633,7 +633,7 @@ func main() {
 }
 ```
 
-## Build the Chaincode
+### Build the Chaincode
 
 We can compile the code with the following
 
@@ -642,17 +642,17 @@ go get -u github.com/hyperledger/fabric/core/chaincode/shim
 go build
 ```
 
-## Test the Code
+### Test the Code
 
 We can test the chaincode with the `fabric-samples/docker-devmode` folder. For this we will need 3 terminals
 
-### Terminal 1 - Start the Network
+#### Terminal 1 - Start the Network
 
 ```bash
 docker-compose -f docker-compose-simple.yaml up
 ```
 
-### Terminal 2 - Build and Start the Chaincode
+#### Terminal 2 - Build and Start the Chaincode
 
 ```bash
 docker exec -it chaincode bash
@@ -669,7 +669,7 @@ Then run the chaincode with
 CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
 ```
 
-### Terminal 3 - Use the Chaincode
+#### Terminal 3 - Use the Chaincode
 
 ```bash
 docker exec -it cli bash
@@ -682,6 +682,6 @@ peer chaincode invoke -n mycc -c '{"Args":["set", "a", "20"]}' -C myc
 peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
 ```
 
-## Note on the Instantiation Method
+### Note on the Instantiation Method
 
 Note that the instantiation method in the official documentation for this tutorial does not make us of the `init` argument that should be passed in (This may result in it failing when using something like IBM Cloud Blockchain which by default passes in the `init` argument), for a better example of an Instantiation take a look at [this page](https://github.com/hyperledger/fabric-samples/blob/release-1.4/chaincode/chaincode_example02/go/chaincode_example02.go)

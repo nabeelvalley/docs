@@ -11,7 +11,7 @@ References:
 - [this Intro to React Native Reanimated 2](https://www.youtube.com/watch?v=yz9E10Dq8Bg)
 - [this Webinar on React Native Reanimated 2](https://www.youtube.com/watch?v=IdVnnIkNzGA)
 
-# Initialize an App
+## Initialize an App
 
 To create a new app, do the following using the Expo CLI (I've covered the basics for this [here](./react-native-basics))
 
@@ -21,7 +21,7 @@ expo init native-animation
 
 And then select the option for `Blank (Typescript)`
 
-# Install Reanimated
+## Install Reanimated
 
 ```sh
 yarn add react-native-reanimated
@@ -39,7 +39,7 @@ module.exports = function (api) {
 }
 ```
 
-# Updating Views
+## Updating Views
 
 Usually when creating components you can mix static and dynamic styles, this allows us to mix styles from our `StyleSheet` with styles from a `useAnimatedStyle` hook, so something like this:
 
@@ -53,7 +53,7 @@ const animatedStyles = useAnimatedStyle(() => {
 return <Animated.View style={[styles.box, animatedStyles]} />
 ```
 
-# Managing Animated State
+## Managing Animated State
 
 Shared Values are values that can be read from both the JS and UI Threads and help to:
 
@@ -97,7 +97,7 @@ const onPress = () => (progress.value += 1)
 return <Animated.View style={[styles.box, animatedStyles]} />
 ```
 
-# Animation
+## Animation
 
 Whe working with animations there's a concept of an animation assigner, this is basically a function that creates an animated value that can then be assigned to a shared value. Some functions available for this are:
 
@@ -123,7 +123,7 @@ Additionally there are modifiers that can be used with an animation, something l
 const w = delay(100, withSpring(width.value))
 ```
 
-# Gestures
+## Gestures
 
 Gesture handling in React Native is usually done using the `react-native-gesture-handler` library. At the top-level the library exposes `gestureHandlerRootHOC` and `GestureHandlerRootView`. Before your application will be able to register gestures you have to wrap your application with either the `HOC` or `RootView` mentioned above
 
@@ -203,7 +203,7 @@ const gestureHandler = useAnimatedGestureHandler({
 })
 ```
 
-# Worklets
+## Worklets
 
 In React-Native we have a few main threads in which code is executed:
 

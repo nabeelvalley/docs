@@ -7,7 +7,7 @@ description: Task Automation using Hangfire with F#
 
 So I've been playing around a bit with Hangfire and Entity Framework thinking about how I can go about building some interesting task automation, and I thought I'd like to explore this concept a bit, at least at a more basic level with F#. So here goes
 
-# Prerequisites
+## Prerequisites
 
 > Note that these downloads may take a while, they're kind of big and it's annoying
 
@@ -16,7 +16,7 @@ So I've been playing around a bit with Hangfire and Entity Framework thinking ab
 - Optional: [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
 - Optional: SLQ Server (mssql) VSCode Extension
 
-# Creating the Project
+## Creating the Project
 
 The first thing that we need to do is create a project for the application. In this case we'll just have a single project and solution file and we can create this with the `dotnet core cli`. First create a new solution, project, and add the project to the solution
 
@@ -43,7 +43,7 @@ You can view the running application at `https://localhost:<PORT>/weatherforecas
 
 Additionally we can also open the solution and run it from Visual Studio (which I'll be doing from this point)
 
-# Setting up the DB
+## Setting up the DB
 
 Now we can set up the database, once you have installed SQL Server Express you can launch the DB from the `Connect Now` button or by running the following command from Powershell:
 
@@ -78,7 +78,7 @@ For the database we just created you can therefore use:
 Server=localhost\SQLEXPRESS;Database=HangfireAutomation;Trusted_Connection=True;
 ```
 
-# Setting up Hangfire
+## Setting up Hangfire
 
 Now that we have the database set up we can add Hangfire to the application with the following
 

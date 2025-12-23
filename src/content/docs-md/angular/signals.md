@@ -5,9 +5,9 @@ description: Basic overview of Angular Signals
 
 > Notes on [AngularArchitects Angular Signals Video](https://www.youtube.com/watch?v=6W6gycuhiN0)
 
-# Why Signals
+## Why Signals
 
-## Change Detection Historical Context
+### Change Detection Historical Context
 
 > This section is very hand wavy
 
@@ -17,9 +17,9 @@ Angular goes through the component tree and what values are rendered in the DOM.
 
 Signals solve this problem by creating an internal reactive graph that lives alongside the coponent tree. Signals then inform the application that something has been updated and it can update the DOM based on this
 
-# Using Signals 
+## Using Signals 
 
-## Defining a Signal
+### Defining a Signal
 
 In a simple component, we can define a value as a signal using `signal` with an initial value as can be seen below:
 
@@ -47,7 +47,7 @@ age = signal('');
 users = signal<User[]>([]);
 ```
 
-## Reading and Updating Signals
+### Reading and Updating Signals
 
 We can then read a signal by calling it as function, a simple example of this can be seen below:
 
@@ -124,7 +124,7 @@ In the above example, we're calling `users()` within a template. Templates are i
 
 We can also see that signals can be bound to `[(ngModel)]` as if it's a normal state value. Note that this method works differently if we use a one-way vs two-way binding. If it's a one-way binding we have to read the value
 
-## Computed Signals
+### Computed Signals
 
 Computed signals are a way to get a new signal that's based on some other signal, for example we can update the `count` above to work based on the length of our `users` value:
 
@@ -137,7 +137,7 @@ In the above, `computed` is aware of the signals that are used internally and so
 
 The `computed` signal cannot be directly written to
 
-## Effects
+### Effects
 
 Another reactive is within the `effect` function. This gives us a reactive context within our class where we can do some stuff
 
@@ -162,7 +162,7 @@ export class SignalsComponent {
 
 It is also possible to call `effect` elsewhere but you have to provide the injector manually via the `options` object
 
-## Signals Lifecycle
+### Signals Lifecycle
 
 A common pitfall is when manipulating a signal within a synchronous context:
 
@@ -178,7 +178,7 @@ Effectively, signals will only be evaluated during change detection. Hence, `com
 
 This is not the mechanism to use when an `effect` depends on EVERY change to a signal
 
-## Dynamic Dependency Tracking
+### Dynamic Dependency Tracking
 
 Given the following code:
 
@@ -192,7 +192,7 @@ effect(() => {
 
 The `effect` above will only run when `this.a() === 'show'`. This means that the effect is only triggered when the condition is satisified  
 
-## Writing Signals from Effect
+### Writing Signals from Effect
 
 It's also important to note that we cannot write to a signal from an `effect` since it can create a dependency loop. It is possible to disbable this safeguard but not recommended
 
@@ -208,7 +208,7 @@ effect(() => {
 })
 ```
 
-## Untracked
+### Untracked
 
 Within a reactive context such a `effect` we may want to run some other code but ensure that we don't trigger any signal changes we can use `untracked`, in the below this means that anything that `printName` does will not trigger a new change
 
@@ -225,7 +225,7 @@ effect(() => {
 })
 ```
 
-# Component Communication
+## Component Communication
 
 Angular also provides signal equivalents for existing component communication decorators, namely:
 
@@ -239,7 +239,7 @@ Angular also provides signal equivalents for existing component communication de
 | `@ContentChild`    | `contentChild()`    | 
 | `@ContentChildren` | `contentChildren()` | 
 
-## Inputs
+### Inputs
 
 Inputs can be done using `input`. Within this we can define an input as optional using:
 
@@ -259,7 +259,7 @@ Next, this can be used in the parent just as:
 <app-signals title="hello" />
 ```
 
-## Outputs
+### Outputs
 
 Outputs work as follows:
 
@@ -279,7 +279,7 @@ And from a consumer, it's bound as normal as well:
 <app-signals title="hello" (onAdd)="log($event)" />
 ```
 
-## Models
+### Models
 
 When doing 2-way binding it's possible to simplify the configuration of the signals using `model()`
 
@@ -298,11 +298,11 @@ selected = model<User>();
 
 The `model` will then emit whenever the signal is updated, e.g. using `set` or `update`
 
-# ExpressionChangedAfterItHasBeenCheckedError
+## ExpressionChangedAfterItHasBeenCheckedError
 
 Often in Angular we can run into the `ExpressionChangedAfterItHasBeenCheckedError` when we change the value of something during rendering. If we encounter this error during a function that's signal-based, it's likely that this happens at a boundary where we are working with something that's not a signal - e.g. `RxJS`
 
-# References
+## References
 
 - [AngularArchitects Angular Signals Video](https://www.youtube.com/watch?v=6W6gycuhiN0)
 - [Angular Signals](https://angular.dev/guide/signals)

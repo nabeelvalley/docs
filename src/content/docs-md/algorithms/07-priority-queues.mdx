@@ -7,11 +7,11 @@ import Snippet from '@/components/Snippet.astro'
 
 > Notes based on [Algorithms, Part 1](https://www.coursera.org/learn/algorithms-part1/) on Coursera
 
-# APIs and Elementary Implementations
+## APIs and Elementary Implementations
 
 A variant of sorting that generalizes the idea to create a data structure that can be used for more general problems
 
-## Priority Queue
+### Priority Queue
 
 Different types of collections:
 
@@ -20,7 +20,7 @@ Different types of collections:
 - Randomized Queue: remove a random item
 - Priority Queue: remove the largest (or smallest) item
 
-## API
+### API
 
 Similar to Stack/Queue but we want to have generic items that are comparable:
 
@@ -43,7 +43,7 @@ There are lots of different algorithms for implementing the priority queue
 
 Generalizes the idea of a stack, queue, and randomized queue
 
-## Usecase
+### Usecase
 
 Say we want to store the largest `M (large)` items in a stream of `N (huge)` items. We can only afford to store `M` items, e.g. due to memory constraints
 
@@ -56,7 +56,7 @@ Ther are some approaches we can use:
 | Binary Heap    | N log M | M     | Pretty close to the thoretical best |
 | Theoretical    | N       | M     |                                     |
 
-## Elementary Implementation
+### Elementary Implementation
 
 We could implement this simply using two methods:
 
@@ -80,7 +80,7 @@ The two options to us are not great since they are at `N` for either one of the 
 
 Our goal is to define a `O(log N)` solution for the insert and delete operations
 
-# Binary Heap
+## Binary Heap
 
 - Binary tree - Empty or notde with links to left and right binary trees
 - Complete binary tree - perfectly balanced except for the bottom level
@@ -89,7 +89,7 @@ For a complete binary tree, the height of a tree with `N` nodes is the nearest i
 
 The priority queue can be implemented using a binary tree
 
-## Array Representation
+### Array Representation
 
 The Binary heap is a representation of a heap-ordered complete binary tree
 
@@ -111,7 +111,7 @@ By representing a binary tree as an array we can associate each index based on i
   - Parent of a node at `k` is at `k/2`
   - Children of node at `k` are at `2k` and `2k+1`
 
-## Promotion in a Heap
+### Promotion in a Heap
 
 Given a scenario that a child's key becomes larger than it's parent key we need to do the following to fix the tree:
 
@@ -129,7 +129,7 @@ Using this means that we can insert as follows:
 
 This implementation has the complexity of `1 + lg N` since the swim operation is at most `lg N`
 
-## Demotion in a Heap
+### Demotion in a Heap
 
 Given the scenario where a parent's key becomes smaller than one or both of its children
 
@@ -142,7 +142,7 @@ This is referred to as the **sink** operation which we can implement as such:
 
 <Snippet path="algorithms/priority-queue/binary-heap-sink.ts" />
 
-## Delete the Maximum in a Heap
+### Delete the Maximum in a Heap
 
 To delete the maximum in a heap we need to do the following:
 
@@ -162,39 +162,39 @@ pq[N+1] = null // prevent loitering reference
 return max
 ```
 
-## Complete Implementation
+### Complete Implementation
 
 We can combine the above `sink` and `swim` functions into the final implementation
 
 <Snippet path="algorithms/priority-queue/binary-heap.ts" />
 
-## Analysis
+### Analysis
 
 From what we have, we can see that the insert operation is `log N` and delete max is `log N`. There are also improvements that can be made to further improve this algorithm such as the D-ary heap and the Fibonacci implementations
 
-## Considerations
+### Considerations
 
 - It is important to keep in mind that this implementation assumes that the client does not change the keys while on the PQ. The way to avoid this is by ensuring keys are immutable
 - It is also possible that someone deletes when the PQ is empty and we need to handle that appropriately. Depending on our implementation we will also realistically want to have the array be an automatically growing array
 - We can create a minimum oriented queue by replacing `less` with `greater`, in our implementation this also applies to the implementation we have for the `swim` and `sink` functions
 - We can also provide other operations such as changing the priority of an item - we can use the sink and swim operations to do this
 
-# Heapsort
+## Heapsort
 
 Take advantage of a Binary Heap to implement a clever sorting algorithm
 
-## Algorithm
+### Algorithm
 
 - Create a max-heap with all N keys
 - Repeatedly remove the max key
 
-## Implementation
+### Implementation
 
 We will build the heap bottom-up and right-to-left and then tear the heap back down afterwards, by doing this we will have ensured that the array is sorted
 
 The implementation is mostly the same as the `MaxHeapPQ` above but has been adjusted to be 0-indexed so that we can iterate through the array without the need for an extra starting element for offsetting the index calculation
 
-## Analysis
+### Analysis
 
 - During construction - `<= 2N` compares and exchanges
 - During sort - `<= 2 N lg N` compares and exchanges
@@ -207,7 +207,7 @@ Heapsort is optimal for both time and space but:
 2. Makes poor use of cache memory since memory references are all over the place - quicksort refers to things that are close to each other
 3. Not stable
 
-# Event Driven Simulation
+## Event Driven Simulation
 
 Sometimes we want to be able to simulate particles for scientific or other reasons
 

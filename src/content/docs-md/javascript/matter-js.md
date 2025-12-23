@@ -6,7 +6,7 @@ subtitle: Introductory Matter.js notes
 
 > Some notes on using Matter.js based on [The Coding Train YouTube Videos](https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw)
 
-# Physics Engine Overview
+## Physics Engine Overview
 
 > [Playlist](https://www.youtube.com/watch?v=wB1pcXtEwIs&list=PLRqwX-V7Uu6akvoNKE4GAxf6ZeBYoJ4uh&index=2&t=0s)
 
@@ -24,13 +24,13 @@ Physics Engines usually have some common concepts:
 - **A Body** which is an entity in that world
 - **A Connection** which states how different bodies are related to one another
 
-# Matter.js
+## Matter.js
 
 [Matter.js](https://github.com/liabru/matter-js) is a 2D rigd body physics engine that runs in the browser. The general Getting Started Buide can be found [on GitHub](https://github.com/liabru/matter-js/wiki/Getting-started)
 
 Matter.js has a built-in render and runner for simulations that does very basic rendering for the purpose of debugging. For our purpose we'll use [p5.js]() for rendering
 
-## Setup the Application
+### Setup the Application
 
 To get started with the Library we should initilize a new package and add the `matter.js` library to it
 
@@ -69,7 +69,7 @@ In our `index.html` file we'll include the following to reference `matter-js` an
 
 Within our page context the `Matter` variable should allow us to access the functionality of the library
 
-## Basic Setup
+### Basic Setup
 
 As a basic setup to our page we can then create an Engine and Renderer instance using `Matter` in a setup function as well as define the different bodies and add them to the `World`
 
@@ -102,7 +102,7 @@ function setup() {
 
 > You can also see the call to `createCanvas` which is what processing will use to create the canvas for the site
 
-## Rendering
+### Rendering
 
 Now that the engine is running, we can start looking at how to render the specific objects as they move through our canvas
 

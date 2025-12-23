@@ -10,7 +10,7 @@ import Snippet from '@/components/Snippet.astro'
 
 > Note that the code here serves as a high level example for the development of a language server and is in no means intended to be a production-ready implementation
 
-# The Language Server Protocol
+## The Language Server Protocol
 
 > [Language Server Protocol Specification](https://microsoft.github.io/language-server-protocol/)
 
@@ -20,9 +20,9 @@ The protocol enables language related functionality such as diagnostics or docum
 
 The specification uses [JSON RPC 2.0](https://www.jsonrpc.org/specification) for communicating between the editor and language server
 
-# Creating a Basic Language Server
+## Creating a Basic Language Server
 
-## Input and Output
+### Input and Output
 
 A basic language server can be created using standard in and out as the communication mechanism for the server. This is quite easy to get access to using Node.js as we can get it from `process` like so:
 
@@ -83,7 +83,7 @@ Content-Length: 123\r\n
 }
 ```
 
-## Initializing the Project
+### Initializing the Project
 
 > I'm assuming you've got some basic idea of how Node.js works and that you're familiar with the overall idea of creating a CLI tool with Node.
 
@@ -123,18 +123,18 @@ npm i -g
 
 This will make the `example-lsp` command available and it will automatically run the `cli.js` file
 
-## Linking to an Editor
+### Linking to an Editor
 
 > The example below is for Helix, on other editors this process is different and is not the focus of this post
 
 Language servers are started by or connected to from the code editing application. I'm using [Helix](https://helix-editor.com/) which uses a config file that specifies the available language servers. We can reference the server we've created in Helix's `languages.toml` file like so:
 
 ```toml
-# define the language server
+## define the language server
 [language-server.example]
 command = "example-lsp"
 
-# associate a language with the language server
+## associate a language with the language server
 [[language]]
 name = "example"
 scope = "source.example"
@@ -144,7 +144,7 @@ language-servers = ["example"]
 
 > Seeing your editor's logs may vary so I'm not going to get too into that, but if you're trying to debug issues with a language server that's probably a good place to start
 
-## Handling Messages
+### Handling Messages
 
 Once we've got our editor setup, we should be able to open a file with a `.example` extension which will trigger our LSP
 
@@ -236,7 +236,7 @@ stdin.on('data', (buff) => {
 
 This is the basic flow for building a language server. Listening to events from some input, often `stdin/stdout` and responding to it using JSON RPC. The types of messages that can be received along with the expected response or behavior is all outlined in [the LSP Specification](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/)
 
-# Complete Example
+## Complete Example
 
 A more complete example showing the handling of multiple messages can be seen below:
 
@@ -244,7 +244,7 @@ A more complete example showing the handling of multiple messages can be seen be
 
 <Snippet path="lsp-example/cli.js" />
 
-# References
+## References
 
 - [Language Server Protocol Specification](https://microsoft.github.io/language-server-protocol/)
 - [Understanding the Language Server Protocol](https://medium.com/@malintha1996/understanding-the-language-server-protocol-5c0ba3ac83d2)

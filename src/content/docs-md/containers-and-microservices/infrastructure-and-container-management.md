@@ -5,11 +5,11 @@ title: Infrastructure and Container Management
 
 > Presented by Donovan Marais
 
-# Container vs VM
+## Container vs VM
 
 Only the required files and infrastructure are required for a container, this allows us to have very fast environments and are a lot easier and smaller to set up than VM's
 
-# Cloud Automation Manager
+## Cloud Automation Manager
 
 **Service Automation, Orchestration and Multi-Cloud Management**
 
@@ -31,7 +31,7 @@ Automation enables us to enforce policies on our environments and integrate serv
 
 We can run a localised version of ICP for testing purposes
 
-# # Template Designer
+### Template Designer
 
 There are preexisting templates that we can use for our use cases with integrated code editing
 
@@ -39,7 +39,7 @@ We can maintain our infrastructure with code or with the GUI and manage config d
 
 From IBM Cloud Private we can deploy on Azure, Amazon, Google, etc. if we want to very easily by using drag-in docker containers and configurations
 
-# # Service Composer
+### Service Composer
 
 - Visually bind service orchestrations
 - Build services with Helm and Terraform
@@ -49,6 +49,6 @@ From IBM Cloud Private we can deploy on Azure, Amazon, Google, etc. if we want t
   - CMDB's / REST
   - Custom Integration
 
-# Demo
+## Demo
 
 [Automation Manager Demo on BlueDemos](https://bluedemos.com/show/765)

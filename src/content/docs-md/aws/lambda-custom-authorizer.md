@@ -4,7 +4,7 @@ title: Simple Lambda Custom Authorizer
 subtitle: Using a Lambda for Authorization and Authentication on AWS API Gateway
 ---
 
-# Custom Authorizers
+## Custom Authorizers
 
 API Gateway allows us to handle auth by way of a lambda. AWS has two types of authorization lambdas we can use, namely:
 
@@ -15,7 +15,7 @@ We'll be discussing at the former since it's significantly simpler (hence the na
 
 Also note that I'm using SST for the definition of the `Function` and `Api` but the general concept still applies at a broader API Gateway and CDK Stack
 
-# The Authorizer Lambda
+## The Authorizer Lambda
 
 > Note that the `@types/aws-lambda` package does not have a type def for the `SIMPLE` authorizer, and so I've provided the authorizer in JavaScript in order to keep things to the point, but in practice you should probably write more concrete types for the lambda
 
@@ -66,7 +66,7 @@ export const handler = async (event) => {
 
 Lastly, if you're hooking things up manually you can find the Authorizer Settings in API Gateway for your specific API and Lambda, but if you're using CDK/SST look to the next section for how to integrate this into your stack
 
-# The Stack
+## The Stack
 
 If, like me, you're using SST for creating your API and would like to configure your Authorizer using that, you can simply add the following to your stack and attaching it to your API
 
@@ -93,7 +93,7 @@ const api = new sst.Api(this, 'Api', {
   /// rest of props
 ```
 
-# PolicyDocument Based Authorizers
+## PolicyDocument Based Authorizers
 
 In the context of Authorizers we can also have the PolicyDocument based authorizers which is the typical implementation. Without any explanation this is what one of those would look like:
 

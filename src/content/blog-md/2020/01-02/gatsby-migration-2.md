@@ -5,7 +5,7 @@ subtitle: 01 February 2020
 description: Migrating a React.js website to Gatsby.js
 ---
 
-# Introduction
+## Introduction
 
 In the [last post](/blog/2020/21-01/gatsby-migration-1) we looked setting up an application with a few basic routes. These routes were all assigned to Components in the `src/pages` directory.
 
@@ -15,7 +15,7 @@ This post will be going throught the Gatsby Setup necessary in order to migrate 
 2. **Rendering the "Dumb" pages with Gatsby** (This post)
 3. [Rendering the "Smart" page with Gatsby](/blog/2020/15-03/gatsby-migration-3)
 
-# Getting Ready
+## Getting Ready
 
 In order to `Gatsbyify` the application, there are three steps that we will need to take before we can start updating our pages to work with the new system
 
@@ -23,7 +23,7 @@ In order to `Gatsbyify` the application, there are three steps that we will need
 2. Install Gatsby
 3. Create the necessary Gatsby Config files
 
-## Update Folder Structure
+### Update Folder Structure
 
 Gatsby Builds are placed into the `public` directory. This currently is the output directory of a React build if we are using the standard React configuration
 
@@ -34,12 +34,12 @@ Now we need to add the following lines to the end of our `.gitignore` file so th
 `.gitignore`
 
 ```sh
-# gatsby
+## gatsby
 public
 .cache
 ```
 
-## Install Gatsby
+### Install Gatsby
 
 To add Gataby to our project we need to add the `gatsby` package from `npm` as a dependency to our project. From the project's root directory run:
 
@@ -60,7 +60,7 @@ Next we'll add/update the following commands in our `package.json` file so that 
 },
 ```
 
-## Create Config Files
+### Create Config Files
 
 In order to enable gatsby we need to add the `gatsby-config.js` file to our root directory, we can use the starter file with the following content, as it currently stands this doesn't do anything
 
@@ -167,7 +167,7 @@ Search:
 
 </details>
 
-# Page Setup
+## Page Setup
 
 From the Development 404 Page we can see that Gatsby has found our previously created pages - this is because Gatsby looks for pages in the `pages` directory, however when we click on a the links we will notice the following:
 
@@ -179,7 +179,7 @@ From the Development 404 Page we can see that Gatsby has found our previously cr
 
 These are, for the most part, easy problems to solve
 
-## Fix the Blog Error Message
+### Fix the Blog Error Message
 
 If we look at the `Blog` page we will see that there is an issue with the Page render, this is because we need to change the `Link` components to be imported from `gatsby` instead of `react-router-dom` because with Gatsby we are no longer using the React Router
 
@@ -189,7 +189,7 @@ If we look at the `Blog` page we will see that there is an issue with the Page r
 import { Link } from 'gatsby'
 ```
 
-## Fix the Routes
+### Fix the Routes
 
 We can also see that our routes are capitalized which is not what we want. Gatsby uses the file organization to do routing, so in order to correct our routes to align what we defined previously in our `App.js` we will first need to rename our files:
 
@@ -210,7 +210,7 @@ yarn start
 
 When the page loads up we should now see our `Home` content rendered on the `/` route
 
-## Fix the Layout
+### Fix the Layout
 
 When we were using the standard React Routing we made use of the `App` component to wrap our page routes as well as our navigation. We'll convert our `App.js` file into a component that we can use in our other pages
 
@@ -243,7 +243,7 @@ const App = ({ children }) => (
 export default App
 ```
 
-## Use the Layout
+### Use the Layout
 
 Now that we've essentially created a `Layout` component in the form of the `App` component we can use it to wrap the pages that we've exported. We can do this for the `Home` page like so:
 
@@ -320,7 +320,7 @@ export default NotFound
 
 </details>
 
-## Fix the CSS
+### Fix the CSS
 
 Before we can use the `App` component we need to add the `gatsby-plugin-postcss` and `postcss-preset-env` plugins so that Gatsby knows how to interpret the default `create-react-app` method of importing our CSS into a component
 
@@ -366,7 +366,7 @@ yarn start
 
 Assuming everything went as planned the application should start up correctly and the styling from our `index.css` file will be correctly applied
 
-# Summary
+## Summary
 
 By now we have completed the first part of the migration process - converting our static pages to use Gatsby - by taking the following steps:
 

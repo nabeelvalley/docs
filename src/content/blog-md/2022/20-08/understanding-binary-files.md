@@ -5,11 +5,11 @@ subtitle: 20 August 2022
 description: An introduction to bits, bytes, and binary file formats
 ---
 
-# Introduction
+## Introduction
 
 Computers work with data stored in binary formats. Reading and interpreting binary data is an important part of understanding file formats so their data can be read and interpreted
 
-# Bits and Bytes, and Binary
+## Bits and Bytes, and Binary
 
 Binary files store data using bits
 
@@ -124,7 +124,7 @@ When substituting the powers of 2:
 
 The numbers discussed above are all 1-byte (8-bit) numbers, which have a range between 0 and 255, adding bits to the value will allow the representation of bigger numbers, for example, a 2-byte (16-bit) number can have a value from 0 to 65,535
 
-# Hexadecimal (Hex)
+## Hexadecimal (Hex)
 
 In the above example, numbers are represented in binary format (e.g. `000000020`), or decimal format (e.g. 2)
 
@@ -166,13 +166,13 @@ Using the binary representation, a byte can be represented using 2 Hex values wh
 
 For example, the value for 234, represented as bits: `11101010` can be split into 2 sets of 4-bits `1110 1010`, using the table above, this becomes `EA` in hex
 
-## Binary Files
+### Binary Files
 
 Binary files encode data using bits, when viewing them, it's convenient to view the data in them using bytes represented as hex values as was shown above
 
 Binary files usually require some knowledge of how their data is structured to correctly interpret the information. This is usually described in the specification for the file format
 
-# Text Files
+## Text Files
 
 Plain text files are usually in the UTF-8 or UTF-16 format - this means that they use 8-bits or 16-bits to represent each character, but there are lots of other formats that a text file can use
 
@@ -199,7 +199,7 @@ H  e  l  l  o     W  o  r  l  d  !
 
 Binary files can be viewed in a hex editor to see the raw binary data, but interpreting these files depends on the format used and will differ between file formats
 
-# Conclusion
+## Conclusion
 
 Computers store data using bits. Bits can be structured into sets of 8-bits, called a byte
 
@@ -207,7 +207,7 @@ Data can be represented using bits, bytes, decimal values, or hexadecimal values
 
 Files store data using binary. Binary data can be represented as decimal or hex depending and can be viewed as whichever is appropriate
 
-# References
+## References
 
 - [UTF-8 Character Table](https://www.utf8-chartable.de/unicode-utf8-table.pl?utf8=bin)
 - [HexEdit](https://hexed.it/)

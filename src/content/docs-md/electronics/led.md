@@ -6,13 +6,13 @@ subtitle: General information on using LEDs in electric circuits
 
 LED is short for Light Emitting Diode
 
-# Symbol
+## Symbol
 
 LED's are represented with the Diode symbol with 2 arrows added:
 
 ![LED Symbol](/content/docs/electronics/led-symbol.png)
 
-# Connecting
+## Connecting
 
 When connecting an LED in a circuit it must be connected:
 
@@ -23,7 +23,7 @@ Below is an example circuit:
 
 ![Circuit example](/content/docs/electronics/led-circuit.png)
 
-## Series Resistor
+### Series Resistor
 
 The resistor to be connected with a specific LED can be calculated by:
 
@@ -37,7 +37,7 @@ Where:
 - $V_{LED}$ is the LED's required voltage
 - $I_{LED}$ is the current required across the LED
 
-## Direction
+### Direction
 
 The direction that an LED is connected in is very important, both for functioning purposes as well as to ensure the LED is not damaged.
 

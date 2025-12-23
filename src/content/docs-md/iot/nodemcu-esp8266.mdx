@@ -8,7 +8,7 @@ import Snippet from '@/components/Snippet.astro'
 
 > Some notes on running code on the NodeMCU ESP8266
 
-## Basic Setup
+### Basic Setup
 
 To run the ESP8266 code you will need to use the [Arduino CLI](https://arduino.github.io/arduino-cli/) or [Arduino IDE](https://www.arduino.cc/en/software)
 
@@ -19,20 +19,20 @@ Next, you can work on this application using the Arduino IDE or the Arduino VSCo
 To compile the code that will run on the device you can use the following commands:
 
 ```sh
-# Install the board
+## Install the board
 arduino-cli core install esp8266:esp8266 --config-file ./.cli-config.yml
 
-# Compile the app
+## Compile the app
 arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 ./sketches/blink
 
-# Upload the app to the board
+## Upload the app to the board
 
 arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 --port COM3 --upload ./sketches/blink
 
-# Upload the app to the board (does not compile)
+## Upload the app to the board (does not compile)
 arduino-cli upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/blink
 
-# Start Serial Monitor
+## Start Serial Monitor
 arduino-cli monitor -p --fqbn esp8266:esp8266:nodemcuv2 --port COM3 -c baudrate=115200
 ```
 
@@ -40,7 +40,7 @@ The above commands provide a basic outline for running your board and the releva
 
 > Note you can also do all of the above using the **Arduino VSCode Extension**
 
-### Install The Board
+#### Install The Board
 
 Before you can do anything else, you will need to install the board
 
@@ -54,7 +54,7 @@ Then, install the board using this config:
 arduino-cli core install esp8266:esp8266 --config-file ./.cli-config.yml
 ```
 
-### Using the Serial Monitor
+#### Using the Serial Monitor
 
 > Note that you will have to set the Baud rate when connecting to a device using the serial monitor in order to view the output
 
@@ -70,13 +70,13 @@ Connecting the serial monitor like this should also cause the device to restart 
 
 To use the Arduino Extension's Serial Monitor you can simply connect to the device. In the event you want to capture output from the moment the device turns on you can press the `RST` button on the device while the Serial Monitor is connected which wil allow you to connect as soon as the device starts up. This is necessary since when the device is being flashed the serial monitor must be disconnected
 
-## Examples
+### Examples
 
 > Note that when switching sketches you will need to use the VSCode Extension's `Arduino: Select Sketch` and thereafter the `Arduino: Initialize` and `Arduino: Rebuild Intellisense Configuration` command to configure VSCode to register the installed libraries
 
 For the sake of example, I will have all my sketches contained in a `sketches` directory with a directory for each sketch (as is required by Arduino)
 
-## Blink
+### Blink
 
 This is effectively the standard getting started hardware programming task - blinking the light on the board. For this example create the `sketches/beep/beep.ino` file:
 
@@ -90,7 +90,7 @@ arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sket
 
 This is also a good opportunity to connect the Serial monitor to view some output from the device using the previous command
 
-## Beep
+### Beep
 
 For this example we will play a short sound on the device when the setup hook runs using the builtin `tone` function. Add the following content to a file with the path `esp-8266/sketches/beep/beep.ino`:
 
@@ -102,7 +102,7 @@ This can then be uploaded and run on the device using:
 arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sketches/beep
 ```
 
-### WebServer
+#### WebServer
 
 For this example we will create a small application that responds to HTTP requests and can be accessed from other devices on the same network:
 
@@ -121,7 +121,7 @@ You can then upload and run it on the device using:
 
 And thereafter you can connect the serial monitor as normal. This is necessary since we want to view the IP adress of the
 
-### WebSocket
+#### WebSocket
 
 For this example we will create a small application that connects to a WebSocket server and prints out the received messages:
 
@@ -153,14 +153,14 @@ arduino-cli compile --upload --fqbn esp8266:esp8266:nodemcuv2 --port COM3 ./sket
 
 And thereafter you can connect the serial monitor as normal to view any logs from the websocket response
 
-### Screen
+#### Screen
 
 This one was a bit more complicated since it required a little more info, the following youtube videos were really handy in explaining the hardware setup process in more detail:
 
 - [Using OLED displays with Arduino/ESP8266](https://www.youtube.com/watch?v=YF6NAjq0044)
 - [Tutorial on I2C OLED Display with Arduino/NodeMCU](https://www.youtube.com/watch?v=_e_0HJY0uIo)
 
-#### Connecting the Screen
+##### Connecting the Screen
 
 For the connection Information I used the [Tutorial on I2C OLED Display with Arduino/NodeMCU](https://www.youtube.com/watch?v=_e_0HJY0uIo) video. The connection information for the screen I have is as follows:
 
@@ -171,7 +171,7 @@ For the connection Information I used the [Tutorial on I2C OLED Display with Ard
 | SCL        | D1          |
 | SDA        | D2          |
 
-#### Libraries
+##### Libraries
 
 We also need a few libraries which we can install with:
 
@@ -184,7 +184,7 @@ arduino-cli lib install "Adafruit SSD1306"
 
 For running the display there are two things we need to do
 
-#### Get the Screen Address
+##### Get the Screen Address
 
 Firstly, we need to figure out the screen address, this can be done by using the `i2cdetect` library using their example as-is. This is just needed the first time we use the screen:
 
@@ -212,7 +212,7 @@ Then, we need to connect the Serial Monitor and view the output. In the output w
 
 This is the value we will use for the Screen Address in the next setup
 
-#### Write Some Stuff
+##### Write Some Stuff
 
 To write stuff to the screen we can use the Adafruit sample from the library as a base, I've simplified it to just print a message on the screen to demonstrate the basic usage:
 

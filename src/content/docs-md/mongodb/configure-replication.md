@@ -6,11 +6,11 @@ subtitle: Configure MongoDB ReplicaSets using Mongo on a Server or via Docker Co
 
 Using a single MongoDB instance is cool, but you know what's cooler? Using more than one. Sometimes we need to set up a couple of different database replicas, this is a general method of how this can be done
 
-# On a Development Machine
+## On a Development Machine
 
 We'll create some additional MongoDB services on the machine and then link them together
 
-## Create the DB Folders
+### Create the DB Folders
 
 We will need the folders for databases to store their data, we can create this from a clean folder like so:
 
@@ -22,7 +22,7 @@ mkdir rs0-2
 
 This will create the folders for three database nodes
 
-## Startup the DB Services
+### Startup the DB Services
 
 You can start three DB services in different terminals with the following:
 
@@ -47,7 +47,7 @@ replication:
 
 You can thereafter go on to configure the replicaset, additionally it's helpful to note that any of the other options we passed in via the command line can be set-up including the Port, IPs, Oplog Size and DB Path
 
-## Configure the Replica Set
+### Configure the Replica Set
 
 Next, log in to one of the Database instances to use as the `PRIMARY` using the `mongo` shell:
 
@@ -101,7 +101,7 @@ From this, we should see each member's current config look something like:
 },
 ```
 
-## Create Some Data
+### Create Some Data
 
 From the Instance we are already logged into, we can create some data like so:
 
@@ -125,7 +125,7 @@ db.contacts.find()
 
 This data should now be written to each instance within the replicaset we configured
 
-## Check Replication Status
+### Check Replication Status
 
 There are two functions we can use to get information while on the instance, that is `rs.status()` which will give a lot of detail about the status of nodes, or `rs.printSlaveReplicationInfo()` which will give us a summary of the sync status like so:
 
@@ -160,9 +160,9 @@ source: mongonode2:27017
         0 secs (0 hrs) behind the primary
 ```
 
-# Inside of Some Containers
+## Inside of Some Containers
 
-## Start Some Databases
+### Start Some Databases
 
 If we're just playing around with this it can be useful for us to start up a few databases that we can use for testing this process. To start a few simple database nodes we can use the following `docker-compose` file and start it all up with `docker-compose up` from the directory in which we have this file
 
@@ -171,7 +171,7 @@ If we're just playing around with this it can be useful for us to start up a few
 `docker-compose.yml`
 
 ```yml
-# based on gist: https://gist.github.com/asoorm/7822cc742831639c93affd734e97ce4f
+## based on gist: https://gist.github.com/asoorm/7822cc742831639c93affd734e97ce4f
 version: '3.3'
 
 services:
@@ -225,7 +225,7 @@ The above yaml file will run three mongo containers along with the following det
 
 Note that in the `docker-compose.yml` file we specify some additional entrypoint params, these are very similar to the parameters we start the mongodb instance with on our local machine, these tell docker to start the containers wit the `replSet` option
 
-## Set-up the ReplicaSet
+### Set-up the ReplicaSet
 
 Now that we have three DBs, we need to set up the replication. This is very similar to the way we did it above, we have two options to log into the instance:
 
@@ -280,7 +280,7 @@ rs.conf()
 
 We can then go on to insert documents into the DB as we did on the local instance as well as verify the sync status
 
-# Arbiters and 2-Node Setups
+## Arbiters and 2-Node Setups
 
 > From the [MongoDB Documentation](https://docs.mongodb.com/manual/tutorial/add-replica-set-arbiter/)
 
@@ -314,7 +314,7 @@ Next, we can use the `rs.addArb(HOST_URL)` function to add the third node as an 
 rs.addArbiter('mongonode2:27017')
 ```
 
-# Remove a Member
+## Remove a Member
 
 > From the [MongoDB Documentation](https://docs.mongodb.com/manual/tutorial/remove-replica-set-member/)
 
@@ -326,7 +326,7 @@ rs.remove('mongonode2:27017')
 
 > The above applies to both Replication and Arbiter nodes
 
-# Edit Configuration
+## Edit Configuration
 
 We can use the `rs.reconfig(NEW_CONFIG)` function to provide a new replicaset configuration. There are a few different ways this can be used:
 

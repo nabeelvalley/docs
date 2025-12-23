@@ -14,7 +14,7 @@ Well, since this is a post about building a presentation framework within your A
 
 <Slide centered>
 
-# The Problem
+## The Problem
 
 </Slide>
 
@@ -29,7 +29,7 @@ I had to put together a little presentation based on something I've written abou
 Overall, these are the requirements I had in mind:
 
 <Slide>
-## My Requirements
+### My Requirements
 
 1. Not require any additional build process
 2. Work with Markdown or MDX so I can include it in my website easily
@@ -41,7 +41,7 @@ Overall, these are the requirements I had in mind:
 So I investigated a few solutions:
 
 <Slide>
-## Existing Slide Solutions
+### Existing Slide Solutions
 
 1. Just a markdown doc
 1. [Reveal.js](https://revealjs.com/)
@@ -63,7 +63,7 @@ Now, it's not that they're not good - most of them are pretty great and have som
 > I also didn't want to style everything from scratch or write lots of HTML everywhere
 
 <Slide centered>
-# The Solution
+## The Solution
 
 <SlideOnly>
 
@@ -76,7 +76,7 @@ Instead of just looking at the existing options, I instead chose to build a libr
 
 <Slide>
 <SlideOnly>
-## Use Existing Tooling
+### Use Existing Tooling
 
 1. HTML
 1. CSS
@@ -88,17 +88,17 @@ Instead of just looking at the existing options, I instead chose to build a libr
 </SlideOnly>
 </Slide>
 
-# Code
+## Code
 
 So, since I'm building it myself, that means code - and that's what we're going to look at
 
-## The API
+### The API
 
 I wanted to keep the API relatively simple. It should work with existing markdown content and allow me to delineate a slide in a way that can be easily read from the DOM so as to minimize the amount of build-time processing I need to do as well as minimize how much markup I need to write. For this purpose, I decided that I want it to fit into an MDX document like so:
 
 <Slide centered>
 <SlideOnly>
-## The API
+### The API
 </SlideOnly>
 
 ````mdx
@@ -109,7 +109,7 @@ Button to launch the presentation
 ... Existing page content
 
 <Slide>
-# Heading for Slide
+## Heading for Slide
 
 Some content for the slide
 
@@ -126,13 +126,13 @@ console.log('I am a code block')
 
 Hiven the above, I had a high level idea that I would need two parts to this - firstly I want to use the `Slide` component to give me something to latch onto in the HTML that I can manipulate, secondly I know I would need some kind of component that would control the overall presentation state, I called that `Presentation`
 
-## The `Slide` Component
+### The `Slide` Component
 
 The Slide component is simply a wrapper that includes content in an HTML section with a class `presentation-slide` which will contain the contents of a slide
 
 <Slide centered>
 <SlideOnly>
-## The `Slide` Component
+### The `Slide` Component
 </SlideOnly>
 
 `components/Slide.astro`
@@ -145,13 +145,13 @@ The Slide component is simply a wrapper that includes content in an HTML section
 
 </Slide>
 
-## The `Presentation` Component
+### The `Presentation` Component
 
 The `Presentation` component needs to do a few different things:
 
 <Slide centered>
 <SlideOnly>
-## The `Presentation` Component
+### The `Presentation` Component
 </SlideOnly>
 
 1. Hide presentation until enabled
@@ -165,7 +165,7 @@ Firstly, we can just take a look at the HTML that we will render contains a few 
 
 <Slide centered>
 <SlideOnly>
-## Basic Elements
+### Basic Elements
 </SlideOnly>
 
 `components/Presentation.astro`
@@ -196,7 +196,7 @@ Firstly, we can just take a look at the HTML that we will render contains a few 
 Next, we can grab the actual slide content by using the `presentation-slide` class we defined earlier:
 
 <Slide centered>
-## Get Slides
+### Get Slides
 
 `components/Presentation.astro`
 
@@ -214,7 +214,7 @@ Once we have the content of the slides and a variable to track which slide we ar
 
 <Slide>
 <SlideOnly>
-# Slide Utilities
+## Slide Utilities
 </SlideOnly>
 
 `components/Presentation.astro`
@@ -247,7 +247,7 @@ const keyHandlers: Record<string, () => number> = {
 Next, we can define what it means for us to start and end a presentation. For this example, starting a presentation will remove the `presentation-hidden` class from the main wrapper so we can make the presentation visible on the page as well as set the content to the current slide index (we initialized this to `0` above)
 
 <Slide>
-# Start and End Presentation
+## Start and End Presentation
 
 `components/Presentation.astro`
 
@@ -271,7 +271,7 @@ const endPresentation = () => {
 Next, hook up some event handlers so that we can have a method for controlling our presentation:
 
 <Slide>
-## Wiring things up
+### Wiring things up
 
 `components/Presentation.astro`
 
@@ -311,7 +311,7 @@ if (slides.length) {
 Next up, we need to add some CSS to make the slides pin to the root of our application above everything else so that you can actually use this:
 
 <Slide>
-## Styling
+### Styling
 
 `components/Presentation.astro`
 
@@ -362,7 +362,7 @@ And that's pretty much it for the core implementation. One other piece of fancin
 For this implementation, we will need to have different animations for the case where we are moving forwards or backwards. In order to do this, we will define some classes as part of our keyboard handler resolution that we will append to the `presentation-container`:
 
 <Slide>
-## View Transitions
+### View Transitions
 
 `components/Presentation.astro`
 
@@ -383,7 +383,7 @@ const keyHandlers: Record<string, [string, () => number]> = {
 Then, we will update our event handling logic to set these classes on the `contaienr`
 
 <Slide>
-### Setting the Classes
+#### Setting the Classes
 
 `components/Presentation.astro`
 
@@ -406,7 +406,7 @@ Then, instead just setting the `content.innerHTML` directly, we do it within the
 > Note that the `startViewTransition` API is experimental and typescript may complain, you will need to install `@types/dom-view-transitions` which will provide the type definition you need to use this API
 
 <Slide>
-### Starting the Transition
+#### Starting the Transition
 
 `components/Presentation.astro`
 
@@ -424,7 +424,7 @@ The last thing we need to do is define the view transitions for when the content
 Firstly we need to
 
 <Slide>
-### Animations
+#### Animations
 
 `components/Presentation.astro`
 
@@ -477,7 +477,7 @@ In the below we set that the `presentation-next` class defines a `view-transitio
 
 <Slide>
 
-### CSS Transitions
+#### CSS Transitions
 
 Below is the transition for moving to the next slide
 
@@ -522,13 +522,13 @@ And yes, that's a fair amount of code. All-in it's about 200 lines - most of whi
 As it stands right now the implementation is pretty simple but leaves a lot of space to be extended
 
 <Slide>
-## Added since this post was written
+### Added since this post was written
 
 - [x] Presenter mode with some kind of synchronized state for multiple monitors (LocalStorage?)
 - [x] Progress tracking
 - [x] Support for non-static components
 
-## Future Ideas
+### Future Ideas
 
 - [ ] Presenter notes and preview of next slide
 - [ ] Make this a library so other people can use it with less copy pasta
@@ -540,7 +540,7 @@ As it stands right now the implementation is pretty simple but leaves a lot of s
 
 <Slide>
 
-# Conclusion
+## Conclusion
 
 We used some interesting CSS here and overall we can see that it's not alays a huge amount of work to write your own implementation of something.
 
@@ -552,7 +552,7 @@ Additionally, for the sake of completeness - since this component is alive and e
 
 <Snippet base="./src/components/slides" path="Presentation.astro" lang="html" />
 
-# References
+## References
 
 - [MDN View Transitions](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
 - [Smooth and simple transitions with the View Transitions API ](https://developer.chrome.com/docs/web-platform/view-transitions)

@@ -4,11 +4,11 @@ title: Puppeteer
 subtitle: Browser Automation using Node.js and Puppeteer
 ---
 
-# Installing
+## Installing
 
 To get started with Puppeteer you will need to install it to your package `npm i puppeteer` this will install the required packages as well as a Google Chrome instance for Puppeteer
 
-# Basic Usage
+## Basic Usage
 
 In general, you will create a new `browser` instance, and interact with that instance using the `puppeteer api`. A basic example of using Puppeteer to take a screenshot can be seen below which will run a headless browser instance
 
@@ -25,7 +25,7 @@ const puppeteer = require('puppeteer')
 })()
 ```
 
-# Non-Headless Mode
+## Non-Headless Mode
 
 Some of the settings that are available when creating a browser are the `headless:false` and the slow-down speed `slowMo`:
 
@@ -36,7 +36,7 @@ const browser = await puppeteer.launch({
 })
 ```
 
-# Screenshots
+## Screenshots
 
 To navigate, type, and take some screenshots you can see the following:
 
@@ -67,7 +67,7 @@ const run = async () => {
 run()
 ```
 
-# Running JS Code in the Browser
+## Running JS Code in the Browser
 
 It can sometimes be useful to execute arbitrary code in browser window that interacts with the DOM, for example replacing some text in the HTML. This can be done by using the `.evaluate` function:
 
@@ -91,7 +91,7 @@ await page.evaluate(
 )
 ```
 
-# Connect to a Running Chrome Instance
+## Connect to a Running Chrome Instance
 
 To connect to a chrome instance, you can start chrome from your terminal and pass it the following argument:
 

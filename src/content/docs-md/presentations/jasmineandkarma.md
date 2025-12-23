@@ -4,11 +4,11 @@ title: Jasmine and Karma
 subtitle: Unit testing JS Apps using Jasmine and Karma
 ---
 
-# Jasmine
+## Jasmine
 
-## What and Why
+### What and Why
 
-### What
+#### What
 
 - Javascript testing framework
 
@@ -27,9 +27,9 @@ subtitle: Unit testing JS Apps using Jasmine and Karma
 - Behaviour Driven Development
   - Attempts to describe tests in a human readable format
 
-## Setting up a test environment
+### Setting up a test environment
 
-### For JS
+#### For JS
 
 ```html
 <!-- Order of tags is important -->
@@ -45,7 +45,7 @@ subtitle: Unit testing JS Apps using Jasmine and Karma
 <script src="test.js"></script>
 ```
 
-### For Node
+#### For Node
 
 Add Jasmine as a dev dependency
 
@@ -65,7 +65,7 @@ Run the test command
 npm test
 ```
 
-## Writing a test suite and spec
+### Writing a test suite and spec
 
 We want to test the following `helloWorld` function.
 
@@ -89,7 +89,7 @@ describe('suiteName', () => {
 })
 ```
 
-### 4 functions
+#### 4 functions
 
 - Define the **Test Suite**
 
@@ -115,7 +115,7 @@ describe('suiteName', () => {
   matcher(expected)
   ```
 
-### Setup and Teardown
+#### Setup and Teardown
 
 ```javascript
 let expected = 'Hello World!'
@@ -147,7 +147,7 @@ afterEach
 
 - Called after each test Spec is run
 
-### Matchers
+#### Matchers
 
 - The means of comparing the `actual` and `expected` values
 - Return a `boolean` indicating if a test passed or failed
@@ -182,9 +182,9 @@ afterEach
 - Open `index.html` in a browser
 - Run `npm test`
 
-# Jasmine Demo
+## Jasmine Demo
 
-## The following 3 files
+### The following 3 files
 
 `index.html`
 
@@ -261,11 +261,11 @@ describe('Test Suite', () => {
 })
 ```
 
-# Karma
+## Karma
 
-## What and Why
+### What and Why
 
-### What
+#### What
 
 - Test Runner for Jasmine in Angular
 - Automated running of tests
@@ -284,7 +284,7 @@ describe('Test Suite', () => {
 - Test against an instance of a component
 - Using the Angular Test Bed
 
-## Angular Test Bed
+### Angular Test Bed
 
 - Test behaviour that depends on Angular framework
 - Test Change and Property Binding
@@ -326,7 +326,7 @@ import { AppComponent } from './app.component'
   const service = TestBed.get(ServiceName)
   ```
 
-## Looking at the App Component
+### Looking at the App Component
 
 `app.component.html`
 
@@ -395,7 +395,7 @@ describe('AppComponent', () => {
 })
 ```
 
-## Running tests with the AngularCLI
+### Running tests with the AngularCLI
 
 - `ng test`
 - Other Angular features can also be tested
@@ -407,9 +407,9 @@ describe('AppComponent', () => {
   - Dependency Injection
   - etc.
 
-# Karma Demo
+## Karma Demo
 
-# Conclusion
+## Conclusion
 
 - Jasmine is a relatively simple testing tool
   - Easy to implement on a variety of projects

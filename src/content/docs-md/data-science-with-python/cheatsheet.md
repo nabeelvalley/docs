@@ -4,14 +4,14 @@ title: Cheatsheet
 subtitle: Some heplful functions for Data Analysis and ML with Python
 ---
 
-# Python Data Science Cheatsheet
+## Python Data Science Cheatsheet
 
 General Information from here:
 
 - https://towardsdatascience.com/feature-selection-techniques-in-machine-learning-with-python-f24e7da3f36e
 - https://towardsdatascience.com/pca-using-python-scikit-learn-e653f8989e60
 
-## Univariate Selection
+### Univariate Selection
 
 ```py
 import pandas as pd
@@ -41,7 +41,7 @@ df_scores.columns = ['Feature', 'Score']
 df_scores.nlargest(feature_count, 'Score')
 ```
 
-## Feature Selection
+### Feature Selection
 
 ```py
 import pandas as pd
@@ -67,7 +67,7 @@ df_importance.nlargest(10).plot(kind='barh')
 plt.show()
 ```
 
-## Normal Correlation Heatmap
+### Normal Correlation Heatmap
 
 ```py
 import pandas as pd
@@ -99,7 +99,7 @@ def plot_df_correlation(df):
     return sns.heatmap(df[df.corr().index].corr(), annot=True, cmap="coolwarm")
 ```
 
-## Simplified One-Hot Encoding
+### Simplified One-Hot Encoding
 
 Only encode values that occure more than a specific threshold
 
@@ -108,14 +108,14 @@ domain_counts = df_domain_invoice['Email Domain'].value_counts()
 
 replace_domains = domain_counts[domain_counts < 100].index
 
-# on-hot encoding of Domains
+## on-hot encoding of Domains
 df_domain_invoice = pd.get_dummies(df_domain_invoice['Email Domain']
                                            .replace(replace_domains, 'other_'),
                                        columns = ['Email Domain'],
                                        drop_first=False)
 ```
 
-## Heatmapping Categorical Correlation
+### Heatmapping Categorical Correlation
 
 From the following sources:
 

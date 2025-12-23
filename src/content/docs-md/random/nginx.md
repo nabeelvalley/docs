@@ -5,7 +5,7 @@ description: Basic nginx stuff
 
 > Before getting started you'll need to install nginx which can be done on the [nginx website](https://nginx.org/). Additionally these notes mostly take a walk through the [beginner's guide](https://nginx.org/en/docs/beginners_guide.html) as well as this [NGINX Crash Course](https://www.youtube.com/watch?v=7VAI73roXaY)
 
-# Overview
+## Overview
 
 nginx is an HTTP web server, reverse proxy, and a bunch of other related technologies
 
@@ -17,7 +17,7 @@ You can see the help menu using:
 nginx -h
 ```
 
-# Basic lifecycle commands
+## Basic lifecycle commands
 
 > If you run into issues with some of the nginx commands try running them with `sudo`
 
@@ -44,7 +44,7 @@ nginx -s reload # reload config
 nginx -s reopen # reopen log files
 ```
 
-## Config file
+### Config file
 
 The nginx config consists of modules that are controlled by directives. Directives can be a semicolon or block delimited. Some block directives can have other blocks within them, these are called contexts. Any directive placed outside of a context are considered to be within the main context
 
@@ -175,7 +175,7 @@ http {
 }
 ```
 
-## Serving Static Content
+### Serving Static Content
 
 Replace the above file with this to end up with the minimal config below:
 
@@ -232,7 +232,7 @@ An nginx config can have multiple `server` blocks which can listen on different 
 2. nginx selects the longest matching locaiton
 3. The URI is then appended to the `root` to resolve the final path on the file system
 
-### Aliasing
+#### Aliasing
 
 In the event we don't want the URI to be appended to our path we can use an alias, so for example we can make it so that `/hello` points to the index as well:
 
@@ -242,7 +242,7 @@ location /hello {
 }
 ```
 
-### Try Files
+#### Try Files
 
 In the event the requested file is not found we can provide some fallbacks that can be looked at instead using `try_files`:
 
@@ -255,7 +255,7 @@ location /images/ {
 
 In the above config, `try_files` will check the given files in order, if none of those exist, it will return a 404
 
-### Regex locations
+#### Regex locations
 
 Locations can also use a regex, for example using the `/count` route:
 
@@ -268,7 +268,7 @@ location ~* /count/[0-9] {
 
 The above will make it so that we fallback to the `index.html` file if it exists when given any URI that matches the regex
 
-### Redirects
+#### Redirects
 
 Redirect allow us to tell the requestor to visit another URL instead, redirects are done simply via the `return` with some status and path
 
@@ -278,7 +278,7 @@ location /redirectme {
 }
 ```
 
-### Rewrites
+#### Rewrites
 
 Rewrites allow us to send the response from one path to another, this works by providing some regexes and replacements:
 
@@ -293,7 +293,7 @@ location ~* /count/[0-9] {
 
 That will rewrite the response from `/number/<NUM>` to `/count/<NUM>` and handle the `count` location as seen above
 
-## Proxying
+### Proxying
 
 Setting up a proxy server can be done using the `proxy_pass`. For example we can add a server listening on port `8080` to the http block we have that proxies any requests to the image location to the server we have on port `80`
 
@@ -308,7 +308,7 @@ server {
 ```
 Reloading nginx with `nginx -s reload` should apply the configuration and you should be able to view an image at `http://localhost:8080/image.jpg`
 
-## Mime Types
+### Mime Types
 
 By default nginx doesn't serve content with the appropriate mime types, we can configure this by defining a `types` block within the `http` context, for example we can define a custom mime type for some made up formats:
 
@@ -332,7 +332,7 @@ http {
 }    
 ```
 
-## Load Balancing
+### Load Balancing
 
 Load balancing can be done by specifying some URLs in an `upstream` block along with a name, and we can then reference that name using a `location` with a `proxy_pass`:
 

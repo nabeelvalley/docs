@@ -7,7 +7,7 @@ subtitle: 15 August 2024
 
 A method for designing highly generic APIs in Typescript
 
-# The Pattern
+## The Pattern
 
 A recurring point I've seen when designing highly generic API's in Typescript is around giving consumers of an API an interface that requires the least amount of extra information from them. For example, take the function below:
 
@@ -34,7 +34,7 @@ const getName = getProperty<Data, "name">("name");
 
 The problem here is that the user of this function has to provide both generics when using the function since the object with type `D` is only provided to the function that is returned. The experience of a consumer here is a little cumbersome and would be nicer if we didn't have to do this.
 
-# Some Other Ideas
+## Some Other Ideas
 
 We can also try the following where we just provide the `name`, but this won't work:
 
@@ -68,7 +68,7 @@ This also has the issue that when using the `getProperty` function we end up wit
 const getName = getProperty("name"); // getter is not constrained by the type of `D`
 ```
 
-# A Weird Solution
+## A Weird Solution
 
 What can be a better solution is to split our function into a part that provides a generic and a part that provides data:
 
@@ -97,7 +97,7 @@ const getName = dataGetter("name");
 
 This isn't too bad, and I'd be okay to leave it here, but after speaking to some other developers I end up having a lot of questions around how the mechanics of the generic type need to work as well as the fact that we have multiple levels of functions returning functions that creates confusion when trying to use this code
 
-# A Classier Way
+## A Classier Way
 
 Weirdly, thinking of this as a class seemed to help. Instead of using a function to preload a generic, we can use a class:
 
@@ -122,7 +122,7 @@ const getName = dataGetter.property("name");
 
 What's also different with using the class approach is that things have names now, we know that we are calling the `.property` method which is giving us something to work with. Something about using classes gives people a bit more familiarity when working with generic things and creates a good relationship between the mechanics of the method and the mental model most developers have of class based development
 
-## Gross
+### Gross
 
 I'm more and more moving towards the idea that this kind of generic stuff should be kept to a minimum. This is a relatively simple example but these concepts can get pretty complex and perhaps speaks to something more fundementally incorrect about the data structures being worked with. If you can control the data structures, then ideally simplify them so you don't need this level of type magic, but if you do - it's always handy to have a way to express things that makes it easier for other developers to understand and work with
 

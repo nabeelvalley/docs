@@ -9,7 +9,7 @@ published: true
 
 It's already challenging enough trying to communicate in a foreign country - add in some loud music and a sketchy location and we've just made that about ten times more difficult
 
-# English, or something
+## English, or something
 
 A friend of mine mentioned to me the other day that they've been thinking about moving to the UK because of how much gets lost when communicating in a second language
 
@@ -21,7 +21,7 @@ Anyways, I went home and spoke to my wife and she had some strong opinions about
 
 Now, if I'm being completely honest here, some of these problems exist when speaking through language boundaries but it's a lot less frequent
 
-# The Curse of the Awkward
+## The Curse of the Awkward
 
 So, anyways - I'm not a super social person - I don't really know how to speak to people and kind of overthink every interaction
 
@@ -51,7 +51,7 @@ There may be some social commentary that could be added here but that's not what
 
 Later in the evening there was a short poetry performance which was cool - but that's about all I can say about it - the poetry was in Dutch and while I think my rudimentary understanding of the language was enough to grasp the high level idea of it, I feel like a lot of meaning and intent was lost in translation
 
-# Thought
+## Thought
 
 I think the way we communicate with people close to us resonates on a level that's more than just the words we're saying. There's an understanding that becomes so difficult to interpret when speaking a second language
 

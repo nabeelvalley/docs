@@ -6,7 +6,7 @@ subtitle: Notes on the Flutter framework
 
 > Notes from the [The Net Ninja Youtube Series](https://www.youtube.com/watch?v=1ukSR1GRtMU&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ)
 
-# What is it
+## What is it
 
 Flutter is a way to build native, cross-platoform applications using the `dart` language
 
@@ -14,7 +14,7 @@ Flutter is a way to build native, cross-platoform applications using the `dart` 
 - Smooth and responsive applications
 - Material design and iOS Cupertino pre-implemented
 
-# Install Flutter
+## Install Flutter
 
 [Documentation](https://flutter.dev/docs/get-started/install/windows?gclid=Cj0KCQjwzN71BRCOARIsAF8pjfhZOA-znjAzldU6xu_LNnlgYa6Cio_Jb17P8Uuq4UcKCQlk0ycePb0aAqLoEALw_wcB&gclsrc=aw.ds)
 
@@ -47,9 +47,9 @@ You should then be able to run the `flutter doctor` command to verify the instal
 
 You can address any of the issus that flutter identified during the previous
 
-# Setting Things Up
+## Setting Things Up
 
-## General Setup
+### General Setup
 
 > Install the Flutter SDK as described above
 
@@ -58,7 +58,7 @@ You can address any of the issus that flutter identified during the previous
 3. Set a name for your virtual device (you can leave this as is)
 4. Click Finish and the virtual device will be created
 
-## Android Studio
+### Android Studio
 
 Next, install the following plugins:
 
@@ -66,12 +66,12 @@ Next, install the following plugins:
 2. Install the `Flutter` plugin and ask if it should install the `Dart` plugin as well
 3. Restart Android Studio, you should now have a `Start a new Flutter project` option on the start menu
 
-## VSCode
+### VSCode
 
 - Install the Flutter and Dart Extensions
 -
 
-# Create an Application
+## Create an Application
 
 The most straightforward way to create a new flutter application is to use the `flutter cli`. To create an app like this simply run:
 
@@ -137,9 +137,9 @@ s Save a screenshot to flutter.png.
 ...
 ```
 
-# The App
+## The App
 
-## Basic App
+### Basic App
 
 The entrypoint for our application is the `lib/main.dart` in which we can see the `main` function for our app. We also have an `ios` and `android` directory for any platform specific code and a `test` folder for writing unit tests
 
@@ -175,7 +175,7 @@ void main() {
 
 > To ensure that the reload happens fully use `R` and not `r`
 
-## Laying Things Out
+### Laying Things Out
 
 We'll use a `Scaffold` to allow us to lay out a whole bunch of things, and inside of this we can use the different parts of the layout with some stuff in it:
 
@@ -198,7 +198,7 @@ void main() {
 }
 ```
 
-## Styling
+### Styling
 
 Using the method above we can add a lot more layout elements to our application layout. We can also make use of fonts. To do so just add the `.tff` files into a folder in our project. For our purpose we'll just add the font files to the `assets/fonts` directory
 
@@ -265,7 +265,7 @@ void main() {
 }
 ```
 
-## Stateless Widget
+### Stateless Widget
 
 A stateless widget is a widget that's data does not change over the course of the widget's lifetime. These can contain data but the data cannot change over time
 
@@ -331,7 +331,7 @@ class Home extends StatelessWidget {
 }
 ```
 
-## Images
+### Images
 
 We can use either Network Images or Local Images. To use an image we use the `Image` widget with a `NetworkImage` widget as the `image` property, an example of the NetworkImage would look like so:
 
@@ -412,7 +412,7 @@ body: Center(
 
 > The above methods are pretty much just shorthands for the initial methods
 
-## Icons
+### Icons
 
 An Icon Widget looks like this:
 
@@ -456,7 +456,7 @@ IconButton(
 )
 ```
 
-## Containers
+### Containers
 
 Container Widgets are general containers. When we don't have anything in them they will fill the available space, when they do have children they will take up the space that the children take up.
 
@@ -489,7 +489,7 @@ body: Padding(
 ),
 ```
 
-## Layouts
+### Layouts
 
 We have a few Widgets we can use to make layouts, some of these are:
 
@@ -544,7 +544,7 @@ body: Column(
 ),
 ```
 
-## Refactor Menus
+### Refactor Menus
 
 You can click on a widget and then click on the light bulb/refactor button, or the Flutter Overview Panel (VSCode or Android Studio) and that will allow you to do some things like:
 
@@ -552,7 +552,7 @@ You can click on a widget and then click on the light bulb/refactor button, or t
 2. Add or remove wrapper Widgets
 3. Extract widget to function/new widget
 
-## Expanded Widgets
+### Expanded Widgets
 
 Expanded widgets allow us to make a Widget use up all the extra available space, this is a bit like setting a Flex grow value for a widget
 
@@ -610,7 +610,7 @@ body: Row(
 ),
 ```
 
-## Sized Box Widget
+### Sized Box Widget
 
 The Sized Box widget allows us to simply add a spacer, we can set the height and width
 
@@ -623,7 +623,7 @@ SizedBox(
 
 The `height` and `width` properties are both optional
 
-## CircleAvatar Widget
+### CircleAvatar Widget
 
 Flutter also provides a widget for rendering circle shaped avatars:
 
@@ -634,7 +634,7 @@ CircleAvatar(
 ),
 ```
 
-## Center Widget
+### Center Widget
 
 A `Center` Widget can be used to just center things:
 
@@ -644,7 +644,7 @@ Center(
 ),
 ```
 
-## Divider Widget
+### Divider Widget
 
 Flutter provides us with a `Divider` widget which will draw a simple horizontal line. We provide a `height` for the bounding box and a `color` for the line.
 
@@ -652,7 +652,7 @@ Flutter provides us with a `Divider` widget which will draw a simple horizontal 
 Divider(height: 60, color: Colors.amberAccent),
 ```
 
-## Stateful Widgets
+### Stateful Widgets
 
 A Widget that contains state usually consists of two classes, one for the widget itself that extends `StatefilWidget` and another for the type of the state itself which extends `State<T>`. This looks something like:
 
@@ -672,7 +672,7 @@ class _MyWidgetState extends State<MyWidget> {
 
 We can also convert a current `StatelessWidget` to a `StatefulWidget` by using the recfctorings available for the class
 
-### Updating State
+#### Updating State
 
 To update state in our component we use the inherited `setState` function and use it to perform state updates. This function takes a function as a parameter and we handle state updates in this
 
@@ -691,7 +691,7 @@ We can then use call the `_incrementLevel` from the `onPressed` handler from a b
 
 > The state of the component can be updated independendently of the `setState` call, but this will not trigger a re-render of the component
 
-## Card Widget
+### Card Widget
 
 We can use the `Card` widget to render a card:
 
@@ -709,7 +709,7 @@ Card(
 );
 ```
 
-## SafeArea
+### SafeArea
 
 If we are not using a layout that is designed to keep the content in the screen we can use a `SafeArea` widget which will ensure that whatever content we have on the screen does not end up under the time area, etc. See the usage below:
 
@@ -729,7 +729,7 @@ class _HomeState extends State<Home> {
 }
 ```
 
-## Routing
+### Routing
 
 Routes in flutter make use of a `Map` and a function that makes use of the current app `context` which is used so that Widgets can get information about the app state and returns a Widget for the given route
 
@@ -875,7 +875,7 @@ class _HomeState extends State<Home> {
 }
 ```
 
-### Using Route Changes to Get User Data
+#### Using Route Changes to Get User Data
 
 We can make use of a Navigator push action to open a screen to allow for user input/load some data, and then we can pop back to the initial screen witht the data that was recieved. By doing this we can view the process of this input (from the intial route's perspective) as an `async` action that spans multipls routes
 
@@ -909,7 +909,7 @@ onPressed: () async {
 }
 ```
 
-## Widget Lifecycles
+### Widget Lifecycles
 
 In Flutter we have two kinds of widgets:
 
@@ -935,7 +935,7 @@ void initState() {
 }
 ```
 
-## Packages
+### Packages
 
 Flutter packages can be found at [pub,dev](https://pub.dev/). The [`http` package](https://pub.dev/packages/http) can be used to make HTTP requests
 
@@ -956,7 +956,7 @@ dependencies:
 flutter pub get
 ```
 
-## Fetching Data (http package)
+### Fetching Data (http package)
 
 We can make use of the `http` package to fetch some data from an API. for now we'll use the `JSONPlaceholder` API. To get data we can use the `get` function of the `http` package
 
@@ -1013,7 +1013,7 @@ class ToDo {
 
 Note that it is also possible for us to make use of more automatic means of doing this (such as with Code Generation), more information on this can be found [in the Flutter documentation](https://flutter.dev/docs/development/data-and-backend/json)
 
-## ListViews
+### ListViews
 
 We can build list views using a `ListView.builder` which allows us to output a template for each item in a list automatically instead of us doing the data-template conversion on our own
 

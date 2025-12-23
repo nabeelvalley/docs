@@ -13,7 +13,7 @@ However I find that Spring does a fair amount of compiler magic to make it work 
 
 Below is a short example of how we would use Spring to query our database to illustrate the problem:
 
-# The Example
+## The Example
 
 Let us consider an application in which we have some entity in our system that we would like to store in a database and be able to search over
 
@@ -70,7 +70,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 That's it, we don't implement this anywhere - Spring will generate this implementation for us - weird - but okay. We can use this function anywhere we have a repsitory instance and it will behave as expected
 
-# Growing Pains
+## Growing Pains
 
 But now, what if we want the `findByEmail` function to be case incensitive? Well seemingly we can just name this however so let's try:
 
@@ -112,7 +112,7 @@ public class User {
 }
 ```
 
-# The Limit Does Exist
+## The Limit Does Exist
 
 And we now need to update our email function to:
 
@@ -129,9 +129,9 @@ Okay, so now we're stuck right? No - Why would I go on this rant if I don't have
 
 Well, time to share it I guess
 
-# The Solution(s)
+## The Solution(s)
 
-## Query Annotations
+### Query Annotations
 
 Spring gives us two escape hatches for handling the problem we just ran into - we can use the `@Query` annotation which allows us to define a custom `JQL` query (Not SQL) that is defined inline and will do the appropriate value substitutions as needed:
 
@@ -149,7 +149,7 @@ Now, if this were the only option, I could live with it, it takes away some of t
 
 Even if we assume that we don't somehow have any errors in the above string, it's just a little odd - like other ORMs have lovely fluent interfaces like `LINQ` in C# or `knex` or `prisma` in Javascript/TypeScript that understand SQL and fit naturally into our programming languge
 
-## Specifications
+### Specifications
 
 Specifications provide us with a way to define our query within our programming language, and I think that's nice, so here's how they work
 
@@ -214,7 +214,7 @@ var results = userRepository.findAll(spec)
 
 And that's it, In my opinion the `Specification` solution is a bit easier to manage within the context of the greater codebase without having to worry about too much compile time magic and possible typos in the `JQL` query
 
-# Conclusion
+## Conclusion
 
 I think either of the the provided solutions are fair and give us with a good way to manage more complex queries more flexibly in a way that isolates our implementation from where we intend to use the code
 

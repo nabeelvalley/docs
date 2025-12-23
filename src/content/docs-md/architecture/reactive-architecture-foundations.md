@@ -6,19 +6,19 @@ subtitle: Notes on reactive architecture for microservices
 
 > [Based on this CognitiveClass learning path](https://cognitiveclass.ai/learn/reactive-architecture-foundations)
 
-# Foundations
+## Foundations
 
-## Why Reactive
+### Why Reactive
 
 The primary goal of reactive architecture is to provide an architecture that is responsive under all conditions. Reactive architecrure is about solving business problems that are caused by technical challenges
 
-## Unresponsive Software
+### Unresponsive Software
 
 Unresponsive software can be an annoyance to users even if this is due to another system that you're dependant on. Ideally we want to find ways that we can isolate ourselves from these external failures
 
 In the case of certain organizations, an outage like this can be extremely costly in both monetary loss as well as customer loss
 
-## The Goal
+### The Goal
 
 How can we build software that:
 
@@ -28,7 +28,7 @@ How can we build software that:
 - Can be distributed over different machines
 - Maintains a consistent level of responsivenes despite other factors
 
-## The Reactive Principles
+### The Reactive Principles
 
 [The Reactive Manifesto](https://www.reactivemanifesto.org/) is a set of patterns for solving some problems that companies were facing in a changing landscape
 
@@ -39,13 +39,13 @@ A reactive system has 4 main principles:
 - Elastic - remains responsive despite changes to the system load
 - Message Driven - built on async, non-blocking messages
 
-### Responsive
+#### Responsive
 
 > "Responsiveness is the cornerstone of usability
 
 Responsive systems build user confidence. In a reactive system all other principles are used to drive responsiveness
 
-### Resilient
+#### Resilient
 
 > "Resillience provides responsiveness despite failure"
 
@@ -60,13 +60,13 @@ Failures should be isolated to a single component and recovery should be delegat
 
 It's important that failures don't bring down the entire system like it would in a monolith
 
-### Elastic
+#### Elastic
 
 > "Elasticity provides responsiveness, despite increases or decreases in load"
 
 This implies that an architecture is able to both scale up or scale down in order to prevent bottlenecks as well as improve cost effectiveness
 
-### Message Driven
+#### Message Driven
 
 > "Responsiveness, Resillience, and Elasticity are all supported by a Message Driven Architecture"
 
@@ -80,12 +80,12 @@ Messages should provide:
 
 Additionally, this ensures that resources are not consumed while waiting as the application is not blocking or using threads while waiting for a response that may never come
 
-## Reactive Systems vs Reactive Programming
+### Reactive Systems vs Reactive Programming
 
 - Reactive systems are built in a way such that our individual application services and components interact in a reactive way (the above points). Reactive systems are separated along asynchronous boundries
 - Reactive programming can be used to develop reactive systems makes use of async, often callback-based programming
 
-## The Actor Model
+### The Actor Model
 
 The Actor model is a programming paradigm that supports the development of reactive systems. The actor model is Message Driven and provides abstractions for Elasticity and Resillience
 
@@ -93,13 +93,13 @@ The Actor model is a programming paradigm that supports the development of react
 - Each actor has an address
 - Communication is done through async messages only
 
-### Location Transparency
+#### Location Transparency
 
 The message driven design provides Location Transparency. All actors communicate using the same technique regardless of location. The original actor does not need to know the details of where another actor is located
 
 The communication may be via a router that is able to direct messages as needed which also enables us to distribute actors
 
-### Reactive Systems without Actors
+#### Reactive Systems without Actors
 
 It's possible to develop a Ractive system without the actor model using things like a:
 
@@ -109,7 +109,7 @@ It's possible to develop a Ractive system without the actor model using things l
 
 The result is a system that's reactive at the architectural scale compared to the actor model in which individual components in the system are reactive in themselves which simplifies things as the development of the system grows
 
-# Domain Driven Design
+## Domain Driven Design
 
 One of the key goals of DDD is about establishing a communication channel between domain experts and the software
 
@@ -117,7 +117,7 @@ Large domains can be difficult to model, to better handle this we try to split d
 
 DDD provides us with a set of guidelines for splitting these domains
 
-## What is a Domain
+### What is a Domain
 
 > "A domain is a sphere of knowledge"
 
@@ -126,19 +126,19 @@ In software this refers to some business or idea that we are trying to model, th
 - The model represents our understanding of the domain
 - The software is an implemetation of the model
 
-### Ubiquitous Language
+#### Ubiquitous Language
 
 This is a common language that is used to communicate between developers and domain experts, this language and terminology is driven by the domain experts and is based on words that come from the domain
 
 It's very important to ensure that the domain and software terminology is kept aligned
 
-## Decomponsing the Domain
+### Decomponsing the Domain
 
 Business domains are often large and complicated and which can contain many different ideas and actions with complex interactions. Trying to model a large domain can be complex, so it makes sense to split these domains into smaller subdomains for related parts of the domain
 
 Some parts or ideas may exist in multiple subdomains and in each of these domains these may evolve separately so it is important to also realize that abstracting these things may not always be appropriate
 
-### Bounded Context
+#### Bounded Context
 
 Each subdomain will have its own ubiquitous language. Often when building microservices we use Bounded Contexts as a starting point which we may break up further later on
 
@@ -156,7 +156,7 @@ Traditional DDD focused on Objects, more modern DDD is focused on Events. This i
 
 > The process of identifying these events is known as Event Storming
 
-## Domain Activities
+### Domain Activities
 
 When defining activities it can be useful to have a common notation to keep things clear, the `subject-verb-object` notation is one method of doing this, an example of this would be "**Customer** _creates_ a **booking**"
 
@@ -175,14 +175,14 @@ The indirect object is an object that's related to the direct object
 
 There are a few different types of activities in a domain:
 
-### Commands
+#### Commands
 
 - Represents a request to perform an activity
 - Not yet happened, can be rejected
 - Usually delivered to a specific location
 - Causes a state change
 
-### Events
+#### Events
 
 - Represent an action that happened in the past
 - Can't be rejected
@@ -190,7 +190,7 @@ There are a few different types of activities in a domain:
 - Records a change to domain state, often the result of a command
 - Always worded in past tense
 
-### Queries
+#### Queries
 
 - Request for information
 - Expect a response
@@ -199,11 +199,11 @@ There are a few different types of activities in a domain:
 
 In a reactive system, Commands, Events, and Queries are the types of messages in a reactive system and they form the API of a bounded context
 
-## Maintaining Purity
+### Maintaining Purity
 
 Once the domain has been split into bounded contexts it's necessary to ensure those domains are maintined
 
-### Anti-Corruption Layers
+#### Anti-Corruption Layers
 
 Anti-Corruption layers help us to prevent details from one domain leaking into another
 
@@ -211,30 +211,30 @@ The ACL can be implemented as an abstract interface and there will then be an im
 
 Sometimes Anti-Corruption systems are needed for interfacing with legacy systems that may not have good domain separation
 
-### Context Map
+#### Context Map
 
 A context map is a way of visualizing bounded contexts as well as the relationships between them. The relationships/arrows between contexts indicate a dependency of some kind
 
-## Ubiquitous Language to Code
+### Ubiquitous Language to Code
 
 As we develop a bounded context we start translating commands into code, for example "Create a Booking" would translate to something like `CreateBooking`
 
-## Domain Objects
+### Domain Objects
 
-### Value Object
+#### Value Object
 
 - Defined by attributes
 - Two objects are the same if their attributes are the same
 - Immutable
 - Messages in Reactive Systems are implemented as Value objects
 
-### Entities
+#### Entities
 
 - Identified by a unique identity
 - May change attributes but not identity
 - If identity changes then it is a new entity, regardless of attributes
 
-### Aggregates
+#### Aggregates
 
 - Collection of domain objects bound to an entity
 - Objects in an aggregate can be treated as a single unit
@@ -251,13 +251,13 @@ Considerations when determining the Aggregate Root:
 - Does deleting the entity require us to delete other entities
 - Will a single transaction span multiple entities
 
-## Object-Field Notation
+### Object-Field Notation
 
 We use something like `Order(orderId, orderItems, tableNumber, serverId)` as a way to identify th fields of an object
 
-## Domain Abstractions
+### Domain Abstractions
 
-### Services
+#### Services
 
 Some abstractions don't necessarily fit with an Entity of Value Object
 
@@ -267,7 +267,7 @@ Some abstractions don't necessarily fit with an Entity of Value Object
 
 Services should be very thin layers over some business logic
 
-### Factories
+#### Factories
 
 Often there may be a lot of logic/complexity involved in creating a domain object
 
@@ -275,7 +275,7 @@ Often there may be a lot of logic/complexity involved in creating a domain objec
 - Factories abstract away the creation logic
 - May require access to external resources like databases, etc.
 
-### Repositiories
+#### Repositiories
 
 Repositories are a way of retreiving or modifying existing objects
 
@@ -285,7 +285,7 @@ Repositories are a way of retreiving or modifying existing objects
 
 Often we combine factories into repositories which then also handle the creation of objects as well
 
-## Hexagonal Architecture
+### Hexagonal Architecture
 
 > Also known as "Ports and Adapters" and an alternative to the "N-Tier" architecture
 
@@ -300,9 +300,9 @@ Often we combine factories into repositories which then also handle the creation
 
 Since the domain has no dependency on the other parts of the architecture it can be portable
 
-# Reactive Microservices
+## Reactive Microservices
 
-## Monoliths
+### Monoliths
 
 The worst-case for a monolith can often have:
 
@@ -312,7 +312,7 @@ The worst-case for a monolith can often have:
 
 To clean up a an application like above we would often split the application into a few separate domain boundries
 
-### Characteristics
+#### Characteristics
 
 - Deployed as a single application
 - Single, shared database
@@ -324,7 +324,7 @@ To clean up a an application like above we would often split the application int
 
 Scaling a monolith involves multiple instances of the same application with a shared database
 
-### Advantages
+#### Advantages
 
 - Easy cross-module refactoring
 - Easier to maintain consistency
@@ -332,7 +332,7 @@ Scaling a monolith involves multiple instances of the same application with a sh
 - Snigle application to monitor
 - Simple scaling model
 
-### Disadvantges
+#### Disadvantges
 
 - Limited by the max size of a single server
 - Only scales within the limitations of a database
@@ -341,7 +341,7 @@ Scaling a monolith involves multiple instances of the same application with a sh
 - Slow development cycles
 - a Serious failure can bring down the entire monolith and can potentially cascade through instances
 
-## Service Oriented Architecrure
+### Service Oriented Architecrure
 
 > Not necessarily the same as microservices
 
@@ -353,7 +353,7 @@ In an SOA each individual service:
 - All access goes through the service's API
 - Services can live in a monolith or as a set of microservices
 
-## Microservices
+### Microservices
 
 - Subset of SOA
 - Logical components are separated into services
@@ -361,7 +361,7 @@ In an SOA each individual service:
 - Each component has its own data store
 - Independent and self governing
 
-### Characteristics
+#### Characteristics
 
 - Deployed independently
 - Multiple independent databases
@@ -371,73 +371,73 @@ In an SOA each individual service:
 - Teams manage features on their own
 - Teams use a DevOps approach
 
-### Scaling
+#### Scaling
 
 - Each service scales independenntly
 - Can be one or multiple copies of each service per server
 - Each server hosts a subset of the entire system
 
-### Advantages
+#### Advantages
 
 - Individual services can be deployed and scaled
 - Increased availabilities, more isolated failures
 - Isolation and decoupling creates more flexibility
 - Supports multiple platforms and languages
 
-### Team Organization
+#### Team Organization
 
 - Team independence
 - Faster release cycles
 - Cross-team coordination is less necessary
 - Can increase productivity
 
-### Disadvantages
+#### Disadvantages
 
 - May require complex deployment and monitoring systems
 - Cross-service refactoring is complicated
 - Requires supporting older API versions
 - May require organizational changes
 
-## Responsibilities of Microservices
+### Responsibilities of Microservices
 
-### Single Responsibility Principle
+#### Single Responsibility Principle
 
 > "A class should have only one reason to change"
 
 The SRP can also be applied to microservices. A micorservice should only have a single responsibility and a change to the internals of one microservice should not necessitate changes to other services
 
-### Bounded Contexts
+#### Bounded Contexts
 
 Bounded contexts are a good starting point for the division of individual services. These define a context in which a specific model applies
 
 After the initial definition, services may additionally be subdivided within a bounded context
 
-## Principles of Isolation
+### Principles of Isolation
 
 - State
 - Space
 - Time
 - Failure
 
-### State
+#### State
 
 Isolation of state is accomplished by ensuring all state access goes through the API, this allows internal evolution of the service while maintaining the internal api
 
-### Space
+#### Space
 
 Microservices should not care where other services are deployed. This allows the service to be scaled up or down as needed
 
-### Time
+#### Time
 
 Microservices should not wait for each other. Requests should be async and non-blocking which enables us to free up additional resource time
 
 This enables eventual consistency which means that now services can sale in independently
 
-### Failure
+#### Failure
 
 A service's failure should not cause failure in other services. This enables our system to remain operational even if some parts are failing
 
-## Bulkheading
+### Bulkheading
 
 Bulkheading is a technique for isolating failures
 
@@ -445,7 +445,7 @@ Bulkheading is a technique for isolating failures
 - Prevent failure propogarion
 - Overall system can remain operational
 
-## Circuit Breaker
+### Circuit Breaker
 
 When a service is overloaded a caller may not realize the service is overloaded and the retries may lead to further failure
 
@@ -463,7 +463,7 @@ States:
 2. Open - once tripped by some error state, this will prevent requests from going to the service to allow it time to recover
 3. Half Open - after some time of being close the circuit breaker will switch to this state, this will allow one request to go through to check if the service is operational, if it works then the the service will become available again and the circuit breaker will Reset itself back to the Closed state. If the request does not work it will again go back to the Open state
 
-## Message Driven Architecture
+### Message Driven Architecture
 
 Reactive systems are based on messaging
 
@@ -472,7 +472,7 @@ Reactive systems are based on messaging
 - If a request fails, the failure won't propogate
 - The client isn't waiting for a response
 
-## Autonomy
+### Autonomy
 
 Each service should be able to operate independently
 
@@ -482,20 +482,20 @@ Each service should be able to operate independently
 - Automnomous services have enough information to resolve conflicts and repair failures
 - Don't require other services to be operational all the time
 
-### Benefits
+#### Benefits
 
 - Stronger scalability and availability
 - Scaled indefinitely
 - Operate indepentently means that services are more failure tolerant
 
-### Implementation
+#### Implementation
 
 - Communicate through async messages
 - Maintain enough internal state for isolated functioning
 - Use Eventual Consistency
 - Avoid direct, synchronous dependencies on external services
 
-## Gateway Services
+### Gateway Services
 
 Microservices can lead to complexities in the API
 

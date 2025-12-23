@@ -4,7 +4,7 @@ title: Unix Shell
 description: Commands and shortcuts for using the unix based shells
 ---
 
-# Searching
+## Searching
 
 You can use `grep` to search in a file
 
@@ -32,9 +32,9 @@ You can even search for something in the output of a command using a pipe (`|`)
 echo "hello world" | grep "world"
 ```
 
-# Processes
+## Processes
 
-## List Processes
+### List Processes
 
 To kill a process you can first list running processes
 
@@ -48,7 +48,7 @@ To get the PID of a process you can use `lsof` along with `grep`, e.g. find a `n
 lsof | grep node
 ```
 
-## Find A Process on a Current Port
+### Find A Process on a Current Port
 
 E.g for a processs running on port `4001`
 
@@ -62,7 +62,7 @@ You can also just get the port by adding `-t`:
 lsof -t -t:4001
 ```
 
-## Kill a Process by PID
+### Kill a Process by PID
 
 You can kill a process using it's PID using:
 
@@ -76,7 +76,7 @@ Or with `-9` to force
 kill -9 1234
 ```
 
-## Kill a Process by Port
+### Kill a Process by Port
 
 You can kill a process that's listening on a port by first getting the PID of the process with `lsof -t -i:<PORT NUMBER>` and pass it into the `kill` command, e.g. for port `4000`
 
@@ -84,7 +84,7 @@ You can kill a process that's listening on a port by first getting the PID of th
 kill $(lsof -t -i:4000)
 ```
 
-## Jobs/Background Processes
+### Jobs/Background Processes
 
 Start a process, e.g. `ping`
 
@@ -101,7 +101,7 @@ Once jobs are running you can use `jobs` to view runnning jobs:
 ```sh
 jobs
 
-# which outputs
+## which outputs
 [1]    suspended  ping google.com
 [2]  - suspended  ping other.com
 [3]  + suspended  ping hello.com
@@ -115,7 +115,7 @@ For example, resuming the `ping hello.com` can be done with:
 fg %3
 ```
 
-## Navigating 
+### Navigating 
 
 You can use `cd` to move to specific folders relatively
 
@@ -132,12 +132,12 @@ cd ~/my-stuff
 And you can use `-` to just swap back to the last directory
 
 ```sh
-# before, in apps/stuff, now in apps/something-else
+## before, in apps/stuff, now in apps/something-else
 cd -
-# after, now in apps/something-else
+## after, now in apps/something-else
 ```
 
-# Tail/Watch a file as it changes
+## Tail/Watch a file as it changes
 
 You can get the tail of a file and watch it as it changes using:
 
@@ -145,7 +145,7 @@ You can get the tail of a file and watch it as it changes using:
 tail -f ./path/to/file
 ```
 
-# Copy to Clipboard
+## Copy to Clipboard
 
 To copy contents to the clipboard you can simlpy pipe it to `pbcopy` like so:
 

@@ -5,7 +5,7 @@ title: Probability
 
 > [Based on this EdX Course](https://www.edx.org/course/data-science-probability)
 
-# Configuration
+## Configuration
 
 Before starting the course make sure you install the library with the relevant datasets included
 
@@ -16,7 +16,7 @@ library(dslabs)
 
 From the dslabs library you can use the data sets as needed
 
-# Discrete Probability
+## Discrete Probability
 
 A subset of probability in which there are distinct possible outcomes, or categorical data. We can express this as
 
@@ -24,7 +24,7 @@ $$
 Pr(A)
 $$
 
-## Monte Carlo Simulations
+### Monte Carlo Simulations
 
 Computers allow us to mimic randomness, in R we can use the `sample` function to do this. We can first create a sample set, and from that select a random element. We use the repeat function to generate our elements
 
@@ -58,11 +58,11 @@ events
     588  412
 ```
 
-## Probability Distributions
+### Probability Distributions
 
 For Catergorical data probability distribution is the same as the propportion of each value in the data set
 
-## Independence
+### Independence
 
 Events are Independent if the outcome of one event does not affect the outcom of the other
 
@@ -78,7 +78,7 @@ $$
 Pr(A \& B) = Pr(A) Pr(B)
 $$
 
-## Combinations and Permutations
+### Combinations and Permutations
 
 In order to review more complex calculations we can use R to calculate them, this can make use of the `expand.grid` function which will output all the combinations of two lists, and the paste function will combine two vectors
 
@@ -115,7 +115,7 @@ Now that we have a deck we can check the probaility that the first card drawn wi
 
 What if we want to find the likelihood of a specific permutation, e.g two consecutive kings, we can do this with the `permutaion` and `combination` functions
 
-### permutations\(\)
+#### permutations\(\)
 
 This function computes for any list of size `n` all the different ways we can select `r` items
 
@@ -153,7 +153,7 @@ Thereafter we can look at which cases have a first card that is a king and the s
 [1] 0.05882353 # = 3/51
 ```
 
-### combinations\(\)
+#### combinations\(\)
 
 This will not take into consideration the order of two events, but rather the overall result
 
@@ -161,7 +161,7 @@ This will not take into consideration the order of two events, but rather the ov
 combinations(52, 2, v = deck)
 ```
 
-## The Birthday Problem
+### The Birthday Problem
 
 We have 50 people and we want to find out the probability of at least two people sharing a birthday. We can do this by using the duplicated function which will return true for an element if that element has occurred previously
 
@@ -182,7 +182,7 @@ We can simulate this many times with a Monte Carlo Simulation to find the probab
 
 Note that the replicate function can take multiple statements/lines in the function area with `{...}`
 
-## sapply
+### sapply
 
 What if we want to apply the above statements to a variety of different n values? We can defie the above as a function and then apply this to a different set of data
 
@@ -240,11 +240,11 @@ Thereafter we can use this and plot it comparatively
 
 ![Monte Carlo Approximation vs Actual Value](/content/docs/assets/birthdays-comparative.svg)
 
-## Sample size
+### Sample size
 
 How many samples are enough? Basically when our estimate result starts to stabalize we can assume that we have a large enough number of experiments
 
-## Addition Rule
+### Addition Rule
 
 The addition rule states that
 
@@ -252,11 +252,11 @@ $$
 Pr(A or B) = Pr(A) + Pr(B) - Pr(A and B)
 $$
 
-# Continuous Probability
+## Continuous Probability
 
 We make use of a Cumulative Probability Function to allow us to use continuous probabilities, this is because we need to verify whether a value falls within a certain range and not is a specific value
 
-## Theoretical Distribution
+### Theoretical Distribution
 
 The cumulative distribution for the Normal Distribution in R is defined by the `pnorm` function. We say that a random quantity is normally distributed as follows
 
@@ -266,11 +266,11 @@ F(a) = pnorm(a, avg, s)
 
 Based on the idea of continuous probability we make use of intervals instead of exact values, we can however run into the issue of discretization where although our measurement of interest is continious, our dataset is still discrete
 
-## Probability Density
+### Probability Density
 
 We can get the probability density function for a normal distribution with the `dnorm` function
 
-## Normal Distributions
+### Normal Distributions
 
 We can run Monte Carlo simulations on normally distributed data, we can use the `rnorm` function to get a normally distributed set of random values
 
@@ -280,7 +280,7 @@ rnorm(n, avg, sd)
 
 This is useful as it will allow us to generate normally distributed data to mimic naturally occuring data
 
-## Other Continuous Distributions
+### Other Continuous Distributions
 
 R has other functions available for different distribution types, these are prefixed with the letters
 
@@ -289,19 +289,19 @@ R has other functions available for different distribution types, these are pref
 - `p` for Probability Desnsity Function
 - `r` for Random
 
-# Random Variables
+## Random Variables
 
 Random Variables are numeric outcomes resulting from a random process
 
-## Sampling Models
+### Sampling Models
 
 We model the behavior of one system by using a simplified version of that system
 
-## Notation
+### Notation
 
 For random values we use Capital letters for random values
 
-## Standard Error
+### Standard Error
 
 This tells us the expected difference between an actual value and the expected value
 
@@ -311,17 +311,17 @@ $$
 
 The variance is the square of the standard error
 
-## Central Limit Theorem
+### Central Limit Theorem
 
 When the sample size is large the probability distribution is approximately normal
 
 Based on this we need only the average and standard deviation to find the expected probability distribution
 
-## Law of Large Numbers
+### Law of Large Numbers
 
 The standard error of a set of numbers decreases as the sample size increases, this is also known as _The Law of Averages_
 
-## How Large is Large
+### How Large is Large
 
 The CLT can be useful even with relatively small data sets, but this is not the norm
 

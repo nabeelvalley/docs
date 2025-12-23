@@ -9,7 +9,7 @@ So I've been meaning to write an introductory post about the basics of JavaScrip
 
 Let's get into it
 
-# 0. What is Programming
+## 0. What is Programming
 
 Programming is our way of telling a computer to do things. This can be anything from checking our spelling to making trippy digital art
 
@@ -17,7 +17,7 @@ The basics of programming are the same in most languages and doesn't involve muc
 
 The language I'm going to be using is called `JavaScript` but many of these concepts are the same in most other programming languages
 
-# 1. What is JavaScript?
+## 1. What is JavaScript?
 
 JavaScript is the language used to add interactivity to a website but it can also be used to do pretty much anything you like. JavaScript runs in all modern web browsers and can be accessed through your browser's developer tools, but it can also be used on other devices using something like [@nodejs](https://twitter.com/nodejs)
 
@@ -27,7 +27,7 @@ For our purposes though, we don't need to worry too much about how that all work
 
 I'll be posting links to the code on these sites as I go along
 
-# 2. Text Data
+## 2. Text Data
 
 In a program, we can store different types of data (known as "data types")
 
@@ -53,7 +53,7 @@ lllooonnnggg
     and have random spaces`
 ```
 
-# 3. Variables
+## 3. Variables
 
 If we want to keep our data for use at a later stage we need to give it a name, otherwise how do we know what data we're trying to use right? To give a piece of data (or text, in our case) a name we create a `variable`
 
@@ -86,7 +86,7 @@ When creating a variable, there are a few rules we need to follow:
 3. Variable names **must not** start with a number
 4. Variable names **should be** descriptive. while names like "x" and "blah" are allowed, if they have no meaning in the context it's better to opt for something people will understand
 
-# 4. Printing Data
+## 4. Printing Data
 
 Languages have ways we can show data to a user (or programmer). In JavaScript this is the "console.log" function. We'll discuss functions later on but for now know that when we give them data, and they do stuff
 
@@ -106,7 +106,7 @@ console.log(jenny) // prints -> Jenny Smith
 
 </details>
 
-# 5. Numbers
+## 5. Numbers
 
 Numbers are another type of data in JavaScript, to store a number we can just write the number. using numbers we can also do things like getting fat or running from the po-lice
 
@@ -150,7 +150,7 @@ console.log(dontDoThis) // print -> NaN (Not a Number)
 
 </details>
 
-# 6. Arrays
+## 6. Arrays
 
 Arrays are how we store a set of data. an array can have different data types in it, but usually, we want to be storing the same stuff in an array. we make an array by wrapping our items in `[ ]` and separating each item with a comma (`,`)
 
@@ -202,7 +202,7 @@ console.log(myData[100]) // print -> undefined
 
 </details>
 
-# 7. Booleans
+## 7. Booleans
 
 So far we've looked at strings and numbers, we have an even more basic data type called a boolean. a boolean is a value that can either be true or false. when creating a variable for a boolean we do not wrap the value in quotes
 
@@ -222,7 +222,7 @@ console.log(myFalseBool)
 
 </details>
 
-# 8. Complex Data
+## 8. Complex Data
 
 If we want to store data that are more complex than the ones we've seen above, we can make use of "objects". use `{ }` around our data to group more basic data. these use `keys` as names for values in the object
 
@@ -250,7 +250,7 @@ const jennyBooks = jenny.favouriteBooks
 
 </details>
 
-# 9. Undefined and Null
+## 9. Undefined and Null
 
 the values `undefined` and `null` have a special meaning.
 
@@ -262,7 +262,7 @@ For example:
 - What's wrong with chocolate? `null`
 - What's a flobuir? `undefined`
 
-# 10. Functions
+## 10. Functions
 
 Functions are a way we can group code for a specific set of instructions, usually with some end purpose. In JavaScript we define a function in one of two ways: using the word `function` or with the `fat arrow syntax`
 
@@ -388,7 +388,7 @@ console.log(mySum) // print -> 3
 
 </details>
 
-# Summary
+## Summary
 
 That's it for now, I'll definitely be updating this post/series as things are added
 

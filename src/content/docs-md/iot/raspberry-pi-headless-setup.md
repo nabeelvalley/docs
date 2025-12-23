@@ -4,7 +4,7 @@ title: Raspberry Pi Headless
 subtitle: Setting up WiFi and SSH on a Raspberry PI Headlessly
 ---
 
-# Get the OS Ready
+## Get the OS Ready
 
 To setup a headless Pi you need to do the following:
 
@@ -12,11 +12,11 @@ To setup a headless Pi you need to do the following:
 2. Download the OS you want (You can find them [here](https://www.raspberrypi.org/downloads/raspberry-pi-os/))
 3. Apply the downloaded image to an SD Card using the imager
 
-# Configure WiFi
+## Configure WiFi
 
 > [Docs](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md)
 
-## With Raspberry Pi Imager
+### With Raspberry Pi Imager
 
 > Information on using th Raspberry Pi Imager advanced options can be found on [the Raspberry Pi website](https://www.raspberrypi.com/news/raspberry-pi-imager-update-to-v1-6/)
 
@@ -27,11 +27,11 @@ Using Raspberry Pi Imager, you can click on the advanced options icon (cog) at t
 - Optional: Change Username and Password
 - Optional: Set Hostname
 
-## Without Raspberry Pi Imager
+### Without Raspberry Pi Imager
 
 Since you won't be able to interact with the Pi (because it's headless) you will want to configure the WiFi if you will be using it through that
 
-### Setup WiFi
+#### Setup WiFi
 
 Create a `wpa_supplicant.conf` in your Pi's root directory in your SD Card, this will be copied to the correct place when starting up. The file should have the following contents:
 
@@ -48,7 +48,7 @@ network={
 }
 ```
 
-### Enable SSH
+#### Enable SSH
 
 > [Docs](https://www.raspberrypi.org/documentation/remote-access/ssh/README.md)
 
@@ -62,7 +62,7 @@ ssh pi@raspberrypi.local
 
 If you're not able to do so you may need to look around and try to find the IP some other way
 
-# Get the PI IP
+## Get the PI IP
 
 > [Docs](https://www.raspberrypi.org/documentation/remote-access/ip-address.md)
 
@@ -79,7 +79,7 @@ sudo raspi-config
 
 And then select the first option to `Change User Password`
 
-# Make the IP Static
+## Make the IP Static
 
 > [Some Instructions](https://www.ionos.com/digitalguide/server/configuration/provide-raspberry-pi-with-a-static-ip-address/)
 
@@ -107,7 +107,7 @@ sudo reboot
 
 And then SSH using your new IP Address that you assigned above. This is to ensure that you can always find the Pi on your network easily. You will now be prompted to login - be sure to use the updated password that you configured
 
-# Add Node.js
+## Add Node.js
 
 Installing Node involves getting the installation script and running the script, you can do this by running the following command:
 
@@ -128,7 +128,7 @@ node --version
 npm --version
 ```
 
-# Add Yarn
+## Add Yarn
 
 Similar to Node, you need to install Yarn using a setup script:
 

@@ -6,11 +6,11 @@ description: A Git-compatible version control system
 
 > [jj](https://github.com/jj-vcs/jj) is a Git-compatible version control system. Another useful reference is [Steve's JJ tutorial](https://steveklabnik.github.io/jujutsu-tutorial/introduction/introduction.html) or [JJ for Everyone](https://jj-for-everyone.github.io/)
 
-# Installation and Setup
+## Installation and Setup
 
 `jj` supports Nushell, so naturally the configuration and installation is in (the jj installation docs)[https://jj-vcs.github.io/jj/v0.23.0/install-and-setup/#nushell] - this will give some really nice autocomplete for Nushell which is great
 
-# Initializing
+## Initializing
 
 To init `jj` in a repo that's currently using git, use:
 
@@ -18,7 +18,7 @@ To init `jj` in a repo that's currently using git, use:
 jj git init --colocate
 ```
 
-# Status
+## Status
 
 All changes in `jj` are located in a working copy, these changes can be seen with:
 
@@ -63,7 +63,7 @@ Additionally, the change history can also be seen with `jj log` and looks someth
 ◆  zzzzzzzz root() 00000000
 ```
 
-# Diff
+## Diff
 
 You can also view the diff for changes relative to your current HEAD by using:
 
@@ -79,7 +79,7 @@ Diffs can also be done relative to other refs, for example relative to `main` li
 
 > There are, of course, other flags that are supported to enable additional functionality
 
-# Descriptions
+## Descriptions
 
 We can add a decription to our working copy with `jj describe`
 
@@ -93,7 +93,7 @@ Working copy  (@) : kwvkkoxy 6dcc5582 Some notes on JJ
 Parent commit (@-): nlmkywks 2c0668f0 main | Add content for special notes
 ```
 
-# The Working Copy
+## The Working Copy
 
 `jj` changes are done in a working copy. We can also have multiple simultaneous working copies in JJ. JJ allow us to create a working copy with a description like so:
 
@@ -109,9 +109,9 @@ The working copy can be moved around using `jj edit` and referencing a commit we
 > jj edit 
 ```
 
-# Rebasing and Moving the Working Copy
+## Rebasing and Moving the Working Copy
 
-## Moving the Working Copy
+### Moving the Working Copy
 
 Rebasing can be done using `jj rebase` which allows you to move commits around. The simplest usecase for this is to move your working copy to a different bookmark, for example - moving the working copy to `main` can be done like so:
 
@@ -123,7 +123,7 @@ Rebasing can be done using `jj rebase` which allows you to move commits around. 
 
 Generally using `jj rebase`, `jj new`, or `jj edit` are how you would "checkout" a bookmark, depending on the current state of your working copy and your intended change
 
-## Moving a Branch
+### Moving a Branch
 
 You can also rebase a branch using:
 
@@ -133,7 +133,7 @@ jj rebase -b my/feature/branch -d main
 
 > A "branch" in the context of `jj` refers to a set of revisions that are not also part of the destination 
 
-# Working from Another Revision
+## Working from Another Revision
 
 `jj` lets us create a working copy on top of another revision/bookmark, this can be done using `jj new`. Often we'd like to start working relative to some `main` bookmark, this looks like so:
 
@@ -143,7 +143,7 @@ jj rebase -b my/feature/branch -d main
 
 This now moves our working copy to be on top of the `main` bookmark. Creating new bookmarks can then be done from this point
 
-# Commits
+## Commits
 
 > With `jj` you probably want to use bookmarks instead of commits
 
@@ -155,9 +155,9 @@ Commits can be created based on the current working copy and can be done with:
 
 This will simply create a commit with all the files in the current working copy. If you'd like to partially include files you can use `jj commit -i` which allows for an interactive commit
 
-# Bookmarks
+## Bookmarks
 
-## Creating Bookmarks
+### Creating Bookmarks
 
 `jj` uses the idea of _bookmarks_ instead of _branches_. A bookmark is like a commit on a branch.
 
@@ -167,7 +167,7 @@ A bookmark can be created with:
 > jj bookmark create <bookmark/branch name>
 ```
 
-## Tracking Bookmarks
+### Tracking Bookmarks
 
 `jj` can track remote branches by using:
 
@@ -175,7 +175,7 @@ A bookmark can be created with:
 > jj bookmark track <bookmark-name>@<remote-name>
 ```
 
-## Updating Bookmarks
+### Updating Bookmarks
 
 > Take a look at [Steve's tutorial on this](https://steveklabnik.github.io/jujutsu-tutorial/sharing-code/updating-prs.html) for more details
 
@@ -193,7 +193,7 @@ We can set the bookmark to a specific revision using the `-r` flag. We can set t
 > jj bookmark set <bookmark-name> -r @-
 ```
 
-# Pushing Changes
+## Pushing Changes
 
 `jj` allows for multiple different backends. Pushing to a `git` backend is done using:
 
@@ -205,7 +205,7 @@ We can set the bookmark to a specific revision using the `-r` flag. We can set t
 
 This command also  allows you to specify which bookmarks or commits you'd like to push using `-b` or `-c` respectively
 
-# Restore a file
+## Restore a file
 
 Restoring a file will reset the changes made to that file and can be done with:
 
@@ -213,7 +213,7 @@ Restoring a file will reset the changes made to that file and can be done with:
 > jj restore path/to/file.txt
 ```
 
-# Conflict Resolution
+## Conflict Resolution
 
 `jj` has conflict resolution tooling builtin which can be accessed using `jj resolve` in the case of conflicts. Changes can be resolved using the resolution tool like so:
 
@@ -223,7 +223,7 @@ Restoring a file will reset the changes made to that file and can be done with:
 
 Which will open a similar tool to the once used for interactive commits
 
-# Basic Workflow
+## Basic Workflow
 
 The bookmark concept can be a little tricky when working with git, basically here's a worflow that I find seems to work:
 
@@ -237,7 +237,7 @@ The bookmark concept can be a little tricky when working with git, basically her
 6. Use `jj git push -b <bookmark>` to push the bookmark
 7. Go back to 1.
 
-# Getting Commit Details
+## Getting Commit Details
 
 The `jj show` command can be used to get details about a commit or revision. It's also possible to refer to the working area using `@`, which means that information about the current working area can be fetched with:
 

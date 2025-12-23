@@ -6,11 +6,11 @@ subtitle: Based on the NetNinja Course
 
 > From the Net Ninja's React-Native Course [on YouTube](https://www.youtube.com/watch?v=ur6I5m2nTvk&list=PL4cUxeGkcC9ixPU-QkScoRBVxtPPzVjrQ)
 
-# Introduction
+## Introduction
 
 React native allows us to use React to develop native mobile applications. We're going through this course using the Expo CLI along with Typescript instead of just plain RN with JS
 
-# Init App
+## Init App
 
 To create a new RN app we use the `expo-cli` using the following:
 
@@ -43,7 +43,7 @@ rn-net-ninja
   |- yarn.lock
 ```
 
-# Views and Styles
+## Views and Styles
 
 The `App.tsx` file contains a `View` with some `Text` and a `StyleSheet`
 
@@ -79,7 +79,7 @@ In terms of the way RN uses styles it uses a CSS-like API but doesn't actually r
 
 An important distinction when compared CSS is that RN styles aren't inherited by children elements, this means that if we want to apply a specific font to each component for example, we would actually have to apply this to every element individually
 
-# Text Inputs
+## Text Inputs
 
 RN Provides some other basic components, one of these are the `TextInput` component which we can use like so:
 
@@ -101,7 +101,7 @@ export default function App() {
 }
 ```
 
-# Lists and ScrollView
+## Lists and ScrollView
 
 `ScrollView` allows us to render a list of items in a scrollable area, this can be rendered as follows:
 
@@ -117,7 +117,7 @@ export default function App() {
 </ScrollView>
 ```
 
-# FlatList
+## FlatList
 
 Additionally, there's another way to render a scrollable list of elements: using a `FlatList` which looks like so:
 
@@ -139,7 +139,7 @@ Additionally, `FlatList` also supports a `numColumns` prop which lets us set the
 
 The `FlatList` will only render the components as they move into view, and this is useful when we have a really long list of items that we want to render
 
-# Pressable
+## Pressable
 
 We can use the `Pressable` component to make any element able to handle touch events, for example:
 
@@ -205,13 +205,13 @@ const PeopleView: React.FC<{ onPersonSelected: PersonSelectedCallback }> =
   }
 ```
 
-# Keyboard Dismissing
+## Keyboard Dismissing
 
 We'll notice that the way the app works at the moment, some basic interactions, such as the keyboard automatically being dismissed don't work. In order to do this we need to add a handler onto the component which causes the keyboard t be dismissed.
 
 This can be done using a combination of a `Pressable` or `TouchableWithoutFeedback` and then `Keyboard.dismiss()` in the `onPress` handler
 
-# Flexbox
+## Flexbox
 
 Just a short note here - `Views` in RN behave like flexboxes, so we can do normal flexboxy things for layout in our components.
 
@@ -219,7 +219,7 @@ Something that's commonly done is to use `flex: 1` on components so that they fi
 
 Additionally, applying `flex: 1` to the root component will cause the app to fill our entire screen
 
-# Fonts
+## Fonts
 
 To use custom fonts you can make use of the Expo CDK, [here's the doc](https://docs.expo.io/versions/latest/sdk/font/)
 
@@ -251,7 +251,7 @@ export default function App() {
 }
 ```
 
-# React Navigation
+## React Navigation
 
 We're going to use the `react-navigation` library for building out the navigation and routing.
 
@@ -273,7 +273,7 @@ Additionally, `react-navigation` supports a few different types of navigation. F
 yarn add @react-navigation/stack
 ```
 
-## Stack Navigator
+### Stack Navigator
 
 We can create a Stack Navigator using some of the constructs provided by `react-navigation`. These work by using `createStackNavigator` and composing the navigation within a `NavigationContainer`. Note that we also use the `AppStackParamList` to list the params required for each screen
 
@@ -320,7 +320,7 @@ export default function App() {
 }
 ```
 
-## Navigating
+### Navigating
 
 In order to navigate we need to use the `navigation` prop that's passed to our component by `react-navigation`. In order to do this we need to configure our screen to use the `AppStackParamList` type with `StackScreenProps`
 
@@ -351,7 +351,7 @@ const Home: React.FC<HomeProps> = function ({ navigation }) {
 export default Home
 ```
 
-## Send data to screen
+### Send data to screen
 
 We can send some data to each screen by defining the data in our routing params:
 
@@ -388,7 +388,7 @@ const Home: React.FC<HomeProps> = function ({ navigation }) {
   // ... render stuff, etc.
 ```
 
-## Drawer Navigation
+### Drawer Navigation
 
 Now, since we've got all our navigation working, we're going to add some complexity by including a drawer based navigation that wraps our overall application. To do this we will need to change when we're using our stack and creating the NavigationContainer
 
@@ -591,7 +591,7 @@ export default function AboutStack() {
 }
 ```
 
-## Custom Title for Stack-Generate Header
+### Custom Title for Stack-Generate Header
 
 Using the Stack Navigation, we are also provided with a title, this is still used by the `ReviewDetails` screen as it doesnt have any additional options. In addition to the `options` param as an object, we can also set it to a function which calculates the values from the data shared to the component. So we can use the `title` prop from our component to set this:
 
@@ -607,7 +607,7 @@ Using the Stack Navigation, we are also provided with a title, this is still use
 />
 ```
 
-# Images
+## Images
 
 To use images in React-Native, we make use of the `Image` component with the `source` prop with a `require` call
 
@@ -646,7 +646,7 @@ const imageUrl = getUserProfileUrl('my-user')
 return <Image source={imageUrl}>
 ```
 
-## BackgroundImage
+### BackgroundImage
 
 In RN we can't set image backgrounds using a normal `background` style prop, instead we need to use a `BackgroundImage` component from `react-native`, this works similar to the `Image` component but with the element we're adding the background to contained in it
 
@@ -656,7 +656,7 @@ In RN we can't set image backgrounds using a normal `background` style prop, ins
 </BackgroundImage>
 ```
 
-# Modals
+## Modals
 
 RN comes with a handy modal component which allows us to render modals, `Modal`s are controlled using a `visible` prop. A modal in use could look something like this:
 

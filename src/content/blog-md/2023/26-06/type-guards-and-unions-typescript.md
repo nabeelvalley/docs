@@ -7,7 +7,7 @@ description: A practical introduction to type guards and union types
 
 When working with a dynamic language, like Javascript, a problem that we can often run into is one where a variable may be of multiple possible types in a given place in our code. Due to this, we often run into a need to check the type of an object
 
-# The Scene
+## The Scene
 
 For the sake of introducing the need for type guards, we're going to consider an imaginary news site in which users can read articles posted to the site. For our site, we want to enable users to add comments and interact with articles. For this purpose, we require that each user is logged in and exists in our database
 
@@ -70,7 +70,7 @@ Fantastic! We're happy with our implementation and we release the code into prod
 
 Everything is going great, our moderators are keeping the content quality up and our writers are writing great content
 
-# The Bug
+## The Bug
 
 After a few weeks though, readers start to notice a problem - some articles that are taken down by moderators seem to be reappearing - it looks as if some malicious moderator is re-enabling bad articles
 
@@ -101,7 +101,7 @@ Great - we deploy the fix and migrate to ensure that `isWriter` is set to `false
 
 The cause seems to be the same - it looks like users are somehow still having `isWriter` and `isModerator` simultaneously set to `true` and ending up with a permission that shouldn't be possible in our system
 
-# Impossible States
+## Impossible States
 
 So we decide to investigate the problem and determine that the reason we are running into this bug seems to be due to some fundamental way that the data has been defined
 
@@ -116,7 +116,7 @@ From the above, we can see that we have a state that is not handled in the curre
 
 We want this state to be impossible in our code. This is not a state that our application should ever have to consider. From a type-design perspective, it's not enough to handle these impossible states, we need to prevent them from existing in the first place
 
-# The Solution
+## The Solution
 
 The problem above stems from the fact that we're using two different states to represent something that should be a single state. From the above diagram, we can resolve the following valid types of users in our system
 
@@ -137,7 +137,7 @@ interface User {
 
 The `type` field allows us to determine the type of a user. We can then use this value to check the type of a user and use this to inform how we use the object down the line
 
-# Extending the Moderator
+## Extending the Moderator
 
 Our solution is running well and we have managed to fully eliminate the bug.
 
@@ -198,7 +198,7 @@ The code above is the Typescript syntax for defining a **Union** which is a type
 
 In our backend code, we can now use the `type` property of our user to conditionally fetch the data needed to populate the moderator object
 
-# Checks, Checks
+## Checks, Checks
 
 As the codebase grows, the team writes some functions to check the type of the user so that specific computations can be done, for example checking the total number of articles a moderator has been reviewed. An example of one of these checks can be seen below:
 
@@ -226,7 +226,7 @@ Similar casting patterns as above seem to be cropping up in a lot of places, ano
 const moderatorUsers = users.filter(isModerator) as ModeratorUser[]
 ```
 
-# Type Guards
+## Type Guards
 
 The above solutions use **Type Assertions** which allow a user to override the Typescript Compiler's type system to manually state the type of an object - this is dangerous because it essentially means that we give up type checking at that point in the code
 
@@ -257,11 +257,11 @@ const getTotalArticlesReviewed = (user: User): number | undefined => {
 const moderatorUsers = users.filter(isModerator)
 ```
 
-# Conclusion
+## Conclusion
 
 Discriminated Unions and type Guards are a powerful methods that can be used for working with complex object types and encoding application rules into your type system to minimize bugs and make code easier to extend
 
-# Further Reading
+## Further Reading
 
 On this site the following posts contain content relative to this one:
 

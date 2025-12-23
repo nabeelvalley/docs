@@ -9,13 +9,13 @@ I've spent the past few weeks building a concept photo editing application that 
 
 For readers of my website it's probably not too much of a surprise that I've been spending a lot of time learning about [Parser Combinators](/blog/20-07/parser-combinators-and-gleam) as well as [Shaders](/docs/shaders/intro-to-shaders). Armed with this information, it looks like I accidentally created a Visual Programming Language - this post will talk about how that all works
 
-# Why
+## Why
 
 Every time I've shown anyone the app the first question was "Why do you need this?". I think it's fair to say that no one _really_ **needs** this. This exists to satisfy the artistic urge to do create something new. I've spent so much time feeling limited by the tools I have for working with images are lacking in creative expression. I think there's an intersection between computational/generative art and photography that's underserved and it's a space I would like to play in. I wanted to create a tool that allows creative **exploration** of images and helps break away from the "filter" based approach that dominates how we edit images
 
 It also seemed like a challenge, it begged to be done.
 
-# The App
+## The App
 
 The high level architecture that makes this all work looks something like this:
 
@@ -25,7 +25,7 @@ The high level architecture that makes this all work looks something like this:
 4. The tree is compiled into shader code and inputs to the shader (**Bindings/Uniforms**) are identified
 5. The final shader is applied to image and is updated when a user modifies any **Bindings**
 
-# Shaders
+## Shaders
 
 Shaders are programs that run on the GPU. Due to this fact there are some interesting limitations on how shaders work and what they can do. For working in our application a shader consists of two parts, a **Vertex Shader** and a **Fragment Shader**. The Vertex Shader is related to objects that are being rendered in a scene, since we're rendering an image this isn't of too much consequence, and for our purposes this always looks the same:
 
@@ -121,7 +121,7 @@ The above methods can be composed in interesting ways to do things like swap aro
 
 So this is the basic concept, a bit of complexity comes in when we consider that it's possible that a function may want inputs from multiple other functions but this still doesn't create too much of a hurdle for us as we'll discuss later
 
-# Parsing
+## Parsing
 
 I wanted to ensure that the application has a single source of truth for the available functions. In order to do this I wanted to use the shader to inform us as to what functions should be available for a user. In order to do this I had to create a parser for the WebGPU langauge. The parser I built is a little simplified since there are only certain things I care about when parsing the shader. It's also optimized for maintenance and probably isn't very fast. My main goal here was to get something working. I wrote the parser using a library called [`ts-parsec`](https://github.com/microsoft/ts-parsec) which lets me define parsers using parser combinators.
 
@@ -258,7 +258,7 @@ TypeDeclaration {
 
 At a high level, we can apply this to the entire file to get a syntax tree for the whole file, but as you can imagine that starts to get much bigger
 
-# The UI
+## The UI
 
 Now, since I'm able to parse the file, I can extract the functions from it and use that to define the different things a user can do in the UI. A simple example of some UI that uses the `sample` function defined previously can be seen below:
 
@@ -268,7 +268,7 @@ In this we are able to define Nodes that have certain inputs and outputs which c
 
 This step is actually relatively simple, the complexity comes into converting this back to the WebGPU code.
 
-# Compiling
+## Compiling
 
 This tree structure effectively represents a **Dependency Graph** where all functions depend on their inputs, and the final `output` node depends on any previous edges. The goal in this step is to build a tree out of the nodes and edges and then sort this in a way that defines the order that different operations need to be applied to obtain the `output` value
 
@@ -375,7 +375,7 @@ Once we are able to order our nodes, it's a simple matter of iterating through t
 }
 ```
 
-# User Input
+## User Input
 
 So, it's all well and good that I can compile a shader, but as I have it right now a user can't really customize what any of these values do. It would be nice if I could allow users to provide some input to the shader. For this we will use a **uniform** which is basically an input to the GPU. Uniforms are nice because we can change them without having to recompile the shader
 
@@ -452,13 +452,13 @@ for (const [groupId, group] of Object.entries(data || {})) {
 
 Now, there are some finicky bits involved in assembling all the data here but these are the important bits around using the API
 
-# Closing
+## Closing
 
 As you can see there are quite a few moving pieces but I feel like the approach I've taken here fits the problem relatively well. As things are defined now, all app functionality is driven by what is available in the shader and the different nodes can be inferred and combined however the user wants
 
 This isn't the end though. There's a lot more to do, and a lot of art to be made
 
-# References
+## References
 
 The most important resource in making this work is defintely the [WebGPU Fundamentals Site](https://webgpufundamentals.org/). The UI is inspired by [Blender's](https://www.blender.org/) Node Editor and is implemented using [React Flow](https://reactflow.dev/)
 

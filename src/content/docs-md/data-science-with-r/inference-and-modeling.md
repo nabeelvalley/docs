@@ -5,11 +5,11 @@ title: Inference and Modeling
 
 > [Based on this EdX Course](https://www.edx.org/course/data-science-inference)
 
-# Inference
+## Inference
 
 Inference is using information about a sample as being representative of the whole
 
-# Parameters and Estimates
+## Parameters and Estimates
 
 We can plot the results of a random 'election poll' draw with the following
 
@@ -44,7 +44,7 @@ $$
 2p -1
 $$
 
-## The Sample Average
+### The Sample Average
 
 The sample average is the proportion of a certain perameter $p$ which is calculated as follows
 
@@ -54,11 +54,11 @@ $$
 
 In this case, the value of an individual $X$ is 1 if it is our outcome of interest, or 0 if not
 
-## Polling vs Forecasting
+### Polling vs Forecasting
 
 A poll is taken at a specific time, but forecasting takes into consideration the fact that the probability will change in the future and therefore aims to predict the probability of some event at that time
 
-## Properties of an Estimate
+### Properties of an Estimate
 
 The Expected value of our estimate is the same as the parameter of interest $p$
 
@@ -78,7 +78,7 @@ $$
 
 Due to the **Law of Large Numbers** we can know that our standard error will be smallest as we increase the sample size
 
-# Central Limit Theorem in Practice
+## Central Limit Theorem in Practice
 
 Suppose we want to know whether or not our estimate is sufficiently accurate \(i.e. the standard error\) but we do not know the actual probability? Well we can estimate that with the following
 
@@ -94,11 +94,11 @@ Using this we can see what the estimate for our probability being correct within
 pnorm(0.01/se) - pnorm(-0.01/se)
 ```
 
-## Margin of Error
+### Margin of Error
 
 The margin of error is two times the standard error, using this we can see that there is a 95% chance that we will be within two standard errors
 
-## The Spread
+### The Spread
 
 Because we only have two parties we know The Spread can be estimated by
 
@@ -112,11 +112,11 @@ $$
 2\hat{SE}(\bar{X})
 $$
 
-## Bias
+### Bias
 
 Polling is more complex than random selections as we do not necessarily know if we are reaching all groups equally. For example an internet poll may only be as accurate as that as we are excluding people without access to the internet
 
-# Intervals and P-Values
+## Intervals and P-Values
 
 Confidence intervals are the region in which we can have a 95% chance that $p$ will be within this range
 
@@ -126,23 +126,23 @@ $$
 
 It is the intervals that are random, not $p$. The 95% relates to the probability that the random interval we selected contains $p$
 
-## Power
+### Power
 
 Power can be thought of as the probability of detecting a spread different from zero
 
-## P-Values
+### P-Values
 
 These are related to the confidence interval.
 
-# Poll Aggregation
+## Poll Aggregation
 
 Poll aggregation is the task of combining the results of multiple polls to get an overall result which would be more accurate than each individual result
 
-## Poll Data and Pollster Bias
+### Poll Data and Pollster Bias
 
 We can run into differences between polls that do not seem to have expected values that are aligned. This can be known as Pollster Bias
 
-## Data Driven Models
+### Data Driven Models
 
 If we make use of a random selection of the different poll data, our standard error will now include pollster to pollster variability, this standard deviation is now an unknown parameter. Because we are still using independent random variables our CLT still works.
 
@@ -160,11 +160,11 @@ Using the `sd` function in R we can still calculate the sample standard deviatio
 > sd(polls$spread)
 ```
 
-# Bayesian Statistics
+## Bayesian Statistics
 
 We speak about probability on the basis that the probability is not a fixed value.
 
-## Bayes' Theorem
+### Bayes' Theorem
 
 $$
 PR(A|B) = \frac{Pr(A\space and \space B)}{Pr(B)}
@@ -176,11 +176,11 @@ $$
 PR(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)}
 $$
 
-## The Hierarchical Model
+### The Hierarchical Model
 
 Provides a mathematical description for why results may not seem to correlate with what we expect. This takes into consideration subjective data, like an individual's ability to play a game, and then the associated randomness or luck
 
-## Posterior Distribution
+### Posterior Distribution
 
 The probability distribution of $$p$$ where we have an observed distribution $$y$$
 
@@ -210,7 +210,7 @@ This is known as an empirical Bayesian approach which is based on observed data.
 
 Note that the posterior distribution is normally distributed
 
-# Mathematical Representation of Models
+## Mathematical Representation of Models
 
 Given a of polls from which we sample an random value from a random poll, we can describe the variability of that data with
 
@@ -252,7 +252,7 @@ $$
 
 Note that because the $$b$$ value is the same in every poll, this does not affect our variance
 
-# Forecasting
+## Forecasting
 
 Forecasting is about making predictions based on the variability of poll results over time.
 
@@ -268,7 +268,7 @@ $$
 Y_{ijt} = d + b + h_i + b_t + f(t) + \epsilon_{ijt}
 $$
 
-# The T Distribution
+## The T Distribution
 
 Because we are introducing additional variability when estimating the $$\sigma$$ we result in over-confidence confidence intervals which are not sufficiently large to take into consideration this additional variability
 
@@ -286,6 +286,6 @@ $$
 
 This theory tells us that $$Z$$ follows a t-distribution with $$N-1$$ degrees of freedom which controls the variability of our system. This holds for data which is still somewhat different from a normal distribution
 
-# Chi Squared Test
+## Chi Squared Test
 
 Aims to calculate how likely it is that we see a deviation as large or larger than identified by chance, in the case of categorical or binary data

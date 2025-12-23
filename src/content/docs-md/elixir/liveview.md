@@ -4,7 +4,7 @@ title: Phoenix LiveView with Elixir
 
 > Notes based on [How to start writing LiveView](https://www.youtube.com/watch?v=GsOcNO0NlHU)
 
-# Prerequisites
+## Prerequisites
 
 Probably take a look at the [Elixir Notes](./intro) and [Phoenix Notes](./phoenix)
 
@@ -19,7 +19,7 @@ It's also handy to have the following installed if using VSCode:
 - [Elixir Language Server for VSCode](https://marketplace.visualstudio.com/items?itemName=JakeBecker.elixir-ls)
 - [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
 
-# Initialize a Project
+## Initialize a Project
 
 Firstly, initialize a new Phoenix app called `phoenixlive` with:
 
@@ -32,7 +32,7 @@ A few important files we want to be aware of specifically related to the LiveVie
 1. `lib/elixirlive_web/components/layouts/root.html.heex` which is loaded once
 2. `lib/elixirlive_web/components/layouts/app.html.heex` which is updated by LiveView when changes happen
 
-# Authentication
+## Authentication
 
 Phoenix comes with a generator for building user authentication. In order to do this we can use:
 
@@ -60,7 +60,7 @@ mix phx.server
 
 You can then visit the application and you will now see a Register and Log In button. You can register to create a new user
 
-# Resource
+## Resource
 
 We can generate a live resource called Link:
 
@@ -98,7 +98,7 @@ At this point to avoid potential collisions and issues please also delete the fo
 2. `lib/phoenixlive_web/live/link_live/show.html.heex`
 3. `lib/phoenixlive_web/live/link_live/form_component.ex`
 
-# Live Views
+## Live Views
 
 LiveView implicitly has some callbacks that we should implement
 
@@ -128,7 +128,7 @@ And we can update the `index.html.heex` to just have some placeholder content fo
 
 If we start our server again we can visit the `/links` page when logged in to see the content of the page we just added
 
-## Listing Links for the Current User
+### Listing Links for the Current User
 
 We can update our screen to list thelinks for the current user. In order to do this we need to do a few things first:
 
@@ -138,7 +138,7 @@ We can update our screen to list thelinks for the current user. In order to do t
 4. Get the user from the current route and use that to list the links
 5. Display a list of links in the HEEX template
 
-### Add Reference to User
+#### Add Reference to User
 
 To add the reference to the user, we can add the following lines to our schema:
 
@@ -164,7 +164,7 @@ defmodule Phoenixlive.Links.Link do
 end
 ```
 
-### Add a Migration
+#### Add a Migration
 
 We can define a migration by generating a new migration with:
 
@@ -192,7 +192,7 @@ Then we can apply the migration with:
 mix ecto.migrate
 ```
 
-### List Links by User
+#### List Links by User
 
 We can update our `list_links` function to take a `user_id`. We can implement it using the [Ecto Query Syntax](https://hexdocs.pm/ecto/Ecto.Query.html):
 
@@ -202,7 +202,7 @@ def list_links(user_id) do
 end
 ```
 
-### Get Current User from Route
+#### Get Current User from Route
 
 We can get the current user from the route using the `socket.assigns`, this comes from the router `:ensure_authenticated` reference that we have in the `router.ex` file. Using this data we can list the links for the user and `assign` it to the socket which will make it available during render:
 
@@ -222,7 +222,7 @@ defmodule PhoenixliveWeb.LinkLive.Index do
 end
 ```
 
-### Display Links in the HEEX Template
+#### Display Links in the HEEX Template
 
 We can access the links using `@links` in our template. Phoenix uses this for change tracking in live view which means this data will be re-rendered when changed. We can use the `for` attribute to iterate through these values. The resulting template can be seen below:
 
@@ -234,7 +234,7 @@ We can access the links using `@links` in our template. Phoenix uses this for ch
 </ol>
 ```
 
-## Creating a Link
+### Creating a Link
 
 We have a way to list links but we don't have anything in our database at this point, in order to do this we need to add a way to add links. First, we're going to add a link using the [LiveView Link Component](https://hexdocs.pm/phoenix_live_view/live-navigation.html). We're going to use the `navigate` property which will give us SPA like naviation along with the `~p` syntax for the route which will type check the URL we use relative to our app router and warn us if it does not exist:
 
@@ -339,7 +339,7 @@ end
 
 We should be able to visit the `/links/new` screen now to view our new page
 
-## Making things Live
+### Making things Live
 
 The thing that makes LiveView really "Live" is the ability to easily work with data and forms and have the result easily visible to a user. To do this, we'll add a delete button in our list view:
 
@@ -381,6 +381,6 @@ def handle_event("delete", %{"id" => id}, socket) do
 end
 ```
 
-# Conclusion
+## Conclusion
 
 The power of live view comes from us being able to write a fairly small amount of code and handle in a fairly straightforward mannner that let's us quite quickly go from simple forms to automatic live-updating UI without us having to think about it at all

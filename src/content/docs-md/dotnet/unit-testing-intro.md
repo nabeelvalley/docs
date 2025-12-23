@@ -13,7 +13,7 @@ We try to test a specific piece of code without testing everything connected to 
 
 In test-driven development we start off by defining the test and thereafter work out our actual code
 
-# Installing Prereqs
+## Installing Prereqs
 
 Create a new Console App and add the following packages from Nuget:
 
@@ -29,7 +29,7 @@ Create a new Console App and add the following packages from Nuget:
 </PropertyGroup>
 ```
 
-# Writing a Test
+## Writing a Test
 
 When we are talking about unit tests we make use of the following three stages:
 
@@ -242,7 +242,7 @@ public int Add(int? num1, int? num2)
 }
 ```
 
-# Summary
+## Summary
 
 When doing TDD with `Xunit` we usually define our test cases and scenarios and then go about writing the code that will satisfy those tests. We can use tests which have no params labelled with the `[Facts]` annotation, and `[Theory]` which allows us to provide parameters such as `[InlineData(1,5,6)]`
 
@@ -333,7 +333,7 @@ namespace UnitTestingXUnit
 }
 ```
 
-# Attributes
+## Attributes
 
 - `[Fact]` - A Test with no inputs, can have additional information such as a name and whether or not it should be skipped with: `[Fact(DisplayName = "I am a Test", Skip = "I should be skipped")]`. Skip will cause a specific test to be ignored
 - `[Theory` - A Test with some params, defined by `[InlineData(1,2,3)]`
@@ -344,7 +344,7 @@ By default xUnit runs tests in Parallel. All tests in a single class run in Seri
 
 Additionally you can create a custom collection of tests to run in series with the `[Collection("MySeriesStuff")]`, all classes with the `MySeriesStuff` collection will be run in series
 
-# Testing for Exceptions
+## Testing for Exceptions
 
 When testing for exceptions we can do this using the Arange, Act, Assert method with a class property such as `_customMessage` and then testing if the exception matches that
 
@@ -353,7 +353,7 @@ Exception ex = Record.Exception(() => ThrowAnError())
 Assert.Equal(_customMessage, ex.Message)
 ```
 
-# Setup and Teardown
+## Setup and Teardown
 
 We can make use of a `Constructor` and `Dispose` pattern which will be used before and after each test
 
@@ -374,7 +374,7 @@ public class MyTests : IDisposable
 
 We can also create a class fixture which will run before and after the entire series is done
 
-# Collections
+## Collections
 
 In a test you can use the `ITestOutputHelper` which will write to any standard outputs
 

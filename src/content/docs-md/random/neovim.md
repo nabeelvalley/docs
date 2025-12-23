@@ -4,7 +4,7 @@ title: Neovim
 subtitle: Neovim setup and general info
 ---
 
-# Installation
+## Installation
 
 The following need to be installed to use Neovim with Plugins
 
@@ -13,9 +13,9 @@ The following need to be installed to use Neovim with Plugins
 
 > I had an issue installing `vim-plug` that ended up putting the config into the wrong folder, just ensure that `~/.vim/autoload` contents are copied to `~/.config/nvim/autoload` if nvim can't find the `plug` function - create the `.config/nvim` directory if it doesn't exist
 
-# Setup
+## Setup
 
-## Vim Plug
+### Vim Plug
 
 > [Vim Plug GitHub](https://github.com/junegunn/vim-plug)
 
@@ -43,7 +43,7 @@ And then install the plugins again with:
 :PlugInstall
 ```
 
-## CoC
+### CoC
 
 > [CoC GitHub](https://github.com/neoclide/coc.nvim)
 
@@ -72,7 +72,7 @@ let g:coc_global_extensions = [ 'coc-tsserver', 'coc-eslint', 'coc-prettier', 'c
 
 The relevant CoC extensions will be automatically installed the next time you open an editor if they aren't already
 
-## Key Bindings/Mappings
+### Key Bindings/Mappings
 
 We can add keybindings for CoC by copying the base keybindings from their documentation, you can also see them below:
 
@@ -259,7 +259,7 @@ set expandtab
 set number
 ```
 
-## Themes
+### Themes
 
 You can use Vim themes by downliading them and adding to the `~/.config/nvim/colors` folder. For example, you can use the [Molokai Theme](https://github.com/tomasr/molokai/blob/master/colors/molokai.vim)
 
@@ -272,7 +272,7 @@ You can also set a default theme like so:
 colorscheme molokai
 ```
 
-## FZF
+### FZF
 
 > [FZF.vim GitHub](https://github.com/junegunn/fzf.vim)
 
@@ -308,7 +308,7 @@ Additionally, we can use [ripgrep](https://github.com/BurntSushi/ripgrep) via th
 
 It should also be noted that unless [`bat`](https://github.com/sharkdp/bat) is installed, you will not have syntax highlighting in the FZF search results
 
-# NERDTree
+## NERDTree
 
 `:NERDTree` provides a file explorer within NVIM
 
@@ -320,7 +320,7 @@ It should also be noted that unless [`bat`](https://github.com/sharkdp/bat) is i
 
 Note that `NERDTree` can also be used from the `:Explore` menu by using `:Explore` followed by `x` (special option) which will launch `NERDTree` in place of the explore but will be in the file context so you can do things like create files, etc. more easily
 
-# Useful Keybindings
+## Useful Keybindings
 
 | Shortcut        | Description                       |
 | --------------- | --------------------------------- |
@@ -340,7 +340,7 @@ Note that `NERDTree` can also be used from the `:Explore` menu by using `:Explor
 | `[ctrl] t`      | From GFiles View, open in new tab |
 | `gt` `gT`       | Go to next tab/previous tab       |
 
-# Using NuShell with Vim
+## Using NuShell with Vim
 
 You can configure Nushell with Vim using Lua config as:
 
@@ -353,7 +353,7 @@ vim.opt.shellquote = ""
 vim.opt.shellxquote = ""
 ```
 
-# Telescope + Quickfix
+## Telescope + Quickfix
 
 [Telescope](https://github.com/nvim-telescope/telescope.nvim) is used often as a UI for finding stuff and integrates with a lot of other tools in the Neovim ecosystem. Something particularly handy with telescope is the ability to create a quickfix list from a telescope search/filter. This can be done from Telescope with `ctrl + q` which will close telescope and open a quickfix list with the current set of results
 

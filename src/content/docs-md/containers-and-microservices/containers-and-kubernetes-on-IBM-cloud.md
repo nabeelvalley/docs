@@ -5,7 +5,7 @@ title: Containers and Kubernetes on IBM Cloud
 
 [Based on this Cognitive Class Learning Path](https://cognitiveclass.ai/learn/containers-k8s-and-istio-on-ibm-cloud/)
 
-# Prerequisites
+## Prerequisites
 
 Before getting started, you will need a few prerequisites
 
@@ -15,15 +15,15 @@ Before getting started, you will need a few prerequisites
 - Kubernetes CLI
 - Docker 1.9 or later
 
-# Kubernetes
+## Kubernetes
 
 Kubernetes is a container orchestrator to provision, manage and scale apps
 
 It allows us to manage app resources, clusters, and infrastructure declaratively
 
-# Set Up and Deploy an App
+## Set Up and Deploy an App
 
-# # Push an Image to Registry
+### Push an Image to Registry
 
 Note that the `ng.bluemix.net` should be replaced with your API endpoint, for example in my case `eu-gb.bluemix.net`, this is dependant on your Cloud Region
 
@@ -73,7 +73,7 @@ ibmcloud cs clusters
 ibmcloud cs workers <CLUSTER NAME>
 ```
 
-# # Deploy Application
+### Deploy Application
 
 First we need to get our Kubernetes cluster configuration with
 
@@ -137,9 +137,9 @@ Visiting this via our browser should yield
 Hello world from hello-world-85794b747c-z8g2s! Your app is up and running in a cluster!
 ```
 
-# Scale and Update Apps
+## Scale and Update Apps
 
-# # Scale Application with Replicas
+### Scale Application with Replicas
 
 We can view our deployment configuration file with
 
@@ -192,7 +192,7 @@ kubectl get pods
 
 Which should list our ten running pods
 
-# # Update and Rollback Apps
+### Update and Rollback Apps
 
 Kubernetes allows us to rollout app updates easily, and update the images on running pods, as well as rollback if issues are identified
 
@@ -243,7 +243,7 @@ Lastly we can do a rollout with
 kubectl rollout undo deployment/<DEPLOYMENT NAME>
 ```
 
-# # Check Application Health
+### Check Application Health
 
 We can check app health periodically by using the `healthcheck.yml` file, we can open this file with from our `Lab 2` directory
 
@@ -268,9 +268,9 @@ Then, while still in the `Lab 2` directory, push this update with
 kubectl apply -f .\healthcheck.yml
 ```
 
-# Deploy an App with Watson Services
+## Deploy an App with Watson Services
 
-# # Deploy the Watson App
+### Deploy the Watson App
 
 Navigate to the `Lab 3` Directory and build and push the Watson image to the Registry
 
@@ -304,7 +304,7 @@ Next, in the `watson-deployment.yml` file, update the registry information in th
               # ex: image: "registry.ng.bluemix.net/<namespace>/watson-talk"
 ```
 
-# # Create Instance of Watson Service from CLI
+### Create Instance of Watson Service from CLI
 
 We can create an instance of the Watson Tone Analyzer Service with
 
@@ -325,7 +325,7 @@ We can view that our service was created with
 ibmcloud cf services
 ```
 
-# # Bind the Service to out Cluster
+### Bind the Service to out Cluster
 
 We can simply bind the service to our cluster with
 
@@ -339,7 +339,7 @@ And verify that it was created with
 kubectl get secrets
 ```
 
-# # Create Pods and Services
+### Create Pods and Services
 
 We can expose the secret to our pod so the service can be used by creating a secret data store as part of our deployment config, this is done already in the `watson-deployment.yml` file
 
@@ -367,7 +367,7 @@ We can verify that the Watson pods were created with
 kubectl get pods
 ```
 
-# # Run the App and Service
+### Run the App and Service
 
 We can explore the new objects we have created from the Kubernetes Dashboard or with the following commands
 

@@ -7,13 +7,13 @@ description: Building complex react components using the React top-level API and
 
 > For a reference on the React Top-Level API you can take a look at [the React Docs](https://reactjs.org/docs/react-api.html)
 
-# Introduction
+## Introduction
 
 React allows us to do lots of different things using concepts like composition and higher order components. Most of the time these methods are good enough for us to do what we want, however there are some cases where these methods can prove to be insufficient such as when building complex library components or components that need to allow for dynamic composition or do runtime modification of things like child component props, etc.
 
 For the above purposes we can make use of the React Top-Level API. For the purpose of this writeup I'll be making use of the parts of this API that allow us to modify a component's children and modify their props as well as how they're rendered
 
-# Our Goal
+## Our Goal
 
 For the purpose of this doc I'll be using the React API to get to do the following:
 
@@ -48,7 +48,7 @@ But a consumer can be used like:
 </Wrapper>
 ```
 
-# Using `React.Children` to work with a component's `children`
+## Using `React.Children` to work with a component's `children`
 
 The `React.Children` API (see [docs](https://reactjs.org/docs/react-api.html#reactchildren)) provides us with some utilities for traversing the children passed to a component
 
@@ -67,7 +67,7 @@ const Item: React.FC<ItemProps> = ({ name, position }) => (
 )
 ```
 
-## Use `React.Children.count` to get the count
+### Use `React.Children.count` to get the count
 
 The `React.Children.count` function counts the number of child nodes passed to a React component,
 we can use it like so:
@@ -100,7 +100,7 @@ const Wrapper: React.FC = ({ children }) => {
 }
 ```
 
-## Use `React.Children.map` to wrap each child
+### Use `React.Children.map` to wrap each child
 
 Next, the `React.Children.map` function allows us to map over the children of an element and do stuff with it, for example:
 
@@ -145,7 +145,7 @@ const Wrapper: React.FC = ({ children }) => {
 }
 ```
 
-# Use `React.cloneElement` to change child props
+## Use `React.cloneElement` to change child props
 
 Lastly, we want to append a `position` prop to the `Item`. To do this we can make use of the `React.cloneElement` function which allows us to clone an element and modify the props of it. Using this function looks like so:
 
@@ -180,7 +180,7 @@ const Wrapper: React.FC = ({ children }) => {
 }
 ```
 
-# Use `React.isValidElement`
+## Use `React.isValidElement`
 
 We've completed most of what's needed, however if for some reason our `child` is not a valid react element our component may still crash. To get around this we can use the `React.isValidElement` function
 
@@ -224,7 +224,7 @@ const Wrapper: React.FC = ({ children }) => {
 }
 ```
 
-# The Result
+## The Result
 
 Lastly, we'll render the above using the `App` component, the API for the above components should be composable as we outlined initially. The `App` component will now look like so:
 

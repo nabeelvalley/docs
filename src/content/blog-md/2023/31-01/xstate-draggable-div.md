@@ -5,7 +5,7 @@ subtitle: 31 January 2023
 description: A simple example of using XState with UI Events to build interactivity
 ---
 
-# Why State Management
+## Why State Management
 
 Recently I've been interested in understanding non-standard user interactions and about how different applications develop this functionality. A particularly good example for me has been looking into the codebase for [TLDraw](https://www.tldraw.com/) where I ran into state machines
 
@@ -15,15 +15,15 @@ The [State Designer Library](https://www.state-designer.com) mentions the idea o
 
 This provides us with a decent abstraction which should make things about state a lot less tangled and easier to reason about
 
-## XState
+### XState
 
 State management libraries provide us with a set of abstractions and tools for designing state. There are a few that are commonly used, of which I'll be using [XState](https://xstate.js.org/) in this post. XState has pretty good TypeScript support as well as some great tooling for visualizing and designing state on [Stately](https://stately.ai)
 
-# The Problem
+## The Problem
 
 For this post I've chosen to build a simple draggable div component that makes use of XState. The idea here was to get a feel for the library and see how it can be used to tackle problems around UI interaction
 
-## Visualizing the State
+### Visualizing the State
 
 Defining the state can be done using the XState visual editor that can be used in VSCode or Stately, this is useful because it lets you visualize different ways that the state can be represented in a relatively low-friction setting
 
@@ -31,7 +31,7 @@ The structure I've decided on for the representing my component's state can be s
 
 ![XState Diagram of Draggable UI Component](/content/blog/2023/31-01/draggable-state-diagram.png)
 
-## State Machine Code
+### State Machine Code
 
 The code for the above state machine, with some added type information, can be seen below:
 
@@ -104,7 +104,7 @@ In the above, we can also see the following:
 
 We can also see that in the schema the type of `events` is specified. This makes it so that XState can infer the type of `event` passed to the `updatePosition` function
 
-## Attach the State to the UI
+### Attach the State to the UI
 
 In order to move from one state to another we use the `send` method from XState
 
@@ -183,7 +183,7 @@ The above will result in a draggable div like so:
 
 <iframe frameborder="0" width="100%" height="500px" src="https://replit.com/@nabeelvalley/DraggableDiv?embed=true"></iframe>
 
-## Possible Improvements
+### Possible Improvements
 
 If you play around with the above example you'll probably notice that it's not perfect. Though the states we've defined are correct,the complexity in mapping the UI events becomes apparent, as well as the various edge cases that may arise around how DOM events fire in response to user interaction
 
@@ -191,7 +191,7 @@ Though I don't aim to solve all of these points for the sake of the example, it'
 
 The idea is that the handling of the UI events is now separated from the actual state management which should make fixing interaction bugs simpler while also decoupling our state from any specific implementation of the UI
 
-# Further Reading
+## Further Reading
 
 For more information, you can take a look at the [XState Documentation](https://xstate.js.org/docs/) or the [XState YouTube Course](https://www.youtube.com/playlist?list=PLvWgkXBB3dd4ocSi17y1JmMmz7S5cV8vI)
 
