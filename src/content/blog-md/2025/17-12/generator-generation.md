@@ -12,7 +12,7 @@ Our end goal is going to be to define an abstraction that will allow us to conve
 
 ## Promises
 
-Before diving into the complexity of generators, we're going to quickly kick off with a little introduction to `Promises` and how they relate to `async/await` and callback code
+Before diving into the complexity of generators, we're going to quickly kick off with a little introduction to `Promises` and how they relate to `async/await` and callback-based code
 
 Promises are used to make async code easier to work with and JavaScript has some nice syntax - like `async/await` that makes code using promises easier follow and understand. They're also the common way to represent async operations which is exactly what we're going to use them for
 
@@ -76,7 +76,7 @@ async function doWork(){
 
 The `doWork` function returns `Promise`, this is because the `async` keyword is some syntax sugar for creating a `Promise`
 
-### Promises vs Async
+### Promises Vs Async
 
 For the sake of understanding, all that the `async` keyword does allow us to remove the `Promise` construction from our function - `async` functions are simply functions that return a `Promise` - these are alternative syntax for the same thing - so, the following two functions are the same:
 
@@ -88,7 +88,7 @@ async function getNumber() {
 }
 ```
 
-Using an explict `Promise`:
+Using an explicit `Promise`:
 
 ```ts
 function getNumber() {
@@ -239,7 +239,7 @@ This also applies for the iterators above, I just find it so much more interesti
 
 ### Async Generators
 
-Now, we're taking one more step - what if I wanted to do some long running task between each `yield`? This could be anything from waiting for a `Promise` to resolve, or a network request, or some user event (oh wow - there's an idea for multi-step forms!)
+Now, we're taking one more step - what if I wanted to do some long running task between each `yield`? This could be anything from waiting for a `Promise` to resolve, or a network request, or some user event (oh wow - there's an idea for multistep forms!)
 
 Async Generators enable us to use promises in our iterators. Let's take a look at how we might define an async version of our `countTo` generator above:
 
@@ -273,7 +273,7 @@ Let's start with the sync version
 
 ### Inside a Sync Generator
 
-So if we re-define our `countTo` generator without using the `function*` and `yield` syntax sugar, we'll see something like this:
+So if we redefine our `countTo` generator without using the `function*` and `yield` syntax sugar, we'll see something like this:
 
 ```ts
 function countTo(max: number): Generator<number> {
@@ -388,7 +388,7 @@ Assume for whatever reason that we want to be able to take functions like this a
 function countIntervalGenerator(max: number): AsyncGenerator<number> {}
 ```
 
-For now, let's asume we've got a method called `createGenerator` that returns everything we need to hook up a generator and return it, this looks something like this:
+For now, let's assume we've got a method called `createGenerator` that returns everything we need in order to hook up a generator and return it, this looks something like this:
 
 ```ts
 function countIntervalGenerator(max: number): AsyncGenerator<number> {
