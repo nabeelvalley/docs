@@ -18,6 +18,16 @@
     "link": "/blog/2024/24-08/unintentionally-made-a-programming-language"
   },
   {
+    "title": "Tri",
+    "description": "An interactive tree-based search tool with custom preview",
+    "tags": [
+      "go",
+      "cli"
+    ],
+    "link": "https://github.com/sftsrv/tri",
+    "image": "/content/projects/tri.gif"
+  },
+  {
     "title": "Déjà vu",
     "description": "Developers don't read documentation. Just bring it to them instead.",
     "tags": [
