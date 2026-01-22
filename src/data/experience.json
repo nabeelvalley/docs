@@ -2,36 +2,41 @@
   {
     "company": "Entelect",
     "subtitle": "Senior Software Engineer",
-    "description": "",
+    "description": "Consulting as a Senior Software Engineer and Platform Engineer within the web ecosystem.\nMy day-to-day involves finding ways to make developers more productive. This includes the creation of tools to simplify development tasks or automations to speed up migrations or updates across large codebases. Additionally, I spend a fair amount of time sharing best practices and ensuring that developers are producing high quality work.\nThe technologies I most actively use are Typescript, JavaScript, Angular, Nx, Web Components, and Go.\nOn the less technical front, I’ve spent a lot of time creating opportunities for developers to learn and share knowledge through various communities within Entelect and Client organisations as well as driving a culture of mentorship across the organisation through various programmes.",
     "location": "Amsterdam, Netherlands",
-    "period": "July '23 - present"
+    "period": "July '23 - present",
+    "technology": []
   },
   {
     "company": "Quro Medical",
     "subtitle": "Senior Software Engineer",
     "description": "Developing web and mobile applications powered by scalable cloud native architectures, the internet of things, and artificial intelligence\nFocused on developing cross-platform applications with React-Native and Typescript, building scalable, cloud-native IoT and health solutions on AWS and GCP, and creating and managing machine learning models\nThe role also has a strong focus on working with and up-skilling junior developers and interacting with business to define solutions to healthcare and technical challenges",
     "location": "Johannesburg, South Africa",
-    "period": "May '21 - July '23"
+    "period": "May '21 - July '23",
+    "technology": []
   },
   {
     "company": "Mercedes-Benz",
     "description": "Full stack web developer in the marketing/customer data analytics team focused on end-to-end delivery of software projects from the identification of business requirements to the application architecture and solution delivery. Working on optimizing customer experiences on web platforms and integrating with a variety 1st and 3rd party applications and supporting with data related operations\nMaking use of agile methodologies and delivering software in a three tier, service-oriented architecture using primarily .NET, Node.js, React, and Jenkins as well as machine learning applications with python and ML.NET",
     "subtitle": "Web Developer / Technical Specialist",
     "location": "Pretoria, South Africa",
-    "period": "Mar '19 - April '21"
+    "period": "Mar '19 - April '21",
+    "technology": []
   },
   {
     "company": "IBM",
     "subtitle": "Cloud Developer Advocate, Graduate",
     "description": "Focused on enabling developers on ibm cloud technologies, building POC applications and demos for prospective clients showcasing technologies such as artificial intelligence, internet of things, containers and microservices, DevOps tools and methodologies, blockchain and design thinking\nAdditionally I wrote an article on assembling a continuous deployment pipeline for web applications and coordinated and assisted developers with the Data Science Johannesburg meetup group and the MTN TAG Hack in 2018",
     "location": "Johannesburg, South Africa",
-    "period": "Sept '18 - Feb '19"
+    "period": "Sept '18 - Feb '19",
+    "technology": []
   },
   {
     "company": "Microsoft",
     "description": "Development of mobile-first progressive web applications for a mentorship program using Angular and .NET Core for Azure called LifeXchange, and the Microsoft Cloud Summit 2018 event information site as well as engaged in client reviews and workshops and project planning. Researched topics on web design and development",
     "subtitle": "Full Stack Web Developer, Intern",
     "location": "Johannesburg, South Africa",
-    "period": "Feb '18 - Aug '18"
+    "period": "Feb '18 - Aug '18",
+    "technology": []
   }
 ]
