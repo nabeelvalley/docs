@@ -27,6 +27,17 @@ Here's a collection of some utility types I've put together:
 
 ## JSON Schema
 
-Type for inferring a simple JSON Schema into a TypeScript type
+Type for inferring a simple JSON Schema into a TypeScript type. I think this will become super useful once Typescript adds support for importing JSON values as `const`. This will mean that using the schema would be something like:
+
+```ts
+// currently the `const` part doesn't exist, but would be super cool if we could get here
+import schema from './my-schema.json' with { type: 'json', const: true };
+
+export type MySchema = FromJSONSchema<typeof schema>;
+```
+
+> The open issue that would make the above possible is this: https://github.com/microsoft/TypeScript/issues/32063
+
+It's relatively trivial to implement some kind of pre-build script that could do this for all JSON schemas but I think it's worth waiting till the TS part of this solution exists because it would be great to be able to infer this statically
 
 <Snippet  path="ts-utils/json-schema.ts" />
