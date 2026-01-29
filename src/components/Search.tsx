@@ -25,18 +25,6 @@ const baseActions: Action[] = [
     perform: () => window.open('https://github.com/sftsrv'),
   },
   {
-    id: 'twitter',
-    name: 'Twitter',
-    subtitle: '@not_nabeel',
-    perform: () => window.open('https://twitter.com/not_nabeel'),
-  },
-  {
-    id: 'instagram',
-    name: 'Instagram',
-    subtitle: '@nabeelvalley',
-    perform: () => window.open('https://instagram.com/nabeelvalley'),
-  },
-  {
     id: 'portfolio',
     name: 'Portfolio',
     subtitle: 'My Photography Portfolio',
