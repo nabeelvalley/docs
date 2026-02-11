@@ -24,6 +24,7 @@ For the example we'll use some HTML and CSS in order to place some content relat
 <style>
   .anchor {
     anchor-name: attr(anchor-name type(<custom-ident>));
+    margin: 50px;
   }
 
   .anchored {
@@ -137,6 +138,7 @@ And then, define generic CSS rules that can work with any provided `anchor-name`
 ```css
 .anchor {
   anchor-name: attr(anchor-name type(<custom-ident>));
+  margin: 50px;
 }
 
 .anchored {
@@ -164,6 +166,7 @@ Putting all the above together, we can get back to the code for the original exa
 <style>
   .anchor {
     anchor-name: attr(anchor-name type(<custom-ident>));
+    margin: 50px;
   }
 
   .anchored {
@@ -188,6 +191,7 @@ The respective HTML and CSS is as follows:
 <style>
   .anchor {
     anchor-name: attr(anchor-name type(<custom-ident>));
+    margin: 50px;
   }
 
   .anchored {
