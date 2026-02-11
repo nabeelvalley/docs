@@ -47,14 +47,8 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-pre {
-  /* font-family: Lato; */
-  font-size: 1.1rem;
-}
-
 p code, li code, blockquote code {
   background-color: var(--color-base);
-  font-size: 1.1rem;
   color: var(--color-brand);
 }
 
