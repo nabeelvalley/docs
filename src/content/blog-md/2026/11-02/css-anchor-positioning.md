@@ -156,7 +156,7 @@ Putting that together gets the behavior we're after in a pretty neat and reusabl
 Putting all the above together, we can get back to the code for the original example, which can be seen once more below:
 
 <section>
-  <h3 class="anchor" anchor-name="--anchor-3">Anchor 4</h3>
+  <h3 class="anchor" anchor-name="--anchor-3">Anchor 3</h3>
   <p class="anchored" anchor-name="--anchor-3">Content for Anchor 3</p>
 
   <h3 class="anchor" anchor-name="--anchor-4">Anchor 4</h3>
