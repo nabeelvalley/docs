@@ -30,7 +30,7 @@ For the example we'll use some HTML and CSS in order to place some content relat
   .anchored {
     position-anchor: attr(anchor-name type(<custom-ident>));
     position: fixed;
-    top: anchor(top);
+    bottom: anchor(bottom);
     right: anchor(right);
   }
 </style>
@@ -107,7 +107,7 @@ And then, we can reference this `anchor-name` from any elements that want to pos
   position-anchor: --anchor-1;
   position: fixed;
 
-  top: anchor(top);
+  bottom: anchor(bottom);
   right: anchor(right);
 }
 </style>
@@ -144,7 +144,7 @@ And then, define generic CSS rules that can work with any provided `anchor-name`
 .anchored {
   position-anchor: attr(anchor-name type(<custom-ident>));
   position: fixed;
-  top: anchor(top);
+  bottom: anchor(bottom);
   right: anchor(right);
 }
 ```
@@ -172,7 +172,7 @@ Putting all the above together, we can get back to the code for the original exa
   .anchored {
     position-anchor: attr(anchor-name type(<custom-ident>));
     position: fixed;
-    top: anchor(top);
+    bottom: anchor(bottom);
     right: anchor(right);
   }
 </style>
@@ -197,7 +197,7 @@ The respective HTML and CSS is as follows:
   .anchored {
     position-anchor: attr(anchor-name type(<custom-ident>));
     position: fixed;
-    top: anchor(top);
+    bottom: anchor(bottom);
     right: anchor(right);
   }
 </style>
