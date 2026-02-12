@@ -42,17 +42,17 @@ The above example uses a few interesting bits that I'd like to discuss before th
 
 Though it does a pretty good job of making everything look like a string - CSS does indeed have data types (<cite>[CSS Data Types - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/Data_types)</cite>). Usually we don't need to think too hard about these but they end up being necessary in the above example when using the `position-anchor` attribute and `attr` function
 
-An `<ident>` is the type used to represent an identifier in CSS (<cite>[CSS <ident> - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/ident)</cite>)
+An `<ident>` is the type used to represent an identifier in CSS (<cite>[CSS `<ident>` - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/ident)</cite>)
 
-A `<custom-ident>` is a case-sensitive string that can be user-defined and used as CSS identifier (<cite>[CSS <custom-ident> - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/custom-ident)</cite>)
+A `<custom-ident>` is a case-sensitive string that can be user-defined and used as CSS identifier (<cite>[CSS `<custom-ident>` - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/custom-ident)</cite>)
 
-The `position-anchor` attribute requires a `<dashed-ident>` which is a `<custom-ident>` that starts with `--` (<cite>[CSS <dashed-ident> - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/dashed-ident)</cite>). These will never be defined by CSS and are only ever defined by the user
+The `position-anchor` attribute requires a `<dashed-ident>` which is a `<custom-ident>` that starts with `--` (<cite>[CSS `<dashed-ident>` - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/dashed-ident)</cite>). These will never be defined by CSS and are only ever defined by the user
 
 In our example, we're receiving our `<dashed-ident>` via `attr()`. Since a `<dashed-ident>` cannot be defined by CSS, the type we will receive from `attr()` is a `<custom-ident>`. Note that this **must** start with `--` in order to work in the place of a `<dashed-ident>`
 
 ## Reading Attributes in CSS
 
-The CSS `attr()` function lets us read the value of an element attribute and use it in CSS (<cite>[CSS attr() - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/attr)</cite>). This means that we can effectively provide variables for use within CSS by way of HTML attributes. This is really handy and has tons of use cases
+The CSS `attr()` function lets us read the value of an element attribute and use it in CSS (<cite>[CSS `attr()` - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/attr)</cite>). This means that we can effectively provide variables for use within CSS by way of HTML attributes. This is really handy and has tons of use cases
 
 In the example above, we're using the `attr()` to read the value of the `anchor` attribute. Some ways of using `attr()` can be seen below:
 
@@ -115,7 +115,7 @@ And then, we can reference this `anchor-name` from any elements that want to pos
 
 In the above, we specify `position: fixed` to place this element relative to the `position-anchor` and out of the normal document flow (<cite>[CSS position - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position)</cite>)
 
-The CSS `anchor()` function is used to return the length relative to the anchor element and allows us to position the anchored element relative to the anchor (<cite>[CSS anchor() - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/anchor)</cite>)
+The CSS `anchor()` function is used to return the length relative to the anchor element and allows us to position the anchored element relative to the anchor (<cite>[CSS `anchor()` - MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/anchor)</cite>)
 
 ## Putting It Together
 
