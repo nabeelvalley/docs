@@ -153,7 +153,7 @@ function createDashSymbol(strokeWidth = 0.2) {
 
   dash.setAttribute('overflow', "true")
 
-  dash.style.stroke = "black"
+  dash.style.stroke = "currentColor"
   dash.style.strokeWidth = strokeWidth.toString()
 
   symbol.appendChild(dash)
