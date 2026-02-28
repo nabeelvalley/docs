@@ -19,7 +19,7 @@
   },
   {
     "title": "Nameto",
-    "description": "A bulk file management utility",
+    "description": "Quick and interactive, bulk management",
     "tags": [
       "go",
       "cli"
