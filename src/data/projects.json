@@ -18,6 +18,15 @@
     "link": "/blog/2024/24-08/unintentionally-made-a-programming-language"
   },
   {
+    "title": "Nameto",
+    "description": "A bulk file management utility",
+    "tags": [
+      "go",
+      "cli"
+    ],
+    "link": "https://github.com/sftsrv/nameto"
+  },
+  {
     "title": "Tri",
     "description": "An interactive tree-based search tool with custom preview",
     "tags": [
