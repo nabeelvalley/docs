@@ -8,7 +8,7 @@ description: A Git-compatible version control system
 
 ## Installation and Setup
 
-`jj` supports Nushell, so naturally the configuration and installation is in (the jj installation docs)[https://jj-vcs.github.io/jj/v0.23.0/install-and-setup/#nushell] - this will give some really nice autocomplete for Nushell which is great
+`jj` supports Nushell, so naturally the configuration and installation is in [the jj installation docs](https://jj-vcs.github.io/jj/v0.23.0/install-and-setup/#nushell) - this will give some really nice autocomplete for Nushell which is great
 
 ## Initializing
 
