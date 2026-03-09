@@ -1,0 +1,40 @@
+{
+  "location": "Noord Holland, Netherlands",
+  "tagline": "Software Engineer",
+  "about": "My name is Nabeel Valley, I'm from South Africa and have been living in the Netherlands since 2023\nI have a Bachelor's of Engineering in Mechanical Engineering and have worked professionally as a Software Engineer since 2018\nMy hobbies include building little apps, graphic and ui design, photography, and skateboarding\n",
+  "languages": [
+    [
+      "English",
+      "Native"
+    ],
+    [
+      "Dutch",
+      "B2"
+    ],
+    [
+      "Afrikaans"
+    ]
+  ],
+  "skills": [
+    "Azure",
+    "AWS",
+    "GitHub",
+    "CI/CD",
+    "DevOps",
+    "Typescript",
+    "Javascript",
+    "Golang",
+    "Rust",
+    "C#",
+    "React",
+    "Angular",
+    "Machine Learning",
+    "HTML",
+    "CSS",
+    "Turbo",
+    "Nx",
+    "Monorepo",
+    "Node.js",
+    "Docker"
+  ]
+}

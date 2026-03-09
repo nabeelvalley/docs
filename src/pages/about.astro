@@ -2,6 +2,7 @@
 import Title from '../components/Title.astro'
 import experience from '../data/experience.json'
 import education from '../data/education.json'
+import about from '../data/about.json'
 import Base from '../layouts/Base.astro'
 import { Contact } from '../components/Contact'
 import SocialNav from '../components/SocialNav.astro'
@@ -19,28 +20,15 @@ import LinkGrid from '../components/LinkGrid.astro'
 
     <section class="link__grid">
       <div>
-        <h2 class="link__title">Me</h2>
-        <h3 class="link__subtitle">Pretoria, South Africa</h3>
-        <p class="link__subtitle">'95</p>
+        <h2 class="link__title">{about.tagline}</h2>
+        <h3 class="link__subtitle">{about.location}</h3>
       </div>
       <div>
-        <p class="link__description link__description--no-margin">
-          My name is Nabeel Valley, born in 1995 - Pretoria, South Africa
-        </p>
-
-        <p class="link__description">
-          I'm passionate about solving challenging problems in beautiful ways
-        </p>
-
-        <p class="link__description">
-          I have a Bachelor's of Engineering in Mechanical Engineering and have
-          worked professionally as a Software Engineer since 2018
-        </p>
-
-        <p class="link__description">
-          My daily-doings involve writing code, graphic and ui design, taking
-          pictures, and a bit of reading
-        </p>
+      {
+        about.about.split('\n').map(l =>
+            <p>{l}</p>
+        )
+      }        
       </div>
 
       <!-- <Contact client:only="react" /> -->
@@ -59,11 +47,11 @@ import LinkGrid from '../components/LinkGrid.astro'
                 <p class="link__subtitle">{exp.location}</p>
                 <p class="link__subtitle">{exp.period}</p>
               </div>
-              <div>
-                {exp.description.split('\n').map((p) => (
-                  <p class="link__description">{p}</p>
+              <ul>
+                {exp.points.map((p) => (
+                  <li class="link__description">{p}</li>
                 ))}
-              </div>
+              </ul>
             </div>
           ))
         }
@@ -83,11 +71,11 @@ import LinkGrid from '../components/LinkGrid.astro'
                 <p class="link__subtitle">{edu.location}</p>
                 <p class="link__subtitle">{edu.period}</p>
               </div>
-              <div>
-                {edu.description.split('\n').map((p) => (
-                  <p class="link__description no-print">{p}</p>
+              <ul>
+                {edu.points.map((p) => (
+                  <li class="link__description no-print">{p}</li>
                 ))}
-              </div>
+              </ul>
             </div>
           ))
         }
