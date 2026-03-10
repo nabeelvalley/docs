@@ -158,16 +158,20 @@ import about from '../data/about.json'
         & .contact {
           list-style: none;
 
-          & > li > a {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
+          li {
             margin-left: 0;
-            
-          & > svg {
-              display: block;
-              size: 12px;
-              margin-right: 4px;
+
+            a {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              
+              svg {
+                display: block;
+                height: 12px;
+                width: 12px;
+                margin-right: 4px;
+              }
             }
           }
         }
