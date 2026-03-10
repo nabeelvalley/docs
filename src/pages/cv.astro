@@ -154,6 +154,23 @@ import about from '../data/about.json'
           display: flex;
           flex-wrap: wrap;
         }
+
+        & .contact {
+          list-style: none;
+
+          & > li > a {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-left: 0;
+            
+          & > svg {
+              display: block;
+              size: 12px;
+              margin-right: 4px;
+            }
+          }
+        }
       }
     }
   </style>
@@ -170,7 +187,7 @@ import about from '../data/about.json'
     </div>
     <h3>Contact</h3>
 
-    <ul role="list">
+    <ul class="contact" role="list">
       <!-- icons from feathericons.com -->
       <li>
         <a href={`tel:${import.meta.env.PUBLIC_CONTACT_PHONE}`}>
