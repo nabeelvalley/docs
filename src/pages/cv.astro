@@ -18,9 +18,8 @@ import about from '../data/about.json'
     rel="stylesheet" />
 
   <title>Nabeel Valley - CV</title>
-</head>
 
-<body class="cv">
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;600&family=Inconsolata:ital,wght@0,400;0,600;1,400;1,600&display=swap');
@@ -35,7 +34,7 @@ import about from '../data/about.json'
       font-size: 12px;
     }
 
-    .cv {
+    main {
       color: hsl(260deg 100% 5%);
       --color-1: hsl(260deg 100% 40%);
       --color-2: hsl(260deg 100% 98%);
@@ -73,7 +72,7 @@ import about from '../data/about.json'
         color: var(--color-1);
       }
 
-      main {
+      .timeline {
         flex: 2;
 
         display: flex;
@@ -83,10 +82,12 @@ import about from '../data/about.json'
           margin: 32px 0 16px 0;
         }
  
-        & .location::before {
-          display: inline-block;
-          color: var(--color-1);
-          margin-right: 6px;
+
+        & .location {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 8px;
         }
         
         & .summary {
@@ -130,7 +131,14 @@ import about from '../data/about.json'
         }
       }
 
-      aside {
+      
+      svg {
+        display: block;
+        height: 12px;
+        width: 12px;
+      }
+
+      .intro {
         background-color: var(--color-2);
 
         flex: 1;
@@ -164,22 +172,19 @@ import about from '../data/about.json'
             a {
               display: flex;
               flex-direction: row;
-              align-items: center;
-              
-              svg {
-                display: block;
-                height: 12px;
-                width: 12px;
-                margin-right: 4px;
-              }
+              align-items: center;              
+              gap: 8px;
             }
           }
         }
       }
     }
   </style>
+</head>
 
-  <aside>
+<body>
+<main>
+  <section class="intro">
     <h1>Nabeel Valley</h1>
     <tagline>{about.tagline}</tagline>
     <hr>
@@ -228,13 +233,18 @@ import about from '../data/about.json'
       )}
     </ul>
 
+    <h3>Certifications</h3>
+    <ul role="list">
+      {about.certifications.map(s => <li>{s}</li>)}
+    </ul>
+
     <h3>Skills</h3>
     <ul role="list" class="skills">
       {about.skills.map(s => <li>{s}</li>)}
     </ul>
-  </aside>
+  </section>
 
-  <main>
+  <section class="timeline">
     <h2>Experience</h2>
     <experiences>
     {
@@ -244,7 +254,10 @@ import about from '../data/about.json'
           <h4 class="subtitle">{exp.subtitle}</h4>
           <div class="summary">
             <p class="period">{exp.period}</p>
-            <p class="location">{exp.location}</p>
+            <p class="location">
+              {exp.location}
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </p>
           </div>
           {
             exp.full && <ul class="description">
@@ -272,5 +285,6 @@ import about from '../data/about.json'
         ))
       }
     </educations>
-  </main>
+  </section>
+</main>
 </body>

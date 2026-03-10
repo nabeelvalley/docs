@@ -6,11 +6,12 @@
       "Senior Software Engineer and Platform Engineer for the web ecosystem",
       "Finding ways to make developers in the organization more productive",
       "Creation of tools to simplify development tasks or automations to speed up migrations or updates across large codebases",
-      "Primarily using Typescript, JavaScript, Angular, Nx, Web Components, and Go along with Azure DevOps",
-      " Participate in and manage programmes to enable developers to learn and share knowledge at various different levels within Entelect and customer organizations"
+      "Developer enablement on Web Accessibility topics",
+      "Participation and management of programmes to enable developers to learn and share knowledge at various different levels within Entelect and customer organizations",
+      "Primarily using Typescript, JavaScript, Angular, Nx, Web Components, and Go along with Azure DevOps"
     ],
     "location": "Amsterdam/Utrecht, Netherlands",
-    "period": "July '23 - present",
+    "period": "July 2023 - present",
     "technology": [],
     "full": true
   },
@@ -25,7 +26,7 @@
       "Interacting with business to define solutions to healthcare and technical challenges"
     ],
     "location": "Johannesburg, South Africa",
-    "period": "May '21 - July '23",
+    "period": "May 2021 - July 2023",
     "technology": [],
     "full": true
   },
@@ -39,7 +40,7 @@
     ],
     "subtitle": "Web Developer / Technical Specialist",
     "location": "Pretoria, South Africa",
-    "period": "Mar '19 - April '21",
+    "period": "March 2019 - April 2021",
     "technology": [],
     "full": true
   },
@@ -51,7 +52,7 @@
       "Additionally I wrote an article on assembling a continuous deployment pipeline for web applications and coordinated and assisted developers with the Data Science Johannesburg meetup group and the MTN TAG Hack in 2018"
     ],
     "location": "Johannesburg, South Africa",
-    "period": "Sept '18 - Feb '19",
+    "period": "September 2018 - February 2019",
     "technology": []
   },
   {
@@ -61,7 +62,7 @@
       "Development of mobile-first progressive web applications for a mentorship program using Angular and .NET Core for Azure called LifeXchange, and the Microsoft Cloud Summit 2018 event information site as well as engaged in client reviews and workshops and project planning. Researched topics on web design and development"
     ],
     "location": "Johannesburg, South Africa",
-    "period": "Feb '18 - Aug '18",
+    "period": "February 2018 - August 2018",
     "technology": []
   }
 ]
