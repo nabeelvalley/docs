@@ -3,5 +3,49 @@ import SocialNav from './SocialNav.astro'
 ---
 
 <footer >
-  <SocialNav rss />
+  <nav>
+    <SocialNav rss />
+
+    <section aria-labelledby="webring-label" class="webring">
+      <span id="webring-label"><em>Webring</em></span>
+
+      <ul class="links">
+        <a href="https://webring.nabeelvalley.co.za/previous">Previous</a>
+        <a href="https://webring.nabeelvalley.co.za/random">Random</a>
+        <a href="https://webring.nabeelvalley.co.za/next">Next</a>
+      </ul>
+    </section>
+  </nav>
 </footer>
+
+<style>
+  footer {
+    margin-top: 16px;
+    padding: 4px;
+    border-bottom: var(--separator-border);
+    border-top: var(--separator-border);
+    font-size: smaller;
+
+    nav {
+      padding: 4px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      .webring {
+        display: inline;
+
+        & * {
+          margin: 0;
+        }
+        
+        .links {
+          list-style: none;
+          display: inline-block;
+          padding: 0;
+        }
+      }
+    }
+  }
+</style>
