@@ -5,7 +5,7 @@ subtitle: 12 March 2026
 feature: true
 ---
 
-> Assumed audience: People with a personal website
+> Assumed audience: People with a personal website or anyone interested in the indie web
 
 I've wanted to start a [Webring](https://en.wikipedia.org/wiki/Webring) for a while now and finally got around to it. Click the links in the footer to explore!
 
