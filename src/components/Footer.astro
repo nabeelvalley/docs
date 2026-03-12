@@ -7,7 +7,7 @@ import SocialNav from './SocialNav.astro'
     <SocialNav rss />
 
     <section aria-labelledby="webring-label" class="webring">
-      <span id="webring-label"><em>Webring</em></span>
+      <a href="https://webring.nabeelvalley.co.za"><em><span id="webring-label">Webring</span></em></a>
 
       <ul class="links">
         <a href="https://webring.nabeelvalley.co.za/previous">Previous</a>
@@ -32,6 +32,13 @@ import SocialNav from './SocialNav.astro'
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+
+      a {
+        transition: color 200ms;
+        &:hover, &:focus {
+          color: var(--color-brand);
+        }
+      }
 
       .webring {
         display: inline;
