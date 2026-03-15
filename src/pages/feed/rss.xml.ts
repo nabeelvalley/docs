@@ -8,7 +8,7 @@ export const GET = async (context) => {
   // FOr simplicity just including the markdown posts for now
   const blog = await getCollection('blog-md')
   const items = blog
-    .filter((post) => post.data.published)
+    .filter((post) => post.data.published !== false)
     .map<RSSFeedItem>((post) => ({
       title: post.data.title,
       pubDate: new Date(post.data.subtitle),
