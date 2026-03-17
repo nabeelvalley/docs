@@ -9,10 +9,10 @@ import SocialNav from './SocialNav.astro'
     <section aria-labelledby="webring-label" class="webring">
       <a href="https://webring.nabeelvalley.co.za"><em><span id="webring-label">Webring</span></em></a>
 
-      <ul class="links">
-        <a href="https://webring.nabeelvalley.co.za/previous">Previous</a>
-        <a href="https://webring.nabeelvalley.co.za/random">Random</a>
-        <a href="https://webring.nabeelvalley.co.za/next">Next</a>
+      <ul class="links" data-astro-cid-sz7xmlte=""> 
+          <li><a href="https://webring.nabeelvalley.co.za/previous">Previous</a></li>
+          <li><a href="https://webring.nabeelvalley.co.za/random">Random</a></li>
+          <li><a href="https://webring.nabeelvalley.co.za/next">Next</a></li>
       </ul>
     </section>
   </nav>
@@ -49,7 +49,8 @@ import SocialNav from './SocialNav.astro'
         
         .links {
           list-style: none;
-          display: inline-block;
+          display: inline-flex;
+          gap: 4px;
           padding: 0;
         }
       }
