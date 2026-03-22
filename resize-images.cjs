@@ -26,7 +26,9 @@ async function main() {
     const sharp = new Sharp(p)
     const buffer = await sharp.resize({
     width: 2000,
-  }).toBuffer(p)
+  })
+  .withMetadata()
+  .toBuffer(p)
 
   await fs.writeFile(p, buffer)
 })
