@@ -6,7 +6,7 @@ published: true
 
 > Assumed audience: Developers/technical people who use git and/or enjoy terminal UIs (TUIs)
 
-So I finally got [`tri`](https://github.com/sftsrv/tri) running super fast which [I already talked about today](/docs/src/content/blog/2026/26-03/bubbletea-commands) and I came across something mildly annoying but not all bad so thought it would be nice to write down
+So I finally got [`tri`](https://github.com/sftsrv/tri) running super fast which [I already talked about today](/blog/2026/26-03/bubbletea-commands) and I came across something mildly annoying but not all bad so thought it would be nice to write down
 
 I use [`difft`](https://difftastic.wilfred.me.uk/introduction.html) for my [`git`](https://git-scm.com/) diffs. This works really nicely as it's got some syntax awareness and integrates really well into other tools I use such as [`lazygit`](https://github.com/jesseduffield/lazygit/tree/master)
 
