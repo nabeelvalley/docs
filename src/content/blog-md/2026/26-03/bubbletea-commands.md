@@ -84,7 +84,7 @@ func doTasks() []task {
 
 We can see this running below:
 
-![V1 implementation in action](/public/content/blog/2026/26-03/bubbletea-commands-v1.gif)
+![V1 implementation in action](/content/blog/2026/26-03/bubbletea-commands-v1.gif)
 
 The problem with the above implementation is twofold:
 
@@ -289,7 +289,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 And with that, we've now got a responsive UI that lets the counter work even while the tasks are running as well as makes it possible for us to track task state:
 
 
-![V2 implementation in action](/public/content/blog/2026/26-03/bubbletea-commands-v2.gif)
+![V2 implementation in action](/content/blog/2026/26-03/bubbletea-commands-v2.gif)
 
 <details>
 <summary>You can see the full V2 implementation if you'd like</summary>
