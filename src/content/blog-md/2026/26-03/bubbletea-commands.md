@@ -1,10 +1,12 @@
 ---
-title: A nice approach to async work
-description: Using Bubbletea commands in Go for snappy TUIs
+title: Async TUIs using Bubble Tea
+description: Using Bubble Tea commands in Go for snappy TUIs
 subtitle: 26 March 2026
 published: true
 feature: true
 ---
+
+> Assumed audience: UI developers, people who program in Go, or anyone just generally interested in making computers to things using code
 
 There was a little bug I ran into a while back but hadn't been important enough for me to fix until yesterday when it started to slow me down
 
@@ -427,3 +429,4 @@ func Run() {
 
 That's it - no Goroutines or channels needed, a pretty good abstraction on the side of the framework - and minimal effort needed from us
 
+> A small aside, I've started working on what will probably be a fairly sizeable side project. As such, I've gotten absolutely nothing done on that while somehow managing to put together two blog posts, update my photo galleries on my site, and fix a bunch of random things in other random side projects just this week - oh the power of procrastination
