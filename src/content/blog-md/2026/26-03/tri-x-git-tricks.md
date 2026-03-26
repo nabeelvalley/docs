@@ -10,7 +10,7 @@ So I finally got [`tri`](https://github.com/sftsrv/tri) running super fast which
 
 I use [`difft`](https://difftastic.wilfred.me.uk/introduction.html) for my [`git`](https://git-scm.com/) diffs. This works really nicely as it's got some syntax awareness and integrates really well into other tools I use such as [`lazygit`](https://github.com/jesseduffield/lazygit/tree/master)
 
-Now, I'm a [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) follower so I build [my tools](https://github.com/sftsrv) to do the same - so naturally I wanted to use `difft` with `tri` - so, here's how to do that
+Now, I'm a [Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) dude so I build [my tools](https://github.com/sftsrv) to do the same - so naturally I wanted to use `difft` with `tri` - so, here's how to do that
 
 > The below examples are using [Nushell](https://www.nushell.sh/) so your shell's exact syntax may vary but the idea is the same
 

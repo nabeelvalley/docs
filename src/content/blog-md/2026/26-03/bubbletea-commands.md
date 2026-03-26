@@ -88,7 +88,7 @@ We can see this running below:
 
 The problem with the above implementation is twofold:
 
-1. Bad performance - The UI is blocked while the tasks are running, so the counter does not update until after the tasks are run
+1. Bad performance - The UI is blocked while the tasks are running, so the counter doesn't update until after the tasks are run
 2. Sad UX - There isn't a way to update an in-progress task, would be nice to not have to wait
 
 <details>
