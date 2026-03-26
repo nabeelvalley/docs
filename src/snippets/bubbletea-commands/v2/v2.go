@@ -14,7 +14,7 @@ type task struct {
 	done  bool
 }
 
-type taskDone struct {
+type taskDoneMsg struct {
 	index int
 }
 
@@ -27,7 +27,7 @@ func (t task) string() string {
 	return fmt.Sprintf("Task %d [%s]", t.index, status)
 }
 
-func sleepRandomly() {
+func doHeavyWork() {
 	t := rand.IntN(5)
 	time.Sleep(time.Duration(t) * time.Second)
 }
@@ -39,8 +39,8 @@ func makeTasks() ([]task, []tea.Cmd) {
 	for i := range 10 {
 		tasks = append(tasks, task{i, false})
 		cmds = append(cmds, func() tea.Msg {
-			sleepRandomly()
-			return taskDone{i}
+			doHeavyWork()
+			return taskDoneMsg{i}
 		})
 	}
 
@@ -68,8 +68,9 @@ func (m model) Init() tea.Cmd {
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 
-	case taskDone:
+	case taskDoneMsg:
 		m.tasks[msg.index].done = true
+		return m, nil
 
 	case tea.KeyPressMsg:
 		switch msg.String() {
