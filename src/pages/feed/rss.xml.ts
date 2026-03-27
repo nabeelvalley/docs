@@ -5,10 +5,10 @@ import MarkdownIt from 'markdown-it'
 const parser = new MarkdownIt()
 
 export const GET = async (context) => {
-  // FOr simplicity just including the markdown posts for now
+  // For simplicity just including the Markdown posts for now
   const blog = await getCollection('blog-md')
   const items = blog
-    .filter((post) => post.data.published !== false)
+    .filter((post) => post.data.published !== false || post.data.rssOnly)
     .map<RSSFeedItem>((post) => ({
       title: post.data.title,
       pubDate: new Date(post.data.subtitle),
