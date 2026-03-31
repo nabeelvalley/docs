@@ -1,11 +1,12 @@
 ---
 import { Image } from 'astro:assets'
-const { path } = Astro.props
+const { path, caption = false } = Astro.props
 
 type Path = 'index' | 'nature' | 'places' | 'portraits/bw'
 
 interface Props {
   path: Path
+  caption?: boolean
 }
 
 type ImageData = {
@@ -39,26 +40,46 @@ const images = await Promise.all(
 )
 ---
 
-<div class="gallery__grid">
-  {
-    images
-      .reverse()
-      .map((image) => (
-        <Image
-          src={image.default}
-          alt={image.alt}
-          class={
-            image.default.height > image.default.width
-              ? 'gallery__image gallery__image--vertical'
-              : 'gallery__image gallery__image--horizontal'
-          }
-        />
-      ))
-  }
-</div>
+<div class="gallery__container">
+  <div class="gallery__grid">
+    {
+      images
+        .reverse()
+        .map((image) => caption ? (
+          <figure class={
+                image.default.height > image.default.width
+                  ? 'gallery__image gallery__image--vertical'
+                  : 'gallery__image gallery__image gallery__image--horizontal'
+              }
+            >
+            <Image
+              src={image.default}
+              alt={image.alt}
+            />
+            <figcaption>{image.alt}</figcaption>
+          </figure>
 
+        ) :(
+          <Image
+            src={image.default}
+            alt={image.alt}
+            class={
+              image.default.height > image.default.width
+                ? 'gallery__image gallery__image--vertical'
+                : 'gallery__image gallery__image--horizontal'
+            }
+          />
+        ))
+    }
+  </div>
+</div>
 <style>
   /* Gallery */
+  .gallery__container {
+    container-type: inline-size;
+    container-name: wrapper;
+  }
+
   .gallery__grid {
     --grid-cols: 6;
     margin-top: 48px;
@@ -68,19 +89,19 @@ const images = await Promise.all(
     grid-gap: 24px;
   }
 
-  @media (min-width: 900px) {
+  @container wrapper (width > 900px) {
     .gallery__grid {
       --grid-cols: 12;
     }
   }
 
-  @media (min-width: 1200px) {
+  @container wrapper (width > 1200px) {
     .gallery__grid {
       --grid-cols: 24;
     }
   }
 
-  .gallery__image {
+  .gallery__image, .gallery__figure {
     position: relative;
     height: unset;
     width: unset;
@@ -94,5 +115,9 @@ const images = await Promise.all(
   .gallery__image--vertical {
     grid-column: span 6;
     grid-row: span 8;
+  }
+
+  figure {
+    margin: 0
   }
 </style>
