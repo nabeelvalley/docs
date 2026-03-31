@@ -50,7 +50,7 @@ const posts = withExcluded.slice(0, Astro.props.count || 6)
       </section>
     ) : (
       <aside slot="sidebar">
-        <h3>Recent Posts</h3>
+        <h2>Recent Posts</h2>
         {posts.map((post) => (
           <LinkBlock
             title={post.data.title}
