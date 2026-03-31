@@ -1,12 +1,13 @@
 ---
 import { Image } from 'astro:assets'
-const { path, caption = false } = Astro.props
+const { path, caption = false, reverse = false } = Astro.props
 
 type Path = 'index' | 'nature' | 'places' | 'portraits/bw'
 
 interface Props {
   path: Path
   caption?: boolean
+  reverse?: boolean
 }
 
 type ImageData = {
@@ -30,7 +31,7 @@ const getAlt = (path: string): string => {
   return name
 }
 
-const images = await Promise.all(
+let images = await Promise.all(
   Array.from(Object.entries(allImages))
     .filter(([key]) => key.startsWith(`../photography/${path}`))
     .map(async ([key, getData]) => ({
@@ -38,6 +39,10 @@ const images = await Promise.all(
       ...(await getData()),
     }))
 )
+
+if (reverse) {
+  images = images.reverse()
+}
 ---
 
 <div class="gallery__container">
