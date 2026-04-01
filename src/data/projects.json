@@ -66,7 +66,7 @@
       "web-components"
     ],
     "link": "https://github.com/sftsrv/live"
-  }
+  },
   {
     "title": "parz",
     "description": "A parser combinator library written in Gleam",
