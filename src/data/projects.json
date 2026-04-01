@@ -57,6 +57,17 @@
     "link": "https://github.com/sftsrv/lynks"
   },
   {
+    "title": "Live",
+    "description": "A simple signal-style reactivity library",
+    "tags": [
+      "ts",
+      "signals",
+      "html",
+      "web-components"
+    ],
+    "link": "https://github.com/sftsrv/live"
+  }
+  {
     "title": "parz",
     "description": "A parser combinator library written in Gleam",
     "tags": [
