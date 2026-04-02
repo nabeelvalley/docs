@@ -1,0 +1,50 @@
+.demo {
+    height: 200px;
+    padding-top: 100px;
+    position: relative;
+
+    .container {
+        gap: 10px;
+        padding: 20px;
+    }
+
+    animate-initial {
+        anchor-name: --anchor-initial;
+    }
+
+    animate-item {
+        position-anchor: --anchor-initial;
+        position: fixed;
+        top: anchor(top);
+        left: anchor(left);
+        z-index: 1;
+
+        width: 100px;
+
+        background-color: cadetblue;
+        padding: 10px;
+        display: inline-block;
+
+        transition: top 1s, left .3s;
+
+        &[docked] {
+            position-anchor: --animate-target;
+            position: fixed;
+            top: calc(anchor(top) + 10px);
+            left: calc(anchor(left) + 10px);
+        }
+    }
+
+    animate-target {
+        anchor-name: --animate-target;
+
+        background-color: lightblue;
+        opacity: 0.3;
+        padding: 20px;
+        width: 100px;
+
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+}

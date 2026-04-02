@@ -1,0 +1,64 @@
+@keyframes move-to-target {
+    0% {
+        position: fixed;
+        top: anchor(--anchor-initial top);
+        left: anchor(--anchor-initial left);
+    }
+
+    20% {
+        position: fixed;
+        top: calc(anchor(--anchor-initial top) - 50px);
+        left: anchor(--anchor-initial left);
+    }
+
+    100% {
+        position: fixed;
+        top: calc(anchor(--anchor-target top) + 10px);
+        left: calc(anchor(--anchor-target left) + 10px);
+    }
+}
+
+.demo-animation {
+    padding-top: 100px;
+    height: 200px;
+    position: relative;
+
+    .container {
+        gap: 10px;
+        padding: 20px;
+    }
+
+    animate-initial {
+        anchor-name: --anchor-initial;
+    }
+
+    animate-item {
+        --animate-intial: --anchor-initial;
+        --animate-target: --anchor-target;
+
+        z-index: 1;
+
+        width: 100px;
+
+        background-color: cadetblue;
+        padding: 10px;
+        display: inline-block;
+
+        &[docked] {
+            animation: move-to-target 1s forwards;
+        }
+    }
+
+    animate-target {
+        anchor-name: --anchor-target;
+
+        background-color: lightblue;
+        opacity: 0.3;
+        padding: 20px;
+        width: 100px;
+
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+}
