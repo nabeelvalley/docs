@@ -1,8 +1,9 @@
 version: "3"
 services:
   docs:
-    context: .
-    dockerfile: ./Dockerfile
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     restart: unless-stopped 
     environment:
       PUBLIC_CONTACT_EMAIL: ${PUBLIC_CONTACT_EMAIL?ERROR}
