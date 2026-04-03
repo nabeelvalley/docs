@@ -1,0 +1,9 @@
+version: "3"
+services:
+  docs:
+    context: .
+    dockerfile: ./Dockerfile
+    restart: unless-stopped 
+    environment:
+      PUBLIC_CONTACT_EMAIL: ${PUBLIC_CONTACT_EMAIL?ERROR}
+      PUBLIC_CONTACT_PHONE: ${PUBLIC_CONTACT_PHONE?ERROR}
