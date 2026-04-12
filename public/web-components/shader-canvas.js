@@ -28,7 +28,6 @@ class ShaderCanvas extends HTMLElement {
   }
 
   async #initialize() {
-    console.log('here')
     const initialized = this.#canvas && this.#script
     if (initialized) {
       return
@@ -47,8 +46,6 @@ class ShaderCanvas extends HTMLElement {
 
     this.#canvas = canvas
     this.#script = script
-
-    console.log(canvas, script)
 
     const render = await setupCanvas(this.#canvas, this.#script.innerText)
 

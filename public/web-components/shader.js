@@ -16,7 +16,6 @@ export async function setupCanvas(
     return
   }
 
-
   /**
    * @type {any}
    */
@@ -37,6 +36,41 @@ export async function setupCanvas(
     code: shader,
   })
 
+  const uTime = device.createBuffer({
+    size: [4],
+    // @ts-ignore
+    usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
+  })
+
+  let curr = 1
+
+  const texture = device.createTexture({
+    size: { width: canvas.width, height: canvas.height },
+    format: 'rgba8unorm',
+    // @ts-ignore
+    usage: GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST | GPUTextureUsage.RENDER_ATTACHMENT
+  });
+
+
+  const sampler = device.createSampler({
+    addressModeU: "clamp-to-edge",
+    addressModeV: "mirror-repeat",
+    magFilter: "linear",
+  });
+
+  const htmlInCanvas = canvas.hasAttribute('layoutsubtree')
+
+  if (htmlInCanvas) {
+    // @ts-expect-error this is part of the WIP API for html-in-canvas
+    canvas.onpaint = () => {
+      console.log('paint')
+      device.queue.copyElementImageToTexture(canvas.querySelector('.html-in-canvas'), canvas.width, canvas.height, { texture })
+    }
+
+    // @ts-expect-error this is part of the WIP API for html-in-canvas
+    canvas.requestPaint()
+  }
+
   const pipeline = device.createRenderPipeline({
     label: 'render pipeline',
     layout: 'auto',
@@ -53,20 +87,29 @@ export async function setupCanvas(
     },
   })
 
-  const uTime = device.createBuffer({
-    size: [4],
-    // @ts-ignore
-    usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
-  })
+  const bindGroup0 = htmlInCanvas && 
+    device.createBindGroup({
+      label: 'textures',
+      layout: pipeline.getBindGroupLayout(0),
+      entries: [
+        { binding: 0, resource: sampler },
+        { binding: 1, resource: texture.createView() },
+      ],
+    });
 
-  let curr = 1
+  const bindGroup1 = device.createBindGroup({
+    label: 'uniforms',
+    layout: pipeline.getBindGroupLayout(1),
+    entries: [
+      { binding: 0, resource: { buffer: uTime } }
+    ],
+  });
 
   /**
    * @param {string} [saveTo]
    */
   function render(saveTo) {
     curr += 0.1
-
 
     // https://stackoverflow.com/questions/70284258/destroyed-texture-texture-used-in-a-submit-when-using-a-video-texture-in-ch
     // render pass descriptor needs to be recreated since this doesn't live very long on the GPU
@@ -82,24 +125,21 @@ export async function setupCanvas(
       ],
     }
 
-    const bindGroup = device.createBindGroup({
-      layout: pipeline.getBindGroupLayout(0),
-      entries: [{
-        binding: 0,
-        resource: { buffer: uTime }
-      }],
-    })
-
     const encoder = device.createCommandEncoder({ label: 'command encoder' })
     const pass = encoder.beginRenderPass(renderPassDescriptor)
 
     pass.setPipeline(pipeline)
-    pass.setBindGroup(0, bindGroup)
 
+    if (bindGroup0) {
+      pass.setBindGroup(0, bindGroup0)
+    }
+
+    pass.setBindGroup(1, bindGroup1)
     device.queue.writeBuffer(uTime, 0, new Float32Array([curr]));
 
     pass.draw(6) // call our vertex shader 6 times
     pass.end()
+
 
     const commandBuffer = encoder.finish()
     device.queue.submit([commandBuffer])

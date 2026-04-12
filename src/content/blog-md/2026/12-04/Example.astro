@@ -1,7 +1,15 @@
 <script is:inline type="module" src="/web-components/shader-canvas.js"></script>
 
 <site-shader-canvas>
-  <canvas width="1000" height="500" style="width: 100%" />
+  <canvas width="1000" height="500" style="width: 100%" layoutsubtree>
+    <div class="html-in-canvas" style="color: green; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <h2>Hello from HTML!</h2>      
+
+      <label for="input-in-canvas">Input in canvas</label>
+      <input style="display: block;" id="input-in-canvas" />      
+    </div>
+  </canvas>
+
   <script type="text/wgsl">
     struct VertexOutput {
       @builtin(position) position: vec4f,
@@ -29,12 +37,23 @@
       return vsOutput;
     }
 
+    @group(0) @binding(0) var htmlSampler: sampler;
+    @group(0) @binding(1) var htmlTexture: texture_2d<f32>;
+
     @group(1) @binding(0) var<uniform> uTime: f32;
+
+    fn flipSample(fsInput: VertexOutput) -> vec4f {
+      // the texture must be flipped since the shader coord system is the
+      // opposite of the HTML one
+      var pos = vec2f(fsInput.texcoord.x, 1 - fsInput.texcoord.y);
+      return textureSample(htmlTexture, htmlSampler, pos);
+    }
     
     @fragment fn fs(fsInput: VertexOutput) -> @location(0) vec4f {
       var red = abs(sin(uTime/10.0)) * fsInput.texcoord.x;
       var blue = abs(cos(uTime/5.0)) * fsInput.texcoord.y;
-      return vec4f(red, 0.0, blue, 1.0);
+
+      return vec4f(red, 0.0, blue, 1.0) + flipSample(fsInput);
     }
   </script>
 </site-shader-canvas>
