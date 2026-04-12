@@ -12,7 +12,7 @@ I made some minor updates to my [Shader Web Component](/blog/2025/09-11/shader-w
 
 ## How Does It Work?
 
-The HTML in the above example is rendered within the canvas and is - very importantly - exposed to the accessibility tree
+The HTML in the above example is rendered within the canvas and is - if/when supported - exposed to the accessibility tree
 
 As per the documentation, this makes use of the following:
 
@@ -28,9 +28,9 @@ The above example should show the inner content if supported. I've noticed that 
 
 Some challenges I see here are around keeping positions in sync so that interactive elements remain correctly interactive and that basic parts of the web continue to work as users expect
 
-The example above already suffers from the fact that the size of the canvas content doesn't match the canvas and so things are not quite in the right place. [Matt Rothenberg](https://mattrothenberg.com/) also points this out in their [HTML in Canvas](https://mattrothenberg.com/notes/html-in-canvas/) post and while it's definitely doable it does require a fair amount of wrangling to make work nicely
+The example above originally suffered from the fact that the size of the canvas content doesn't match the canvas and so things are not quite in the right place. [Matt Rothenberg](https://mattrothenberg.com/) also points this out in their [HTML in Canvas](https://mattrothenberg.com/notes/html-in-canvas/) post and while it's definitely doable it does require a fair amount of wrangling to make work nicely
 
-The aforementioned sizing problem is probably relatively easy to abstract neatly which is worth considering if/once the API is standardized but I don't really want to get into that effort just yet
+The aforementioned sizing problem is probably relatively easy to abstract neatly which is worth considering if/once the API is standardized but I don't really want to get into that effort just yet. I've managed to do it with some CSS which seems to work okay for this example but I don't think it's a silver bullet
 
 ## Technical Challenges
 
@@ -62,13 +62,13 @@ There's a good example on explicitly defining the layouts on [this WebGPU Bind G
 
 Anyways, ensuring that the sampler and texture are used meant that everything worked fine again. So conditionally adding the bindgroup works which adds some ugliness to my shader rendering code but I think it's fine for what it makes possible
 
-The code for the above example can be seen below:
+The snippet for the above example can be seen below:
 
 ```html
 <site-shader-canvas>
-  <canvas width="1000" height="500" style="width: 100%" layoutsubtree>
-    <div class="html-in-canvas" style="color: green; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-      <h2>Hello from HTML!</h2>      
+  <canvas width="1000" height="1000" style="width: 100%" layoutsubtree>
+    <div class="html-in-canvas" style="width: 100%; height: 100%; color: green; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
+      <h2 style="margin: 0;">Hello from HTML!</h2>      
 
       <label for="input-in-canvas">Input in canvas</label>
       <input style="display: block;" id="input-in-canvas" />      
@@ -123,3 +123,5 @@ The code for the above example can be seen below:
   </script>
 </site-shader-canvas>
 ```
+
+You can also take a look at the [source of the web component](/web-components/shader-canvas.js) and respective [shader renderer](/web-components/shader.js) if you're interested

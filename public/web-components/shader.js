@@ -63,7 +63,6 @@ export async function setupCanvas(
   if (htmlInCanvas) {
     // @ts-expect-error this is part of the WIP API for html-in-canvas
     canvas.onpaint = () => {
-      console.log('paint')
       device.queue.copyElementImageToTexture(canvas.querySelector('.html-in-canvas'), canvas.width, canvas.height, { texture })
     }
 
