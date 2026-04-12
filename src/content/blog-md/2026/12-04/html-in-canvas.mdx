@@ -30,7 +30,7 @@ Some challenges I see here are around keeping positions in sync so that interact
 
 The example above originally suffered from the fact that the size of the canvas content doesn't match the canvas and so things are not quite in the right place. [Matt Rothenberg](https://mattrothenberg.com/) also points this out in their [HTML in Canvas](https://mattrothenberg.com/notes/html-in-canvas/) post and while it's definitely doable it does require a fair amount of wrangling to make work nicely
 
-The aforementioned sizing problem is probably relatively easy to abstract neatly which is worth considering if/once the API is standardized but I don't really want to get into that effort just yet. I've managed to do it with some CSS which seems to work okay for this example but I don't think it's a silver bullet
+I've solved the resizing issue in the above example using CSS but it's also possible to do using the `drawElementImage` function as per the API to do the necessary alignment
 
 ## Technical Challenges
 
