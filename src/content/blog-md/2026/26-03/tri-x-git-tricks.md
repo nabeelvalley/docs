@@ -36,3 +36,19 @@ git diff HEAD --name-only | tri --preview `git diff HEAD -- `
 Which is just the normal way that `tri` works so yay
 
 And that's it okbye
+
+> Update 14 April 2026
+
+I've added these two functions to my nu config which basically do the above:
+
+```nu
+def "g tri" [rel = master] {
+  git diff HEAD..($rel) --name-only
+  | GIT_EXTERNAL_DIFF="difft --color=always --display=inline" tri --preview $"git diff HEAD..($rel) -- " --flat
+}
+
+def "g tri head" [] {
+  git diff HEAD --name-only
+  | GIT_EXTERNAL_DIFF="difft --color=always --display=inline" tri --preview `git diff HEAD -- ` --flat
+}
+```
