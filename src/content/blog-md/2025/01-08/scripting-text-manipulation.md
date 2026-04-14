@@ -140,3 +140,7 @@ Also, it just sounds kind of fun to build and seems like it would fit well into 
 ## but but but AI
 
 No.
+
+## Update 14 April 2026
+
+Just came across [ast-grep](https://ast-grep.github.io) which makes it possible to search in an AST aware way which could be very cool
