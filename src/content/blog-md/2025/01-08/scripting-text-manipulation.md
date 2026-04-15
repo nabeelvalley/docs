@@ -144,3 +144,7 @@ No.
 ## Update 14 April 2026
 
 Just came across [ast-grep](https://ast-grep.github.io) which makes it possible to search in an AST aware way which could be very cool
+
+## Update 15 April 2026
+
+Another interesting tool for this kind of text manipulation is [fastmod](https://github.com/facebookincubator/fastmod) which allows for regex based replacements in an interactive fashion for manual intervention
