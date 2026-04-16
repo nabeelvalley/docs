@@ -145,3 +145,8 @@ In addition to using the AST Direcly, some libraries that are also handy for wor
 - [jscodeshift](https://jscodeshift.com/build/api-reference/)
 - [recast](https://github.com/benjamn/recast)
 - [TS Parsec](https://github.com/microsoft/ts-parsec)
+
+And some more general AST related tools:
+
+- [Tree-sitter](https://tree-sitter.github.io/tree-sitter/)
+- [ast-grep](https://ast-grep.github.io/)
