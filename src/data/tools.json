@@ -57,6 +57,11 @@
   {
     "title": "sad",
     "description": "CLI search and replace | Space Age seD",
-    "link": "https://github.com/ms-jpq/sad?tab=readme-ov-file"
+    "link": "https://github.com/ms-jpq/sad"
+  },
+  {
+    "title": "jless",
+    "description": "A command-line JSON viewer",
+    "link": "https://jless.io/"
   }
 ]
