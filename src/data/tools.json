@@ -63,5 +63,10 @@
     "title": "jless",
     "description": "A command-line JSON viewer",
     "link": "https://jless.io/"
+  },
+  {
+    "title": "presenterm",
+    "description": "A markdown terminal slideshow tool",
+    "link": "https://github.com/mfontanini/presenterm"
   }
 ]
