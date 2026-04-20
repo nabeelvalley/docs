@@ -95,6 +95,11 @@ According to it, programs should:
 
 ## 1. Identify Accidental Complexity
 
+- Things that aren't the work you're trying to do
+- Things that you do often that can be automated
+- Things that are slow
+- Things that aren't compatible with other things
+
 ---
 
 ### The Work Around Your Work
