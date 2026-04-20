@@ -68,5 +68,10 @@
     "title": "presenterm",
     "description": "A markdown terminal slideshow tool",
     "link": "https://github.com/mfontanini/presenterm"
+  },
+  {
+    "title": "Harper",
+    "description": "The private grammar checker",
+    "link": "https://writewithharper.com/"
   }
 ]
