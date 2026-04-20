@@ -104,9 +104,8 @@ According to it, programs should:
 
 ### The Work Around Your Work
 
-- The work around your work, e.g.:
-  - Finding documentation
-  - Managing your task board
+- Finding documentation
+- Managing your task board
 
 ---
 
