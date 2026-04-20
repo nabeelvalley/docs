@@ -1,4 +1,23 @@
 ---
+title: "* > +"
+subtitle: 24 April 2024
+description: the multiplicative power of small tools
+published: false
+---
+
+> Run this presentation using:
+
+```sh
+http get raw.githubusercontent.com/nabeelvalley/docs/blob/master/src/content/talks/2026/24-04/the-power-of-small-tools.md
+  | sed '1,/^--- presenterm-start/d'
+  | save presentation.md
+
+presenterm presentation.md
+```
+
+--- presenterm-start
+
+---
 options:
   end_slide_shorthand: true
 ---
@@ -264,6 +283,8 @@ Can you assign these tasks on the fly?
 ---
 
 ### More Composition with Nushelll
+
+> Create all the files listed in this presentation
 
 ```sh
  cat presentation.md
