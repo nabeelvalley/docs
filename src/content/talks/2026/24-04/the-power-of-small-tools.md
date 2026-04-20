@@ -8,7 +8,7 @@ published: false
 > Run this presentation using:
 
 ```sh
-http get https://github.com/nabeelvalley/docs/blob/master/src/content/talks/2026/20-04/the-power-of-small-tools.md |
+http get raw.githubusercontent.com/nabeelvalley/docs/blob/master/src/content/talks/2026/24-04/the-power-of-small-tools.md |
   sed '1,/^--- presenterm-start/d' |
   save presentation.md
 
