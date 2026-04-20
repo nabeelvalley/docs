@@ -1,23 +1,4 @@
 ---
-title: "* > +"
-subtitle: 24 April 2024
-description: the multiplicative power of small tools
-published: false
----
-
-> Run this presentation using:
-
-```sh
-http get raw.githubusercontent.com/nabeelvalley/docs/blob/master/src/content/talks/2026/24-04/the-power-of-small-tools.md |
-  sed '1,/^--- presenterm-start/d' |
-  save presentation.md
-
-presenterm presentation.md
-```
-
---- presenterm-start
-
----
 options:
   end_slide_shorthand: true
 ---
@@ -93,7 +74,7 @@ According to it, programs should:
 
 ---
 
-## 1. Identify Accidental Complexity
+## Identify Accidental Complexity
 
 - Things that aren't the work you're trying to do
 - Things that you do often that can be automated
@@ -190,6 +171,113 @@ UI's are generally none of these things
 ### Example
 
 > We have a weekly team presentation we want to assign a section to each team member
+
+---
+
+#### Some Scripts to Do the Things
+
+> We'll make small generalized tools instead of one big one
+
+---
+
+`extract-headings.js`
+
+```js
+import { readFileSync } from 'fs';
+
+readFileSync(0, 'utf-8').split('\n')
+  .filter(l => l.startsWith('## '))
+  .forEach(l => console.log(l.slice(3)))
+```
+
+---
+
+`assign-team.js`
+
+```js
+import { execSync } from 'child_process';
+import { readFileSync } from 'fs';
+
+const members = [
+  'Alice',
+  'Bob',
+  'Charles'
+]
+
+readFileSync(0, 'utf-8')
+  .trim()
+  .split('\n')
+  .forEach((t, i) => console.log(`${t}:${members[i%members.length]}`))
+```
+
+---
+
+`create-tasks.js`
+
+```js
+import { execSync } from 'child_process';
+import { readFileSync } from 'fs';
+
+if (process.argv.length < 3) {
+  throw new Error("Prefix must be provided")
+}
+
+const prefix = process.argv[process.argv.length - 1]
+
+// this could be the Azure Devops CLI or GitHub CLI or anything really
+const createTask = (task, assignee) => console.log(execSync(`echo create: "${prefix}: ${task}" --assign ${assignee}`).toString().trim())
+
+readFileSync(0, 'utf-8')
+  .trim()
+  .split('\n')
+  .forEach(t => createTask(...t.split(':')))
+```
+
+---
+
+### Composing the Tools
+
+> Do the entire workflow at once
+
+```sh
+cat presentation.md
+| node extract-headings.js
+| node assign-team.js
+| node create-tasks.js "My Task Prefix"
+```
+
+---
+
+### Greater than the Sum of Their Parts
+
+> Small tools can be composed in more complex ways
+
+Can you assign these tasks on the fly?
+
+1. By bread
+2. Go to the farmer's market
+3. Reply to emails
+4. Drop PROD DB
+
+> Tip: If you're using [helix](https://github.com/helix-editor/helix), this is `:| node assign-team.js`
+
+---
+
+### More Composition with Nushelll
+
+```sh
+ cat presentation.md
+  | split row "---"
+  | str trim | parse --regex '`(?<path>.+)`\n\n```(?<lang>\w+)\n(?<content>(.|\n)+)```'
+  | each {|i| echo $i.content | save $i.path --force}
+```
+
+---
+
+## Additional Resources
+
+- [My uses page](/uses) 
+- [Nushell](https://www.nushell.sh/)
 
 ---
 
