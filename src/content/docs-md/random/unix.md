@@ -12,13 +12,25 @@ You can use `grep` to search in a file
 grep "hello" ./hello.txt
 ```
 
-Or recursively through a directory:
+This also works using a pipe:
+
+```sh
+cat hello.txt | grep hello
+```
+
+And it can take a regex using the `-e` flag:
+
+```sh
+cat hello.txt | grep -e `^hello`
+```
+
+`grep` can also be used to search recursively through a directory using the `-R` flag:
 
 ```sh
 grep -R "hello" ./hello
 ```
 
-And using a RegEx
+And using a regex
 
 ```sh
 grep -R ^hello
