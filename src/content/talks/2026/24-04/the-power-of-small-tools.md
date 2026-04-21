@@ -309,6 +309,40 @@ Can you assign these tasks on the fly?
 
 ---
 
+`tools.nu`
+
+```nu
+let members = [Alice, Bob, Charles];
+
+let prefix = "My task title"
+
+def "extract-headings" [] {
+  $in | grep -e '^## ' | cut -c 4- | lines
+}
+
+def "assign-tasks" [] {
+  $in | enumerate | each {|i|
+    let assignee = $members | get ($i.index mod 3)
+
+    ({
+      title: $i.item,
+      assignee: $assignee, 
+    })
+  }
+}
+
+def "create-task" [] {
+  print "Enter task prefix:"
+  let prefix = (input)
+
+  $in
+  | par-each { gh issue create --title $"($prefix) - ($in.title)" --body $prefix --label $in.assignee --label Presentation }
+
+}
+```
+
+---
+
 `assign-team.cs`
 
 ```js
