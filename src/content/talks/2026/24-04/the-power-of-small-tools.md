@@ -281,7 +281,11 @@ Can you assign these tasks on the fly?
 
 ---
 
-### More Composition with Nushelll
+## More Ideas
+
+---
+
+### Composition with Nushelll
 
 > Create all the files listed in this presentation
 
@@ -290,6 +294,42 @@ Can you assign these tasks on the fly?
   | split row "---"
   | str trim | parse --regex '`(?<path>.+)`\n\n```(?<lang>\w+)\n(?<content>(.|\n)+)```'
   | each {|i| echo $i.content | save $i.path --force}
+```
+
+---
+
+### Alternative Implementations
+
+---
+
+`assign-team.cs`
+
+```js
+string[] team = {"Alice", "Bob", "Charles"};
+
+string? line = null;
+int count = 0;
+
+while((line = Console.In.ReadLine()) != null) 
+{
+	var assigned = team[count % team.Length];
+	Console.WriteLine($"{line}:{assigned}");
+	count ++;
+}
+```
+
+---
+
+`extract-headings.cs`
+
+```js
+string? line = null;
+while((line = Console.In.ReadLine()) != null) 
+{
+	if (line.StartsWith("## ")) {
+		Console.WriteLine(line.Substring(3));
+	}
+}
 ```
 
 ---
