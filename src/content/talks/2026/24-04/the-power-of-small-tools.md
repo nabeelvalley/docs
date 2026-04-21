@@ -1,6 +1,6 @@
 ---
 title: "* > +"
-subtitle: 24 April 2024
+subtitle: 24 April 2026
 description: the multiplicative power of small tools
 published: false
 ---
