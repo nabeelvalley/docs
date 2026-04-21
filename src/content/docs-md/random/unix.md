@@ -32,6 +32,50 @@ You can even search for something in the output of a command using a pipe (`|`)
 echo "hello world" | grep "world"
 ```
 
+## Text Manipulation
+
+### Cutting Text
+
+You can cut some text on a per-line basis using `cut`. You can view the help for `cut` using:
+
+```sh
+man cut
+```
+
+Cut has 3 a few main modes, namely:
+
+`-b` which lets you specify a byte position or byte range to keep
+
+```sh
+cat file.txt | cut -b 3   # take the third character of each line
+cat file.txt | cut -b 3-5 # take chars 3-5 of each line
+cat file.txt | cut -b 3-  # take bytes 3 to end of each line
+
+cat file.txt | cut -b 1,5-7,9  # any mix of the above
+```
+
+`-c` which lets you specify a character position or character range to keep
+
+```sh
+cat file.txt | cut -c 3   # take the third character of each line
+cat file.txt | cut -c 3-5 # take chars 1-5 of each line
+cat file.txt | cut -c 3-  # take char 3 to end of each line
+
+cat file.txt | cut -c 1,5-7,9  # any mix of the above
+```
+
+`-f` which allows for splitting on a field name using `-d` as the delimiter (default delimiter is `\t`)
+
+```sh
+cat file.txt | cut -f 1   # take the first column of each line using the default delimter
+
+cat file.txt | cut -d "," -f 1   # take the first column of each line
+cat file.txt | cut -d "," -f 2-4 # take chars 1-5 of each line
+cat file.txt | cut -d "," -f 2-  # take char 3 to end of each line
+
+cat file.txt | cut -d "," -f 1,5-7,9  # any mix of the above
+```
+
 ## Processes
 
 ### List Processes
