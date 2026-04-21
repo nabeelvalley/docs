@@ -133,6 +133,15 @@ Or
 {name: john age: 5}."age"
 ```
 
+You can also `insert`/`update`/`upsert` into a record as such
+
+```sh
+$item
+| upsert length {|i| $i.name | get length }
+```
+
+> The above will work with a single record or a table/list of records
+
 #### Lists
 
 Lists are ordered sequences of data and use `[]` with optional `,` separators. The below will create alist of strings
