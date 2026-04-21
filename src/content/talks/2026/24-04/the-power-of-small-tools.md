@@ -248,7 +248,9 @@ if (process.argv.length < 3) {
 const prefix = process.argv[process.argv.length - 1]
 
 // this could be the Azure Devops CLI or GitHub CLI or anything really
-const createTask = (task, assignee) => console.log(execSync(`echo create: "${prefix}: ${task}" --assign ${assignee}`).toString().trim())
+const createTask = (task, assignee) => console.log(
+  execSync(`gh issue create --body "${prefix}" --title "${prefix}: ${task}" --label "${assignee}" --label Presentation`).toString().trim()
+)
 
 readFileSync(0, 'utf-8')
   .trim()
