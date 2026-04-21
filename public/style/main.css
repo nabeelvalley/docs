@@ -172,6 +172,17 @@ a.link:focus,
 }
 
 /* markdown */
+
+/* offset links to have some breathing room */
+main [id]::before {
+  content: '';
+  display: block;
+  height: 50px;
+  margin-top: -50px;
+  visibility: hidden;
+}
+ 
+
 pre.astro-code {
   padding: 16px;
   filter: grayscale();
