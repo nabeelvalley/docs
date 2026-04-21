@@ -16,7 +16,6 @@ presenterm presentation.md
 ```
 
 --- presenterm-start
-
 ---
 options:
   end_slide_shorthand: true
