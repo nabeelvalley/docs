@@ -10,7 +10,13 @@ published: false
 ```sh
 http get https://raw.githubusercontent.com/nabeelvalley/docs/refs/heads/master/src/content/talks/2026/24-04/the-power-of-small-tools.md
   | sed '1,/^--- presenterm-start/d'
-  | save presentation.md
+  | str trim
+  | save presentation.md --force
+
+cat presentation.md
+  | split row "---"
+  | str trim | parse --regex '`(?<path>.+)`\n\n```(?<lang>\w+)\n(?<content>(.|\n)+)```'
+  | each {|i| echo $i.content | save $i.path --force}
 
 presenterm presentation.md
 ```
