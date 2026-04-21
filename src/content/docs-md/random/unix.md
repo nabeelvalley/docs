@@ -54,13 +54,13 @@ You can cut some text on a per-line basis using `cut`. You can view the help for
 man cut
 ```
 
-Cut has 3 a few main modes, namely:
+Cut has 3 main modes, namely:
 
 `-b` which lets you specify a byte position or byte range to keep
 
 ```sh
-cat file.txt | cut -b 3   # take the third character of each line
-cat file.txt | cut -b 3-5 # take chars 3-5 of each line
+cat file.txt | cut -b 3   # take the third byte of each line
+cat file.txt | cut -b 3-5 # take bytes 3-5 of each line
 cat file.txt | cut -b 3-  # take bytes 3 to end of each line
 
 cat file.txt | cut -b 1,5-7,9  # any mix of the above
