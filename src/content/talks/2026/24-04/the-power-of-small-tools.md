@@ -99,15 +99,11 @@ UI's are generally none of these things
 
 ## Let's Write Some Code
 
----
-
-### Example
-
 > We have a weekly team presentation we want to assign a section to each team member
 
 ---
 
-#### Some Scripts to Do the Things
+### Some Scripts to Do the Things
 
 > We'll make small generalized tools instead of one big one
 
