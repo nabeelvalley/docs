@@ -22,14 +22,28 @@ presenterm presentation.md
 ```
 
 --- presenterm-start
+
 ---
 options:
   end_slide_shorthand: true
 ---
 
-# * > +, Or, the multiplicative power of small tools
+
+# * > +, Or, the Multiplicative Power of Small Tools
 
 > A mindset for working more efficiently
+
+---
+
+# Agenda
+
+- [Ideas First](#ideas-first)
+- [A (less-technical) Unix Philosophy](#a-less-technical-unix-philosophy)
+- [Practically Speaking](#practically-speaking)
+- [Identify Accidental Complexity](#identify-accidental-complexity)
+- [The Terminal](#the-terminal)
+- [Let's Write Some Code](#let-s-write-code)
+- [More Ideas](#more-ideas)
 
 ---
 
@@ -114,7 +128,7 @@ According to it, programs should:
 
 ---
 
-### Things that You Do Frequently
+### Things That You Do Frequently
 
 - Writing documentation
 - Keeping dependencies up to date
@@ -122,7 +136,7 @@ According to it, programs should:
 
 ---
 
-### Things that Are Slow
+### Things That Are Slow
 
 - Code reviews?
 - Email responses?
@@ -132,7 +146,7 @@ According to it, programs should:
 
 ---
 
-### Things that Don't Play Well Together
+### Things That Don't Play Well Together
 
 - Proprietary applications
 - Proprietary formats
@@ -187,7 +201,7 @@ UI's are generally none of these things
 
 ---
 
-## Let's Write Code
+## Let's Write Some Code
 
 ---
 
@@ -282,7 +296,7 @@ Can you assign these tasks on the fly?
 1. By bread
 2. Go to the farmer's market
 3. Reply to emails
-4. Drop PROD DB
+4. Drop PROD database
 
 > Tip: If you're using [helix](https://github.com/helix-editor/helix), this is `:| node assign-team.js`
 
@@ -292,7 +306,7 @@ Can you assign these tasks on the fly?
 
 ---
 
-### Composition with Nushelll
+### Composition with Nushell
 
 > Create all the files listed in this presentation
 
@@ -382,7 +396,7 @@ while((line = Console.In.ReadLine()) != null)
 
 ---
 
-## References
+## Footnotes
 
 [^1]: [Wikipedia - Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)
 [^2]: [Steph Ango - File over app](https://stephango.com/file-over-app)
