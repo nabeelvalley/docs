@@ -39,10 +39,9 @@ options:
 
 - [Ideas First](#ideas-first)
 - [A (less-technical) Unix Philosophy](#a-less-technical-unix-philosophy)
-- [Practically Speaking](#practically-speaking)
 - [Identify Accidental Complexity](#identify-accidental-complexity)
-- [The Terminal](#the-terminal)
-- [Let's Write Some Code](#let-s-write-code)
+- [How Do We Get Faster?](#how-do-we-get-faster)
+- [Let's Write Some Code](#let-s-write-some-code)
 - [More Ideas](#more-ideas)
 
 ---
@@ -57,112 +56,36 @@ The first bit of this is all a bit abstract
 
 ## A (less-technical) Unix Philosophy
 
-An emergent set of principles within the Unix ecosystem[^1]
+> An emergent set of principles within the Unix ecosystem[^1] with a personal spin
 
-According to it, programs should:
-
-1. Do one thing. Do it well
+1. Do one thing. Do it well.
 2. Work well together
-3. Fail early and allow for iteration
-4. Be small, disposable, and substitute unskilled labor
-
----
-
-### 1. Do One Thing. Do It Well.
-
-> They do something without using the word "and"
-
-- Small tools
-- Something that's good at one thing is better than something that's terrible at many things
-- We should be able to write them quickly
-- Pragmatically, there is a concept of "complete"
-
----
-
-### 2. Work Well Together
-
-> Composition unlocks productivity
-
-- Open standards
-- Shared input and output
-- "File over app"[^2]
-
----
-
-### 3. Fail Early and Iterate
-
-- Design solutions to be used quickly
-- Learn from your mistakes
-- Don't over-engineer solutions
-- It's okay to throw things away
-
----
-
-### 4. Disposable Software
-
-- Avoid repetitive work at all costs
-- Write code, throw it away when you're done
-- You will save more time in the long terms
+3. Fail early and iterate
+4. Disposable software
 
 --- 
 
-## Practically Speaking
-
-> How can I make my work more efficient?
-
----
-
 ## Identify Accidental Complexity
 
-- Things that aren't the work you're trying to do
-- Things that you do often that can be automated
-- Things that are slow
-- Things that aren't compatible with other things
+> Opportunities to work more effectively
 
----
-
-### The Work Around Your Work
-
-- Finding documentation
-- Managing your task board
-
----
-
-### Things That You Do Frequently
-
-- Writing documentation
-- Keeping dependencies up to date
-- Creating git branches with a specific format
-
----
-
-### Things That Are Slow
-
-- Code reviews?
-- Email responses?
-- Azure DevOps probably?
-- Your IDE probably lol
-- Like this really gets so specific to you
-
----
-
-### Things That Don't Play Well Together
-
-- Proprietary applications
-- Proprietary formats
-- User interfaces in general
+1. The work around your work
+2. Things that you do frequently
+3. Things that are slow
+4. Things that don't play well together
 
 ---
 
 ### It's a Numbers Game
 
-- Small solutions can be stitched together to solve big problems
+- A little faster each day adds up pretty quick
+- Composition helps small solutions solve big problems really quickly
 
 ---
 
-## The Terminal
+## How Do We Get Faster?
 
-> It is a means, not an end
+> The terminal, unfortunately
 
 Shell commands are:
 
@@ -171,33 +94,6 @@ Shell commands are:
 - Composable
 
 UI's are generally none of these things
-
----
-
-### 1. Fast
-
-> If your problems are small enough, the solutions become trivial
-
-- You can probably write some code to solve this quickly
-- Someone else has probably written some code to solve this quickly
-- They're straight up faster than a UI based equivalent
-
----
-
-### 2. Repeatable
-
-- You only pay the cost of doing it the first time
-- If you've done it once, it's a few up-arrow-clicks to do it again
-- Code makes fewer mistakes
-
----
-
-### 3. Composable
-
-> In your shell, this is just a pipe (`|`)
-
-- Small tools are greater than the sum of their parts
-- Big tools can't anticipate every possible use case
 
 ---
 
@@ -214,6 +110,55 @@ UI's are generally none of these things
 #### Some Scripts to Do the Things
 
 > We'll make small generalized tools instead of one big one
+
+---
+
+### Composing the Tools
+
+> Do the entire workflow at once
+
+```sh
+cat presentation.md
+| node extract-headings.js
+| node assign-team.js
+| node create-tasks.js "My Task Prefix"
+```
+
+---
+
+### Greater than the Sum of Their Parts
+
+> Small tools can be composed in more complex ways
+
+Can you assign these tasks on the fly?
+
+1. Buy bread
+2. Go to the farmer's market
+3. Reply to emails
+4. Drop PROD database
+
+> Tip: If you're using [helix](https://github.com/helix-editor/helix), this is `:| node assign-team.js`
+
+---
+
+## More Ideas
+
+---
+
+### Composition with Nushell
+
+> Create all the files listed in this presentation
+
+```sh
+ cat presentation.md
+  | split row "---"
+  | str trim | parse --regex '`(?<path>.+)`\n\n```(?<lang>\w+)\n(?<content>(.|\n)+)```'
+  | each {|i| echo $i.content | save $i.path --force}
+```
+
+---
+
+### JS Implementations
 
 ---
 
@@ -270,51 +215,6 @@ readFileSync(0, 'utf-8')
   .trim()
   .split('\n')
   .forEach(t => createTask(...t.split(':')))
-```
-
----
-
-### Composing the Tools
-
-> Do the entire workflow at once
-
-```sh
-cat presentation.md
-| node extract-headings.js
-| node assign-team.js
-| node create-tasks.js "My Task Prefix"
-```
-
----
-
-### Greater than the Sum of Their Parts
-
-> Small tools can be composed in more complex ways
-
-Can you assign these tasks on the fly?
-
-1. By bread
-2. Go to the farmer's market
-3. Reply to emails
-4. Drop PROD database
-
-> Tip: If you're using [helix](https://github.com/helix-editor/helix), this is `:| node assign-team.js`
-
----
-
-## More Ideas
-
----
-
-### Composition with Nushell
-
-> Create all the files listed in this presentation
-
-```sh
- cat presentation.md
-  | split row "---"
-  | str trim | parse --regex '`(?<path>.+)`\n\n```(?<lang>\w+)\n(?<content>(.|\n)+)```'
-  | each {|i| echo $i.content | save $i.path --force}
 ```
 
 ---
