@@ -63,7 +63,7 @@ Technology should:
 1. Do one thing. Do it well.
 2. Work well together
 3. Fail early and allow for iteratation
-4. Disposable software
+4. Allow for disposability
 
 --- 
 
