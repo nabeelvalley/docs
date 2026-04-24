@@ -50,7 +50,7 @@ options:
 
 The first bit of this is all a bit abstract
 
-> Try to be open and onto the ideas without questioning them too right now, we'll get to that later
+> Try to be open to the ideas without thinking too much about application right now, we'll get to that later
 
 ---
 
@@ -58,9 +58,11 @@ The first bit of this is all a bit abstract
 
 > An emergent set of principles within the Unix ecosystem[^1] with a personal spin
 
+Technology should:
+
 1. Do one thing. Do it well.
 2. Work well together
-3. Fail early and iterate
+3. Fail early and allow for iteratation
 4. Disposable software
 
 --- 
