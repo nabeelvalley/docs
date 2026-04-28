@@ -118,6 +118,12 @@ Each of these will return an iterator over the array values, so if we do somethi
 
 We'll get the length of each element as a string, instead of the total length of the array
 
+We can also do the inverse - combining an iterator back to a single array by wrapping it in `[]`, for example:
+
+```jq
+[.dependencies | keys[] | length]
+```
+
 ## Filtering
 
 Filtering can be done using `select` on an iterator, there are a few utilities for this but at it's most basic we can use comparisons to check something like:
