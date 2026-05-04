@@ -801,6 +801,24 @@ Git has a setting called `rerere` (reuse recorded resolution) which helps reduce
 git config --global rerere.enabled true
 ```
 
+## Searching Git Log
+
+[Git Pickaxe](https://gist.github.com/phil-blain/2a1cf81a0030001d33158e44a35ceda6_
+
+You can use the `-S` flag with the `log`, `diff`, and `show` commands to find commits where a given string was added/removed. For example, using `git log`
+
+```sh
+git log -S "my-search"
+```
+
+Which will show only commits where the text `my-search` was added/removed
+
+Additionally, adding `-p` will show you the patch with the relevant search term:
+
+```sh
+git log -S "my-search" -p
+```
+
 ## Tools on Top of Git
 
 ### LazyGit
