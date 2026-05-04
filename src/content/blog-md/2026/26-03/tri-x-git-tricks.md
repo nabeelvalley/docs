@@ -47,3 +47,28 @@ def "g diff tri" [range = "HEAD..master"] {
   | GIT_EXTERNAL_DIFF="difft --color=always --display=inline" tri --preview $"git diff ($range) -- " --flat
 }
 ```
+
+> Update 04 May 2026
+
+I've wanted to do more complex preview behavior with `tri` - particularly making it possible to generate custom commands. I've recently added support for that so it now makes for some really interesting stuff, like a command for example the below command which lets you browse the input files' history
+
+Using it looks like this:
+
+```nu
+^find **/*.go | g log tri
+```
+
+And the definition is a bit messy, but not too complicated I hope:
+
+```nu
+# Expects a list of paths as an input
+def "g log tri" [] {
+  $in
+  | lines
+  | par-each {|p| git log --pretty=format:"%h %as %f" -- $p | str replace -m -a --regex ^ $"($p)/" }
+  | to text
+  | GIT_EXTERNAL_DIFF="difft --color=always --display=inline" tri --preview "git diff $2 -- $1" --pattern `^(.*)/(\w+)`
+}
+```
+
+> This is also probably very inefficient. So be selective about the paths you provide since this does a log for all given paths and can be very slow on a large repository
