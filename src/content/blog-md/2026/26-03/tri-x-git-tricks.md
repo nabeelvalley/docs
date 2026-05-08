@@ -65,9 +65,9 @@ And the definition is a bit messy, but not too complicated I hope:
 def "g log tri" [] {
   $in
   | lines
-  | par-each {|p| git log --pretty=format:"%h %as %f" -- $p | str replace -m -a --regex ^ $"($p)/" }
+  | par-each {|p| git log --pretty=format:"%as %h %f" -- $p | str replace -m -a --regex ^ $"($p)/" }
   | to text
-  | GIT_EXTERNAL_DIFF="difft --color=always --display=inline" tri --preview "git diff $2 -- $1" --pattern `^(.*)/(\w+)`
+  | GIT_EXTERNAL_DIFF="difft --color=always --display=inline" tri --preview "git diff $4 -- $1" --pattern `^(.*)/((\d|-)+) (\w+)`
 }
 ```
 
