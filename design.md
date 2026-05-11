@@ -4,14 +4,16 @@ Some tasks/ideas to keep in mind for the redesign
 
 ## Content Imporvements
 
+- [ ] Remove all dependencies for markdown to HTML conversion?
 - [ ] Remove dependency on Astro components
-  - [ ] Use Web Components
+  - [ ] Use Web Components (progressive enhancements)
   - [ ] Figure out SSR
 - [ ] Better use of asides (+ render in "side section")
 - [ ] Better use of footers
 - [ ] Header links (simplify sharing)
 - [ ] Full width images
 - [ ] Better use of figures/figcaptions
+- [ ] Get rid of conversion step for ipynb files (what to do about content?)
 
 ## Data Management
 
