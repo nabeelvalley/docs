@@ -1,4 +1,4 @@
-# Design
+# Redesign Tasks
 
 Some tasks/ideas to keep in mind for the redesign
 
