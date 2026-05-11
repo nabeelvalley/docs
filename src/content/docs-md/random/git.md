@@ -834,3 +834,7 @@ Some diff tools that can be used with LazyGit (or even just your normal git inst
 - [Delta](https://github.com/dandavison/delta) is a "pretty" diff tool and can do syntax-based diffing using `diff-so-fancy` with the `delta --diff-so-fancy` flag provided
 
 > Note that the above diff tools can modify your global diff, to get this to work as normal you can stick on the `--no-ext-diff` flag, e.g. `git diff HEAD --no-ext-diff` will get you back to the normal git diff
+
+## Additional Resources 
+
+- [The Git Commands I Run Before Reading Any Code](https://piechowski.io/post/git-commands-before-reading-code/)
