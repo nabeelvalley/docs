@@ -67,7 +67,7 @@ def "g log tri" [] {
   | lines
   | par-each {|p| git log --pretty=format:"%as %h %f" -- $p | str replace -m -a --regex ^ $"($p)/" }
   | to text
-  | GIT_EXTERNAL_DIFF="difft --color=always --display=inline" tri --preview "git diff $4..$4^ -- $1" --pattern `^(.*)/((\d|-)+) (\w+)`
+  | GIT_EXTERNAL_DIFF="difft --color=always --display=inline" tri --preview "git diff $4^..$4 -- $1" --pattern `^(.*)/((\d|-)+) (\w+)`
 }
 ```
 
