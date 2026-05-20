@@ -142,6 +142,17 @@ $item
 
 > The above will work with a single record or a table/list of records
 
+Sometimes you just want to create a new object from a value, this can be done with `wrap`
+
+```sh
+ls
+| get name
+| wrap path # data is now structured like [{path: ....}, {path: ...}]
+```
+
+> The above will work with a single record or a table/list of records
+
+
 #### Lists
 
 Lists are ordered sequences of data and use `[]` with optional `,` separators. The below will create alist of strings
