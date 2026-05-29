@@ -65,6 +65,11 @@
     "link": "https://jless.io/"
   },
   {
+    "title": "fd",
+    "description": "A user-friendly alternative to find",
+    "link": "https://github.com/sharkdp/fd"
+  },
+  {
     "title": "presenterm",
     "description": "A markdown terminal slideshow tool",
     "link": "https://github.com/mfontanini/presenterm"
