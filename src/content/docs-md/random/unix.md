@@ -46,7 +46,7 @@ echo "hello world" | grep "world"
 
 ## Text Manipulation
 
-### Cutting Text
+### Cutting Text (Cut)
 
 You can cut some text on a per-line basis using `cut`. You can view the help for `cut` using:
 
@@ -87,6 +87,33 @@ cat file.txt | cut -d "," -f 2-  # take char 3 to end of each line
 
 cat file.txt | cut -d "," -f 1,5-7,9  # any mix of the above
 ```
+
+### Stream Editing (Sed)
+
+Sed enables stream editing using a specific set of commands
+
+#### The `s` (substitute) command
+
+> [The "s" Command (sed, a stream editor)](https://www.gnu.org/software/sed/manual/html_node/The-_0022s_0022-Command.html)
+
+The `s` command is the most commonoly used and runs a regex replacement and has the following structure:
+
+```sh
+sed `s/regexp/replacement/flags`
+```
+
+#### General Command Syntax
+
+The syntax for some handy commands are:
+
+- Substitute: `s/regexp/replacement/flags`
+- Append text after a line: `a text`
+- Insert text before a line: `i text`
+- Change line to specific text: `c text`
+- Delete until newline: `D`
+- Group many commands together: `{ cmd; cmd ... }`
+
+> The full list of can be found at the [sed commands list (sed, a stream editor)](https://www.gnu.org/software/sed/manual/html_node/sed-commands-list.html)
 
 ## Processes
 
