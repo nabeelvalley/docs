@@ -113,7 +113,7 @@ The syntax for some handy commands are:
 - Delete until newline: `D`
 - Group many commands together: `{ cmd; cmd ... }`
 
-> The full list of can be found at the [sed commands list (sed, a stream editor)](https://www.gnu.org/software/sed/manual/html_node/sed-commands-list.html)
+> Also useful to take a look at the [Common Commands (sed, a stream editor)](https://www.gnu.org/software/sed/manual/html_node/Common-Commands.html) and the full [sed commands list (sed, a stream editor)](https://www.gnu.org/software/sed/manual/html_node/sed-commands-list.html)
 
 ## Processes
 
