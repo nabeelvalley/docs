@@ -111,7 +111,14 @@ The syntax for some handy commands are:
 - Insert text before a line: `i text`
 - Change line to specific text: `c text`
 - Delete until newline: `D`
+- Print the current line: `n`
 - Group many commands together: `{ cmd; cmd ... }`
+
+Commands can also be prefixed with a number to make them run multiple times. Multiple commands can be separated with a `;` so commands can be tied together to do weird stuff like:
+
+```sh
+seq 20 | sed "n;s/./x/;"
+```
 
 > Also useful to take a look at the [Common Commands (sed, a stream editor)](https://www.gnu.org/software/sed/manual/html_node/Common-Commands.html) and the full [sed commands list (sed, a stream editor)](https://www.gnu.org/software/sed/manual/html_node/sed-commands-list.html)
 
