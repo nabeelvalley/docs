@@ -46,7 +46,7 @@ echo "hello world" | grep "world"
 
 ## Text Manipulation
 
-### Cutting Text (Cut)
+### Cutting Text (`cut`)
 
 You can cut some text on a per-line basis using `cut`. You can view the help for `cut` using:
 
@@ -88,7 +88,7 @@ cat file.txt | cut -d "," -f 2-  # take char 3 to end of each line
 cat file.txt | cut -d "," -f 1,5-7,9  # any mix of the above
 ```
 
-### Stream Editing (Sed)
+### Stream Editing (`sed`)
 
 Sed enables stream editing using a specific set of commands
 
@@ -241,4 +241,20 @@ To copy contents to the clipboard you can simlpy pipe it to `pbcopy` like so:
 
 ```sh
 cat hello.txt | pbcopy
+```
+
+## Buiding Commands (`xargs`)
+
+> [xargs(1) - Linux manual page](https://man7.org/linux/man-pages/man1/xargs.1.html)
+
+`xargs` basically takes in a list of strings and converts them to arguments, optionally they can be passed to another command, for example:
+
+```sh
+find **/*.go | xargs cat
+```
+
+It can also be used without a command to just print the "argumentified" string:
+
+```sh
+find **/*.go | xargs
 ```
