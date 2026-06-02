@@ -28,10 +28,12 @@ def "f edit-stream" [
   $in | save $f
   nu -c $"($env.EDITOR) ($f)"
 
-  if !$keep {
+  if not $keep {
     bat $f
   }
 }
+
+alias fed = f edit-stream
 ```
 
 > This is a [Nushell](https://www.nushell.sh/) function which makes it possible to do just that, and in practice could look something like this:
