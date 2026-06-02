@@ -148,3 +148,7 @@ Just came across [ast-grep](https://ast-grep.github.io) which makes it possible 
 ## Update 15 April 2026
 
 Another interesting tool for this kind of text manipulation is [fastmod](https://github.com/facebookincubator/fastmod) which allows for regex based replacements in an interactive fashion for manual intervention
+
+## Update 2 June 2026
+
+`sed` also has some kind of scripting behavior using [`sed scripts`](https://www.gnu.org/software/sed/manual/html_node/sed-script-overview.html) but it's fairly limited and clunky
