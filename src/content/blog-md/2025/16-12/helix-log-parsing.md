@@ -26,7 +26,7 @@ The `data` portion is also JSON, so adding the JSON parsing can be done with:
 ```sh
 cat ~/.cache/helix/helix.log
 | parse "{date} helix_lsp::transport [{type}] {source} <- {data}"
-| each {update data {|e| $e.data | from json}}
+| update data { |e| $e.data | from json }
 ```
 
 ## Rendering with `jq`
@@ -36,7 +36,7 @@ I also prefer normal JSON to the helix data view for this kind of data, so you c
 ```sh
 cat ~/.cache/helix/helix.log
 | parse "{date} helix_lsp::transport [{type}] {source} <- {data}"
-| each {update data {|e| $e.data | from json}}
+| update data { |e| $e.data | from json }
 | to json | jq
 ```
 
