@@ -4,6 +4,10 @@ subtitle: 16 December 2025
 published: true
 ---
 
+## Getting Helix Logs
+
+Viewing helix logs can be done by reading `~/.cache/helix/helix.log`. To increase logging verbosity, you should also start helix with `hx -v` which will provide more detailed logs which can be handy for debugging language servers
+
 ## Parsing a Log
 
 A super quick one today - I was doing some debugging on a [Language Server](/blog/2025/26-03/the-language-server-protocol) for [Helix](https://helix-editor.com/) and it was getting really annoying trying to find the data I was looking for so I wrote this quick [Nushell](https://www.nushell.sh/) command:
