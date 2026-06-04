@@ -42,7 +42,7 @@ cat ~/.cache/helix/helix.log
 
 ## Real-time log rendering
 
-And for real-time rendering/printing, you can use `each { print }`:
+And for real-time rendering/printing, you can use `tail` + `each { print }`:
 
 ```sh
 tail -f ~/.cache/helix/helix.log
