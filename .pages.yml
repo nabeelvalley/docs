@@ -15,4 +15,4 @@ content:
       - { name: published, label: Published, type: number }
       - { name: type, label: Type, type: select, options: { values: ["fiction", "non-fiction"] } }
       - { name: status, label: Status, type: select, options: { values: ["complete", "in-progress", "abandoned"] } }
-      - { name: tags, label: Tags, type: string, options: { multiple: true } }
+      - { name: tags, label: Tags, type: select, options: { multiple: true, creatable: true } }
