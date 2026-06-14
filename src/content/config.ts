@@ -19,7 +19,7 @@ const bookSchema = z.object({
   date: z.string(),
   isbn: z.string(),
   published: z.number(),
-  tags: z.array(z.string()),
+  tags: z.array(z.string()).optional(),
   status: z.enum(['complete', 'in-progress', 'abandoned']),
   type: z.enum(['fiction', 'non-fiction']),
 })
