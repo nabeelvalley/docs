@@ -2,16 +2,17 @@ media:
   input: public/content
   output: /content
 content:
-  - name: posts
-    label: Posts
+  - name: books
+    label: Books
     type: collection
-    path: src/content
-    filename: "{fields.title}.md"
-    fields: 
+    path: src/content/books
+    filename: "{fields.title}.json"
+    fields:
       - { name: title, label: Title, type: string, required: true }
-      - { name: description, label: Description, type: string, required: true }
-      - { name: published, label: Published, type: boolean }
-      - { name: feature, label: Feature, type: boolean }
-      - { name: rssOnly, label: Rss Only, type: boolean }
-      - { name: subtitle, label: Subtitle, type: date, options: { format: 'dd MMMM yyyy' }}
-      - { name: body, label: Body, type: rich-text }
+      - { name: author, label: Author, type: string, required: true }
+      - { name: isbn, label: ISBN, type: string, required: true }
+      - { name: date, label: Date, type: date, options: { format: 'dd MMMM yyyy' }}
+      - { name: published, label: Published, type: number }
+      - { name: type, label: Type, type: select, options: { values: ["fiction", "non-fiction"] } }
+      - { name: status, label: Status, type: select, options: { values: ["complete", "in-progress", "abandoned"] } }
+      - { name: tags, label: Tags, type: string, options: { multiple: true } }
