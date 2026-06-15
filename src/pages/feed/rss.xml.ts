@@ -13,15 +13,19 @@ export const GET = async (context) => {
   const items = blog
     .filter((post) => post.data.published !== false || post.data.rssOnly)
     .map<RSSFeedItem>((post) => {
-      const prefix = post.data.rssOnly ? rssPrefix : ''
+      let prefix = post.data.rssOnly ? rssPrefix : ''
+
+      const link = `/blog/${post.slug}/`
+
+      if (post.id.endsWith('.mdx')) {
+        prefix += `This post contains interactive content and is best viewed [on my website](${link})\n\n`
+      }
 
       return {
         title: post.data.title,
         pubDate: new Date(post.data.subtitle),
         description: post.data.description,
-        // Compute RSS link from post `slug`
-        // This example assumes all posts are rendered as `/blog/[slug]` routes
-        link: `/blog/${post.slug}/`,
+        link,
         content: parser.render(prefix + post.body),
       }
     })
