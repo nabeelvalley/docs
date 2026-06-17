@@ -1,6 +1,6 @@
 import web/content
 
 pub fn main() {
-  let result = content.read_collection()
+  let result = content.load_content()
   echo result
 }
