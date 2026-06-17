@@ -83,9 +83,6 @@ importers:
       image-size:
         specifier: ^1.0.2
         version: 1.2.0
-      ipynb2html:
-        specifier: ^0.3.0
-        version: 0.3.0(nodom@2.4.0)
       jsdom:
         specifier: ^18.0.1
         version: 18.1.1
@@ -1300,9 +1297,6 @@ packages:
   ajv@8.17.1:
     resolution: {integrity: sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g==}
 
-  anser@1.4.10:
-    resolution: {integrity: sha512-hCv9AqTQ8ycjpSd3upOJd7vFwW1JaoYQ7tpham03GJ1ca8/65rqn0RpaWpItOAd6ylW9wAw6luXYPJIyPFVOww==}
-
   ansi-align@3.0.1:
     resolution: {integrity: sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w==}
 
@@ -2480,9 +2474,6 @@ packages:
   header-case@2.0.4:
     resolution: {integrity: sha512-H/vuk5TEEVZwrR0lp2zed9OCo1uAILMlx0JEMgC26rzyJJ3N1v6XkwHHXJQdR2doSjcGPM6OKPYoJgf0plJ11Q==}
 
-  highlight.js@10.7.3:
-    resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==}
-
   highlight.js@11.11.1:
     resolution: {integrity: sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==}
     engines: {node: '>=12.0.0'}
@@ -2588,16 +2579,6 @@ packages:
   interpret@2.2.0:
     resolution: {integrity: sha512-Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==}
     engines: {node: '>= 0.10'}
-
-  ipynb2html-core@0.3.0:
-    resolution: {integrity: sha512-Yh0t7QYMoZgCNSQsnGx94YSi7uD4y8Uswd5gazoqbgtgRLchZB232GQkNA4SghXtiMpD945Z9cKy+UBovvkDPQ==}
-    engines: {node: '>=10.13.0'}
-
-  ipynb2html@0.3.0:
-    resolution: {integrity: sha512-ljySokCPjpEGa8U7yY7NSF+hV2BeuQU+T52cXzw9heQoiurc48DxFKrxGsHMYj41hTf/h1Wpr6EIOmDfTWIm3g==}
-    engines: {node: '>=10.13.0'}
-    peerDependencies:
-      nodom: ^2.3.0
 
   is-absolute@1.0.0:
     resolution: {integrity: sha512-dOWoqflvcydARa360Gvv18DZ/gRuHKi2NU/wU5X1ZFzdYfH29nkiNZsF3mp4OJ3H4yo9Mx8A/uAGNzpzPN3yBA==}
@@ -2844,10 +2825,6 @@ packages:
     resolution: {integrity: sha512-3KF80UaaSSxo8jVnRYtMKNGFOoVPBdkkVPsw+Ad0y4oxKXPduS6G6iHkrf69yJVff/VAaYXkV42rtZ7daJxU3w==}
     engines: {node: '>=0.10.0'}
 
-  katex@0.11.1:
-    resolution: {integrity: sha512-5oANDICCTX0NqYIyAiFCCwjQ7ERu3DQG2JFHLbYOf+fXaMoH8eg/zOq5WSYJsKMi/QebW+Eh3gSM+oss1H/bww==}
-    hasBin: true
-
   katex@0.16.21:
     resolution: {integrity: sha512-XvqR7FgOHtWupfMiigNzmh+MgUVmDGU2kXZm899ZkPfcuoPuFxyHmXsgATDpFZDAXCI8tvinaVcDo8PIIJSo4A==}
     hasBin: true
@@ -3012,11 +2989,6 @@ packages:
 
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
-
-  marked@1.2.9:
-    resolution: {integrity: sha512-H8lIX2SvyitGX+TRdtS06m1jHMijKN/XjfH6Ooii9fvxMlh8QdqBfBDkGUpMWH2kQNrtixjzYUa3SH8ROTgRRw==}
-    engines: {node: '>= 8.16.2'}
-    hasBin: true
 
   match-at@0.1.1:
     resolution: {integrity: sha512-h4Yd392z9mST+dzc+yjuybOGFNOZjmXIPKWjxBd1Bb23r4SmDOsk2NYCU2BMUBGbSpZqwVsZYNq26QS3xfaT3Q==}
@@ -3358,9 +3330,6 @@ packages:
 
   node-releases@2.0.19:
     resolution: {integrity: sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==}
-
-  nodom@2.4.0:
-    resolution: {integrity: sha512-qhfYgpoCSi37HLiViMlf94YqMQdvk3n3arI1uGbAWZK9NKCYRSI42W8lATeGloYGLYxb8us1C5rTvtsXjwdWQg==}
 
   nopt@7.2.1:
     resolution: {integrity: sha512-taM24ViiimT/XntxbPyJQzCG+p4EKOpgD3mxFwW38mGjVUrfERQOeY4EDHjdnptttfHuHQXFx+lTP08Q+mLa/w==}
@@ -6323,8 +6292,6 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
-  anser@1.4.10: {}
-
   ansi-align@3.0.1:
     dependencies:
       string-width: 4.2.3
@@ -7787,8 +7754,6 @@ snapshots:
       capital-case: 1.0.4
       tslib: 2.8.1
 
-  highlight.js@10.7.3: {}
-
   highlight.js@11.11.1: {}
 
   homedir-polyfill@1.0.3:
@@ -7908,17 +7873,6 @@ snapshots:
       wrap-ansi: 6.2.0
 
   interpret@2.2.0: {}
-
-  ipynb2html-core@0.3.0: {}
-
-  ipynb2html@0.3.0(nodom@2.4.0):
-    dependencies:
-      anser: 1.4.10
-      highlight.js: 10.7.3
-      ipynb2html-core: 0.3.0
-      katex: 0.11.1
-      marked: 1.2.9
-      nodom: 2.4.0
 
   is-absolute@1.0.0:
     dependencies:
@@ -8142,10 +8096,6 @@ snapshots:
 
   junk@1.0.3: {}
 
-  katex@0.11.1:
-    dependencies:
-      commander: 2.20.3
-
   katex@0.16.21:
     dependencies:
       commander: 8.3.0
@@ -8342,8 +8292,6 @@ snapshots:
       uc.micro: 1.0.6
 
   markdown-table@3.0.4: {}
-
-  marked@1.2.9: {}
 
   match-at@0.1.1: {}
 
@@ -8957,8 +8905,6 @@ snapshots:
       upper-case: 2.0.2
 
   node-releases@2.0.19: {}
-
-  nodom@2.4.0: {}
 
   nopt@7.2.1:
     dependencies:
