@@ -79,6 +79,18 @@ const {
     <script is:inline src="/web-components/presentation-slide.js"></script>
     <script is:inline src="/web-components/presentation.js"></script>
     <link rel="stylesheet" href="/web-components/presentation.css" />
+
+
+<link rel="stylesheet" href="https://townsquare.cauenapier.com/widget.css" />
+<div id="townsquare-root"></div>
+<script type="module">
+  import { mountTownSquare } from "https://townsquare.cauenapier.com/townsquare.mjs";
+
+  mountTownSquare(document.getElementById("townsquare-root"), {
+    serverOrigin: "https://townsquare.cauenapier.com",
+    siteKey: "site_Y7UHSIS5F7lzJfvC"
+  });
+</script>    
   </body>
 </html>
 
