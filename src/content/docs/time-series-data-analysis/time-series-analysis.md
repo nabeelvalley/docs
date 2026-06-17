@@ -73,9 +73,9 @@ multiplicative_decomposition.plot()
 additive_decomposition.plot()
 ```
 
-![Multiplicative Decomposition](/public./images/multiplicative-decomposition.png)
+![Multiplicative Decomposition](/content/docs/time-series-data-analysis/images/multiplicative-decomposition.png)
 
-![Additive Decomposition](/public./images/additive-decomposition.png)
+![Additive Decomposition](/content/docs/time-series-data-analysis/images/additive-decomposition.png)
 
 In the above series, comparing the additive and multiplicative residuals we can see that the additive one has some pattern left over whereas the risidual in the multiplicative is quite small and random, this tells us that the multiplicative decomposition is more appliccable to the series
 
@@ -89,7 +89,7 @@ Stationary serieses are independant of seasonal effects
 
 Below is a comparison of some stationary and non-stationary time series:
 
-![Stationary and Non-Stationary Time Series](/public./images/stationary-and-non-stationary-time-series.png)
+![Stationary and Non-Stationary Time Series](/content/docs/time-series-data-analysis/images/stationary-and-non-stationary-time-series.png)
 
 ## Making a Series Stationary
 
