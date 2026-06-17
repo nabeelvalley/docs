@@ -30,7 +30,8 @@ Some tasks/ideas to keep in mind for the redesign
 - [ ] Header links (simplify sharing)
 - [ ] Full width images
 - [ ] Better use of figures/figcaptions
-- [ ] Get rid of conversion step for ipynb files (what to do about content?)
+- [x] Get rid of conversion step for ipynb files (what to do about content?)
+  - Converted to md and archived
 
 ## Data Management
 
