@@ -164,7 +164,7 @@ df.head(2)
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -274,7 +274,7 @@ df.head(10)
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -612,7 +612,7 @@ df.describe()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -758,7 +758,7 @@ df.describe(include = "all")
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1121,7 +1121,7 @@ df.head(10)
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1416,7 +1416,7 @@ missing_data.head(5)
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1789,7 +1789,7 @@ df.head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2059,7 +2059,7 @@ df[['city-mpg','city-L/100km']].head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2116,7 +2116,7 @@ df.head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2289,7 +2289,7 @@ df[['highway-mpg','highway-L/100km']].head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2346,7 +2346,7 @@ df.head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2581,7 +2581,7 @@ df[["length","width","height"]].head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2663,7 +2663,7 @@ df[['horsepower','horsepower-binned']].head(20)
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2832,7 +2832,7 @@ dummy_fuel.head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2892,7 +2892,7 @@ dummy_fuel.head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2959,7 +2959,7 @@ df.head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3142,7 +3142,7 @@ dummy_aspiration.head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3207,7 +3207,7 @@ df.head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3467,7 +3467,7 @@ df[["engine-size", "price"]].corr()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3519,7 +3519,7 @@ df[['highway-mpg', 'price']].corr()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3571,7 +3571,7 @@ df[['peak-rpm','price']].corr()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3621,7 +3621,7 @@ df[["stroke","price"]].corr()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3699,7 +3699,7 @@ df.describe()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3943,7 +3943,7 @@ df.describe(include=['object'])
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4034,7 +4034,7 @@ drive_wheels_counts
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4085,7 +4085,7 @@ engine_loc_counts.head(10)
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4144,7 +4144,7 @@ df_wheels
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4196,7 +4196,7 @@ df_group
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4314,7 +4314,7 @@ grouped_pivot
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr>
       <th></th>
@@ -4427,7 +4427,7 @@ grouped_test2.head(2)
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4603,7 +4603,7 @@ df.head()
     }
 
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
