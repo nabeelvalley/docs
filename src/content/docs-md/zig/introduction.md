@@ -95,6 +95,8 @@ const multiline =
 ;
 ```
 
+String literals in Zig are immutable values and are represented using `[]const u8` (an immutable slice of u8 values, see [Slices](#slices)
+
 ## If/Else
 
 If/else statements in Zig work as you'd expect:
@@ -159,6 +161,28 @@ while (a < 10) : (a += 1) {
 }
 ```
 
+While loops also have an `else` statement that can be used and will be executed when the `while` condition becomes false:
+
+```zig
+var a = 5;
+while (a > 10) : (a += 1) {
+  if (a == 7) break;
+} else {
+  // do something if (a > 10) == false
+}
+```
+
+While loops can also be used as expressions, this looks a bit like so:
+
+```zig
+var a = 5;
+const result = while (a > 10) : (a += 1) {
+  if (a == 7) break a;
+} else 0
+// required if using a while loop as an expression
+// will be returned if while never breaks
+```
+
 ## For Loops
 
 For loops iterate over arrays and have the following structure:
@@ -179,6 +203,28 @@ const arr = [_]{ 1, 2, 3 };
 for (arr, 0..) |item, i| {
   // do stuff with item and index
 }
+```
+
+For loops also have an `else` that will be executed if the for loop runs out of items, this looks like:
+
+```zig
+const arr = [_]{ 1, 2, 3 };
+
+const result = for (arr) |item| {
+  if (item == 2) break;
+} else {
+  // do other stuff
+};
+```
+
+Loops can also be used as expressions and will result in the value that the loop `break` is called. A loop must also have an `else` to provide a fallback if no value is returned from the loop if it is used as an expression:
+
+```zig
+const arr = [_]{ 1, 2, 3 };
+
+const result = for (arr) |item| {
+  if (item == 2) break item;
+} else 0;
 ```
 
 ### Functions
@@ -464,6 +510,23 @@ fn update(x: *u8, val: u8) void {
 
 Note that if we've got a pointer to a struct we can still access the members directly without having to dereference first: `x.inner` instead of `x.*.inner`
 
+It's also possible to create a pointer to the items of an array directly and not the base array. This requires us to keep track of the points but can look something like this:
+
+```zig
+var a = [2]u8{ 1, 2 };
+var a_ptr: [*]u8 = &a;
+```
+
+> Zig calls this a _many-item pointer_ since it's a pointer to many items but you need to keep track of how many items
+
+Converting a many-pointer back to a value can be done by accessing the range that represents the source data, for example:
+
+```zig
+var a = [2]u8{ 1, 2 };
+var a_ptr: [*]u8 = &a;
+var a_ptr_to_slice []const u8 = a_ptr[0..a.len];
+```
+
 ## Optionals
 
 Optional values may have data or `null` and are typed using the `?`:
@@ -517,7 +580,6 @@ const MyStruct = struct {
 };
 ```
 
-
 ## Non-Values
 
 Zig has different indicators for non-values:
@@ -526,6 +588,119 @@ Zig has different indicators for non-values:
 2. `null` - explicitly non-value
 3. `errors` - no value because there was an error
 4. `void` - type stating there will never be a value
+
+## Slices
+
+Since arrays are fixed size using them can become a bit awkward. A lot of the time we can work with an array of any given size. In Zig these arrays are called `slices`. Slices provide a pointer to the start and a length of the respective array
+
+Defining a slice based on an array uses a range to take from our array:
+
+```zig
+const data = [4]u8{1, 2, 3, 4};
+const slice1: []u8 = data[0..1];
+const slice2: []u8 = data[1..3];
+const slice3: []u8 = data[2..];
+```
+
+Slices are denoted with the structure `[]T`. When slicing from an array, the range is defined as being `[x..y]` which takes the items from index `x` to `y-1`. Leaving out the second value will take items until the end
+
+## Unions
+
+Unions can store multiple types at the same memory location. This is because the compiler reserves the memory of the largest item to store
+
+Unions can be defined as so:
+
+```zig
+const MyUnion = union {
+  a: u8,
+  b: bool,
+}
+```
+
+When defining a union you can only specify one of the types:
+
+```zig
+const a = MyUnion { .a = 1 };
+const b = MyUnion { .b = false };
+```
+
+Zig also has tagged unions that allow us to easily determine which union we're using, tags can be defined explicitly:
+
+```zig
+const MyTag = enum { a, b }:
+const MyUnion = union(MyTag) {
+  a: u8,
+  b: bool,
+};
+```
+
+Using a tagged union makes it possible for us to easily switch on the type of the value:
+
+```zig
+switch (value) {
+    .a => |a| std.debug.print("A: {}", .{a}),
+    .b => |b| std.debug.print("B: {}", .{b}),
+}
+```
+
+In many cases though, the tag will just be the name of the keys, and this can be inferred using the `enum` tag:
+
+```zig
+const MyUnion = union(enum) {
+  a: u8,
+  b: bool,
+};
+```
+
+## Floats
+
+Zig supports IEEE-754 floating point numbers, namely: `f16`, `f32`, `f64`, `f80`, `f128`. Numbers that overflow their size will become `inf` or `-inf`. The relevant float type should also be selected based on their size and rounding properties
+
+
+Decimal and exponential formatting can be done using the formatting strings like `{d}`, `{d:.3`} for decimal formatting with or without relevant decimal places, and similarly for exponential notation with `{e}` or `{e:.3}` for example
+
+## Coercion
+
+Type coercion can be done fairly simply by specifying the other type that you'd like to coerce data into, for example:
+
+```zig
+const a: u8 = 10;
+const b: u16 = a; // coerces u8 to u16
+```
+
+Types can only be coerced to compatible type. It's also possible to coerce types directly to optional or error types:
+
+```zig
+const MyError = error{ConversionError};
+const a: u8 = 10;
+const maybe_a: ?u8 = a;
+const err_a: MyError!u8 = a;
+```
+
+
+### Block Labels
+
+Blocks can also have labels, this looks like so:
+
+```zig
+my_label: {
+  // block with stuff in it
+}
+```
+
+
+Providing a label allows us to use `break` to exit from that block. Since `break` lets us return a value from a block. Additionally, you can also break using a label to break something that's not a direct block:
+
+```zig
+const a = outer_loop: while (true) {
+  while (true) {
+    break outer_loop: 1;
+  }
+} else 0;
+```
+
+We can also use the `continue` keyword to continue a labeled loop just like with `break`
+
 
 ## References
 
