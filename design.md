@@ -2,6 +2,22 @@
 
 Some tasks/ideas to keep in mind for the redesign
 
+## Rebuild Astro Components
+
+- Client
+  - [x] slides/About
+  - [x] slides/Note
+  - [x] slides/Presentation
+  - [x] slides/Slide
+  - [x] slides/SlideOnly
+- Server
+  - [ ] ShaderSnippet
+  - [ ] Shader
+  - [ ] Gallery
+  - [ ] Snippet
+  - [ ] CSSSnippet
+  - [ ] HTMLSnippet
+
 ## Content Imporvements
 
 - [ ] Remove all dependencies for markdown to HTML conversion?

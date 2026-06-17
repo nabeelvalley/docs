@@ -9,18 +9,18 @@ import CSSSnippet from '@/components/CSSSnippet.astro'
 import HTMLSnippet from '@/components/HTMLSnippet.astro'
 import Preview from '@/components/Preview.astro'
 import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.astro'
-import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
-<Presentation />
 
-<Slide centered>
+<site-presentation />
+
+<site-presentation-slide centered>
 ## ZOOOOOOM! 🔍
 
 > Is everything big enough and are we in dark mode?
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 ## Housekeeping 🧹
 
 - Everyone is encouraged to have their cameras on
@@ -29,20 +29,15 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - We will stop for questions along the way and should have some time at the end
 - Animations may be a bit laggy due to MS Teams 
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered highlight>
+<site-presentation-slide centered highlight>
+
 ## 🎞️ Animation on the Web 🌐
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
-
-<About />
-
-</Slide>
-
-<Slide centered skim>
+<site-presentation-slide centered skim>
 ## Things ✌️ Talk About
 
 (the agenda)
@@ -52,9 +47,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Principles of Animation
 - When to ignore all of this
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ## Why do we need animations? 🤷
 
@@ -63,9 +58,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Highlight personality
 - Juicyness
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered>
+<site-presentation-slide centered>
 ## ☝️ A Quick Note on Custom Properties
 
 > These examples make extensive use of CSS Custom Properties so it's good to have a basic understanding of them
@@ -88,9 +83,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
     }
   ]}
 />
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ## Animating in CSS 🧑‍💻
 
@@ -99,9 +94,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - View Transitions
 - Optimizing Animations
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ### Transitions 🎢
 
@@ -110,9 +105,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Implicit transitions
   - Intermediate states defined by browser
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### Setting up a Transition 🔧
 
@@ -125,9 +120,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   htmlPath="web-animations/index.html"
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### Using Transitions 👷
 
@@ -148,9 +143,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### 📏 Shorthand Syntax 
 
@@ -165,9 +160,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### Multi Property Transitions ♾️
 
@@ -179,9 +174,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   mark="18-21"
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### 🤏 Multi Property Transition Shorthand
 
@@ -193,9 +188,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   mark="18-21"
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### Combining Transitions 🤝
 
@@ -207,9 +202,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   mark={['31', '36-37']}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ### Timing ⏱️ Functions
 
@@ -233,9 +228,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   mark="20"
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large highlight>
+<site-presentation-slide centered large highlight>
 
 ## ⏪ Recap Transitions
 
@@ -246,9 +241,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Combining transitions
 - Timing functions
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ### Animations 🎞️
 
@@ -258,9 +253,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Implicit or Explicit
   - We can define intermediate states
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### Using Animations 📹
 
@@ -299,9 +294,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### State Based Animations 🔛
 
@@ -326,9 +321,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   ]}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### Multi Property Animations 🍿
 
@@ -340,9 +335,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   mark="30-56"
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large highlight>
+<site-presentation-slide centered large highlight>
 
 ## ⏪ Recap - Animations
 
@@ -351,9 +346,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Defining animations based on DOM state
 - Animating multiple properties
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ### View 🕶️ Transitions
 
@@ -361,9 +356,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Transitions content as well as properties
 - Can be used across navigations (browser support in progress)
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### Triggering a Transition ✅
 
@@ -385,9 +380,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   ]}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### The Default Transition 😐
 
@@ -397,9 +392,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 <HTMLSnippet size="m" path="web-animations/view-transitions.html" />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 #### Understanding the Transition 🤔
 
@@ -433,9 +428,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   ]}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large highlight>
+<site-presentation-slide centered large highlight>
 
 ## ⏪ Recap - View Transitions
 
@@ -443,9 +438,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - The Default Transition
 - Customizing a Transitions
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ### Animation Optimization ⚡
 
@@ -460,10 +455,10 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 > Premature optimization? It's relatively easy to write it correctly first time
 
-</Slide>
+</site-presentation-slide>
 
 
-<Slide>
+<site-presentation-slide>
 
 #### 🔮 Will-Change
 
@@ -476,9 +471,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 }
 ```
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ### The 12 Principles of Animation 📔
 
@@ -486,9 +481,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 > What do we do with our new found skills?
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ##### 1. Squash and Stretch 🪢
 
@@ -508,9 +503,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ##### 2. Anticipation ⌛
 
@@ -531,9 +526,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ##### 3. Follow Through and Overlap 🐾
 
@@ -554,9 +549,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ##### 4. Arcs ⭕
 
@@ -577,9 +572,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ##### 5. Slow In & Slow Out 🦥
 
@@ -600,9 +595,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ##### 6. Timing ⌚
 
@@ -626,9 +621,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ##### 7. Secondary Action 🔂
 
@@ -649,9 +644,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ##### 8. Exaggeration 💥
 
@@ -677,9 +672,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ##### 9. Staging 🎭
 
@@ -700,9 +695,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
   }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ##### 10. Straight Ahead & Pose to Pose 📼
 
@@ -711,9 +706,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Straight ahead - Draw frames consecutively
 - Post to Pose - Draw frames at start and end the figure out what's in between
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ##### 11. Solid Drawings 🖼️
 
@@ -760,9 +755,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 }}
 />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ##### 12. Appeal 🌟
 
@@ -772,9 +767,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 > Make the viewer feel something
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered highlight>
+<site-presentation-slide centered highlight>
 
 ## ⏪ Recap - Principles of Animation
 
@@ -791,9 +786,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 11. Solid Drawings
 12. Appeal
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ### 🪟 Frameworks and Libraries 📚
 
@@ -803,9 +798,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 > For defining animations, not design systems
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ### When not to use Animations 🚫
 
@@ -814,9 +809,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - If they will distract the user
 - Responsiveness and accessibility concerns
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 #### Suggestions 💡
 
@@ -826,9 +821,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Understanding interactivity on different screen types
 - Animations should have a purpose
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered large>
+<site-presentation-slide centered large>
 
 ### Case Study 🕵️
 
@@ -845,9 +840,9 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 - Sense of identity
 - Maximalism can work too
 
-</Slide>
+</site-presentation-slide>
 
-<Slide highlight>
+<site-presentation-slide highlight>
 
 ## References and Further Reading 📖
 
@@ -869,4 +864,4 @@ import { Slide, Presentation, SlideOnly, About } from '@/components/slides'
 
 - [Parabolic Timing Functions](https://stackoverflow.com/questions/15423736/how-to-get-a-gravity-effect-in-a-css-animation)
 
-</Slide>
+</site-presentation-slide>

@@ -6,23 +6,23 @@ date: 13 March 2024
 ---
 
 import Snippet from '@/components/Snippet.astro'
-import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
-<Presentation />
 
-<Slide centered>
-
-<SlideOnly>
+<site-presentation-slide highlight centered large>
 
 ## Check your domain
 
-</SlideOnly>
+</site-presentation-slide>
+
+<site-presentation />
+
+<site-presentation-slide centered>
 
 > Domain driven development with TypeScript
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ## Overview
 
@@ -32,9 +32,9 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 - Some tools
 - Why do this?
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ## What is TypeScript?
 
@@ -44,9 +44,9 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 - Compiled to Javascript
 - Not "Javascript with Types"
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ## The Domain
 
@@ -56,29 +56,29 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 > Code: Defining the Model
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 <Snippet path="ddd-with-ts/01-domain.ts" />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ## Poke some holes
 
 > Code: What potential issues are there in our model
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 <Snippet path="ddd-with-ts/02-domain-issues.ts" />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ### The Usual Solution
 
@@ -91,17 +91,17 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 > Tests are a regression hazard. Documentation goes out of sync
 
-</Slide>
+</site-presentation-slide>
 
-<Slide centered>
+<site-presentation-slide centered>
 
 ### A Different Solution
 
 > "Make illegal states unrepresentable" - Yaron Minsky
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ### Some Tools
 
@@ -111,23 +111,23 @@ import { Slide, Presentation, SlideOnly } from '@/components/slides'
 
 > Code: Union Types, Template Literal Types
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 <Snippet path="ddd-with-ts/03-tools-grouping.ts" />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ### Impossible States
 
 > Is there anything we have overlooked?
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ```ts
 passedQA: boolean
@@ -143,9 +143,9 @@ What are our states?
 
 > Boolean states are exponential
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ### Explicit States
 
@@ -154,37 +154,37 @@ What are our states?
   - Has been shipped
   - Not yet shipped
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ### Modeling the desired state
 
 - Union types
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 <Snippet path="ddd-with-ts/06-tools-union-types.ts" />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ### What do we see?
 
 - We actually notice that we have a missing state - what happens if QA does not pass?
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 <Snippet path="ddd-with-ts/07-tools-add-missing-state.ts" />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ### Being 100% Sure
 
@@ -193,15 +193,15 @@ What are our states?
 
 > Code: Option Type and Branded Type usage
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 <Snippet path="ddd-with-ts/08-tools-branded-types.ts" />
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ## Why do this?
 
@@ -209,19 +209,19 @@ What are our states?
 - Clarify intent
 - Reduces testing
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ## References
 
 - [Designing with Types](https://fsharpforfunandprofit.com/series/designing-with-types/)
 - [TypeScript Handbook](https://www.TypeScriptlang.org/docs/handbook/intro.html)
 
-</Slide>
+</site-presentation-slide>
 
-<Slide>
+<site-presentation-slide>
 
 ## END
 
-</Slide>
+</site-presentation-slide>
