@@ -1,6 +1,6 @@
 ---
 title: week 40, year 2024 - paper and pictures
-subtitle: 06 October 2024
+date: 06 October 2024
 ---
 
 firstly, a small sadness - i missed the past two posts due to my vacation, but on the other hand i guess i had a vacation so that works out i suppose
@@ -24,4 +24,3 @@ George Morris is a London based photographer and director with [a portfolio of i
 ### street photography
 
 Eric Anderson is a photographer and web designer with a particularly great [portfolio of street photography](https://www.esquareda.com)
-

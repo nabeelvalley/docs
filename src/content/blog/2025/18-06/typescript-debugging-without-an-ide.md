@@ -1,8 +1,8 @@
 ---
 title: Typescript debugging without an IDE
 description: Debug Node.js code using your browser's dev tools
-subtitle: 18 June 2025
 published: true
+date: 18 June 2025
 ---
 
 I generally steer clear of IDEs. Their overall slowness and clunkyness makes using them a hassle. There is however one place they execel - debugging. 

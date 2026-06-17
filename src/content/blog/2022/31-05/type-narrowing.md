@@ -1,8 +1,8 @@
 ---
 published: true
 title: Type Narrowing in Typescript
-subtitle: 31 May 2022
 description: Using Type Narrowing for better handling of dynamic variables in typescript
+date: 31 May 2022
 ---
 
 Type Narrowing allows us create conditions under which an object of one type can be used as if it is of another type. We usually use this in conjunction with union types to allow us to specify different handling of the types based on the resulting value

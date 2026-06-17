@@ -1,7 +1,7 @@
 ---
 title: Conditionally Protect Properties in Typescript
 description: Using type-guards to protect access to values
-subtitle: 03 December 2024
+date: 03 December 2024
 ---
 
 ## Type Guards

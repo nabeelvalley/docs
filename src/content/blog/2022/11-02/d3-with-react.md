@@ -1,8 +1,8 @@
 ---
 published: true
 title: Visualizations with React
-subtitle: 11 February 2022
 description: Create SVG Graphs and Visualizations in React using D3
+date: 11 February 2022
 ---
 
 # Data Visualization with D3 and React

@@ -1,8 +1,8 @@
 ---
 title: Editing Text in-stream
 description: A small helper to more easily edit files mid-stream
-subtitle: 02 June 2026
 published: true
+date: 02 June 2026
 ---
 
 I've recently been finding [`sed`](https://www.gnu.org/software/sed/) really handy but sometimes I want to edit something bigger in-stream - maybe just to make some small manual fixes before dumping dumping a string out to some other command. I've been using `pbcopy` a lot for this kind of thing but I wanted a neater way to do it, and here's my solution

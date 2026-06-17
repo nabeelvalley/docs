@@ -2,7 +2,7 @@ import { z, defineCollection } from 'astro:content'
 
 const schema = z.object({
   title: z.string().optional(),
-  subtitle: z.string().optional(),
+  date: z.string().optional(),
   description: z.string().optional(),
   published: z.boolean().optional(),
   feature: z.boolean().optional(),

@@ -1,8 +1,8 @@
 ---
 published: true
 title: Using Type Guards and Unions to prevent bugs and increase maintainability
-subtitle: 26 June 2023
 description: A practical introduction to type guards and union types
+date: 26 June 2023
 ---
 
 When working with a dynamic language, like Javascript, a problem that we can often run into is one where a variable may be of multiple possible types in a given place in our code. Due to this, we often run into a need to check the type of an object

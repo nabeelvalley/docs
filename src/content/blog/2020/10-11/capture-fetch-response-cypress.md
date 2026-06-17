@@ -1,8 +1,8 @@
 ---
 published: true
 title: Capture Fetch with Cypress
-subtitle: 10 November 2020
 description: Capture and Use Fetch Requests and Responses in Cypress
+date: 10 November 2020
 ---
 
 To capture the result of a `fetch` request with Cypress you will need to make use of `cy.route2`

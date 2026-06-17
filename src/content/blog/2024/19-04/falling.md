@@ -1,7 +1,7 @@
 ---
 title: On Falling Down
-subtitle: 19 April 2024
 description: Responding to change
+date: 19 April 2024
 ---
 
 Today was kinda shitty. Actually really shitty.
@@ -80,4 +80,4 @@ Oh and the new skiiers will get confused and stuck and not know how to standup -
 
 Also it's cold and I'm waiting for my last train. This has been a really long day, but if this works out I'll have at least managed to beat the plan all the map apps gave me - some consolation knowing you're a bit smarter than some rando pathfinding algorithm i guess
 
-But anyways, what I think im trying to say is, it's easy to get frustrated and angry when faced with challenges but all we can do is to make the best of what we can control and accept what we can't. 
+But anyways, what I think im trying to say is, it's easy to get frustrated and angry when faced with challenges but all we can do is to make the best of what we can control and accept what we can't.

@@ -2,7 +2,7 @@
 title: More generic than it should be
 published: true
 description: A method for designing highly generic APIs in Typescript
-subtitle: 15 August 2024
+date: 15 August 2024
 ---
 
 A method for designing highly generic APIs in Typescript
@@ -125,4 +125,3 @@ What's also different with using the class approach is that things have names no
 ### Gross
 
 I'm more and more moving towards the idea that this kind of generic stuff should be kept to a minimum. This is a relatively simple example but these concepts can get pretty complex and perhaps speaks to something more fundementally incorrect about the data structures being worked with. If you can control the data structures, then ideally simplify them so you don't need this level of type magic, but if you do - it's always handy to have a way to express things that makes it easier for other developers to understand and work with
-

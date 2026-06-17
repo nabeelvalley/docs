@@ -3,8 +3,9 @@ title: week 42, year 2024 - ye olde web
 description: Old websites
 published: false
 feature: false
-subtitle: 20 October 2024
+date: 20 October 2024
 ---
+
 the past few weeks have been pretty much just a youtube-fueled mess of internet nostalgia and rain but from that i suppose we have a few nuggets of internet history
 
 # what i found

@@ -1,8 +1,8 @@
 ---
 title: Join the Webring!
 description: I'm starting a Webring!
-subtitle: 12 March 2026
 feature: true
+date: 12 March 2026
 ---
 
 > Assumed audience: People with a personal website or anyone interested in the indie web
@@ -30,4 +30,3 @@ That's great! You need to do two things:
 2. Make a pull request adding your site to the [webring repo](https://github.com/nabeelvalley/webring) at [`src/config.gleam`](https://github.com/nabeelvalley/webring/blob/main/src/config.gleam) 
 
 And that should do it! Welcome to the web
-

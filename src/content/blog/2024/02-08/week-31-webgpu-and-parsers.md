@@ -1,6 +1,6 @@
 ---
 title: week 31, year 2024 - webgpu and parsers
-subtitle: 02 August 2024
+date: 02 August 2024
 ---
 
 ## welcome

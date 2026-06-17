@@ -1,8 +1,8 @@
 ---
 title: A Visual Language for Image Manipulation
 description: I accidentally created a programming language for editing photos
-subtitle: 24 August 2024
 feature: true
+date: 24 August 2024
 ---
 
 I've spent the past few weeks building a concept photo editing application that allows users to visually define and compose shaders to transform an image in ways that are really challenging or impossible in other image manipulation software

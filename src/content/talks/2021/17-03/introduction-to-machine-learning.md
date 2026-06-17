@@ -1,7 +1,7 @@
 ---
 title: Introduction to Machine Learning
-subtitle: 17 March 2021
 description: An introduction to machine learning for the Gauteng Python User Group
+date: 17 March 2021
 ---
 
 An talk I gave with [Ashwinee Pandey](https://za.linkedin.com/in/ashwineepandey) for the Gauteng Python User Group on introducing basic machine learning concepts

@@ -1,8 +1,8 @@
 ---
 title: Generic Object Property Formatter and Validator using Typescript
-subtitle: 09 May 2023
 description: A statically typed, generic method for formatting and validating javascript objects for interchange across system boundaries
 published: true
+date: 09 May 2023
 ---
 
 At times there's a need for transforming specific object properties from an input format to some specific output, this can be done using the following code in some generic means

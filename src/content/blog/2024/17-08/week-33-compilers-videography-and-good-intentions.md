@@ -1,6 +1,6 @@
 ---
 title: week 33, year 2024 - compilers, videography and good intentions
-subtitle: 17 August 2024
+date: 17 August 2024
 ---
 
 ## what i'm working on
@@ -28,4 +28,3 @@ i've been reading [crafting interpreters by Robert Nystrom](https://craftinginte
 if you share my internet you may have seen [exurb1a's latest existential crisis](https://www.youtube.com/watch?v=o1OsDWT_DUc) which starts off as a look into a potential future of humanity until it takes us full circle into wishing we had any idea what anything is at all
 
 > and thanks for reading, till next week!
-

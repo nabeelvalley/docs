@@ -1,8 +1,8 @@
 ---
 title: Accessibility Reference List
 description: A collection of useful accessibility tools and resources
-subtitle: 07 July 2025
 published: true
+date: 07 July 2025
 ---
 
 ## Resources

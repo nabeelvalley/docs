@@ -3,8 +3,9 @@ title: Week 35, Documentation matters
 description: Markdown, Golang, SwiftUI, and Corporates
 published: true
 feature: false
-subtitle: 31 August 2025
+date: 31 August 2025
 ---
+
 Trying to get back into some regular blogging rhythym since if I don't pay attention multiple months pass by between posts
 
 ## What I'm working on

@@ -1,8 +1,8 @@
 ---
 published: true
 title: Debug POSTs using an Express App
-subtitle: 04 December 2020
 description: Create an express.js app with an endpoint that logs and returns a request's JSON body
+date: 04 December 2020
 ---
 
 Sometimes it's useful to have an endpoint that you can use to debug data that's being `POST`ed to an application

@@ -1,7 +1,7 @@
 ---
 title: Freeskate Log
-subtitle: 04 May 2024
 published: false
+date: 04 May 2024
 ---
 
 ## Learning to Freeskate

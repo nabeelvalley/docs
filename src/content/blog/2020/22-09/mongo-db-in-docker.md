@@ -1,8 +1,8 @@
 ---
 published: true
 title: Mongo DB in Docker
-subtitle: 22 September 2020
 description: Run a MongoDB Instance with Docker or Docker Compose
+date: 22 September 2020
 ---
 
 ## Considerations

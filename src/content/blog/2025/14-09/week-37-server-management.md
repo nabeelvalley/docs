@@ -3,8 +3,9 @@ title: Week 37, Server Management
 description: Some utilities that simplify self hosting
 published: true
 feature: false
-subtitle: 14 September 2025
+date: 14 September 2025
 ---
+
 ## Off topic
 
 Something off-topic but I just came across [this explainer](https://biomousavi.com/difference-between-process-nexttick-setimmediate-and-settimeout-in-node-js) on the different task queues and related methods in Node.js that I thought would be a nice share

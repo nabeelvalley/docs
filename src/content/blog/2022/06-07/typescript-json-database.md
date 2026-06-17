@@ -1,8 +1,8 @@
 ---
 published: true
 title: A Simple JSON Backed Database in Typescript
-subtitle: 07 July 2022
 description: Create a simple database that's backed to a JSON file using Typescript and Node.js
+date: 07 July 2022
 ---
 
 # Define the database

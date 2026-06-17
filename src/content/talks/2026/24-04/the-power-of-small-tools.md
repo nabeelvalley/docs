@@ -1,7 +1,7 @@
 ---
-title: "* > +"
-subtitle: 24 April 2026
+title: '* > +'
 description: the multiplicative power of small tools
+date: 24 April 2026
 ---
 
 > Run this presentation using:

@@ -1,11 +1,11 @@
 ---
-subtitle: 27 April 2024
 title: On Automatic Lensess
 description: Why automatic camera lenses suck
 published: true
 tags:
-  - blog
-  - photography
+- blog
+- photography
+date: 27 April 2024
 ---
 
 I enjoy capturing the world around me - places, people, plants - anything the light touches really

@@ -1,7 +1,7 @@
 ---
 title: Nvim Error when using Plugins
-subtitle: 13 June 2023
 description: Fix NVim Error Executing Lua with Plugins
+date: 13 June 2023
 ---
 
 When trying to use an NVim plugin you may run into the following error message:

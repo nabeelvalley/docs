@@ -1,6 +1,6 @@
 ---
 title: week 34, year 2024 - programming languages of various types
-subtitle: 24 August 2024
+date: 24 August 2024
 ---
 
 ## what i'm working on
@@ -20,4 +20,3 @@ i bumped into [Ruud](https://github.com/ruuda){rel="nofollow ugc noopener"} who 
 ### pkl
 
 this chat also reminded my about [another configuration language made by apple](https://github.com/apple/pkl){rel="nofollow ugc noopener"} which was released a while ago and is a language for config as code with support for validation
-

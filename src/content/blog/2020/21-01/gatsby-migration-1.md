@@ -1,8 +1,8 @@
 ---
 published: true
 title: The Gatsby Migration, pt.1 - Setting the Scene
-subtitle: 21 January 2020
 description: Building a basic React site with basic dynamic data loading
+date: 21 January 2020
 ---
 
 ## Introduction

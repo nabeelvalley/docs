@@ -1,8 +1,8 @@
 ---
 title: Patching packages with PNPM
-description: Using PNPM's patching commands to modify installed dependencies 
-subtitle: 03 July 2025
+description: Using PNPM's patching commands to modify installed dependencies
 published: true
+date: 03 July 2025
 ---
 
 Patching packages is a task that's occasionally done to fix bugs or update behavior of 3rd party dependencies within a specific project. This is often done while waiting for a fix from the upstream library or when the library author does not agree with the change that is needed

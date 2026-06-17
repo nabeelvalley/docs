@@ -1,7 +1,7 @@
 ---
-title: "Snippet: Rachets, not Levers - Chris Krycho"
+title: 'Snippet: Rachets, not Levers - Chris Krycho'
 description: Quote from Chris Krycho
-subtitle: 03 November 2025
+date: 03 November 2025
 ---
 
 I came across this quote on [Chris Krycho's Website](https://v5.chriskrycho.com/cv/#philosophy-ratchets-not-levers) that I thought was worth sharing:

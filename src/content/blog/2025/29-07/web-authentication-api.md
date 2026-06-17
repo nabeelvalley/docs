@@ -1,8 +1,8 @@
 ---
 title: Web Authentication API
-subtitle: 29 July 2025
 description: Simple example of the Web Authentication API in action
 published: true
+date: 29 July 2025
 ---
 
 The Web Authentication API is a public/private key based authentication mechanism that is built into modern browsers and enables us to easily develop authentication solutions on the web
