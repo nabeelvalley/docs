@@ -1,9 +1,0 @@
-version: "3"
-services:
-  website:
-    image: ghcr.io/nabeelvalley/website:latest
-    ulimits: # needed to get around some weird docker issues
-      nofile:
-        soft: 1024
-        hard: 1024
-    restart: unless-stopped 
