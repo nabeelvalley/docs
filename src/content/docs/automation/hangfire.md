@@ -1,7 +1,6 @@
 ---
 published: true
 title: Hangfire
-subtitle: Task Automation using Hangfire with F#
 description: Task Automation using Hangfire with F#
 ---
 

@@ -1,7 +1,6 @@
 ---
 published: true
 title: SAFE Stack
-subtitle: Overview of the SAFE Stack
 description: Overview of the SAFE Stack
 ---
 

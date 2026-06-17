@@ -1,7 +1,7 @@
 ---
 published: true
 title: Neovim
-subtitle: Neovim setup and general info
+description: Neovim setup and general info
 ---
 
 ## Installation

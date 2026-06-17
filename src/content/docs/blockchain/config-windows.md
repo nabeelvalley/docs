@@ -1,7 +1,7 @@
 ---
 published: true
 title: Configure Blockchain on Windows
-subtitle: Configuring Windows for Hyperledger
+description: Configuring Windows for Hyperledger
 ---
 
 ## Script

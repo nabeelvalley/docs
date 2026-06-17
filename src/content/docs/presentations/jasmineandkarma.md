@@ -1,7 +1,7 @@
 ---
 published: true
 title: Jasmine and Karma
-subtitle: Unit testing JS Apps using Jasmine and Karma
+description: Unit testing JS Apps using Jasmine and Karma
 ---
 
 ## Jasmine

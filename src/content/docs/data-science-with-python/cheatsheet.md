@@ -1,7 +1,7 @@
 ---
 published: true
 title: Cheatsheet
-subtitle: Some heplful functions for Data Analysis and ML with Python
+description: Some heplful functions for Data Analysis and ML with Python
 ---
 
 ## Python Data Science Cheatsheet

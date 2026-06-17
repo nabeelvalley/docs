@@ -1,7 +1,6 @@
 ---
 published: true
 title: Introduction to LINQ to SQL
-subtitle: Basic Introduction to Mapping Entities using LINQ to SQL
 description: Basic Introduction to Mapping Entities using LINQ to SQL
 ---
 

@@ -1,7 +1,6 @@
 ---
 published: true
 title: Nuxt.js
-subtitle: Getting Started with Nuxt.js
 description: Getting Started with Nuxt.js
 ---
 

@@ -1,7 +1,6 @@
 ---
 published: true
 title: Introduction to Unit Testing
-subtitle: Introduction to Unit Testing with XUnit
 description: Introduction to Unit Testing with XUnit
 ---
 

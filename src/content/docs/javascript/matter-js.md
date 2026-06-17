@@ -1,7 +1,7 @@
 ---
 published: true
 title: Matter.js
-subtitle: Introductory Matter.js notes
+description: Introductory Matter.js notes
 ---
 
 > Some notes on using Matter.js based on [The Coding Train YouTube Videos](https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw)

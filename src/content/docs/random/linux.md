@@ -1,7 +1,7 @@
 ---
 published: true
 title: Linux
-subtitle: Miscellaneous Linux Concepts
+description: Miscellaneous Linux Concepts
 ---
 
 # Ubuntu

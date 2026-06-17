@@ -1,7 +1,6 @@
 ---
 published: true
 title: Express Application with MongoDB
-subtitle: Build an Express Application that uses MongoDB and Docker
 description: Build an Express Application that uses MongoDB and Docker
 ---
 

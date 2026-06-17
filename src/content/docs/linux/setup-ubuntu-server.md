@@ -1,7 +1,7 @@
 ---
 published: true
 title: Ubuntu Server Setup
-subtitle: Some Personal Preferences
+description: Some Personal Preferences
 ---
 
 ## SSH Setup

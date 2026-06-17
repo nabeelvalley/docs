@@ -1,7 +1,7 @@
 ---
 published: true
 title: Raspberry Pi Headless
-subtitle: Setting up WiFi and SSH on a Raspberry PI Headlessly
+description: Setting up WiFi and SSH on a Raspberry PI Headlessly
 ---
 
 ## Get the OS Ready

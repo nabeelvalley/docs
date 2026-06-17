@@ -1,7 +1,7 @@
 ---
 published: true
 title: Hyperledger Composer
-subtitle: Introduction to Hyperledger Composer
+description: Introduction to Hyperledger Composer
 ---
 
 # Overview

@@ -1,7 +1,7 @@
 ---
 published: true
 title: Simple Lambda Custom Authorizer
-subtitle: Using a Lambda for Authorization and Authentication on AWS API Gateway
+description: Using a Lambda for Authorization and Authentication on AWS API Gateway
 ---
 
 ## Custom Authorizers

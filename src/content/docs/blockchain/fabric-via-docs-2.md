@@ -1,7 +1,7 @@
 ---
 published: true
 title: Hyperledger Fabric Part 2
-subtitle: Intro to Hyperledger Fabric via the Docs
+description: Intro to Hyperledger Fabric via the Docs
 ---
 
 ## [Add an Org to a Channel](https://hyperledger-fabric.readthedocs.io/en/latest/channel_update_tutorial.html)

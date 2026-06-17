@@ -1,7 +1,7 @@
 ---
 published: true
 title: Puppeteer
-subtitle: Browser Automation using Node.js and Puppeteer
+description: Browser Automation using Node.js and Puppeteer
 ---
 
 ## Installing

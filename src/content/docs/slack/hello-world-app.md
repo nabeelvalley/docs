@@ -1,7 +1,7 @@
 ---
 published: true
 title: Intro to Slack Apps
-subtitle: Building a Hello World app with the Slack API
+description: Building a Hello World app with the Slack API
 ---
 
 # Hello World App

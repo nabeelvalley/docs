@@ -1,7 +1,7 @@
 ---
 published: true
 title: LEDs
-subtitle: General information on using LEDs in electric circuits
+description: General information on using LEDs in electric circuits
 ---
 
 LED is short for Light Emitting Diode

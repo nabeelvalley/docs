@@ -1,7 +1,7 @@
 ---
 published: true
 title: Gradients
-subtitle: Basic application of SVG Linear and Radial Gradients to SVG Elements
+description: Basic application of SVG Linear and Radial Gradients to SVG Elements
 ---
 
 > For reference take a look at the [MDN SVG Gradient Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Gradients)

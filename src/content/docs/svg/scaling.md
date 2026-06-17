@@ -1,7 +1,7 @@
 ---
 published: true
 title: Scaling
-subtitle: Tips for scaling SVGs
+description: Tips for scaling SVGs
 ---
 
 # Scaling an SVG

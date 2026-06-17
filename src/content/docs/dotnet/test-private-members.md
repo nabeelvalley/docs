@@ -1,7 +1,6 @@
 ---
 published: true
 title: Testing Private Members
-subtitle: Unit Testing Private Members with XUnit
 description: Unit Testing Private Members with XUnit
 ---
 

@@ -1,7 +1,7 @@
 ---
 published: true
 title: Typescript Basics
-subtitle: Introduction and cheatsheet for basic Typescript concepts
+description: Introduction and cheatsheet for basic Typescript concepts
 ---
 
 ## Types

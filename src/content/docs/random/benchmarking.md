@@ -1,7 +1,6 @@
 ---
 published: true
 title: Benchmarking
-subtitle: Overview of some CLI tools for benchmarking
 description: Overview of some CLI tools for benchmarking
 ---
 

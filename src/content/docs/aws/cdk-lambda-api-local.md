@@ -1,7 +1,7 @@
 ---
 published: true
 title: CDK Local Lambdas
-subtitle: Local Development and Testing of AWS CDK Lambdas
+description: Local Development and Testing of AWS CDK Lambdas
 ---
 
 ## Introduction

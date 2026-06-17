@@ -1,7 +1,6 @@
 ---
 published: true
 title: Logging
-subtitle: Logging and Logging Libraries for .NET
 description: Logging and Logging Libraries for .NET
 ---
 

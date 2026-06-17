@@ -1,7 +1,6 @@
 ---
 published: true
 title: Multi-Tier Integration Service
-subtitle: C# Service for integrating multi-tier applications
 description: C# Service for integrating multi-tier applications
 ---
 

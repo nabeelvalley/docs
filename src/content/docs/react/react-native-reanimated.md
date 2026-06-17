@@ -1,7 +1,7 @@
 ---
 published: true
 title: React Native Reanimated
-subtitle: Declarative Animation in React-Native
+description: Declarative Animation in React-Native
 ---
 
 References:

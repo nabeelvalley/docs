@@ -1,7 +1,6 @@
 ---
 published: true
 title: Introduction to F#
-subtitle: Basic Introduction to the F# Programming Language
 description: Basic Introduction to the F# Programming Language
 ---
 

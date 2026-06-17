@@ -1,7 +1,6 @@
 ---
 published: true
 title: Building Android Apps with Kotlin
-subtitle: Introduction to building Android apps using the Kotlin Programming Language
 description: Introduction to building Android apps using the Kotlin Programming Language
 ---
 

@@ -1,7 +1,7 @@
 ---
 published: true
 title: WebRTC
-subtitle: Real-time Communication with WebRTC
+description: Real-time Communication with WebRTC
 ---
 
 [From this CodeLab](https://codelabs.developers.google.com/codelabs/webrtc-web/#0)

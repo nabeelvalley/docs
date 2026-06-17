@@ -1,7 +1,7 @@
 ---
 published: true
 title: Basics
-subtitle: Basic Concepts for using Chef
+description: Basic Concepts for using Chef
 ---
 
 # Basics of Chef

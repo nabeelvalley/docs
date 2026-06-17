@@ -1,8 +1,7 @@
 ---
 published: true
 title: Powershell
-subtitle: Tips and Tricks
-description: Powershell tips and tricks
+description: Tips and Tricks
 ---
 
 ## Modify Prompt

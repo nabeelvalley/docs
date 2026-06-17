@@ -1,7 +1,7 @@
 ---
 published: true
 title: Database Migrations with Entity Framework
-subtitle: Performing Database Migrations using .NET Core, SQL Server, and Entity Framework
+description: Performing Database Migrations using .NET Core, SQL Server, and Entity Framework
 ---
 
 ## Creating Migrations

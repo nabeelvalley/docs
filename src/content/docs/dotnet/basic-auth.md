@@ -1,7 +1,7 @@
 ---
 published: true
 title: Basic Auth for .NET Core
-subtitle: Utilising Basic Auth with .NET Core Identity
+description: Utilising Basic Auth with .NET Core Identity
 ---
 
 .NET Core Identity using Local Users can be used natively on application endpoints, this however makes use of a few additional layers of abstracting which can make using it with a WebAPI kind of troublesome

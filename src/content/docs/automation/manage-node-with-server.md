@@ -1,7 +1,7 @@
 ---
 published: true
 title: Managing a Node using Chef
-subtitle: Managing a Node using Chef
+description: Managing a Node using Chef
 ---
 
 [From this Module](https://learn.chef.io/modules/manage-a-node-chef-server/ubuntu/bring-your-own-system#/)

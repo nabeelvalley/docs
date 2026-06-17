@@ -1,7 +1,7 @@
 ---
 published: true
 title: Web Components
-subtitle: Notes on Web Components
+description: Notes on Web Components
 ---
 
 [Basics from CSS Tricks](https://css-tricks.com/an-introduction-to-web-components/)

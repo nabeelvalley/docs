@@ -1,7 +1,7 @@
 ---
 title: SQLite
-subtitle: Basic notes on setting up sqlite
 published: true
+description: Basic notes on setting up sqlite
 ---
 
 > Notes on using Sqlite, [the getting started docs](https://www.sqlite.org/quickstart.html)

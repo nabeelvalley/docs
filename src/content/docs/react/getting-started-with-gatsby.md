@@ -1,7 +1,6 @@
 ---
 published: true
 title: Gatsby
-subtitle: Getting Started with Gatsby.js
 description: Getting Started with Gatsby.js
 ---
 

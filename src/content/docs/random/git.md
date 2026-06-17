@@ -1,8 +1,7 @@
 ---
 published: true
 title: Git
-subtitle: Miscellaneous Git Concepts
-description: Git tips and tricks
+description: Miscellaneous Git Concepts
 ---
 
 ## Stage Files Using Glob

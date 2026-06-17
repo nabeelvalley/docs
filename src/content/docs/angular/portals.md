@@ -1,7 +1,6 @@
 ---
 title: Rendering Angular Components with Portals
-description: Using portals to render content in a different part of the DOM
-subtitle: 12 June 2024
+description: 12 June 2024
 published: true
 ---
 
@@ -157,4 +156,3 @@ export class PortalRootComponent {
   }
 }
 ```
-

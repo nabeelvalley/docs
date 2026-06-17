@@ -1,7 +1,7 @@
 ---
 published: true
 title: WCF Services
-subtitle: Connecting to WCF Services Services using Visual Studio or the SVCUtil CLI
+description: Connecting to WCF Services Services using Visual Studio or the SVCUtil CLI
 ---
 
 In order to consume a WCF Service from a .NET client you can make use of the `Connected Services` section in Visual Studio, or using the `svcutil` tool in the `dotnet cli`

@@ -1,7 +1,7 @@
 ---
 published: true
 title: Jenkins
-subtitle: Jenkins Setup Guide and General Information
+description: Jenkins Setup Guide and General Information
 ---
 
 The Guide for getting started can be found [here](https://jenkins.io/doc/pipeline/tour/getting-started/)

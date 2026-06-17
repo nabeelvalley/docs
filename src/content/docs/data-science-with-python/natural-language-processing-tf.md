@@ -1,7 +1,7 @@
 ---
 published: true
 title: NLP with Tensorflow
-subtitle: Natural Language Processing with Tensorflow for Python
+description: Natural Language Processing with Tensorflow for Python
 ---
 
 ## Natural Language Processing

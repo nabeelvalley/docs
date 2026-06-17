@@ -1,8 +1,7 @@
 ---
 published: true
 title: WSL
-subtitle: Miscellaneous WSL Things
-description: WSL tips and tricks
+description: Miscellaneous WSL Things
 ---
 
 # Troubleshooting
