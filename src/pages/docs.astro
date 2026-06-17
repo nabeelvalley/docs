@@ -8,7 +8,7 @@ import Page from '../layouts/Page.astro'
 const { upperFirst, groupBy } = _
 
 const docsCollections = await Promise.all([
-  getCollection('docs-md'),
+  getCollection('docs'),
 ])
 
 const collection = docsCollections.flat()

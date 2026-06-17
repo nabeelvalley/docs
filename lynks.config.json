@@ -5,7 +5,7 @@
     "keepExtension": false
   },
   "aliases": {
-    "/docs": "./docs-md",
-    "/blog": "blog-md"
+    "/docs": "./docs",
+    "/blog": "./blog"
   }
 }

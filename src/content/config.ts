@@ -28,8 +28,8 @@ export const collections = {
   photography: defineCollection({ type: 'content', schema }),
   random: defineCollection({ type: 'content', schema }),
 
-  'blog-md': defineCollection({ type: 'content', schema }),
-  'docs-md': defineCollection({ type: 'content', schema }),
+  blog: defineCollection({ type: 'content', schema }),
+  docs: defineCollection({ type: 'content', schema }),
 
   talks: defineCollection({ type: 'content', schema }),
 

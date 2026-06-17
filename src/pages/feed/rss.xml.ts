@@ -9,7 +9,7 @@ const rssPrefix =
 
 export const GET = async (context) => {
   // For simplicity just including the Markdown posts for now
-  const blog = await getCollection('blog-md')
+  const blog = await getCollection('blog')
   const items = blog
     .filter((post) => post.data.published !== false || post.data.rssOnly)
     .map<RSSFeedItem>((post) => {

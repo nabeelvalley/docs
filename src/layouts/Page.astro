@@ -11,7 +11,7 @@ import { slugSegments} from '@/lib/pages'
 
 const blogCollections = await Promise.all([
   getCollection('talks'),
-  getCollection('blog-md'),
+  getCollection('blog'),
 ])
 
 const collection = blogCollections.flat()

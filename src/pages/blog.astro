@@ -6,7 +6,7 @@ import Base from '../layouts/Base.astro'
 import LinkGrid from '../components/LinkGrid.astro'
 
 const blogCollections = await Promise.all([
-  getCollection('blog-md'),
+  getCollection('blog'),
 ])
 
 const collection = blogCollections.flat()

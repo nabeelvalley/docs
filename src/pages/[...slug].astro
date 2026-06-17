@@ -43,8 +43,8 @@ export async function getStaticPaths(): Promise<StaticPaths[]> {
 }
 
 const renderers = {
-  'blog-md': (entry: Props<'blog-md'>) => entry.entry.render(),
-  'docs-md': (entry: Props<'docs-md'>) => entry.entry.render(),
+  blog: (entry: Props<'blog'>) => entry.entry.render(),
+  docs: (entry: Props<'docs'>) => entry.entry.render(),
   photography: (entry: Props<'photography'>) => entry.entry.render(),
   random: (entry: Props<'random'>) => entry.entry.render(),
   talks: (entry: Props<'talks'>) => entry.entry.render(),
