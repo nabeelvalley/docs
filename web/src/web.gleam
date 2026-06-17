@@ -1,5 +1,6 @@
-import gleam/io
+import web/content
 
-pub fn main() -> Nil {
-  io.println("Hello from web!")
+pub fn main() {
+  let result = content.read_collection()
+  echo result
 }
