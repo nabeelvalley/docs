@@ -9,7 +9,6 @@ const { upperFirst, groupBy } = _
 
 const docsCollections = await Promise.all([
   getCollection('docs-md'),
-  getCollection('docs-ipynb'),
 ])
 
 const collection = docsCollections.flat()

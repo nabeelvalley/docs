@@ -71,9 +71,7 @@ const baseActions: Action[] = [
 
 const collections = [
   'blog-md',
-  'blog-ipynb',
   'docs-md',
-  'docs-ipynb',
   'photography',
   'random',
 ] as const

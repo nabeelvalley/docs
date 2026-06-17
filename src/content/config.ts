@@ -29,10 +29,7 @@ export const collections = {
   random: defineCollection({ type: 'content', schema }),
 
   'blog-md': defineCollection({ type: 'content', schema }),
-  'blog-ipynb': defineCollection({ type: 'data', schema }),
-
   'docs-md': defineCollection({ type: 'content', schema }),
-  'docs-ipynb': defineCollection({ type: 'data', schema }),
 
   talks: defineCollection({ type: 'content', schema }),
 
