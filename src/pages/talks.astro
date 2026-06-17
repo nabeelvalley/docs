@@ -10,7 +10,7 @@ const collection = await getCollection('talks')
 const talks = collection
   .filter((p) => p.data.published !== false)
   .sort((a, b) =>
-    new Date(a.data.subtitle).getTime() - new Date(b.data.subtitle).getTime() >
+    new Date(a.data.date).getTime() - new Date(b.data.date).getTime() >
     0
       ? -1
       : 1
@@ -27,7 +27,7 @@ const talks = collection
         talks.map((page) => (
           <LinkBlock
             title={page.data.title}
-            subtitle={page.data.subtitle}
+            subtitle={page.data.date}
             description={page.data.description}
             link={`/talks/${page.id.split('.')[0]}`}
           />

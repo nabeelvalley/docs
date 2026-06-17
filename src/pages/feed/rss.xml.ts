@@ -23,7 +23,7 @@ export const GET = async (context) => {
 
       return {
         title: post.data.title,
-        pubDate: new Date(post.data.subtitle),
+        pubDate: new Date(post.data.date),
         description: post.data.description,
         link,
         content: parser.render(prefix + post.body),

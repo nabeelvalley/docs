@@ -18,7 +18,7 @@ const collection = blogCollections.flat()
 const blog = collection
   .filter((p) => p.data.published !== false)
   .sort((a, b) =>
-    new Date(a.data.subtitle).getTime() - new Date(b.data.subtitle).getTime() >
+    new Date(a.data.date).getTime() - new Date(b.data.date).getTime() >
     0
       ? -1
       : 1

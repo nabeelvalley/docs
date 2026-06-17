@@ -27,12 +27,12 @@ export const createRssFeed = async (posts) => {
   for (let index = 0; index < posts.length; index++) {
     const post = posts[index]
 
-    if (!(post.url && post.title && post.subtitle && post.html)) {
+    if (!(post.url && post.title && post.date && post.html)) {
       console.log('missing data', post)
       return
     }
 
-    const date = new Date(post.subtitle)
+    const date = new Date(post.date)
 
     if (isNaN(date)) {
       return

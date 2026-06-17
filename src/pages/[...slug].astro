@@ -55,7 +55,7 @@ const { Content, remarkPluginFrontmatter = {} } = await renderers[
   props.entry.collection
 ](props)
 
-const { title, subtitle, description, page } = props.entry.data
+const { title, date, description, page } = props.entry.data
 const { lastModified } = remarkPluginFrontmatter
 ---
 
@@ -64,7 +64,7 @@ const { lastModified } = remarkPluginFrontmatter
   <Page>
     <article class="rendered">
       <h1>{title}</h1>
-      {subtitle ? <p class="subtitle">{subtitle}</p> : null}
+      {date ? <p class="subtitle">{date}</p> : null}
       {lastModified ? <p class="subtitle">Updated: {lastModified}</p> : null}
 
       {typeof Content === 'string' ? <div set:html={Content} /> : <Content />}

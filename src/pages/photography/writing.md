@@ -1,6 +1,6 @@
 ---
 title: Photography
-subtitle: Filters and projects
+description: Filters and projects
 published: true
 ---
 
