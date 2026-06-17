@@ -17,6 +17,7 @@ Some tasks/ideas to keep in mind for the redesign
   - [ ] Snippet
   - [ ] CSSSnippet
   - [ ] HTMLSnippet
+  - [ ] CSSPreview
 
 ## Content Imporvements
 
