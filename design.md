@@ -19,6 +19,18 @@ Some tasks/ideas to keep in mind for the redesign
   - [ ] HTMLSnippet
   - [ ] CSSPreview
 
+## Rendering
+
+- [ ] Home
+- [ ] Blog
+- [ ] Docs
+- [ ] About
+- [ ] Gallery
+- [ ] OG cover image per post
+- [ ] Sitemap!!!
+- [ ] RSS!!!
+
+
 ## Content Imporvements
 
 - [ ] Remove all dependencies for markdown to HTML conversion?

@@ -1,8 +1,8 @@
-import gleam/list
-import gleam/result
-import content/consts
+import consts
 import content/fs
 import content/md
+import gleam/list
+import gleam/result
 
 pub type Book {
   Book(title: String, author: String, isbn: String)

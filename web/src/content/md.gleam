@@ -1,10 +1,10 @@
+import content/fs
 import gleam/list
 import gleam/option.{type Option}
 import gleam/result
 import gleam/string
 import mork
 import mork/document
-import content/fs
 import yay
 
 pub type MarkdownDocument {
@@ -30,7 +30,7 @@ pub fn parse_markdown_file(file: fs.File) -> Result(MarkdownDocument, String) {
   let doc = mork.parse(file.content)
   use frontmatter <- result.try(parse_frontmatter(file))
 
-  Ok(MarkdownDocument(file.path, frontmatter:, doc:))
+  Ok(MarkdownDocument(file.relative, frontmatter:, doc:))
 }
 
 fn parse_frontmatter(file: fs.File) -> Result(Frontmatter, String) {

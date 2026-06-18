@@ -4,7 +4,7 @@ import gleam/string
 import simplifile
 
 pub type File {
-  File(path: String, content: String)
+  File(path: String, relative: String, content: String)
 }
 
 fn read_dir_rec(at: String) -> Result(List(String), String) {
@@ -37,7 +37,9 @@ pub fn load_content(at: String) -> Result(List(File), String) {
   use path <- list.filter_map(paths)
   use content <- result.map(simplifile.read(path))
 
-  File(content:, path:)
+  let relative = string.drop_start(path, string.length(at) + 1)
+
+  File(content:, relative:, path:)
 }
 
 fn has_ext(file: File, ext: String) -> Bool {
@@ -56,6 +58,16 @@ pub fn join(parts: List(String)) -> String {
   string.join(parts, with: "/")
 }
 
+pub fn split(str: String) -> List(String) {
+  string.split(str, "/")
+}
+
 pub fn is_child(file: File, dir: String) -> Bool {
   file.path |> string.starts_with(dir <> "/")
+}
+
+pub fn relative_dir(file: File) -> String {
+  let parts = file.relative |> split
+
+  parts |> list.take(list.length(parts) - 1) |> join
 }
