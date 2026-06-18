@@ -4,7 +4,7 @@ import gleam/result
 import gleam/string
 import mork
 import mork/document
-import web/fs
+import content/fs
 import yay
 
 pub type MarkdownDocument {
