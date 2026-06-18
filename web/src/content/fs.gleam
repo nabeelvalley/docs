@@ -66,8 +66,7 @@ pub fn is_child(file: File, dir: String) -> Bool {
   file.path |> string.starts_with(dir <> "/")
 }
 
-pub fn relative_dir(file: File) -> String {
-  let parts = file.relative |> split
-
+pub fn parent(path: String) -> String {
+  let parts = path |> split
   parts |> list.take(list.length(parts) - 1) |> join
 }
