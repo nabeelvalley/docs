@@ -31,24 +31,15 @@ pub type Collection {
 
 pub fn load_content() {
   let blog_dir = fs.join([consts.content_dir, "blog"])
+  use blog_files <- result.try(fs.load_content(blog_dir))
+  let blog = list.map(blog_files, parse_markdown_file)
+
   let docs_dir = fs.join([consts.content_dir, "docs"])
+  use docs_files <- result.try(fs.load_content(docs_dir))
+  let docs = list.map(docs_files, parse_markdown_file)
 
-  fs.load_content(consts.content_dir)
-  |> result.map(list.filter(_, fs.is_markdown))
-  |> result.map(fn(files) {
-    let is_blog = fs.is_child(_, blog_dir)
-    let is_docs = fs.is_child(_, docs_dir)
-
-    echo files
-    Collection(
-      blog: files
-        |> list.filter(is_blog)
-        |> list.map(parse_markdown_file),
-      docs: files
-        |> list.filter(is_docs)
-        |> list.map(parse_markdown_file),
-    )
-  })
+  Collection(blog:, docs:)
+  |> Ok
 }
 
 fn parse_markdown_file(file: fs.File) -> document.Document {
