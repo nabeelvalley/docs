@@ -26,15 +26,21 @@ pub type Frontmatter {
   )
 }
 
+fn parse(content: String) {
+  mork.configure() |> mork.extended(True) |> mork.parse_with_options(content)
+}
+
 pub fn parse_markdown_file(file: fs.File) -> Result(MarkdownDocument, String) {
-  let doc = mork.parse(file.content)
+  let doc = parse(file.content)
   use frontmatter <- result.try(parse_frontmatter(file))
 
   Ok(MarkdownDocument(file.relative, frontmatter:, doc:))
 }
 
 fn parse_frontmatter(file: fs.File) -> Result(Frontmatter, String) {
-  let lines = string.split(file.content, "\n") |> list.map(string.trim)
+  let lines =
+    file.content |> string.trim |> string.split("\n") |> list.map(string.trim)
+
   let not_frontmatter_end = fn(str) { !string.starts_with(str, "---") }
 
   use frontmatter <- result.try(case lines {

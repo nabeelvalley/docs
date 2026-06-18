@@ -9,18 +9,23 @@ pub type Book {
 }
 
 pub type Collection {
-  Collection(blog: List(md.MarkdownDocument), docs: List(md.MarkdownDocument))
+  Collection(
+    blog: List(md.MarkdownDocument),
+    docs: List(md.MarkdownDocument),
+    talks: List(md.MarkdownDocument),
+  )
 }
 
 pub fn load_content() -> Result(Collection, String) {
-  let blog_dir = fs.join([consts.content_dir, "blog"])
-  let docs_dir = fs.join([consts.content_dir, "docs"])
+  use blog <- result.try(load_markdown_content("blog"))
+  use docs <- result.try(load_markdown_content("docs"))
+  use talks <- result.try(load_markdown_content("talks"))
 
-  use blog_files <- result.try(fs.load_content(blog_dir))
-  use docs_files <- result.try(fs.load_content(docs_dir))
+  Ok(Collection(blog:, docs:, talks:))
+}
 
-  let blog = result.values(list.map(blog_files, md.parse_markdown_file))
-  let docs = result.values(list.map(docs_files, md.parse_markdown_file))
-
-  Ok(Collection(blog:, docs:))
+fn load_markdown_content(rel: String) {
+  let rel_dir = fs.join([consts.content_dir, rel])
+  use rel_files <- result.try(fs.load_content(rel_dir))
+  Ok(result.values(list.map(rel_files, md.parse_markdown_file)))
 }

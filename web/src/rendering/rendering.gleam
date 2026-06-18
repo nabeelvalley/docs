@@ -4,7 +4,7 @@ import gleam/list
 import gleam/regexp
 import lustre/element
 import lustre/element/html
-import mork/to_lustre
+import mork
 import rendering/layout
 
 pub type Page {
@@ -14,8 +14,9 @@ pub type Page {
 pub fn render(collection: content.Collection) {
   let blog = collection.blog |> list.map(render_page("blog", _))
   let docs = collection.docs |> list.map(render_page("docs", _))
+  let talks = collection.talks |> list.map(render_page("talks", _))
 
-  let pages = [] |> list.append(blog) |> list.append(docs)
+  let pages = [] |> list.append(blog) |> list.append(docs) |> list.append(talks)
 
   pages
 }
@@ -27,9 +28,11 @@ fn to_slug(base: String, rel: String) {
 }
 
 fn render_page(base: String, doc: md.MarkdownDocument) {
-  let content = to_lustre.to_lustre(doc.doc)
+  let content =
+    mork.to_html(doc.doc)
+    |> element.unsafe_raw_html("http://www.w3.org/1999/xhtml", "div", [], _)
 
-  let main = html.main([], content)
+  let main = html.main([], [content])
   let html = layout.page(doc.frontmatter, main) |> element.to_document_string
 
   let slug = to_slug(base, doc.path)
