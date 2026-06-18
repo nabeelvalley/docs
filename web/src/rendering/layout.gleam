@@ -9,7 +9,7 @@ const base_description = "Software develpment, Photography and Design"
 
 pub fn page(frontmatter: md.Frontmatter, body) {
   let title = case frontmatter.title {
-    option.Some(t) -> t <> "-" <> base_title
+    option.Some(t) -> t <> " - " <> base_title
     option.None -> base_title
   }
 
