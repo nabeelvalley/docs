@@ -72,7 +72,7 @@ fn decode_frontmatter(doc: yay.Document) -> Result(Frontmatter, String) {
 
   use published <- result.try(bool("published"))
   use feature <- result.try(bool("feature"))
-  use rss_only <- result.try(bool("rss_only"))
+  use rss_only <- result.try(bool("rssOnly"))
 
   Ok(Frontmatter(title:, date:, description:, published:, feature:, rss_only:))
 }
