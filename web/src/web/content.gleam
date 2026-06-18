@@ -1,47 +1,26 @@
 import gleam/list
-import gleam/option.{type Option}
 import gleam/result
-import mork
-import mork/document
 import web/consts
 import web/fs
+import web/md
 
 pub type Book {
   Book(title: String, author: String, isbn: String)
 }
 
-pub type Frontmatter {
-  Frontmatter(
-    title: Option(String),
-    date: Option(String),
-    description: Option(String),
-    published: Bool,
-    feature: Bool,
-    rss_only: Bool,
-  )
-}
-
-pub type MarkdownDocument {
-  MarkdownDocument(frontmatter: Frontmatter, doc: document.Document)
-}
-
 pub type Collection {
-  Collection(blog: List(document.Document), docs: List(document.Document))
+  Collection(blog: List(md.MarkdownDocument), docs: List(md.MarkdownDocument))
 }
 
-pub fn load_content() {
+pub fn load_content() -> Result(Collection, String) {
   let blog_dir = fs.join([consts.content_dir, "blog"])
-  use blog_files <- result.try(fs.load_content(blog_dir))
-  let blog = list.map(blog_files, parse_markdown_file)
-
   let docs_dir = fs.join([consts.content_dir, "docs"])
+
+  use blog_files <- result.try(fs.load_content(blog_dir))
   use docs_files <- result.try(fs.load_content(docs_dir))
-  let docs = list.map(docs_files, parse_markdown_file)
 
-  Collection(blog:, docs:)
-  |> Ok
-}
+  let blog = result.values(list.map(blog_files, md.parse_markdown_file))
+  let docs = result.values(list.map(docs_files, md.parse_markdown_file))
 
-fn parse_markdown_file(file: fs.File) -> document.Document {
-  file.content |> mork.parse
+  Ok(Collection(blog:, docs:))
 }
