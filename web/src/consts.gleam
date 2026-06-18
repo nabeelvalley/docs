@@ -2,4 +2,4 @@
 
 pub const content_dir = "../src/content"
 
-pub const static_dir = "./static"
+pub const out_dir = "./out"

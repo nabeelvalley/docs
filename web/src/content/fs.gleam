@@ -8,28 +8,41 @@ pub type File {
 }
 
 fn read_dir_rec(at: String) -> Result(List(String), String) {
-  let dir =
-    simplifile.read_directory(at)
-    |> result.replace_error("Could not read dir: " <> at)
+  use is_dir <- result.try(
+    simplifile.is_directory(at)
+    |> result.replace_error("Could not read path: " <> at),
+  )
 
-  result.try(dir, fn(files_and_folders) {
-    use path <- list.try_map(files_and_folders)
+  case is_dir {
+    False -> Ok([at])
+    True -> {
+      use paths <- result.try(
+        simplifile.read_directory(at)
+        |> result.replace_error("Could not read dir: " <> at),
+      )
 
-    let inner = join([at, path])
-    use is_dir <- result.try(
-      simplifile.is_directory(inner)
-      |> result.replace_error("Could not read path: " <> inner),
-    )
-
-    let files = case is_dir {
-      True -> {
-        read_dir_rec(inner)
-      }
-      False -> Ok([inner])
+      paths
+      |> list.try_map(fn(p) { read_dir_rec(join([at, p])) })
+      |> result.map(list.flatten)
     }
-    files
-  })
-  |> result.map(list.flatten)
+  }
+}
+
+pub fn write(path: String, content: String) -> Result(Nil, String) {
+  let dir = parent(path)
+
+  use _ <- result.try(
+    simplifile.create_directory_all(dir)
+    |> result.replace_error("Failed to create dir: " <> dir),
+  )
+
+  simplifile.write(path, content)
+  |> result.replace_error("Failed to write file: " <> path)
+}
+
+pub fn delete(path: String) -> Result(Nil, String) {
+  simplifile.delete_all([path])
+  |> result.replace_error("Error deleting out dir")
 }
 
 pub fn load_content(at: String) -> Result(List(File), String) {
