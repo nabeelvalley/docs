@@ -9,6 +9,7 @@
   "dependencies": {
     "@parse5/tools": "^0.7.0",
     "js-yaml": "^4.2.0",
+    "marked": "^18.0.5",
     "parse5": "^8.0.1"
   }
 }

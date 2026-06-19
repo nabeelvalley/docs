@@ -3,16 +3,10 @@ import gleam/list
 import gleam/option.{type Option}
 import gleam/result
 import gleam/string
-import mork
-import mork/document
 import yay
 
 pub type MarkdownDocument {
-  MarkdownDocument(
-    path: String,
-    frontmatter: Frontmatter,
-    doc: document.Document,
-  )
+  MarkdownDocument(path: String, frontmatter: Frontmatter, html: String)
 }
 
 pub type Frontmatter {
@@ -26,29 +20,40 @@ pub type Frontmatter {
   )
 }
 
-fn parse(content: String) {
-  mork.configure() |> mork.extended(True) |> mork.parse_with_options(content)
+@external(javascript, "./md_ffi.mjs", "parse")
+fn parse(_md: String) -> String {
+  panic as "not supported for the given target"
 }
 
 pub fn parse_markdown_file(file: fs.File) -> Result(MarkdownDocument, String) {
-  let doc = parse(file.content)
-  use frontmatter <- result.try(parse_frontmatter(file))
+  use #(front, md) <- result.try(separate_frontmatter(file))
+  use frontmatter <- result.try(parse_frontmatter(front))
 
-  Ok(MarkdownDocument(file.relative, frontmatter:, doc:))
+  let html = parse(md)
+
+  Ok(MarkdownDocument(file.relative, frontmatter:, html:))
 }
 
-fn parse_frontmatter(file: fs.File) -> Result(Frontmatter, String) {
+fn separate_frontmatter(file: fs.File) -> Result(#(String, String), String) {
   let lines =
     file.content |> string.trim |> string.split("\n") |> list.map(string.trim)
 
   let not_frontmatter_end = fn(str) { !string.starts_with(str, "---") }
 
-  use frontmatter <- result.try(case lines {
-    ["---", ..rest] ->
-      list.take_while(rest, not_frontmatter_end) |> string.join("\n") |> Ok
-    _ -> Error("No frontmatter present:" <> file.path)
-  })
+  case lines {
+    ["---", ..rest] -> {
+      let #(front, content) = list.split_while(rest, not_frontmatter_end)
 
+      Ok(#(
+        front |> string.join("\n"),
+        content |> list.drop(1) |> string.join("\n"),
+      ))
+    }
+    _ -> Error("No frontmatter present:" <> file.path)
+  }
+}
+
+fn parse_frontmatter(frontmatter: String) -> Result(Frontmatter, String) {
   let parse_result =
     yay.parse_string(frontmatter)
     |> result.replace_error("Frontmatter is not valid YAML:\n" <> frontmatter)

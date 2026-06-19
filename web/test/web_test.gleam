@@ -8,13 +8,12 @@ import js/dom
 import lustre/attribute
 import lustre/element
 import lustre/element/html
-import mork
 
 pub fn main() -> Nil {
   gleeunit.main()
 }
 
-pub fn mork_parser_test() {
+pub fn markdown_parser_test() {
   let path = "my/file/path.md"
 
   let content =
@@ -44,9 +43,7 @@ This is a code snippet
   let file = fs.File(path, path, content:)
   let assert Ok(parsed) = md.parse_markdown_file(file)
 
-  parsed.doc
-  |> mork.to_html
-  |> dom.pretty
+  parsed.html
   |> birdie.snap(title: "basic rendered html from markdown")
 }
 
@@ -62,6 +59,8 @@ pub fn update_dom_test() {
     </p>
 
     <my-tag id=\"flag2\" data=\"child-data\"><h2>Child content</h2></my-tag>
+
+    <my-tag id=\"flag3\" data=\"self-closing\" />
   </body>"
 
   let result =

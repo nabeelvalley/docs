@@ -10,7 +10,6 @@ import js/dom
 import lustre/attribute
 import lustre/element
 import lustre/element/html
-import mork
 import rendering/layout
 
 const html_namespace = "http://www.w3.org/1999/xhtml"
@@ -37,7 +36,7 @@ fn to_slug(base: String, rel: String) {
 
 fn render_page(base: String, doc: md.MarkdownDocument) {
   let content =
-    mork.to_html(doc.doc)
+    doc.html
     |> element.unsafe_raw_html(html_namespace, "div", [], _)
 
   let main = html.main([], [content])

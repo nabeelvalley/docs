@@ -22,4 +22,10 @@ test_name: update_dom_test
   <meta name="id" value="flag2">
   <meta name="data" value="child-data">
 </div>
-  
+
+    <div class="parsed flag">
+  <meta name="children" value="
+  ">
+  <meta name="id" value="flag3">
+  <meta name="data" value="self-closing">
+</div>
