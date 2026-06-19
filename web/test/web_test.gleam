@@ -82,3 +82,31 @@ pub fn update_dom_test() {
   result
   |> birdie.snap("update html from tag visitor")
 }
+
+pub fn update_dom_self_closing_test() {
+  let html =
+    "
+    <my-tag id=\"flag1\" data=\"self-closing1\" />
+    <my-tag id=\"flag2\" data=\"self-closing2\" />
+    <my-tag id=\"flag3\" data=\"self-closing3\" />
+  "
+
+  let result =
+    dom.update(html:, tag: "my-tag", visit: fn(children, attrs) {
+      let content =
+        list.map(attrs, fn(a) {
+          let #(key, value) = a
+
+          html.meta([attribute.name(key), attribute.value(value)])
+        })
+
+      html.div([attribute.class("parsed flag")], [
+        html.meta([attribute.name("children"), attribute.value(children)]),
+        ..content
+      ])
+      |> element.to_readable_string
+    })
+
+  result
+  |> birdie.snap("respects custom self closing tags")
+}

@@ -1,0 +1,23 @@
+---
+version: 2.0.1
+title: respects custom self closing tags
+file: ./test/web_test.gleam
+test_name: update_dom_self_closing_test
+---
+
+    <div class="parsed flag">
+  <meta name="children" value>
+  <meta name="id" value="flag1">
+  <meta name="data" value="self-closing1">
+</div>
+    <div class="parsed flag">
+  <meta name="children" value>
+  <meta name="id" value="flag2">
+  <meta name="data" value="self-closing2">
+</div>
+    <div class="parsed flag">
+  <meta name="children" value>
+  <meta name="id" value="flag3">
+  <meta name="data" value="self-closing3">
+</div>
+  

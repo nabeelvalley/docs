@@ -1,16 +1,29 @@
 import { parseFragment, serialize } from 'parse5'
 import { queryAll, replaceWith } from '@parse5/tools'
+import { parseDocument, Parser, DomUtils } from 'htmlparser2'
 
+import{render} from 'dom-serializer'
 
 import { to_list as array_to_list }
-// @ts-expect-error relative this file's location in build/dev/javascript/web
+  // @ts-expect-error relative this file's location in build/dev/javascript/web
   from '../../gleam_javascript/gleam/javascript/array.mjs';
+
 
 /**
  * @param {string} html
  */
 export function pretty(html) {
-  return serialize(parseFragment(html))
+  const dom = parseDocument(html)
+  return render(dom)
+}
+
+/**
+ * @param {string} html
+ */
+function parse(html){
+return parseDocument(html, {
+    recognizeSelfClosing: true
+  })
 }
 
 /**
@@ -19,19 +32,18 @@ export function pretty(html) {
  * @param {(content: string, attrs: [key: string, value: string][]) => string} visit
  */
 export function update(html, tag, visit) {
-  const root = parseFragment(html)
+  const root = parse(html)
+  const els = DomUtils.getElementsByTagName(tag, root)
 
-  const nodes = queryAll(root, (node) => node.nodeName === tag)
 
-  for (const node of nodes) {
-    const attrs = node.attrs.map((/** @type {{ name: string; value: string; }} */ a) => [a.name,a.value])
+  for (const node of els) {
+    const attrs = node.attributes.map((a) => [a.name, a.value])
+    const updated = visit(render(node.children), array_to_list(attrs))
 
-    const updated = visit(serialize(node), array_to_list(attrs))
-    const element = parseFragment(updated)
-    replaceWith(node, ...element.childNodes)
+    DomUtils.replaceElement(node, parse(updated))
   }
 
 
-  return serialize(root)
+  return render(root)
 }
 

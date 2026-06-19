@@ -5,7 +5,7 @@ file: ./test/web_test.gleam
 test_name: update_dom_test
 ---
 
-  
+  <body>
     <h1>Heading</h1>
 
     <p>
@@ -18,14 +18,14 @@ test_name: update_dom_test
     </p>
 
     <div class="parsed flag">
-  <meta name="children" value="<h2>Child content</h2>">
+  <meta name="children" value="&lt;h2&gt;Child content&lt;/h2&gt;">
   <meta name="id" value="flag2">
   <meta name="data" value="child-data">
 </div>
 
     <div class="parsed flag">
-  <meta name="children" value="
-  ">
+  <meta name="children" value>
   <meta name="id" value="flag3">
   <meta name="data" value="self-closing">
 </div>
+  </body>
