@@ -45,14 +45,21 @@ pub fn delete(path: String) -> Result(Nil, String) {
   |> result.replace_error("Error deleting out dir")
 }
 
+pub fn read_file(path: String, rel: String) -> Result(File, String) {
+  use content <- result.map(
+    simplifile.read(path)
+    |> result.replace_error("error reading file: " <> path),
+  )
+  let relative = string.drop_start(path, string.length(rel) + 1)
+
+  File(content:, relative:, path:)
+}
+
 pub fn load_content(at: String) -> Result(List(File), String) {
   use paths <- result.map(read_dir_rec(at))
   use path <- list.filter_map(paths)
-  use content <- result.map(simplifile.read(path))
 
-  let relative = string.drop_start(path, string.length(at) + 1)
-
-  File(content:, relative:, path:)
+  read_file(path, at)
 }
 
 fn has_ext(file: File, ext: String) -> Bool {
@@ -82,4 +89,13 @@ pub fn is_child(file: File, dir: String) -> Bool {
 pub fn parent(path: String) -> String {
   let parts = path |> split
   parts |> list.take(list.length(parts) - 1) |> join
+}
+
+pub fn ext(path: String) -> String {
+  path
+  |> string.split("/")
+  |> list.last
+  |> result.map(string.split(_, on: "."))
+  |> result.try(list.last)
+  |> result.unwrap("")
 }
