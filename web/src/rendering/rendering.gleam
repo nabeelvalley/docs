@@ -5,6 +5,7 @@ import content/md
 import gleam/dict
 import gleam/list
 import gleam/regexp
+import gleam/result
 import js/dom
 import lustre/attribute
 import lustre/element
@@ -51,33 +52,32 @@ fn render_page(base: String, doc: md.MarkdownDocument) {
 }
 
 fn render_snippet(html: String) -> String {
-  use _, attrs <- dom.update(html:, tag: "snippet")
-  let path = dict.from_list(attrs) |> dict.get("path")
+  use _, raw_attrs <- dom.update(html:, tag: "snippet")
+  let attrs = dict.from_list(raw_attrs)
 
-  let el = case path {
-    Error(_) -> element.none()
-    Ok(p) -> {
-      let full_path = fs.join([consts.snippets_dir, p])
-      let file = fs.read_file(full_path, consts.snippets_dir)
+  {
+    use path <- result.try(dict.get(attrs, "path"))
 
-      case file {
-        Error(_) -> element.none()
-        Ok(f) -> {
-          let lang = fs.ext(f.relative)
+    let full_path = fs.join([consts.snippets_dir, path])
+    let read_file =
+      fs.read_file(full_path, consts.snippets_dir) |> result.replace_error(Nil)
 
-          html.figure([attribute.class("snippet")], [
-            html.figcaption([], [html.text(f.relative)]),
+    use file <- result.try(read_file)
 
-            html.pre([], [
-              html.code([attribute.class("language-" <> lang)], [
-                html.text(f.content),
-              ]),
-            ]),
-          ])
-        }
-      }
-    }
+    let lang = fs.ext(file.relative)
+
+    Ok(
+      html.figure([attribute.class("snippet")], [
+        html.figcaption([], [html.text(file.relative)]),
+
+        html.pre([], [
+          html.code([attribute.class("language-" <> lang)], [
+            html.text(file.content),
+          ]),
+        ]),
+      ]),
+    )
   }
-
-  el |> element.to_document_string
+  |> result.unwrap(element.none())
+  |> element.to_document_string
 }
