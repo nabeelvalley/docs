@@ -1,0 +1,14 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "license": "ISC",
+  "packageManager": "pnpm@10.4.1",
+  "dependencies": {
+    "@parse5/tools": "^0.7.0",
+    "js-yaml": "^4.2.0",
+    "parse5": "^8.0.1"
+  }
+}

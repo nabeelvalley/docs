@@ -1,0 +1,25 @@
+---
+version: 2.0.1
+title: update html from tag visitor
+file: ./test/web_test.gleam
+test_name: update_dom_test
+---
+
+  
+    <h1>Heading</h1>
+
+    <p>
+      Some content
+      <div class="parsed flag">
+  <meta name="children" value="Find me">
+  <meta name="id" value="flag1">
+  <meta name="data" value="some-data">
+</div>
+    </p>
+
+    <div class="parsed flag">
+  <meta name="children" value="<h2>Child content</h2>">
+  <meta name="id" value="flag2">
+  <meta name="data" value="child-data">
+</div>
+  
