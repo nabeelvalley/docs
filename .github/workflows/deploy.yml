@@ -19,7 +19,6 @@ jobs:
         name: Install pnpm
         with:
           version: 10
-          cache: true
       - uses: actions/checkout@v4
       - uses: erlef/setup-beam@v1
         with:
