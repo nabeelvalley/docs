@@ -1,8 +1,6 @@
-import { parseFragment, serialize } from 'parse5'
-import { queryAll, replaceWith } from '@parse5/tools'
-import { parseDocument, Parser, DomUtils } from 'htmlparser2'
+import { parseDocument, DomUtils } from 'htmlparser2'
 
-import{render} from 'dom-serializer'
+import { render } from 'dom-serializer'
 
 import { to_list as array_to_list }
   // @ts-expect-error relative this file's location in build/dev/javascript/web
@@ -20,8 +18,8 @@ export function pretty(html) {
 /**
  * @param {string} html
  */
-function parse(html){
-return parseDocument(html, {
+function parse(html) {
+  return parseDocument(html, {
     recognizeSelfClosing: true
   })
 }

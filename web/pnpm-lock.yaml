@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@parse5/tools':
-        specifier: ^0.7.0
-        version: 0.7.0(parse5@8.0.1)
       dom-serializer:
         specifier: ^3.1.1
         version: 3.1.1
@@ -23,16 +20,8 @@ importers:
       marked:
         specifier: ^18.0.5
         version: 18.0.5
-      parse5:
-        specifier: ^8.0.1
-        version: 8.0.1
 
 packages:
-
-  '@parse5/tools@0.7.0':
-    resolution: {integrity: sha512-JDvrGhc8kYBq7/SM4obJkpgwWo6pRjF/fo9CCaiJyVOkDf203Ciq2UF6TjzCFXKs7Q/zS2sS4deyBx0XzRvh9Q==}
-    peerDependencies:
-      parse5: 7.x || 8.x
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
@@ -70,14 +59,7 @@ packages:
     engines: {node: '>= 20'}
     hasBin: true
 
-  parse5@8.0.1:
-    resolution: {integrity: sha512-z1e/HMG90obSGeidlli3hj7cbocou0/wa5HacvI3ASx34PecNjNQeaHNo5WIZpWofN9kgkqV1q5YvXe3F0FoPw==}
-
 snapshots:
-
-  '@parse5/tools@0.7.0(parse5@8.0.1)':
-    dependencies:
-      parse5: 8.0.1
 
   argparse@2.0.1: {}
 
@@ -113,7 +95,3 @@ snapshots:
       argparse: 2.0.1
 
   marked@18.0.5: {}
-
-  parse5@8.0.1:
-    dependencies:
-      entities: 8.0.0
