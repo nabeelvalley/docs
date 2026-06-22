@@ -16,4 +16,5 @@ echo "gleam download complete"
 
 pnpm i
 
+gleam build
 gleam run
