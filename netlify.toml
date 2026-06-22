@@ -1,16 +1,16 @@
-[build]
-command = "pnpm run build"
-publish = "_site"
-base = ""
+# [build]
+# command = "pnpm run build"
+# publish = "_site"
+# base = ""
 
-[[redirects]]
-from = "https://nabeelvalley.netlify.app/*"
-to = "https://nabeelvalley.co.za/:splat"
-status = 301
-force = true
+# [[redirects]]
+# from = "https://nabeelvalley.netlify.app/*"
+# to = "https://nabeelvalley.co.za/:splat"
+# status = 301
+# force = true
 
-[[redirects]]
-from = "https://photography.nabeelvalley.co.za"
-to = "https://nabeelvalley.co.za/photography"
-status = 301
-force = true
+# [[redirects]]
+# from = "https://photography.nabeelvalley.co.za"
+# to = "https://nabeelvalley.co.za/photography"
+# status = 301
+# force = true
