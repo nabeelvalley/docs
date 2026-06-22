@@ -2,6 +2,8 @@
 
 wget https://github.com/gleam-lang/gleam/releases/download/v1.14.0/gleam-v1.14.0-aarch64-unknown-linux-musl.tar.gz
 
+ls -ll
+
 # wget https://github.com/gleam-lang/gleam/releases/download/v1.14.0/gleam-v1.14.0-aarch64-unknown-linux-musl.tar.gz.sha256
 
 # sha256sum -c gleam-v1.14.0-x86_64-unknown-linux-musl.tar.gz.sha256
