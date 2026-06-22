@@ -8,7 +8,7 @@ ls -ll
 
 # sha256sum -c gleam-v1.14.0-x86_64-unknown-linux-musl.tar.gz.sha256
 
-tar xf gleam-v1.14.0-x86_64-unknown-linux-musl.tar.gz
+tar -xf gleam-v1.14.0-x86_64-unknown-linux-musl.tar.gz
 
 chmod +x gleam
 mv gleam ~/.local/bin/
