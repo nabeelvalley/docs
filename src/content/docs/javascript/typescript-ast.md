@@ -280,6 +280,7 @@ const sourceFile = project.addSourceFileAtPath(path);
 
 const result = visitChildren(sourceFile);
 
+// just print the result as JSON, but this can of course be whatever
 console.log(JSON.stringify(result));
 ```
 
