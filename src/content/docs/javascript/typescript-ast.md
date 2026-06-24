@@ -135,6 +135,160 @@ export type Admin = {
 }
 ```
 
+## Update 24 June 2026
+
+Here's a small implementation of a generic type visitor that can be used to scrape files for information using `ts-morph`
+
+`describe.js`
+
+```ts
+/**
+ * Basic pattern for visiting nodes and scraping metadata from them
+ */
+import {
+  Project,
+  SyntaxKind,
+  Node,
+  type ImplementedKindToNodeMappings,
+} from 'ts-morph';
+
+// this is the data that the visitor needs to return
+interface Visited {
+  kind: string;
+  name?: string;
+  children?: Visited[];
+}
+
+// some helpers to make the tree traversal statically typed
+type SyntaxKindNames = keyof typeof SyntaxKind;
+type SyntaxKindFromName<N extends SyntaxKindNames> = (typeof SyntaxKind)[N] &
+  keyof ImplementedKindToNodeMappings;
+
+type Visitors<T = unknown> = {
+  [K in SyntaxKindNames]: (
+    node: ImplementedKindToNodeMappings[SyntaxKindFromName<K>],
+  ) => T | undefined;
+};
+
+// add any visitors here as needed
+const visitors: Partial<Visitors<Visited>> = {
+  Identifier: (node) => {
+    return { kind: node.getKindName(), name: node.getText() };
+  },
+  SyntaxList: (node) => {
+    return {
+      kind: node.getKindName(),
+      name: node.getKindName(),
+      children: visitChildren(node),
+    };
+  },
+  ImportDeclaration: (node) => {
+    return {
+      kind: node.getKindName(),
+      name: node.getModuleSpecifier().getLiteralText(),
+      children: [
+        visitNode(node.getDefaultImport()),
+        ...node.getNamedImports().map(visitNode),
+      ].filter(exits),
+    };
+  },
+  ImportSpecifier: (node) => {
+    return {
+      kind: node.getKindName(),
+      name: node.getName(),
+      isTypeOnly: node.isTypeOnly(),
+    };
+  },
+  ClassDeclaration: (node) => {
+    return {
+      kind: node.getKindName(),
+      name: node.getName(),
+      children: [
+        ...node.getProperties().map(visitNode),
+        ...node.getMembers().map(visitNode),
+      ],
+    };
+  },
+  ObjectLiteralExpression: (node) => {
+    return {
+      kind: node.getKindName(),
+      children: node.getProperties().map(visitNode),
+    };
+  },
+  PropertyAssignment: (node) => {
+    return {
+      kind: node.getKindName(),
+      name: node.getName(),
+      type: node.getType().getText(),
+    };
+  },
+  PropertyDeclaration: (node) => {
+    return {
+      kind: node.getKindName(),
+      name: node.getName(),
+      isReadonly: node.isReadonly,
+      type: node.getType().getText(),
+    };
+  },
+  MethodDeclaration: (node) => {
+    return {
+      kind: node.getKindName(),
+      name: node.getName(),
+      isReadonly: node.isReadonly,
+      type: node.getType().getText(),
+    };
+  },
+  StringLiteral: (node) => {
+    return {
+      kind: node.getKindName(),
+      value: node.getLiteralValue(),
+    };
+  },
+};
+
+function exits<T>(v?: T): v is Exclude<T, undefined> {
+  return typeof v !== 'undefined';
+}
+
+function visitNode(c?: Node) {
+  if (!c) {
+    return undefined;
+  }
+
+  const handle = visitors[c.getKindName() as keyof Visitors];
+
+  if (!handle) {
+    console.warn('No handler for', c.getKindName());
+  }
+
+  const typedHandle = handle as (c: Node) => Visited | undefined;
+
+  return typedHandle?.(c);
+}
+
+function visitChildren(node: Node) {
+  return node
+    .getChildren()
+    .map(visitNode)
+    .filter((c) => !!c);
+}
+
+const path = process.argv[process.argv.length - 1];
+const project = new Project();
+
+const sourceFile = project.addSourceFileAtPath(path);
+
+const result = visitChildren(sourceFile);
+
+console.log(JSON.stringify(result));
+```
+
+This can be used by running it directly with `node`. Piping to `jq` can also provide some nice highlighting:
+
+```sh
+node describe.ts path/to/file/to/describe/example.ts | jq
+```
+
 ## References
 
 In addition to using the AST Direcly, some libraries that are also handy for working with the Typescript AST are:
