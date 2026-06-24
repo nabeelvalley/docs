@@ -139,7 +139,7 @@ export type Admin = {
 
 Here's a small implementation of a generic type visitor that can be used to scrape files for information using `ts-morph`
 
-`describe.js`
+`describe.ts`
 
 ```ts
 /**
