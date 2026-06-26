@@ -14,10 +14,7 @@ fn generate(
 }
 
 pub fn optimize_image(path path: String) -> Promise(Result(String, String)) {
-  use re <- promise.try_await(promise.resolve(
-    regexp.from_string("[\\W_]+")
-    |> result.replace_error("Error creating regexp for file name replacement"),
-  ))
+  let assert Ok(re) = regexp.from_string("[\\W_]+")
 
   let out_dir = fs.join([consts.out_dir, "optimized"])
 

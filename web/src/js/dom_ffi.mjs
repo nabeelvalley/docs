@@ -27,21 +27,30 @@ function parse(html) {
 /**
  * @param {string} html
  * @param {string} tag
- * @param {(content: string, attrs: [key: string, value: string][]) => string} visit
  */
-export function update(html, tag, visit) {
+export function getNodes(html, tag) {
   const root = parse(html)
   const els = DomUtils.getElementsByTagName(tag, root)
 
+  const nodes = els.map(ref => {
+    const attrs = ref.attributes.map((a) => [a.name, a.value])
+    const html = render(ref.children)
 
-  for (const node of els) {
-    const attrs = node.attributes.map((a) => [a.name, a.value])
-    const updated = visit(render(node.children), array_to_list(attrs))
+    return [ref, array_to_list(attrs), html]
+  })
 
-    DomUtils.replaceElement(node, parse(updated))
+  return [root, array_to_list(nodes)]
+}
+
+
+/**
+ * @param {Parameters<render>[0]} root
+ * @param {[Parameters<DomUtils['replaceElement']>[0], string][]} els
+ */
+export function updateNodes(root, els) {
+  for (const el of els) {
+    DomUtils.replaceElement(el[0], parse(el[1]))
   }
-
 
   return render(root)
 }
-

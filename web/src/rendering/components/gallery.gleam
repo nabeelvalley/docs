@@ -4,7 +4,6 @@ import gleam/dict
 import gleam/list
 import gleam/result
 import js/dom
-import js/sharp
 import lustre/attribute
 import lustre/element
 import lustre/element/html
