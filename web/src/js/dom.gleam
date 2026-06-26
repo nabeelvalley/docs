@@ -1,3 +1,5 @@
+import gleam/javascript/promise.{type Promise}
+
 @external(javascript, "./dom_ffi.mjs", "pretty")
 pub fn pretty(_html: String) -> String {
   panic as "not supported for the given target"
@@ -7,7 +9,7 @@ pub fn pretty(_html: String) -> String {
 pub fn update(
   html _html: String,
   tag _tag: String,
-  visit _visit: fn(String, List(#(String, String))) -> String,
-) -> String {
+  visit _visit: fn(String, List(#(String, String))) -> Promise(String),
+) -> Promise(String) {
   panic as "not supported for the given target"
 }

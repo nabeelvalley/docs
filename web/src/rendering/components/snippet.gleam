@@ -1,13 +1,14 @@
 import consts
 import content/fs
 import gleam/dict
+import gleam/javascript/promise.{type Promise}
 import gleam/result
 import js/dom
 import lustre/attribute
 import lustre/element
 import lustre/element/html
 
-pub fn render_all(html: String) -> String {
+pub fn render_all(html: String) -> Promise(String) {
   use _, raw_attrs <- dom.update(html:, tag: "snippet")
   let attrs = dict.from_list(raw_attrs)
 
@@ -24,6 +25,7 @@ pub fn render_all(html: String) -> String {
   }
   |> result.unwrap(element.none())
   |> element.to_document_string
+  |> promise.resolve
 }
 
 fn render(title: String, code: String) {

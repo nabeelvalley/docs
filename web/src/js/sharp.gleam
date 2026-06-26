@@ -1,5 +1,6 @@
 import consts
 import content/fs
+import gleam/io
 import gleam/javascript/promise.{type Promise}
 import gleam/regexp
 import gleam/result
@@ -27,5 +28,8 @@ pub fn optimize_image(path path: String) -> Promise(Result(String, String)) {
   let out_path = fs.join([out_dir, out_name])
 
   generate(path, out_path, consts.default_img_width)
+  |> promise.tap(fn(_) {
+    io.println("Optimized image " <> path <> " to " <> out_path)
+  })
   |> promise.map(result.replace(_, out_path))
 }

@@ -27,20 +27,18 @@ function parse(html) {
 /**
  * @param {string} html
  * @param {string} tag
- * @param {(content: string, attrs: [key: string, value: string][]) => string} visit
+ * @param {(content: string, attrs: [key: string, value: string][]) => Promise<string>} visit
  */
-export function update(html, tag, visit) {
+export async function update(html, tag, visit) {
   const root = parse(html)
   const els = DomUtils.getElementsByTagName(tag, root)
 
-
   for (const node of els) {
     const attrs = node.attributes.map((a) => [a.name, a.value])
-    const updated = visit(render(node.children), array_to_list(attrs))
+    const updated = await visit(render(node.children), array_to_list(attrs))
 
     DomUtils.replaceElement(node, parse(updated))
   }
-
 
   return render(root)
 }

@@ -65,7 +65,7 @@ pub fn update_dom_test() {
     <my-tag id=\"flag3\" data=\"self-closing\" />
   </body>"
 
-  let result =
+  use result <- promise.await(
     dom.update(html:, tag: "my-tag", visit: fn(children, attrs) {
       let content =
         list.map(attrs, fn(a) {
@@ -79,10 +79,13 @@ pub fn update_dom_test() {
         ..content
       ])
       |> element.to_readable_string
-    })
+      |> promise.resolve
+    }),
+  )
 
   result
   |> birdie.snap("update html from tag visitor")
+  |> promise.resolve
 }
 
 pub fn update_dom_self_closing_test() {
@@ -93,7 +96,7 @@ pub fn update_dom_self_closing_test() {
     <my-tag id=\"flag3\" data=\"self-closing3\" />
   "
 
-  let result =
+  use result <- promise.await(
     dom.update(html:, tag: "my-tag", visit: fn(children, attrs) {
       let content =
         list.map(attrs, fn(a) {
@@ -107,10 +110,13 @@ pub fn update_dom_self_closing_test() {
         ..content
       ])
       |> element.to_readable_string
-    })
+      |> promise.resolve
+    }),
+  )
 
   result
   |> birdie.snap("respects custom self closing tags")
+  |> promise.resolve
 }
 
 pub fn sharp_test() {
@@ -120,5 +126,5 @@ pub fn sharp_test() {
 
   let assert Ok(path) = res
 
-  path |> birdie.snap("result of sharp conversion") |> promise.resolve()
+  path |> birdie.snap("result of sharp conversion") |> promise.resolve
 }

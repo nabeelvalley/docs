@@ -1,6 +1,7 @@
 import consts
 import content/fs
 import gleam/dict
+import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/result
 import js/dom
@@ -13,7 +14,7 @@ type Image {
   Image(path: String)
 }
 
-pub fn render_all(html: String) -> String {
+pub fn render_all(html: String) -> Promise(String) {
   use _, raw_attrs <- dom.update(html:, tag: "gallery")
   let attrs = dict.from_list(raw_attrs)
 
@@ -25,19 +26,24 @@ pub fn render_all(html: String) -> String {
     use files <- result.try(
       fs.ls_dir(gallery_path) |> result.replace_error(Nil),
     )
-
-    let images =
+    {
       files
       |> list.map(fn(f) {
-        // use created <- sharp.optimize_image(f.path)
-        let slug = fs.replace(full: f.path, rel: consts.gallery_dir)
-        Image(slug)
+        use path <- promise.try_await(sharp.optimize_image(f.path))
+        Image(path) |> Ok |> promise.resolve
       })
-
-    Ok(render(images))
+      |> promise.await_list
+      |> promise.map(fn(res) {
+        res
+        |> result.all
+        |> result.map(render)
+      })
+    }
+    |> Ok
   }
-  |> result.unwrap(element.none())
-  |> element.to_document_string
+  |> result.unwrap(promise.resolve(element.none() |> Ok))
+  |> promise.map(result.unwrap(_, element.none()))
+  |> promise.map(element.to_document_string)
 }
 
 fn render(paths: List(Image)) {

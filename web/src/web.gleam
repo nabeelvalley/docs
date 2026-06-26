@@ -2,21 +2,23 @@ import consts
 import content/content
 import content/fs
 import gleam/io
+import gleam/javascript/promise.{type Promise}
 import gleam/list
-import gleam/result
 import rendering/rendering
 
-pub fn main() -> Result(Nil, String) {
+pub fn main() -> Promise(Result(Nil, String)) {
   // delete contents since rendering might output artifacts
   // that may also be written to disc
-  use _ <- result.try(fs.delete(consts.out_dir))
+  use _ <- promise.try_await(fs.delete(consts.out_dir) |> promise.resolve)
+  use content <- promise.try_await(content.load_content() |> promise.resolve)
 
-  use content <- result.try(content.load_content())
   io.println("Loaded content")
 
-  use _ <- result.try(fs.copy_dir(consts.public_dir, consts.out_dir))
+  use _ <- promise.try_await(
+    fs.copy_dir(consts.public_dir, consts.out_dir) |> promise.resolve,
+  )
 
-  let pages = rendering.render(content)
+  use pages <- promise.await(rendering.render(content))
 
   let result =
     pages
@@ -30,5 +32,5 @@ pub fn main() -> Result(Nil, String) {
     Error(e) -> io.println_error(e)
   }
 
-  result
+  promise.resolve(result)
 }

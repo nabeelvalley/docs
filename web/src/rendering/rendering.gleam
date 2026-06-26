@@ -1,5 +1,6 @@
 import content/content
 import content/md
+import gleam/javascript/promise
 import gleam/list
 import gleam/option.{None}
 import gleam/regexp
@@ -21,12 +22,18 @@ pub fn render(collection: content.Collection) {
   let docs = collection.docs |> list.map(render_md_page("docs", _))
   let talks = collection.talks |> list.map(render_md_page("talks", _))
 
-  let md_pages =
-    [] |> list.append(blog) |> list.append(docs) |> list.append(talks)
+  let md_page_tasks =
+    []
+    |> list.append(blog)
+    |> list.append(docs)
+    |> list.append(talks)
+    |> promise.await_list
 
-  let pages = [render_index(md_pages)]
+  use md_pages <- promise.await(md_page_tasks)
 
-  pages |> list.append(md_pages)
+  use index <- promise.await(render_index(md_pages))
+
+  [index, ..md_pages] |> promise.resolve
 }
 
 fn to_slug(base: String, rel: String) {
@@ -50,7 +57,7 @@ fn render_index(pages: List(Page)) {
     |> layout.page(meta)
     |> element.to_document_string
 
-  Page("index", meta, html)
+  Page("index", meta, html) |> promise.resolve
 }
 
 fn render_md_page(base: String, doc: md.MarkdownDocument) {
@@ -65,14 +72,16 @@ fn render_md_page(base: String, doc: md.MarkdownDocument) {
       doc.frontmatter.date,
     )
 
-  let html =
+  let html_task =
     html.main([], [content])
     |> layout.page(meta)
     |> element.to_document_string
     |> snippet.render_all
-    |> gallery.render_all
+    |> promise.await(gallery.render_all)
 
   let slug = to_slug(base, doc.path)
 
-  Page(slug, meta, html)
+  use html <- promise.await(html_task)
+
+  Page(slug, meta, html) |> promise.resolve
 }
