@@ -5,6 +5,7 @@ import gleam/list
 import gleam/string
 import gleeunit
 import js/dom
+import js/sharp
 import lustre/attribute
 import lustre/element
 import lustre/element/html
@@ -109,4 +110,16 @@ pub fn update_dom_self_closing_test() {
 
   result
   |> birdie.snap("respects custom self closing tags")
+}
+
+pub fn sharp_test() {
+  use res <- sharp.resize_image(
+    "../public/images/home/code.jpg",
+    "./out/sharp/test",
+    1000,
+  )
+
+  let assert Ok(path) = res
+
+  path |> birdie.snap("result of sharp conversion")
 }

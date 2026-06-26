@@ -7,12 +7,16 @@ import gleam/result
 import rendering/rendering
 
 pub fn main() -> Result(Nil, String) {
+  // delete contents since rendering might output artifacts
+  // that may also be written to disc
+  use _ <- result.try(fs.delete(consts.out_dir))
+
   use content <- result.try(content.load_content())
   io.println("Loaded content")
 
-  let pages = rendering.render(content)
+  use _ <- result.try(fs.copy_dir(consts.public_dir, consts.out_dir))
 
-  use _ <- result.try(fs.delete(consts.out_dir))
+  let pages = rendering.render(content)
 
   let result =
     pages

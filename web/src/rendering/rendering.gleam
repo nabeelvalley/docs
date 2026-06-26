@@ -1,31 +1,32 @@
-import consts
 import content/content
-import content/fs
 import content/md
-import gleam/dict
 import gleam/list
+import gleam/option.{None}
 import gleam/regexp
-import gleam/result
-import js/dom
 import lustre/attribute
 import lustre/element
 import lustre/element/html
+import rendering/components/gallery
+import rendering/components/snippet
 import rendering/layout
 
 const html_namespace = "http://www.w3.org/1999/xhtml"
 
 pub type Page {
-  Page(slug: String, html: String)
+  Page(slug: String, meta: layout.Meta, html: String)
 }
 
 pub fn render(collection: content.Collection) {
-  let blog = collection.blog |> list.map(render_page("blog", _))
-  let docs = collection.docs |> list.map(render_page("docs", _))
-  let talks = collection.talks |> list.map(render_page("talks", _))
+  let blog = collection.blog |> list.map(render_md_page("blog", _))
+  let docs = collection.docs |> list.map(render_md_page("docs", _))
+  let talks = collection.talks |> list.map(render_md_page("talks", _))
 
-  let pages = [] |> list.append(blog) |> list.append(docs) |> list.append(talks)
+  let md_pages =
+    [] |> list.append(blog) |> list.append(docs) |> list.append(talks)
 
-  pages
+  let pages = [render_index(md_pages)]
+
+  pages |> list.append(md_pages)
 }
 
 fn to_slug(base: String, rel: String) {
@@ -34,49 +35,44 @@ fn to_slug(base: String, rel: String) {
   base <> "/" <> regexp.replace(re, rel, "")
 }
 
-fn render_page(base: String, doc: md.MarkdownDocument) {
+fn render_index(pages: List(Page)) {
+  let meta = layout.Meta(None, None, None)
+  let html =
+    pages
+    |> list.map(fn(p) {
+      html.li([], [
+        html.a([attribute.href(p.slug)], [
+          html.text(option.unwrap(p.meta.title, p.slug)),
+        ]),
+      ])
+    })
+    |> html.ul([], _)
+    |> layout.page(meta)
+    |> element.to_document_string
+
+  Page("index", meta, html)
+}
+
+fn render_md_page(base: String, doc: md.MarkdownDocument) {
   let content =
     doc.html
     |> element.unsafe_raw_html(html_namespace, "div", [], _)
 
-  let main = html.main([], [content])
+  let meta =
+    layout.Meta(
+      doc.frontmatter.title,
+      doc.frontmatter.description,
+      doc.frontmatter.date,
+    )
+
   let html =
-    layout.page(doc.frontmatter, main)
+    html.main([], [content])
+    |> layout.page(meta)
     |> element.to_document_string
-    |> render_snippet
+    |> snippet.render_all
+    |> gallery.render_all
 
   let slug = to_slug(base, doc.path)
 
-  Page(slug, html)
-}
-
-fn render_snippet(html: String) -> String {
-  use _, raw_attrs <- dom.update(html:, tag: "snippet")
-  let attrs = dict.from_list(raw_attrs)
-
-  {
-    use path <- result.try(dict.get(attrs, "path"))
-
-    let full_path = fs.join([consts.snippets_dir, path])
-    let read_file =
-      fs.read_file(full_path, consts.snippets_dir) |> result.replace_error(Nil)
-
-    use file <- result.try(read_file)
-
-    let lang = fs.ext(file.relative)
-
-    Ok(
-      html.figure([attribute.class("snippet")], [
-        html.figcaption([], [html.text(file.relative)]),
-
-        html.pre([], [
-          html.code([attribute.class("language-" <> lang)], [
-            html.text(file.content),
-          ]),
-        ]),
-      ]),
-    )
-  }
-  |> result.unwrap(element.none())
-  |> element.to_document_string
+  Page(slug, meta, html)
 }

@@ -1,5 +1,4 @@
-import content/md
-import gleam/option
+import gleam/option.{type Option}
 import lustre/attribute
 import lustre/element/html
 
@@ -7,13 +6,17 @@ const base_title = "Nabeel Valley"
 
 const base_description = "Software develpment, Photography and Design"
 
-pub fn page(frontmatter: md.Frontmatter, body) {
-  let title = case frontmatter.title {
+pub type Meta {
+  Meta(title: Option(String), description: Option(String), date: Option(String))
+}
+
+pub fn page(body, meta: Meta) {
+  let title = case meta.title {
     option.Some(t) -> t <> " - " <> base_title
     option.None -> base_title
   }
 
-  let description = option.unwrap(frontmatter.description, base_description)
+  let description = option.unwrap(meta.description, base_description)
 
   html.html([], [
     html.head([], [

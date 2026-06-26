@@ -7,6 +7,10 @@ pub type File {
   File(path: String, relative: String, content: String)
 }
 
+pub type Path {
+  Path(path: String, relative: String)
+}
+
 fn read_dir_rec(at: String) -> Result(List(String), String) {
   use is_dir <- result.try(
     simplifile.is_directory(at)
@@ -42,7 +46,12 @@ pub fn write(path: String, content: String) -> Result(Nil, String) {
 
 pub fn delete(path: String) -> Result(Nil, String) {
   simplifile.delete_all([path])
-  |> result.replace_error("Error deleting out dir")
+  |> result.replace_error("Error deleting dir " <> path)
+}
+
+pub fn copy_dir(at at: String, to to: String) -> Result(Nil, String) {
+  simplifile.copy_directory(at:, to:)
+  |> result.replace_error("Error copying dir " <> at <> " to " <> to)
 }
 
 pub fn read_file(path: String, rel: String) -> Result(File, String) {
@@ -53,6 +62,19 @@ pub fn read_file(path: String, rel: String) -> Result(File, String) {
   let relative = string.drop_start(path, string.length(rel) + 1)
 
   File(content:, relative:, path:)
+}
+
+pub fn ls_dir(at: String) -> Result(List(Path), String) {
+  use names <- result.try(
+    simplifile.read_directory(at)
+    |> result.replace_error("Error reading dir " <> at),
+  )
+
+  let paths =
+    names
+    |> list.map(fn(p) { Path(join([at, p]), p) })
+
+  Ok(paths)
 }
 
 pub fn load_content(at: String) -> Result(List(File), String) {
@@ -91,6 +113,10 @@ pub fn parent(path: String) -> String {
   parts |> list.take(list.length(parts) - 1) |> join
 }
 
+pub fn replace(full full, rel rel) {
+  string.replace(full, rel, "")
+}
+
 pub fn ext(path: String) -> String {
   path
   |> string.split("/")
@@ -98,4 +124,18 @@ pub fn ext(path: String) -> String {
   |> result.map(string.split(_, on: "."))
   |> result.try(list.last)
   |> result.unwrap("")
+}
+
+pub fn ensure_dir_exists(path: String) {
+  use is_dir <- result.try(
+    simplifile.is_directory(path)
+    |> result.replace_error("Error checking if directory exists" <> path),
+  )
+
+  case is_dir {
+    True -> Ok(Nil)
+    False ->
+      simplifile.create_directory_all(path)
+      |> result.replace_error("Error creating directory " <> path)
+  }
 }

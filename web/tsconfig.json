@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "include": [
     "./src/**/*.mjs"
   ],
@@ -9,6 +10,9 @@
     "checkJs": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "lib": [
+      "ESNext"
+    ]
   }
 }
