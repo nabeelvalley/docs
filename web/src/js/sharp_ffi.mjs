@@ -1,5 +1,4 @@
 import Sharp from 'sharp'
-import { join } from 'node:path'
 
 
 import { Result$Ok, Result$Error }
@@ -9,24 +8,21 @@ import { Result$Ok, Result$Error }
 
 /**
  * @param {string} inputFile
- * @param {string} outDir
+ * @param {string} outputFile
  * @param {number} width
- * @param {(result: unknown) => void} cb
  */
-export async function generate(inputFile, outDir, width, cb) {
+export async function generate(inputFile, outputFile, width) {
   try {
-    const fileName = inputFile.replace(/[\W_]+/g, "_");
-    const outPath = join(outDir, fileName + '.webp')
-
     const sharp = new Sharp(inputFile)
 
     await sharp.resize({
       width
-    }).toFormat('webp').toFile(outPath).catch(console.error)
+    }).toFormat('webp')
+    .toFile(outputFile)
 
-    cb(Result$Ok(outPath))
+    return Result$Ok()
   } catch (err) {
-    cb(Result$Error(`${err}`))
+    return Result$Error(`${err}`)
   }
 }
 

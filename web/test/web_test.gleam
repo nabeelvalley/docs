@@ -1,6 +1,7 @@
 import birdie
 import content/fs
 import content/md
+import gleam/javascript/promise
 import gleam/list
 import gleam/string
 import gleeunit
@@ -113,13 +114,11 @@ pub fn update_dom_self_closing_test() {
 }
 
 pub fn sharp_test() {
-  use res <- sharp.resize_image(
+  use res <- promise.await(sharp.optimize_image(
     "../public/images/home/code.jpg",
-    "./out/sharp/test",
-    1000,
-  )
+  ))
 
   let assert Ok(path) = res
 
-  path |> birdie.snap("result of sharp conversion")
+  path |> birdie.snap("result of sharp conversion") |> promise.resolve()
 }

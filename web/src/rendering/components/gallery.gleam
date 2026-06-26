@@ -4,6 +4,7 @@ import gleam/dict
 import gleam/list
 import gleam/result
 import js/dom
+import js/sharp
 import lustre/attribute
 import lustre/element
 import lustre/element/html
@@ -20,7 +21,6 @@ pub fn render_all(html: String) -> String {
     use path <- result.try(dict.get(attrs, "path"))
 
     let gallery_path = fs.join([consts.gallery_dir, path])
-    echo #(path, gallery_path)
 
     use files <- result.try(
       fs.ls_dir(gallery_path) |> result.replace_error(Nil),
@@ -29,8 +29,11 @@ pub fn render_all(html: String) -> String {
     let images =
       files
       |> list.map(fn(f) {
-        Image(fs.replace(full: f.path, rel: consts.gallery_dir))
+        // use created <- sharp.optimize_image(f.path)
+        let slug = fs.replace(full: f.path, rel: consts.gallery_dir)
+        Image(slug)
       })
+
     Ok(render(images))
   }
   |> result.unwrap(element.none())
