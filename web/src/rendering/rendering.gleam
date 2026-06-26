@@ -3,30 +3,33 @@ import content/md
 import gleam/list
 import gleam/option.{None}
 import gleam/regexp
+import gleam/result
 import lustre/attribute
 import lustre/element
 import lustre/element/html
 import rendering/components/gallery
 import rendering/components/snippet
 import rendering/layout
+import rendering/assets.{type Page, Meta, Page}
 
 const html_namespace = "http://www.w3.org/1999/xhtml"
 
-pub type Page {
-  Page(slug: String, meta: layout.Meta, html: String)
-}
-
-pub fn render(collection: content.Collection) {
+pub fn render(collection: content.Collection) -> Result(List(Page), String) {
   let blog = collection.blog |> list.map(render_md_page("blog", _))
   let docs = collection.docs |> list.map(render_md_page("docs", _))
   let talks = collection.talks |> list.map(render_md_page("talks", _))
 
-  let md_pages =
-    [] |> list.append(blog) |> list.append(docs) |> list.append(talks)
+  let md_pages_result =
+    []
+    |> list.append(blog)
+    |> list.append(docs)
+    |> list.append(talks)
+    |> result.all
 
-  let pages = [render_index(md_pages)]
+  use md_pages <- result.try(md_pages_result)
+  let index = render_index(md_pages)
 
-  pages |> list.append(md_pages)
+  [index] |> list.append(md_pages) |> Ok
 }
 
 fn to_slug(base: String, rel: String) {
@@ -36,7 +39,7 @@ fn to_slug(base: String, rel: String) {
 }
 
 fn render_index(pages: List(Page)) {
-  let meta = layout.Meta(None, None, None)
+  let meta = Meta(None, None, None)
   let html =
     pages
     |> list.map(fn(p) {
@@ -50,29 +53,37 @@ fn render_index(pages: List(Page)) {
     |> layout.page(meta)
     |> element.to_document_string
 
-  Page("index", meta, html)
+  Page("index", meta, html, [])
 }
 
 fn render_md_page(base: String, doc: md.MarkdownDocument) {
-  let content =
-    doc.html
-    |> element.unsafe_raw_html(html_namespace, "div", [], _)
-
   let meta =
-    layout.Meta(
+    Meta(
       doc.frontmatter.title,
       doc.frontmatter.description,
       doc.frontmatter.date,
     )
 
-  let html =
-    html.main([], [content])
-    |> layout.page(meta)
-    |> element.to_document_string
-    |> snippet.render_all
-    |> gallery.render_all
-
   let slug = to_slug(base, doc.path)
 
-  Page(slug, meta, html)
+  use processed <- result.try(
+    Page(slug, meta, doc.html, [])
+    |> process_page([
+      snippet.render_all,
+      gallery.render_all,
+    ]),
+  )
+
+  let html =
+    html.main([], [
+      element.unsafe_raw_html(html_namespace, "article", [], processed.html),
+    ])
+    |> layout.page(meta)
+    |> element.to_document_string
+
+  Ok(Page(..processed, html:))
+}
+
+fn process_page(base, processors) {
+  list.try_fold(processors, base, fn(page, proc) { proc(page) })
 }

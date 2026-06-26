@@ -1,28 +1,23 @@
 import consts
 import content/fs
 import gleam/javascript/promise.{type Promise}
-import gleam/regexp
-import gleam/result
 
 @external(javascript, "./sharp_ffi.mjs", "generate")
 fn generate(
   _input_file: String,
   _output_file: String,
-  _width: Int,
+  _size: Int,
 ) -> Promise(Result(Nil, String)) {
   panic as "not supported for the given target"
 }
 
-pub fn optimize_image(path path: String) -> Promise(Result(String, String)) {
-  let assert Ok(re) = regexp.from_string("[\\W_]+")
-
-  let out_dir = fs.join([consts.out_dir, "optimized"])
+pub fn optimize_image(
+  in_path in_path: String,
+  out_path out_path: String,
+) -> Promise(Result(Nil, String)) {
+  let out_dir = out_path |> fs.parent
 
   use _ <- promise.await(promise.resolve(fs.ensure_dir_exists(out_dir)))
 
-  let out_name = regexp.replace(re, in: path, with: "_") <> ".webp"
-  let out_path = fs.join([out_dir, out_name])
-
-  generate(path, out_path, consts.default_img_width)
-  |> promise.map(result.replace(_, out_path))
+  generate(in_path, out_path, consts.img_size)
 }

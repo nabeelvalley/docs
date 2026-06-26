@@ -5,11 +5,13 @@ import gleam/javascript/promise
 import gleam/list
 import gleam/string
 import gleeunit
+import gleeunit/should
 import js/dom
 import js/sharp
 import lustre/attribute
 import lustre/element
 import lustre/element/html
+import simplifile
 
 pub fn main() -> Nil {
   gleeunit.main()
@@ -65,23 +67,26 @@ pub fn update_dom_test() {
     <my-tag id=\"flag3\" data=\"self-closing\" />
   </body>"
 
-  let result =
-    dom.update(html:, tag: "my-tag", visit: fn(children, attrs) {
+  let #(root, nodes) = dom.get_nodes(html:, tag: "my-tag")
+  let updates =
+    nodes
+    |> list.map(fn(node) {
       let content =
-        list.map(attrs, fn(a) {
+        list.map(node.attrs, fn(a) {
           let #(key, value) = a
 
           html.meta([attribute.name(key), attribute.value(value)])
         })
 
       html.div([attribute.class("parsed flag")], [
-        html.meta([attribute.name("children"), attribute.value(children)]),
+        html.meta([attribute.name("children"), attribute.value(node.content)]),
         ..content
       ])
       |> element.to_readable_string
+      |> dom.NodeUpdate(node.node, _)
     })
 
-  result
+  dom.update_nodes(root, updates)
   |> birdie.snap("update html from tag visitor")
 }
 
@@ -93,32 +98,38 @@ pub fn update_dom_self_closing_test() {
     <my-tag id=\"flag3\" data=\"self-closing3\" />
   "
 
-  let result =
-    dom.update(html:, tag: "my-tag", visit: fn(children, attrs) {
+  let #(root, nodes) = dom.get_nodes(html:, tag: "my-tag")
+
+  let updates =
+    nodes
+    |> list.map(fn(node) {
       let content =
-        list.map(attrs, fn(a) {
+        list.map(node.attrs, fn(a) {
           let #(key, value) = a
 
           html.meta([attribute.name(key), attribute.value(value)])
         })
 
       html.div([attribute.class("parsed flag")], [
-        html.meta([attribute.name("children"), attribute.value(children)]),
+        html.meta([attribute.name("children"), attribute.value(node.content)]),
         ..content
       ])
       |> element.to_readable_string
+      |> dom.NodeUpdate(node.node, _)
     })
 
-  result
+  dom.update_nodes(root, updates)
   |> birdie.snap("respects custom self closing tags")
 }
 
 pub fn sharp_test() {
-  use res <- promise.await(sharp.optimize_image(
-    "../public/images/home/code.jpg",
+  let out_path = "./out/test/images/home/code.jpg"
+  use _ <- promise.await(sharp.optimize_image(
+    in_path: "../public/images/home/code.jpg",
+    out_path:,
   ))
 
-  let assert Ok(path) = res
+  let assert Ok(is_file) = simplifile.is_file(out_path)
 
-  path |> birdie.snap("result of sharp conversion") |> promise.resolve()
+  should.be_true(is_file) |> promise.resolve
 }

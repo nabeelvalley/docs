@@ -1,14 +1,11 @@
-import gleam/option.{type Option}
+import gleam/option
 import lustre/attribute
 import lustre/element/html
+import rendering/assets.{type Meta}
 
 const base_title = "Nabeel Valley"
 
 const base_description = "Software develpment, Photography and Design"
-
-pub type Meta {
-  Meta(title: Option(String), description: Option(String), date: Option(String))
-}
 
 pub fn page(body, meta: Meta) {
   let title = case meta.title {

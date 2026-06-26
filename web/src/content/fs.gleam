@@ -100,8 +100,8 @@ pub fn join(parts: List(String)) -> String {
   string.join(parts, with: "/")
 }
 
-pub fn split(str: String) -> List(String) {
-  string.split(str, "/")
+pub fn split(path: String) -> List(String) {
+  string.split(path, "/")
 }
 
 pub fn is_child(file: File, dir: String) -> Bool {

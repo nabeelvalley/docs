@@ -56,8 +56,7 @@ Below we have a button that uses this - each time it is pressed in one tab - it 
 The code for this can be seen below:
 
 <Snippet
-  base="./src/snippets/localstorage-sync"
-  path="SynchronizedButton.astro"
+  path="localstorage-sync/SynchronizedButton.astro"
 />
 
 ## Generic Implementation
@@ -113,8 +112,7 @@ export const createSyncWriter =
 Our reader function will call the provided `onChange` callback that is provided to it when the data is changed with the parsed data. We can implement the same button as above using this new code as can be seen below:
 
 <Snippet
-  base="./src/snippets/localstorage-sync"
-  path="SynchronizedButtonRefactor.astro"
+  path="localstorage-sync/SynchronizedButtonRefactor.astro"
 />
 
 And for the the sake of being complete, we can see the refactored button running below:

@@ -1,29 +1,40 @@
 import consts
 import content/fs
 import gleam/dict
+import gleam/list
 import gleam/result
 import js/dom
 import lustre/attribute
 import lustre/element
 import lustre/element/html
+import rendering/assets.{type Page, Page}
 
-pub fn render_all(html: String) -> String {
-  use _, raw_attrs <- dom.update(html:, tag: "snippet")
-  let attrs = dict.from_list(raw_attrs)
+pub fn render_all(page: Page) -> Result(Page, String) {
+  let #(root, nodes) = dom.get_nodes(page.html, tag: "snippet")
 
-  {
-    use path <- result.try(dict.get(attrs, "path"))
+  let updates =
+    nodes
+    |> list.try_map(fn(node) {
+      let attrs = dict.from_list(node.attrs)
+      use path <- result.try(
+        dict.get(attrs, "path")
+        |> result.replace_error("could not read path for snippet"),
+      )
 
-    let full_path = fs.join([consts.snippets_dir, path])
-    let read_file =
-      fs.read_file(full_path, consts.snippets_dir) |> result.replace_error(Nil)
+      let full_path = fs.join([consts.snippets_dir, path])
+      let read_file = fs.read_file(full_path, consts.snippets_dir)
+      use file <- result.map(read_file)
 
-    use file <- result.try(read_file)
+      render(file.relative, file.content)
+      |> element.to_document_string
+      |> dom.NodeUpdate(node.node, _)
+    })
 
-    Ok(render(file.relative, file.content))
-  }
-  |> result.unwrap(element.none())
-  |> element.to_document_string
+  use update_nodes <- result.try(updates)
+
+  let html = dom.update_nodes(root, update_nodes)
+
+  Ok(Page(..page, html:))
 }
 
 fn render(title: String, code: String) {

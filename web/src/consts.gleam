@@ -10,4 +10,4 @@ pub const gallery_dir = "../src/photography"
 
 pub const out_dir = "./out"
 
-pub const default_img_width = 2000
+pub const img_size = 2000

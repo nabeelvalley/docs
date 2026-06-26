@@ -5,40 +5,58 @@ pub fn pretty(_html: String) -> String {
   panic as "not supported for the given target"
 }
 
-type RootRef
+pub type JSRootRef
 
-type NodeRef
+pub type JSNodeRef
 
-type Node =
-  #(NodeRef, List(#(String, String)), String)
+pub type JSNode =
+  #(JSNodeRef, Attrs, String)
 
-type NodeUpdate =
-  #(NodeRef, String)
+pub type JSNodeUpdate =
+  #(JSNodeRef, String)
+
+pub type Attrs =
+  List(#(String, String))
 
 @external(javascript, "./dom_ffi.mjs", "getNodes")
-fn get_nodes(_html: String, _tag: String) -> #(RootRef, List(Node)) {
+fn raw_get_nodes(_html: String, _tag: String) -> #(JSRootRef, List(JSNode)) {
   panic as "not supported for the given target"
 }
 
 @external(javascript, "./dom_ffi.mjs", "updateNodes")
-fn update_nodes(_root: RootRef, _els: List(NodeUpdate)) -> String {
+fn raw_update_nodes(_root: JSRootRef, _els: List(JSNodeUpdate)) -> String {
   panic as "not supported for the given target"
 }
 
-pub fn update(
+pub type Node {
+  Node(node: JSNodeRef, attrs: Attrs, content: String)
+}
+
+pub type NodeUpdate {
+  NodeUpdate(node: JSNodeRef, html: String)
+}
+
+/// Update HTML content of all instances of a given tag
+pub fn get_nodes(
   html html: String,
   tag tag: String,
-  visit visit: fn(String, List(#(String, String))) -> String,
-) -> String {
-  let #(root, nodes) = get_nodes(html, tag)
+) -> #(JSRootRef, List(Node)) {
+  let #(root, raw_nodes) = raw_get_nodes(html, tag)
 
-  let updates =
-    list.map(nodes, fn(node) {
+  let nodes =
+    raw_nodes
+    |> list.map(fn(node) {
       let #(ref, attrs, content) = node
-      let html = visit(content, attrs)
-
-      #(ref, html)
+      Node(ref, attrs, content)
     })
 
-  update_nodes(root, updates)
+  #(root, nodes)
+}
+
+pub fn update_nodes(root: JSRootRef, nodes: List(NodeUpdate)) -> String {
+  let updates =
+    nodes
+    |> list.map(fn(node) { #(node.node, node.html) })
+
+  raw_update_nodes(root, updates)
 }

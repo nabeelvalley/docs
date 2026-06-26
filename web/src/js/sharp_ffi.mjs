@@ -9,16 +9,24 @@ import { Result$Ok, Result$Error }
 /**
  * @param {string} inputFile
  * @param {string} outputFile
- * @param {number} width
+ * @param {number} size
  */
-export async function generate(inputFile, outputFile, width) {
+export async function generate(inputFile, outputFile, size) {
   try {
-    const sharp = new Sharp(inputFile)
+    const sharp = new Sharp(inputFile, {
+      autoOrient: true,
+    })
 
     await sharp.resize({
-      width
-    }).toFormat('webp')
-    .toFile(outputFile)
+      height: size,
+      width: size,
+      fit: 'contain',
+    })
+      .rotate()
+      .toFormat('webp', {
+        quality: 95
+      })
+      .toFile(outputFile)
 
     return Result$Ok()
   } catch (err) {
