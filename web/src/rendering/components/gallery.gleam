@@ -40,7 +40,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
       let #(node, images) = gallery
 
       render(images)
-      |> element.to_document_string
+      |> element.to_readable_string
       |> dom.NodeUpdate(node.node, _)
       |> Ok
     })

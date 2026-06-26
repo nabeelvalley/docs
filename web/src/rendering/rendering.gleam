@@ -1,3 +1,4 @@
+import consts
 import content/content
 import content/md
 import gleam/list
@@ -7,12 +8,10 @@ import gleam/result
 import lustre/attribute
 import lustre/element
 import lustre/element/html
+import rendering/assets.{type Page, Meta, Page}
 import rendering/components/gallery
 import rendering/components/snippet
 import rendering/layout
-import rendering/assets.{type Page, Meta, Page}
-
-const html_namespace = "http://www.w3.org/1999/xhtml"
 
 pub fn render(collection: content.Collection) -> Result(List(Page), String) {
   let blog = collection.blog |> list.map(render_md_page("blog", _))
@@ -76,7 +75,12 @@ fn render_md_page(base: String, doc: md.MarkdownDocument) {
 
   let html =
     html.main([], [
-      element.unsafe_raw_html(html_namespace, "article", [], processed.html),
+      element.unsafe_raw_html(
+        consts.html_namespace,
+        "article",
+        [],
+        processed.html,
+      ),
     ])
     |> layout.page(meta)
     |> element.to_document_string

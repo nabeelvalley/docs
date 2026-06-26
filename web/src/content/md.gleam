@@ -35,8 +35,7 @@ pub fn parse_markdown_file(file: fs.File) -> Result(MarkdownDocument, String) {
 }
 
 fn separate_frontmatter(file: fs.File) -> Result(#(String, String), String) {
-  let lines =
-    file.content |> string.trim |> string.split("\n") |> list.map(string.trim)
+  let lines = file.content |> string.trim |> string.split("\n")
 
   let not_frontmatter_end = fn(str) { !string.starts_with(str, "---") }
 

@@ -26,7 +26,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
       use file <- result.map(read_file)
 
       render(file.relative, file.content)
-      |> element.to_document_string
+      |> element.to_readable_string
       |> dom.NodeUpdate(node.node, _)
     })
 

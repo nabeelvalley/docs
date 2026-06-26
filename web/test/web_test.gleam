@@ -32,6 +32,7 @@ This is some more content
 
 ```ts
 This is a code snippet
+  That has some indentation
 ```
 
 <div>Normal Div</div>

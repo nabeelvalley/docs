@@ -55,10 +55,7 @@ pub fn resolve(asset: Asset) {
 pub fn write_pages(pages: List(Page)) -> Promise(Result(Nil, String)) {
   let page_result =
     pages
-    |> list.try_each(fn(page) -> Result(Nil, String) {
-      let path = consts.out_dir <> "/" <> page.slug <> ".html"
-      fs.write(path, page.html)
-    })
+    |> list.try_each(write_page)
     |> result.map(promise.resolve)
 
   use _ <- util.try_resolve(page_result)
@@ -66,6 +63,11 @@ pub fn write_pages(pages: List(Page)) -> Promise(Result(Nil, String)) {
   let assets = pages |> list.map(fn(p) { p.assets }) |> list.flatten
 
   write_assets(assets)
+}
+
+fn write_page(page: Page) {
+  let path = consts.out_dir <> "/" <> page.slug <> ".html"
+  fs.write(path, page.html)
 }
 
 fn write_assets(assets: List(Asset)) {

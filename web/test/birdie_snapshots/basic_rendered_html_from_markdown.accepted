@@ -7,6 +7,7 @@ test_name: markdown_parser_test
 <h1>This is a heading</h1>
 <p>This is some more content</p>
 <pre><code class="language-ts">This is a code snippet
+  That has some indentation
 </code></pre>
 <div>Normal Div</div><p><special-tag>This is my special tag</special-tag></p>
 <ul>

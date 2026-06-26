@@ -11,3 +11,5 @@ pub const gallery_dir = "../src/photography"
 pub const out_dir = "./out"
 
 pub const img_size = 2000
+
+pub const html_namespace = "http://www.w3.org/1999/xhtml"
