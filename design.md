@@ -21,9 +21,9 @@ Some tasks/ideas to keep in mind for the redesign
   - [x] Shader
   - [x] Gallery
   - [x] Snippet
-  - [ ] CSSSnippet
-  - [ ] HTMLSnippet
-  - [ ] CSSPreview
+  - [x] CSSSnippet
+  - [x] HTMLSnippet
+  - [-] CSSPreview - Not implementing this for now, it's going to need a custom TweakPane component and is only really used in a few places
 
 ## Rendering
 
