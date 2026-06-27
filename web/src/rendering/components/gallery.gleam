@@ -43,7 +43,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
     galleries
     |> list.map(fn(gallery) {
       render(gallery.images)
-      |> element.to_readable_string
+      |> element.to_string
       |> dom.NodeUpdate(gallery.node, _)
     })
 

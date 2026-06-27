@@ -10,7 +10,7 @@ import lustre/element/html
 import rendering/assets.{type Page, Page}
 
 pub fn render_all(page: Page) -> Result(Page, String) {
-  let tree = dom.get_nodes(page.html, tag: "snippet")
+  let tree = dom.get_nodes(page.html, tag: "script-raw")
 
   let updates =
     tree.nodes
@@ -25,8 +25,8 @@ pub fn render_all(page: Page) -> Result(Page, String) {
       let read_file = fs.read_file(full_path, consts.snippets_dir)
       use file <- result.map(read_file)
 
-      render(file.relative, file.content)
-      |> element.to_string
+      render(file.content, attrs)
+      |> element.to_readable_string
       |> dom.NodeUpdate(node.node, _)
     })
 
@@ -37,16 +37,11 @@ pub fn render_all(page: Page) -> Result(Page, String) {
   Ok(Page(..page, html:))
 }
 
-fn render(title: String, code: String) {
-  let lang = fs.ext(title)
+fn render(code: String, attrs) {
+  let custom_attrs =
+    attrs
+    |> dict.map_values(attribute.attribute)
+    |> dict.values
 
-  html.figure([attribute.class("snippet")], [
-    html.figcaption([], [html.text(title)]),
-
-    html.pre([], [
-      html.code([attribute.class("language-" <> lang)], [
-        html.text(code),
-      ]),
-    ]),
-  ])
+  html.script(custom_attrs, code)
 }

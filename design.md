@@ -11,10 +11,10 @@ Some tasks/ideas to keep in mind for the redesign
   - [x] slides/Slide
   - [x] slides/SlideOnly
 - Server
-  - [ ] ShaderSnippet
-  - [ ] Shader
-  - [ ] Gallery
-  - [ ] Snippet
+  - [x] ShaderSnippet
+  - [x] Shader
+  - [x] Gallery
+  - [x] Snippet
   - [ ] CSSSnippet
   - [ ] HTMLSnippet
   - [ ] CSSPreview

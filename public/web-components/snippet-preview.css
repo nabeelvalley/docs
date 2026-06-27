@@ -1,0 +1,38 @@
+site-snippet-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+
+  figure {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  canvas-wrapper {
+    height: 100%;
+    position: relative;
+
+    canvas {
+      position: sticky;
+      top: 3rem;
+
+      width: 100%;
+      aspect-ratio: 1;
+    }
+  }
+
+  @media (min-width: 800px) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    figure {
+      grid-column: auto / span 2
+    }
+
+    canvas {
+      grid-column: auto / span 1;
+    }
+  }
+}

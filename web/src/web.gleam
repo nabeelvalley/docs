@@ -8,22 +8,24 @@ import rendering/rendering
 import util
 
 pub fn main() {
-  // load
-  use content <- util.try_resolve(content.load_content())
+  use processing <- promise.await({
+    // load
+    use content <- util.try_resolve(content.load_content())
 
-  use pages <- util.try_resolve(rendering.render(content))
+    use pages <- util.try_resolve(rendering.render(content))
 
-  // write
-  use _ <- util.try_resolve(fs.delete(consts.out_dir))
+    // write
+    use _ <- util.try_resolve(fs.delete(consts.out_dir))
 
-  use _ <- util.try_resolve(fs.copy_dir(consts.public_dir, consts.out_dir))
+    use _ <- util.try_resolve(fs.copy_dir(consts.public_dir, consts.out_dir))
 
-  use result <- promise.await(assets.write_pages(pages))
+    use result <- promise.await(assets.write_pages(pages))
+    result |> promise.resolve
+  })
 
-  case result {
+  case processing {
     Ok(_) -> io.println("Wrote output to " <> consts.out_dir)
     Error(e) -> io.println_error(e)
   }
-
-  result |> promise.resolve
+  |> promise.resolve
 }
