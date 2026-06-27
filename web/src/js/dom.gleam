@@ -32,15 +32,15 @@ pub type Node {
   Node(node: JSNodeRef, attrs: Attrs, content: String)
 }
 
+pub type TreeNodes {
+  TreeNodes(root: JSRootRef, nodes: List(Node))
+}
+
 pub type NodeUpdate {
   NodeUpdate(node: JSNodeRef, html: String)
 }
 
-/// Update HTML content of all instances of a given tag
-pub fn get_nodes(
-  html html: String,
-  tag tag: String,
-) -> #(JSRootRef, List(Node)) {
+pub fn get_nodes(html html: String, tag tag: String) -> TreeNodes {
   let #(root, raw_nodes) = raw_get_nodes(html, tag)
 
   let nodes =
@@ -50,7 +50,7 @@ pub fn get_nodes(
       Node(ref, attrs, content)
     })
 
-  #(root, nodes)
+  TreeNodes(root, nodes)
 }
 
 pub fn update_nodes(root: JSRootRef, nodes: List(NodeUpdate)) -> String {

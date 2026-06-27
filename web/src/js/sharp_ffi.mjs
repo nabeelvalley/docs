@@ -20,7 +20,7 @@ export async function generate(inputFile, outputFile, size) {
     await sharp.resize({
       height: size,
       width: size,
-      fit: 'contain',
+      fit: 'inside',
     })
       .rotate()
       .toFormat('webp', {

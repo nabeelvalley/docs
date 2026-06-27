@@ -24,12 +24,6 @@ pub type Page {
   Page(slug: String, meta: Meta, html: String, assets: List(Asset))
 }
 
-pub type SsrResult =
-  #(String, List(Asset))
-
-pub type SsrRenderer =
-  fn(String) -> SsrResult
-
 fn replace_non_words(in: String) {
   let assert Ok(re) = regexp.from_string("[\\W_]+")
 
@@ -59,8 +53,7 @@ pub fn write_pages(pages: List(Page)) -> Promise(Result(Nil, String)) {
 
   use _ <- util.try_resolve(page_result)
 
-  let assets = pages |> list.map(fn(p) { p.assets }) |> list.flatten
-
+  let assets = pages |> list.flat_map(fn(p) { p.assets })
   write_assets(assets)
 }
 

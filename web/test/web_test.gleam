@@ -68,9 +68,9 @@ pub fn update_dom_test() {
     <my-tag id=\"flag3\" data=\"self-closing\" />
   </body>"
 
-  let #(root, nodes) = dom.get_nodes(html:, tag: "my-tag")
+  let tree = dom.get_nodes(html:, tag: "my-tag")
   let updates =
-    nodes
+    tree.nodes
     |> list.map(fn(node) {
       let content =
         list.map(node.attrs, fn(a) {
@@ -87,7 +87,7 @@ pub fn update_dom_test() {
       |> dom.NodeUpdate(node.node, _)
     })
 
-  dom.update_nodes(root, updates)
+  dom.update_nodes(tree.root, updates)
   |> birdie.snap("update html from tag visitor")
 }
 
@@ -99,10 +99,10 @@ pub fn update_dom_self_closing_test() {
     <my-tag id=\"flag3\" data=\"self-closing3\" />
   "
 
-  let #(root, nodes) = dom.get_nodes(html:, tag: "my-tag")
+  let tree = dom.get_nodes(html:, tag: "my-tag")
 
   let updates =
-    nodes
+    tree.nodes
     |> list.map(fn(node) {
       let content =
         list.map(node.attrs, fn(a) {
@@ -119,7 +119,7 @@ pub fn update_dom_self_closing_test() {
       |> dom.NodeUpdate(node.node, _)
     })
 
-  dom.update_nodes(root, updates)
+  dom.update_nodes(tree.root, updates)
   |> birdie.snap("respects custom self closing tags")
 }
 
