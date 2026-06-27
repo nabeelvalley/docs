@@ -56,7 +56,6 @@ pub fn write_pages(pages: List(Page)) -> Promise(Result(Nil, String)) {
   let page_result =
     pages
     |> list.try_each(write_page)
-    |> result.map(promise.resolve)
 
   use _ <- util.try_resolve(page_result)
 

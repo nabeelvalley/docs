@@ -1,6 +1,7 @@
 import consts
 import content/fs
 import gleam/javascript/promise.{type Promise}
+import util
 
 @external(javascript, "./sharp_ffi.mjs", "generate")
 fn generate(
@@ -17,7 +18,7 @@ pub fn optimize_image(
 ) -> Promise(Result(Nil, String)) {
   let out_dir = out_path |> fs.parent
 
-  use _ <- promise.await(promise.resolve(fs.ensure_dir_exists(out_dir)))
+  use _ <- util.try_resolve(fs.ensure_dir_exists(out_dir))
 
   generate(in_path, out_path, consts.img_size)
 }
