@@ -9,7 +9,9 @@ import lustre/attribute
 import lustre/element
 import lustre/element/html
 import rendering/assets.{type Page, Meta, Page}
+import rendering/components/css_snippet
 import rendering/components/gallery
+import rendering/components/html_snippet
 import rendering/components/script_raw
 import rendering/components/snippet
 import rendering/layout
@@ -70,6 +72,8 @@ fn render_md_page(base: String, doc: md.MarkdownDocument) {
     Page(slug, meta, doc.html, [])
     |> process_page([
       snippet.render_all,
+      html_snippet.render_all,
+      css_snippet.render_all,
       gallery.render_all,
 
       // rendered last to ensure that processors don't modify the result

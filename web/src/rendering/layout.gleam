@@ -42,6 +42,8 @@ pub fn page(body, meta: Meta) {
         attribute.rel("webmention"),
         attribute.href("https://webmention.io/nabeelvalley.co.za/webmention"),
       ]),
+
+      html.link([attribute.rel("stylesheet"), attribute.href("/main.css")]),
     ]),
     body,
   ])

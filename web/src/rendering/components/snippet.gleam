@@ -15,15 +15,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
   let updates =
     tree.nodes
     |> list.try_map(fn(node) {
-      let attrs = dict.from_list(node.attrs)
-      use path <- result.try(
-        dict.get(attrs, "path")
-        |> result.replace_error("could not read path for snippet"),
-      )
-
-      let full_path = fs.join([consts.snippets_dir, path])
-      let read_file = fs.read_file(full_path, consts.snippets_dir)
-      use file <- result.map(read_file)
+      use file <- result.map(load(node, "path"))
 
       render(file.relative, file.content)
       |> element.to_string
@@ -37,7 +29,18 @@ pub fn render_all(page: Page) -> Result(Page, String) {
   Ok(Page(..page, html:))
 }
 
-fn render(title: String, code: String) {
+pub fn load(node: dom.Node, path_attr: String) {
+  let attrs = dict.from_list(node.attrs)
+  use path <- result.try(
+    dict.get(attrs, path_attr)
+    |> result.replace_error("could not read " <> path_attr <> " for snippet"),
+  )
+
+  let full_path = fs.join([consts.snippets_dir, path])
+  fs.read_file(full_path, consts.snippets_dir)
+}
+
+pub fn render(title: String, code: String) {
   let lang = fs.ext(title)
 
   html.figure([attribute.class("snippet")], [

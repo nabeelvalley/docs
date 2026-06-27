@@ -1,26 +1,21 @@
 import consts
-import content/fs
-import gleam/dict
 import gleam/list
-import gleam/pair
 import gleam/result
 import js/dom
-import lustre/attribute
 import lustre/element
-import lustre/element/html
 import rendering/assets.{type Page, Page}
 import rendering/components/snippet
 
 pub fn render_all(page: Page) -> Result(Page, String) {
-  let tree = dom.get_nodes(page.html, tag: "script-raw")
+  let tree = dom.get_nodes(page.html, tag: "htmlsnippet")
 
   let updates =
     tree.nodes
     |> list.try_map(fn(node) {
       use file <- result.map(snippet.load(node, "path"))
 
-      render(file.content, node.attrs)
-      |> element.to_readable_string
+      render(file.relative, file.content)
+      |> element.to_string
       |> dom.NodeUpdate(node.node, _)
     })
 
@@ -31,10 +26,11 @@ pub fn render_all(page: Page) -> Result(Page, String) {
   Ok(Page(..page, html:))
 }
 
-fn render(code: String, attrs) {
-  let custom_attrs =
-    attrs
-    |> list.map(fn(a) { attribute.attribute(a |> pair.first, a |> pair.second) })
+fn render(title: String, code: String) {
+  let snip = snippet.render(title, code)
 
-  html.script(custom_attrs, code)
+  element.element("site-snippet-preview", [], [
+    snip,
+    element.unsafe_raw_html(consts.html_namespace, "div", [], code),
+  ])
 }

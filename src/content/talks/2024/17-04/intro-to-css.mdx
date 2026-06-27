@@ -14,6 +14,7 @@ import BoxModelExample from '@/snippets/css-basic-layouts/BoxModelStandalone.ast
 <site-presentation />
 
 <site-presentation-slide centered>
+
 ## ZOOOOOOM!
 
 > Is everything big enough and are we in dark mode?
@@ -21,11 +22,13 @@ import BoxModelExample from '@/snippets/css-basic-layouts/BoxModelStandalone.ast
 </site-presentation-slide>
 
 <site-presentation-slide centered>
+
 ## An Introduction to CSS
 
 </site-presentation-slide>
 
 <site-presentation-slide centered>
+
 ## Agenda
 
 - Basic Syntax
@@ -38,6 +41,7 @@ import BoxModelExample from '@/snippets/css-basic-layouts/BoxModelStandalone.ast
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ### Let's get some markup
 
 > Well, we need something to style
@@ -46,53 +50,22 @@ import BoxModelExample from '@/snippets/css-basic-layouts/BoxModelStandalone.ast
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ### Now let's style it
 
-<CSSSnippet 
-path="css-basic-layouts/syntax.css" 
-html 
-htmlFirst
-htmlPath="css-basic-layouts/Syntax.astro"
-ins={[{
-    range: "6-10",
-    label: "2"
-}]}
-mark={[
-{
-    range: "2",
-    label: "1"
-},
-{
-    range: "3",
-    label: "3"
-},
-{
-    range: "12",
-    label: "4"
-}, ".fancy"]}
-del={[{
-    range: "16",
-    label: "5"
-}, ":hover"]}
-/>
+<CSSSnippet path="css-basic-layouts/syntax.css" html htmlPath="css-basic-layouts/Syntax.astro"/>
+
 </site-presentation-slide>
 
 <site-presentation-slide centered>
+
 ## Selectors
 
-<Snippet
-path="css-basic-layouts/selectors.css" 
-ins={[
-    {range: "1-2", label: "Element Selector"},
-    {range: "4-5", label: "ID Selector"},
-    {range: "7-8", label: "Class Selector"},
-    {range: "10-11", label: "Attribute Selector"},
-    {range: "13-14", label: "Psuedo-class Selector"}
-]}
-/>
+<Snippet path="css-basic-layouts/selectors.css" />
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ## Combining Selectors (Combinators)
 
 <HTMLSnippet path="css-basic-layouts/Combinators.astro" />
@@ -100,26 +73,15 @@ ins={[
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ## Combinators
 
-<CSSSnippet
-path="css-basic-layouts/combinators.css" 
-html
-htmlPath="css-basic-layouts/Combinators.astro"
-ins={
-    {range: "1-2", label: "Descendant Selector"}
-}
-mark={[
-    {range: "4-5", label: "Direct Child Selector"},
-    {range: '10-11', label: "Multiple Selectors"}
-]}
-del={
-    {range: "7-8", label: "Next Sibling Selector"}
-}
-/>
+<CSSSnippet path="css-basic-layouts/combinators.css"  html htmlPath="css-basic-layouts/Combinators.astro"/>
+
 </site-presentation-slide>
 
 <site-presentation-slide centered>
+
 ## The Cascade
 
 - CSS stands for "Cascading Style Sheets"
@@ -130,6 +92,7 @@ del={
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ## Specificity
 
 - Used by browser to determine the most relevant declaration
@@ -144,22 +107,17 @@ del={
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ### Calculated Specificity
 
 Rules for specificity are pretty tricky, but your IDE should show this to you when hovering over a class
 
-<CSSSnippet
-  path="css-basic-layouts/specificity.css"
-  html
-  htmlPath="css-basic-layouts/Specificity.astro"
-  ins={{ range: '1-2', label: '(1, 1, 0) - Most Specific' }}
-  mark={[{ range: '4-5', label: '(0, 1, 0) - Least Specific' }]}
-  del={{ range: '7-8', label: '(0, 2, 0)' }}
-/>
+<CSSSnippet path="css-basic-layouts/specificity.css" html htmlPath="css-basic-layouts/Specificity.astro" />
 
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ## Psuedo-class Selectors
 
 - Used in addition to other selectors
@@ -168,37 +126,23 @@ Rules for specificity are pretty tricky, but your IDE should show this to you wh
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ## Some common Psuedo-classes
 
-<CSSSnippet
-path="css-basic-layouts/psuedo.css" 
-html
-htmlPath="css-basic-layouts/Psuedo.astro"
-mark={[
-":hover", ":focus"
-]}
-del=":invalid"
-ins=":valid"
-/>
+<CSSSnippet path="css-basic-layouts/psuedo.css"  html htmlPath="css-basic-layouts/Psuedo.astro" />
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ## The Box Model
 
 > Rectangles all the way down
 
-<CSSSnippet
-path="css-basic-layouts/box-model.css" 
-html
-htmlPath="css-basic-layouts/BoxModel.astro"
-ins="17"
-del="18"
-mark="19"
-collapse="1-9"
-/>
+<CSSSnippet path="css-basic-layouts/box-model.css"  html htmlPath="css-basic-layouts/BoxModel.astro" />
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 
 ## Flow - Block vs Inline Block
 
@@ -212,16 +156,13 @@ collapse="1-9"
 </site-presentation-slide>
 
 <site-presentation-slide>
-<CSSSnippet
-  path="css-basic-layouts/inline-v-block.css"
-  htmlPath="css-basic-layouts/InlineVBlock.astro"
-  mark={['23', '27', '31']}
-  collapse="1-21"
-/>
+
+<CSSSnippet  path="css-basic-layouts/inline-v-block.css"  htmlPath="css-basic-layouts/InlineVBlock.astro" />
 
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ## Debugging
 
 > Firefox has the best CSS Tooling (in general)
@@ -235,6 +176,7 @@ collapse="1-9"
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ## And if you're still stuck
 
 > Well, you can just:
@@ -243,6 +185,7 @@ collapse="1-9"
 </site-presentation-slide>
 
 <site-presentation-slide>
+
 ## References and Further Reading
 
 Anything by Josh W. Comeau pretty much
