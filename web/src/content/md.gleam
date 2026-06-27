@@ -3,6 +3,7 @@ import gleam/list
 import gleam/option.{type Option}
 import gleam/result
 import gleam/string
+import js/marked
 import yay
 
 pub type MarkdownDocument {
@@ -20,16 +21,11 @@ pub type Frontmatter {
   )
 }
 
-@external(javascript, "./md_ffi.mjs", "parse")
-fn parse(_md: String) -> String {
-  panic as "not supported for the given target"
-}
-
 pub fn parse_markdown_file(file: fs.File) -> Result(MarkdownDocument, String) {
   use #(front, md) <- result.try(separate_frontmatter(file))
   use frontmatter <- result.try(parse_frontmatter(front))
 
-  let html = parse(md)
+  let html = marked.parse(md)
 
   Ok(MarkdownDocument(file.relative, frontmatter:, html:))
 }
