@@ -1,4 +1,9 @@
 import {marked} from 'marked'
+import katex from 'marked-katex-extension'
+
+marked.use(katex({
+  output: 'mathml'
+}))
 
 /**
  * @param {string} md

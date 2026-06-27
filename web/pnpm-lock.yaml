@@ -23,6 +23,9 @@ importers:
       marked:
         specifier: ^18.0.5
         version: 18.0.5
+      marked-katex-extension:
+        specifier: ^5.1.10
+        version: 5.1.10(katex@0.17.0)(marked@18.0.5)
       sharp:
         specifier: ^0.35.2
         version: 0.35.2
@@ -184,6 +187,10 @@ packages:
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
 
+  commander@8.3.0:
+    resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==}
+    engines: {node: '>= 12'}
+
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
@@ -215,6 +222,16 @@ packages:
   js-yaml@4.2.0:
     resolution: {integrity: sha512-ePWsvanv0DWuDRsW8dnt+R4jQ31SCRCQ7hhNcPXZPsoBZiemuZNYGf7adZdqX2D86j6rvKp3RpCxVTSb8WQlOw==}
     hasBin: true
+
+  katex@0.17.0:
+    resolution: {integrity: sha512-Vdw0ATsQ9V+LuegM/BTwQqV/6cTl5lbGcIrU+BCgLxyf6bo38ybOr372tuSIxir3CN720flu1meYR6XzNMwQnw==}
+    hasBin: true
+
+  marked-katex-extension@5.1.10:
+    resolution: {integrity: sha512-TuqrzguLeXXm6iBaf16leL3+dVmMj8KrBdunMVVzxMS/bwcjtQ0YG0sNytl1j7uUo8yClsXJqBbVjH1yOPurwQ==}
+    peerDependencies:
+      katex: '>=0.16 <0.18'
+      marked: '>=4 <19'
 
   marked@18.0.5:
     resolution: {integrity: sha512-S6GcvALHg6K4ohtu4E7x0a1AqhAjp6cV8KhLSyN9qVapnzJkusVBxZRcIU9AeYsbe6P1hKDusSbEOzGyyuce6w==}
@@ -355,6 +372,8 @@ snapshots:
 
   argparse@2.0.1: {}
 
+  commander@8.3.0: {}
+
   detect-libc@2.1.2: {}
 
   dom-serializer@3.1.1:
@@ -387,6 +406,15 @@ snapshots:
   js-yaml@4.2.0:
     dependencies:
       argparse: 2.0.1
+
+  katex@0.17.0:
+    dependencies:
+      commander: 8.3.0
+
+  marked-katex-extension@5.1.10(katex@0.17.0)(marked@18.0.5):
+    dependencies:
+      katex: 0.17.0
+      marked: 18.0.5
 
   marked@18.0.5: {}
 
