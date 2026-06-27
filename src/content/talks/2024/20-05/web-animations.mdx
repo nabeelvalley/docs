@@ -1,19 +1,14 @@
+
 ---
 title: Introduction to Animation on the Web
 description: An basic overview of CSS and JS Transitions and Animation
 date: 20 May 2024
 ---
 
-import Snippet from '@/components/Snippet.astro'
-import CSSSnippet from '@/components/CSSSnippet.astro'
-import HTMLSnippet from '@/components/HTMLSnippet.astro'
-import Preview from '@/components/Preview.astro'
-import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.astro'
-
-
 <site-presentation />
 
 <site-presentation-slide centered>
+
 ## ZOOOOOOM! 🔍
 
 > Is everything big enough and are we in dark mode?
@@ -21,6 +16,7 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 </site-presentation-slide>
 
 <site-presentation-slide centered large>
+
 ## Housekeeping 🧹
 
 - Everyone is encouraged to have their cameras on
@@ -38,6 +34,7 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 </site-presentation-slide>
 
 <site-presentation-slide centered skim>
+
 ## Things ✌️ Talk About
 
 (the agenda)
@@ -61,6 +58,7 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 </site-presentation-slide>
 
 <site-presentation-slide centered>
+
 ## ☝️ A Quick Note on Custom Properties
 
 > These examples make extensive use of CSS Custom Properties so it's good to have a basic understanding of them
@@ -68,20 +66,6 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 <Snippet
   path="web-animations/custom-properties.css"
   lang="css"
-  mark={[
-    {
-      range: '2',
-      label: 'Define custom properties using "--"',
-    },
-    {
-      range: '6',
-      label: 'Use with the "var" function',
-    },
-    {
-      range: '9',
-      label: 'Provide a default/fallback value to "var"',
-    }
-  ]}
 />
 </site-presentation-slide>
 
@@ -133,14 +117,6 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
   collapse="1-15"
   path="web-animations/transition-simple.css"
   htmlPath="web-animations/index.html"
-  mark={{
-    range: '16-22',
-    label: 'Before Transition',
-  }}
-  ins={{
-    range: '23-28',
-    label: 'After Transition',
-  }}
 />
 
 </site-presentation-slide>
@@ -151,13 +127,8 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse={['1-16', '21-26']}
   path="web-animations/transition-simple-alt.css"
   htmlPath="web-animations/index.html"
-  mark={{
-    range: '18-19',
-    label: 'Syntax: property duration delay timing',
-  }}
 />
 
 </site-presentation-slide>
@@ -168,10 +139,8 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse={['1-16', '23-28']}
   path="web-animations/transition-properties.css"
   htmlPath="web-animations/index.html"
-  mark="18-21"
 />
 
 </site-presentation-slide>
@@ -182,10 +151,8 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse={['1-16', '23-28']}
   path="web-animations/transition-properties-alt.css"
   htmlPath="web-animations/index.html"
-  mark="18-21"
 />
 
 </site-presentation-slide>
@@ -196,10 +163,8 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse={['1-29']}
   path="web-animations/transition-hand.css"
   htmlPath="web-animations/index.html"
-  mark={['31', '36-37']}
 />
 
 </site-presentation-slide>
@@ -213,19 +178,17 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
   collapse="1-16"
   path="web-animations/transition-timing.css"
   htmlPath="web-animations/index.html"
-  variables={{
-    '--timing-function': {
-      initial: 'linear',
-      options: {
-        linear: 'linear',
-        'ease-in-out': 'ease-in-out',
-        'cubic-bezier(0.75,-0.61, 0.87,-0.16)':
-          'cubic-bezier(0.75,-0.61, 0.87,-0.16)',
-        'cubic-bezier(1,-2.56, 0, 3.72)': 'cubic-bezier(1,-2.56, 0, 3.72)',
+  variables='{
+    "--timing-function": {
+      "initial": "linear",
+      "options": {
+        "linear": "linear",
+        "ease-in-out": "ease-in-out",
+        "cubic-bezier(0.75,-0.61, 0.87,-0.16)": "cubic-bezier(0.75,-0.61, 0.87,-0.16)",
+        "cubic-bezier(1,-2.56, 0, 3.72)": "cubic-bezier(1,-2.56, 0, 3.72)",
       },
     },
-  }}
-  mark="20"
+  }'
 />
 
 </site-presentation-slide>
@@ -263,35 +226,8 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse="1-12"
   path="web-animations/animation-simple.css"
   htmlPath="web-animations/index.html"
-  mark={[
-    {
-      range: '17-20',
-      label: 'Timing Related Animation Properties',
-    },
-    {
-      range: '22-23',
-      label: 'Keyframes to use for Animation',
-    },
-    {
-      range: '25-26',
-      label: 'How many iterations to run',
-    },
-    {
-      range: '28-29',
-      label: 'What direction to run animation in',
-    },
-    {
-      range: '31-32',
-      label: 'State of element after completion',
-    },
-  ]}
-  ins={{
-    range: '34-43',
-    label: 'Definition animation properties',
-  }}
 />
 
 </site-presentation-slide>
@@ -302,23 +238,8 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse="1-12"
   path="web-animations/animation-hover.css"
   htmlPath="web-animations/index.html"
-  mark={[
-    {
-      range: '25-26',
-      label: 'Animation initially paused',
-    },
-    {
-      range: '29-30',
-      label: 'DOM state trigger',
-    },
-    {
-      range: '31-32',
-      label: 'Play animation when hovered',
-    },
-  ]}
 />
 
 </site-presentation-slide>
@@ -329,10 +250,8 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse={['1-12', '14-20']}
   path="web-animations/animation-properties.css"
   htmlPath="web-animations/index.html"
-  mark="30-56"
 />
 
 </site-presentation-slide>
@@ -367,17 +286,6 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 <Snippet
   path="web-animations/ViewTransitions.astro"
   lang="html"
-  collapse={['1-18', '38-55']}
-  ins={{
-    range: '33-34',
-    label: 'Something to trigger a change',
-  }}
-  mark={[
-    {
-      range: '20-26',
-      label: 'Update DOM Syncronously or Asynchronously',
-    },
-  ]}
 />
 
 </site-presentation-slide>
@@ -404,28 +312,6 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
   size="m"
   path="web-animations/view-transitions-slide.css"
   htmlPath="web-animations/view-transitions.html"
-  mark={[
-    'content-transition',
-    {
-      range: '1',
-      label: 'Assign a transition',
-    },
-    {
-      range: '6',
-      label: 'Transition for outgoing content',
-    },
-    {
-      range: '11',
-      label: 'Transition for incoming content',
-    },
-  ]}
-  ins={[
-    'content-slide',
-    {
-      range: '16',
-      label: 'Animation keyframes',
-    },
-  ]}
 />
 
 </site-presentation-slide>
@@ -491,16 +377,15 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse="1-37"
   path="web-animations/principles-1.css"
   htmlPath="web-animations/index.html"
-  variables={{
-    '--duration': {
-      initial: 1,
-      min: 0.1,
-      max: 10,
+  variables='{
+    "--duration": {
+      "initial": 1,
+      "min": 0.1,
+      "max": 10,
     },
-  }}
+  }'
 />
 
 </site-presentation-slide>
@@ -513,17 +398,15 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse="1-18"
-  mark="25"
   path="web-animations/principles-2.css"
   htmlPath="web-animations/index.html"
-  variables={{
-    '--duration': {
-      initial: 1,
-      min: 0.1,
-      max: 10,
+  variables='{
+    "--duration": {
+      "initial": 1,
+      "min": 0.1,
+      "max": 10,
     },
-  }}
+  }'
 />
 
 </site-presentation-slide>
@@ -539,14 +422,13 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
   collapse="1-16"
   path="web-animations/principles-3.css"
   htmlPath="web-animations/index.html"
-  mark={['30', '21']}
-  variables={{
-    '--duration': {
-      initial: 1,
-      min: 0.1,
-      max: 10,
+  variables='{
+    "--duration": {
+      "initial": 1,
+      "min": 0.1,
+      "max": 10,
     },
-  }}
+  }'
 />
 
 </site-presentation-slide>
@@ -559,17 +441,15 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse="1-12"
   path="web-animations/principles-4.css"
   htmlPath="web-animations/index.html"
-  mark="21"
-  variables={{
-    '--duration': {
-      initial: 1,
-      min: 0.1,
-      max: 10,
+  variables='{
+    "--duration": {
+      "initial": 1,
+      "min": 0.1,
+      "max": 10,
     },
-  }}
+  }'
 />
 
 </site-presentation-slide>
@@ -582,17 +462,15 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse="1-12"
   path="web-animations/principles-5.css"
   htmlPath="web-animations/index.html"
-  mark="22"
-  variables={{
-    '--duration': {
-      initial: 1,
-      min: 0.1,
-      max: 10,
+  variables='{
+    "--duration": {
+      "initial": 1,
+      "min": 0.1,
+      "max": 10,
     },
-  }}
+  }'
 />
 
 </site-presentation-slide>
@@ -605,20 +483,18 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse={['1-19', '34-61']}
   path="web-animations/principles-6.css"
   htmlPath="web-animations/index.html"
-  mark="29"
-  variables={{
-    '--duration': {
-      initial: 1,
+  variables='{
+    "--duration": {
+      "initial": 1,
     },
-    '--steps': {
-      initial: 5,
-      min: 3,
-      max: 60,
+    "--steps": {
+      "initial": 5,
+      "min": 3,
+      "max": 60,
     },
-  }}
+  }'
 />
 
 </site-presentation-slide>
@@ -631,17 +507,15 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse={['1-21', '35-62']}
   path="web-animations/principles-7.css"
   htmlPath="web-animations/index.html"
-  mark="33"
-  variables={{
-    '--duration': {
-      initial: 1,
-      min: 0.1,
-      max: 10,
+  variables='{
+    "--duration": {
+      "initial": 1,
+      "min": 0.1,
+      "max": 10,
     },
-  }}
+  }'
 />
 
 </site-presentation-slide>
@@ -654,22 +528,20 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse="1-36"
   path="web-animations/principles-8.css"
   htmlPath="web-animations/index.html"
-  mark={['43', '49', 55]}
-  variables={{
-    '--duration': {
-      initial: 1,
-      min: 0.1,
-      max: 10,
+  variables='{
+    "--duration": {
+      "initial": 1,
+      "min": 0.1,
+      "max": 10,
     },
-    '--scale': {
-      initial: 150,
-      min: 100,
-      max: 300,
+    "--scale": {
+      "initial": 150,
+      "min": 100,
+      "max": 300,
     },
-  }}
+  }'
 />
 
 </site-presentation-slide>
@@ -682,17 +554,15 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse="1-34"
   path="web-animations/principles-9.css"
   htmlPath="web-animations/index.html"
-  mark="41"
-  variables={{
-    '--duration': {
-      initial: 1,
-      min: 0.1,
-      max: 10,
+  variables='{
+    "--duration": {
+      "initial": 1,
+      "min": 0.1,
+      "max": 10,
     },
-  }}
+  }'
 />
 
 </site-presentation-slide>
@@ -716,43 +586,40 @@ import ViewTransitionsExample from '@/snippets/web-animations/ViewTransitions.as
 
 <CSSSnippet
   size="m"
-  collapse={["1-29", "35-72"]}
-  mark="32-33"
   path="web-animations/principles-11.css"
   htmlPath="web-animations/index.html"
-  variables={{
-    '--duration': {
-      initial: 1,
-      min: 0.1,
-      max: 10,
+  variables='{
+    "--duration": {
+      "initial": 1,
+      "min": 0.1,
+      "max": 10,
     }, 
-    '--scale': {
-      initial: 150,
-      min: 100,
-      max: 300,
+    "--scale": {
+      "initial": 150,
+      "min": 100,
+      "max": 300,
     },
-    '--perspective': {
-      initial: 200,
-      min: 0,
-      max: 1000
+    "--perspective": {
+      "initial": 200,
+      "min": 0,
+      "max": 1000
     },
-    '--rotate-x': {
-      initial: -30,
-      min: -90,
-      max: 90,
+    "--rotate-x": {
+      "initial": -30,
+      "min": -90,
+      "max": 90,
     },
-    '--rotate-y': {
-      initial: -30,
-      min: -90,
-      max: 90,
+    "--rotate-y": {
+      "initial": -30,
+      "min": -90,
+      "max": 90,
     },
-    '--rotate-z': {
-      initial: 0,
-      min: -90,
-      max: 90,
+    "--rotate-z": {
+      "initial": 0,
+      "min": -90,
+      "max": 90,
     },
-
-}}
+}'
 />
 
 </site-presentation-slide>

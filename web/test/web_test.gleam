@@ -11,6 +11,7 @@ import js/sharp
 import lustre/attribute
 import lustre/element
 import lustre/element/html
+import rendering/components/css_snippet
 import simplifile
 
 pub fn main() -> Nil {
@@ -133,4 +134,15 @@ pub fn sharp_test() {
   let assert Ok(is_file) = simplifile.is_file(out_path)
 
   should.be_true(is_file) |> promise.resolve
+}
+
+pub fn css_snippet_render_test() {
+  let result =
+    css_snippet.render(
+      fs.File("path.css", "path.css", "h1 { color: red; }"),
+      fs.File("path.html", "path.html", "<h1>Hello there</h1>"),
+      True,
+    )
+
+  result |> element.to_readable_string |> birdie.snap("css snippet rendering")
 }

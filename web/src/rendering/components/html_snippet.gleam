@@ -4,6 +4,7 @@ import gleam/result
 import js/dom
 import lustre/element
 import rendering/assets.{type Page, Page}
+import rendering/components/custom_el
 import rendering/components/snippet
 
 pub fn render_all(page: Page) -> Result(Page, String) {
@@ -29,7 +30,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
 fn render(title: String, code: String) {
   let snip = snippet.render(title, code)
 
-  element.element("site-snippet-preview", [], [
+  custom_el.site_snippet_preview([], [
     snip,
     element.unsafe_raw_html(consts.html_namespace, "div", [], code),
   ])

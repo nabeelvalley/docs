@@ -1,3 +1,7 @@
+@import "./web-components/presentation.css";
+@import "./web-components/snippet-preview.css";
+
+
 /* base styles */
 :root {
   --shade-brand: 228, 77, 144;

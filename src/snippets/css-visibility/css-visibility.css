@@ -1,11 +1,11 @@
 .hide {
   display: var(--hide-display);
-  visibility: var(--hide-visibility);
+  visibility: var(--hide-visibility, hidden);
 }
 
 .show {
   display: var(--show-display);
-  visibility: var(--show-visibility);
+  visibility: var(--show-visibility, visible);
 }
 
 .example {

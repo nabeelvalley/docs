@@ -7,6 +7,7 @@ import js/dom
 import lustre/element
 import lustre/element/html
 import rendering/assets.{type Page, Page}
+import rendering/components/custom_el
 import rendering/components/snippet
 
 pub fn render_all(page: Page) -> Result(Page, String) {
@@ -32,7 +33,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
   Ok(Page(..page, html:))
 }
 
-fn render(css: fs.File, html: fs.File, show_html: Bool) {
+pub fn render(css: fs.File, html: fs.File, show_html: Bool) {
   let html_snip = snippet.render(css.relative, css.content)
   let css_snip = snippet.render(html.relative, html.content)
 
@@ -46,9 +47,9 @@ fn render(css: fs.File, html: fs.File, show_html: Bool) {
   let scoped_css = "@scope {" <> css.content <> "}"
   let preview =
     html.div([], [
-      html.style([], scoped_css),
       element.unsafe_raw_html(consts.html_namespace, "div", [], html.content),
+      html.style([], scoped_css),
     ])
 
-  element.element("site-snippet-preview", [], [snips, preview])
+  custom_el.site_snippet_preview([], [snips, preview])
 }

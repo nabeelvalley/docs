@@ -72,8 +72,8 @@ fn render_md_page(base: String, doc: md.MarkdownDocument) {
     Page(slug, meta, doc.html, [])
     |> process_page([
       snippet.render_all,
-      html_snippet.render_all,
       css_snippet.render_all,
+      html_snippet.render_all,
       gallery.render_all,
 
       // rendered last to ensure that processors don't modify the result

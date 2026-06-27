@@ -5,10 +5,6 @@ published: true
 date: 04 April 2024
 ---
 
-import Example from '@/snippets/css-visibility/CSSVisibility.astro'
-import HTMLSnippet from '@/components/HTMLSnippet.astro'
-import CSSSnippet from '@/components/CSSSnippet.astro'
-
 When working with HTML we sometimes have a case where we want to view child items of an HTML element while the parent element itself is hidden
 
 Normally when trying to hide or show some elements, we would apply `display:none` and move on. However, we may run into a case where we want to make a specific child visible while keeping the remaining content hidden, so, we might try to add the following to the child `display:block`.
@@ -25,60 +21,14 @@ We can use the `visibility` property to get what we want. For our example let's 
 
 The HTML we have is as follows:
 
-<HTMLSnippet path="css-visibility/CSSVisibility.astro" lang="html">
-  <Example />
-</HTMLSnippet>
+
+<CSSSnippet html htmlPath="css-visibility/CSSVisibility.html" path="css-visibility/css-visibility.css" />
+
 
 It's also important to note that the content before and after the list are not visible but they still take up space
 
 You can play around with the CSS properties below to see how the influence the overall styling:
 
-<CSSSnippet
-  html
-  path="css-visibility/css-visibility.css"
-  variables={{
-    '--show-visibility': {
-      initial: 'initial',
-      options: {
-        visible: 'visible',
-        hidden: 'hidden',
-        initial: 'initial'
-      },
-    },
-    '--show-display': {
-      initial: 'initial',
-      options: {
-        block: 'block',
-        hidden: 'none',
-        initial: 'initial'
-      },
-    },
-      '--hide-visibility': {
-      initial: 'initial',
-      options: {
-        visible: 'visible',
-        hidden: 'hidden',
-        initial: 'initial'
-      },
-    },
-    '--hide-display': {
-      initial: 'initial',
-      options: {
-        block: 'block',
-        hidden: 'none',
-        initial: 'initial'
-      },
-    },
+<CSSSnippet html htmlPath="css-visibility/CSSVisibility.html" path="css-visibility/css-visibility.css" variables='{ "--show-visibility": { "initial": "initial", "options": { "visible": "visible", "hidden": "hidden", "initial": "initial" } }, "--show-display": { "initial": "initial", "options": { "block": "block", "hidden": "none", "initial": "initial" } }, "--hide-visibility": { "initial": "initial", "options": { "visible": "visible", "hidden": "hidden", "initial": "initial" } }, "--hide-display": { "initial": "initial", "options": { "block": "block", "hidden": "none", "initial": "initial" } } }' />
 
-}}>
 
-  <div class="example">
-    <div>before hidden</div>
-    <ol class="hide">
-      <li>Item 1</li>
-      <li class="show">Item 2</li>
-      <li>Item 3</li>
-    </ol>
-    <div>after hidden</div>
-  </div>
-</CSSSnippet>

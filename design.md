@@ -38,6 +38,7 @@ Some tasks/ideas to keep in mind for the redesign
 
 ## Content Improvements
 
+- [ ] Think about how we can continue to use tweakpane for snippets
 - [ ] Remove all dependencies for markdown to HTML conversion?
 - [ ] Remove dependency on Astro components
   - [ ] Use Web Components (progressive enhancements)
