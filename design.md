@@ -2,6 +2,12 @@
 
 Some tasks/ideas to keep in mind for the redesign
 
+## Architecture
+
+- [ ] Figure out bundling - ssr component detection?
+- [ ] Script inlining?
+- [ ] Reorganize images?
+
 ## Rebuild Astro Components
 
 - Client
@@ -30,8 +36,7 @@ Some tasks/ideas to keep in mind for the redesign
 - [ ] Sitemap!!!
 - [ ] RSS!!!
 
-
-## Content Imporvements
+## Content Improvements
 
 - [ ] Remove all dependencies for markdown to HTML conversion?
 - [ ] Remove dependency on Astro components
