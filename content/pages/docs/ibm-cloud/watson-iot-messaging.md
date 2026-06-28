@@ -1,4 +1,6 @@
-# Watson IoT Messaging - Node
+---
+title: Watson IoT Messaging - Node
+---
 
 Basic connections for connecting to Watson IoT Platform with Node.js making use of the `ibmiotf` package
 

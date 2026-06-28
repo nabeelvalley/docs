@@ -1,4 +1,6 @@
-# Setting up a DSX Notebook
+---
+title: Setting up a DSX Notebook
+---
 
 ## 1. Configure an Apache Spark Instance
 

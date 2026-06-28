@@ -1,4 +1,6 @@
-# DevOps
+---
+title: DevOps
+---
 
 [Based on this DNA course](https://developer.ibm.com/africa/skills/DevOps/)
 

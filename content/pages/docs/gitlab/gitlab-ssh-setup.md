@@ -1,4 +1,6 @@
-# Setup GitLab SSH for Git
+---
+title: Setup GitLab SSH for Git
+---
 
 You need to run the following from bash:
 

@@ -1,4 +1,6 @@
-# Introduction to Prolog
+---
+title: Introduction to Prolog
+---
 
 [Notes from Derek Banas' Youtube](https://www.youtube.com/watch?v=SykxWpFwMGs)
 

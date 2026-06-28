@@ -1,4 +1,6 @@
-# Deploy a Kubernetes App on ICP
+---
+title: Deploy a Kubernetes App on ICP
+---
 
 You can do any of the following
 

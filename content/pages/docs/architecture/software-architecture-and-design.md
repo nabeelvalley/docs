@@ -1,4 +1,7 @@
-## Software Architecture and Design
+---
+published: false
+title: Software Architecture and Design
+---
 
 > From [this Udacity Course](https://classroom.udacity.com/courses/ud821), the course structure and recommended reading can be found [here](https://www.udacity.com/wiki/saad/schedule)
 

@@ -4,8 +4,6 @@ title: Intro to Slack Apps
 description: Building a Hello World app with the Slack API
 ---
 
-# Hello World App
-
 ## Incoming Webhooks
 
 [Based on this tutorial](https://api.slack.com/tutorials/slack-apps-hello-world)

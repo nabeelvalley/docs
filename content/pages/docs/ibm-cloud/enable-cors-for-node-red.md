@@ -1,4 +1,6 @@
-# Enale Cors for Node-RED
+---
+title: Enable Cors for Node-RED
+---
 
 In order to enable Cross Origin for Node-RED we need to add the `httpNodeCors` option into the `bluemix-settings.js` file in the settings object
 

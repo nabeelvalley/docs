@@ -1,8 +1,9 @@
-> Notes from [The Coding Train YouTube Channel](https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw)
+---
+title: Intelligence and Learning
+---
 
-# Intelligence and Learning
 
-> From the [Intelligence and Learning Series](https://www.youtube.com/watch?v=Vc5fIuYk3Bw&list=PLRqwX-V7Uu6bePNiZLnglXUp2LXIjlCdb)
+> Notes from [The Coding Train YouTube Channel](https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw), [Intelligence and Learning Series](https://www.youtube.com/watch?v=Vc5fIuYk3Bw&list=PLRqwX-V7Uu6bePNiZLnglXUp2LXIjlCdb)
 
 ## Algorithms and Graphs
 

@@ -1,4 +1,6 @@
-# CI Pipelines
+---
+title: CI Pipelines
+---
 
 ## Static Site
 

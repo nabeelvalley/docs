@@ -1,3 +1,7 @@
+---
+title: Intro to Ruby
+---
+
 > From the [Ruby Documentation](https://www.ruby-lang.org/en/documentation/quickstart/)
 
 ## Interactive Ruby

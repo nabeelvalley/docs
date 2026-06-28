@@ -1,4 +1,6 @@
-# Publish an App to CF
+---
+title: Publish an App to CF
+---
 
 Every app to be published requires a `manifest.yml` file that defines some specifications for the app. An example of this can be seen below:
 

@@ -1,4 +1,7 @@
-# My Current VSCode Setup
+---
+title: My Current VSCode Setup
+published: false
+---
 
 ## Settings
 

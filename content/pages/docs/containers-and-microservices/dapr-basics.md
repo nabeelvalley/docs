@@ -1,3 +1,7 @@
+---
+title: Dapr Basics
+---
+
 ## What is Dapr?
 
 > Abbreivation for "Distributed Application Runtime"

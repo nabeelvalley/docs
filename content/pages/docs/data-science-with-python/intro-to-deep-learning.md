@@ -1,4 +1,6 @@
-# Deep Learning Fundamentals
+---
+title: Deep Learning Fundamentals
+---
 
 ## Introduction to Deep Learning
 
