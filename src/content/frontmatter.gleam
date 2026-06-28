@@ -1,18 +1,26 @@
 import content/fs
+import date
+import gleam/dynamic/decode
 import gleam/list
-import gleam/option.{type Option}
+import gleam/option.{type Option, None, Some}
 import gleam/result
 import gleam/string
-import yay
+import yamleam
+
+pub type Layout {
+  ArticleLayout
+  GalleryLayout
+}
 
 pub type Frontmatter {
   Frontmatter(
     title: Option(String),
-    date: Option(String),
+    date: Option(date.IsoDate),
     description: Option(String),
     published: Bool,
     feature: Bool,
     rss_only: Bool,
+    layout: Layout,
   )
 }
 
@@ -50,36 +58,46 @@ fn separate(file: fs.File) -> Result(Parts, String) {
 }
 
 fn parse(frontmatter: String) -> Result(Frontmatter, String) {
-  let parse_result =
-    yay.parse_string(frontmatter)
-    |> result.replace_error("Frontmatter is not valid YAML:\n" <> frontmatter)
-
-  use docs <- result.try(parse_result)
-  case docs {
-    [doc] -> decode(doc)
-    [] -> Error("No YAML documents found in frontmatter")
-    _ -> Error("Multiple YAML documents found in frontmatter")
-  }
+  yamleam.parse(frontmatter, frontmatter_decoder())
+  |> result.replace_error("error decoding frontmatter")
 }
 
-fn decode(doc: yay.Document) -> Result(Frontmatter, String) {
-  let str = fn(field) {
-    yay.extract_optional_string(doc.root, field)
-    |> result.replace_error("Error parsing frontmatter property: " <> field)
+fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
+  let decode_bool = fn(field, a) {
+    decode.optional_field(field, False, decode.bool, a)
   }
 
-  let bool = fn(field) {
-    yay.extract_bool_or(doc.root, field, False)
-    |> result.replace_error("Error parsing frontmatter property: " <> field)
+  let decode_str = fn(field, a) {
+    decode.optional_field(field, None, decode.optional(decode.string), a)
   }
 
-  use title <- result.try(str("title"))
-  use date <- result.try(str("date"))
-  use description <- result.try(str("description"))
+  use title <- decode_str("title")
+  use date_str <- decode_str("date")
 
-  use published <- result.try(bool("published"))
-  use feature <- result.try(bool("feature"))
-  use rss_only <- result.try(bool("rssOnly"))
+  use description <- decode_str("description")
+  use layout_str <- decode_str("layout")
 
-  Ok(Frontmatter(title:, date:, description:, published:, feature:, rss_only:))
+  use published <- decode_bool("published")
+  use feature <- decode_bool("feature")
+  use rss_only <- decode_bool("rss_only")
+
+  let date =
+    option.map(date_str, date.parse)
+    |> option.map(option.from_result)
+    |> option.flatten
+
+  let layout = case layout_str {
+    Some("gallery") -> GalleryLayout
+    _ -> ArticleLayout
+  }
+
+  decode.success(Frontmatter(
+    title:,
+    date:,
+    description:,
+    published:,
+    feature:,
+    rss_only:,
+    layout:,
+  ))
 }

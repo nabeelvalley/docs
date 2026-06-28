@@ -1,8 +1,10 @@
 import birdie
+import content/frontmatter
 import content/fs
+import date
 import gleam/javascript/promise
 import gleam/list
-import gleam/string
+import gleam/option.{None, Some}
 import gleeunit
 import gleeunit/should
 import js/dom
@@ -18,13 +20,13 @@ pub fn main() -> Nil {
   gleeunit.main()
 }
 
-pub fn markdown_parser_test() {
-  let content =
-    "
+const md_frontmatter = "---
+title: Some title
+date: 2026-01-31
 ---
-title: My Page title
----
+"
 
+const md_content = "
 # This is a heading
 
 This is some more content
@@ -42,9 +44,9 @@ This is a code snippet
 - Second list item
 - <third-special>List Item</third-special>
 "
-    |> string.trim
 
-  let parsed = marked.parse(content)
+pub fn markdown_parser_test() {
+  let parsed = marked.parse(md_content)
 
   parsed
   |> birdie.snap(title: "basic rendered html from markdown")
@@ -124,7 +126,7 @@ pub fn update_dom_self_closing_test() {
 pub fn sharp_test() {
   let out_path = "./out/test/images/home/code.jpg"
   use _ <- promise.await(sharp.optimize_image(
-    in_path: "../public/images/home/code.jpg",
+    in_path: "./public/images/home/code.jpg",
     out_path:,
   ))
 
@@ -142,4 +144,28 @@ pub fn css_snippet_render_test() {
     )
 
   result |> element.to_readable_string |> birdie.snap("css snippet rendering")
+}
+
+pub fn extract_frontmatter_test() {
+  let content = md_frontmatter <> md_content
+
+  let assert Ok(result) =
+    frontmatter.extract(fs.File(
+      path: "my/path.md",
+      relative: "my/path.md",
+      content:,
+    ))
+
+  result.frontmatter
+  |> should.equal(frontmatter.Frontmatter(
+    title: Some("Some title"),
+    date: Some(date.IsoDate(year: 2026, month: 1, day: 31)),
+    description: None,
+    published: False,
+    feature: False,
+    rss_only: False,
+    layout: frontmatter.ArticleLayout,
+  ))
+
+  result.content |> birdie.snap("markdown content")
 }

@@ -28,14 +28,14 @@ packages = [
   { name = "houdini", version = "1.2.1", build_tools = ["gleam"], requirements = [], otp_app = "houdini", source = "hex", outer_checksum = "6F8AC2F12974567FB744BEA66AC93CEB76AAEA19AD28564623F76CDA9BC26A85" },
   { name = "justin", version = "1.1.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "justin", source = "hex", outer_checksum = "8B1C62269E8607D0A0ED698B7903984CE0BF7B6B3C0DEA3C6C8302B39402837B" },
   { name = "lustre", version = "5.7.0", build_tools = ["gleam"], requirements = ["gleam_erlang", "gleam_json", "gleam_otp", "gleam_stdlib", "houdini"], otp_app = "lustre", source = "hex", outer_checksum = "38C6FCBD7B7BACE994D5BF643202BB69B02576D44250B4C5DCE738387C0E8F87" },
+  { name = "parz", version = "1.0.1", build_tools = ["gleam"], requirements = ["gleam_regexp", "gleam_stdlib"], otp_app = "parz", source = "hex", outer_checksum = "9D7F5B11D19C15073A394B31FC795579FB7978B13B89DBFEBB481653C104FCAB" },
   { name = "rank", version = "1.1.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "rank", source = "hex", outer_checksum = "B846D54D1512FB83A3994A07A8C7915FE74335A99BCE1EDC7943EA31ED710DFD" },
   { name = "simplifile", version = "2.4.0", build_tools = ["gleam"], requirements = ["filepath", "gleam_stdlib"], otp_app = "simplifile", source = "hex", outer_checksum = "7C18AFA4FED0B4CE1FA5B0B4BAC1FA1744427054EA993565F6F3F82E5453170D" },
   { name = "splitter", version = "1.2.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "splitter", source = "hex", outer_checksum = "3DFD6B6C49E61EDAF6F7B27A42054A17CFF6CA2135FF553D0CB61C234D281DD0" },
   { name = "term_size", version = "1.0.1", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "term_size", source = "hex", outer_checksum = "D00BD2BC8FB3EBB7E6AE076F3F1FF2AC9D5ED1805F004D0896C784D06C6645F1" },
   { name = "tom", version = "2.1.0", build_tools = ["gleam"], requirements = ["gleam_stdlib", "gleam_time"], otp_app = "tom", source = "hex", outer_checksum = "DCF04CB7AB35D58CFC598C66EA2E1816D160759802C89B2BA6238780D59BC256" },
   { name = "trie_again", version = "1.1.4", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "trie_again", source = "hex", outer_checksum = "E3BD66B4E126EF567EA8C4944EAB216413392ADF6C16C36047AF79EE5EF13466" },
-  { name = "yamerl", version = "0.10.0", build_tools = ["rebar3"], requirements = [], otp_app = "yamerl", source = "hex", outer_checksum = "346ADB2963F1051DC837A2364E4ACF6EB7D80097C0F53CBDC3046EC8EC4B4E6E" },
-  { name = "yay", version = "2.0.2", build_tools = ["gleam"], requirements = ["gleam_stdlib", "yamerl"], otp_app = "yay", source = "hex", outer_checksum = "B208F9A14FA2B5E306728812814B01E760BC7F3BCAC4BD6889E9CA8088ACFD48" },
+  { name = "yamleam", version = "1.0.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "yamleam", source = "hex", outer_checksum = "16213706D44FF1A0010ECD9E86F95E7F50E5C4BE4D61219512CF6A118E8CEC83" },
 ]
 
 [requirements]
@@ -45,5 +45,6 @@ gleam_regexp = { version = ">= 1.1.1 and < 2.0.0" }
 gleam_stdlib = { version = ">= 1.0.0 and < 2.0.0" }
 gleeunit = { version = ">= 1.0.0 and < 2.0.0" }
 lustre = { version = ">= 5.7.0 and < 6.0.0" }
+parz = { version = ">= 1.0.1 and < 2.0.0" }
 simplifile = { version = ">= 2.4.0 and < 3.0.0" }
-yay = { version = ">= 2.0.2 and < 3.0.0" }
+yamleam = { version = ">= 1.0.0 and < 2.0.0" }

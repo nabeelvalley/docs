@@ -1,0 +1,21 @@
+---
+version: 2.0.1
+title: markdown frontmatter
+---
+
+# This is a heading
+
+This is some more content
+
+```ts
+This is a code snippet
+  That has some indentation
+```
+
+<div>Normal Div</div>
+
+<special-tag>This is my special tag</special-tag>
+
+- First list item
+- Second list item
+- <third-special>List Item</third-special>

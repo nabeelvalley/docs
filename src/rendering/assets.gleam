@@ -1,5 +1,6 @@
 import consts
 import content/fs
+import date
 import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/option.{type Option}
@@ -17,7 +18,11 @@ pub type Asset {
 }
 
 pub type Meta {
-  Meta(title: Option(String), description: Option(String), date: Option(String))
+  Meta(
+    title: Option(String),
+    description: Option(String),
+    date: Option(date.IsoDate),
+  )
 }
 
 pub type Page {
