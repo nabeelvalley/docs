@@ -21,6 +21,7 @@ pub type Frontmatter {
     feature: Bool,
     rss_only: Bool,
     layout: Layout,
+    tags: List(String),
   )
 }
 
@@ -83,6 +84,8 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
   use feature <- decode_bool("feature")
   use rss_only <- decode_bool("rss_only")
 
+  use tags <- decode.optional_field("tags", [], decode.list(decode.string))
+
   let date =
     option.map(date_str, date.parse)
     |> option.map(option.from_result)
@@ -101,5 +104,6 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
     feature:,
     rss_only:,
     layout:,
+    tags:,
   ))
 }

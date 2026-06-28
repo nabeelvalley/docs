@@ -23,6 +23,9 @@ pub fn main() -> Nil {
 const md_frontmatter = "---
 title: Some title
 date: 2026-01-31
+tags:
+  - blog
+  - test
 ---
 "
 
@@ -157,15 +160,18 @@ pub fn extract_frontmatter_test() {
     ))
 
   result.frontmatter
-  |> should.equal(frontmatter.Frontmatter(
-    title: Some("Some title"),
-    date: Some(date.IsoDate(year: 2026, month: 1, day: 31)),
-    description: None,
-    published: False,
-    feature: False,
-    rss_only: False,
-    layout: frontmatter.ArticleLayout,
-  ))
+  |> should.equal(
+    frontmatter.Frontmatter(
+      title: Some("Some title"),
+      date: Some(date.IsoDate(year: 2026, month: 1, day: 31)),
+      description: None,
+      published: False,
+      feature: False,
+      rss_only: False,
+      layout: frontmatter.ArticleLayout,
+      tags: ["blog", "test"],
+    ),
+  )
 
   result.content |> birdie.snap("markdown content")
 }
