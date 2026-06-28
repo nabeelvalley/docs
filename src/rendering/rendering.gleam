@@ -1,6 +1,5 @@
 import consts
 import content/content
-import content/md
 import gleam/list
 import gleam/option.{None}
 import gleam/regexp
@@ -17,27 +16,17 @@ import rendering/components/snippet
 import rendering/layout
 
 pub fn render(collection: content.Collection) -> Result(List(Page), String) {
-  let blog = collection.blog |> list.map(render_md_page("blog", _))
-  let docs = collection.docs |> list.map(render_md_page("docs", _))
-  let talks = collection.talks |> list.map(render_md_page("talks", _))
+  use pages <- result.try(list.map(collection.pages, render_page) |> result.all)
 
-  let md_pages_result =
-    []
-    |> list.append(blog)
-    |> list.append(docs)
-    |> list.append(talks)
-    |> result.all
+  let index = render_index(pages)
 
-  use md_pages <- result.try(md_pages_result)
-  let index = render_index(md_pages)
-
-  [index] |> list.append(md_pages) |> Ok
+  Ok([index, ..pages])
 }
 
-fn to_slug(base: String, rel: String) {
+fn to_slug(rel: String) {
   let assert Ok(re) = regexp.from_string("\\.\\w+$")
 
-  base <> "/" <> regexp.replace(re, rel, "")
+  "/" <> regexp.replace(re, rel, "")
 }
 
 fn render_index(pages: List(Page)) {
@@ -58,7 +47,7 @@ fn render_index(pages: List(Page)) {
   Page("index", meta, html, [])
 }
 
-fn render_md_page(base: String, doc: md.MarkdownDocument) {
+fn render_page(doc: content.Page) {
   let meta =
     Meta(
       doc.frontmatter.title,
@@ -66,7 +55,7 @@ fn render_md_page(base: String, doc: md.MarkdownDocument) {
       doc.frontmatter.date,
     )
 
-  let slug = to_slug(base, doc.path)
+  let slug = to_slug(doc.path)
 
   use processed <- result.try(
     Page(slug, meta, doc.html, [])

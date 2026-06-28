@@ -1,12 +1,12 @@
 import birdie
 import content/fs
-import content/md
 import gleam/javascript/promise
 import gleam/list
 import gleam/string
 import gleeunit
 import gleeunit/should
 import js/dom
+import js/marked
 import js/sharp
 import lustre/attribute
 import lustre/element
@@ -19,8 +19,6 @@ pub fn main() -> Nil {
 }
 
 pub fn markdown_parser_test() {
-  let path = "my/file/path.md"
-
   let content =
     "
 ---
@@ -46,10 +44,9 @@ This is a code snippet
 "
     |> string.trim
 
-  let file = fs.File(path, path, content:)
-  let assert Ok(parsed) = md.parse_markdown_file(file)
+  let parsed = marked.parse(content)
 
-  parsed.html
+  parsed
   |> birdie.snap(title: "basic rendered html from markdown")
 }
 

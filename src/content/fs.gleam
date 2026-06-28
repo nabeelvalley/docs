@@ -84,12 +84,16 @@ pub fn load_content(at: String) -> Result(List(File), String) {
   read_file(path, at)
 }
 
-fn has_ext(file: File, ext: String) -> Bool {
+pub fn has_ext(file: File, ext: String) -> Bool {
   file.path |> string.ends_with(ext)
 }
 
 pub fn is_markdown(file: File) -> Bool {
   has_ext(file, ".md") || has_ext(file, ".mdx")
+}
+
+pub fn is_html(file: File) -> Bool {
+  has_ext(file, ".html")
 }
 
 pub fn is_json(file: File) -> Bool {
