@@ -8,3 +8,8 @@ _cache/
 public/*.nb-out.png
 public/playgrounds.json
 .DS_Store
+*.beam
+*.ez
+build/
+out/
+erl_crash.dump
