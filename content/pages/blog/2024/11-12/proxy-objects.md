@@ -1,7 +1,7 @@
 ---
 title: Javascript Proxy Object
 description: Basic introduction to proxies in Javascript/Typescript
-date: 11 December 2024
+date: 2024-12-11
 ---
 
 Proxies allow us to wrap existing object and modify the behavior when interacting with them in some interesting ways. This post will take a look at a few things we can use them for

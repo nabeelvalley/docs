@@ -3,7 +3,7 @@ title: Exploring the CSS Paint API
 description: Walking through a simple example of using the CSS Houdini Paint API
 published: true
 feature: true
-date: 10 July 2025
+date: 2025-07-10
 ---
 
 [The CSS Painting API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Painting_API) is part of [the CSS Houdini group of APIs](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Painting_API) which provide low level access to the CSS engine

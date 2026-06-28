@@ -2,7 +2,7 @@
 published: true
 title: Package Management with Poetry
 description: Manage python packages using poetry
-date: 07 October 2020
+date: 2020-10-07
 ---
 
 > [Poetry Docs](https://python-poetry.org/docs/)

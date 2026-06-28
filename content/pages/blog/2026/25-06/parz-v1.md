@@ -1,7 +1,7 @@
 ---
 title: Parz v1 finally published!
 description: Publishing my parser combinator library
-date: 25 June 2026
+date: 2026-06-25
 feature: true
 ---
 
@@ -74,4 +74,3 @@ As it stands right now, I'd like to add some more combinators and possibly faste
 In conclusion, my little library has been promoted to v1, [go and check it out!](https://parz.hexdocs.pm/index.html)
 
 And if you haven't already - definitely look at the [Gleam programming language](https://gleam.run/) - it's great!
-

@@ -1,7 +1,7 @@
 ---
 title: Quick and Dirty Object Access in Go
 published: true
-date: 27 March 2026
+date: 2026-03-27
 ---
 
 > Assumed audience: Developers/technical people who use Go as a programming language

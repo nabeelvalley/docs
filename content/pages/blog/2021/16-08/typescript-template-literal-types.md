@@ -2,7 +2,7 @@
 published: true
 title: Template Literal Types with Typescript
 description: Defining type combinations using Template Literal types
-date: 16 August 2021
+date: 2021-08-16
 ---
 
 Template literal types provide us a way to combine `string types` or `enums` in Typescript.

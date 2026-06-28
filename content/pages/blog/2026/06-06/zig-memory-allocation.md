@@ -2,7 +2,7 @@
 title: Zig - Bus error at address and memory management
 description: Challenges with memory management in Zig
 published: true
-date: 06 June 2026
+date: 2026-06-06
 ---
 
 > Assumed audience: People learning the Zig programming language

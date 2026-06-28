@@ -2,7 +2,7 @@
 title: Life, Gleam, and Parser Combinators
 description: A short introduction to Parser Combinators
 published: true
-date: 20 July 2024
+date: 2024-07-20
 ---
 
 ## Time

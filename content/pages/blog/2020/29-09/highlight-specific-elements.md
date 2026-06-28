@@ -2,7 +2,7 @@
 published: true
 title: Highlight Specific Elements
 description: Add a border around all HTML Elements that match a CSS Selector to aid in debugging
-date: 29 September 2020
+date: 2020-09-29
 ---
 
 You can highlight all HTML elements which respond to a specific CSS selector with the following. This can be useful for debugging purposes:

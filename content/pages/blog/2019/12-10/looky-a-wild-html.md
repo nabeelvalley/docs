@@ -2,7 +2,7 @@
 published: true
 title: Looky, a wild HTML!
 description: The first blog post, A quick journey through my design and development process for the site
-date: 01 October 2019
+date: 2019-10-01
 ---
 
 ## Here at last

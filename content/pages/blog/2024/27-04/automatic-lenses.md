@@ -5,7 +5,7 @@ published: true
 tags:
 - blog
 - photography
-date: 27 April 2024
+date: 2024-04-27
 ---
 
 I enjoy capturing the world around me - places, people, plants - anything the light touches really

@@ -1,6 +1,6 @@
 ---
 title: week 37, year 2024 - ui paradigms and comic books
-date: 15 September 2024
+date: 2024-09-15
 ---
 
 between doomscrolling and visiting [FOAM](https://www.foam.org/?gad_source=1&gclid=Cj0KCQjwi5q3BhCiARIsAJCfuZkTCodlHCRjT5oZANFRotVr8C131p7Ad5DIjty3-1DrBP9PqkiXSPcaAkJmEALw_wcB) there was barely any time to put something together but here we go

@@ -2,7 +2,7 @@
 title: Scripting Text Manipulation
 description: An idea for automating changes to text files
 published: true
-date: 01 August 2025
+date: 2025-08-01
 ---
 
 > This is kind of just a brain dump of some things that I think would be interesting to explore

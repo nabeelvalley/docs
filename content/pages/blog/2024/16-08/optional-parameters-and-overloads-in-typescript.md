@@ -2,7 +2,7 @@
 title: Parameters, but only sometimes
 description: Better handling of function generics with optional parameters in Typescript using overloads
 published: true
-date: 16 August 2024
+date: 2024-08-16
 ---
 
 Ran into this question today and I thought it would be a nice little example to document:

@@ -1,7 +1,7 @@
 ---
 published: true
 title: Localhost HTTP Proxy with Node.js
-date: 08 March 2022
+date: 2022-03-08
 ---
 
 An localhost HTTP proxy is useful for debugging and can be easily defined using Node.js by installing `http-proxy`

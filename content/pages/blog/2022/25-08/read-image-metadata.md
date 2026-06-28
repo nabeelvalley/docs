@@ -2,7 +2,7 @@
 published: true
 title: Read Metadata from Images using Rust
 description: Using Rust to parse EXIF metadata from image files
-date: 25 August 2022
+date: 2022-08-25
 ---
 
 > The complete Rust code discussed in this post can be found in the [exiflib GitHub repo](https://github.com/nabeelvalley/exiflib)

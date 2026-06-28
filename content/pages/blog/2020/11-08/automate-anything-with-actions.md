@@ -2,7 +2,7 @@
 published: true
 title: Automate Anything with GitHub Actions
 description: Build a GitHub action that updates your Twitter Profile
-date: 11 August 2020
+date: 2020-08-11
 ---
 
 ![Build Action Dist](https://github.com/nabeelvalley/twitter-bio-update/workflows/Build%20Action%20Dist/badge.svg)

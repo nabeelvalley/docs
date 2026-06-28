@@ -1,7 +1,7 @@
 ---
 title: Type safe URL templates
 description: Making URL template replacements safe
-date: 31 October 2024
+date: 2024-10-31
 ---
 
 > I don't think the below is a good idea, but I thought it was a fun little Typescript excercise so here you go

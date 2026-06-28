@@ -2,7 +2,7 @@
 title: The Most Awkward Person in the Room
 description: The challenge of language
 published: true
-date: 13 July 2024
+date: 2024-07-13
 ---
 
 > I should preface this by saying that I don't think I'm particularly good at English

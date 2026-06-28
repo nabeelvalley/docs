@@ -3,7 +3,7 @@ title: Week 37, Server Management
 description: Some utilities that simplify self hosting
 published: true
 feature: false
-date: 14 September 2025
+date: 2025-09-14
 ---
 
 ## Off topic

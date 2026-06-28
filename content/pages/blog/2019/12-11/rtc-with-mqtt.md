@@ -2,7 +2,7 @@
 published: true
 title: Real-time Communication with MQTT
 description: MQTT and real-time communication with the browser, JavaScript, Web Sockets and a Mosquitto message broker
-date: 12 November 2019
+date: 2019-11-12
 ---
 
 ## Overview

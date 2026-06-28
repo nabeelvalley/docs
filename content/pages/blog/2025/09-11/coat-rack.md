@@ -2,7 +2,7 @@
 title: Coat Rack
 description: A cloud for people who don't like clouds
 feature: true
-date: 09 November 2025
+date: 2025-11-09
 ---
 
 Coat Rack is a platform that provides users with the necessary tools to own and share their data within their physical space. Enabling non-technical users to take control of their data ownership is the foundation on which the platform is built.

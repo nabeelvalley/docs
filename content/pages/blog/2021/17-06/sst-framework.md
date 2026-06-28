@@ -2,7 +2,7 @@
 published: true
 title: Building Serverless Apps using the Serverless Stack Framework
 description: Build, debug, and deploy serverless applications on AWS using SST and VSCode
-date: 17 June 2021
+date: 2021-06-17
 ---
 
 > Prior to doing any of the below you will require your `~/.aws/credentials` file to be configured with the credentials for your AWS account

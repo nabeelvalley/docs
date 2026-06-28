@@ -2,7 +2,7 @@
 published: true
 title: Structuring HTML Content
 description: Transforming HTML into structured data to work with EditorJS
-date: 26 January 2023
+date: 2023-01-26
 ---
 
 ## Isn't HTML a structure?

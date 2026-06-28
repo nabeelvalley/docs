@@ -1,6 +1,6 @@
 ---
 title: week 35, year 2024 - datetimes and logic programming
-date: 01 September 2024
+date: 2024-09-01
 ---
 
 ## what i'm working on

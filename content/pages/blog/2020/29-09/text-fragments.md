@@ -2,7 +2,7 @@
 published: true
 title: URL Text Fragments
 description: Link to, and highlight, content on any part of a Web page with the Text Fragment directive
-date: 29 September 2020
+date: 2020-09-29
 ---
 
 When linking to a webpage it can be useful to link to a specific part of a page. Using a hash in the URl you can link to the `id` attribute in the HTML of a page

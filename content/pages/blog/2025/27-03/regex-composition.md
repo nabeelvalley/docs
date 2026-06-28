@@ -2,7 +2,7 @@
 title: Scan based regex composition
 description: A simplified approach to complex text replacements
 published: true
-date: 27 March 2025
+date: 2025-03-27
 ---
 
 Recently I needed a regex to camel-case some text, this sounds simple enough at first glance but since I had some very specific stylistic requirements it started to get more and more complex and the regex became pretty unwieldy 

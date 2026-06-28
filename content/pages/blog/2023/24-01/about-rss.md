@@ -2,7 +2,7 @@
 published: true
 title: Let's talk about Feeds
 description: A short introduction to RSS feeds
-date: 24 January 2023
+date: 2023-01-24
 ---
 
 ## Order Up

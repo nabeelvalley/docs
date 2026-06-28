@@ -3,7 +3,7 @@ title: Async TUIs using Bubble Tea
 description: Using Bubble Tea commands in Go for snappy TUIs
 published: true
 feature: true
-date: 26 March 2026
+date: 2026-03-26
 ---
 
 > Assumed audience: UI developers, people who program in Go, or anyone just generally interested in making computers to things using code

@@ -1,7 +1,7 @@
 ---
 title: Parsing Helix logs in Nushell
 published: true
-date: 16 December 2025
+date: 2025-12-16
 ---
 
 ## Getting Helix Logs

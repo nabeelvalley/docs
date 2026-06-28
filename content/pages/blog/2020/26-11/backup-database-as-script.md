@@ -2,7 +2,7 @@
 published: true
 title: Backup SQL Server Database as Script
 description: Create a DB Backup/Restore Script using SQL Server
-date: 26 November 2020
+date: 2020-11-26
 ---
 
 To create a scripted backup of a database on SQL Server do the following:

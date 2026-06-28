@@ -3,7 +3,7 @@ title: Week 36, Creativity
 description: Creative software and generative art
 published: true
 feature: true
-date: 07 September 2025
+date: 2025-09-07
 ---
 
 I've kind of always wondered how people make those crazy art installations with loads of lights and stuff, turns out there's software that exists for that

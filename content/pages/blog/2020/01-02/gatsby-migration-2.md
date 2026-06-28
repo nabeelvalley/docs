@@ -2,7 +2,7 @@
 published: true
 title: The Gatsby Migration, pt.2 - Dumb Pages
 description: Migrating a React.js website to Gatsby.js
-date: 01 February 2020
+date: 2020-02-01
 ---
 
 ## Introduction

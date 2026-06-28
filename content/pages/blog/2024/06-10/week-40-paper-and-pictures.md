@@ -1,6 +1,6 @@
 ---
 title: week 40, year 2024 - paper and pictures
-date: 06 October 2024
+date: 2024-10-06
 ---
 
 firstly, a small sadness - i missed the past two posts due to my vacation, but on the other hand i guess i had a vacation so that works out i suppose

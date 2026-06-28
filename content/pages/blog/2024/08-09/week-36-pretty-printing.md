@@ -1,6 +1,6 @@
 ---
 title: week 36, year 2024 - pretty printing
-date: 08 September 2024
+date: 2024-09-08
 ---
 
 this week has been a little insane so i'm actually amazed i've found 5 mins to put this together

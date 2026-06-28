@@ -2,7 +2,7 @@
 published: true
 title: A type for getting properties common in all objects from a union
 description: Using typescript type conditions and Exclude to get keys commmon in parts of a union and an object with only common keys from that union
-date: 08 June 2022
+date: 2022-06-08
 ---
 
 ## Overview
