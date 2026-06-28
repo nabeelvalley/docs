@@ -59,7 +59,9 @@ fn separate(file: fs.File) -> Result(Parts, String) {
 
 fn parse(frontmatter: String) -> Result(Frontmatter, String) {
   yamleam.parse(frontmatter, frontmatter_decoder())
-  |> result.replace_error("error decoding frontmatter")
+  |> result.replace_error(
+    "error decoding frontmatter, given:\n\n" <> frontmatter,
+  )
 }
 
 fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {

@@ -3,8 +3,8 @@ title: On Automatic Lensess
 description: Why automatic camera lenses suck
 published: true
 tags:
-- blog
-- photography
+  - blog
+  - photography
 date: 2024-04-27
 ---
 
