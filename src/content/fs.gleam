@@ -1,3 +1,5 @@
+// TODO: update all path related stuff to use an explicit Absolute/WorkspaceRelative types
+
 import gleam/list
 import gleam/result
 import gleam/string
