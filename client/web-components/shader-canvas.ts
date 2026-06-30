@@ -4,14 +4,11 @@ import { setupCanvas } from './shader.js'
 class ShaderCanvas extends HTMLElement {
   static observedAttributes = ['centered', 'highlight', 'large']
 
-  /** @type {MutationObserver} */
-  #observer
+  #observer: MutationObserver
 
-  /** @type {HTMLCanvasElement} */
-  #canvas
+  #canvas?: HTMLCanvasElement
 
-  /** @type {HTMLScriptElement} */
-  #script
+  #script?: HTMLScriptElement
 
   constructor() {
     super()
@@ -34,9 +31,9 @@ class ShaderCanvas extends HTMLElement {
     }
 
     const canvas = this.querySelector('canvas')
-
-    /** @type {HTMLScriptElement} */
-    const script = this.querySelector('script[type="text/wgsl"]')
+    const script = this.querySelector(
+      'script[type="text/wgsl"]',
+    ) as HTMLScriptElement
 
     if (!(script && canvas)) {
       return

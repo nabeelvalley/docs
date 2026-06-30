@@ -1,18 +1,17 @@
-// @ts-check
+import { Canvas } from 'glsl-canvas-js'
 
-import 'https://unpkg.com/glsl-canvas-js@0.2.4/dist/umd/glsl-canvas.js'
-
-const Canvas = glsl.Canvas
-
-const canvases = new Map()
-const getCanvas = (/** @type {HTMLElement} */ root) => {
-
+const canvases = new WeakMap()
+const getCanvas = (root: HTMLElement) => {
   const script = root.querySelector('script')
   const canvas = root.querySelector('canvas')
 
   const existing = canvases.get(root)
   if (existing) {
     return existing
+  }
+
+  if (!(script && canvas)) {
+    return
   }
 
   canvas.dataset['fragment'] = script.innerText
@@ -22,52 +21,51 @@ const getCanvas = (/** @type {HTMLElement} */ root) => {
   return instance
 }
 
-const showCanvas = (/** @type {HTMLElement} */ canvas) => {
+const showCanvas = (canvas: HTMLElement) => {
   const instance = getCanvas(canvas)
   instance.play()
 }
 
 /**
  * Destroys the rendering instance as well as the overall canvas to ensure that
- * the entire canvas WebGL instance is re-intialized
+ * the entire canvas WebGL instance is reinitialized
  */
 const destroyCanvas = (
-    /** @type {IntersectionObserver} */ obs,
-    /** @type {HTMLCanvasElement} */ canvas
+  obs: IntersectionObserver,
+  canvas: HTMLCanvasElement,
 ) => {
   const instance = canvases.get(canvas)
   if (!instance) {
     return
   }
 
-  // handle instance checking
+  // Handle instance checking
   instance.pause()
   instance.destroy()
   canvases.delete(canvas)
 
-  // handle the cloning of the node
+  // Handle the cloning of the node
 
   const parent = canvas.parentElement
-  
-  const newCanvas = /** @type {HTMLCanvasElement} */ (canvas.cloneNode())
+
+  const newCanvas = canvas.cloneNode() as HTMLCanvasElement
 
   obs.unobserve(canvas)
   obs.observe(newCanvas)
 
-  parent.removeChild(canvas)
-  parent.appendChild(newCanvas)
+  parent?.removeChild(canvas)
+  parent?.appendChild(newCanvas)
 }
 
 const observer = new IntersectionObserver((entries) =>
   entries.forEach((entry) => {
-
-    const target = /** @type {HTMLCanvasElement} */ (entry.target)
+    const target = entry.target as HTMLCanvasElement
     if (entry.isIntersecting) {
       showCanvas(target)
     } else {
       destroyCanvas(observer, target)
     }
-  })
+  }),
 )
 
 document

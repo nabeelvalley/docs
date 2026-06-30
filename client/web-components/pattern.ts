@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * Pattern element based on Sashiko/Kakinohana Patterns
  *
@@ -15,11 +13,8 @@
 class PatternElement extends HTMLElement {
   static observedAttributes = ['scale', 'pattern-x', 'pattern-y']
 
-  /** @type {MutationObserver} */
-  #observer
-
-  /** @type {SVGElement | undefined} */
-  #svg
+  #observer: MutationObserver
+  #svg: SVGElement | undefined
 
   constructor() {
     super()
@@ -27,7 +22,7 @@ class PatternElement extends HTMLElement {
     this.#observer.observe(this, { childList: true })
   }
 
-  disconnectedCallback() { }
+  disconnectedCallback() {}
 
   connectedCallback() {
     this.#initialize()
@@ -47,7 +42,7 @@ class PatternElement extends HTMLElement {
     const patternX = toInts(this.getAttribute('pattern-x'))
     const patternY = toInts(this.getAttribute('pattern-y'))
 
-    const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs')
     const dash = createDashSymbol()
     defs.appendChild(dash)
 
@@ -67,37 +62,21 @@ class PatternElement extends HTMLElement {
     this.#svg = svg
   }
 
-  setupPatternX() {
-
-  }
+  setupPatternX() {}
 }
 
 customElements.define('site-pattern', PatternElement)
 
-/**
- * @param {string | null} value 
- * @returns {number}
- */
-function toInt(value) {
+function toInt(value: string | null) {
   return +(value || 0)
 }
 
-/**
- * @param {string | null} values
- * @returns {number[]}
- */
-function toInts(values) {
-  return (values || '')
-    .split(' ')
-    .filter(Boolean)
-    .map(toInt)
+function toInts(values: string | null): number[] {
+  return (values || '').split(' ').filter(Boolean).map(toInt)
 }
 
-/**
- * @param {string} fill
- */
-function createFillRect(fill) {
-  const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+function createFillRect(fill: string) {
+  const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
 
   rect.setAttribute('fill', fill)
   rect.setAttribute('width', '100%')
@@ -106,15 +85,16 @@ function createFillRect(fill) {
   return rect
 }
 
-/**
- * @param {SVGSymbolElement} symbol required by the pattern for correct overflow behavior
- * @param {number[]} pattern in the form of '0 1 1 0 0' where the 0/1 is the start position for the line segment
- */
-function createDashes(symbol, pattern, rotate = 0, scale = 10) {
+function createDashes(
+  symbol: SVGSymbolElement,
+  pattern: number[],
+  rotate = 0,
+  scale = 10,
+) {
   const width = 2
   const height = pattern.length
 
-  const el = document.createElementNS("http://www.w3.org/2000/svg", "pattern");
+  const el = document.createElementNS('http://www.w3.org/2000/svg', 'pattern')
 
   el.id = `pattern-${pattern.join('_')}-${Math.random()}`
   el.setAttribute('patternUnits', 'userSpaceOnUse')
@@ -125,7 +105,7 @@ function createDashes(symbol, pattern, rotate = 0, scale = 10) {
   for (let i = 0; i < pattern.length; i++) {
     const startPos = pattern[i]
 
-    const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use')
 
     use.setAttribute('href', `#${symbol.id}`)
     use.setAttribute('x', startPos.toString())
@@ -134,26 +114,29 @@ function createDashes(symbol, pattern, rotate = 0, scale = 10) {
     el.appendChild(use)
   }
 
-  el.setAttribute("patternTransform", `rotate(${rotate}) scale(${scale})`)
+  el.setAttribute('patternTransform', `rotate(${rotate}) scale(${scale})`)
 
   return el
 }
 
 function createDashSymbol(strokeWidth = 0.2) {
-  const symbol = document.createElementNS("http://www.w3.org/2000/svg", "symbol");
-  const dash = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  const symbol = document.createElementNS(
+    'http://www.w3.org/2000/svg',
+    'symbol',
+  )
+  const dash = document.createElementNS('http://www.w3.org/2000/svg', 'line')
 
   symbol.id = `dashes-${Math.random()}`
 
-  dash.setAttribute('x1', "0")
-  dash.setAttribute('y1', "0")
+  dash.setAttribute('x1', '0')
+  dash.setAttribute('y1', '0')
 
-  dash.setAttribute('x2', "1")
-  dash.setAttribute('y2', "0")
+  dash.setAttribute('x2', '1')
+  dash.setAttribute('y2', '0')
 
-  dash.setAttribute('overflow', "true")
+  dash.setAttribute('overflow', 'true')
 
-  dash.style.stroke = "currentColor"
+  dash.style.stroke = 'currentColor'
   dash.style.strokeWidth = strokeWidth.toString()
 
   symbol.appendChild(dash)

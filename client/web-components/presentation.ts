@@ -11,13 +11,15 @@ class Presentation extends HTMLElement {
 
   listenersInitialized = false
   slide = 0
-  slides = []
+  slides: HTMLElement[] = []
 
   presenter = false
   presenting = false
 
   presentationId = window.location.href
   syncWriter = createSyncWriter(this.presentationId)
+
+  button?: HTMLButtonElement
 
   connectedCallback() {
     this.button = document.createElement('button')
@@ -79,7 +81,7 @@ class Presentation extends HTMLElement {
   }
 
   startPresentation = () => {
-    this.button.innerHTML = 'Resume presentation'
+    this.button!.innerHTML = 'Resume presentation'
     document.body.classList.add('presentation-overflow-hidden')
 
     this.presenting = true
@@ -102,12 +104,12 @@ class Presentation extends HTMLElement {
     document.body.style.setProperty('--presentation-progress', `${progress}%`)
   }
 
-  transition = (nextSlide) => {
+  transition = (nextSlide: number) => {
     if (!this.presenting) {
       return
     }
 
-    if (this.slide === this.nextSlide) {
+    if (this.slide === nextSlide) {
       return
     }
 
@@ -154,7 +156,7 @@ class Presentation extends HTMLElement {
         return
       }
 
-      const getSlide = keyHandlers[ev.key]
+      const getSlide = keyHandlers[ev.key as keyof typeof keyHandlers]
 
       if (!getSlide) {
         return
@@ -175,10 +177,10 @@ class Presentation extends HTMLElement {
       }
 
       if (touchendX < touchstartX) {
-        transition(nextSlide())
+        this.transition(this.nextSlide())
       }
       if (touchendX > touchstartX) {
-        transition(prevSlide())
+        this.transition(this.prevSlide())
       }
     }
 
@@ -201,7 +203,7 @@ class Presentation extends HTMLElement {
   }
 }
 
-const getValue = (key, initial) => {
+const getValue = (key: string, initial: unknown) => {
   try {
     const existing = window.localStorage.getItem(key)
     if (!existing) {
@@ -213,10 +215,14 @@ const getValue = (key, initial) => {
   }
 }
 
-const setValue = (key, value) =>
+const setValue = (key: string, value: unknown) =>
   window.localStorage.setItem(key, JSON.stringify(value))
 
-const createSyncReader = (key, initial, onChange) => {
+const createSyncReader = (
+  key: string,
+  initial: number,
+  onChange: { (nextSlide: number): void; (arg0: any): void },
+) => {
   window.addEventListener('storage', () => {
     const value = getValue(key, initial)
     onChange(value)
@@ -224,6 +230,7 @@ const createSyncReader = (key, initial, onChange) => {
   return () => getValue(key, initial)
 }
 
-const createSyncWriter = (key) => (value) => setValue(key, value)
+const createSyncWriter = (key: string) => (value: unknown) =>
+  setValue(key, value)
 
 customElements.define('site-presentation', Presentation)

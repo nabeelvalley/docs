@@ -1,9 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "include": [
-    "./src/**/*.mjs"
+    "./src",
+    "./client"
   ],
   "compilerOptions": {
+    "types": [
+      "@webgpu/types"
+    ],
     "noEmit": true,
     "module": "commonjs",
     "esModuleInterop": true,
@@ -11,7 +15,9 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
+    "target": "esnext",
     "lib": [
+      "DOM",
       "ESNext"
     ]
   }

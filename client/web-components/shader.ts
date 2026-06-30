@@ -1,24 +1,17 @@
-// @ts-check
-
 /**
- * @param {HTMLCanvasElement} canvas
- * @param {string} shader - WebGPU Shader
+ * @param hader - WebGPU Shader
  * @returns {Promise<((saveTo?: string) => void) | undefined>} renderer function. Will be `undefined` if there is an instantiation error
  */
 export async function setupCanvas(
-  canvas,
-  shader,
-) {
+  canvas: HTMLCanvasElement,
+  shader: string,
+): Promise<((saveTo?: string) => void) | undefined> {
   // @ts-ignore
   const adapter = await navigator.gpu?.requestAdapter()
   const device = await adapter?.requestDevice()
   if (!device) {
     return
   }
-
-  /**
-   * @type {any}
-   */
   const ctx = canvas?.getContext('webgpu')
   if (!ctx) {
     return
@@ -37,8 +30,8 @@ export async function setupCanvas(
   })
 
   const uTime = device.createBuffer({
+    // @ts-ignore webgpu API is always in flux
     size: [4],
-    // @ts-ignore
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
   })
 
@@ -48,22 +41,30 @@ export async function setupCanvas(
     size: { width: canvas.width, height: canvas.height },
     format: 'rgba8unorm',
     // @ts-ignore
-    usage: GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST | GPUTextureUsage.RENDER_ATTACHMENT
-  });
-
+    usage:
+      GPUTextureUsage.TEXTURE_BINDING |
+      GPUTextureUsage.COPY_DST |
+      GPUTextureUsage.RENDER_ATTACHMENT,
+  })
 
   const sampler = device.createSampler({
-    addressModeU: "clamp-to-edge",
-    addressModeV: "mirror-repeat",
-    magFilter: "linear",
-  });
+    addressModeU: 'clamp-to-edge',
+    addressModeV: 'mirror-repeat',
+    magFilter: 'linear',
+  })
 
   const htmlInCanvas = canvas.hasAttribute('layoutsubtree')
 
   if (htmlInCanvas) {
-    // @ts-expect-error this is part of the WIP API for html-in-canvas
+    // @ts-ignore webgpu API is always in flux
     canvas.onpaint = () => {
-      device.queue.copyElementImageToTexture(canvas.querySelector('.html-in-canvas'), canvas.width, canvas.height, { texture })
+      // @ts-ignore webgpu API is always in flux
+      device.queue.copyElementImageToTexture(
+        canvas.querySelector('.html-in-canvas'),
+        canvas.width,
+        canvas.height,
+        { texture },
+      )
     }
 
     // @ts-expect-error this is part of the WIP API for html-in-canvas
@@ -86,7 +87,8 @@ export async function setupCanvas(
     },
   })
 
-  const bindGroup0 = htmlInCanvas && 
+  const bindGroup0 =
+    htmlInCanvas &&
     device.createBindGroup({
       label: 'textures',
       layout: pipeline.getBindGroupLayout(0),
@@ -94,20 +96,15 @@ export async function setupCanvas(
         { binding: 0, resource: sampler },
         { binding: 1, resource: texture.createView() },
       ],
-    });
+    })
 
   const bindGroup1 = device.createBindGroup({
     label: 'uniforms',
     layout: pipeline.getBindGroupLayout(1),
-    entries: [
-      { binding: 0, resource: { buffer: uTime } }
-    ],
-  });
+    entries: [{ binding: 0, resource: { buffer: uTime } }],
+  })
 
-  /**
-   * @param {string} [saveTo]
-   */
-  function render(saveTo) {
+  function render(saveTo?: string) {
     curr += 0.1
 
     // https://stackoverflow.com/questions/70284258/destroyed-texture-texture-used-in-a-submit-when-using-a-video-texture-in-ch
@@ -119,31 +116,32 @@ export async function setupCanvas(
           loadOp: 'clear',
           storeOp: 'store',
           clearValue: [0, 0, 0, 0],
-          view: ctx.getCurrentTexture().createView(),
+          view: ctx?.getCurrentTexture().createView(),
         },
       ],
     }
 
-    const encoder = device.createCommandEncoder({ label: 'command encoder' })
-    const pass = encoder.beginRenderPass(renderPassDescriptor)
+    const encoder = device?.createCommandEncoder({ label: 'command encoder' })
+    // @ts-ignore
+    const pass = encoder?.beginRenderPass(renderPassDescriptor)
 
-    pass.setPipeline(pipeline)
+    pass?.setPipeline(pipeline)
 
     if (bindGroup0) {
-      pass.setBindGroup(0, bindGroup0)
+      pass?.setBindGroup(0, bindGroup0)
     }
 
-    pass.setBindGroup(1, bindGroup1)
-    device.queue.writeBuffer(uTime, 0, new Float32Array([curr]));
+    pass?.setBindGroup(1, bindGroup1)
+    device?.queue.writeBuffer(uTime, 0, new Float32Array([curr]))
 
-    pass.draw(6) // call our vertex shader 6 times
-    pass.end()
+    pass?.draw(6) // call our vertex shader 6 times
+    pass?.end()
 
-
-    const commandBuffer = encoder.finish()
-    device.queue.submit([commandBuffer])
+    const commandBuffer = encoder?.finish()
+    // @ts-ignore
+    device?.queue.submit([commandBuffer])
     if (saveTo) {
-      // saving must be done during the render
+      // Saving must be done during the render
       downloadCanvas(canvas, saveTo)
     }
   }
@@ -151,11 +149,7 @@ export async function setupCanvas(
   return render
 }
 
-/**
- * @param {HTMLCanvasElement} canvas
- * @param {string} name
- */
-function downloadCanvas(canvas, name) {
+function downloadCanvas(canvas: HTMLCanvasElement, name: string) {
   const data = canvas.toDataURL('image/png')
   const link = document.createElement('a')
 

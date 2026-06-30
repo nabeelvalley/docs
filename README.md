@@ -4,7 +4,4 @@ Deployed to [my website](https://nabeelvalley.co.za/)
 
 ## Development
 
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
-```
+Commands are defined in the `maskfile.md` and can be run with [mask](https://github.com/jacobdeichert/mask)
