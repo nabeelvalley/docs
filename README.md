@@ -1,3 +1,7 @@
 ﻿# Docs
 
-My personal notes on Software Development, IT Infrastructure, Data Science, and pretty much a bunch more. Deployed to my website [over here](https://nabeelvalley.co.za/docs/)
+Deployed to [my website](https://nabeelvalley.co.za/)
+
+## Development
+
+Commands are defined in the `maskfile.md` and can be run with [mask](https://github.com/jacobdeichert/mask)

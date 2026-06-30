@@ -1,0 +1,26 @@
+---
+title: Animating Anchors
+description: Animating between CSS position-anchor using transitions and keyframes
+published: false
+date: 02 April 2026
+---
+
+> This demo doesn't work, not sure why because it seemed to be fine in isolation. Probably broke something when converting to markdown. I've disabled this post (potentially indefinitely) until it gets fixed (which I may not do since it's not a super important reference but more of a casual example)
+
+I was playing around a bit with position-anchor and wondered how easy it would be to animate. The answer: relatively.
+
+## Using Transitions
+
+It was relatively automatic using CSS Transitions, as you can see below:
+
+<CSSSnippet size="l" html path="anchor-positioning/transition.css" htmlPath="anchor-positioning/transition.html" />
+
+## Using Animations
+
+Animations were a little more fiddly but eventually using the `anchor(--anchor-name)` function directly instead trying to implicily get it via `anchor()` and `position-anchor` worked:
+
+<CSSSnippet size="l" html path="anchor-positioning/animation.css" htmlPath="anchor-positioning/animation.html" />
+
+## Additional Reading
+
+And that's about it, I suppose this could use further explanation but there aren't too many concepts explained here that hasn't been covered already in my post about [CSS Anchor Positioning](/blog/2026/11-02/css-anchor-positioning/) and my talk on [Web Animation](/talks/2024/20-05/web-animations/) so take a look at those if you're interested

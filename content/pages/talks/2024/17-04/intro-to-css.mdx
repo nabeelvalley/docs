@@ -1,0 +1,201 @@
+---
+title: Introduction to CSS
+description: An basic overview of CSS and some common layout methods
+published: true
+date: 17 April 2024
+---
+
+<site-presentation />
+
+<site-presentation-slide centered>
+
+## ZOOOOOOM!
+
+> Is everything big enough and are we in dark mode?
+
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+
+## An Introduction to CSS
+
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+
+## Agenda
+
+- Basic Syntax
+- Selectors
+- Cascade
+- Box Model
+- Flow Layout
+- Debugging
+
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+### Let's get some markup
+
+> Well, we need something to style
+
+<HTMLSnippet path="css-basic-layouts/Syntax.astro" />
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+### Now let's style it
+
+<CSSSnippet path="css-basic-layouts/syntax.css" html htmlPath="css-basic-layouts/Syntax.astro"/>
+
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+
+## Selectors
+
+<Snippet path="css-basic-layouts/selectors.css" />
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+## Combining Selectors (Combinators)
+
+<HTMLSnippet path="css-basic-layouts/Combinators.astro" />
+
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+## Combinators
+
+<CSSSnippet path="css-basic-layouts/combinators.css"  html htmlPath="css-basic-layouts/Combinators.astro"/>
+
+</site-presentation-slide>
+
+<site-presentation-slide centered>
+
+## The Cascade
+
+- CSS stands for "Cascading Style Sheets"
+- The Cascade determines which specific styles get applied to an element
+- Specificity of a selector matters
+- Order of rules matter
+
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+## Specificity
+
+- Used by browser to determine the most relevant declaration
+- Based on the selector used
+- Type of selector, combinators used, and level of impact this
+
+## Order
+
+- Where is the style in the stylesheet
+- Used to break ties in specificity
+
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+### Calculated Specificity
+
+Rules for specificity are pretty tricky, but your IDE should show this to you when hovering over a class
+
+<CSSSnippet path="css-basic-layouts/specificity.css" html htmlPath="css-basic-layouts/Specificity.astro" />
+
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+## Psuedo-class Selectors
+
+- Used in addition to other selectors
+- Select an element based on DOM state
+
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+## Some common Psuedo-classes
+
+<CSSSnippet path="css-basic-layouts/psuedo.css"  html htmlPath="css-basic-layouts/Psuedo.astro" />
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+## The Box Model
+
+> Rectangles all the way down
+
+<CSSSnippet path="css-basic-layouts/box-model.css"  html htmlPath="css-basic-layouts/BoxModel.astro" />
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+
+## Flow - Block vs Inline Block
+
+- Default layout Mode
+- Block elements are placed top-to-bottom
+- Inline elements are placed left-to-right and wrap with reading width
+- Layout behaves and interacts differently
+- Sizing is calculated differently
+- Some properties will behave differently based on this
+
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+<CSSSnippet  path="css-basic-layouts/inline-v-block.css"  htmlPath="css-basic-layouts/InlineVBlock.astro" />
+
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+## Debugging
+
+> Firefox has the best CSS Tooling (in general)
+
+- Hover tooltips
+- CSS Overrides
+- HTML Breakpoints
+- Flex and Grid Tools
+
+<HTMLSnippet path="css-basic-layouts/BoxModelStandalone.astro"/>
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+## And if you're still stuck
+
+> Well, you can just:
+
+<HTMLSnippet mark="7" path="css-basic-layouts/DebugCSSButton.astro" />
+</site-presentation-slide>
+
+<site-presentation-slide>
+
+## References and Further Reading
+
+Anything by Josh W. Comeau pretty much
+
+- [Understanding Layout Algorithms](https://www.joshwcomeau.com/css/understanding-layout-algorithms/)
+- [An Interactive Guide to CSS Grid](https://www.joshwcomeau.com/css/interactive-guide-to-grid/)
+- [An Interactive Guide to Flexbox](https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/)
+
+MDN
+
+- [CSS Syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax)
+- [Flow Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flow_layout)
+- [Flex](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)
+
+CSS Tricks
+
+- [Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+
+</site-presentation-slide>

@@ -1,0 +1,146 @@
+.presentation-progress {
+  display: none;
+}
+
+.presentation-overflow-hidden {
+  overflow: hidden;
+  visibility: hidden;
+
+  .presentation-hidden {
+    display: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-size: xx-large;
+  }
+
+  p,
+  ol,
+  ul {
+    font-size: 1.2rem;
+  }
+
+  li {
+    line-height: 1.2rem;
+  }
+
+  site-presentation-slide[large] {
+    font-size: x-large;
+  }
+
+  .presentation-progress {
+    transition: width 1000ms;
+    display: block;
+    visibility: visible;
+    position: absolute;
+    z-index: 20;
+    top: 0px;
+    left: 0px;
+    width: var(--presentation-progress);
+    height: 0.25rem;
+    background: var(--color-brand-muted);
+  }
+
+  site-presentation-slide {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    visibility: visible;
+
+    transition: transform 300ms ease-in-out;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--color-base);
+    color: var(--color-on-base);
+
+    box-sizing: border-box;
+    min-height: 100vh;
+    width: 100%;
+    padding: 2rem 4rem;
+
+    z-index: 10;
+    overflow: auto;
+
+    &[centered] {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &[highlight] {
+      background-color: var(--color-brand);
+      color: var(--color-on-brand);
+
+      blockquote {
+        border-color: var(--color-on-brand);
+      }
+    }
+
+    site-presentation-note {
+      display: none;
+    }
+
+    .astro-code {
+      filter: none;
+    }
+
+    .expressive-code {
+      max-width: 80vw;
+    }
+
+    img {
+      width: 100%;
+      max-height: 90vh;
+      max-width: 90vh;
+    }
+  }
+
+  &.presentation-presenter {
+    site-presentation-slide {
+      border: none;
+      border-bottom: solid 8px var(--color-brand);
+    }
+
+    site-presentation-note {
+      display: block;
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      left: 25%;
+      z-index: 999;
+
+      opacity: 0.95;
+      background-color: var(--color-on-base);
+      border: solid 4px var(--color-brand);
+      padding: 24px;
+      color: var(--color-base);
+      font-size: xx-large;
+    }
+  }
+}
+
+site-presentation-note.slide-only {
+  display: none;
+}
+
+.presentation-next {
+  transform: translateX(100%);
+}
+
+.presentation-current {
+  transform: translateX(0%);
+}
+
+.presentation-prev {
+  transform: translateX(-100%);
+}

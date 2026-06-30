@@ -1,22 +1,23 @@
 {
-  "extends": "astro/tsconfigs/base",
-  "exclude": [
-    "node_modules"
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "include": [
+    "./src",
+    "./client"
   ],
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "allowJs": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ]
-    },
+    "types": [
+      "@webgpu/types"
+    ],
+    "noEmit": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "checkJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "target": "esnext",
     "lib": [
+      "DOM",
       "ESNext"
     ]
   }

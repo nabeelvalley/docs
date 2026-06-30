@@ -1,0 +1,33 @@
+struct VertexOutput {
+  @builtin(position) position: vec4f,
+  @location(0) texcoord: vec2f,
+};
+
+@vertex fn vs(
+  @builtin(vertex_index) vertexIndex : u32
+) -> VertexOutput {
+  const pos = array(
+    vec2( 1.0,  1.0),
+    vec2( 1.0, -1.0),
+    vec2(-1.0, -1.0),
+    vec2( 1.0,  1.0),
+    vec2(-1.0, -1.0),
+    vec2(-1.0,  1.0),
+  );
+
+  var vsOutput: VertexOutput;
+
+  let xy = pos[vertexIndex];
+  vsOutput.texcoord = pos[vertexIndex] * vec2f(0.5, 0.5) + vec2f(0.5);
+  vsOutput.position = vec4f(pos[vertexIndex], 0, 1);
+
+  return vsOutput;
+}
+
+@group(1) @binding(0) var<uniform> uTime: f32;
+
+@fragment fn fs(fsInput: VertexOutput) -> @location(0) vec4f {
+  var red = abs(sin(uTime/10.0)) * fsInput.texcoord.x;
+  var blue = abs(cos(uTime/5.0)) * fsInput.texcoord.y;
+  return vec4f(red, 0.0, blue, 1.0);
+}

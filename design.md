@@ -2,6 +2,12 @@
 
 Some tasks/ideas to keep in mind for the redesign
 
+## Architecture
+
+- [ ] Figure out bundling - ssr component detection?
+- [ ] Script inlining?
+- [ ] Reorganize images?
+
 ## Rebuild Astro Components
 
 - Client
@@ -11,13 +17,13 @@ Some tasks/ideas to keep in mind for the redesign
   - [x] slides/Slide
   - [x] slides/SlideOnly
 - Server
-  - [ ] ShaderSnippet
-  - [ ] Shader
-  - [ ] Gallery
-  - [ ] Snippet
-  - [ ] CSSSnippet
-  - [ ] HTMLSnippet
-  - [ ] CSSPreview
+  - [x] ShaderSnippet
+  - [x] Shader
+  - [x] Gallery
+  - [x] Snippet
+  - [x] CSSSnippet
+  - [x] HTMLSnippet
+  - [-] CSSPreview - Not implementing this for now, it's going to need a custom TweakPane component and is only really used in a few places
 
 ## Rendering
 
@@ -30,9 +36,9 @@ Some tasks/ideas to keep in mind for the redesign
 - [ ] Sitemap!!!
 - [ ] RSS!!!
 
+## Content Improvements
 
-## Content Imporvements
-
+- [ ] Think about how we can continue to use tweakpane for snippets
 - [ ] Remove all dependencies for markdown to HTML conversion?
 - [ ] Remove dependency on Astro components
   - [ ] Use Web Components (progressive enhancements)

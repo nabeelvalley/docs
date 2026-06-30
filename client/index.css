@@ -1,0 +1,55 @@
+@import './web-components/presentation.css';
+@import './web-components/snippet-preview.css';
+
+/* base styles */
+:root {
+  --shade-brand: 228, 77, 144;
+  --color-brand: rgb(var(--shade-brand));
+  --color-brand-muted: rgba(var(--shade-brand), 0.5);
+  --color-on-brand: #ffffff;
+
+  --color-base: #ffffff;
+  --color-on-base: #2d2d2d;
+
+  --column-count: 1;
+  --block-gap: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-base: #2d2d2d;
+    --color-on-base: #ffffff;
+  }
+}
+
+/* resets/normalizations */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  max-height: 100vh;
+  scroll-behavior: smooth;
+  font-family: var(--font-body);
+  background-color: var(--color-base);
+  color: var(--color-on-base);
+}
+
+body {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+summary {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  height: auto;
+}

@@ -1,0 +1,873 @@
+---
+title: Introduction to Shaders
+description: Notes from "The Book of Shaders"
+published: true
+---
+
+> These notes and snippets are based/derived from [The Book of Shaders by Patricio Gonzalez Vivo & Jen Lowe](https://thebookofshaders.com/02/)
+
+## Setup
+
+For using these samples you will need some way to view shaders. I am using the [**glslCanvas** VSCode extension](https://marketplace.visualstudio.com/items?itemName=circledev.glsl-canvas) for previewing shaders but you can also use another [**glslCanvas** directly](https://github.com/patriciogonzalezvivo/glslCanvas)
+
+## Introduction
+
+### Fragment Shaders
+
+Shaders are a set of instructions that are executed simultaneously for each pixel. Effectively, a fragment shader receives a position and returns a colour
+
+### Why are Shaders Fast
+
+Shaders run on the GPU and are executed in parallel for each pixel on the screen. Since they run on the GPU they can take advantage of special hardware for speeding up matrix and trigonometric functions. In order to make this possible, there are some limitations imposed on them:
+
+- Threads are "blind" to other threads - they cannot be dependent on each other
+- Threads are "memoryless" - they do not have access to information about previous computations
+
+### GLSL
+
+GLSL stands for "openGL Shading Language" and is one of the languages available for writing shaders
+
+## Hello World
+
+THe hello world example for a shader looks like so:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/001_helloWorld.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/001_helloWorld.glsl" />
+</site-glsl-shader-canvas>
+
+This example renders a simple colour to the screen. In the above we can see the following:
+
+- A `main` function that is the entry point for the program
+- Builtin variables like `gl_FragColor` which is the output color for the shader
+- Functions like `vec4` which take in floats
+- The `vec4` function takes in R,G,B,A channels as floats between 0 and 1
+- Using floats between 0 and 1 is called normalizing and makes it easy for us to map vectors to different output spaces, e.g. color
+- A preprocessor macro (`#ifdef ... #endif`) which checks if `GL_ES` is defined (which mostly happens when on mobile browsers)
+- The level of floating point precision to be used `precision mediump float` which sets the float prevision, this can also be `highp` or `lowp`
+- Types are not cast and must be defined explicitly, so `1` will not be automatically cast to the float `1.0`
+
+### Uniforms
+
+Uniforms are data that is passed to our program from the CPU. Some of the uniforms taht are sent can be seen below:
+
+```glsl
+uniform vec2 u_resolution;  // Canvas size (width,height)
+uniform vec2 u_mouse;       // mouse position in screen pixels
+uniform float u_time;       // Time in seconds since load
+```
+
+The uniform names and types may differ based on implementation, for example in [ShaderToy](https://shadertoy.com) they are as follows:
+
+```glsl
+uniform vec3 iResolution;   // viewport resolution (in pixels)
+uniform vec4 iMouse;        // mouse pixel coords. xy: current, zw: click
+uniform float iTime;        // shader playback time (in seconds)
+```
+
+### Using Uniforms
+
+We can use uniforms just as any other variable, for example we can use the `u_time` uniform to set the color based on time:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/002_uniformTime.glsl" mark="5-7" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/002_uniformTime.glsl" mark="5-7" />
+</site-glsl-shader-canvas>
+
+We can also make use of the GPU accelerated functions like `abs` and `sin`. Some other GPU accelerated functions are `sin()`, `cos()`, `tan()`, `asin()`, `acos()`, `atan()`, `pow()`, `exp()`, `log()`, `sqrt()`, `sign()`, `floor()`, `ceil()`, `fract()`, `mod()`, `min()`, `max()`, and `clamp()`
+
+### `gl_FragCoord`
+
+Another thing that is provided similar to `gl_FragColor` is `gl_FragCoord` which is the coordinates of the pixel or "screen fragment" that the current thread is working on.
+
+The`gl_` variables are called "varying" and are different to uniforms which are the same across all threads
+
+We can make use of this coordinate in the following code:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/003_fragCoord.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/003_fragCoord.glsl" />
+</site-glsl-shader-canvas>
+
+## Algorithmic Drawing
+
+### Shaping Functions
+
+There are a few builtin shaping functions that we can use for creating a value that is varied based on some input parameter.
+
+The simplest of these is the `step` function that returns a `float` that is either `0` if the value is less that the parameter, or `1` otherwise
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/004_step.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/004_step.glsl" />
+</site-glsl-shader-canvas>
+
+There is also a `smoothstep` function that varies a value across the start and end ranges which can be used as follows:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/005_smoothstep.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/005_smoothstep.glsl" />
+</site-glsl-shader-canvas>
+
+We can also use a combination of two smoothsteps that are slightly offset to create a line as follows:
+
+```glsl
+float plot(vec2 st,float x){
+    return
+    smoothstep(x-.01,x,st.y)
+    -smoothstep(x,x+.01,st.y);
+}
+```
+
+We can then call this with the variable of interest to get an output value at the given point:
+
+```glsl
+float y=abs(sin(st.x));
+float plt=plot(st,y);
+```
+
+And we can then multiply the result by a color to actually view something:
+
+```glsl
+vec3 color=plt*vec3(1.,0.,0.);
+gl_FragColor=vec4(color,1.);
+```
+
+The result full code that renders a moving `abs(sin(x))` for example can be seen below:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/006_plot.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/006_plot.glsl" />
+</site-glsl-shader-canvas>
+
+It's also possible to combine the lower level GLSL functions to get more complex mathematical functions, for example the below from [Kynd](http://www.kynd.info/log/)
+
+![Complex math functions in GLSL](../../../assets/shaders/mathematical-functions.png)
+
+Additionally, the [Lygia library](https://lygia.xyz/) also has a huge set of predefined shaping functions that you can use
+
+### Colors
+
+#### Vectors
+
+In general, we have been using colours using `vec3` or `vec4` vectors. We have mostly being accessing vector values using `.x` or `.y`, however there are a few different syntaxes that are equivalent
+
+```glsl
+vec4 vector;
+vector[0] = vector.r = vector.x = vector.s;
+vector[1] = vector.g = vector.y = vector.t;
+vector[2] = vector.b = vector.z = vector.p;
+vector[3] = vector.a = vector.w = vector.q;
+```
+
+Furthermore, it's also possible to create new vectors out of vectors we and organize their parts as we want. For example:
+
+```glsl
+vec4 color = vec4(1.,1.,0.,1.);
+
+vec3 rgb = color.rgb;
+vec3 rbg = color.rbg;
+vec3 bgr = color.bgr;
+vec3 bga = color.bga;
+```
+
+The above idea is called "swizzling" and can be applied to all vectors based on their components
+
+#### Mixing Colors
+
+Colors can be mixed using the `mix` function which can take a percentage value of how to mix the two colors. This can be seen below where we are using a sin wave based on the `x` coordinate and `time` to mix two colors:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/007_mix.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/007_mix.glsl" />
+</site-glsl-shader-canvas>
+
+#### HSB
+
+There are multiple different ways that we can represent color. Using a function for converting from HSB to RGB we can render the colour space:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/008_hsb.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/008_hsb.glsl" />
+</site-glsl-shader-canvas>
+
+Since HSB is meant to be displayed as a polar color space, we can also display this as follows:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/009_hsbPolar.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/009_hsbPolar.glsl" />
+</site-glsl-shader-canvas>
+
+#### Function Arguments
+
+When defining functions we can define inputs as read only, write only, or read-write:
+
+```glsl
+int newFunction(in vec4 aVec4,      // read-only
+                out vec3 aVec3,     // write-only
+                inout int aInt);    // read-write
+```
+
+### Shapes
+
+#### Rectangle
+
+If we wanted to fill a rectangle in a shader, we need to think about how to determine the value for a single pixel, the general idea is as follows:
+
+```
+if (startX < x < endX) and (startY < y < endY)
+    paint white
+else
+    paint black
+```
+
+When thinking about this from a shader standpoint, we can implement this kind of conditional using a `step` function
+
+In our case, we need to do this in a few steps:
+
+1. Create the boundry for the left side, this is painting all content that is greater the left and bottom values:
+
+```glsl
+float left=step(.1,st.x);// returns 1 when st.x > 0.1
+float bottom=step(.1,st.y);// returns 1 when st.y > 0.1
+```
+
+2. Create the boundary for right right and top sides by setting these back to white
+
+```glsl
+float right=step(.1,1.-st.x);//returns 1 when (1-st.x) > 0.1
+float top=step(.1,1.-st.y);//returns 1 when (1-st.x) > 0.1
+```
+
+3. Multiplying the color components functions as a logical AND:
+
+```glsl
+float pct = left * bottom * right * top;
+vec3 color = vec3(pct);
+```
+
+Furthermore, we can simplify part 1. and 2. to use vectors directly instead of working with components, so the updated version for 1. and 2. combined looks like so:
+
+```glsl
+vec2 bl=step(vec2(.1),st);
+vec2 tr=step(vec2(.1),vec2(1.)-st);
+```
+
+Using the above, the final result can be seen below:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/010_rectangle.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/010_rectangle.glsl" />
+</site-glsl-shader-canvas>
+
+#### Circle
+
+The approach for drawing a circle is a bit less confusing. Basically we define the distance of a point from a given location, in our case the center of the circle, and we use a step to include everything within that distance space:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/011_circle.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/011_circle.glsl" />
+</site-glsl-shader-canvas>
+
+#### Distance Fields
+
+The above implementation makes use of a distance field. A distance field tells us how far all the points in the field are from some reference point.
+
+Note that the `distance` function uses the `sqrt` function underneath - this function can be computationally intensive so it can sometimes be more useful to define our operations without using the `sqrt` function in any way. For this example, it is also possible to implement a circle distance field using a `smoothstep` and the vector `dot` product which can be seen below:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/012_circleDistanceField.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/012_circleDistanceField.glsl" />
+</site-glsl-shader-canvas>
+
+#### Properties of Distance Fields
+
+We can draw almost anything using distance fields. Once you have a formula to draw a specific shape using a distance field it becomes relatively easy to apply effects to it
+
+We can visualize a distance field as the distance from the center to any given input point:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/013_distanceField.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/013_distanceField.glsl" />
+</site-glsl-shader-canvas>
+
+#### Polar Shapes
+
+Polar shapes depend on changing the distance of a circle. We can map catresian to polar coordinates using the following:
+
+```glsl
+vec2 pos = vec2(0.5)-st;
+float r = length(pos)*2.0;
+float a = atan(pos.y,pos.x);
+```
+
+We can use these shapes along with the idea of using a `smoothstep/step` as a cutoff value to draw more complex shapes in combination with the polar coordinates:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/014_polarCoordinates.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/014_polarCoordinates.glsl" />
+</site-glsl-shader-canvas>
+
+### Matrices
+
+Once we know how to define specific shapes, we can use vector transformations to move them to different locations
+
+#### Translation
+
+The way we do this at the implementation level is by actually transforming the entire output coordinate space. We can see this by defining a new vector to move the space with below:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/015_translation.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/015_translation.glsl" />
+</site-glsl-shader-canvas>
+
+If you observe the example above, you can see that it's not just the shape that moves but the entire color space. This is due to the coordinate system translation
+
+#### 2D Matrices
+
+Doing more complex operations requires a matrix, for example we can translate as above by doing the dot product:
+
+$$
+\begin{bmatrix}
+   1 & 0 & t_x \\
+   0 & 1 & t_y \\
+   0 & 0 & 1
+\end{bmatrix}
+
+\cdot{}
+
+\begin{bmatrix}
+   x \\
+   y \\
+   1
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+   x + t_x \\
+   y + t_y \\
+   1
+\end{bmatrix}
+$$
+
+#### Rotation
+
+For rotation, this is a bit more interesting
+
+$$
+\begin{bmatrix}
+   cos\theta & -sin\theta & 0 \\
+   sin\theta & cos\theta & 0 \\
+   0 & 0 & 1
+\end{bmatrix}
+
+\cdot{}
+
+\begin{bmatrix}
+   x \\
+   y \\
+   1
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+   x.cos\theta - y.sin\theta \\
+   x.sin\theta - y.cos\theta \\
+   1
+\end{bmatrix}
+$$
+
+Using the above, we can implement the rotation as follows:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/016_rotation.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/016_rotation.glsl" />
+</site-glsl-shader-canvas>
+
+#### Scale
+
+Similarly, we can define a matrix operation for scaling:
+
+$$
+\begin{bmatrix}
+   S_x & 0 & 0 \\
+   0 & S_y & 0 \\
+   0 & 0 & S_z
+\end{bmatrix}
+
+\cdot{}
+
+\begin{bmatrix}
+   x \\
+   y \\
+   z
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+   S_x.x \\
+   S_y.y \\
+   S_z.z
+\end{bmatrix}
+$$
+
+And the implementation of this can be seen below:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/017_scale.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/017_scale.glsl" />
+</site-glsl-shader-canvas>
+
+#### YUV Color
+
+YUV is a color space for analog encoding of photos and videos that uses the human perception range.
+
+We can define the conversions from YUV and RGB using a matrix and we can apply this to our input space to view the color range
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/018_yuv.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/018_yuv.glsl" />
+</site-glsl-shader-canvas>
+
+### Patterns
+
+Since shaders execute once per pixel, no matter how much we repeat a shape the complexity is constant - this is a useful property for defining patterns
+
+When creating patterns, we commonly use the `fract` function which gives us the decimal part of a number. Since our numbers are always between 1 and 0 this isn't instantly useful but becomes interesting when multiplying by some value
+
+We can use this for displaying color:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/019_fractColor.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/019_fractColor.glsl" />
+</site-glsl-shader-canvas>
+
+And we can do something similar using a circle:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/020_fractCircle.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/020_fractCircle.glsl" />
+</site-glsl-shader-canvas>
+
+Since each subsection that we create above is a small sub-coordinate space, we can apply the other methods we've used to do stuff like rotate the space:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/021_fractRotate.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/021_fractRotate.glsl" />
+</site-glsl-shader-canvas>
+
+Or we can make use of the `mod` and `step` functions to identify which row we are in and translate that value halfway to the right like so:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/022_fractModulo.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/022_fractModulo.glsl" />
+</site-glsl-shader-canvas>
+
+### Randomness
+
+If we consider the function `y = fract(sin(x)*n)` we will notice that as we increase `n` at a certain point we get what looks like randomness:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/023_randomness.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/023_randomness.glsl" />
+</site-glsl-shader-canvas>
+
+THe problem with using this kind of randomness is that while it is somewhat chaotic, it is not truly random since the underlying function is not random
+
+Regardless, since we have a method of defining randomness, we can implement this in two dimensions as follows:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/024_randomness2d.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/024_randomness2d.glsl" />
+</site-glsl-shader-canvas>
+
+We do this by getting the dot product of the input vector and some other large vector and then using that to get the value that we pass to our pseudo random function
+
+We can implement something interesting by combining this with the patterning/fraction method we learnt previously do get blocks of random colour instead of just noise:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/025_randomnessBlocks.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/025_randomnessBlocks.glsl" />
+</site-glsl-shader-canvas>
+
+This works since by getting the integer value (via the `floor` function) we effectively group our `st.x` and `st.y` values into buckets over a specified range
+
+Next, we can use these values more directly by creting more complex patterns
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/026_randomnessPatterns.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/026_randomnessPatterns.glsl" />
+</site-glsl-shader-canvas>
+
+### Noise
+
+Since very few things in nature are actually random but are a sort random with some sense of order. An example of a function that does something like this is ther Perlin noise algorithm and is a method for generating noise
+
+#### Perlin Noise
+
+This algorithm works by mixing the random values with other nearby noise values to create some kind of continuiy. There are of course different ways we can mix these values
+
+For example, we can just use a plain `mix`:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/027_perlin.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/027_perlin.glsl" />
+</site-glsl-shader-canvas>
+
+Or mixing using a `smoothstep` as well:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/028_perlinSmooth.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/028_perlinSmooth.glsl" />
+</site-glsl-shader-canvas>
+
+It is also possible to calculate your own custom curve instead of using something like smoothstep
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/029_perlinCustom.glsl" mark="24-25" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/029_perlinCustom.glsl" mark="24-25" />
+</site-glsl-shader-canvas>
+
+#### 2D Noise
+
+When doing 1D noise we interpolated between random values of `x` and `x+1`. For 2D noise however, we need to consider a plane with a point at each edge offset randomly
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/030_perlin2d.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/030_perlin2d.glsl" />
+</site-glsl-shader-canvas>
+
+We can combine these ideas along with the methodology for working with polar coordinates and the user's mouse positon to do something kinda cool
+
+> Go ahead and try moving your mouse around on the image below
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/031_perlinCircle.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/031_perlinCircle.glsl" />
+</site-glsl-shader-canvas>
+
+#### Improving 2D Noise
+
+Perlin noticed that in with the above noise method, it's possible to replace the smoothstep (cubic Hermite curve) $f(x) = 3x^2 - 2x^3$ with a quintic interpolation curve $f(x) = 6x^5 - 15x^4 + 10x^3$ which maoes both ends of the curve more flat so that each border can stick more gracefully with the other enabling us to transition more smoothly between cells
+
+#### Simplex Noise
+
+Simplex noise improves upon the previous noise algorithms by accomplishing the following:
+
+- Lower computational complexity and fewer multiplications
+- Scales to higher dimensions with less computational cost
+- No directional artifacts
+- Well defined gradients
+- Easy to implement in hardware
+
+The simplex shape defined for a space with $N$ dimensions is $N + 1$. So for 2D noise we only need points, and for 3D noise we only need 4 points
+
+Creating a simplex grid can be done by splitting a normal 4 cornered grid into two isosceles triangles and then skewing until the triangles are equilateral
+
+We can see an example of skewing and subdividing this space below:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/032_simplex.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/032_simplex.glsl" />
+</site-glsl-shader-canvas>
+
+This subdivision idea can be combined to create more powerful implementations of noise than the simple perlin case we have covered
+
+### Cellular Noise
+
+Celllar noise is based on iterations. In GLSL we can iterate using loops but we must ensure that the number of loops we have is constant
+
+#### Distance Field
+
+Cellular Noise is based on distance fields. For each pixel we calculate the distance to the center of a cell, this means that we need to iterate through all our cells for a given pixel to find it's closest center
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/033_cellularDistance.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/033_cellularDistance.glsl" />
+</site-glsl-shader-canvas>
+
+#### Tiling and iterations
+
+For loops are not ideal for working with GLSL since we can't use dynamic exit limits and iterating significantly reduces the performance of a shader so this isn't really practical when using a large number of cells
+
+We need to instead find a method that makes better use of the GPU
+
+In order to do this, we can define a grid of 9 spaces around our current pixel, and check the value relative to that neighbor position since we don't need to evaluate non-neighboring grid members. Something like this:
+
+```glsl
+for (int y= -1; y <= 1; y++) {
+    for (int x= -1; x <= 1; x++) {
+        // Neighbor place in the grid
+        vec2 neighbor = vec2(float(x),float(y));
+        ...
+    }
+}
+```
+
+We can use this to define a tiled cellular grid:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/034_cellularGrid.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/034_cellularGrid.glsl" />
+</site-glsl-shader-canvas>
+
+Next, we can apply a random offset to the center point of each cell which will allow us to get something more interesting:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/035_cellularGridRandom.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/035_cellularGridRandom.glsl" />
+</site-glsl-shader-canvas>
+
+#### Veronoi Algorithm
+
+Instead of considering the algorithm from the perspective of the pixels as we have above, we can also take it from the perspectve of the point such that each point grows until it bumps nito another points - the algorithm for this is named after Georgy Veronoi
+
+Creating veronoi diagrams from cellular noise involves keeping track of some additional information about the point which is closest to a pixel.
+
+We will keep a reference to the center by storing a reference to the distance between our current point and the resolved center:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/036_cellularGridVoronoi.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/036_cellularGridVoronoi.glsl" />
+</site-glsl-shader-canvas>
+
+### Fractal Brownian Motion
+
+A wave is a fluctuation of some property over time. Important aspects of a wave are it's amplitude and frequency
+
+In the case of a $sin$ wave, this is as follows: $y = a.sin(x.f)$
+
+Additionally, we can add waves up to create interference. This changes how the overall wave looks
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/037_waveInterference.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/037_waveInterference.glsl" />
+</site-glsl-shader-canvas>
+
+We can use this idea to create noise based on this kind of interference to create something called **fractal noise**. for our case we'll use perlin noise instead of a sin wave:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/038_fractalBrownianMotion.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/038_fractalBrownianMotion.glsl" />
+</site-glsl-shader-canvas>
+
+#### Fractal Brownian Motion
+
+We can extend on this further by introducing a concept of octaves (iterations of noise), lacunarity (increments of frequency), and gain (amplitide) of the noise by which we apply variants of the same wave on top of itself
+
+We can implement this using perlin noise as the base instead of a sin wave, our result is as follows:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/039_perlinFractalNoise.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/039_perlinFractalNoise.glsl" />
+</site-glsl-shader-canvas>
+
+We can also implement something like this in two dimensions:
+
+<site-glsl-shader-canvas>
+   <site-snippet-preview>
+      <snippet path="shaders/040_perlinFractalNoise2d.glsl" />
+      <canvas-wrapper>
+         <canvas></canvas>
+      </canvas-wrapper>
+   </site-snippet-preview>
+   <script-raw type="text/glsl" path="shaders/040_perlinFractalNoise2d.glsl" />
+</site-glsl-shader-canvas>

@@ -1,0 +1,34 @@
+---
+version: 2.0.1
+title: css snippet rendering
+file: ./test/web_test.gleam
+test_name: css_snippet_render_test
+---
+<site-snippet-preview xmlns="http://www.w3.org/1999/xhtml">
+  <div xmlns="http://www.w3.org/1999/xhtml">
+    <figure class="snippet">
+      <figcaption>
+        path.html
+      </figcaption>
+      <pre>
+        <code class="language-html">
+          &lt;h1&gt;Hello there&lt;/h1&gt;
+        </code>
+      </pre>
+    </figure>
+    <figure class="snippet">
+      <figcaption>
+        path.css
+      </figcaption>
+      <pre>
+        <code class="language-css">
+          h1 { color: red; }
+        </code>
+      </pre>
+    </figure>
+  </div>
+  <div xmlns="http://www.w3.org/1999/xhtml">
+    <div xmlns="http://www.w3.org/1999/xhtml"><h1>Hello there</h1></div>
+    <style>@scope {h1 { color: red; }}</style>
+  </div>
+</site-snippet-preview>
