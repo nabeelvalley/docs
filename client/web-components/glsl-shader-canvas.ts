@@ -1,6 +1,6 @@
 import { Canvas } from 'glsl-canvas-js'
 
-const canvases = new WeakMap()
+const canvases = new Map()
 const getCanvas = (root: HTMLElement) => {
   const script = root.querySelector('script')
   const canvas = root.querySelector('canvas')
@@ -21,8 +21,8 @@ const getCanvas = (root: HTMLElement) => {
   return instance
 }
 
-const showCanvas = (canvas: HTMLElement) => {
-  const instance = getCanvas(canvas)
+const showCanvas = (root: HTMLElement) => {
+  const instance = getCanvas(root)
   instance.play()
 }
 
@@ -30,43 +30,32 @@ const showCanvas = (canvas: HTMLElement) => {
  * Destroys the rendering instance as well as the overall canvas to ensure that
  * the entire canvas WebGL instance is reinitialized
  */
-const destroyCanvas = (
-  obs: IntersectionObserver,
-  canvas: HTMLCanvasElement,
-) => {
-  const instance = canvases.get(canvas)
-  if (!instance) {
-    return
-  }
+const destroyCanvas = (root: HTMLElement) => {
+  const instance = canvases.get(root)
 
   // Handle instance checking
-  instance.pause()
-  instance.destroy()
-  canvases.delete(canvas)
+  instance?.pause()
+  instance?.destroy()
+  canvases.delete(root)
 
-  // Handle the cloning of the node
-
-  const parent = canvas.parentElement
-
+  const canvas = root.querySelector('canvas') as HTMLCanvasElement
   const newCanvas = canvas.cloneNode() as HTMLCanvasElement
+  console.log(canvas, canvas.parentElement)
 
-  obs.unobserve(canvas)
-  obs.observe(newCanvas)
-
-  parent?.removeChild(canvas)
-  parent?.appendChild(newCanvas)
+  canvas.replaceWith(newCanvas)
 }
 
-const observer = new IntersectionObserver((entries) =>
-  entries.forEach((entry) => {
-    const target = entry.target as HTMLCanvasElement
+const observer = new IntersectionObserver((entries) => {
+  console.log(entries)
+  return entries.forEach((entry) => {
+    const target = entry.target as HTMLElement
     if (entry.isIntersecting) {
       showCanvas(target)
     } else {
-      destroyCanvas(observer, target)
+      destroyCanvas(target)
     }
-  }),
-)
+  })
+})
 
 document
   .querySelectorAll('site-glsl-shader-canvas')
