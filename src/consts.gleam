@@ -2,6 +2,8 @@
 
 pub const public_dir = "./public"
 
+pub const content_dir_rel = "content/pages"
+
 pub const content_dir = "./content/pages"
 
 pub const snippets_dir = "./content/snippets"

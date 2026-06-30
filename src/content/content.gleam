@@ -3,7 +3,9 @@ import content/frontmatter.{type Frontmatter}
 import content/fs
 import gleam/io
 import gleam/list
+import gleam/regexp
 import gleam/result
+import gleam/string
 import js/marked
 import util
 
@@ -12,7 +14,7 @@ pub type Book {
 }
 
 pub type Page {
-  Page(path: String, relative: String, frontmatter: Frontmatter, html: String)
+  Page(path: String, slug: String, frontmatter: Frontmatter, html: String)
 }
 
 pub type Collection {
@@ -39,7 +41,7 @@ fn read_markdown(file: fs.File) {
 
   io.println("loaded page: " <> file.path)
 
-  Ok(Page(file.path, file.relative, extracted.frontmatter, html))
+  Ok(Page(file.path, to_slug(file.path), extracted.frontmatter, html))
 }
 
 fn read_html(file: fs.File) {
@@ -47,5 +49,16 @@ fn read_html(file: fs.File) {
 
   io.println("loaded page: " <> file.path)
 
-  Ok(Page(file.path, file.relative, extracted.frontmatter, extracted.content))
+  Ok(Page(
+    file.path,
+    to_slug(file.path),
+    extracted.frontmatter,
+    extracted.content,
+  ))
+}
+
+fn to_slug(rel: String) {
+  let assert Ok(re) = regexp.from_string("\\.\\w+$")
+  // echo rel
+  rel |> string.replace(consts.content_dir_rel, "") |> regexp.replace(re, _, "")
 }

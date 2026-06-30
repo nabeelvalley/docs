@@ -2,7 +2,6 @@ import consts
 import content/content
 import gleam/list
 import gleam/option.{None}
-import gleam/regexp
 import gleam/result
 import lustre/attribute
 import lustre/element
@@ -21,12 +20,6 @@ pub fn render(collection: content.Collection) -> Result(List(Page), String) {
   let index = render_index(pages)
 
   Ok([index, ..pages])
-}
-
-fn to_slug(rel: String) {
-  let assert Ok(re) = regexp.from_string("\\.\\w+$")
-
-  "/" <> regexp.replace(re, rel, "")
 }
 
 fn render_index(pages: List(Page)) {
@@ -55,10 +48,8 @@ fn render_page(doc: content.Page) {
       doc.frontmatter.date,
     )
 
-  let slug = to_slug(doc.relative)
-
   use processed <- result.try(
-    Page(doc.path, slug, meta, doc.html, [])
+    Page(doc.path, doc.slug, meta, doc.html, [])
     |> process_page([
       snippet.render_all,
       css_snippet.render_all,
