@@ -40,13 +40,11 @@ const destroyCanvas = (root: HTMLElement) => {
 
   const canvas = root.querySelector('canvas') as HTMLCanvasElement
   const newCanvas = canvas.cloneNode() as HTMLCanvasElement
-  console.log(canvas, canvas.parentElement)
 
   canvas.replaceWith(newCanvas)
 }
 
 const observer = new IntersectionObserver((entries) => {
-  console.log(entries)
   return entries.forEach((entry) => {
     const target = entry.target as HTMLElement
     if (entry.isIntersecting) {
