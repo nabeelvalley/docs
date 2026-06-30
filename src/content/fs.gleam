@@ -101,12 +101,22 @@ pub fn is_json(file: File) -> Bool {
 
 pub fn join(parts: List(String)) {
   let path = string.join(parts, with: "/")
-  simplifile.resolve(path)
-  |> fn(i) {
-    echo #(parts, i)
-    i
-  }
-  |> result.replace_error("Error resolving path: " <> path)
+  use resolved <- result.try(
+    simplifile.resolve(path)
+    |> result.replace_error("Error resolving path: " <> path),
+  )
+
+  use cwd <- result.try(
+    simplifile.current_directory()
+    |> result.replace_error("Error getting current directory"),
+  )
+
+  let prefix = cwd <> "/"
+
+  Ok(case string.starts_with(resolved, prefix) {
+    False -> resolved
+    True -> string.replace(resolved, each: prefix, with: "")
+  })
 }
 
 pub fn split(path: String) -> List(String) {

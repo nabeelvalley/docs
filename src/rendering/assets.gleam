@@ -85,7 +85,6 @@ fn write_assets(assets: List(Asset)) {
 }
 
 fn write_asset(asset: Asset) {
-  echo asset
   use resolved <- util.try_resolve(resolve(asset))
   case asset {
     OptimizeImageAsset(_) -> {
