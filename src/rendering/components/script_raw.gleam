@@ -14,7 +14,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
   let updates =
     tree.nodes
     |> list.try_map(fn(node) {
-      use file <- result.map(snippet.load(node, "path"))
+      use file <- result.map(snippet.load(node, page.path, "path"))
 
       render(file.content, node.attrs)
       |> element.to_readable_string

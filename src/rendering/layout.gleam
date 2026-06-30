@@ -45,8 +45,12 @@ pub fn page(body, meta: Meta) {
 
       html.link([attribute.rel("stylesheet"), attribute.href("/index.css")]),
       html.script(
-        [attribute.attribute("defer", "true"), attribute.type_("module")],
-        "/index.js",
+        [
+          attribute.attribute("defer", "true"),
+          attribute.type_("module"),
+          attribute.src("/index.js"),
+        ],
+        "",
       ),
     ]),
     body,

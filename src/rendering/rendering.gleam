@@ -44,7 +44,7 @@ fn render_index(pages: List(Page)) {
     |> layout.page(meta)
     |> element.to_document_string
 
-  Page("index", meta, html, [])
+  Page("", "index", meta, html, [])
 }
 
 fn render_page(doc: content.Page) {
@@ -55,10 +55,10 @@ fn render_page(doc: content.Page) {
       doc.frontmatter.date,
     )
 
-  let slug = to_slug(doc.path)
+  let slug = to_slug(doc.relative)
 
   use processed <- result.try(
-    Page(slug, meta, doc.html, [])
+    Page(doc.path, slug, meta, doc.html, [])
     |> process_page([
       snippet.render_all,
       css_snippet.render_all,

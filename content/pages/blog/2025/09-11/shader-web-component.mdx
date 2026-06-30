@@ -4,11 +4,13 @@ description: Example of a web component for rendering Web GPU Shaders
 date: 09 November 2025
 ---
 
-import Example from './Example.astro'
-
 So I want to use some more shaders and I want to also migrate everything over to use `wgsl` instead of `glsl` but it's kinda annoying to set them up every time so I made a little web component for using them, this is very much a work-in-progress, but here's it in action:
 
-<Example />
+<site-shader-canvas>
+  <canvas width="1000" height="500" style="width: 100%" />
+  <script-raw type="text/wgsl" path="./shader.wgsl" />
+</site-shader-canvas>
+
 
 Using the component looks like so:
 

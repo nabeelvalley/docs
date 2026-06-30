@@ -1,6 +1,5 @@
-@import "./web-components/presentation.css";
-@import "./web-components/snippet-preview.css";
-
+@import './web-components/presentation.css';
+@import './web-components/snippet-preview.css';
 
 /* base styles */
 :root {

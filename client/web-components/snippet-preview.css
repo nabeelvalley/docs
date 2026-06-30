@@ -28,7 +28,7 @@ site-snippet-preview {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 
     :nth-child(1) {
-      grid-column: auto / span 2
+      grid-column: auto / span 2;
     }
 
     :nth-child(2) {

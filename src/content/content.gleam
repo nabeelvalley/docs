@@ -1,6 +1,7 @@
 import consts
 import content/frontmatter.{type Frontmatter}
 import content/fs
+import gleam/io
 import gleam/list
 import gleam/result
 import js/marked
@@ -11,7 +12,7 @@ pub type Book {
 }
 
 pub type Page {
-  Page(path: String, frontmatter: Frontmatter, html: String)
+  Page(path: String, relative: String, frontmatter: Frontmatter, html: String)
 }
 
 pub type Collection {
@@ -36,11 +37,15 @@ fn read_markdown(file: fs.File) {
   use extracted <- result.try(frontmatter.extract(file))
   let html = marked.parse(extracted.content)
 
-  Ok(Page(file.relative, extracted.frontmatter, html))
+  io.println("loaded page: " <> file.path)
+
+  Ok(Page(file.path, file.relative, extracted.frontmatter, html))
 }
 
 fn read_html(file: fs.File) {
   use extracted <- result.try(frontmatter.extract(file))
 
-  Ok(Page(file.relative, extracted.frontmatter, extracted.content))
+  io.println("loaded page: " <> file.path)
+
+  Ok(Page(file.path, file.relative, extracted.frontmatter, extracted.content))
 }

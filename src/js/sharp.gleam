@@ -16,7 +16,7 @@ pub fn optimize_image(
   in_path in_path: String,
   out_path out_path: String,
 ) -> Promise(Result(Nil, String)) {
-  let out_dir = out_path |> fs.parent
+  use out_dir <- util.try_resolve(fs.parent(out_path))
 
   use _ <- util.try_resolve(fs.ensure_dir_exists(out_dir))
 

@@ -21,7 +21,7 @@ fn read_gallery_node(node: dom.Node) -> Result(GalleryNode, String) {
     |> result.replace_error("could not read path for snippet"),
   )
 
-  let gallery_path = fs.join([consts.gallery_dir, path])
+  use gallery_path <- result.try(fs.join([consts.gallery_dir, path]))
 
   use files <- result.try(fs.ls_dir(gallery_path))
 
@@ -39,13 +39,14 @@ pub fn render_all(page: Page) -> Result(Page, String) {
     |> list.map(read_gallery_node),
   )
 
-  let updates =
+  use updates <- result.try(
     galleries
-    |> list.map(fn(gallery) {
+    |> list.try_map(fn(gallery) {
       render(gallery.images)
-      |> element.to_string
-      |> dom.NodeUpdate(gallery.node, _)
-    })
+      |> result.map(element.to_string)
+      |> result.map(dom.NodeUpdate(gallery.node, _))
+    }),
+  )
 
   let html = dom.update_nodes(tree.root, updates)
   let assets = galleries |> list.flat_map(fn(g) { g.images })
@@ -54,9 +55,13 @@ pub fn render_all(page: Page) -> Result(Page, String) {
 }
 
 fn render(paths: List(assets.Asset)) {
-  paths
-  |> list.map(fn(img) {
-    html.img([attribute.src(assets.resolve(img).site_path)])
-  })
-  |> html.div([], _)
+  use content <- result.try(
+    paths
+    |> list.try_map(fn(img) {
+      use resolved <- result.try(assets.resolve(img))
+      Ok(html.img([attribute.src(resolved.site_path)]))
+    }),
+  )
+
+  Ok(html.div([], content))
 }

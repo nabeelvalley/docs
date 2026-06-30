@@ -26,14 +26,14 @@ fn read_dir_rec(at: String) -> Result(List(String), String) {
       )
 
       paths
-      |> list.try_map(fn(p) { read_dir_rec(join([at, p])) })
+      |> list.try_map(fn(p) { result.try(join([at, p]), read_dir_rec) })
       |> result.map(list.flatten)
     }
   }
 }
 
 pub fn write(path: String, content: String) -> Result(Nil, String) {
-  let dir = parent(path)
+  use dir <- result.try(parent(path))
 
   use _ <- result.try(
     simplifile.create_directory_all(dir)
@@ -70,11 +70,10 @@ pub fn ls_dir(at: String) -> Result(List(Path), String) {
     |> result.replace_error("Error reading dir " <> at),
   )
 
-  let paths =
-    names
-    |> list.map(fn(p) { Path(join([at, p]), p) })
+  use p <- list.try_map(names)
+  use path <- result.try(join([at, p]))
 
-  Ok(paths)
+  Ok(Path(path, p))
 }
 
 pub fn load_content(at: String) -> Result(List(File), String) {
@@ -100,8 +99,14 @@ pub fn is_json(file: File) -> Bool {
   has_ext(file, ".json")
 }
 
-pub fn join(parts: List(String)) -> String {
-  string.join(parts, with: "/")
+pub fn join(parts: List(String)) {
+  let path = string.join(parts, with: "/")
+  simplifile.resolve(path)
+  |> fn(i) {
+    echo #(parts, i)
+    i
+  }
+  |> result.replace_error("Error resolving path: " <> path)
 }
 
 pub fn split(path: String) -> List(String) {
@@ -112,7 +117,7 @@ pub fn is_child(file: File, dir: String) -> Bool {
   file.path |> string.starts_with(dir <> "/")
 }
 
-pub fn parent(path: String) -> String {
+pub fn parent(path: String) {
   let parts = path |> split
   parts |> list.take(list.length(parts) - 1) |> join
 }

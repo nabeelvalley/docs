@@ -1,6 +1,7 @@
 import consts
 import content/fs
 import date
+import gleam/io
 import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/option.{type Option}
@@ -26,7 +27,13 @@ pub type Meta {
 }
 
 pub type Page {
-  Page(slug: String, meta: Meta, html: String, assets: List(Asset))
+  Page(
+    path: String,
+    slug: String,
+    meta: Meta,
+    html: String,
+    assets: List(Asset),
+  )
 }
 
 fn replace_non_words(in: String) {
@@ -39,14 +46,14 @@ pub fn resolve(asset: Asset) {
   case asset {
     OptimizeImageAsset(input_file:) -> {
       let site_dir = "optimized"
-      let out_dir = fs.join([consts.out_dir, site_dir])
+      use out_dir <- result.try(fs.join([consts.out_dir, site_dir]))
 
       let out_name = replace_non_words(input_file) <> ".webp"
-      let site_path = fs.join(["", site_dir, out_name])
+      use site_path <- result.try(fs.join(["", site_dir, out_name]))
 
-      let output_file = fs.join([out_dir, out_name])
+      use output_file <- result.try(fs.join([out_dir, out_name]))
 
-      Paths(input_file:, output_file:, site_path:)
+      Ok(Paths(input_file:, output_file:, site_path:))
     }
   }
 }
@@ -64,6 +71,8 @@ pub fn write_pages(pages: List(Page)) -> Promise(Result(Nil, String)) {
 
 fn write_page(page: Page) {
   let path = consts.out_dir <> "/" <> page.slug <> ".html"
+
+  io.println("wrote page: " <> page.slug)
   fs.write(path, page.html)
 }
 
@@ -76,10 +85,19 @@ fn write_assets(assets: List(Asset)) {
 }
 
 fn write_asset(asset: Asset) {
-  let resolved = resolve(asset)
+  echo asset
+  use resolved <- util.try_resolve(resolve(asset))
   case asset {
     OptimizeImageAsset(_) -> {
       sharp.optimize_image(resolved.input_file, resolved.output_file)
+      |> promise.tap(fn(_) {
+        io.println(
+          "wrote asset: "
+          <> resolved.input_file
+          <> " -> "
+          <> resolved.output_file,
+        )
+      })
     }
   }
 }

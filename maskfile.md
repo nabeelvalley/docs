@@ -11,7 +11,7 @@ pnpm install
 
 ```sh
 pnpm tsc --noEmit
-pnpm parcel build client/index.ts --dist-dir public
+pnpm parcel build client/index.ts --dist-dir out
 ```
 
 ## build:gleam
@@ -34,7 +34,7 @@ mask build:client
 > Formats all files
 
 ```sh
-pnpm prettier --write
+pnpm prettier client --write
 gleam format
 ```
 

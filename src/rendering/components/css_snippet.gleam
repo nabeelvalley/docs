@@ -16,8 +16,8 @@ pub fn render_all(page: Page) -> Result(Page, String) {
   let updates =
     tree.nodes
     |> list.map(fn(node) {
-      use css <- result.try(snippet.load(node, "path"))
-      use html <- result.map(snippet.load(node, "htmlpath"))
+      use css <- result.try(snippet.load(node, page.path, "path"))
+      use html <- result.map(snippet.load(node, page.path, "htmlpath"))
       let show_html = dict.from_list(node.attrs) |> dict.has_key("html")
 
       render(css, html, show_html)
