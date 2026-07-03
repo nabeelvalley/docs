@@ -15,3 +15,15 @@ pub const out_dir = "./out"
 pub const img_size = 2000
 
 pub const html_namespace = "http://www.w3.org/1999/xhtml"
+
+pub const site_title = "Nabeel Valley"
+
+pub const site_description = "Software develpment, Photography and Design"
+
+pub const linkedin_url = "https://www.linkedin.com/in/nabeelvalley/"
+
+pub const github_url = "https://github.com/nabeelvalley"
+
+pub const rss_url = "/rss.xml"
+
+pub const webring_base_url = "https://webring.nabeelvalley.co.za"

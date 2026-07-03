@@ -1,21 +1,20 @@
+import consts
 import gleam/option
 import lustre/attribute
 import lustre/element/html
 import rendering/assets.{type Meta}
+import rendering/templates/footer
+import rendering/templates/header
 
-const base_title = "Nabeel Valley"
-
-const base_description = "Software develpment, Photography and Design"
-
-pub fn page(body, meta: Meta) {
+pub fn render(body, meta: Meta) {
   let title = case meta.title {
-    option.Some(t) -> t <> " - " <> base_title
-    option.None -> base_title
+    option.Some(t) -> t <> " - " <> consts.site_title
+    option.None -> consts.site_title
   }
 
-  let description = option.unwrap(meta.description, base_description)
+  let description = option.unwrap(meta.description, consts.site_description)
 
-  html.html([], [
+  html.html([attribute.lang("en")], [
     html.head([], [
       html.title([], title),
 
@@ -53,6 +52,8 @@ pub fn page(body, meta: Meta) {
         "",
       ),
     ]),
+    header.render(),
     body,
+    footer.render(),
   ])
 }

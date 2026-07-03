@@ -13,7 +13,7 @@ import js/sharp
 import lustre/attribute
 import lustre/element
 import lustre/element/html
-import rendering/components/css_snippet
+import rendering/ssr/css_snippet
 import simplifile
 
 pub fn main() -> Nil {

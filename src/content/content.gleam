@@ -62,3 +62,11 @@ fn to_slug(rel: String) {
   // echo rel
   rel |> string.replace(consts.content_dir_rel, "") |> regexp.replace(re, _, "")
 }
+
+pub fn is_published(page: Page) {
+  page.frontmatter.published
+}
+
+pub fn is_unpublished(page: Page) {
+  !page.frontmatter.published
+}

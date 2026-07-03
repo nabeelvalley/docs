@@ -66,8 +66,8 @@ fn parse(frontmatter: String) -> Result(Frontmatter, String) {
 }
 
 fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
-  let decode_bool = fn(field, a) {
-    decode.optional_field(field, False, decode.bool, a)
+  let decode_bool = fn(field, default, a) {
+    decode.optional_field(field, default, decode.bool, a)
   }
 
   let decode_str = fn(field, a) {
@@ -80,9 +80,9 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
   use description <- decode_str("description")
   use layout_str <- decode_str("layout")
 
-  use published <- decode_bool("published")
-  use feature <- decode_bool("feature")
-  use rss_only <- decode_bool("rss_only")
+  use published <- decode_bool("published", True)
+  use feature <- decode_bool("feature", False)
+  use rss_only <- decode_bool("rss_only", False)
 
   use tags <- decode.optional_field("tags", [], decode.list(decode.string))
 

@@ -28,6 +28,11 @@ fn raw_update_nodes(_root: JSRootRef, _els: List(JSNodeUpdate)) -> String {
   panic as "not supported for the given target"
 }
 
+@external(javascript, "./dom_ffi.mjs", "highlight")
+pub fn highlight(_html: String) -> String {
+  panic as "not supported for the given target"
+}
+
 pub type Node {
   Node(node: JSNodeRef, attrs: Attrs, content: String)
 }

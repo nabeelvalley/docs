@@ -7,8 +7,8 @@ import js/dom
 import lustre/element
 import lustre/element/html
 import rendering/assets.{type Page, Page}
-import rendering/components/custom_el
-import rendering/components/snippet
+import rendering/ssr/custom_el
+import rendering/ssr/snippet
 
 pub fn render_all(page: Page) -> Result(Page, String) {
   let tree = dom.get_nodes(page.html, tag: "csssnippet")

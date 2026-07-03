@@ -6,7 +6,7 @@ import lustre/attribute
 import lustre/element
 import lustre/element/html
 import rendering/assets.{type Page, Page}
-import rendering/components/snippet
+import rendering/ssr/snippet
 
 pub fn render_all(page: Page) -> Result(Page, String) {
   let tree = dom.get_nodes(page.html, tag: "script-raw")

@@ -1,43 +1,45 @@
 import consts
 import content/content
 import gleam/list
-import gleam/option.{None}
 import gleam/result
-import lustre/attribute
 import lustre/element
 import lustre/element/html
-import rendering/assets.{type Page, Meta, Page}
-import rendering/components/css_snippet
-import rendering/components/gallery
-import rendering/components/html_snippet
-import rendering/components/script_raw
-import rendering/components/snippet
-import rendering/layout
+import rendering/assets.{Content, Dynamic, Meta, Page}
+import rendering/pages/blog
+import rendering/pages/docs
+import rendering/pages/index
+import rendering/pages/wip
+import rendering/ssr/css_snippet
+import rendering/ssr/gallery
+import rendering/ssr/highlight
+import rendering/ssr/html_snippet
+import rendering/ssr/script_raw
+import rendering/ssr/snippet
+import rendering/templates/base
 
-pub fn render(collection: content.Collection) -> Result(List(Page), String) {
-  use pages <- result.try(list.map(collection.pages, render_page) |> result.all)
+pub fn render(
+  collection: content.Collection,
+) -> Result(List(assets.RenderedPage), String) {
+  use published_pages <- result.try(
+    list.map(collection.pages |> list.filter(content.is_published), render_page)
+    |> result.all,
+  )
+  use unpublished_pages <- result.try(
+    list.map(
+      collection.pages |> list.filter(content.is_unpublished),
+      render_page,
+    )
+    |> result.all,
+  )
 
-  let index = render_index(pages)
+  let index = index.render(published_pages) |> Dynamic
+  let blog = blog.render(published_pages) |> Dynamic
+  let docs = docs.render(published_pages) |> Dynamic
+  let wip = wip.render(unpublished_pages) |> Dynamic
 
-  Ok([index, ..pages])
-}
+  let content_pages = published_pages |> list.map(Content)
 
-fn render_index(pages: List(Page)) {
-  let meta = Meta(None, None, None)
-  let html =
-    pages
-    |> list.map(fn(p) {
-      html.li([], [
-        html.a([attribute.href(p.slug)], [
-          html.text(option.unwrap(p.meta.title, p.slug)),
-        ]),
-      ])
-    })
-    |> html.ul([], _)
-    |> layout.page(meta)
-    |> element.to_document_string
-
-  Page("", "index", meta, html, [])
+  Ok([index, blog, docs, wip, ..content_pages])
 }
 
 fn render_page(doc: content.Page) {
@@ -50,10 +52,13 @@ fn render_page(doc: content.Page) {
 
   use processed <- result.try(
     Page(doc.path, doc.slug, meta, doc.html, [])
-    |> process_page([
+    |> chain([
       snippet.render_all,
       css_snippet.render_all,
       html_snippet.render_all,
+      // highlight all code blocks (markdown or ssr)
+      highlight.render_all,
+
       gallery.render_all,
 
       // rendered last to ensure that processors don't modify the result
@@ -70,12 +75,12 @@ fn render_page(doc: content.Page) {
         processed.html,
       ),
     ])
-    |> layout.page(meta)
+    |> base.render(meta)
     |> element.to_document_string
 
   Ok(Page(..processed, html:))
 }
 
-fn process_page(base, processors) {
+fn chain(base, processors) {
   list.try_fold(processors, base, fn(page, proc) { proc(page) })
 }

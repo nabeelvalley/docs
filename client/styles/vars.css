@@ -1,0 +1,17 @@
+:root {
+  color-scheme: light dark;
+
+  --shade-brand: 228, 77, 144;
+  --color-brand: rgb(var(--shade-brand));
+  --color-brand-muted: rgba(var(--shade-brand), 0.5);
+  --color-on-brand: #ffffff;
+
+  --color-base: light-dark(#ffffff, #2d2d2d);
+  --color-on-base: light-dark(#2d2d2d, #ffffff);
+
+  --column-count: 1;
+
+  --blur-background: color-mix(in srgb, var(--color-base) 80%, transparent);
+  --blur-filter: blur(10px);
+  --blur-border: 1px solid var(--color-on-base);
+}

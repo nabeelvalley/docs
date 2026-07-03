@@ -36,6 +36,15 @@ pub type Page {
   )
 }
 
+pub type DynamicPage {
+  DynamicPage(slug: String, meta: Meta, html: String, assets: List(Asset))
+}
+
+pub type RenderedPage {
+  Content(Page)
+  Dynamic(DynamicPage)
+}
+
 fn replace_non_words(in: String) {
   let assert Ok(re) = regexp.from_string("[\\W_]+")
 
@@ -58,22 +67,57 @@ pub fn resolve(asset: Asset) {
   }
 }
 
-pub fn write_pages(pages: List(Page)) -> Promise(Result(Nil, String)) {
+pub fn write_pages(pages: List(RenderedPage)) -> Promise(Result(Nil, String)) {
   let page_result =
     pages
     |> list.try_each(write_page)
 
   use _ <- util.try_resolve(page_result)
 
-  let assets = pages |> list.flat_map(fn(p) { p.assets })
+  let assets =
+    pages
+    |> list.flat_map(assets_of)
+
   write_assets(assets)
 }
 
-fn write_page(page: Page) {
-  let path = consts.out_dir <> "/" <> page.slug <> ".html"
+fn write_page(page: RenderedPage) {
+  let slug = slug_of(page)
 
-  io.println("wrote page: " <> page.slug)
-  fs.write(path, page.html)
+  let html = html_of(page)
+
+  let path = consts.out_dir <> "/" <> slug <> ".html"
+
+  io.println("wrote page: " <> slug)
+  fs.write(path, html)
+}
+
+pub fn html_of(page: RenderedPage) -> String {
+  case page {
+    Content(page) -> page.html
+    Dynamic(page) -> page.html
+  }
+}
+
+pub fn slug_of(page: RenderedPage) -> String {
+  case page {
+    Content(page) -> page.slug
+    Dynamic(page) -> page.slug
+  }
+}
+
+pub fn meta_of(page: RenderedPage) -> Meta {
+  case page {
+    Content(page) -> page.meta
+    Dynamic(page) -> page.meta
+  }
+}
+
+pub fn assets_of(page: RenderedPage) -> List(Asset) {
+  case page {
+    Content(page) -> page.assets
+    Dynamic(page) -> page.assets
+  }
 }
 
 fn write_assets(assets: List(Asset)) {

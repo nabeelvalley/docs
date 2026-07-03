@@ -1,4 +1,4 @@
-# Lox Tasks
+# Tasks
 
 ## install
 
@@ -14,10 +14,23 @@ pnpm tsc --noEmit
 pnpm parcel build client/index.ts --dist-dir out
 ```
 
+
+## watch:client
+
+```nu
+watch client --debounce=1sec {try { mask build:client}}
+```
+
 ## build:gleam
 
 ```sh
 gleam run
+```
+
+## watch:gleam
+
+```nu
+watch src --debounce=10sec {try { mask build:gleam; mask build:client }}
 ```
 
 ## build
@@ -50,8 +63,15 @@ gleam test
 pnpm tsc --noEmit
 ```
 
+## serve
+
+```sh
+pnpm serve out
+```
+
 ## dev
 
 ```nu
-watch src { try { clear; gleam run } }
+pnpm concurrently "mask watch:gleam" "mask watch:client" "mask serve"
 ```
+
