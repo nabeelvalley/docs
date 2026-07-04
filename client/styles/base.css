@@ -1,35 +1,35 @@
 * {
-  font-family: chillax;
+  /* system font stack: https://systemfontstack.com/ */
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 body {
   position: relative;
 
-
   /*
-Source - https://stackoverflow.com/a/55364176
-Posted by Tim Klein, modified by community. See post 'Timeline' for change history
-Retrieved 2026-07-04, License - CC BY-SA 4.0
-*/
+   Source - https://stackoverflow.com/a/55364176
+   Posted by Tim Klein, modified by community. See post 'Timeline' for change history
+   Retrieved 2026-07-04, License - CC BY-SA 4.0
+   */
 
-  background: var(--color-base);
-  background-image: radial-gradient(color-mix(in srgb, var(--color-brand) 10%, transparent) 1px, transparent 0);
+  color: var(--color-text);
+  background: var(--color-bg);
+  background-image: radial-gradient(color-mix(in srgb, var(--color-accent) 10%, transparent) 1px, transparent 0);
   background-size: 1rem 1rem;
   background-position: -10px -10px;
 }
-
-
 
 .site-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   margin: 2rem 0;
 
   &>a {
     font-size: x-large;
-    color: var(--color-brand);
+    color: var(--color-text);
   }
 
   a {
@@ -37,7 +37,7 @@ Retrieved 2026-07-04, License - CC BY-SA 4.0
     text-decoration-color: transparent;
 
     &:hover {
-      text-decoration-color: var(--color-brand);
+      text-decoration-color: var(--color-accent);
     }
   }
 
@@ -59,11 +59,11 @@ Retrieved 2026-07-04, License - CC BY-SA 4.0
       width: fit-content;
 
       padding: .25rem 1rem;
-      background-color: color-mix(in srgb, var(--color-brand) 5%, transparent);
+      background-color: var(--color-surface);
       backdrop-filter: blur(2px);
 
       a {
-        color: var(--color-brand);
+        color: var(--color-text);
       }
     }
   }
@@ -83,18 +83,32 @@ Retrieved 2026-07-04, License - CC BY-SA 4.0
   h6 {
     font-weight: 500;
     margin-bottom: 1rem;
+    font-family: var(--font-heading);
   }
 
-  p {
+  p,
+  figure {
     margin-bottom: 1rem;
   }
 
   a {
-    color: var(--color-brand);
+    color: var(--color-accent);
     text-decoration-color: transparent;
 
     &:hover {
-      text-decoration-color: var(--color-brand);
+      text-decoration-color: var(--color-accent);
+    }
+  }
+
+  figure.codeblock {
+    padding: 1rem 2rem;
+    overflow-x: auto;
+
+    --bg: light-dark(white, black);
+    background-color: color-mix(in oklab, var(--bg) 30%, var(--color-surface));
+
+    pre {
+      tab-size: 8;
     }
   }
 }
@@ -103,8 +117,41 @@ Retrieved 2026-07-04, License - CC BY-SA 4.0
 
 .site-footer {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
+
+  margin-top: 4rem;
+  padding: 2rem 0;
+
+  background-color: var(--color-surface);
+
+
+  section,
+  ul {
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+  }
+
+  section>a {
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: block;
+    color: var(--color-text);
+    text-decoration-color: transparent;
+
+    &:hover {
+      text-decoration-color: var(--color-accent);
+    }
+  }
 }

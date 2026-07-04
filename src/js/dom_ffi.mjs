@@ -1,6 +1,7 @@
 import { parseDocument, DomUtils } from 'htmlparser2'
 import { render } from 'dom-serializer'
 import hljs from 'highlight.js'
+import { cloneNode, Element } from 'domhandler'
 
 // @ts-expect-error types not available for package
 import hljsGleam from '@gleam-lang/highlight.js-gleam'
@@ -66,22 +67,28 @@ hljs.registerLanguage('gleam', hljsGleam)
 export function highlight(html) {
   const root = parse(html)
   const pres = DomUtils.getElementsByTagName("pre", root.children)
-  const codes = pres.map(pre => DomUtils.getElementsByTagName("code", pre.children)).flat()
 
-  for (const el of codes) {
-    const code = DomUtils.innerText(el)
-    const lang = el.attribs["class"]?.split("-")?.[1] || 'test'
+  for (const pre of pres) {
+    const codes = DomUtils.getElementsByTagName("code", pre.children)
 
-    let result;
-    try {
-      result = hljs.highlight(code, {
-        language: lang,
-      })
-    } catch (err) {
-      result = hljs.highlightAuto(code)
+    for (const el of codes) {
+      const code = DomUtils.innerText(el)
+      const lang = el.attribs["class"]?.split("-")?.[1] || 'test'
+
+      let result;
+      try {
+        result = hljs.highlight(code, {
+          language: lang,
+        })
+      } catch (err) {
+        result = hljs.highlightAuto(code)
+      }
+
+      DomUtils.replaceElement(el.children[0], parse(result.value))
     }
 
-    DomUtils.replaceElement(el.children[0], parse(result.value))
+    const figure = new Element("figure", {class: "codeblock"}, [cloneNode(pre, true)])
+    DomUtils.replaceElement(pre, figure)
   }
 
   return render(root)

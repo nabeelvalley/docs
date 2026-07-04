@@ -1,17 +1,45 @@
+/* design system https://fontpair.co/playground/
+  - dark: Moss
+  - light:  Candy Pop
+*/
+
 :root {
   color-scheme: light dark;
 
-  --shade-brand-light: 179, 6, 83;
-  --shade-brand-dark: 228, 77, 144;
-  /* shade-brand is not defined in terms of light-dark due
-    to how the comma-separated-values are interpreted as args */
+  --shade-bg: 255, 232, 240;
+  --shade-text: 61, 26, 46;
+  --shade-primary: 168, 85, 247;
+  --shade-accent: 255, 91, 160;
+  --shade-surface: 255, 250, 205;
+  --shade-border: 216, 202, 209;
 
-  --color-brand: light-dark(rgb(var(--shade-brand-light)), rgb(var(--shade-brand-dark)));
+  --shade-on-primary: 255, 255, 255;
+  --shade-on-accent: 255, 255, 255;
 
-  --color-on-brand: light-dark(#ffffff, #000000);
+  @media (prefers-color-scheme: dark) {
+    --shade-bg: 45, 58, 47;
+    --shade-text: 232, 224, 201;
+    --shade-primary: 90, 107, 74;
+    --shade-accent: 168, 192, 144;
+    --shade-surface: 58, 74, 60;
+    --shade-border: 96, 94, 88;
 
-  --color-base: light-dark(#ffffff, #2d2d2d);
-  --color-on-base: light-dark(#2d2d2d, #ffffff);
+    --shade-on-primary: 255, 255, 255;
+    --shade-on-accent: 255, 255, 255;
+  }
+
+  --font-heading: caudex;
+  --font-body: manrope;
+
+  --color-bg: rgb(var(--shade-bg));
+  --color-text: rgb(var(--shade-text));
+  --color-primary: rgb(var(--shade-primary));
+  --color-accent: rgb(var(--shade-accent));
+  --color-surface: rgb(var(--shade-surface));
+  --color-border: rgb(var(--shade-border));
+
+  --color-on-primary: rgb(var(--shade-on-primary));
+  --color-on-accent: rgb(var(--shade-on-accent));
 
   --reading-width: min(800px, 90vw);
 }
