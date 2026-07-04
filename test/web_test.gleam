@@ -162,7 +162,7 @@ pub fn extract_frontmatter_test() {
   result.frontmatter
   |> should.equal(
     frontmatter.Frontmatter(
-      title: Some("Some title"),
+      title: "Some title",
       date: Some(date.IsoDate(year: 2026, month: 1, day: 31)),
       description: None,
       published: False,

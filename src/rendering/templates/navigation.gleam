@@ -3,10 +3,6 @@ import lustre/element/html.{a, input, label, li, nav, text, ul}
 
 pub fn render() {
   nav([class("site-nav")], [
-    label([], [
-      text("Show navigation"),
-      input([attribute.type_("checkbox")]),
-    ]),
     ul([], [
       li([], [a([href("/blog")], [text("Blog")])]),
       li([], [a([href("/docs")], [text("Docs")])]),

@@ -4,7 +4,6 @@ import lustre/element/html.{a, footer, li, section, text, ul}
 
 pub fn render() {
   footer([class("site-footer")], [
-    a([href("/")], [text(consts.site_title)]),
     ul([class("social")], [
       li([], [a([href(consts.linkedin_url)], [text("Linkedin")])]),
       li([], [a([href(consts.github_url)], [text("GitHub")])]),

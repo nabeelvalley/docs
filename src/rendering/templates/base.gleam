@@ -7,10 +7,7 @@ import rendering/templates/footer
 import rendering/templates/header
 
 pub fn render(body, meta: Meta) {
-  let title = case meta.title {
-    option.Some(t) -> t <> " - " <> consts.site_title
-    option.None -> consts.site_title
-  }
+  let title = meta.title <> " - " <> consts.site_title
 
   let description = option.unwrap(meta.description, consts.site_description)
 
@@ -42,6 +39,12 @@ pub fn render(body, meta: Meta) {
         attribute.href("https://webmention.io/nabeelvalley.co.za/webmention"),
       ]),
 
+      html.link([
+        attribute.rel("icon"),
+        attribute.type_("image/x-icon"),
+        attribute.href("/favicon.png"),
+      ]),
+
       html.link([attribute.rel("stylesheet"), attribute.href("/index.css")]),
       html.script(
         [
@@ -53,7 +56,7 @@ pub fn render(body, meta: Meta) {
       ),
     ]),
     header.render(),
-    body,
+    html.main([], [body]),
     footer.render(),
   ])
 }

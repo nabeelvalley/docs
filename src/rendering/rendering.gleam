@@ -15,7 +15,7 @@ import rendering/ssr/highlight
 import rendering/ssr/html_snippet
 import rendering/ssr/script_raw
 import rendering/ssr/snippet
-import rendering/templates/base
+import rendering/templates/article
 
 pub fn render(
   collection: content.Collection,
@@ -67,15 +67,8 @@ fn render_page(doc: content.Page) {
   )
 
   let html =
-    html.main([], [
-      element.unsafe_raw_html(
-        consts.html_namespace,
-        "article",
-        [],
-        processed.html,
-      ),
-    ])
-    |> base.render(meta)
+    element.unsafe_raw_html(consts.html_namespace, "div", [], processed.html)
+    |> article.render(meta)
     |> element.to_document_string
 
   Ok(Page(..processed, html:))

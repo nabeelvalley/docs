@@ -14,7 +14,7 @@ pub type Layout {
 
 pub type Frontmatter {
   Frontmatter(
-    title: Option(String),
+    title: String,
     date: Option(date.IsoDate),
     description: Option(String),
     published: Bool,
@@ -74,7 +74,7 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
     decode.optional_field(field, None, decode.optional(decode.string), a)
   }
 
-  use title <- decode_str("title")
+  use title <- decode.field("title", decode.string)
   use date_str <- decode_str("date")
 
   use description <- decode_str("description")

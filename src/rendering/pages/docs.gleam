@@ -8,7 +8,7 @@ import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/templates/base
 
 pub fn render(pages: List(Page)) {
-  let meta = Meta(None, None, None)
+  let meta = Meta("Docs", None, None)
   let html =
     pages
     |> list.filter(fn(p) { string.starts_with(p.slug, "/docs") })
@@ -16,7 +16,7 @@ pub fn render(pages: List(Page)) {
       let slug = p.slug
       html.li([], [
         html.a([attribute.href(slug)], [
-          html.text(option.unwrap(p.meta.title, slug)),
+          html.text(p.meta.title),
         ]),
       ])
     })

@@ -36,7 +36,10 @@ pub fn load_content() -> Result(Collection, String) {
 }
 
 fn read_markdown(file: fs.File) {
-  use extracted <- result.try(frontmatter.extract(file))
+  use extracted <- result.try(
+    frontmatter.extract(file)
+    |> result.map_error(fn(e) { "error at: " <> file.path <> " : " <> e }),
+  )
   let html = marked.parse(extracted.content)
 
   io.println("loaded page: " <> file.path)

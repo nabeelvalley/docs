@@ -72,6 +72,7 @@ pnpm serve out
 ## dev
 
 ```nu
+mask build
 pnpm concurrently "mask watch:gleam" "mask watch:client" "mask serve"
 ```
 

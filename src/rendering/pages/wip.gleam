@@ -7,14 +7,15 @@ import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/templates/base
 
 pub fn render(wip_pages: List(Page)) {
-  let meta = Meta(None, None, None)
+  let meta = Meta("Work in Progress", None, None)
+
   let html =
     wip_pages
     |> list.map(fn(p) {
       let slug = p.slug
       html.li([], [
         html.a([attribute.href(slug)], [
-          html.text(option.unwrap(p.meta.title, slug)),
+          html.text(p.meta.title),
         ]),
       ])
     })
