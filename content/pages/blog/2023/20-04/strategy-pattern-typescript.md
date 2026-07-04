@@ -1,4 +1,5 @@
 ---
+title: Strategy Pattern in Typescript
 published: false
 ---
 
