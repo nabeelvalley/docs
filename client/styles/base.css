@@ -105,10 +105,12 @@ body {
     overflow-x: auto;
 
     --bg: light-dark(white, black);
-    background-color: color-mix(in oklab, var(--bg) 30%, var(--color-surface));
+    background-color: color-mix(in oklab, var(--bg) 50%, transparent);
 
-    pre {
+    pre,
+    span {
       tab-size: 8;
+      font-family: monospace;
     }
   }
 }
