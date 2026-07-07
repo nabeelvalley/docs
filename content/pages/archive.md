@@ -8,10 +8,10 @@ description: Previous versions of this site ranging from 2018-present
 
 <div class="archive-row">
   <div class="archive-overview">
-    <h2>2018-2019</h2>
+    <h2>2018-2018</h2>
 
   <p>
-    March 11, 2028 was apparently the first ever version of my website.
+    March 11, 2018 was apparently the first ever version of my website.
     This was a little starter blog and was the first Angular app I ever built - a single page app with three
     components in a "posts" folder.
   </p>
@@ -80,11 +80,23 @@ description: Previous versions of this site ranging from 2018-present
   <iframe src="https://2023.archive.nabeelvalley.co.za"></iframe>
 </div>
 
-<h2>2023-present</h2>
+<div class="archive-row">
+  <div class="archive-overview">
+  <h2>2023-2026</h2>
+  <p>
+    The site you're looking at. A complete redesign, still using Astro, but now
+    with MDX. This introduced a bunch of new ideas around how components could work as well
+    as introduced me to some interesting ideas around how to develop more complex content for the site
+    like photo galleries and presentations
+  </p>
+  </div>
+  <iframe src="https://2026.archive.nabeelvalley.co.za"></iframe>
+</div>
+
+<h2>2026-present</h2>
 
 <p>
-  The site you're looking at. A complete redesign, still using Astro, but now
-  with MDX
+The current, work-in-progress, site that you're looking at
 </p>
 
 <style>
@@ -92,21 +104,5 @@ description: Previous versions of this site ranging from 2018-present
     width: 100%;
     height: 80vh;
     border: solid 4px var(--color-brand);
-  }
-
-  @media (min-width: 1024px) {
-    .archive-row {
-      gap: 24px;
-      margin-bottom: 24px;
-    }
-
-    .archive-overview {
-      max-width: 400px;
-    }
-
-    iframe {
-      flex: 1;
-      background-color: white;
-    }
   }
 </style>
