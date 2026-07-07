@@ -41,5 +41,5 @@
   --color-on-primary: rgb(var(--shade-on-primary));
   --color-on-accent: rgb(var(--shade-on-accent));
 
-  --reading-width: min(800px, 90vw);
+  --reading-width: min(80ch, 90vw);
 }

@@ -1,10 +1,9 @@
 import birdie
 import content/frontmatter
 import content/fs
-import date
 import gleam/javascript/promise
 import gleam/list
-import gleam/option.{None, Some}
+import gleam/option.{None}
 import gleeunit
 import gleeunit/should
 import js/dom
@@ -22,7 +21,6 @@ pub fn main() -> Nil {
 
 const md_frontmatter = "---
 title: Some title
-date: 2026-01-31
 tags:
   - blog
   - test
@@ -163,7 +161,6 @@ pub fn extract_frontmatter_test() {
   |> should.equal(
     frontmatter.Frontmatter(
       title: "Some title",
-      date: Some(date.IsoDate(year: 2026, month: 1, day: 31)),
       description: None,
       published: False,
       feature: False,

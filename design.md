@@ -38,6 +38,7 @@ Some tasks/ideas to keep in mind for the redesign
 
 ## Content Improvements
 
+- [ ] Consistent way to do paths/file names for code blocks (```type path="something/like.this"?)
 - [ ] Think about how we can continue to use tweakpane for snippets
 - [ ] Remove all dependencies for markdown to HTML conversion?
 - [ ] Remove dependency on Astro components
@@ -46,7 +47,7 @@ Some tasks/ideas to keep in mind for the redesign
 - [ ] Better use of asides (+ render in "side section")
 - [ ] Better use of footers
 - [ ] Header links (simplify sharing)
-- [ ] Full width images
+- [ ] Full bleed images
 - [ ] Better use of figures/figcaptions
 - [x] Get rid of conversion step for ipynb files (what to do about content?)
   - Converted to md and archived

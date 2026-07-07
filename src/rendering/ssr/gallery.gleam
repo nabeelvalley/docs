@@ -2,7 +2,9 @@ import consts
 import content/fs
 import gleam/dict
 import gleam/list
+import gleam/option
 import gleam/result
+import gleam/string
 import js/dom
 import lustre/attribute
 import lustre/element
@@ -59,7 +61,15 @@ fn render(paths: List(assets.Asset)) {
     paths
     |> list.try_map(fn(img) {
       use resolved <- result.try(assets.resolve(img))
-      Ok(html.img([attribute.src(resolved.site_path)]))
+      Ok(
+        html.img([
+          attribute.src(resolved.site_path),
+          attribute.alt(
+            fs.file_name_only(img.input_file)
+            |> option.unwrap(""),
+          ),
+        ]),
+      )
     }),
   )
 

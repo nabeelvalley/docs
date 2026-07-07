@@ -1,13 +1,17 @@
 import consts
 import content/content
+import date
 import gleam/javascript/promise.{type Promise}
 import gleam/list
+import gleam/option
 import gleam/result
 import lustre/element
 import rendering/assets.{Content, Dynamic, Meta, Page}
 import rendering/pages/blog
 import rendering/pages/docs
 import rendering/pages/index
+import rendering/pages/photography
+import rendering/pages/talks
 import rendering/pages/wip
 import rendering/ssr/css_snippet
 import rendering/ssr/gallery
@@ -39,11 +43,15 @@ pub fn render(
   let index = index.render(published_pages) |> Dynamic
   let blog = blog.render(published_pages) |> Dynamic
   let docs = docs.render(published_pages) |> Dynamic
+  let talks = talks.render(published_pages) |> Dynamic
+  let photography = photography.render(published_pages) |> Dynamic
+
   let wip = wip.render(unpublished_pages) |> Dynamic
 
   let content_pages = published_pages |> list.map(Content)
 
-  Ok([index, blog, docs, wip, ..content_pages]) |> promise.resolve
+  Ok([index, blog, docs, talks, photography, wip, ..content_pages])
+  |> promise.resolve
 }
 
 fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {
@@ -51,7 +59,7 @@ fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {
     Meta(
       doc.frontmatter.title,
       doc.frontmatter.description,
-      doc.frontmatter.date,
+      doc.slug |> date.parse_from_path |> option.from_result,
     )
 
   promise.try_await(

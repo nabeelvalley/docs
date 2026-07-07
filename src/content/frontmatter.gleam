@@ -1,5 +1,4 @@
 import content/fs
-import date
 import gleam/dynamic/decode
 import gleam/list
 import gleam/option.{type Option, None, Some}
@@ -15,7 +14,6 @@ pub type Layout {
 pub type Frontmatter {
   Frontmatter(
     title: String,
-    date: Option(date.IsoDate),
     description: Option(String),
     published: Bool,
     feature: Bool,
@@ -75,8 +73,6 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
   }
 
   use title <- decode.field("title", decode.string)
-  use date_str <- decode_str("date")
-
   use description <- decode_str("description")
   use layout_str <- decode_str("layout")
 
@@ -86,11 +82,6 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
 
   use tags <- decode.optional_field("tags", [], decode.list(decode.string))
 
-  let date =
-    option.map(date_str, date.parse)
-    |> option.map(option.from_result)
-    |> option.flatten
-
   let layout = case layout_str {
     Some("gallery") -> GalleryLayout
     _ -> ArticleLayout
@@ -98,7 +89,6 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
 
   decode.success(Frontmatter(
     title:,
-    date:,
     description:,
     published:,
     feature:,

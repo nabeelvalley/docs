@@ -25,6 +25,7 @@ pub type Meta {
 pub type Page {
   Page(
     path: String,
+    /// Should always start with "/"
     slug: String,
     meta: Meta,
     html: String,
@@ -82,9 +83,9 @@ fn write_page(page: RenderedPage) {
 
   let html = html_of(page)
 
-  let path = consts.out_dir <> "/" <> slug <> ".html"
+  let path = consts.out_dir <> slug <> ".html"
 
-  io.println("wrote page: " <> slug)
+  io.println("wrote page: " <> slug <> " to " <> path)
   fs.write(path, html)
 }
 

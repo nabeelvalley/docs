@@ -1,3 +1,5 @@
+import content/fs
+import gleam/dict
 import gleam/list
 import gleam/option.{None}
 import gleam/string
@@ -9,20 +11,42 @@ import rendering/templates/base
 
 pub fn render(pages: List(Page)) {
   let meta = Meta("Photography", None, None)
-  let html =
+  let items =
     pages
     |> list.filter(fn(p) { string.starts_with(p.slug, "/photography") })
-    |> list.map(fn(p) {
-      let slug = p.slug
-      html.li([], [
-        html.a([attribute.href(slug)], [
-          html.text(p.meta.title),
-        ]),
+    |> list.group(fn(a) {
+      case fs.split(a.slug) {
+        [_empty, _photography, section, ..] -> section
+        _ -> "other"
+      }
+    })
+    |> dict.map_values(fn(section, ps) {
+      let title = section |> html.text
+
+      let subitems =
+        ps
+        |> list.map(fn(p) {
+          let slug = p.slug
+          html.li([], [
+            html.a([attribute.href(slug)], [
+              html.text(p.meta.title),
+            ]),
+          ])
+        })
+        |> html.ul([], _)
+
+      html.section([], [
+        html.h2([], [title]),
+        subitems,
       ])
     })
-    |> html.ul([], _)
+    |> dict.values
+
+  let html =
+    // temp until we figure out how this layout should look
+    html.article([attribute.class("site-article")], [html.ul([], items)])
     |> base.render(meta)
     |> element.to_document_string
 
-  DynamicPage("photography", meta, html, [])
+  DynamicPage("/photography", meta, html, [])
 }

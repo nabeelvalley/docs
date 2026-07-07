@@ -1,6 +1,7 @@
 // TODO: update all path related stuff to use an explicit Absolute/WorkspaceRelative types
 
 import gleam/list
+import gleam/option
 import gleam/result
 import gleam/string
 import simplifile
@@ -159,4 +160,11 @@ pub fn ensure_dir_exists(path: String) {
       simplifile.create_directory_all(path)
       |> result.replace_error("Error creating directory " <> path)
   }
+}
+
+pub fn file_name_only(path: String) -> option.Option(String) {
+  use name <- option.map(split(path) |> list.last |> option.from_result)
+  let ext = ext(name)
+
+  string.slice(name, 0, string.length(name) - string.length(ext) + 1)
 }

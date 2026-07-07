@@ -6,6 +6,13 @@
 
 body {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+
+  main {
+    flex: 1
+  }
 
   /*
    Source - https://stackoverflow.com/a/55364176
@@ -69,8 +76,6 @@ body {
   }
 }
 
-
-
 .site-article {
   max-width: var(--reading-width);
   margin: auto;
@@ -100,6 +105,13 @@ body {
     }
   }
 
+  pre,
+  span,
+  code {
+    /* tab-size: 8; */
+    font-family: monospace;
+  }
+
   figure.codeblock {
     overflow-x: auto;
 
@@ -107,13 +119,9 @@ body {
       padding: 1rem;
     }
 
-    pre,
-    span {
-      /* tab-size: 8; */
-      font-family: monospace;
-    }
   }
 }
+
 
 .site-related {}
 
@@ -123,7 +131,7 @@ body {
   align-items: center;
   justify-content: space-between;
 
-  margin-top: 4rem;
+  margin-top: min(4rem);
   padding: 2rem 0;
 
   background-color: var(--color-surface);

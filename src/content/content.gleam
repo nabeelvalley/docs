@@ -62,7 +62,6 @@ fn read_html(file: fs.File) {
 
 fn to_slug(rel: String) {
   let assert Ok(re) = regexp.from_string("\\.\\w+$")
-  // echo rel
   rel |> string.replace(consts.content_dir_rel, "") |> regexp.replace(re, _, "")
 }
 
