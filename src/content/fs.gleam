@@ -1,0 +1,170 @@
+// TODO: update all path related stuff to use an explicit Absolute/WorkspaceRelative types
+
+import gleam/list
+import gleam/option
+import gleam/result
+import gleam/string
+import simplifile
+
+pub type File {
+  File(path: String, relative: String, content: String)
+}
+
+pub type Path {
+  Path(path: String, relative: String)
+}
+
+fn read_dir_rec(at: String) -> Result(List(String), String) {
+  use is_dir <- result.try(
+    simplifile.is_directory(at)
+    |> result.replace_error("Could not read path: " <> at),
+  )
+
+  case is_dir {
+    False -> Ok([at])
+    True -> {
+      use paths <- result.try(
+        simplifile.read_directory(at)
+        |> result.replace_error("Could not read dir: " <> at),
+      )
+
+      paths
+      |> list.try_map(fn(p) { result.try(join([at, p]), read_dir_rec) })
+      |> result.map(list.flatten)
+    }
+  }
+}
+
+pub fn write(path: String, content: String) -> Result(Nil, String) {
+  use dir <- result.try(parent(path))
+
+  use _ <- result.try(
+    simplifile.create_directory_all(dir)
+    |> result.replace_error("Failed to create dir: " <> dir),
+  )
+
+  simplifile.write(path, content)
+  |> result.replace_error("Failed to write file: " <> path)
+}
+
+pub fn delete(path: String) -> Result(Nil, String) {
+  simplifile.delete_all([path])
+  |> result.replace_error("Error deleting dir " <> path)
+}
+
+pub fn copy_dir(at at: String, to to: String) -> Result(Nil, String) {
+  simplifile.copy_directory(at:, to:)
+  |> result.replace_error("Error copying dir " <> at <> " to " <> to)
+}
+
+pub fn read_file(path: String, rel: String) -> Result(File, String) {
+  use content <- result.map(
+    simplifile.read(path)
+    |> result.replace_error("error reading file: " <> path),
+  )
+  let relative = string.drop_start(path, string.length(rel) + 1)
+
+  File(content:, relative:, path:)
+}
+
+pub fn ls_dir(at: String) -> Result(List(Path), String) {
+  use names <- result.try(
+    simplifile.read_directory(at)
+    |> result.replace_error("Error reading dir " <> at),
+  )
+
+  use p <- list.try_map(names)
+  use path <- result.try(join([at, p]))
+
+  Ok(Path(path, p))
+}
+
+pub fn load_content(at: String) -> Result(List(File), String) {
+  use paths <- result.map(read_dir_rec(at))
+  use path <- list.filter_map(paths)
+
+  read_file(path, at)
+}
+
+pub fn has_ext(file: File, ext: String) -> Bool {
+  file.path |> string.ends_with(ext)
+}
+
+pub fn is_markdown(file: File) -> Bool {
+  has_ext(file, ".md") || has_ext(file, ".mdx")
+}
+
+pub fn is_html(file: File) -> Bool {
+  has_ext(file, ".html")
+}
+
+pub fn is_json(file: File) -> Bool {
+  has_ext(file, ".json")
+}
+
+pub fn join(parts: List(String)) {
+  let path = string.join(parts, with: "/")
+  use resolved <- result.try(
+    simplifile.resolve(path)
+    |> result.replace_error("Error resolving path: " <> path),
+  )
+
+  use cwd <- result.try(
+    simplifile.current_directory()
+    |> result.replace_error("Error getting current directory"),
+  )
+
+  let prefix = cwd <> "/"
+
+  Ok(case string.starts_with(resolved, prefix) {
+    False -> resolved
+    True -> string.replace(resolved, each: prefix, with: "")
+  })
+}
+
+pub fn split(path: String) -> List(String) {
+  string.split(path, "/")
+}
+
+pub fn is_child(file: File, dir: String) -> Bool {
+  file.path |> string.starts_with(dir <> "/")
+}
+
+pub fn parent(path: String) {
+  let parts = path |> split
+  parts |> list.take(list.length(parts) - 1) |> join
+}
+
+pub fn replace(full full, rel rel) {
+  string.replace(full, rel, "")
+}
+
+pub fn ext(path: String) -> String {
+  path
+  |> string.split("/")
+  |> list.last
+  |> result.map(string.split(_, on: "."))
+  |> result.try(list.last)
+  |> result.unwrap("")
+}
+
+pub fn ensure_dir_exists(path: String) {
+  use is_dir <- result.try(
+    simplifile.is_directory(path)
+    |> result.replace_error("Error checking if directory exists" <> path),
+  )
+
+  case is_dir {
+    True -> Ok(Nil)
+    False ->
+      simplifile.create_directory_all(path)
+      |> result.replace_error("Error creating directory " <> path)
+  }
+}
+
+pub fn file_name_only(path: String) -> option.Option(String) {
+  use name <- option.map(split(path) |> list.last |> option.from_result)
+  let ext = ext(name)
+
+  string.slice(name, 0, string.length(name) - string.length(ext) + 1)
+}

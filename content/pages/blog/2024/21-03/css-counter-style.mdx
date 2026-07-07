@@ -1,0 +1,40 @@
+---
+title: CSS @counter-style with Emojis
+description: Using the Counter-style attribute in CSS
+published: true
+---
+
+The CSS `@counter-style` rule is used for defining list-styles in CSS
+
+The syntax is pretty simple:
+
+```css
+@counter-style <counter-style-name> {
+  system: <cyclic|numeric|alphabetic|symblic|fixed>;
+  symbols: <space separated list of symbols>;
+  prefix: <content before symbol>;
+  suffix: <content after symbol>;
+  /* and some more options... */
+  /* take a look at the MDN doc for all the customizations you can do, it's pretty cool */
+}
+```
+
+> Currently `symbols` just supports strings, but once fully supported it will also be possible to use images as symbols
+
+## Cyclic Counter Style
+
+For the sake of example, I'll be using Emojis as the symbols to display. We can define a cycle which uses some emojis like so:
+
+<CSSSnippet path="css-counter-style/cyclic.css" htmlPath="css-counter-style/cyclic.html"/>
+
+## Numeric Counter Style
+
+For this example, we'll use emoji numbers for the counter style
+
+<CSSSnippet path="css-counter-style/numeric.css" htmlPath="css-counter-style/numeric.html"/>
+
+## References
+
+- [MDN @counter-style](https://developer.mozilla.org/en-US/docs/Web/CSS/@counter-style)
+- [W3C Predefined Counter Styles](https://www.w3.org/TR/predefined-counter-styles/)
+- [Counter Style Converter](https://r12a.github.io/app-counters/)

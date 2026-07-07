@@ -1,0 +1,173 @@
+* {
+  /* system font stack: https://systemfontstack.com/ */
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+  font-family: var(--font-body);
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+
+  main {
+    flex: 1
+  }
+
+  /*
+   Source - https://stackoverflow.com/a/55364176
+   Posted by Tim Klein, modified by community. See post 'Timeline' for change history
+   Retrieved 2026-07-04, License - CC BY-SA 4.0
+   */
+
+  color: var(--color-text);
+  background: var(--color-bg);
+  background-image: radial-gradient(color-mix(in srgb, var(--color-accent) 10%, transparent) 1px, transparent 0);
+  background-size: 1rem 1rem;
+  background-position: -10px -10px;
+}
+
+.site-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+
+  &>a {
+    font-size: x-large;
+    color: var(--color-text);
+  }
+
+  a {
+    display: block;
+    text-decoration-color: transparent;
+
+    &:hover {
+      text-decoration-color: var(--color-accent);
+    }
+  }
+
+
+  .site-nav {
+    max-width: var(--reading-width);
+
+    ul {
+      /* unset the default ul styles */
+      padding: 0;
+      list-style: none;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+      width: fit-content;
+
+      padding: .25rem 1rem;
+      background-color: var(--color-surface);
+      backdrop-filter: blur(2px);
+
+      a {
+        color: var(--color-text);
+      }
+    }
+  }
+}
+
+.site-article {
+  max-width: var(--reading-width);
+  margin: auto;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-family: var(--font-heading);
+    margin-bottom: 1rem;
+  }
+
+  p,
+  pre,
+  img,
+  ul,
+  ol,
+  aside,
+  blockquote {
+    margin-bottom: 1rem;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration-color: transparent;
+
+    &:hover {
+      text-decoration-color: var(--color-accent);
+    }
+  }
+
+  pre,
+  span,
+  code {
+    /* tab-size: 8; */
+    font-family: monospace;
+  }
+
+  figure.codeblock {
+    overflow-x: auto;
+
+    pre {
+      padding: 1rem;
+    }
+
+  }
+}
+
+
+.site-related {}
+
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: min(4rem);
+  padding: 2rem 0;
+
+  background-color: var(--color-surface);
+
+
+  section,
+  ul {
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+  }
+
+  section>a {
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: block;
+    color: var(--color-text);
+    text-decoration-color: transparent;
+
+    &:hover {
+      text-decoration-color: var(--color-accent);
+    }
+  }
+}

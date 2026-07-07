@@ -2,6 +2,12 @@
 
 Some tasks/ideas to keep in mind for the redesign
 
+## Architecture
+
+- [ ] Figure out bundling - ssr component detection?
+- [ ] Script inlining?
+- [ ] Reorganize images?
+
 ## Rebuild Astro Components
 
 - Client
@@ -11,28 +17,29 @@ Some tasks/ideas to keep in mind for the redesign
   - [x] slides/Slide
   - [x] slides/SlideOnly
 - Server
-  - [ ] ShaderSnippet
-  - [ ] Shader
-  - [ ] Gallery
-  - [ ] Snippet
-  - [ ] CSSSnippet
-  - [ ] HTMLSnippet
-  - [ ] CSSPreview
+  - [x] ShaderSnippet
+  - [x] Shader
+  - [x] Gallery
+  - [x] Snippet
+  - [x] CSSSnippet
+  - [x] HTMLSnippet
+  - [-] CSSPreview - Not implementing this for now, it's going to need a custom TweakPane component and is only really used in a few places
 
 ## Rendering
 
-- [ ] Home
-- [ ] Blog
-- [ ] Docs
+- [ ] Home - A really nice home landing page
+- [x] Blog
+- [x] Docs
 - [ ] About
-- [ ] Gallery
+- [ ] Gallery - A really nice gallery landing page
 - [ ] OG cover image per post
 - [ ] Sitemap!!!
 - [ ] RSS!!!
 
+## Content Improvements
 
-## Content Imporvements
-
+- [ ] Consistent way to do paths/file names for code blocks (```type path="something/like.this"?)
+- [ ] Think about how we can continue to use tweakpane for snippets
 - [ ] Remove all dependencies for markdown to HTML conversion?
 - [ ] Remove dependency on Astro components
   - [ ] Use Web Components (progressive enhancements)
@@ -40,7 +47,7 @@ Some tasks/ideas to keep in mind for the redesign
 - [ ] Better use of asides (+ render in "side section")
 - [ ] Better use of footers
 - [ ] Header links (simplify sharing)
-- [ ] Full width images
+- [ ] Full bleed images
 - [ ] Better use of figures/figcaptions
 - [x] Get rid of conversion step for ipynb files (what to do about content?)
   - Converted to md and archived

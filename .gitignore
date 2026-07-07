@@ -7,4 +7,13 @@ _cache/
 *.out.md
 public/*.nb-out.png
 public/playgrounds.json
+public/*.js
+public/*.css
+public/*.map
 .DS_Store
+*.beam
+*.ez
+build/
+out/
+erl_crash.dump
+.parcel-cache/

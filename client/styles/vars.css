@@ -1,0 +1,45 @@
+/* design system https://fontpair.co/playground/
+  - dark: Moss
+  - light:  Candy Pop
+*/
+
+:root {
+  color-scheme: light dark;
+
+  --shade-bg: 255, 232, 240;
+  --shade-text: 61, 26, 46;
+  --shade-primary: 168, 85, 247;
+  --shade-accent: 255, 91, 160;
+  --shade-surface: 255, 250, 205;
+  --shade-border: 216, 202, 209;
+
+  --shade-on-primary: 255, 255, 255;
+  --shade-on-accent: 255, 255, 255;
+
+  @media (prefers-color-scheme: dark) {
+    --shade-bg: 45, 58, 47;
+    --shade-text: 232, 224, 201;
+    --shade-primary: 90, 107, 74;
+    --shade-accent: 168, 192, 144;
+    --shade-surface: 58, 74, 60;
+    --shade-border: 96, 94, 88;
+
+    --shade-on-primary: 255, 255, 255;
+    --shade-on-accent: 255, 255, 255;
+  }
+
+  --font-heading: caudex;
+  --font-body: manrope;
+
+  --color-bg: rgb(var(--shade-bg));
+  --color-text: rgb(var(--shade-text));
+  --color-primary: rgb(var(--shade-primary));
+  --color-accent: rgb(var(--shade-accent));
+  --color-surface: rgb(var(--shade-surface));
+  --color-border: rgb(var(--shade-border));
+
+  --color-on-primary: rgb(var(--shade-on-primary));
+  --color-on-accent: rgb(var(--shade-on-accent));
+
+  --reading-width: min(80ch, 90vw);
+}
