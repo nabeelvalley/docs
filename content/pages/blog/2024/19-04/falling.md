@@ -1,7 +1,6 @@
 ---
 title: On Falling Down
 description: Responding to change
-date: 2024-04-19
 ---
 
 Today was kinda shitty. Actually really shitty.

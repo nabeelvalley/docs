@@ -1,7 +1,6 @@
 ---
 title: Git Tricks with Tri and Difft
 published: true
-date: 2026-03-26
 ---
 
 > Assumed audience: Developers/technical people who use git and/or enjoy terminal UIs (TUIs)

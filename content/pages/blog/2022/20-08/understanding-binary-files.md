@@ -2,7 +2,6 @@
 published: true
 title: Binary Data and File Formats
 description: An introduction to bits, bytes, and binary file formats
-date: 2022-08-20
 ---
 
 ## Introduction

@@ -2,7 +2,6 @@
 title: Join the Webring!
 description: I'm starting a Webring!
 feature: true
-date: 2026-03-12
 ---
 
 > Assumed audience: People with a personal website or anyone interested in the indie web

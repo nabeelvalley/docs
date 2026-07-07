@@ -2,7 +2,6 @@
 published: true
 title: Setup HomeAssistant RaspberryPi with WiFi configured
 description: Enable a HomeAssistant flashed RaspberryPi to operate over WiFi using config files
-date: 2021-03-09
 ---
 
 A short lil guide to setting up Home Assistant on a RaspberryPi using WiFi instead of Ethernet

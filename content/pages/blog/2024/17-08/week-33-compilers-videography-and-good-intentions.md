@@ -1,6 +1,5 @@
 ---
 title: week 33, year 2024 - compilers, videography and good intentions
-date: 2024-08-17
 ---
 
 ## what i'm working on

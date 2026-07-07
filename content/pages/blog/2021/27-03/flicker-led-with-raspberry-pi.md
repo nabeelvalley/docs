@@ -2,7 +2,6 @@
 published: true
 title: Control a Raspberry Pi GPIO with Python
 description: Flicker and control and LED via a Raspberry Pi's GPIO Output pins using Python and RPi.GPIO
-date: 2021-03-28
 ---
 
 ## Circuit Diagram

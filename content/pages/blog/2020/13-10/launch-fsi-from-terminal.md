@@ -2,7 +2,6 @@
 published: true
 title: Scripting with FSharp
 description: Using the .NET CLI to use the F# Interactive console and run F# Scripts
-date: 2020-10-13
 ---
 
 > Before you can use the following, you will need the [.NET Core SDK installed](https://dotnet.microsoft.com/download)

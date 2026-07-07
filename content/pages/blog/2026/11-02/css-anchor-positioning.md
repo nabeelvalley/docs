@@ -3,7 +3,6 @@ title: CSS Anchor Positioning
 description: Positining CSS elements and some other interesting CSS
 published: true
 feature: true
-date: 2026-02-11
 ---
 
 I was reading a pull request the other day and someone suggested the use of `position-anchor` which was something I hadn't seen before and so I thought I'd write something small about it

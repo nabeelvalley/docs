@@ -3,7 +3,6 @@ title: Generator Generation
 published: true
 feature: true
 description: Converting callback based APIs into Async Generators in JavaScript/Typescript
-date: 2025-12-17
 ---
 
 So I was just going to write a short post about this handy function I made, but I thought it would be a nice opportunity to build a little bit more of an understanding around the topic of generators more broadly

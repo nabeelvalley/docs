@@ -1,6 +1,5 @@
 ---
 title: week 34, year 2024 - programming languages of various types
-date: 2024-08-24
 ---
 
 ## what i'm working on

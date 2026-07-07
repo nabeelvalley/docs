@@ -3,7 +3,6 @@ title: Use a password manager, they said
 description: A rant on how Microsoft is annoying
 published: true
 feature: false
-date: 2025-09-01
 ---
 
 I just had to boot up my computer to download _Microsoft Edge_ because half way through the day I found out that the _Passwords_ tab has been removed from the _Microsoft Authenticator_ app

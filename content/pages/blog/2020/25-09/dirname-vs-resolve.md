@@ -2,7 +2,6 @@
 published: true
 title: Node.js Dirname vs Resolve
 description: Working with paths using resolve and __dirname in Node.js
-date: 2020-09-25
 ---
 
 Node.js has a few methods by which we can get the directory in which we are currently executing, and get paths relative to it

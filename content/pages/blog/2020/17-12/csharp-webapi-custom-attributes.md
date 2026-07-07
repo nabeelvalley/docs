@@ -2,7 +2,6 @@
 published: true
 title: Custom Attributes in C# Web Controllers
 description: Modify controller behaviour using Attributes
-date: 2020-12-17
 ---
 
 Implementing an attribute for a WebAPI or class in C# can help to reduce duplication and centralize parts of the application logic. This could be used for a variety of tasks such as logging information when methods are called as well as managinng authorization

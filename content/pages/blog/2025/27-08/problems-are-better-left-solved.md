@@ -3,7 +3,6 @@ title: Problems are better left solved
 description: Some thoughts on Go
 published: true
 feature: true
-date: 2025-08-27
 ---
 
 ![dejavu cli usage](/content/projects/dejavu.gif)

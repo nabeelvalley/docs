@@ -2,7 +2,6 @@
 published: true
 title: Education App Design Ideas
 description: Some design snips for a learning app
-date: 2022-09-27
 ---
 
 ## General App Overview

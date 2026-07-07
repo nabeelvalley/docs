@@ -2,7 +2,6 @@
 published: true
 title: 'Jenkins: A Git process may have crashed in the repository'
 description: Repair an issue preventing Jenkins from running Git processes
-date: 2021-02-03
 ---
 
 > Taken from [this StackOverflow answer](https://stackoverflow.com/questions/38004148/another-git-process-seems-to-be-running-in-this-repository)

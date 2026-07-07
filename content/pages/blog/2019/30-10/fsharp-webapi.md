@@ -2,7 +2,6 @@
 published: true
 title: Intro to F# Web APIs
 description: Introduction to .NET Core Web APIs with F#
-date: 2019-10-30
 ---
 
 So we're going to be taking a bit of a look on how you can go about building your first F# Web API using .NET Core. I'm going to cover a lot of the basics, a lot of which should be familiar to anyone who has worked with .NET Web Applications and F# in general.

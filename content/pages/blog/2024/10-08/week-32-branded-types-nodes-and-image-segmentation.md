@@ -1,6 +1,5 @@
 ---
 title: week 32, year 2024 - branded types, nodes, and image segmentation
-date: 2024-08-10
 ---
 
 ## what i'm working on

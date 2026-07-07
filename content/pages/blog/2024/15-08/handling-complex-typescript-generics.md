@@ -2,7 +2,6 @@
 title: More generic than it should be
 published: true
 description: A method for designing highly generic APIs in Typescript
-date: 2024-08-15
 ---
 
 A method for designing highly generic APIs in Typescript

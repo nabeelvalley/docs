@@ -2,7 +2,6 @@
 published: true
 title: Smooth Bottom Navigator with Secondary Actions
 description: A Smooth Bottom Navigator using CSS Transitions and Svelte
-date: 2022-12-15
 ---
 
 Not dissimilar from my previous post on the [expanding bottom nav](/blog/2022/13-11/svelte-expanding-nav) this expands on the idea of animating between states in the navigator in a more global way, this version makes use of a similar animation/transition pattern but does so by modifying the heights as well as the absolute positioning of different components

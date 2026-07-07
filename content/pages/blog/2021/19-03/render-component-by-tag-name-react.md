@@ -2,7 +2,6 @@
 published: true
 title: Render Element by Tag Name in React
 description: Dynamically render a React Element given the name of the corresponding HTML element
-date: 2021-03-19
 ---
 
 When using React it can sometimes be useful to render a standard HTML element given the element name dynamically as a prop

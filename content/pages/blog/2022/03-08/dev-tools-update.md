@@ -2,7 +2,6 @@
 published: true
 title: Dev Tools Update
 description: Software development tools and languages I'm using at the moment
-date: 2022-08-03
 ---
 
 ## Programming Languages

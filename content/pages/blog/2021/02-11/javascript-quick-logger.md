@@ -2,7 +2,6 @@
 published: true
 title: Logging Aliases for Javascript
 description: Console and file-based logging alias for Javascript
-date: 2021-11-02
 ---
 
 I often find myself writing a function to `JSON.stringify` some data to log in either a pretty or flat structure

@@ -2,7 +2,6 @@
 published: true
 title: Podcast and RSS Reader App Design
 description: A design study in building an RSS and Podcasting App in Figma with light and dark mode
-date: 2022-12-14
 ---
 
 I've been developing an app for reading RSS feeds and listening to podcasts for personal use recently, and I finally had some inspiration as far as the design goes. Though it's ever-changing, here's a preview of the design at this point

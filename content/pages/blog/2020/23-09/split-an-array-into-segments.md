@@ -2,7 +2,6 @@
 published: true
 title: Split an Array into Segments
 description: Distribute elements of an array over a fixed number of segments
-date: 2020-09-23
 ---
 
 It can sometimes be useful to split an array into a separated set of rows or columns, such as when trying to separate elements into buckets while maintaing order.

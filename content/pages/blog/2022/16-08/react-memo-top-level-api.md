@@ -2,7 +2,6 @@
 published: true
 title: Using React.memo for Controlling Component Rendering
 description: Using the react top-level API for debouncing and selectively rendering a component for better performance
-date: 2022-08-16
 ---
 
 ## React Top Level API

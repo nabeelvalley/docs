@@ -2,7 +2,6 @@
 published: true
 title: Colour in Black and White Photography
 description: Introduction to Black and White Colour Filtering and Processing for Photography
-date: 2020-04-07
 ---
 
 Let's talk about black and white shall we?. As a first-time monochromer there are a couple of aspects of shooting and editing a black and white picture that isn't immediately apparent

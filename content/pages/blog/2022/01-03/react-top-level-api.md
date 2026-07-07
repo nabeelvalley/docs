@@ -2,7 +2,6 @@
 published: true
 title: React Top Level API
 description: Building complex react components using the React top-level API and TypeScript
-date: 2022-03-01
 ---
 
 > For a reference on the React Top-Level API you can take a look at [the React Docs](https://reactjs.org/docs/react-api.html)

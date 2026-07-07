@@ -2,7 +2,6 @@
 title: Interacting with Kafka with Kotlin Coroutines
 description: Producing, Consuming, and Processing Kafka Event Streams
 published: true
-date: 2023-11-09
 ---
 
 ## Overview

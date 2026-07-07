@@ -2,7 +2,6 @@
 published: true
 title: JPA Queries without the Magic
 description: Defining custom queries for JPA using specifications
-date: 2023-10-20
 ---
 
 > If you're just looking for the solution you can just [skip ahead](#the-solutions)

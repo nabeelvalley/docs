@@ -2,7 +2,6 @@
 published: true
 title: Update or Append to DynamoDB Attributes
 description: Use UpdateExpressions to modify DynamoDB items without reading them from the database
-date: 2023-02-28
 ---
 
 ## DynamoDB Overview

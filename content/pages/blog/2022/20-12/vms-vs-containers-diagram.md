@@ -2,7 +2,6 @@
 published: true
 title: Virtual Machine vs Containers
 description: Diagrams Comparing Virtual Machines and Containers
-date: 2022-12-20
 ---
 
 ## Virtual Machines

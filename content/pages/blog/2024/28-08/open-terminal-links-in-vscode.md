@@ -1,7 +1,6 @@
 ---
 title: An unexpected way to open links in the terminal
 description: A little shortcut for opening terminal links in VSCode
-date: 2024-08-28
 ---
 
 I accidentally hit `cmd + shift + o` while in the terminal on VSCode which popped open a little window to navigate to the links to files that were currently printed out in my terminal - this seems like a more keyboard friendly way to do `cmd + click` on a link in the terminal

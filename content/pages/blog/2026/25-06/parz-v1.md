@@ -1,7 +1,6 @@
 ---
 title: Parz v1 finally published!
 description: Publishing my parser combinator library
-date: 2026-06-25
 feature: true
 ---
 

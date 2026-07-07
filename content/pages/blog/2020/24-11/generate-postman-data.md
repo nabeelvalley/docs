@@ -2,7 +2,6 @@
 published: true
 title: Generate data for a Postman request
 description: Using Pre-Request Scripts and Environment variables to generate data in Postman
-date: 2020-11-24
 ---
 
 When making requests with Postman to test an API it is often useful to have generated data, for example when creating users in a backend system you may want the ability to get custom user data

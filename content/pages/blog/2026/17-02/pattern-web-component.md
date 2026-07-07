@@ -1,7 +1,6 @@
 ---
 title: Web Component for Making Patterns
 description: A web component for defining geometric patterns
-date: 2026-02-17
 ---
 
 I made a small web component for defining geometric patterns, you can see the component in action here:

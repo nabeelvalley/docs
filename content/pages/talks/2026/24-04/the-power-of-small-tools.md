@@ -1,7 +1,6 @@
 ---
 title: '* > +'
 description: the multiplicative power of small tools
-date: 2026-04-24
 ---
 
 > Run this presentation using:

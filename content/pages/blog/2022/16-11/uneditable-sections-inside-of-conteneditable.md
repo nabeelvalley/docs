@@ -2,7 +2,6 @@
 published: true
 title: Un-editable sections inside of a content editable
 description: Block user interactions and editing within a contenteditable or specific parts of it
-date: 2022-11-16
 ---
 
 I was working on an [EditorJS](https://editorjs.io/) plugin and needed to have a way of creating a block that would restrict certain user interactions

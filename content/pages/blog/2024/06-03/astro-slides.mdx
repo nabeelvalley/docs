@@ -2,7 +2,6 @@
 title: View Transitions and an Astro Presentation Framework
 description: Easily create presentations from your existing markdown content
 published: true
-date: 06 March 2024
 ---
 
 Well, since this is a post about building a presentation framework within your Astro site, it may be worth mentioning that you can view this page as a presentation using the below button:
@@ -26,6 +25,7 @@ I had to put together a little presentation based on something I've written abou
 Overall, these are the requirements I had in mind:
 
 <site-presentation-slide>
+
 ### My Requirements
 
 1. Not require any additional build process
@@ -111,6 +111,7 @@ Button to launch the presentation
 ... Existing page content
 
 <site-presentation-slide>
+
 ## Heading for Slide
 
 Some content for the slide
@@ -204,6 +205,7 @@ Firstly, we can just take a look at the HTML that we will render contains a few 
 Next, we can grab the actual slide content by using the `presentation-slide` class we defined earlier:
 
 <site-presentation-slide centered>
+
 ### Get Slides
 
 `components/Presentation.astro`
@@ -257,6 +259,7 @@ const keyHandlers: Record<string, () => number> = {
 Next, we can define what it means for us to start and end a presentation. For this example, starting a presentation will remove the `presentation-hidden` class from the main wrapper so we can make the presentation visible on the page as well as set the content to the current slide index (we initialized this to `0` above)
 
 <site-presentation-slide>
+
 ## Start and End Presentation
 
 `components/Presentation.astro`
@@ -281,6 +284,7 @@ const endPresentation = () => {
 Next, hook up some event handlers so that we can have a method for controlling our presentation:
 
 <site-presentation-slide>
+
 ### Wiring things up
 
 `components/Presentation.astro`
@@ -321,6 +325,7 @@ if (slides.length) {
 Next up, we need to add some CSS to make the slides pin to the root of our application above everything else so that you can actually use this:
 
 <site-presentation-slide>
+
 ### Styling
 
 `components/Presentation.astro`
@@ -372,6 +377,7 @@ And that's pretty much it for the core implementation. One other piece of fancin
 For this implementation, we will need to have different animations for the case where we are moving forwards or backwards. In order to do this, we will define some classes as part of our keyboard handler resolution that we will append to the `presentation-container`:
 
 <site-presentation-slide>
+
 ### View Transitions
 
 `components/Presentation.astro`
@@ -393,6 +399,7 @@ const keyHandlers: Record<string, [string, () => number]> = {
 Then, we will update our event handling logic to set these classes on the `contaienr`
 
 <site-presentation-slide>
+
 #### Setting the Classes
 
 `components/Presentation.astro`
@@ -416,6 +423,7 @@ Then, instead just setting the `content.innerHTML` directly, we do it within the
 > Note that the `startViewTransition` API is experimental and typescript may complain, you will need to install `@types/dom-view-transitions` which will provide the type definition you need to use this API
 
 <site-presentation-slide>
+
 #### Starting the Transition
 
 `components/Presentation.astro`
@@ -434,6 +442,7 @@ The last thing we need to do is define the view transitions for when the content
 Firstly we need to
 
 <site-presentation-slide>
+
 #### Animations
 
 `components/Presentation.astro`
@@ -532,6 +541,7 @@ And yes, that's a fair amount of code. All-in it's about 200 lines - most of whi
 As it stands right now the implementation is pretty simple but leaves a lot of space to be extended
 
 <site-presentation-slide>
+
 ### Added since this post was written
 
 - [x] Presenter mode with some kind of synchronized state for multiple monitors (LocalStorage?)
