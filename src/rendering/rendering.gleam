@@ -1,4 +1,3 @@
-import consts
 import content/content
 import content/frontmatter
 import date
@@ -16,6 +15,7 @@ import rendering/pages/rss
 import rendering/pages/talks
 import rendering/pages/wip
 import rendering/ssr/css_snippet
+import rendering/ssr/custom_el
 import rendering/ssr/gallery
 import rendering/ssr/highlight
 import rendering/ssr/html_snippet
@@ -79,19 +79,14 @@ fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {
 
             // // highlight all code blocks (markdown or ssr)
             highlight.render_all,
-            promisify(gallery.render_all),
+            gallery.render_all,
 
             // // rendered last to ensure that processors don't modify the result
             promisify(script_raw.render_all),
           ]),
         fn(processed) {
           let html =
-            element.unsafe_raw_html(
-              consts.html_namespace,
-              "div",
-              [],
-              processed.html,
-            )
+            custom_el.site_markdown(processed.html)
             |> article.render(meta)
             |> element.to_document_string
 

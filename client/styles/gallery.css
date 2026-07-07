@@ -1,0 +1,43 @@
+/* breakout-of the parent grid*/
+site-gallery {
+  --grid-cols: 6;
+
+  @container main (width > 900px) {
+    --grid-cols: 12;
+  }
+
+  @container main (width > 1600px) {
+    --grid-cols: 24;
+  }
+
+  @container main (width > 2400px) {
+    --grid-cols: 36;
+  }
+
+  display: grid;
+  grid-column: breakout;
+
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  grid-template-rows: auto;
+
+  gap: 1rem;
+
+  img,
+  video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* we cheat a bit with the aspect ratios to make them fit nicely */
+  [orientation="vertical"] {
+    grid-column: span 6;
+    grid-row: span 8;
+  }
+
+  [orientation="horizontal"] {
+    grid-column: span 6;
+    grid-row: span 4;
+  }
+}

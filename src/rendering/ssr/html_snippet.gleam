@@ -1,4 +1,3 @@
-import consts
 import gleam/list
 import gleam/result
 import js/dom
@@ -32,6 +31,6 @@ fn render(title: String, code: String) {
 
   custom_el.site_snippet_preview([], [
     snip,
-    element.unsafe_raw_html(consts.html_namespace, "div", [], code),
+    element.unsafe_raw_html("", "div", [], code),
   ])
 }

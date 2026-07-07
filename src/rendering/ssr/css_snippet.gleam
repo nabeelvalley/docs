@@ -1,4 +1,3 @@
-import consts
 import content/fs
 import gleam/dict
 import gleam/list
@@ -47,7 +46,7 @@ pub fn render(css: fs.File, html: fs.File, show_html: Bool) {
   let scoped_css = "@scope {" <> css.content <> "}"
   let preview =
     html.div([], [
-      element.unsafe_raw_html(consts.html_namespace, "div", [], html.content),
+      element.unsafe_raw_html("", "div", [], html.content),
       html.style([], scoped_css),
     ])
 

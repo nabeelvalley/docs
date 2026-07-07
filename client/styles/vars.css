@@ -42,4 +42,6 @@
   --color-on-accent: rgb(var(--shade-on-accent));
 
   --reading-width: min(80ch, 90vw);
+
+  --grid-template-columns: [page-start] 5dvw [breakout-start] 1fr [content-start] var(--reading-width) [content-end] 1fr [breakout-end] 5dvw [page-end]
 }

@@ -32,6 +32,9 @@ pub fn render(pages: List(Page)) {
   let html =
     // temp until we figure out how this layout should look
     html.article([attribute.class("site-article")], [
+      html.h1([], [
+        html.text("Hi there!"),
+      ]),
       html.p([], [
         html.text(
           "Welcome to the 7th iteration of my website. This version is in active development as of 7 July 2026 so expect some stuff to be missing.",

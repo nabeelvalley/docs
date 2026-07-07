@@ -5,6 +5,10 @@ import { Result$Ok, Result$Error }
   // @ts-expect-error relative this file's location in build/dev/javascript/web
   from "../../prelude.mjs";
 
+import { Metadata }
+  // @ts-expect-error relative points to the compiled version of sharp.gleam
+  from "./sharp.mjs";
+
 
 /**
  * @param {string} inputFile
@@ -29,6 +33,25 @@ export async function generate(inputFile, outputFile, size) {
       .toFile(outputFile)
 
     return Result$Ok()
+  } catch (err) {
+    return Result$Error(`${err}`)
+  }
+}
+
+/**
+ * @param {string} inputFile
+ */
+export async function meta(inputFile) {
+  try {
+    const sharp = new Sharp(inputFile, {
+      autoOrient: true,
+    })
+
+    const meta = await sharp.rotate().metadata()
+    const {width, height} = meta.autoOrient
+
+    const result = new Metadata(width, height)
+    return Result$Ok(result)
   } catch (err) {
     return Result$Error(`${err}`)
   }
