@@ -164,7 +164,6 @@ pub fn extract_frontmatter_test() {
       description: None,
       published: False,
       feature: False,
-      rss_only: False,
       layout: frontmatter.ArticleLayout,
       tags: ["blog", "test"],
     ),

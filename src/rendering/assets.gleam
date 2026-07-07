@@ -4,7 +4,8 @@ import date
 import gleam/io
 import gleam/javascript/promise.{type Promise}
 import gleam/list
-import gleam/option.{type Option}
+import gleam/option.{type Option, None, Some}
+import gleam/order
 import gleam/regexp
 import gleam/result
 import js/sharp
@@ -37,9 +38,14 @@ pub type DynamicPage {
   DynamicPage(slug: String, meta: Meta, html: String, assets: List(Asset))
 }
 
+pub type RSSFeed {
+  XMLFeed(slug: String, content: String)
+}
+
 pub type RenderedPage {
   Content(Page)
   Dynamic(DynamicPage)
+  Feed(RSSFeed)
 }
 
 fn replace_non_words(in: String) {
@@ -81,18 +87,27 @@ pub fn write_pages(pages: List(RenderedPage)) -> Promise(Result(Nil, String)) {
 fn write_page(page: RenderedPage) {
   let slug = slug_of(page)
 
-  let html = html_of(page)
+  let html = content_of(page)
 
-  let path = consts.out_dir <> slug <> ".html"
+  let path = consts.out_dir <> page |> path_of
 
   io.println("wrote page: " <> slug <> " to " <> path)
   fs.write(path, html)
 }
 
-pub fn html_of(page: RenderedPage) -> String {
+pub fn content_of(page: RenderedPage) -> String {
   case page {
     Content(page) -> page.html
     Dynamic(page) -> page.html
+    Feed(feed) -> feed.content
+  }
+}
+
+fn path_of(page: RenderedPage) -> String {
+  case page {
+    Content(page) -> page.slug <> ".html"
+    Dynamic(page) -> page.slug <> ".html"
+    Feed(feed) -> feed.slug <> ".xml"
   }
 }
 
@@ -100,13 +115,7 @@ pub fn slug_of(page: RenderedPage) -> String {
   case page {
     Content(page) -> page.slug
     Dynamic(page) -> page.slug
-  }
-}
-
-pub fn meta_of(page: RenderedPage) -> Meta {
-  case page {
-    Content(page) -> page.meta
-    Dynamic(page) -> page.meta
+    Feed(feed) -> feed.slug
   }
 }
 
@@ -114,6 +123,7 @@ pub fn assets_of(page: RenderedPage) -> List(Asset) {
   case page {
     Content(page) -> page.assets
     Dynamic(page) -> page.assets
+    Feed(_) -> []
   }
 }
 
@@ -140,4 +150,15 @@ fn write_asset(asset: Asset) {
       })
     }
   }
+}
+
+pub fn sort_by_date(pages: List(Page)) {
+  pages
+  |> list.sort(fn(a, b) {
+    case a.meta.date, b.meta.date {
+      Some(a), Some(b) -> date.compare(a, b)
+      Some(_), _ -> order.Gt
+      None, _ -> order.Lt
+    }
+  })
 }

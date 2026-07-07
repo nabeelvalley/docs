@@ -7,11 +7,12 @@ import gleam/list
 import gleam/option
 import gleam/result
 import lustre/element
-import rendering/assets.{Content, Dynamic, Meta, Page}
+import rendering/assets.{Content, Dynamic, Feed, Meta, Page}
 import rendering/pages/blog
 import rendering/pages/docs
 import rendering/pages/index
 import rendering/pages/photography
+import rendering/pages/rss
 import rendering/pages/talks
 import rendering/pages/wip
 import rendering/ssr/css_snippet
@@ -47,11 +48,13 @@ pub fn render(
   let talks = talks.render(published_pages) |> Dynamic
   let photography = photography.render(published_pages) |> Dynamic
 
+  let rss = rss.render(published_pages) |> Feed
+
   let wip = wip.render(unpublished_pages) |> Dynamic
 
   let content_pages = published_pages |> list.map(Content)
 
-  Ok([index, blog, docs, talks, photography, wip, ..content_pages])
+  Ok([index, blog, docs, talks, photography, wip, rss, ..content_pages])
   |> promise.resolve
 }
 

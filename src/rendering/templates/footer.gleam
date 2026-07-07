@@ -7,6 +7,7 @@ pub fn render() {
     ul([class("social")], [
       li([], [a([href(consts.linkedin_url)], [text("Linkedin")])]),
       li([], [a([href(consts.github_url)], [text("GitHub")])]),
+      li([], [a([href("/feed/rss.xml")], [text("RSS")])]),
     ]),
     section([class("webring"), attribute.aria_labelledby("webring-label")], [
       a([href(consts.webring_base_url), id("webring-label")], [text("Webring")]),

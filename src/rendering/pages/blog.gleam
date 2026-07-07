@@ -1,7 +1,6 @@
 import date
 import gleam/list
-import gleam/option.{None, Some}
-import gleam/order
+import gleam/option.{None}
 import gleam/string
 import lustre/attribute
 import lustre/element
@@ -40,12 +39,6 @@ pub fn render(pages: List(Page)) {
 pub fn filter_and_sort(pages: List(Page)) {
   pages
   |> list.filter(fn(p) { string.starts_with(p.slug, "/blog") })
-  |> list.sort(fn(a, b) {
-    case a.meta.date, b.meta.date {
-      Some(a), Some(b) -> date.compare(a, b)
-      Some(_), _ -> order.Gt
-      None, _ -> order.Lt
-    }
-  })
+  |> assets.sort_by_date
   |> list.reverse
 }

@@ -13,6 +13,7 @@ pub fn render(pages: List(Page)) {
   let items =
     pages
     |> list.filter(fn(p) { string.starts_with(p.slug, "/talks") })
+    |> assets.sort_by_date
     |> list.map(fn(p) {
       let slug = p.slug
       let date = case p.meta.date {

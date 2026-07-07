@@ -24,6 +24,6 @@ pub const linkedin_url = "https://www.linkedin.com/in/nabeelvalley/"
 
 pub const github_url = "https://github.com/nabeelvalley"
 
-pub const rss_url = "/rss.xml"
-
 pub const webring_base_url = "https://webring.nabeelvalley.co.za"
+
+pub const site_base_url = "https://nabeelvalley.co.za"

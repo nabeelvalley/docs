@@ -4,7 +4,6 @@ import gleam/dict
 import gleam/list
 import gleam/option
 import gleam/result
-import gleam/string
 import js/dom
 import lustre/attribute
 import lustre/element
