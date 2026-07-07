@@ -35,10 +35,8 @@ pub fn main() {
         result |> promise.resolve
       })
 
-      case processing {
-        Ok(_) -> io.println("Wrote output to " <> consts.out_dir)
-        Error(e) -> io.println_error(e)
-      }
+      let assert Ok(_) = processing
+      io.println("Wrote output to " <> consts.out_dir)
       |> promise.resolve
     })
     |> clip.flag(flag.new("clean") |> flag.help("clean out dir"))
