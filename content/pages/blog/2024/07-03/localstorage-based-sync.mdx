@@ -4,9 +4,6 @@ description: Synchronize data between browser tabs using localStorage
 published: true
 ---
 
-import SynchronizedButton from '@/snippets/localstorage-sync/SynchronizedButton.astro'
-import SynchronizedButtonRefactor from '@/snippets/localstorage-sync/SynchronizedButtonRefactor.astro'
-import Snippet from '@/components/Snippet.astro'
 
 ## localStorage
 
@@ -50,12 +47,8 @@ Since we can talk between tabs, we can synchronize parts of our UI using the mes
 
 Below we have a button that uses this - each time it is pressed in one tab - it updates the count in all tabs
 
-<SynchronizedButton />
-
-The code for this can be seen below:
-
-<Snippet
-  path="localstorage-sync/SynchronizedButton.astro"
+<HTMLSnippet
+  path="localstorage-sync/SynchronizedButton.html"
 />
 
 ## Generic Implementation
@@ -110,13 +103,9 @@ export const createSyncWriter =
 
 Our reader function will call the provided `onChange` callback that is provided to it when the data is changed with the parsed data. We can implement the same button as above using this new code as can be seen below:
 
-<Snippet
-  path="localstorage-sync/SynchronizedButtonRefactor.astro"
+<HTMLSnippet
+  path="localstorage-sync/SynchronizedButtonRefactor.html"
 />
-
-And for the the sake of being complete, we can see the refactored button running below:
-
-<SynchronizedButtonRefactor />
 
 ## Further Reading
 

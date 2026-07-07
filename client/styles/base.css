@@ -89,10 +89,16 @@ body {
     font-weight: 500;
     margin-bottom: 1rem;
     font-family: var(--font-heading);
+    margin-bottom: 1rem;
   }
 
   p,
-  figure {
+  pre,
+  img,
+  ul,
+  ol,
+  aside,
+  blockquote {
     margin-bottom: 1rem;
   }
 

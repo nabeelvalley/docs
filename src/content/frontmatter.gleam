@@ -7,6 +7,7 @@ import gleam/string
 import yamleam
 
 pub type Layout {
+  NoLayout
   ArticleLayout
   GalleryLayout
 }
@@ -84,6 +85,7 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
 
   let layout = case layout_str {
     Some("gallery") -> GalleryLayout
+    Some("none") -> NoLayout
     _ -> ArticleLayout
   }
 

@@ -104,5 +104,6 @@ The current, work-in-progress, site that you're looking at
     width: 100%;
     height: 80vh;
     border: solid 4px var(--color-brand);
+    background-color: white;
   }
 </style>

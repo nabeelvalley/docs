@@ -1,5 +1,6 @@
 import consts
 import content/content
+import content/frontmatter
 import date
 import gleam/javascript/promise.{type Promise}
 import gleam/list
@@ -62,34 +63,39 @@ fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {
       doc.slug |> date.parse_from_path |> option.from_result,
     )
 
-  promise.try_await(
-    Page(doc.path, doc.slug, meta, doc.html, [])
-      |> util.try_resolve_chain([
-        promisify(snippet.render_all),
-        promisify(css_snippet.render_all),
-        promisify(html_snippet.render_all),
+  case doc.frontmatter.layout {
+    frontmatter.NoLayout ->
+      Ok(Page(doc.path, doc.slug, meta, doc.html, [])) |> promise.resolve
+    _ ->
+      promise.try_await(
+        Page(doc.path, doc.slug, meta, doc.html, [])
+          |> util.try_resolve_chain([
+            promisify(snippet.render_all),
+            promisify(css_snippet.render_all),
+            promisify(html_snippet.render_all),
 
-        // // highlight all code blocks (markdown or ssr)
-        highlight.render_all,
-        promisify(gallery.render_all),
+            // // highlight all code blocks (markdown or ssr)
+            highlight.render_all,
+            promisify(gallery.render_all),
 
-        // // rendered last to ensure that processors don't modify the result
-        promisify(script_raw.render_all),
-      ]),
-    fn(processed) {
-      let html =
-        element.unsafe_raw_html(
-          consts.html_namespace,
-          "div",
-          [],
-          processed.html,
-        )
-        |> article.render(meta)
-        |> element.to_document_string
+            // // rendered last to ensure that processors don't modify the result
+            promisify(script_raw.render_all),
+          ]),
+        fn(processed) {
+          let html =
+            element.unsafe_raw_html(
+              consts.html_namespace,
+              "div",
+              [],
+              processed.html,
+            )
+            |> article.render(meta)
+            |> element.to_document_string
 
-      Ok(Page(..processed, html:)) |> promise.resolve
-    },
-  )
+          Ok(Page(..processed, html:)) |> promise.resolve
+        },
+      )
+  }
 }
 
 fn promisify(f: fn(a) -> b) -> fn(a) -> Promise(b) {

@@ -14,6 +14,7 @@ pub fn render() {
         a([href("/photography")], [text("Photography")]),
       ]),
       li([], [a([href("/archive")], [text("Archive")])]),
+      li([], [a([href("/uses")], [text("Uses")])]),
       li([], [a([href("/about")], [text("Me")])]),
     ]),
   ])

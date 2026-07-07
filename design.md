@@ -27,11 +27,11 @@ Some tasks/ideas to keep in mind for the redesign
 
 ## Rendering
 
-- [ ] Home
-- [ ] Blog
-- [ ] Docs
+- [ ] Home - A really nice home landing page
+- [x] Blog
+- [x] Docs
 - [ ] About
-- [ ] Gallery
+- [ ] Gallery - A really nice gallery landing page
 - [ ] OG cover image per post
 - [ ] Sitemap!!!
 - [ ] RSS!!!

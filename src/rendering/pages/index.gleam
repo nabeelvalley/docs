@@ -43,7 +43,9 @@ pub fn render(pages: List(Page)) {
         ),
       ]),
       html.p([], [
-        html.text("Until everything is sorted though - why not browse my blog:"),
+        html.text(
+          "Until everything is sorted though - why not look at some of my recent posts:",
+        ),
       ]),
       recent_blogs,
     ])
