@@ -1,10 +1,7 @@
 import { parseDocument, DomUtils } from 'htmlparser2'
 import { render } from 'dom-serializer'
-import hljs from 'highlight.js'
 import { cloneNode, Element } from 'domhandler'
-
-// @ts-expect-error types not available for package
-import hljsGleam from '@gleam-lang/highlight.js-gleam'
+import { codeToHtml,bundledLanguages } from 'shiki'
 
 import { to_list as array_to_list }
   // @ts-expect-error relative this file's location in build/dev/javascript/web
@@ -22,7 +19,7 @@ export function pretty(html) {
 /**
  * @param {string} html
  */
-function parse(html) {
+export function parse(html) {
   return parseDocument(html, {
     recognizeSelfClosing: true
   })
@@ -59,35 +56,40 @@ export function updateNodes(root, els) {
   return render(root)
 }
 
-hljs.registerLanguage('gleam', hljsGleam)
-
 /**
  * @param {string} html
  */
-export function highlight(html) {
+export async function highlight(html) {
   const root = parse(html)
   const pres = DomUtils.getElementsByTagName("pre", root.children)
 
   for (const pre of pres) {
     const codes = DomUtils.getElementsByTagName("code", pre.children)
 
+    let results = []
     for (const el of codes) {
       const code = DomUtils.innerText(el)
-      const lang = el.attribs["class"]?.split("-")?.[1] || 'test'
+      /** @type {string | undefined} */
+      let lang = el.attribs["class"]?.split("-")?.[1]
+      lang = lang in bundledLanguages ? lang : "text"
 
-      let result;
       try {
-        result = hljs.highlight(code, {
-          language: lang,
+        const result = await codeToHtml(code, {
+          lang,
+          themes: {
+            light: 'github-light-high-contrast',
+            dark: 'github-dark-high-contrast',
+          }
         })
-      } catch (err) {
-        result = hljs.highlightAuto(code)
-      }
 
-      DomUtils.replaceElement(el.children[0], parse(result.value))
+        results.push(parse(result))
+      } catch (err) {
+        console.warn("Error processing syntax highlights", code, err)
+        throw new Error("Error processing syntax highlights", { cause: err })
+      }
     }
 
-    const figure = new Element("figure", {class: "codeblock"}, [cloneNode(pre, true)])
+    const figure = new Element("figure", { class: "codeblock" }, results)
     DomUtils.replaceElement(pre, figure)
   }
 

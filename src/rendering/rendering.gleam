@@ -1,9 +1,9 @@
 import consts
 import content/content
+import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/result
 import lustre/element
-import lustre/element/html
 import rendering/assets.{Content, Dynamic, Meta, Page}
 import rendering/pages/blog
 import rendering/pages/docs
@@ -16,20 +16,24 @@ import rendering/ssr/html_snippet
 import rendering/ssr/script_raw
 import rendering/ssr/snippet
 import rendering/templates/article
+import util
 
 pub fn render(
   collection: content.Collection,
-) -> Result(List(assets.RenderedPage), String) {
-  use published_pages <- result.try(
+) -> Promise(Result(List(assets.RenderedPage), String)) {
+  use published_pages <- promise.try_await(
     list.map(collection.pages |> list.filter(content.is_published), render_page)
-    |> result.all,
+    |> promise.await_list
+    |> promise.map(result.all),
   )
-  use unpublished_pages <- result.try(
+
+  use unpublished_pages <- promise.try_await(
     list.map(
       collection.pages |> list.filter(content.is_unpublished),
       render_page,
     )
-    |> result.all,
+    |> promise.await_list
+    |> promise.map(result.all),
   )
 
   let index = index.render(published_pages) |> Dynamic
@@ -39,10 +43,10 @@ pub fn render(
 
   let content_pages = published_pages |> list.map(Content)
 
-  Ok([index, blog, docs, wip, ..content_pages])
+  Ok([index, blog, docs, wip, ..content_pages]) |> promise.resolve
 }
 
-fn render_page(doc: content.Page) {
+fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {
   let meta =
     Meta(
       doc.frontmatter.title,
@@ -50,30 +54,36 @@ fn render_page(doc: content.Page) {
       doc.frontmatter.date,
     )
 
-  use processed <- result.try(
+  promise.try_await(
     Page(doc.path, doc.slug, meta, doc.html, [])
-    |> chain([
-      snippet.render_all,
-      css_snippet.render_all,
-      html_snippet.render_all,
-      // highlight all code blocks (markdown or ssr)
-      highlight.render_all,
+      |> util.try_resolve_chain([
+        promisify(snippet.render_all),
+        promisify(css_snippet.render_all),
+        promisify(html_snippet.render_all),
 
-      gallery.render_all,
+        // // highlight all code blocks (markdown or ssr)
+        highlight.render_all,
+        promisify(gallery.render_all),
 
-      // rendered last to ensure that processors don't modify the result
-      script_raw.render_all,
-    ]),
+        // // rendered last to ensure that processors don't modify the result
+        promisify(script_raw.render_all),
+      ]),
+    fn(processed) {
+      let html =
+        element.unsafe_raw_html(
+          consts.html_namespace,
+          "div",
+          [],
+          processed.html,
+        )
+        |> article.render(meta)
+        |> element.to_document_string
+
+      Ok(Page(..processed, html:)) |> promise.resolve
+    },
   )
-
-  let html =
-    element.unsafe_raw_html(consts.html_namespace, "div", [], processed.html)
-    |> article.render(meta)
-    |> element.to_document_string
-
-  Ok(Page(..processed, html:))
 }
 
-fn chain(base, processors) {
-  list.try_fold(processors, base, fn(page, proc) { proc(page) })
+fn promisify(f: fn(a) -> b) -> fn(a) -> Promise(b) {
+  fn(arg: a) { f(arg) |> promise.resolve }
 }

@@ -281,7 +281,7 @@ feathers generate app
 
 Below are the options I've chosen:
 
-```raw
+```text
 ? Do you want to use JavaScript or TypeScript? TypeScript
 ? Project name app
 ? Description
@@ -361,7 +361,7 @@ feathers generate service
 
 Which will then allow you to select the DB to be used for the service as well as a name for it:
 
-```raw
+```text
 ? What kind of service is it? NeDB
 ? What is the name of the service? messages
 ? Which path should the service be registered on? /messages
@@ -438,7 +438,7 @@ feathers generate hook
 
 And then enter the hook name as well as when it should be run:
 
-```raw
+```text
 ? What is the name of the hook? setTimestamp
 ? What kind of hook should it be? before
 ? What service(s) should this hook be for (select none to add it yourself)?

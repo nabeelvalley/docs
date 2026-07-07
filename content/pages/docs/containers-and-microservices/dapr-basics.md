@@ -28,7 +28,7 @@ Thereafter, you can view the running containers that Dapr has initialized with:
 docker ps
 ```
 
-```raw
+```text
 CONTAINER ID   IMAGE               COMMAND                  CREATED          STATUS                    PORTS                              NAMES
 365529eb2137   daprio/dapr         "./placement"            19 minutes ago   Up 19 minutes             0.0.0.0:6050->50005/tcp            dapr_placement
 86802da99f48   redis               "docker-entrypoint.s…"   20 minutes ago   Up 20 minutes             0.0.0.0:6379->6379/tcp             dapr_redis
@@ -41,7 +41,7 @@ And you can verify if the `components` directory was created
 ls ~/.dapr
 ```
 
-```raw
+```text
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
 d-----         3/26/2021   5:47 PM                bin
@@ -90,7 +90,7 @@ Host: localhost:3500
 
 Which will respond with:
 
-```raw
+```text
 "Hello, World!"
 ```
 

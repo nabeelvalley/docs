@@ -960,7 +960,7 @@ round(prop.table(bamboo_confusion_matrix, 1)*100, 1)
 
 Which will result in
 
-```raw
+```text
                 chinese_pred indian_pred japanese_pred korean_pred thai_pred
   chinese_true          60.0         0.0           3.3        36.7       0.0
   indian_true            0.0        90.0           0.0        10.0       0.0

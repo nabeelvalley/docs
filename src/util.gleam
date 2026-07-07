@@ -1,4 +1,4 @@
-import gleam/javascript/promise
+import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/result
 import gleam/string
@@ -22,6 +22,19 @@ pub fn try_list(res, cb) {
       |> result.all,
     cb,
   )
+}
+
+pub fn try_resolve_chain(
+  base: a,
+  processors: List(fn(a) -> Promise(Result(a, b))),
+) {
+  case processors {
+    [] -> base |> Ok |> promise.resolve
+    [proc, ..rest] -> {
+      use r <- promise.try_await(proc(base))
+      try_resolve_chain(r, rest)
+    }
+  }
 }
 
 /// Map over result object and merge error messages

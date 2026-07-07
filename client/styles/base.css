@@ -101,15 +101,15 @@ body {
   }
 
   figure.codeblock {
-    padding: 1rem 2rem;
     overflow-x: auto;
 
-    --bg: light-dark(white, black);
-    background-color: color-mix(in oklab, var(--bg) 50%, transparent);
+    pre {
+      padding: 1rem;
+    }
 
     pre,
     span {
-      tab-size: 8;
+      /* tab-size: 8; */
       font-family: monospace;
     }
   }

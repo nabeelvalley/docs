@@ -35,7 +35,7 @@ We can get more information by running either of the above commands with the `--
 
 1. Let's start the message broker in verbose mode by opening a new shell and running the `mosquitto -v` command, you should see some output like the following:
 
-```raw
+```text
 1573494107: mosquitto version 1.6.7 starting
 1573494107: Using default config.
 1573494107: Opening ipv6 listen socket on port 1883.
@@ -46,7 +46,7 @@ We can see from the above that the message broker is running on our local port `
 
 2. In a new shell, we can create a client which is subscribed to a topic. We'll name this topic `messages` but it can be pretty much anything you want, to start the subscriber client we can run `mosquitto_sub -t "messages" -v`, you won't see any output in the subscriber shell as yet, but looking at the broker shell you should logging which says that a client was connected
 
-```raw
+```text
 1573494642: New connection from ::1 on port 1883.
 1573494642: New client connected from ::1 as mosq-fwbsJxdXOnQW0LOaIn (p2, c1, k60).
 1573494642: No will message specified.
@@ -61,13 +61,13 @@ We can see from the above that the message broker is running on our local port `
 
 3. To publish a message open another shell and run `mosquitto_pub -t "messages" -m "This is my message!"`, in our subscriber shell we should see the following output:
 
-```raw
+```text
 messages This is my message!
 ```
 
 And in the broker we'll see the following:
 
-```raw
+```text
 1573494844: New connection from ::1 on port 1883.
 1573494844: New client connected from ::1 as mosq-MWbaa2TpZGV0FrTmcF (p2, c1, k60).
 1573494844: No will message specified.
@@ -259,7 +259,7 @@ The `client.publish` function above takes in a `topic` and `message` as its inpu
 
 Refreshing the page, entering some text into the fields and clicking the `Publish Message` button should publish the message to the broker, we should see this in the message broker's output
 
-```raw
+```text
 1573506416: Received PUBLISH from mqttjs_d5cdbc8e (d0, q0, r0, m0, 'messages', ... (34 bytes))
 1573506416: Sending PUBLISH to mqttjs_d5cdbc8e (d0, q0, r0, m0, 'messages', ... (34 bytes))
 ```

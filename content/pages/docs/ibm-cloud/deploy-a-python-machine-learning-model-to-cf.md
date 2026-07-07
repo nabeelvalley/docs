@@ -96,7 +96,7 @@ lm.predict([[-2], [0], [4]])
 
 Which should result in the following output:
 
-```raw
+```text
 array([[-0.84154182],
        [ 3.20582465],
        [11.3005576 ]])
@@ -236,7 +236,7 @@ scikit-learn
 
 Upon completing the above, your `deploy` directory should be as follows:
 
-```raw
+```text
 - deploy
     - app.py
     - linearmodel.pkl
@@ -309,7 +309,7 @@ docker push <YOUR DOCKERHUB USERNAME>/python-ml-service
 
 Upon completing the above, your `deploy` directory should be as follows:
 
-```raw
+```text
 - deploy
     - app.py
     - Dockerfile
@@ -355,7 +355,7 @@ ibmcloud target --cf
 
 Note that if you are using a Federated ID and see the following when running `ibmcloud login`:
 
-```raw
+```text
 You are using a federated user ID, please use one time passcode ( C:\Program Files\IBM\Cloud\bin\ibmcloud.exe login --sso ), or use API key ( C:\Program Files\IBM\Cloud\bin\ibmcloud.exe --apikey key or @key_file ) to authenticate.
 ```
 
@@ -369,7 +369,7 @@ ibmcloud cf push
 
 When the deployment has completed, you will see something like the following output
 
-```raw
+```text
 name:              MLModelAPI
 requested state:   started
 instances:         1/1
@@ -402,13 +402,13 @@ Invoke-RestMethod -Method POST -Uri http://<HOSTNAME>.<REGION>.mybluemix.net/pre
 
 If you encounter the following error from bash:
 
-```raw
+```text
 bash: python: command not found
 ```
 
 Or on Powershell
 
-```raw
+```text
 python : The term 'python' is not recognized as the name of a cmdlet, function, script file, or operable program.
 Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
 At line:1 char:1
@@ -424,7 +424,7 @@ Ensure that Python is in your `PATH`, the process for doing this is dependant on
 
 If you encounter a `ModuleNotFound` when importing a Python package
 
-```raw
+```text
 ---------------------------------------------------------------------------
 ModuleNotFoundError                       Traceback (most recent call last)
 <ipython-input-1-5b23471a9b60> in <module>
@@ -449,7 +449,7 @@ Or within a Jupyter Notebook by running the following from a cell
 
 If when importing the model binary into the app, you encounter the following error
 
-```raw
+```text
 UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 49: character maps to <undefined>
 ```
 
@@ -463,7 +463,7 @@ model = pickle.load(open("linearmodel.pkl","rb"))
 
 If you encounter the following error when testing your endpoints from Powershell
 
-```raw
+```text
 Invoke-RestMethod : The underlying connection was closed: An unexpected error occurred on a send.
 At line:1 char:1
 + Invoke-RestMethod -Method POST -Uri "https://mlmodelapi-forgiving-war ...

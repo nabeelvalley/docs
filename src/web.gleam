@@ -15,13 +15,13 @@ pub fn main() {
     clip.command({
       use clean <- clip.parameter
       // to be used for running axe linting once pages are rendered
-      use report <- clip.parameter
+      use _report <- clip.parameter
 
       use processing <- promise.await({
         // load
         use content <- util.try_resolve(content.load_content())
 
-        use pages <- util.try_resolve(rendering.render(content))
+        use pages <- promise.try_await(rendering.render(content))
 
         use _ <- util.try_resolve(case clean {
           False -> Ok(Nil)

@@ -32,7 +32,7 @@ curl -sSL https://raw.githubusercontent.com/hyperledger/fabric/master/scripts/bo
 
 If you run ito the following error while running the above command
 
-```raw
+```text
 docker: Got permission denied while trying to connect to the Docker daemon socket at unix
 ```
 
@@ -70,7 +70,7 @@ ls
 
 This should then contain the following files
 
-```raw
+```text
 enrollAdmin.js     invoke.js       package.json    query.js        registerUser.js  wallet
 ```
 
@@ -115,7 +115,7 @@ node enrollAdmin.js
 
 If this works you should see the following output
 
-```raw
+```text
 Successfully enrolled admin user "admin" and imported it into the wallet
 ```
 
@@ -131,7 +131,7 @@ node registerUser.js
 
 This will yield the following output if it works
 
-```raw
+```text
 Successfully registered and enrolled admin user "user1" and imported it into the wallet
 ```
 
@@ -433,7 +433,7 @@ Furthermore if we want to use by defining a language channel name, and DB type, 
 
 When the network is up and transacting you will see the following
 
-```raw
+```text
 Starting with channel 'mychannel' and CLI timeout of '10'
 Continue? [Y/n]
 proceeding ...
@@ -460,7 +460,7 @@ The above command will launch all the containers and run through a complete end-
 
 When complete you will see the following output
 
-```raw
+```text
 Query Result: 90
 2017-05-16 17:08:15.158 UTC [main] main -> INFO 008 Exiting.....
 ===================== Query successful on peer1.org2 on channel 'mychannel' =====================

@@ -12,7 +12,7 @@ If anything like shared clipboard, screen resizing, and shared folders doesn't w
 
 If you encounter the following error:
 
-```raw
+```text
 Verifying archive integrity... All good.
 Uncompressing VirtualBox 5.2.12 Guest Additions for Linux........
 VirtualBox Guest Additions installer

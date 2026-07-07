@@ -2,8 +2,6 @@
 @import './styles/reset.css';
 @import './styles/fonts.css';
 @import './styles/base.css';
+@import './styles/shiki.css';
 @import './web-components/presentation.css';
 @import './web-components/snippet-preview.css';
-
-@import url('../node_modules/highlight.js/styles/a11y-light.css') screen and (prefers-color-scheme: light);
-@import url('../node_modules/highlight.js/styles/a11y-dark.css') screen and (prefers-color-scheme: dark);

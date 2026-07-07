@@ -811,7 +811,7 @@ println!("{}", x);
 
 And this is the error:
 
-```raw
+```text
 borrow of moved value: `x`
 
 value borrowed here after moverustc(E0382)
