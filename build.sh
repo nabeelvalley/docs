@@ -16,5 +16,10 @@ echo "gleam download complete"
 
 pnpm i
 
+# checks
 gleam build
+pnpm tsc --noEmit
+
+# build
 gleam run
+pnpm parcel build client/index.ts --dist-dir out
