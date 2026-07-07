@@ -1,4 +1,3 @@
-import gleam/javascript/promise.{type Promise}
 import gleam/list
 
 @external(javascript, "./dom_ffi.mjs", "pretty")
@@ -26,11 +25,6 @@ fn raw_get_nodes(_html: String, _tag: String) -> #(JSRootRef, List(JSNode)) {
 
 @external(javascript, "./dom_ffi.mjs", "updateNodes")
 fn raw_update_nodes(_root: JSRootRef, _els: List(JSNodeUpdate)) -> String {
-  panic as "not supported for the given target"
-}
-
-@external(javascript, "./dom_ffi.mjs", "highlight")
-pub fn highlight(_html: String) -> Promise(String) {
   panic as "not supported for the given target"
 }
 
