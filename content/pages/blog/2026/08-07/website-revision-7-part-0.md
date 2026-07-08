@@ -79,6 +79,6 @@ The site is currently live and is a little ahead of what we've talked about so f
 
 I don't expect this site to last forever. Just as how its predecessors didn't. I would however like to focus on decoupling some of the bits that make it possible so that I can upgrade them more iteratively
 
-I don't plan to have a giant all-features-at-once release. The new site will come up in pieces any it's not a goal to ever have feature parity with the old version. I'd like to put focus on having more well thought-out and interestingly designed features. And, well … that takes time
+I don't plan to have a giant all-features-at-once release. The new site will come up in pieces and it's not a goal to ever have feature parity with the old version. I'd like to focus on having more well thought-out and interestingly designed features. And, well … that takes time
 
 Lastly a shout out to [Andy Bell's](https://bell.bz/) personal site redesign [series on Piccalilli](https://piccalil.li/projects/personal-site/) which is the inspiration for this series
