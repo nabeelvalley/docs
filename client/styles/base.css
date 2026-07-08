@@ -85,6 +85,7 @@ main {
 
   >* {
     grid-column: content;
+    margin-bottom: 1rem;
   }
 
   /* a little awkward but if we hit a site-markdown then
@@ -97,6 +98,7 @@ main {
 
     >* {
       grid-column: content;
+      margin-bottom: 1rem;
     }
   }
 
@@ -117,16 +119,6 @@ main {
     margin-bottom: 1rem;
   }
 
-  p,
-  pre,
-  img,
-  ul,
-  ol,
-  aside,
-  blockquote {
-    margin-bottom: 1rem;
-  }
-
   a {
     color: var(--color-accent);
     text-decoration-color: transparent;
@@ -141,15 +133,6 @@ main {
   code {
     /* tab-size: 8; */
     font-family: monospace;
-  }
-
-  figure.codeblock {
-    overflow-x: auto;
-
-    pre {
-      padding: 1rem;
-    }
-
   }
 }
 

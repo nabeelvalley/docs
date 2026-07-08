@@ -2,7 +2,7 @@
 //// since we have finer control over how children are treated
 
 import gleam/float
-import js/sharp.{type Orientation, Horizontal, Vertical}
+import js/sharp.{Horizontal, Vertical}
 import lustre/attribute
 import lustre/element
 
@@ -20,8 +20,8 @@ pub fn site_gallery(children) {
 
 pub fn site_gallery_image(meta, img) {
   let orientation = case sharp.orientation(meta) {
-    sharp.Vertical -> "vertical"
-    sharp.Horizontal -> "horizontal"
+    Vertical -> "vertical"
+    Horizontal -> "horizontal"
   }
 
   element_with_children(

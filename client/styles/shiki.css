@@ -1,3 +1,8 @@
+.shiki {
+  padding: 1rem;
+  overflow-x: auto;
+}
+
 @media (prefers-color-scheme: dark) {
 
   .shiki,

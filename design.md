@@ -2,6 +2,10 @@
 
 Some tasks/ideas to keep in mind for the redesign
 
+## Bugs
+
+- Relative images don't work, see `/talks/2025/09-10/ai`
+
 ## Architecture
 
 - [ ] Figure out bundling - ssr component detection?
