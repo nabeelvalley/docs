@@ -44,7 +44,7 @@ pub fn render(pages: List(Page)) {
 
   let html =
     // temp until we figure out how this layout should look
-    html.article([attribute.class("site-article")], [html.ul([], items)])
+    html.article([attribute.class("site-article")], items)
     |> base.render(meta)
     |> element.to_document_string
 

@@ -1,7 +1,6 @@
 import consts
 import content/fs
 import gleam/dict
-import gleam/float
 import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/option
@@ -84,24 +83,16 @@ fn render_image(
 ) -> Promise(Result(element.Element(a), String)) {
   use resolved <- util.try_resolve(assets.resolve(img))
   use meta <- promise.try_await(sharp.meta(img.input_file))
-  let orientation = case sharp.orientation(meta) {
-    sharp.Vertical -> "vertical"
-    sharp.Horizontal -> "horizontal"
-  }
 
-  Ok(
+  Ok(custom_el.site_gallery_image(
+    meta,
     html.img([
-      attribute.attribute(
-        "aspect",
-        meta |> sharp.aspect_ratio |> float.to_string,
-      ),
-      attribute.attribute("orientation", orientation),
       attribute.src(resolved.site_path),
       attribute.alt(
         fs.file_name_only(img.input_file)
         |> option.unwrap(""),
       ),
     ]),
-  )
+  ))
   |> promise.resolve
 }

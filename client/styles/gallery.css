@@ -22,22 +22,28 @@ site-gallery {
 
   gap: 1rem;
 
-  img,
-  video {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+
+  /* this wrapper is required to ensure that 100% width/height doesn't break */
+  /* the image size in safari */
+  site-gallery-image {
+
+    /* i cheat a bit with the aspect ratios to make them fit nicely */
+    &[orientation="vertical"] {
+      grid-column: span 6;
+      grid-row: span 8;
+    }
+
+    &[orientation="horizontal"] {
+      grid-column: span 6;
+      grid-row: span 4;
+    }
+
+    img,
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
-  /* we cheat a bit with the aspect ratios to make them fit nicely */
-  [orientation="vertical"] {
-    grid-column: span 6;
-    grid-row: span 8;
-  }
-
-  [orientation="horizontal"] {
-    grid-column: span 6;
-    grid-row: span 4;
-  }
 }
