@@ -1,5 +1,4 @@
 import content/fs
-import gleam/dict
 import gleam/list
 import gleam/option.{None}
 import gleam/string
@@ -8,6 +7,7 @@ import lustre/element
 import lustre/element/html
 import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/templates/base
+import util
 
 pub fn render(pages: List(Page)) {
   let meta = Meta("Docs", None, None, [])
@@ -21,7 +21,10 @@ pub fn render(pages: List(Page)) {
         _ -> "other"
       }
     })
-    |> dict.map_values(fn(section, ps) {
+    |> util.dict_to_sorted_entries
+    |> list.map(fn(entry) {
+      let #(section, ps) = entry
+
       let title = section |> html.text
 
       let subitems =
@@ -41,7 +44,6 @@ pub fn render(pages: List(Page)) {
         subitems,
       ])
     })
-    |> dict.values
 
   let html =
     // temp until we figure out how this layout should look
