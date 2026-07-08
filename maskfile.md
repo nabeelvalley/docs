@@ -11,7 +11,7 @@ pnpm install
 
 ```sh
 pnpm tsc --noEmit
-pnpm parcel build client/index.ts --dist-dir out
+pnpm parcel build --dist-dir out
 ```
 
 

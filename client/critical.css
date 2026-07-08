@@ -1,0 +1,5 @@
+@layer critical, base, components;
+
+@import './styles/reset.css' layer(critical);
+@import './styles/vars.css' layer(critical);
+@import './styles/base.css' layer(critical);

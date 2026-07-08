@@ -5,6 +5,14 @@
   "type": "module",
   "license": "ISC",
   "packageManager": "pnpm@10.4.1",
+  "targets": {
+    "client": {
+      "source": [
+        "client/index.ts",
+        "client/critical.css"
+      ]
+    }
+  },
   "dependencies": {
     "@gleam-lang/highlight.js-gleam": "^1.5.0",
     "@types/node": "^26.0.1",

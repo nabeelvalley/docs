@@ -1,8 +1,5 @@
-@layer base, components;
+@layer critical, base, components;
 
-@import './styles/reset.css' layer(base);
-@import './styles/vars.css' layer(base);
-@import './styles/base.css' layer(base);
 @import './styles/fonts.css' layer(base);
 
 @import './styles/shiki.css' layer(components);

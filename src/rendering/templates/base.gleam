@@ -45,7 +45,26 @@ pub fn render(body, meta: Meta) {
         attribute.href("/favicon.png"),
       ]),
 
-      html.link([attribute.rel("stylesheet"), attribute.href("/index.css")]),
+      // critical css
+      html.link([
+        attribute.href("/critical.css"),
+        attribute.rel("stylesheet"),
+      ]),
+
+      // non-render-blocking
+      html.link([
+        attribute.href("/index.css"),
+        attribute.attribute("onload", "this.onload=null;this.rel='stylesheet'"),
+        attribute.as_("style"),
+        attribute.rel("preload"),
+      ]),
+      html.noscript([], [
+        html.link([
+          attribute.href("/index.css"),
+          attribute.rel("stylesheet"),
+        ]),
+      ]),
+
       html.script(
         [
           attribute.attribute("defer", "true"),
