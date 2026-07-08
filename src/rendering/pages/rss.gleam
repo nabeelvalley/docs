@@ -19,7 +19,6 @@ pub fn render(pages: List(Page)) {
 
   let feed =
     rss_pages
-    |> list.take(2)
     |> list.map(fn(p) {
       let url = consts.site_base_url <> p.slug
       let nodes = dom.get_nodes(tag: "main", html: p.html)
