@@ -4,7 +4,7 @@ Some tasks/ideas to keep in mind for the redesign
 
 ## Bugs
 
-- Relative images don't work, see `/talks/2025/09-10/ai`
+- [ ] Relative images don't work, see `/talks/2025/09-10/ai`
 
 ## Architecture
 
@@ -31,17 +31,21 @@ Some tasks/ideas to keep in mind for the redesign
 
 ## Rendering
 
+- [x] Home
 - [ ] Home - A really nice home landing page
 - [x] Blog
 - [x] Docs
-- [ ] About
-- [ ] Gallery - A really nice gallery landing page
-- [ ] OG cover image per post
-- [ ] Sitemap!!!
-- [ ] RSS!!!
+- [x] About
+- [x] Gallery
+- [ ] Gallery - A really nice gallery page + page per picture
+- [ ] OG cover image per post?
+- [ ] Sitemap - Not that important actually
+- [x] RSS!!!
 
 ## Content Improvements
 
+- [ ] axe-core checks for each page
+- [ ] Performance - Critical CSS inlining
 - [ ] Consistent way to do paths/file names for code blocks (```type path="something/like.this"?)
 - [ ] Think about how we can continue to use tweakpane for snippets
 - [ ] Remove all dependencies for markdown to HTML conversion?
