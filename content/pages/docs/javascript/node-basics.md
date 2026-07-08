@@ -3,11 +3,11 @@ published: true
 title: Node.js Basics
 ---
 
-# Basic Modules
+## Basic Modules
 
-## Installing Prerequisites
+### Installing Prerequisites
 
-### Installing NodeJs
+#### Installing NodeJs
 
 Install the necessary version of [Node](https://nodejs.org/en/download/) Node v8+ and NPM v5+
 
@@ -24,7 +24,7 @@ Also installing a node server globally
 npm i -g node-static
 ```
 
-### Installing MongoDb
+#### Installing MongoDb
 
 Install Mongo from the [Download page](https://www.mongodb.com/download-center)
 
@@ -34,7 +34,7 @@ Confirm that MongoDb is installed
 mongod --version
 ```
 
-## How start a Node REPL environment
+### How start a Node REPL environment
 
 Can run standard javascript with
 
@@ -56,7 +56,7 @@ node file.js
 
 This can be an absolute or releative path to the file
 
-## NodeJs Globals
+### NodeJs Globals
 
 We are providded with some additional objects and keywords on top of javascript
 
@@ -64,7 +64,7 @@ We are providded with some additional objects and keywords on top of javascript
 - `process`
 - `module.exports` or `exports`
 
-## Global
+### Global
 
 Any first level `global` property is available without the keywords Some poperties of the global object are as follows:
 
@@ -75,7 +75,7 @@ Any first level `global` property is available without the keywords Some poperti
 - `__dirname`
 - `__filename`
 
-## Processes
+### Processes
 
 Every Node.js script is a process
 
@@ -85,7 +85,7 @@ We can interact with the process by:
 - `argv` Command-line arguments
 - `exit()` Terminate the current process
 
-### Process exit codes can be specified
+#### Process exit codes can be specified
 
 ```javascript
 // process failed
@@ -98,9 +98,9 @@ process.exit(0)
 process.exit(code)
 ```
 
-## Import and Export Modules
+### Import and Export Modules
 
-### module.exports
+#### module.exports
 
 Global property to allow a script to export something for other modules to use
 
@@ -116,7 +116,7 @@ module.exports = function (numbersToSum) {
 }
 ```
 
-### require
+#### require
 
 require\(\) is a path to a file, or a name. This will import the necessary files that we need to read. JSON files can be imported directly as an object.
 
@@ -137,7 +137,7 @@ const routes = require('../routes') // index.js inside routes folder if there's 
 const databaseConfigs = require('./configs/database.json') // JSON file
 ```
 
-## Core Modules
+### Core Modules
 
 Node has a lot of preinstalled modules, the main ones are as follows:
 
@@ -156,7 +156,7 @@ Node has a lot of preinstalled modules, the main ones are as follows:
 - assert: module to perform assertion based testing
 - crypto: module to encrypt and hash information
 
-### fs
+#### fs
 
 Handles file system operations
 
@@ -165,7 +165,7 @@ Handles file system operations
 - fs.writeFile\(\) writes files asynchronously
 - fs.writeFileSync\(\) writes files synchronously
 
-### Reading a File
+#### Reading a File
 
 ```javascript
 const fs = require('fs')
@@ -180,7 +180,7 @@ fs.readFile(
 )
 ```
 
-### Writing to a file
+#### Writing to a file
 
 ```javascript
 const fs = require('fs')
@@ -190,7 +190,7 @@ fs.writeFile('message.txt', 'Hello World!', function (error) {
 })
 ```
 
-### path
+#### path
 
 Can join a path relativley as:
 
@@ -206,11 +206,11 @@ const path = require('path')
 const server = require(path.join(__dirname, 'app', 'server.js'))
 ```
 
-## Event emitters
+### Event emitters
 
 We can create an EventEmitter with `events` and using this we can create, listen and trigger events
 
-### Single trigger
+#### Single trigger
 
 ```javascript
 const EventEmitter = require('events')
@@ -228,7 +228,7 @@ job.removeAllListeners() // remove  all observers
 
 Output `Job was pronounced done at ____________`
 
-### Mutiple triggers
+#### Mutiple triggers
 
 ```javascript
 const EventEmitter = require('events')
@@ -257,7 +257,7 @@ Who's there?
 Go away!
 ```
 
-### Single Execution of Handler
+#### Single Execution of Handler
 
 ```javascript
 const EventEmitter = require('events')
@@ -276,7 +276,7 @@ emitter.emit('knock')
 
 Output `Who's there?`
 
-## Modular events
+### Modular events
 
 We can use the observer pattern to modularize code. This allows us to customize modular behaviour without modifying the module.
 
@@ -315,11 +315,11 @@ job.on('done', function (details) {
 job.emit('start')
 ```
 
-## HTTP Client
+### HTTP Client
 
-### Get
+#### Get
 
-#### Request and Response
+##### Request and Response
 
 Making an HTTP Request using http from NodeJs Core. Will receive data in chunks as follows `http-get-no-buff`
 
@@ -360,7 +360,7 @@ http
   })
 ```
 
-#### Processing JSON
+##### Processing JSON
 
 In order to get JSON the full response is needed, after which we parse the json to a response object
 
@@ -390,7 +390,7 @@ https
   })
 ```
 
-### Post
+#### Post
 
 To do a post we require a little but more information to be configured as such:
 
@@ -428,7 +428,7 @@ req.write(postData)
 req.end()
 ```
 
-## HTTP Server
+### HTTP Server
 
 We can use `node http-server.js` to run the server, we can also use `node-dev` to run the server and refresh on filechange.
 
@@ -455,7 +455,7 @@ console.log(`Server running at http://localhost:${port}/`)
 
 `listen()` specifies the port on which the server is listening
 
-## Processing a request
+### Processing a request
 
 We can process an incoming request by reading the request properties with the following:
 

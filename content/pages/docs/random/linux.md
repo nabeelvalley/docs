@@ -4,11 +4,11 @@ title: Linux
 description: Miscellaneous Linux Concepts
 ---
 
-# Ubuntu
+## Ubuntu
 
-## Troubleshooting
+### Troubleshooting
 
-### Temporary failure resolving ...
+#### Temporary failure resolving ...
 
 > See [this answer](https://askubuntu.com/questions/91543/apt-get-update-fails-to-fetch-files-temporary-failure-resolving-error)
 

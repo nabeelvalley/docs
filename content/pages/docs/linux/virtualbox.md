@@ -4,9 +4,9 @@ title: VirtualBox Setup
 description: Some Personal Preferences and Troubleshooting
 ---
 
-# VirtualBox Bugs
+## VirtualBox Bugs
 
-## Guest Additions
+### Guest Additions
 
 If anything like shared clipboard, screen resizing, and shared folders doesn't work be sure to do the **VirtualBox Guest Additions CD**, the link to install this can be found in `Devices > Insert Guest Additions CD...` and then insert and install that.
 
@@ -36,7 +36,7 @@ reboot
 
 And then **Resinstall the Guest Additions CD**
 
-## SSH into Guest from Host
+### SSH into Guest from Host
 
 The instructions are from [this Stackoverflow post](https://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-externally-through-a-host)
 
@@ -56,6 +56,6 @@ ssh -p 3022 user@127.0.0.1
 
 where `user` is the VM username
 
-## Port Forwarding
+### Port Forwarding
 
 VirtualBox lets you do Port Forwarding simply by going to `VM > Settings > Network > Advanced > Port Forwarding`

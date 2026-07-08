@@ -4,13 +4,13 @@ title: CDK Local Lambdas
 description: Local Development and Testing of AWS CDK Lambdas
 ---
 
-## Introduction
+### Introduction
 
 The AWS CDK enables us to define application infrastructure using a programming language instead of markup, which is then transformed by the CDK to CloudFormation templates for the management of cloud infrustructure services
 
 The CDK supports TypeScript, JavaScript, Python, Java, and C#
 
-## Prerequisites
+### Prerequisites
 
 AWS Lamda development requires SAM to be installed, depending on your OS you can use the installation instructions [here](https://aws.amazon.com/serverless/sam/)
 
@@ -24,7 +24,7 @@ And lastly, you will need to install `cdk`
 npm i -g aws-cdk
 ```
 
-## Init Project
+### Init Project
 
 To initialize a new project using SAM and CDK run the following command:
 
@@ -68,7 +68,7 @@ const app = new cdk.App()
 new MyProjectStack(app, 'MyProjectStack', {})
 ```
 
-## Create a Handler
+### Create a Handler
 
 Next, we can create a handler for our file, we'll use the Typescript handler but the concept applies to any handler we may want to use
 
@@ -94,7 +94,7 @@ export const handler: APIGatewayProxyHandler = async (event) => {
 }
 ```
 
-## Define Stack
+### Define Stack
 
 Next, in order to define our application stack we will need to use CDK, we can do this in the `lib/my-project-stack.ts` file utilizing `@aws-cdk/aws-lambda-nodejs` to define our Nodejs handler:
 
@@ -134,7 +134,7 @@ const hello = new lambda.Function(this, 'HelloHandler', {
 
 > Note, avoid running the above command using `npm run sdk ...` as it will lead to the `template.yaml` file including the `npm` log which is not what we want
 
-## Create API
+### Create API
 
 Next, we need to add our created lambda to an API Gateway instance so that we can route traffic to it, we can do this using the `@aws-cdk/aws-apigateway` package
 
@@ -177,7 +177,7 @@ export class MyProjectStack extends cdk.Stack {
 }
 ```
 
-## Generate Template
+### Generate Template
 
 Now that we have some API up, we can look at the process for making it requestable. The first step in the process for running this locally is generating a `template.yaml` file which the `sam` CLI will look for in order to setup the stack
 
@@ -189,7 +189,7 @@ cdk synth --no-staging > template.yaml
 
 > You can take a look at the generated file to see the CloudFormation config that CDK has generated, note that creating the template this way is only required for local `sam` testing and isn't the way this would be done during an actual deployment kind of level
 
-## Run the Application
+### Run the Application
 
 Once we've got the `template.yaml` file it's just a matter of using `sam` to run our API. To start our API Gateway application locally we can do the following:
 
@@ -205,14 +205,14 @@ This will allow you to make requests to the lambda at `http://localhost:3000`. A
 }
 ```
 
-## Use a DevContainer
+### Use a DevContainer
 
 I've also written a Dev container Docker setup file for use with CDK and SAM, It's based on the `Remote Containers: Add Development Container Configuration Files > Docker from Docker` and has the following config:
 
 `Dockerfile`
 
 ```dockerfile
-# Note: You can use any Debian/Ubuntu based image you want.
+## Note: You can use any Debian/Ubuntu based image you want.
 FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu
 
 # [Option] Install zsh
@@ -224,38 +224,38 @@ ARG ENABLE_NONROOT_DOCKER="true"
 # [Option] Use the OSS Moby CLI instead of the licensed Docker CLI
 ARG USE_MOBY="true"
 
-# Install needed packages and setup non-root user. Use a separate RUN statement to add your
-# own dependencies. A user of "automatic" attempts to reuse an user ID if one already exists.
+## Install needed packages and setup non-root user. Use a separate RUN statement to add your
+## own dependencies. A user of "automatic" attempts to reuse an user ID if one already exists.
 ARG USERNAME=automatic
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 COPY library-scripts/*.sh /tmp/library-scripts/
 RUN apt-get update \
     && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
-    # Use Docker script from script library to set things up
+    ## Use Docker script from script library to set things up
     && /bin/bash /tmp/library-scripts/docker-debian.sh "${ENABLE_NONROOT_DOCKER}" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" "${USE_MOBY}" \
-    # Clean up
+    ## Clean up
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
-# install python and pip
+## install python and pip
 RUN apt-get update && apt-get install -y \
     python3.4 \
     python3-pip
 
-# install nodejs
+## install nodejs
 RUN apt-get -y install curl gnupg
 RUN curl -sL https://deb.nodesource.com/setup_14.x  | bash -
 RUN apt-get -y install nodejs
 
-# install cdk
+## install cdk
 RUN npm install -g aws-cdk
 
-# install SAM
+## install SAM
 RUN pip3 install aws-sam-cli==1.12.0
 
-# Setting the ENTRYPOINT to docker-init.sh will configure non-root access to
-# the Docker socket if "overrideCommand": false is set in devcontainer.json.
-# The script will also execute CMD if you need to alter startup behaviors.
+## Setting the ENTRYPOINT to docker-init.sh will configure non-root access to
+## the Docker socket if "overrideCommand": false is set in devcontainer.json.
+## The script will also execute CMD if you need to alter startup behaviors.
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]
 ```
@@ -296,7 +296,7 @@ CMD [ "sleep", "infinity" ]
 
 Especially note the `workspaceMount` and `workspaceFolderz sections as these ensure the directory structure maps correctly between your local folder structure and container volume so that the CDK and SAM builds are able to find and create their assets in the correct locations
 
-## References
+### References
 
 - [The AWS Docs](https://docs.aws.amazon.com/cdk/latest/guide/home.html)
 - [CDK Workshop](https://cdkworkshop.com/)

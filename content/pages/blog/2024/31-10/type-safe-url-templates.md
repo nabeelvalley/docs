@@ -34,7 +34,7 @@ Now, I'm a huge fan of using the compiler to derive as much correctness as possi
 
 I'm not saying that you should do what I'm about to present here, I think you're probably better off using the method of a template being a simple function above, but I think it's a fun little mental excercise
 
-# The Typescriptssss
+## The Typescriptssss
 
 Firstly, we need to parse this URL template things, this is simple enough using a little recursive type:
 

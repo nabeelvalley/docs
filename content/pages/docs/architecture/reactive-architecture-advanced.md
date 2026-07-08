@@ -6,17 +6,17 @@ description: Notes on reactive architecture for microservices
 
 > [Based on this CognitiveClass learning path](https://cognitiveclass.ai/learn/reactive-architecture-advanced)
 
-# Building Scalable Systems
+## Building Scalable Systems
 
 > We should look at how we solve problems in the real world as this will provide us with inspiration for solving software problems
 
-## Consistency, Availability, Scalability
+### Consistency, Availability, Scalability
 
 - A system is considered scalable if it can meet an increase in demand while remaining responsive
 - A system is consistent if all members have the same view or state
 - A system remains available if it can continue to respond despite some failure
 
-## Performance vs Scalability
+### Performance vs Scalability
 
 - Related but different
 - Performance optimizes response time per request
@@ -30,7 +30,7 @@ To identify what's being measured you can use the following:
 
 Scalability has no theoretical limit whereas performance has a lower limit, when building reactive systems we choose to focus on scalability more than performance
 
-## Consistency
+### Consistency
 
 In distributed systems a common issue we end up with is two parts of the systems disagreeing on a specific piece of information or state. Ther are a few different ways we can approach resolving this issue:
 
@@ -38,7 +38,7 @@ In distributed systems a common issue we end up with is two parts of the systems
 - Add another observer and make use of a vote
 - Always assume a specific observer/node is correct/incorrect
 
-### The Problem wit Distributed Systems
+#### The Problem wit Distributed Systems
 
 - Separated by space
 - Physics has an upper limit on speed
@@ -47,7 +47,7 @@ In distributed systems a common issue we end up with is two parts of the systems
 
 Due to the aboce, we end up in a case where the receiver of information is always dealing with stale data. Due to this we focus on using eventual consistency
 
-### Eventual Consistency
+#### Eventual Consistency
 
 > Eventual consistency gaurantees that, in the absence of new updates, all access to a specific piece of data will eventually return the most recent value
 
@@ -62,7 +62,7 @@ Monolithic systems are based on **Strong Consistency** and not eventual
 
 Each of the above models has a set of tradeoffs
 
-### Strong Consistency
+#### Strong Consistency
 
 > Strong consistency means that an update to a piece of data needs an agreement from all nodes before it becomes visible
 
@@ -74,7 +74,7 @@ Distributed systems _can_ provide strong consistency
 
 A lock is a way we can do this, we introduce a non-distributed element to our system and changes must go through the lock
 
-## Contention
+### Contention
 
 - Any two things that contend for a resource are in competition
 - Others must wait for a winner in contention
@@ -90,7 +90,7 @@ A lock is a way we can do this, we introduce a non-distributed element to our sy
 
 If we keep increasing we may see diminishing returns on parallelization
 
-### Effect of Coherency Delay
+#### Effect of Coherency Delay
 
 - In a distributed system, synchronizing state is done using crosstalk or gossip
 - Each node in a system sends messages to each other node informing them of any state change
@@ -105,7 +105,7 @@ If we keep increasing we may see diminishing returns on parallelization
 - Coherency delay results in negative returns
 - As the system scales up, coordination between nodes exceeds any benefits
 
-### Laws of Scalability
+#### Laws of Scalability
 
 - Amdahl's Law and Gunther's Law show that linear scalability is usually not possible
 - Linear scalability requires statelessness and isolation
@@ -121,7 +121,7 @@ If we keep increasing we may see diminishing returns on parallelization
 
 The goal is to reduce things that prevent scalability
 
-## CAP Theorem
+### CAP Theorem
 
 - Distributed systems must account for this
 - A distributed system cannot provide more than two of:
@@ -131,7 +131,7 @@ The goal is to reduce things that prevent scalability
 
 Distributed systems have to pick between CP or AP. For a system to be CA that implies that the system is not distributed as it does not need to be partition tolerant
 
-### Partition Tolerance
+#### Partition Tolerance
 
 > System continues to operate despite an arbitrary number of messages being dropped by the network
 
@@ -141,7 +141,7 @@ Distributed systems have to pick between CP or AP. For a system to be CA that im
 - Can be short of long-lived
 - CAP is about what happens when a partition occurs
 
-### Dealing with Partitions
+#### Dealing with Partitions
 
 When a partition occurs a distributed system has two options:
 

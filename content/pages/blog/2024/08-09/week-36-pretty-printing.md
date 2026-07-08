@@ -4,15 +4,15 @@ title: week 36, year 2024 - pretty printing
 
 this week has been a little insane so i'm actually amazed i've found 5 mins to put this together
 
-# what i found
+## what i found
 
 spent some time playing around with two little projects, one of which are pretty useful and the other is somewhat conceptual
 
-## delta
+### delta
 
 this is a [cli tool for better git diffs](https://github.com/dandavison/delta) and provides syntax highlighting for your git diff and some git commands. it's also written in rust if you care about that sort of thing
 
-## fancy fonts
+### fancy fonts
 
 i also came across a [font which renders markdown as rich text](https://kuanwh.com/markdown-font/) using some fancy font features. it's a little glitchy but really cool that this works without any JS
 

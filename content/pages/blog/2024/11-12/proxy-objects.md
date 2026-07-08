@@ -51,7 +51,6 @@ const baseApi: MyApi = {
 };
 ```
 
-
 ## Log accesses
 
 For this example we'll consider the `illegal` method as special. We'll want to track each time the `illegal` property is accessed. Using a `Proxy` we can wrap the `baseApi` and provide a `get` method that will handle property access and allow us to see what property of our object is being accessed
@@ -254,6 +253,6 @@ console.log(tracker);
 // ]
 ```
 
-# References
+## References
 
 > [MDN Proxy Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)

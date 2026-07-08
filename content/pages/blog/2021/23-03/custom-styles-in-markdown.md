@@ -31,7 +31,7 @@ tr:nth-child(even) {
 `my-sample-doc.md`
 
 ```md
-# Custom CSS in Markdown Example
+## Custom CSS in Markdown Example
 
 This is a document where tables are rendered with every second table row with a specific background and foreground colour
 

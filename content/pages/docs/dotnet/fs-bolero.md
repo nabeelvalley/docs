@@ -1,12 +1,12 @@
 ---
 published: true
-title: Full stack web apps with F# and Bolero
-description: Using the Elmish Architecture and F# with Bolero to develop full-stack web applications with .NET and Web Assembly
+title: Full stack web apps with F## and Bolero
+description: Using the Elmish Architecture and F## with Bolero to develop full-stack web applications with .NET and Web Assembly
 ---
 
-Bolero is a framework for building full stack web application using F# on the server in .NET and in the browser with WASM and is based on Blazor and makes use of the Elmish application architecture
+Bolero is a framework for building full stack web application using F## on the server in .NET and in the browser with WASM and is based on Blazor and makes use of the Elmish application architecture
 
-# Create a new app
+## Create a new app
 
 To create a new Bolero application you need to:
 

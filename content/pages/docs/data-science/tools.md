@@ -3,8 +3,6 @@ published: true
 title: Data Science Tools
 ---
 
-# Data Science Tools
-
 [Based on this Cognitive Class Course](https://cognitiveclass.ai/courses/data-science-hands-open-source-tools-2/)
 
 ## Cognitive Class Labs

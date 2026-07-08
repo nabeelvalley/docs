@@ -6,7 +6,7 @@ description: Overview of Raspberry Pi Hardware and GPIO Pins
 
 > Most info and diagrams from the [RaspberryPi documentation](https://www.raspberrypi.org/documentation/usage/gpio/) or [pinout.xyz](https://pinout.xyz)
 
-# GPIO Pins
+## GPIO Pins
 
 The Pi has 40 General-Purpose Input-Output (GPIO) pins configured in the following way:
 

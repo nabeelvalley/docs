@@ -8,8 +8,6 @@ description: Real-time, two way, server and client communication
 
 Signal R is a way to add real-time functionality to a .NET Web API, it makes use of a Server and Client side connection enabling two way transfer of data between them
 
-# Setting Up
-
 > This post assumes some base knowledge on .NET Core Web Applications as well as React and Typescript
 
 ## Create the Projects

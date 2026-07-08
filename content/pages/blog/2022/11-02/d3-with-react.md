@@ -4,7 +4,7 @@ title: Visualizations with React
 description: Create SVG Graphs and Visualizations in React using D3
 ---
 
-# Data Visualization with D3 and React
+## Data Visualization with D3 and React
 
 React is a library for building reactive user interfaces using JavaScript (or Typescript) and D3 (short for _Data-Driven Documents_) is a set of libraries for working with visualizations based on data
 
@@ -16,7 +16,7 @@ A good place to start for React would be the [React Docs](https://reactjs.org/) 
 
 And lastly, the [D3 Docs](https://github.com/d3/d3/wiki)
 
-## Getting Stared
+### Getting Stared
 
 To follow along, you will need to install [Node.js](https://nodejs.org/en/) and be comfortable using the terminal
 
@@ -35,7 +35,7 @@ yarn add --dev @types/d3
 
 Now that we've got a basic project setup, we can start talking about D3
 
-## Scales (`d3-scale`)
+### Scales (`d3-scale`)
 
 > [`d3-scale` Documentation](https://github.com/d3/d3-scale)
 
@@ -109,7 +109,7 @@ D3 has different Scale types:
 - Threshold
 - Ordinal (Band, Point)
 
-### Continuous Scales
+#### Continuous Scales
 
 These scales map continuous data to other continuous data
 
@@ -125,7 +125,7 @@ D3 has a few different continuous scale types:
 
 For my purposes at the moment I'm going to be looking at the methods for Linear and Sequential Color scales, but the documentation explains all of the above very thoroughly and is worth a read for additional information on their usage
 
-#### Linear
+##### Linear
 
 We can use a `linear` scale in the fruit example for mapping count to an x width:
 
@@ -152,7 +152,7 @@ const color = d3
   .interpolate(d3.interpolateHsl)
 ```
 
-### Sequential Color
+#### Sequential Color
 
 If for some reason we want to use the pre-included color scales
 
@@ -171,14 +171,14 @@ const color = d3
 
 These can be used instead of the `scaleLinear` with `interpolateHsl` for example above but to provide a pre-calibrated color scale
 
-### Ordinal Scales
+#### Ordinal Scales
 
 Ordinal scales have a discrete domain and range and are used for the mapping of discrete data. These are a good fit for mapping a scale with categorical data. D3 offers us the following scales:
 
 - Band Scale
 - Point Scale
 
-#### Band Scale
+##### Band Scale
 
 A Band Scale is a type of Ordinal Scale where the output `range` is continuous and numeric
 
@@ -196,13 +196,13 @@ const y = d3
 
 > The domain can be any size array, unlike in the case of continuous scales where the are usually start and end values
 
-## Building a Bar Graph
+### Building a Bar Graph
 
 When creating visuals with D3 there are a few different ways we can output to SVG data. D3 provides us with some methods for creating shapes and elements programmatically via a builder pattern - similar to how we create scales.
 
 However, there are also cases where we would want to define out SVG elements manually, such as when working with React so that the react renderer can handle the rendering of the SVG elements and we can manage our DOM structure in a way that's a bit more representative of the way we work in React
 
-### The SVG Root
+#### The SVG Root
 
 Every SVG image has to have an `svg` root element. To help ensure that this root scales correctly we also use it with a `viewBox` attribute which specifies which portion of the SVG is visible since the contents can go outside of the bounds of the View Box and we may not want to display this overflow content by default
 
@@ -224,7 +224,7 @@ At this point we don't really have anything in the SVG, next up we'll do the fol
 2. Add Y Labels to the SVG
 3. Add X Labels to the SVG
 
-### Bars
+#### Bars
 
 We can create Bars using the following:
 
@@ -268,7 +268,7 @@ At this point, the resulting SVG will look like this:
   </g>
 </svg>
 
-### Y Labels
+#### Y Labels
 
 Next, using similar concepts as above, we can add the Y Labels:
 
@@ -334,7 +334,7 @@ The state of the SVG at this point is:
   </g>
 </svg>
 
-### X Labels
+#### X Labels
 
 Next, we can add the X Labels over each `rect` using:
 
@@ -417,7 +417,7 @@ And the final SVG:
   </g>
 </svg>
 
-### Final Result
+#### Final Result
 
 The code for the entire file/graph can be seen below:
 
@@ -511,7 +511,7 @@ export const Fruit: React.FC = ({}) => {
 
 </details>
 
-### Ticks and Grid Lines
+#### Ticks and Grid Lines
 
 > Note that D3 includes a `d3-axis` package but that doesn't quite work given that we're manually creating the SVG using React and not D3's string-based rendering
 
@@ -638,7 +638,7 @@ The result will look like this:
   </g>
 </svg>
 
-## Building a Line Graph
+### Building a Line Graph
 
 We can apply all the same as in the Bar Graph before to draw a Line Graph. The example I'll be using consists of a `Datum` as follows:
 
@@ -651,7 +651,7 @@ export type Datum = {
 
 Given that the X-Axis is a `DateTime` we will need to do some additional conversions as well as formatting
 
-### Working with Domains
+#### Working with Domains
 
 In the context of this graph it would also be useful to have an automatically calculated domain instead of a hardcoded one as in the previous example
 
@@ -677,7 +677,7 @@ const dateScale = d3
   .range([margin.left, width - margin.right])
 ```
 
-### Create a Line
+#### Create a Line
 
 The `d3.line` function is useful for creating a `d` attribute for an SVG `path` element which defines the line segments
 
@@ -692,7 +692,7 @@ const line = d3
 
 We also include the `Datum` type in the above to scope down the type of `data` allowed in the resulting function
 
-### Formatting
+#### Formatting
 
 D3 includes functions for formatting `DateTime`s. We can create a formatter for a `DateTime` as follows:
 
@@ -706,7 +706,7 @@ We can then use the formatter like so:
 formatter(dateTime)
 ```
 
-### Grid Lines
+#### Grid Lines
 
 We can define the X Axis and grid lines similar to how we did it previously:
 
@@ -748,7 +748,7 @@ const yGrid = tempTicks.map((t) => (
 ))
 ```
 
-### Final result
+#### Final result
 
 Using all the values that have been defined above, we can create the overall graph and grid lines like so:
 

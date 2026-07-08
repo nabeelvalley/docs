@@ -4,7 +4,7 @@ title: Benchmarking
 description: Overview of some CLI tools for benchmarking
 ---
 
-# Hyperfine
+## Hyperfine
 
 [Hyperfine](https://github.com/sharkdp/hyperfine) is a command line benchmarking tool that's pretty straightforward. Using it looks like this:
 
@@ -14,7 +14,7 @@ hyperfine [...flags] <...commands>
 
 > It can be used to benchmark any number of commands
 
-## Basic Run
+### Basic Run
 
 A simple benchmark of some commands can be seen below:
 
@@ -22,7 +22,7 @@ A simple benchmark of some commands can be seen below:
 hyperfine 'npm install' 'yarn install' 'pnpm install'
 ```
 
-## Warming Up
+### Warming Up
 
 Warmup runs can be added using `--warmup <count` as follows:
 
@@ -30,7 +30,7 @@ Warmup runs can be added using `--warmup <count` as follows:
 hyperfine --warmup 3 'npm install' 'yarn install' 'pnpm install'
 ```
 
-## Parameterized Run
+### Parameterized Run
 
 The `-L` flag can be use to add a parameter, for example the above benchmark can also be done like so:
 
@@ -39,7 +39,7 @@ hyperfine -L pkg npm,yarn,pnpm '{pkg} install'
 ```
 
 
-## Flags
+### Flags
 
 It also has some flags, the following of which I think are useful:
 

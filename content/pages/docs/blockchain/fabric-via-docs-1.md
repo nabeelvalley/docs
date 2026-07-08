@@ -22,7 +22,7 @@ Before you can really get started you will need to first [install the necessary 
 - Node and NPM
 - Python 2.7
 
-### Installing Samples
+#### Installing Samples
 
 Select a directory in which the `fabric-samples` should be downloaded, for simplicity use your `~` directory
 
@@ -50,7 +50,7 @@ export PATH=~/fabric-samples/bin:$PATH
 
 ## [Writing your First Application](https://hyperledger-fabric.readthedocs.io/en/latest/write_first_app.html)
 
-### Setting up the environment
+#### Setting up the environment
 
 Once the necessary prerequisites have been installed and the `fabric-samples` folder has been downloaded navigate into the `fabcar` directory within it and `ls`
 
@@ -87,7 +87,7 @@ If this tutorial has been done before, also remove the chaincode image with the 
 docker rmi dev-peer0.org1.example.com-fabcar-1.0-5c906e402ed29f20260ae42283216aa75549c571e2e380f3615826365d8269ba
 ```
 
-### Installing Clients and Launching the Network
+#### Installing Clients and Launching the Network
 
 From the `fabcar/javascript` directory install the dependencies and start fabric from the `fabcar` folder
 
@@ -97,7 +97,7 @@ cd ..
 ./startFabric.sh
 ```
 
-### Enroll the Admin User
+#### Enroll the Admin User
 
 Open a new terminal and run the following command to stream Docker logs
 
@@ -119,7 +119,7 @@ If this works you should see the following output
 Successfully enrolled admin user "admin" and imported it into the wallet
 ```
 
-### Enroll a new User
+#### Enroll a new User
 
 We can now register a new user using the admin eCert to communicate with the CA server. This `user1` identity will be used when querying and updating the ledger
 
@@ -135,7 +135,7 @@ This will yield the following output if it works
 Successfully registered and enrolled admin user "user1" and imported it into the wallet
 ```
 
-### Querying the Ledger
+#### Querying the Ledger
 
 Queries are how you read data from the ledger, data is stored as key-value pairs and we can query for the value of a single key or multiple keys, if the ledger is written in a format like JSON we can perform more complex search operations
 
@@ -255,7 +255,7 @@ Should return the following
 
 Using the `queryCar` function we can query any cat in the ledger
 
-### Updating the Ledger
+#### Updating the Ledger
 
 The `invoke.js` file will update the ledger by creating a car. The application will propose an update, and receive the endorsed update which it will then send to be written to every peer's ledger
 
@@ -335,7 +335,7 @@ If we run `query.js` for `CAR10` this time, we should see the following
 Response is  {"colour":"Red","make":"Chevy","model":"Volt","owner":"Dave"}
 ```
 
-### Cleanup
+#### Cleanup
 
 Clear any active docker containers
 
@@ -358,7 +358,7 @@ This tutorial needs to be run from the `fabric-samples/first-network` directory
 cd fabric-samples/first-network
 ```
 
-### Network Builder Script
+#### Network Builder Script
 
 We can look at the help information for the `byfn.sh` script as follows
 
@@ -403,7 +403,7 @@ Taking all defaults:
 
 The default channel name will be `mychannel`, the default timeout will be 10s
 
-#### Generate Network Artifacts
+##### Generate Network Artifacts
 
 To generate network artifacts we can run the following command
 
@@ -415,7 +415,7 @@ Which will have a description of what it will do and an option to continue
 
 The first step generates all of the certificates and keys for our network entities, the `genesis block` used to bootstrap the ordering service, and a collection of configuration transactions required to configure the Channel
 
-#### Bring Up the Network
+##### Bring Up the Network
 
 You can bring up the network with the `./byfn.sh up` command, which will by default use GoLang for the chaincode. If we want to use Node (which I do), use the following command instead
 
@@ -477,7 +477,7 @@ Query Result: 90
 
 If we want to use a different language we need to bring down and restart the network
 
-#### Bringing Down the Network
+##### Bringing Down the Network
 
 You can bring down the network with the following command
 
@@ -485,7 +485,7 @@ You can bring down the network with the following command
 ./byfn.sh down
 ```
 
-### Crypto Generator
+#### Crypto Generator
 
 We use the `cryptogen` tool to generate cryptographic material for network entities. These certificates are representative of identities and allow for sign/verify authentication between entities
 
@@ -498,9 +498,9 @@ Transactions are signed by a private key (`keystore`) and verified with a privat
 The `crypto-config.yaml` file contains the following
 
 ```yaml
-# Copyright IBM Corp. All Rights Reserved.
+## Copyright IBM Corp. All Rights Reserved.
 #
-# SPDX-License-Identifier: Apache-2.0
+## SPDX-License-Identifier: Apache-2.0
 #
 
 # ---------------------------------------------------------------------------
@@ -508,7 +508,7 @@ The `crypto-config.yaml` file contains the following
 # ---------------------------------------------------------------------------
 OrdererOrgs:
   # ---------------------------------------------------------------------------
-  # Orderer
+  ## Orderer
   # ---------------------------------------------------------------------------
   - Name: Orderer
     Domain: example.com
@@ -522,17 +522,17 @@ OrdererOrgs:
 # ---------------------------------------------------------------------------
 PeerOrgs:
   # ---------------------------------------------------------------------------
-  # Org1
+  ## Org1
   # ---------------------------------------------------------------------------
   - Name: Org1
     Domain: org1.example.com
     # ---------------------------------------------------------------------------
     # "Specs"
     # ---------------------------------------------------------------------------
-    # Uncomment this section to enable the explicit definition of hosts in your
-    # configuration.  Most users will want to use Template, below
+    ## Uncomment this section to enable the explicit definition of hosts in your
+    ## configuration.  Most users will want to use Template, below
     #
-    # Specs is an array of Spec entries.  Each Spec entry consists of two fields:
+    ## Specs is an array of Spec entries.  Each Spec entry consists of two fields:
     #   - Hostname:   (Required) The desired hostname, sans the domain.
     #   - CommonName: (Optional) Specifies the template or explicit override for
     #                 the CN.  By default, this is the template:
@@ -542,31 +542,31 @@ PeerOrgs:
     #                 which obtains its values from the Spec.Hostname and
     #                 Org.Domain, respectively.
     # ---------------------------------------------------------------------------
-    # Specs:
-    #   - Hostname: foo # implicitly "foo.org1.example.com"
-    #     CommonName: foo27.org5.example.com # overrides Hostname-based FQDN set above
+    ## Specs:
+    #   - Hostname: foo ## implicitly "foo.org1.example.com"
+    #     CommonName: foo27.org5.example.com ## overrides Hostname-based FQDN set above
     #   - Hostname: bar
     #   - Hostname: baz
     # ---------------------------------------------------------------------------
     # "Template"
     # ---------------------------------------------------------------------------
-    # Allows for the definition of 1 or more hosts that are created sequentially
-    # from a template. By default, this looks like "peer%d" from 0 to Count-1.
-    # You may override the number of nodes (Count), the starting index (Start)
-    # or the template used to construct the name (Hostname).
+    ## Allows for the definition of 1 or more hosts that are created sequentially
+    ## from a template. By default, this looks like "peer%d" from 0 to Count-1.
+    ## You may override the number of nodes (Count), the starting index (Start)
+    ## or the template used to construct the name (Hostname).
     #
-    # Note: Template and Specs are not mutually exclusive.  You may define both
-    # sections and the aggregate nodes will be created for you.  Take care with
-    # name collisions
+    ## Note: Template and Specs are not mutually exclusive.  You may define both
+    ## sections and the aggregate nodes will be created for you.  Take care with
+    ## name collisions
     # ---------------------------------------------------------------------------
     Template:
       Count: 1
-      # Start: 5
-      # Hostname: {{.Prefix}}{{.Index}} # default
+      ## Start: 5
+      ## Hostname: {{.Prefix}}{{.Index}} ## default
     # ---------------------------------------------------------------------------
     # "Users"
     # ---------------------------------------------------------------------------
-    # Count: The number of user accounts _in addition_ to Admin
+    ## Count: The number of user accounts _in addition_ to Admin
     # ---------------------------------------------------------------------------
     Users:
       Count: 1
@@ -576,7 +576,7 @@ The naming convention for a network entity is `<HOSTNAME>.<DOMAIN>`, so for the 
 
 After running the `cryptogen` tool, the generated certificates and keys will be saved to a folder called `crypto-config`
 
-### Configuration Transaction Generator
+#### Configuration Transaction Generator
 
 The `configtxgen` tool is used to generate four configuration artifacts
 
@@ -602,9 +602,9 @@ The file also has two unique headers
 Which can be seen in the file below
 
 ```yaml
-# Copyright IBM Corp. All Rights Reserved.
+## Copyright IBM Corp. All Rights Reserved.
 #
-# SPDX-License-Identifier: Apache-2.0
+## SPDX-License-Identifier: Apache-2.0
 #
 
 ---
@@ -617,33 +617,33 @@ Which can be seen in the file below
 #
 ################################################################################
 Organizations:
-  # SampleOrg defines an MSP using the sampleconfig.  It should never be used
-  # in production but may be used as a template for other definitions
+  ## SampleOrg defines an MSP using the sampleconfig.  It should never be used
+  ## in production but may be used as a template for other definitions
   - &OrdererOrg
-    # DefaultOrg defines the organization which is used in the sampleconfig
-    # of the fabric.git development environment
+    ## DefaultOrg defines the organization which is used in the sampleconfig
+    ## of the fabric.git development environment
     Name: OrdererOrg
 
-    # ID to load the MSP definition as
+    ## ID to load the MSP definition as
     ID: OrdererMSP
 
-    # MSPDir is the filesystem path which contains the MSP configuration
+    ## MSPDir is the filesystem path which contains the MSP configuration
     MSPDir: crypto-config/ordererOrganizations/example.com/msp
 
   - &Org1
-    # DefaultOrg defines the organization which is used in the sampleconfig
-    # of the fabric.git development environment
+    ## DefaultOrg defines the organization which is used in the sampleconfig
+    ## of the fabric.git development environment
     Name: Org1MSP
 
-    # ID to load the MSP definition as
+    ## ID to load the MSP definition as
     ID: Org1MSP
 
     MSPDir: crypto-config/peerOrganizations/org1.example.com/msp
 
     AnchorPeers:
-      # AnchorPeers defines the location of peers which can be used
-      # for cross org gossip communication.  Note, this value is only
-      # encoded in the genesis block in the Application section context
+      ## AnchorPeers defines the location of peers which can be used
+      ## for cross org gossip communication.  Note, this value is only
+      ## encoded in the genesis block in the Application section context
       - Host: peer0.org1.example.com
         Port: 7051
 
@@ -656,8 +656,8 @@ Organizations:
 #
 ################################################################################
 Application: &ApplicationDefaults
-  # Organizations is the list of orgs which are defined as participants on
-  # the application side of the network
+  ## Organizations is the list of orgs which are defined as participants on
+  ## the application side of the network
   Organizations:
 
 ################################################################################
@@ -669,38 +669,38 @@ Application: &ApplicationDefaults
 #
 ################################################################################
 Orderer: &OrdererDefaults
-  # Orderer Type: The orderer implementation to start
-  # Available types are "solo" and "kafka"
+  ## Orderer Type: The orderer implementation to start
+  ## Available types are "solo" and "kafka"
   OrdererType: solo
 
   Addresses:
     - orderer.example.com:7050
 
-  # Batch Timeout: The amount of time to wait before creating a batch
+  ## Batch Timeout: The amount of time to wait before creating a batch
   BatchTimeout: 2s
 
-  # Batch Size: Controls the number of messages batched into a block
+  ## Batch Size: Controls the number of messages batched into a block
   BatchSize:
-    # Max Message Count: The maximum number of messages to permit in a batch
+    ## Max Message Count: The maximum number of messages to permit in a batch
     MaxMessageCount: 10
 
-    # Absolute Max Bytes: The absolute maximum number of bytes allowed for
-    # the serialized messages in a batch.
+    ## Absolute Max Bytes: The absolute maximum number of bytes allowed for
+    ## the serialized messages in a batch.
     AbsoluteMaxBytes: 99 MB
 
-    # Preferred Max Bytes: The preferred maximum number of bytes allowed for
-    # the serialized messages in a batch. A message larger than the preferred
-    # max bytes will result in a batch larger than preferred max bytes.
+    ## Preferred Max Bytes: The preferred maximum number of bytes allowed for
+    ## the serialized messages in a batch. A message larger than the preferred
+    ## max bytes will result in a batch larger than preferred max bytes.
     PreferredMaxBytes: 512 KB
 
   Kafka:
-    # Brokers: A list of Kafka brokers to which the orderer connects
-    # NOTE: Use IP:port notation
+    ## Brokers: A list of Kafka brokers to which the orderer connects
+    ## NOTE: Use IP:port notation
     Brokers:
       - 127.0.0.1:9092
 
-  # Organizations is the list of orgs which are defined as participants on
-  # the orderer side of the network
+  ## Organizations is the list of orgs which are defined as participants on
+  ## the orderer side of the network
   Organizations:
 
 ################################################################################
@@ -729,7 +729,7 @@ Profiles:
         - *Org1
 ```
 
-### Run the Tools
+#### Run the Tools
 
 We can make use of the `configtxgen` and `cryptogen` commands to do what we need, alternatively we can also adapt the `byfn.sh` script's `generateCerts` function to meet our requirements
 
@@ -741,7 +741,7 @@ We can make use of the `configtxgen` and `cryptogen` commands to do what we need
 >
 > If you run into an error that says `cannot remove .... Permission denied` run the command as `sudo`
 
-#### Manually Generate the Artifacts
+##### Manually Generate the Artifacts
 
 We can refer to the `generateCerts` function to see how we would go about doing this, but we can also do this using the binaries manually as follows
 
@@ -774,7 +774,7 @@ Which should have an output like
 2017-10-26 19:21:56.309 EDT [common/tools/configtxgen] doOutputBlock -> INFO 003 Writing genesis block
 ```
 
-#### Create Channel Configuration
+##### Create Channel Configuration
 
 Create the `CHANNEL_NAME` environment variable
 
@@ -796,7 +796,7 @@ Then define the Anchor Peer for `Org1` and `Org2` as follows
 ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
 ```
 
-### Start the Network
+#### Start the Network
 
 We make use of the docker compose files to bring up the fabric containers and bootstrap the Orderer with the `genesis.block`
 
@@ -808,7 +808,7 @@ Start the network from your terminal with the following command, the `-d` flag d
 docker-compose -f docker-compose-cli.yaml up -d
 ```
 
-#### Environment Variables
+##### Environment Variables
 
 We need to configure some environment variables. The variables for `peer0.org1.example.com` are coded into the CLI container via the `docker-compose-cli.yaml` file, however if we want to send calls to other peers or Orderers, we need to modify the following values in the `cli.environment` object in the `yaml` file before starting the network
 
@@ -819,7 +819,7 @@ CORE_PEER_LOCALMSPID="Org1MSP"
 CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
 ```
 
-#### Create and Join a Channel
+##### Create and Join a Channel
 
 We created the channel configuraion transaction using the `configtxgen` tool, that process can be repeated to create additional channel configurations with the `configtx.yaml` file by using the same or different profiles
 
@@ -849,10 +849,10 @@ Next we specify the channel name with the `-c` flag, and the channel transaction
 ```bash
 export CHANNEL_NAME=mychannel
 
-# the channel.tx file is mounted in the channel-artifacts directory within your CLI container
-# as a result, we pass the full path for the file
-# we also pass the path for the orderer ca-cert in order to verify the TLS handshake
-# be sure to export or replace the $CHANNEL_NAME variable appropriately
+## the channel.tx file is mounted in the channel-artifacts directory within your CLI container
+## as a result, we pass the full path for the file
+## we also pass the path for the orderer ca-cert in order to verify the TLS handshake
+## be sure to export or replace the $CHANNEL_NAME variable appropriately
 
 peer channel create -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 ```
@@ -881,7 +881,7 @@ Thereafter join `peer0.org2` by prefacing it with the appropriate environment va
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer0.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt peer channel join -b mychannel.block
 ```
 
-#### Update the Anchor Peers
+##### Update the Anchor Peers
 
 Nexty we will perform channel updates which will propogate to the definition of the channel, essentially adding configuration deltas for the channel's genesis block to define the anchor peers
 
@@ -897,7 +897,7 @@ And for Org2 as `peer0.org2.example.com` by updating
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer0.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org2MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 ```
 
-#### Install and Instantiate Chaincode
+##### Install and Instantiate Chaincode
 
 Applications interact with the ledger through `chaincode`, we need to install chaincode on every peer that will need to execute and endorse out interactions. Chaincode can be written in Go, Java, and Javascript and runs on the peer in the context of a chaincode container with a specific name and version and exists on the peer's filesystem
 
@@ -932,11 +932,11 @@ peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile /opt/gopat
 
 Note that the above command may take a while to execute for Node and Java as it is also installing a shim and container respectively
 
-#### Verify Chaincode
+##### Verify Chaincode
 
 We can make some queries and transactions to verify that the chaincode was correctly installed
 
-##### Query
+###### Query
 
 we can query the value od `a` to make sure the state DB was populated as follows
 
@@ -946,7 +946,7 @@ peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
 
 The queey should return `100`
 
-##### Invoke
+###### Invoke
 
 Next, move 10 from `a` to `b`
 
@@ -954,7 +954,7 @@ Next, move 10 from `a` to `b`
 peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C $CHANNEL_NAME -n mycc --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{"Args":["invoke","a","b","10"]}'
 ```
 
-##### Query
+###### Query
 
 Thereafter, query the value again to verify that the transfer succeeded
 
@@ -964,7 +964,7 @@ peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
 
 We should now see `90`
 
-##### Install on New Peer
+###### Install on New Peer
 
 Now, Install the chaincode on a third peer `peer1.org2`, first set the folowing environment variables
 
@@ -981,7 +981,7 @@ Then install the chaincode
 peer chaincode install -n mycc -v 1.0 -l node -p /opt/gopath/src/github.com/chaincode/chaincode_example02/node/
 ```
 
-##### Join Channel
+###### Join Channel
 
 Next the new peer needs to join the channel before it can respond to queries
 
@@ -989,7 +989,7 @@ Next the new peer needs to join the channel before it can respond to queries
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer1.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt peer channel join -b mychannel.block
 ```
 
-##### Query
+###### Query
 
 After a few seconds when the peer has joined the channel, we can submit the query
 
@@ -999,7 +999,7 @@ peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
 
 We should see the same output as before of `90`
 
-### Take Down the Network
+#### Take Down the Network
 
 Lastly, we can take down the network with
 
@@ -1009,14 +1009,14 @@ Lastly, we can take down the network with
 
 The process we just covered is the same as what happens when we run `./byfn.sh up`, we can run this again and look at the logs in order to see the above with some neat output which I will not put here
 
-### Important Points
+#### Important Points
 
 - Chaincode must be installed on a peer for it to successfully read and write
 - Chaincode is not instantiated until an `init` or `read/write` transaction is performed against the chaincode
 - An intial transaction causes a container to start
 - All peers on a channel maintain the same copy of the ledger, even those without the chaincode installed on them
 
-### Viewing Transactions
+#### Viewing Transactions
 
 We can see transactions by looking at the logs for the CLI container
 
@@ -1032,7 +1032,7 @@ dokcer logs dev-peer0.org1.example.com-mycc-1.0
 docker logs dev-peer1.org2.example.com-mycc-1.0
 ```
 
-### CouchDB
+#### CouchDB
 
 We can switch the database from GloveDB to CouchDB in order to allow us to make more complex queries additional to the standard chaincode functionality, to use CouchDB we simply compose with the `docker-compose-couch.yaml` file as follows
 
@@ -1046,6 +1046,6 @@ If we want to look at a tutorial for doing the above with CouchDB we can find th
 
 CouchDB allows us to store more complex JSON data in a fully queryable format, as well as enhancing security for compliance and allows us to do field-level security such as calue masking and filtering
 
-### Troubleshooting
+#### Troubleshooting
 
 If you need to shoot some trouble you can find some information in the [Fabric Docs](https://hyperledger-fabric.readthedocs.io/en/latest/build_network.html#troubleshooting)

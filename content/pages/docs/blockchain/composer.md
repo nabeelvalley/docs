@@ -4,7 +4,7 @@ title: Hyperledger Composer
 description: Introduction to Hyperledger Composer
 ---
 
-# Overview
+## Overview
 
 A business Network, defined in a **Business Network Archive** `.bna` File
 
@@ -15,13 +15,13 @@ A business Network, defined in a **Business Network Archive** `.bna` File
 
 In order to update a network, we simply upload the Archive `.bna` file to the network, this can either be done from the command line or from the Blockchain UI if using IBM Cloud
 
-## Models
+### Models
 
 Models are files that define Assets, Participants and Transactions using the Hyperledger Composer Modelling Language
 
 Models are defined in `.cto` files, and are written using the **Hyperledger Composer Modelling Language**
 
-### CTO Language
+#### CTO Language
 
 [CTO Language](https://hyperledger.github.io/composer/v0.19/reference/cto_language.html)
 
@@ -35,7 +35,7 @@ A `.cto` file is composed of the following elements
    - Events
 3. Optional import declarations than import resources from other namespaces
 
-#### Namespaces
+##### Namespaces
 
 Resources are organized by namespaces, this is defined by first line in a `.cto` file which can be as follows
 
@@ -45,7 +45,7 @@ namespace org.example.mynetwork
 
 All other resources defined in the same file will be part of this namespace
 
-#### Classes
+##### Classes
 
 A resource definition has the following properties
 
@@ -103,7 +103,7 @@ asset Field identified by fieldId {
 }
 ```
 
-#### Enums
+##### Enums
 
 Enumerables can be defined as follows
 
@@ -127,7 +127,7 @@ participant Farmer identified by farmerId {
 }
 ```
 
-#### Concepts
+##### Concepts
 
 Concepts are abstract classes that are not assets, participants or transactions. They are contained by another resource and do not have an identifier and cannot be directly stored in registries or referenced in relationships
 
@@ -156,7 +156,7 @@ participant Farmer identified by farmerId {
 }
 ```
 
-#### Primitive Types
+##### Primitive Types
 
 Composer has a few primitive types, namely
 
@@ -167,7 +167,7 @@ Composer has a few primitive types, namely
 - DateTime
 - Boolean
 
-#### Arrays
+##### Arrays
 
 Arrays can simply be defined with `[]`
 
@@ -179,7 +179,7 @@ o Integer[] integerArray
 --> Animal[] myAnimals
 ```
 
-#### Relationships
+##### Relationships
 
 A relationship is a tuple composed of
 
@@ -193,7 +193,7 @@ For example
 org.example.Vehicle#23451
 ```
 
-#### Field Validation
+##### Field Validation
 
 Attributes may include a default value, string fields may include a regex validation, numerical values may include a range, these can be seen below
 
@@ -213,7 +213,7 @@ asset Vehicle extends Base {
 }
 ```
 
-#### Imports
+##### Imports
 
 We can also import a type from a different namespace with the following
 
@@ -222,7 +222,7 @@ import org.example.MyAsset
 import org.example2.*
 ```
 
-### Example
+#### Example
 
 We can define a trading network consisting of the following models
 
@@ -269,11 +269,11 @@ transaction Trade {
 }
 ```
 
-## Logic
+### Logic
 
 Logic is defined in **Script Files** `.js` which define transaction logic
 
-### Example
+#### Example
 
 The logic for a transaction can be defined by a javascript function, in this example, for example, if a transaction occurs in which a Commodity changes Ownership from one Owner to a New Owner, the function can be defined as follows
 
@@ -295,15 +295,15 @@ async function tradeCommodity(trade) {
 }
 ```
 
-## Queries
+### Queries
 
 Queries are defined in **Query File** `.qry` file, note that a single `.bna` file can only have one query
 
-## Access Control
+### Access Control
 
 Access Control Files `.acl` define what permissions different users have, a single network can only have one access control file
 
-### Example
+#### Example
 
 Access control files look like the following
 
@@ -328,7 +328,7 @@ rule SystemACL {
 }
 ```
 
-## Deployment
+### Deployment
 
 We can package our code into a `.bna` file by running the following command in our directory
 

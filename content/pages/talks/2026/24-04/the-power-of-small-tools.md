@@ -33,7 +33,7 @@ options:
 
 ---
 
-# Agenda
+## Agenda
 
 - [Ideas First](#ideas-first)
 - [A (less-technical) Unix Philosophy](#a-less-technical-unix-philosophy)
@@ -44,7 +44,7 @@ options:
 
 ---
 
-## Ideas First
+### Ideas First
 
 The first bit of this is all a bit abstract
 
@@ -52,7 +52,7 @@ The first bit of this is all a bit abstract
 
 ---
 
-## A (less-technical) Unix Philosophy
+### A (less-technical) Unix Philosophy
 
 > An emergent set of principles within the Unix ecosystem[^1] with a personal spin
 
@@ -65,7 +65,7 @@ Technology should:
 
 --- 
 
-## Identify Accidental Complexity
+### Identify Accidental Complexity
 
 > Opportunities to work more effectively
 
@@ -76,14 +76,14 @@ Technology should:
 
 ---
 
-### It's a Numbers Game
+#### It's a Numbers Game
 
 - A little faster each day adds up pretty quick
 - Composition helps small solutions solve big problems really quickly
 
 ---
 
-## How Do We Get Faster?
+### How Do We Get Faster?
 
 > The terminal, unfortunately
 
@@ -97,19 +97,19 @@ UI's are generally none of these things
 
 ---
 
-## Let's Write Some Code
+### Let's Write Some Code
 
 > We have a weekly team presentation we want to assign a section to each team member
 
 ---
 
-### Some Scripts to Do the Things
+#### Some Scripts to Do the Things
 
 > We'll make small generalized tools instead of one big one
 
 ---
 
-### Composing the Tools
+#### Composing the Tools
 
 > Do the entire workflow at once
 
@@ -122,7 +122,7 @@ cat presentation.md
 
 ---
 
-### Greater than the Sum of Their Parts
+#### Greater than the Sum of Their Parts
 
 > Small tools can be composed in more complex ways
 
@@ -137,11 +137,11 @@ Can you assign these tasks on the fly?
 
 ---
 
-## More Ideas
+### More Ideas
 
 ---
 
-### Composition with Nushell
+#### Composition with Nushell
 
 > Create all the files listed in this presentation
 
@@ -154,7 +154,7 @@ Can you assign these tasks on the fly?
 
 ---
 
-### JS Implementations
+#### JS Implementations
 
 ---
 
@@ -215,7 +215,7 @@ readFileSync(0, 'utf-8')
 
 ---
 
-### Alternative Implementations
+#### Alternative Implementations
 
 ---
 
@@ -285,14 +285,14 @@ while((line = Console.In.ReadLine()) != null)
 
 ---
 
-## Additional Resources
+### Additional Resources
 
 - [My uses page](/uses) 
 - [Nushell](https://www.nushell.sh/)
 
 ---
 
-## Footnotes
+### Footnotes
 
 [^1]: [Wikipedia - Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)
 [^2]: [Steph Ango - File over app](https://stephango.com/file-over-app)

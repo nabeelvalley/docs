@@ -4,7 +4,7 @@ title: Basics
 description: Basic Concepts for using Chef
 ---
 
-# Basics of Chef
+## Basics of Chef
 
 [From this Module](https://learn.chef.io/modules/learn-the-basics)
 
@@ -12,17 +12,17 @@ description: Basic Concepts for using Chef
 Infrastructure Automation > Learn the Basics > Ubuntu > Docker
 ```
 
-## Note About Environment
+### Note About Environment
 
 I am running a VM with access to a Shared Drive using VirtualBox, this can be found at `root/media/sf_name` on the Ubuntu VM
 
-## Set Up a Docker Container to Manage
+### Set Up a Docker Container to Manage
 
 We'll make use of a Docker container with Ubuntu to work with Chef - generally though Docker containers are treated as immutable infrastructure
 
 Before starting we will need to ensure that Docker is installed on our system so that we can run chef in the container
 
-### Make a Working Directory
+#### Make a Working Directory
 
 Make a new directory in which we can work
 
@@ -31,7 +31,7 @@ mkdir learn-chef
 cd learn-chef
 ```
 
-### Start the Docker Container
+#### Start the Docker Container
 
 Download the Ubuntu 14.04 image from Docker hub and start the container
 
@@ -51,11 +51,11 @@ PS> docker run -it -v ${pwd}:/root/chef-repo -p 8100:80 ubuntu:14.04 /bin/bash
 
 Running the container as above will expose also give our docker container access to our system `~ /chef-repo` directory so that we can edit our chef code directly from there
 
-### From the Container
+#### From the Container
 
 Update the container package list and install curl
 
-#### Install Chef in Container
+##### Install Chef in Container
 
 ```bash
 apt-get update
@@ -68,7 +68,7 @@ Next we can run Chef Workstation as follows:
 curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P chef-workstation -c stable -v 0.2.41
 ```
 
-#### Set Up the Working Directory
+##### Set Up the Working Directory
 
 From the container `cd` into the `~/chef-repo` directory that we initialized previously
 
@@ -139,7 +139,7 @@ chef-client --local-mode hello.rb
 
 Chef endsures that the actual state of a resource matches the state that was specified, even if it is altered by an external resource. Usually we configure `chef-client` to run periodically or as part of a continuous automation system which helps our resources be correctly configured
 
-#### Delete MOTD file
+##### Delete MOTD file
 
 Create a file called `goodbye.rb` with the following contents
 
@@ -168,7 +168,7 @@ more /tmp/motd
 #/tmp/motd: No such file or directory
 ```
 
-### Summary
+#### Summary
 
 Resources describe the what, not the how. A recipe is a file that describes what state a part of the system should be in, but not how to get there - that is handled by Chef
 
@@ -176,13 +176,13 @@ Resources have actions, such as `:delete` which is a process by which a desired 
 
 Recipes are an ordered list of configuration states and typically contain related states
 
-## Configure a Package and Service
+### Configure a Package and Service
 
 Packages and services, like files, are also resource types
 
 For this portion we will be managing an Apache HTTP Server Package and its associated Service
 
-### Update Apt Cache
+#### Update Apt Cache
 
 We can run the `apt-get update` command manually every time we bring up an instance, but chef provides us with an `apt_update` resource to automate the process
 
@@ -199,7 +199,7 @@ end
 
 Instead of `:periodic` we can also use the `:update` action to update each time chef runs
 
-### Install the Apache Package
+#### Install the Apache Package
 
 Next we can install the `apache2` package, modify the `webserver.rb` package to do this
 
@@ -222,7 +222,7 @@ chef-client --local-mode webserver.rb
 
 Typically (if not the `root` user) we need to run Chef with `sudo`
 
-### Start and Enable the Apache Service
+#### Start and Enable the Apache Service
 
 Update the `webserver.rb` file to enable the Apache service when the server boots and then start the service, this is one by way of the `action` list given in which the following actions on a resource will be carried out
 
@@ -246,7 +246,7 @@ Now re-run the recipe in order to start the service
 chef-client --local-mode webserver.rb
 ```
 
-### Add a Home Page
+#### Add a Home Page
 
 We can use the `file` resource to create a homepage for our site at `/var/www/html/index.html` with a basic hello world message. This can be added to the `webserver.rb` recipe as follows
 
@@ -292,15 +292,15 @@ curl localhost:80
 
 Furthermore we can view this on the host machine's browser due to the port forwarding we initially set up for the container `-p 8100:80 ` on which maps port `80` on the container to `8100` on the host. We can do this simply by visiting `localhost:8100` from the host or making an HTTP request from the terminal
 
-### Summary
+#### Summary
 
 Chef allows us to automate and configure multiple resource types as well as carry out tasks periodically, manage installed packages, and specify actions for those packages
 
-## Making Recipes More Managable
+### Making Recipes More Managable
 
 The problem with the recipe we are currently using is that the HTML for the webpage was embedded in the recipe, this is not practical. In order to more easily reference external files we can make use of a Cookbook
 
-### Create a Cookbook
+#### Create a Cookbook
 
 From the `chef-repo` directory create a `cookbooks` directory, in this run the use Chef to generate a Cookbook named `learn_chef_apache2`
 
@@ -344,7 +344,7 @@ cookbooks
 
 The default recipe is in the `recipes/default.rb` file, our recipe will be written in there
 
-### Create a Template
+#### Create a Template
 
 A new template file can be generated with the `chef generate` command, generate a new template called `index.html` as follows
 
@@ -364,7 +364,7 @@ Move the `index.html` content we made previously to a `template` file which will
 
 > We have added the content directly into the cookbook for the purpose of the tutorial, but realstically the application would be some set of build artifacts that will then be pulled from a build server to be deployed
 
-### Update the Recipe
+#### Update the Recipe
 
 Now update the recipe in the `default.rb` file to once again update the apt cache, start the Apache Web Server, and reference the HTML template with the following
 
@@ -386,7 +386,7 @@ template '/var/www/html/index.html' do
 end
 ```
 
-### Run the Cookbook
+#### Run the Cookbook
 
 `chef-client` can be used to run the Cookbook, we will again use the `--local-mode` flag and specify the required recipes with the `--runlist` flag
 

@@ -4,7 +4,7 @@ title: A Simple JSON Backed Database in Typescript
 description: Create a simple database that's backed to a JSON file using Typescript and Node.js
 ---
 
-# Define the database
+## Define the database
 
 The database is defined as a class which has an in-memory store `data` and a `persist` method that allows for persisting the database to a file as well as content when an instance is created from an existing JSON file
 
@@ -46,7 +46,7 @@ export class Database<TData> {
 }
 ```
 
-## Usage
+### Usage
 
 The database can be used by creating an instance and modifying the data in it by using the `update` method, and can be written to a file using the `commit` method:
 
@@ -80,7 +80,7 @@ db.update({
 db.commit()
 ```
 
-## Functional Example
+### Functional Example
 
 The above code is found in the below REPL as a runnable example:
 

@@ -4,13 +4,13 @@ title: TJBot Setup
 description: Setting up a Raspberry PI as a TJ Bot
 ---
 
-# Setting up a Bot
+## Setting up a Bot
 
-## Build the Bot
+### Build the Bot
 
 Build the bot as per the instructions on [IBM Research Site](https://ibmtjbot.github.io/)
 
-## Setting Up the Pi
+### Setting Up the Pi
 
 The Raspberry Pi will need to have the OS installed first, this is done by copying the NOOBS OS onto the SD Card. Thereafter connect a mouse, keyboard and screen and run the following command via the terminal:
 
@@ -20,7 +20,7 @@ curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -
 
 - If you run into this error when turning on the bot for the first time _Waiting for SD Card \(Settings Partition\)_, format the SD Card and copy the OS back onto it. We used a 32kb chunk size which seemed to work.
 
-## Getting the Sample Code
+### Getting the Sample Code
 
 Clone the tjbot repo to your Bot's Desktop:
 
@@ -30,7 +30,7 @@ git clone https://github.com/ibmtjbot/tjbot.git
 
 Additionally you will have to run `npm install` inside of every the directory for every recipe you would like use
 
-## Running Tests
+### Running Tests
 
 [From The Documentation](https://github.com/ibmtjbot/tjbot/blob/master/bootstrap/README.md)
 
@@ -50,7 +50,7 @@ sudo node test.servo.js
 sudo node test.speaker.js
 ```
 
-## Recipes
+### Recipes
 
 There are three recipes included with the Sample code which make use of Watson Services, these are as follows:
 
@@ -69,7 +69,7 @@ In order to run any of the Recipes you need to do the following inside of the re
 
   Note that for the Coversation API you will need to
 
-## Changing the Voice
+### Changing the Voice
 
 The voice can be changed via the `tjbot.js` file in `node_modules/tjbot/lib`, or in your `conversation.js` file by modifying the `TJBot.prototype.defaultConfiguration` which has the following properties:
 

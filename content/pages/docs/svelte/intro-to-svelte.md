@@ -4,13 +4,13 @@ title: Intro to Svelte
 description: Basic Info for Using Svelte
 ---
 
-# Introduction to Svelte
+## Introduction to Svelte
 
 [Notes from this video](https://www.youtube.com/watch?v=Bfi96LUebXo)
 
 > It's a compiler.
 
-## Creating a new Project
+### Creating a new Project
 
 To create a new project you can make use of `degit` which will allow you to create a project from a template. You can run this with `npx`:
 
@@ -74,7 +74,7 @@ export default app
 
 In the above component the `js` and `css` are scoped, the `{name}` is used to include expressions that we want to be evaluated
 
-## Create a Component
+### Create a Component
 
 Create a new componen by simply creating a `ComponentName.svelte`
 
@@ -112,7 +112,7 @@ And we can pass this in from our `App` component with:
 <Card text="Hello Jam" />
 ```
 
-## Reactive Display
+### Reactive Display
 
 If we need to create computed property values we need to prefix that with the `$:` it will be automatically recalculated and updated in the template
 
@@ -168,7 +168,7 @@ You can create a component that iterates over a list of items using something li
 
 We can then just import and use the same as the above elements
 
-## Input Binding
+### Input Binding
 
 We can make use of input binding using the following method:
 

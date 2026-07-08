@@ -16,7 +16,7 @@ Below is an example of a Postman Flow that reads the posts from my website and l
 
 Another example of a Postman Flow is of their [Stock dashboard example](https://www.postman.com/postman/workspace/utility-flows/flow/64123b57c224290033fcb089)
 
-# References
+## References
 
 For more information on how to build an use a flow you can take a look at the [Postman Flows Overview](https://learning.postman.com/docs/postman-flows/gs/flows-overview/)
 

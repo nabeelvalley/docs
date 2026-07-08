@@ -4,13 +4,13 @@ title: User interfaces with Compose
 description: Building Declarative Android UIs using Jetpack Compose and Kotlin
 ---
 
-# Jetpack Compose
+## Jetpack Compose
 
 > Based on the [Jetpack Compose Learning Path](https://developer.android.com/courses/pathways/compose#article-https://developer.android.com/jetpack/compose/tutorial)
 
-## Composable Functions
+### Composable Functions
 
-### Using a Composable
+#### Using a Composable
 
 Compose makes use of composable functions that let us define our UI programmatically
 
@@ -28,7 +28,7 @@ Compose uses the Kotlin compiler to turn these functions into UI elements
 
 The `Text` element above will therefore render some text to the screen
 
-### Defining a Composable
+#### Defining a Composable
 
 We can define a composable function like so:
 
@@ -39,7 +39,7 @@ fun Greeting(userName: String) {
 }
 ```
 
-### Composable Previews
+#### Composable Previews
 
 Additionally, we can create a preview of a component using the `@Preview` annotation before the `@Composable`
 
@@ -65,7 +65,7 @@ fun GreetingPreview() {
 
 We can make use of Android Studio's Design Preview to view Preview components
 
-### Composable Data
+#### Composable Data
 
 We can also make our component take more complex data, e.g. using a Data class like so:
 
@@ -85,7 +85,7 @@ fun FancyGreetingPreview() {
 }
 ```
 
-### Builtin Composables
+#### Builtin Composables
 
 As we've seen, there's the `Text` composable component that's defined by compose, in addition, we have a few other useful components that come pre-defined for us
 
@@ -135,7 +135,7 @@ And the `Spacer`
 Spacer(modifier = Modifier.width(8.dp))
 ```
 
-### Modifiers
+#### Modifiers
 
 Modifiers allow us to change the styles of a specific component.
 
@@ -187,7 +187,7 @@ fun FancyGreeting(user: User) {
 }
 ```
 
-### Text Styles
+#### Text Styles
 
 In addition to the above modifiers, the `Text` composable also takes a few additional properties that we can use to modify the style of the text. Here's a simple way that we can add some styles to the `Text` element
 
@@ -234,7 +234,7 @@ fun FancyGreeting(user: User) {
 }
 ```
 
-### Lists
+#### Lists
 
 List views can be done using the `LazyRow` and `LazyRow` composable. These composables have an `items` lambda which can be used to render a given item
 
@@ -253,7 +253,7 @@ fun MessageList(messages: List<Message>) {
 }
 ```
 
-### State Management
+#### State Management
 
 Composable functions can store local state by using `remember`, and can track changes to the value passed to `mutableStateOf`. State will then be redrawn automatically when the value is updated
 
@@ -295,7 +295,7 @@ fun FancyGreeting(user: User, expanded: Boolean, onExpand: () -> Unit) {
 }
 ```
 
-### Animations
+#### Animations
 
 Compose provides us with a modifier for handling animation that we can apply to the `Text` above, you can see this below:
 

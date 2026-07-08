@@ -4,13 +4,13 @@ title: Gatsby
 description: Getting Started with Gatsby.js
 ---
 
-# Introduction
+## Introduction
 
 Gatsby.js is a Static Site Generator that makes use of React and can plug into a headless CMS to generate a Static Site with SPA support and functionality
 
 > I'm using the [Gatsby.js Tutorial](https://www.gatsbyjs.org/tutorial/) from the documentation
 
-## Prerequisites
+### Prerequisites
 
 - Node.js
 - Git
@@ -35,7 +35,7 @@ To view the Gatsby help menu once installed:
 gatsby --help
 ```
 
-## Create New Site
+### Create New Site
 
 To create a new Gatsby.js site run:
 
@@ -96,7 +96,7 @@ export default () => <div>Hello world!</div>
 
 Editing this will live update the page as you edit and save the file, this uses HMR in the background and will update you browse live
 
-## Create a New Page
+### Create a New Page
 
 Gatsby organises pages similar to the way you would if you were using normal HTML instead. Inside of the `pages` directory you can create an `about.js` file with something like:
 
@@ -126,7 +126,7 @@ export default () => (
 
 Clicking on the `Link` on the `index.js` page will take you to the `about.js` page
 
-## Build the Site
+### Build the Site
 
 To build the initial site you can just run
 
@@ -148,7 +148,7 @@ yarn build
 
 You can then simply deploy the `public` directory using your preferred method
 
-## Adding Styles
+### Adding Styles
 
 To add styles we first need to create a `src/styles/global.css` file, this will contain all the global CSS for our application - we can add some basic content to it to start off
 
@@ -217,7 +217,7 @@ export default () => (
 )
 ```
 
-## Plugins
+### Plugins
 
 Using plugins in Gatsby involves three steps:
 
@@ -270,7 +270,7 @@ If you inspect the output HTML now after running `gatsby develop` you should see
 </style>
 ```
 
-## Data
+### Data
 
 The Gatsby Data Layer is a feature of Gatsby that enables you to build sites using a variety of CMSs
 
@@ -278,7 +278,7 @@ For the purpose of Gatsby, Data is anything that lives outside of a React compon
 
 Gatsby primarily makes use of GraphQL to load data into components however there are other data sources that can be used as well as custom plugins that can be used or custom written for this purpose
 
-### Common Site Metadata
+#### Common Site Metadata
 
 The place for common site data, such as the site title is the `gatsby-config.js` file, we can put this in the `siteMetadata` object like so:
 
@@ -359,7 +359,7 @@ export default ({ children }) => {
 }
 ```
 
-## Source Plugins
+### Source Plugins
 
 Source plugins are how we pull data into our site, Gatsby comes with a tool called `GraphiQL` which can be accessed at `http://localhost:8000/___graphql` when the development server is running
 
@@ -375,7 +375,7 @@ query TitleQuery {
 }
 ```
 
-### Filesystem Plugin
+#### Filesystem Plugin
 
 We can access data from the File System using the `gatsby-source-filesystem`
 
@@ -467,7 +467,7 @@ export default ({ data }) =>
   )
 ```
 
-### Transformers
+#### Transformers
 
 Transformers are used by Gatsby to transform the data that is read in, we can use the following transformer to transform markdown
 
@@ -570,11 +570,11 @@ export const query = graphql`
 `
 ```
 
-## Create Pages Programatically
+### Create Pages Programatically
 
 Using Gatsby we can create pages using the data output from a query
 
-### Generate Page Slugs
+#### Generate Page Slugs
 
 We can make use of the `onCreateNode` and `createPages` API's that Gatsby exposes. To implement an API we need to export the function in the `gatsby-node.js` file
 

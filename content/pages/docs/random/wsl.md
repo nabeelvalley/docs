@@ -4,7 +4,7 @@ title: WSL
 description: Miscellaneous WSL Things
 ---
 
-# Troubleshooting
+## Troubleshooting
 
 When using WSL, you may occasionally see the following error message:
 
