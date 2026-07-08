@@ -131,8 +131,13 @@ main {
   pre,
   span,
   code {
-    /* tab-size: 8; */
     font-family: monospace;
+  }
+
+  blockquote {
+    background: var(--color-surface);
+    padding: 0.5rem 1rem;
+    border-left: 4px solid var(--color-accent);
   }
 }
 
