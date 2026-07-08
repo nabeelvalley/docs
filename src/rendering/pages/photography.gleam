@@ -10,8 +10,8 @@ import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/templates/base
 
 pub fn render(pages: List(Page)) {
-  let meta = Meta("Photography", None, None)
-  let items =
+  let meta = Meta("Photography", None, None, [])
+  let photography_items =
     pages
     |> list.filter(fn(p) { string.starts_with(p.slug, "/photography") })
     |> list.group(fn(a) {
@@ -20,6 +20,21 @@ pub fn render(pages: List(Page)) {
         _ -> "other"
       }
     })
+
+  let tag_items =
+    pages
+    |> list.filter(fn(p) { p.meta.tags |> list.contains("photography") })
+    |> list.group(fn(a) {
+      case fs.split(a.slug) {
+        [_empty, section, ..] -> section
+        _ -> "other"
+      }
+    })
+
+  let all_items = dict.combine(photography_items, tag_items, list.append)
+
+  let rendered =
+    all_items
     |> dict.map_values(fn(section, ps) {
       let title = section |> html.text
 
@@ -44,7 +59,7 @@ pub fn render(pages: List(Page)) {
 
   let html =
     // temp until we figure out how this layout should look
-    html.article([attribute.class("site-article")], items)
+    html.article([attribute.class("site-article")], rendered)
     |> base.render(meta)
     |> element.to_document_string
 

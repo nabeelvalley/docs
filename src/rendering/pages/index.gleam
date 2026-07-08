@@ -9,7 +9,7 @@ import rendering/pages/blog
 import rendering/templates/base
 
 pub fn render(pages: List(Page)) {
-  let meta = Meta("Home", None, None)
+  let meta = Meta("Home", None, None, [])
   let recent_blogs =
     blog.filter_and_sort(pages)
     |> list.take(10)

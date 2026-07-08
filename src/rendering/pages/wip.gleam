@@ -7,7 +7,7 @@ import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/templates/base
 
 pub fn render(wip_pages: List(Page)) {
-  let meta = Meta("Work in Progress", None, None)
+  let meta = Meta("Work in Progress", None, None, [])
 
   let items =
     wip_pages

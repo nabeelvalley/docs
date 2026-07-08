@@ -64,6 +64,7 @@ fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {
       doc.frontmatter.title,
       doc.frontmatter.description,
       doc.slug |> date.parse_from_path |> option.from_result,
+      doc.frontmatter.tags,
     )
 
   case doc.frontmatter.layout {

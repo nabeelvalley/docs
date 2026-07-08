@@ -9,7 +9,7 @@ import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/templates/base
 
 pub fn render(pages: List(Page)) {
-  let meta = Meta("Talks", None, None)
+  let meta = Meta("Talks", None, None, [])
   let items =
     pages
     |> list.filter(fn(p) { string.starts_with(p.slug, "/talks") })

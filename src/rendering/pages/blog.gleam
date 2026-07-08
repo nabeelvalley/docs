@@ -9,7 +9,7 @@ import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/templates/base
 
 pub fn render(pages: List(Page)) {
-  let meta = Meta("Blog", None, None)
+  let meta = Meta("Blog", None, None, [])
   let items =
     pages
     |> filter_and_sort

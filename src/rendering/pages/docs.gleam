@@ -10,7 +10,7 @@ import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/templates/base
 
 pub fn render(pages: List(Page)) {
-  let meta = Meta("Docs", None, None)
+  let meta = Meta("Docs", None, None, [])
 
   let items =
     pages

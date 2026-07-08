@@ -20,7 +20,12 @@ pub type Asset {
 }
 
 pub type Meta {
-  Meta(title: String, description: Option(String), date: Option(date.IsoDate))
+  Meta(
+    title: String,
+    description: Option(String),
+    date: Option(date.IsoDate),
+    tags: List(String),
+  )
 }
 
 pub type Page {
