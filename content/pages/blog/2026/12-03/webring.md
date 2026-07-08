@@ -19,12 +19,14 @@ That's great! You need to do two things:
   <a href="https://webring.nabeelvalley.co.za"><em>Webring</em></a>
 
   <ul class="links">
-    <li><a href="https://webring.nabeelvalley.co.za/previous">Previous</a></li>
-    <li><a href="https://webring.nabeelvalley.co.za/random">Random</a></li>
-    <li><a href="https://webring.nabeelvalley.co.za/next">Next</a></li>
+    <li><a href="https://webring.nabeelvalley.co.za/previous?referer=your.domain.com">Previous</a></li>
+    <li><a href="https://webring.nabeelvalley.co.za/random?referer=your.domain.com">Random</a></li>
+    <li><a href="https://webring.nabeelvalley.co.za/next?referer=your.domain.com">Next</a></li>
   </ul>
 </section>
 ```
+
+> Make sure to replace the `your.domain.com` with your actual domain - as listed in `src/config.gleam` of course
 
 2. Make a pull request adding your site to the [webring repo](https://github.com/nabeelvalley/webring) at [`src/config.gleam`](https://github.com/nabeelvalley/webring/blob/main/src/config.gleam) 
 
