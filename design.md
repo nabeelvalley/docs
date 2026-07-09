@@ -4,7 +4,8 @@ Some tasks/ideas to keep in mind for the redesign
 
 ## Bugs
 
-- [ ] Relative images don't work, see `/talks/2025/09-10/ai`
+- [ ] Relative images don't work, see `/talks/2025/09-10/ai` and `/blog/2024/24-08/unintentionally-made-a-programming-language`
+- [ ] SVG images not scaling correctly in Safari, see `/projects`
 
 ## Architecture
 
