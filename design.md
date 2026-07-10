@@ -4,7 +4,7 @@ Some tasks/ideas to keep in mind for the redesign
 
 ## Bugs
 
-- [ ] Relative images don't work, see `/talks/2025/09-10/ai` and `/blog/2024/24-08/unintentionally-made-a-programming-language`
+- [x] Relative images don't work, see `/talks/2025/09-10/ai` and `/blog/2024/24-08/unintentionally-made-a-programming-language`
 - [ ] Fix incorrect filenames in snippets (missing first few chars)
 - [ ] SVG images not scaling correctly in Safari, see `/projects`
 
@@ -13,6 +13,15 @@ Some tasks/ideas to keep in mind for the redesign
 - [ ] Figure out bundling - ssr component detection?
 - [ ] Script inlining?
 - [ ] Reorganize images?
+- [ ] Use strongly typed paths everywhere: Remote, LocalRelative, LocalAbsolute, others?
+
+## Libification
+
+- [ ] Caching
+- [ ] Watch mode + client build
+- [ ] More flexible/generic structure for front matter and renderers
+- [ ] Clean separation of "content" and "dynamic pages"
+- [ ] Significantly improve file system resolution
 
 ## Rebuild Astro Components
 
