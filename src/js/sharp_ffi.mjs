@@ -34,7 +34,7 @@ export async function generate(inputFile, outputFile, size) {
 
     return Result$Ok()
   } catch (err) {
-    return Result$Error(`${err}`)
+    return Result$Error(`Sharp Error for file: ${inputFile} \n${err}`)
   }
 }
 

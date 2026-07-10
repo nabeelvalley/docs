@@ -18,16 +18,24 @@ type GalleryNode {
   GalleryNode(node: dom.JSNodeRef, images: List(assets.Asset))
 }
 
-fn read_gallery_node(node: dom.Node) -> Result(GalleryNode, String) {
+fn read_gallery_node(
+  node: dom.Node,
+  page: Page,
+) -> Result(GalleryNode, String) {
   let attrs = dict.from_list(node.attrs)
   use path <- result.try(
     dict.get(attrs, "path")
     |> result.replace_error("could not read path for snippet"),
   )
 
+  use parent <- result.try(fs.parent(page.path))
   use gallery_path <- result.try(fs.join([consts.gallery_dir, path]))
+  use relative_path <- result.try(fs.join([parent, path]))
 
-  use files <- result.try(fs.ls_dir(gallery_path))
+  let gallery_files = fs.ls_dir(gallery_path)
+  let relative_files = fs.ls_dir(relative_path)
+
+  use files <- result.try(result.or(gallery_files, relative_files))
 
   let images =
     files
@@ -40,7 +48,7 @@ pub fn render_all(page: Page) -> Promise(Result(Page, String)) {
   let tree = dom.get_nodes(page.html, tag: "gallery")
   use galleries <- util.try_resolve(
     tree.nodes
-    |> list.map(read_gallery_node)
+    |> list.map(read_gallery_node(_, page))
     |> result.all,
   )
 
