@@ -37,7 +37,7 @@ pub fn load(node: dom.Node, from_file: String, path_attr: String) {
   )
 
   let full_path = case path {
-    "./" <> _ -> {
+    "." <> _ -> {
       use parent <- result.try(fs.parent(from_file))
       fs.join([parent, path])
     }

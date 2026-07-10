@@ -19,6 +19,7 @@ import rendering/ssr/custom_el
 import rendering/ssr/gallery
 import rendering/ssr/highlight
 import rendering/ssr/html_snippet
+import rendering/ssr/image
 import rendering/ssr/script_raw
 import rendering/ssr/snippet
 import rendering/templates/article
@@ -74,6 +75,8 @@ fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {
       promise.try_await(
         Page(doc.path, doc.slug, meta, doc.html, [])
           |> util.try_resolve_chain([
+            promisify(image.render_all),
+
             promisify(snippet.render_all),
             promisify(css_snippet.render_all),
             promisify(html_snippet.render_all),

@@ -121,6 +121,17 @@ main {
     margin-bottom: 1rem;
   }
 
+  img,
+  p,
+  blockquote,
+  video {
+    margin-bottom: 1rem;
+  }
+
+  blockquote *:last-child {
+    margin-bottom: 0;
+  }
+
   a {
     color: var(--color-accent);
     text-decoration-color: transparent;
