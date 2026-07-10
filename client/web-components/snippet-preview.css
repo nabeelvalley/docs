@@ -4,13 +4,13 @@ site-snippet-preview {
   gap: 1rem;
   grid-template-columns: 1fr;
 
-  :nth-child(1) {
+  &>:nth-child(1) {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  :nth-child(2) {
+  &>:nth-child(2) {
     height: 100%;
     position: relative;
 
