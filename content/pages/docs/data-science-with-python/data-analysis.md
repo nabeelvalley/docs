@@ -2796,7 +2796,7 @@ plt.title("Horsepower Bins")
 plt.show()
 ```
 
-![png](/publicimages-an/output_57_0.png)
+![png](/content/docs/data-science-with-python/images-an/output_57_0.png)
 
 #### Categorical to Quantatative
 
@@ -3444,7 +3444,7 @@ plt.ylim(0,)
 plt.show()
 ```
 
-![png](/publicimages-an/output_78_0.png)
+![png](/content/docs/data-science-with-python/images-an/output_78_0.png)
 
 We can also view the correlation matrix for these two variables as follows
 
@@ -3502,7 +3502,7 @@ plt.show()
 df[['highway-mpg', 'price']].corr()
 ```
 
-![png](/publicimages-an/output_82_0.png)
+![png](/content/docs/data-science-with-python/images-an/output_82_0.png)
 
 <div>
 <style scoped>
@@ -3554,7 +3554,7 @@ plt.show()
 df[['peak-rpm','price']].corr()
 ```
 
-![png](/publicimages-an/output_84_0.png)
+![png](/content/docs/data-science-with-python/images-an/output_84_0.png)
 
 <div>
 <style scoped>
@@ -3604,7 +3604,7 @@ plt.show()
 df[["stroke","price"]].corr()
 ```
 
-![png](/publicimages-an/output_86_0.png)
+![png](/content/docs/data-science-with-python/images-an/output_86_0.png)
 
 <div>
 <style scoped>
@@ -3654,7 +3654,7 @@ plt.show()
     /opt/conda/envs/DSX-Python35/lib/python3.5/site-packages/seaborn/categorical.py:462: FutureWarning: remove_na is deprecated and is a private function. Do not use.
       box_data = remove_na(group_data)
 
-![png](/publicimages-an/output_88_1.png)
+![png](/content/docs/data-science-with-python/images-an/output_88_1.png)
 
 ```python
 sns.boxplot(x="engine-location", y="price", data=df)
@@ -3664,7 +3664,7 @@ plt.show()
     /opt/conda/envs/DSX-Python35/lib/python3.5/site-packages/seaborn/categorical.py:462: FutureWarning: remove_na is deprecated and is a private function. Do not use.
       box_data = remove_na(group_data)
 
-![png](/publicimages-an/output_89_1.png)
+![png](/content/docs/data-science-with-python/images-an/output_89_1.png)
 
 ```python
 sns.boxplot(x="drive-wheels", y="price", data=df)
@@ -3674,7 +3674,7 @@ plt.show()
     /opt/conda/envs/DSX-Python35/lib/python3.5/site-packages/seaborn/categorical.py:462: FutureWarning: remove_na is deprecated and is a private function. Do not use.
       box_data = remove_na(group_data)
 
-![png](/publicimages-an/output_90_1.png)
+![png](/content/docs/data-science-with-python/images-an/output_90_1.png)
 
 ##### Descriptive Statistics
 
@@ -4392,7 +4392,7 @@ fig.colorbar(im)
 plt.show()
 ```
 
-![png](/publicimages-an/output_106_0.png)
+![png](/content/docs/data-science-with-python/images-an/output_106_0.png)
 
 #### Analysis of Variance (ANOVA)
 
@@ -4864,7 +4864,7 @@ plt.ylim(0,)
 plt.show()
 ```
 
-![png](/publicimages-an/output_129_0.png)
+![png](/content/docs/data-science-with-python/images-an/output_129_0.png)
 
 ```python
 plt.figure(figsize=(width, height))
@@ -4874,7 +4874,7 @@ plt.ylim(0,)
 
     (0, 47422.919330307624)
 
-![png](/publicimages-an/output_130_1.png)
+![png](/content/docs/data-science-with-python/images-an/output_130_1.png)
 
 ##### Residual Plot
 
@@ -4896,7 +4896,7 @@ sns.residplot(df['highway-mpg'], df['price'])
 plt.show()
 ```
 
-![png](/publicimages-an/output_132_0.png)
+![png](/content/docs/data-science-with-python/images-an/output_132_0.png)
 
 ##### Distribution Plot
 
@@ -4934,7 +4934,7 @@ plt.show()
 plt.close()
 ```
 
-![png](/publicimages-an/output_135_0.png)
+![png](/content/docs/data-science-with-python/images-an/output_135_0.png)
 
 #### Polynomial Regression and Pipelines
 
@@ -4993,7 +4993,7 @@ print(p)
 PlotPolly(p,x,y, 'highway-mpg')
 ```
 
-![png](/publicimages-an/output_140_0.png)
+![png](/content/docs/data-science-with-python/images-an/output_140_0.png)
 
 #### Multi Dimension Polynomial Regression
 
@@ -5266,7 +5266,7 @@ plt.plot(new_input,yhat)
 plt.show()
 ```
 
-![png](/publicimages-an/output_171_0.png)
+![png](/content/docs/data-science-with-python/images-an/output_171_0.png)
 
 ##### Conclusion
 

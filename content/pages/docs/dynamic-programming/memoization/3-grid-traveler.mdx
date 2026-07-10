@@ -13,7 +13,7 @@ How many ways can you travel to the goal on a grid that is `m*n`
 
 The resulting travel for a 2x3 grid may look like so:
 
-![](@assets/grid-traveler-example.png)
+![](/assets/grid-traveler-example.png)
 
 Some special cases we want to ensure we can handle as well:
 
@@ -27,11 +27,11 @@ gridTraveler(1,n) = 0
 
 Looking at the example, we can think about how any movement from a point in a grid shrinks the grid in some direction
 
-![](@assets/grid-traveler-shrink.png)
+![](/assets/grid-traveler-shrink.png)
 
 From this idea we can see that the problem is somewhat recursive, we can visualize this problem as a tree that will look something like this:
 
-![](@assets/grid-traveler-tree.png)
+![](/assets/grid-traveler-tree.png)
 
 Any node that has a `0` or `1` can be considered the base case where we know the number of routes that can be travelled. Furthermore, we can also see that there are some repeated nodes
 

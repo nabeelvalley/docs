@@ -137,7 +137,7 @@ head: {
 ...
 ```
 
-If we would like to include a `css` file we have locally we can also do this in the same config file by referencing the path like `@assets/styles/main.css`
+If we would like to include a `css` file we have locally we can also do this in the same config file by referencing the path like `/assets/styles/main.css`
 
 ## Pages
 
