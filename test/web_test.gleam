@@ -139,8 +139,8 @@ pub fn sharp_test() {
 pub fn css_snippet_render_test() {
   let result =
     css_snippet.render(
-      fs.File("path.css", "path.css", "h1 { color: red; }"),
-      fs.File("path.html", "path.html", "<h1>Hello there</h1>"),
+      fs.File("path.css", "h1 { color: red; }"),
+      fs.File("path.html", "<h1>Hello there</h1>"),
       True,
     )
 
@@ -151,11 +151,7 @@ pub fn extract_frontmatter_test() {
   let content = md_frontmatter <> md_content
 
   let assert Ok(result) =
-    frontmatter.extract(fs.File(
-      path: "my/path.md",
-      relative: "my/path.md",
-      content:,
-    ))
+    frontmatter.extract(fs.File(path: "my/path.md", content:))
 
   result.frontmatter
   |> should.equal(

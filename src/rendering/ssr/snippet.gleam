@@ -3,6 +3,7 @@ import content/fs
 import gleam/dict
 import gleam/list
 import gleam/result
+import gleam/string
 import js/dom
 import lustre/attribute
 import lustre/element
@@ -17,7 +18,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
     |> list.try_map(fn(node) {
       use file <- result.map(load(node, page.path, "path"))
 
-      render(file.relative, file.content)
+      render(file.path |> snippet_relative, file.content)
       |> element.to_string
       |> dom.NodeUpdate(node.node, _)
     })
@@ -27,6 +28,10 @@ pub fn render_all(page: Page) -> Result(Page, String) {
   let html = dom.update_nodes(tree.root, update_nodes)
 
   Ok(Page(..page, html:))
+}
+
+pub fn snippet_relative(path) {
+  string.drop_start(path, string.length(consts.snippets_dir) - 1)
 }
 
 pub fn load(node: dom.Node, from_file: String, path_attr: String) {
@@ -44,7 +49,7 @@ pub fn load(node: dom.Node, from_file: String, path_attr: String) {
     _ -> fs.join([consts.snippets_dir, path])
   }
 
-  result.try(full_path, fs.read_file(_, consts.snippets_dir))
+  result.try(full_path, fs.read_file)
 }
 
 pub fn render(title: String, code: String) {

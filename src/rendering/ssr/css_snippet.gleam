@@ -33,8 +33,10 @@ pub fn render_all(page: Page) -> Result(Page, String) {
 }
 
 pub fn render(css: fs.File, html: fs.File, show_html: Bool) {
-  let html_snip = snippet.render(css.relative, css.content)
-  let css_snip = snippet.render(html.relative, html.content)
+  let html_snip =
+    snippet.render(css.path |> snippet.snippet_relative, css.content)
+  let css_snip =
+    snippet.render(html.path |> snippet.snippet_relative, html.content)
 
   let snips = case show_html {
     True -> html.div([], [css_snip, html_snip])

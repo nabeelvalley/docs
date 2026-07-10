@@ -14,7 +14,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
     |> list.try_map(fn(node) {
       use file <- result.map(snippet.load(node, page.path, "path"))
 
-      render(file.relative, file.content)
+      render(file.path |> snippet.snippet_relative, file.content)
       |> element.to_string
       |> dom.NodeUpdate(node.node, _)
     })

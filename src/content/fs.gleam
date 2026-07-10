@@ -7,7 +7,7 @@ import gleam/string
 import simplifile
 
 pub type File {
-  File(path: String, relative: String, content: String)
+  File(path: String, content: String)
 }
 
 pub type Path {
@@ -57,14 +57,13 @@ pub fn copy_dir(at at: String, to to: String) -> Result(Nil, String) {
   |> result.replace_error("Error copying dir " <> at <> " to " <> to)
 }
 
-pub fn read_file(path: String, rel: String) -> Result(File, String) {
+pub fn read_file(path: String) -> Result(File, String) {
   use content <- result.map(
     simplifile.read(path)
     |> result.replace_error("error reading file: " <> path),
   )
-  let relative = string.drop_start(path, string.length(rel) + 1)
 
-  File(content:, relative:, path:)
+  File(content:, path:)
 }
 
 pub fn ls_dir(at: String) -> Result(List(Path), String) {
@@ -83,7 +82,7 @@ pub fn load_content(at: String) -> Result(List(File), String) {
   use paths <- result.map(read_dir_rec(at))
   use path <- list.filter_map(paths)
 
-  read_file(path, at)
+  read_file(path)
 }
 
 pub fn has_ext(file: File, ext: String) -> Bool {
