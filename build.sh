@@ -22,4 +22,4 @@ pnpm tsc --noEmit
 
 # build
 gleam run
-pnpm parcel build --dist-dir out
+pnpm parcel build

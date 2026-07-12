@@ -75,7 +75,7 @@ fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {
       promise.try_await(
         Page(doc.path, doc.slug, meta, doc.html, [])
           |> util.try_resolve_chain([
-            promisify(image.render_all),
+            image.render_all,
 
             promisify(snippet.render_all),
             promisify(css_snippet.render_all),

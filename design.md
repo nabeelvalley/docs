@@ -57,6 +57,7 @@ Some tasks/ideas to keep in mind for the redesign
 
 - [ ] axe-core checks for each page
 - [ ] Performance - Critical CSS inlining
+- [ ] Performance - Font preloading (needs consistent names)
 - [ ] Consistent way to do paths/file names for code blocks (```type path="something/like.this"?)
 - [ ] Think about how we can continue to use tweakpane for snippets
 - [ ] Remove all dependencies for markdown to HTML conversion?

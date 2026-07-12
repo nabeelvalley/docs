@@ -1,45 +1,62 @@
 import consts
 import content/fs
 import gleam/dict
+import gleam/float
+import gleam/javascript/promise
 import gleam/list
 import gleam/option
 import gleam/result
 import gleam/uri
 import js/dom
+import js/sharp
 import lustre/attribute
 import lustre/element
 import lustre/element/html
 import rendering/assets.{type Page, Page}
+import util
 
-pub fn render_all(page: Page) -> Result(Page, String) {
+pub fn render_all(page: Page) -> promise.Promise(Result(Page, String)) {
   let tree = dom.get_nodes(page.html, tag: "img")
-  use images <- result.try(
+  use images <- util.try_resolve(
     tree.nodes
     |> list.map(read_image_node(_, page))
     |> result.all,
   )
 
-  use updates <- result.map(
+  use updates <- promise.try_await(
     images
     |> list.map(fn(i) {
       case i {
-        LocalImageNode(node:, asset:) ->
-          option.Some(
-            render_image(asset)
-            |> result.map(element.to_string)
-            |> result.map(dom.NodeUpdate(node, _)),
-          )
-        RemoteImageNode(_) -> option.None
+        RemoteImageNode(_) -> option.None |> promise.resolve
+        LocalImageNode(node:, asset:) -> {
+          // don't touch files that we can't optimize
+          case sharp.can_optimize(asset.input_file) {
+            False -> option.None |> promise.resolve
+            True -> {
+              use result <- promise.await(render_image(node, asset))
+
+              option.Some(
+                result
+                |> result.map(element.to_string)
+                |> result.map(dom.NodeUpdate(node.node, _)),
+              )
+              |> promise.resolve
+            }
+          }
+        }
       }
     })
-    |> option.values
-    |> result.all,
+    |> promise.await_list
+    |> promise.map(option.values)
+    |> promise.map(result.all),
   )
 
   let html = dom.update_nodes(tree.root, updates)
   let assets = images |> list.map(asset) |> option.values
 
   Page(..page, html:, assets: list.append(page.assets, assets))
+  |> Ok
+  |> promise.resolve
 }
 
 fn asset(node: ImageNode) {
@@ -50,8 +67,8 @@ fn asset(node: ImageNode) {
 }
 
 type ImageNode {
-  LocalImageNode(node: dom.JSNodeRef, asset: assets.Asset)
-  RemoteImageNode(node: dom.JSNodeRef)
+  LocalImageNode(node: dom.Node, asset: assets.Asset)
+  RemoteImageNode(node: dom.Node)
 }
 
 fn read_image_node(node: dom.Node, page: Page) -> Result(ImageNode, String) {
@@ -61,7 +78,7 @@ fn read_image_node(node: dom.Node, page: Page) -> Result(ImageNode, String) {
     |> result.replace_error("could not read img src"),
   )
 
-  resolve(node.node, page.path, src)
+  resolve(node, page.path, src)
 }
 
 fn resolve(node, from_file: String, path: String) {
@@ -92,16 +109,36 @@ fn from_uri_path(str) {
   |> result.replace_error("Invalid URI: " <> str)
 }
 
-fn render_image(asset) -> Result(element.Element(a), String) {
-  use resolved <- result.try(assets.resolve(asset))
+fn render_image(
+  node: dom.Node,
+  asset: assets.Asset,
+) -> promise.Promise(Result(element.Element(a), String)) {
+  use meta <- promise.try_await(sharp.meta(asset.input_file))
+  use resolved <- util.try_resolve(assets.resolve(asset))
+  let attrs =
+    node.attrs
+    |> list.map(fn(attr) {
+      let #(k, v) = attr
+      attribute.attribute(k, v)
+    })
 
-  Ok(
-    html.img([
-      attribute.src(resolved.site_path),
-      attribute.alt(
-        fs.file_name_only(resolved.input_file)
-        |> option.unwrap(""),
-      ),
-    ]),
-  )
+  let aspect_ratio =
+    meta
+    |> sharp.aspect_ratio
+    |> float.to_string
+    |> attribute.attribute("aspect-ratio", _)
+
+  let alt =
+    node.attrs |> dict.from_list |> dict.get("alt") |> option.from_result
+
+  let src = attribute.src(resolved.site_path)
+  let alt =
+    attribute.alt(
+      alt
+      |> option.or(fs.file_name_only(resolved.input_file))
+      |> option.unwrap(""),
+    )
+
+  Ok(html.img(attrs |> list.append([src, alt, aspect_ratio])))
+  |> promise.resolve
 }

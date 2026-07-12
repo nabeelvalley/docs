@@ -127,6 +127,16 @@ main {
     margin-bottom: 1rem;
   }
 
+  /* prevent layout shift if the size is known */
+  img {
+    aspect-ratio: attr(aspect-ratio type(<number>), unset);
+  }
+
+  video {
+    /* default video to 16/9 if not specified */
+    aspect-ratio: attr(aspect-ratio type(<number>), 16/9);
+  }
+
   blockquote *:last-child {
     margin-bottom: 0;
   }

@@ -2,6 +2,8 @@ import consts
 import content/fs
 import gleam/int
 import gleam/javascript/promise.{type Promise}
+import gleam/list
+import gleam/string
 import util
 
 @external(javascript, "./sharp_ffi.mjs", "generate")
@@ -47,4 +49,10 @@ pub fn orientation(meta: Metadata) {
     m if m >. 1.0 -> Horizontal
     _ -> Vertical
   }
+}
+
+pub fn can_optimize(in_path: String) {
+  let normalized = in_path |> string.lowercase
+
+  list.any([".png", ".jpg", ".jpeg"], string.ends_with(normalized, _))
 }
