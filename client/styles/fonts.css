@@ -31,6 +31,8 @@
   src: url('./fonts/caudex/Caudex-Bold.ttf');
   font-weight: 700;
   font-style: regular;
+  font-display: swap;
+
 }
 
 
@@ -39,6 +41,8 @@
   src: url('./fonts/caudex/Caudex-BoldItalic.ttf');
   font-weight: 700;
   font-style: italic;
+  font-display: swap;
+
 }
 
 
@@ -47,6 +51,8 @@
   src: url('./fonts/caudex/Caudex-Italic.ttf');
   font-weight: 400;
   font-style: italic;
+  font-display: swap;
+
 }
 
 @font-face {
@@ -55,6 +61,8 @@
   font-weight: 400;
   font-style: normal;
 
+  font-display: swap;
+
 }
 
 @font-face {
@@ -62,4 +70,6 @@
   src: url('./fonts/manrope/Manrope-VariableFont_wght.ttf');
   font-weight: 200 800;
   font-style: normal;
+  font-display: swap;
+
 }

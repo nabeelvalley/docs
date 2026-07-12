@@ -1,7 +1,6 @@
 * {
   /* system font stack: https://systemfontstack.com/ */
   font-family: '-apple-system', BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
-  font-display: swap;
   font-family: var(--font-body);
 }
 
