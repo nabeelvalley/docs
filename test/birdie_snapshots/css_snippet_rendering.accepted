@@ -4,11 +4,11 @@ title: css snippet rendering
 file: ./test/web_test.gleam
 test_name: css_snippet_render_test
 ---
-<site-snippet-preview xmlns="http://www.w3.org/1999/xhtml">
-  <div xmlns="http://www.w3.org/1999/xhtml">
+<site-snippet-preview>
+  <div>
     <figure class="snippet">
       <figcaption>
-        path.html
+        my_dir/path.html
       </figcaption>
       <pre>
         <code class="language-html">
@@ -18,7 +18,7 @@ test_name: css_snippet_render_test
     </figure>
     <figure class="snippet">
       <figcaption>
-        path.css
+        my_dir/path.css
       </figcaption>
       <pre>
         <code class="language-css">
@@ -27,8 +27,8 @@ test_name: css_snippet_render_test
       </pre>
     </figure>
   </div>
-  <div xmlns="http://www.w3.org/1999/xhtml">
-    <div xmlns="http://www.w3.org/1999/xhtml"><h1>Hello there</h1></div>
+  <div>
+    <div><h1>Hello there</h1></div>
     <style>@scope {h1 { color: red; }}</style>
   </div>
 </site-snippet-preview>

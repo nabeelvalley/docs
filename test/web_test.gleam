@@ -139,8 +139,8 @@ pub fn sharp_test() {
 pub fn css_snippet_render_test() {
   let result =
     css_snippet.render(
-      fs.File("path.css", "h1 { color: red; }"),
-      fs.File("path.html", "<h1>Hello there</h1>"),
+      fs.File("content/snippets/my_dir/path.css", "h1 { color: red; }"),
+      fs.File("content/snippets/my_dir/path.html", "<h1>Hello there</h1>"),
       True,
     )
 
@@ -158,7 +158,7 @@ pub fn extract_frontmatter_test() {
     frontmatter.Frontmatter(
       title: "Some title",
       description: None,
-      published: False,
+      published: True,
       feature: False,
       layout: frontmatter.ArticleLayout,
       tags: ["blog", "test"],
