@@ -2,7 +2,8 @@ import gleam/list
 import gleam/result
 import gleam/string
 import shoki/shoki.{
-  type ShokiResult, DirNotFound, FileNotFound, PathUnresolvable,
+  type ShokiResult, DirNotFound, ErrorReadingTextFile, FileNotFound,
+  PathUnresolvable,
 }
 import simplifile
 
@@ -85,8 +86,34 @@ pub fn ls_dir(at: DirPath) -> ShokiResult(List(FilePath)) {
   |> Ok
 }
 
+/// Converts a path to string within the current working directory.
+/// This should only be used for printing data and not for working
+/// with paths
 pub fn file_path_to_string(p: FilePath) {
   let cwd = cwd().dir.path <> "/"
 
   p.file.path |> string.remove_prefix(matching: cwd)
+}
+
+pub fn read_text_file(p: FilePath) {
+  simplifile.read(p.file.path)
+  |> result.replace_error(ErrorReadingTextFile(p.file.path))
+}
+
+pub type Extension {
+  MD
+  MDX
+}
+
+fn to_suffix(ext: Extension) {
+  case ext {
+    MD -> ".md"
+    MDX -> ".mdx"
+  }
+}
+
+pub fn has_ext(file: FilePath, exts: List(Extension)) {
+  let suffixes = exts |> list.map(to_suffix)
+
+  list.any(suffixes, string.ends_with(file.file.path, _))
 }

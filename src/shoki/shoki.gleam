@@ -3,6 +3,9 @@ pub type ShokiResult(r) =
 
 pub type ShokiErr {
   FileNotFound(String)
+  ErrorReadingTextFile(String)
+  ErrorReadingFrontmatter(String)
   DirNotFound(String)
   PathUnresolvable(String)
+  DateParseError(String)
 }

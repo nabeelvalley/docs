@@ -1,4 +1,3 @@
-import date
 import gleam/list
 import gleam/option.{None}
 import gleam/string
@@ -7,6 +6,7 @@ import lustre/element
 import lustre/element/html
 import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/templates/base
+import shoki/internal/date
 
 pub fn render(pages: List(Page)) {
   let meta = Meta("Blog", None, None, [])

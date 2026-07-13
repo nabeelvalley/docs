@@ -1,0 +1,10 @@
+---
+version: 2.0.1
+title: internal ls_dir
+file: ./test/shoki/internal_test.gleam
+test_name: ls_dir_test
+---
+test/workspace/assets/images/image-1.jpg
+test/workspace/assets/images/image-2.jpg
+test/workspace/pages/index.md
+test/workspace/pages/posts/first_post.md

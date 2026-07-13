@@ -1,6 +1,5 @@
 import consts
 import content/fs
-import date
 import gleam/io
 import gleam/javascript/promise.{type Promise}
 import gleam/list
@@ -9,6 +8,7 @@ import gleam/order
 import gleam/regexp
 import gleam/result
 import js/sharp
+import shoki/internal/date
 import util
 
 pub type Paths {

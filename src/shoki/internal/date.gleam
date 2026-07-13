@@ -1,32 +1,32 @@
+import gleam/dynamic/decode
 import gleam/int
 import gleam/list
+import gleam/option.{type Option}
 import gleam/order
 import gleam/string
 import parz
 import parz/combinators
 import parz/parsers
-import shoki/internal/date.{type IsoDate, IsoDate}
+import shoki/shoki.{DateParseError}
 
-/// parses a path of the format /myfolder/2026/31-01/some-other-stuff
-fn parser_from_path() {
-  let digit =
+pub type IsoDate {
+  IsoDate(year: Int, month: Int, day: Int)
+}
+
+/// parses a date in the format of yyyy-mm-dd
+fn parser() {
+  let digits =
     parsers.digits()
     |> combinators.try_map(int.parse)
-    |> combinators.label_error("Expected digits")
-  let sep = fn(sep) {
-    parsers.str(sep) |> combinators.label_error("Expected " <> sep)
-  }
-  let slash = sep("/")
-  let dash = sep("-")
+    |> combinators.label_error(DateParseError("Expected digits"))
 
-  let word =
-    parsers.letters() |> combinators.label_error("Expected alphanumeric part")
+  let dash =
+    parsers.str("-")
+    |> combinators.label_error(DateParseError("Expected -"))
 
-  let prefix = combinators.between(slash, word, slash)
-
-  combinators.right(prefix, digit)
-  |> combinators.then(combinators.right(slash, digit))
-  |> combinators.then(combinators.right(dash, digit))
+  combinators.left(digits, dash)
+  |> combinators.then(combinators.left(digits, dash))
+  |> combinators.then(digits)
   |> combinators.map(fn(parts) {
     let #(#(year, day), month) = parts
 
@@ -34,8 +34,8 @@ fn parser_from_path() {
   })
 }
 
-pub fn parse_from_path(str: String) {
-  let result = parz.run(str, parser_from_path())
+pub fn parse(str: String) {
+  let result = parz.run(str, parser())
   case result {
     Ok(state) -> Ok(state.matched)
     Error(err) -> Error(err)
@@ -64,4 +64,9 @@ pub fn compare(a: IsoDate, b: IsoDate) -> order.Order {
           }
       }
   }
+}
+
+pub fn date_decoder() -> decode.Decoder(Option(IsoDate)) {
+  decode.string
+  |> decode.map(fn(field) { field |> parse |> option.from_result })
 }
