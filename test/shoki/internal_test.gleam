@@ -2,6 +2,7 @@ import birdie
 import gleam/list
 import gleam/string
 import shoki/internal/fs
+import shoki/internal/pipeline
 import shoki/preset/default
 
 pub fn ls_dir_test() {
@@ -22,4 +23,6 @@ pub fn default_pipeline_test() {
   let assert Ok(dir) = fs.from_relative_dir("./test/workspace")
 
   let default_pipeline = default.create_pipeline(dir)
+
+  let assert Ok(result) = pipeline.run(default_pipeline)
 }

@@ -26,5 +26,8 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
 }
 
 pub fn create_pipeline(content_dir: fs.DirPath) {
-  pipeline.from_markdown(content_dir, frontmatter_decoder(), fn(_, _) { todo })
+  let md_pipeline =
+    pipeline.from_markdown(content_dir, frontmatter_decoder(), fn(_, _) { todo })
+
+  [md_pipeline]
 }

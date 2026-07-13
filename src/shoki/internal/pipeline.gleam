@@ -66,8 +66,13 @@ fn read_markdown_files(dir: DirPath, decode_frontmatter) {
 pub fn from_markdown(dir: DirPath, decode_frontmatter, render) {
   Pipeline(
     load: fn() { read_markdown_files(dir, decode_frontmatter) },
-    render: fn(_, _) { todo },
+    render:,
     persist: fn(_) { todo },
     depends_on: [],
   )
+}
+
+/// Runs pipelines while caching dependencies and sharing results
+pub fn run(pipelines: List(Pipeline(a, b))) {
+  Error("PIPELINE RUNNER NOT IMPLEMENTED")
 }
