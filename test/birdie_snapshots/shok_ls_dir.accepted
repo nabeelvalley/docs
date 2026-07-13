@@ -1,7 +1,7 @@
 ---
 version: 2.0.1
 title: shok ls_dir
-file: ./test/shoki/shoki_test.gleam
+file: ./test/shoki/internal/fs_test.gleam
 test_name: ls_dir_test
 ---
 test/workspace/pages/index.md
