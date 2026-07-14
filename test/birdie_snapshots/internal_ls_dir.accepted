@@ -6,5 +6,6 @@ test_name: ls_dir_test
 ---
 test/workspace/assets/images/image-1.jpg
 test/workspace/assets/images/image-2.jpg
-test/workspace/pages/index.md
-test/workspace/pages/posts/first_post.md
+test/workspace/pages/about.md
+test/workspace/pages/blog/first_post.md
+test/workspace/pages/blog/second_post.md

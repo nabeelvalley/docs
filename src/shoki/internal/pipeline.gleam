@@ -1,31 +1,41 @@
+import gleam/dict
 import gleam/list
 import gleam/result
 import gleam/string
+import lustre/element
 import shoki/internal/fs.{type DirPath}
+import shoki/internal/md
 import shoki/shoki.{type ShokiResult, ErrorReadingFrontmatter}
 import yamleam
 
-type Loader(a) =
-  fn() -> ShokiResult(List(a))
+pub opaque type Loaded(page, aggregate) {
+  Loaded(pages: List(page), aggregated: aggregate)
+}
+
+type Loader(page, aggregate) =
+  fn() -> ShokiResult(Loaded(page, aggregate))
+
+type Renderer(page, aggregate) =
+  fn(List(page), aggregate) -> ShokiResult(List(Asset))
+
+pub opaque type Asset {
+  HTMLFile(path: fs.SitePath, html: element.Element(Nil))
+  // CopyDir(fs.DirPath, fs.SitePath)
+}
 
 /// load -> process -> persist
-pub opaque type Pipeline(a, b) {
+pub opaque type Pipeline(page, aggregate) {
   Pipeline(
     /// Loads all data in so that any non-render output
     /// can be shared with other pages and pipelines
-    load: Loader(a),
-    /// Process a single page - receives all loaded data
-    render: fn(a, List(a)) -> ShokiResult(b),
-    /// Persist a single page along with any necessary items
-    persist: fn(b) -> ShokiResult(Nil),
-    /// Any other pipelines this one depends on
-    /// Will need to be executed by the runner prior to itself
-    depends_on: List(Loader(a)),
+    load: Loader(page, aggregate),
+    /// Process a single page - receives aggregated data
+    render: Renderer(page, aggregate),
   )
 }
 
 pub opaque type MarkdownFile(a) {
-  MarkdownFile(frontmatter: a, content: String)
+  MarkdownFile(path: fs.FilePath, frontmatter: a, content: String)
 }
 
 fn read_markdown_file(
@@ -41,14 +51,21 @@ fn read_markdown_file(
   case lines {
     ["---", ..rest] -> {
       let #(front, content) = list.split_while(rest, not_end)
+      let fm = front |> string.join("\n")
+
       use frontmatter <- result.try(
-        yamleam.parse(front |> string.join("\n"), decode_frontmatter)
-        |> result.replace_error(ErrorReadingFrontmatter(
-          "Error parsing frontmatter",
-        )),
+        yamleam.parse(fm, decode_frontmatter)
+        |> result.replace_error(
+          ErrorReadingFrontmatter(fm)
+          |> shoki.error_context(file |> fs.file_path_to_string),
+        ),
       )
 
-      Ok(MarkdownFile(frontmatter, content |> list.drop(1) |> string.join("\n")))
+      Ok(MarkdownFile(
+        file,
+        frontmatter,
+        content |> list.drop(1) |> string.join("\n"),
+      ))
     }
     _ -> Error(ErrorReadingFrontmatter("No frontmatter present"))
   }
@@ -60,19 +77,104 @@ fn read_markdown_files(dir: DirPath, decode_frontmatter) {
   files
   |> list.filter(fs.has_ext(_, [fs.MD, fs.MDX]))
   |> list.map(read_markdown_file(_, decode_frontmatter))
-  |> result.all
+  |> shoki.collate_errors
 }
 
-pub fn from_markdown(dir: DirPath, decode_frontmatter, render) {
+pub fn from_markdown(dir dir: DirPath, decode decode, agg agg, render render) {
   Pipeline(
-    load: fn() { read_markdown_files(dir, decode_frontmatter) },
-    render:,
-    persist: fn(_) { todo },
-    depends_on: [],
+    load: fn() {
+      use pages <- result.map(read_markdown_files(dir, decode))
+
+      Loaded(pages, pages |> list.map(frontmatter) |> agg)
+    },
+    render: fn(pages, agg) {
+      pages
+      |> list.map(fn(page) {
+        render(page, agg) |> result.map(to_html_file(dir, page, _))
+      })
+      |> shoki.collate_errors
+    },
   )
 }
 
-/// Runs pipelines while caching dependencies and sharing results
-pub fn run(pipelines: List(Pipeline(a, b))) {
-  Error("PIPELINE RUNNER NOT IMPLEMENTED")
+pub fn merge(
+  prev: Pipeline(page, aggregate),
+  to_pages: fn(aggregate) -> List(page),
+  render: Renderer(page, aggregate),
+) {
+  Pipeline(
+    load: fn() {
+      use prev <- result.map(prev.load())
+      let next = prev.aggregated |> to_pages
+
+      Loaded(next, prev)
+    },
+    render: fn(pages, prev_loaded) {
+      use prev_result <- result.try(prev.render(
+        prev_loaded.pages,
+        prev_loaded.aggregated,
+      ))
+
+      use next_result <- result.try(render(pages, prev_loaded.aggregated))
+
+      list.append(prev_result, next_result) |> Ok
+    },
+  )
+}
+
+pub fn with(
+  from: Pipeline(page, aggregate),
+  render: fn(aggregate) -> ShokiResult(Asset),
+) {
+  Pipeline(load: from.load, render: fn(pages, aggregated) {
+    use prev_result <- result.try(from.render(pages, aggregated))
+    use next_result <- result.try(render(aggregated))
+
+    [next_result, ..prev_result] |> Ok
+  })
+}
+
+pub fn run(pipeline: Pipeline(page, aggregate)) {
+  use loaded <- result.try(pipeline.load())
+  pipeline.render(loaded.pages, loaded.aggregated)
+}
+
+pub fn write_one(out_dir: fs.DirPath, output: Asset) {
+  case output {
+    HTMLFile(path:, html:) ->
+      fs.write_site_file(out_dir, path, html |> element.to_document_string)
+  }
+}
+
+pub fn write_all(out_dir: fs.DirPath, outputs: List(Asset)) {
+  use _ <- result.try(fs.delete_dir(out_dir))
+  outputs |> list.map(write_one(out_dir, _)) |> shoki.collate_errors
+}
+
+pub fn frontmatter(file: MarkdownFile(a)) {
+  file.frontmatter
+}
+
+fn markdown_ext_replacements() {
+  dict.new()
+  |> dict.insert(fs.MD, fs.HTML)
+}
+
+pub fn to_html_file(
+  base: fs.DirPath,
+  file: MarkdownFile(a),
+  rendered: element.Element(Nil),
+) {
+  HTMLFile(
+    fs.to_site_path(base, file.path, markdown_ext_replacements()),
+    rendered,
+  )
+}
+
+pub fn create_html_file(path: fs.SitePath, rendered: element.Element(Nil)) {
+  HTMLFile(path, rendered)
+}
+
+pub fn render_markdown(file: MarkdownFile(a)) {
+  md.parse_default(file.content)
 }

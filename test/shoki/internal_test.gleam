@@ -1,28 +1,58 @@
 import birdie
 import gleam/list
+import gleam/result
 import gleam/string
 import shoki/internal/fs
 import shoki/internal/pipeline
 import shoki/preset/default
+import shoki/shoki
+
+fn dir_to_string(dir) {
+  let assert Ok(files) = fs.ls_dir(dir)
+
+  files
+  |> list.map(fs.file_path_to_string)
+  |> list.sort(string.compare)
+  |> string.join("\n")
+}
 
 pub fn ls_dir_test() {
   let assert Ok(dir) = fs.from_relative_dir("./test/workspace")
-  let assert Ok(files) = fs.ls_dir(dir)
 
-  let str =
-    files
-    |> list.map(fs.file_path_to_string)
-    |> list.sort(string.compare)
-    |> string.join("\n")
-
-  str
+  dir_to_string(dir)
   |> birdie.snap("internal ls_dir")
 }
 
 pub fn default_pipeline_test() {
-  let assert Ok(dir) = fs.from_relative_dir("./test/workspace")
+  let assert Ok(pages) = fs.from_relative_dir("./test/workspace")
+  let assert Ok(out) = fs.ensure_relative_dir("./test/workspace_out")
 
-  let default_pipeline = default.create_pipeline(dir)
+  let default_pipeline = default.create_pipeline(pages)
+  let assert Ok(_) =
+    pipeline.run(default_pipeline)
+    |> result.try(pipeline.write_all(out, _))
 
-  let assert Ok(result) = pipeline.run(default_pipeline)
+  dir_to_string(out)
+  |> birdie.snap("workspace out dir")
+}
+
+pub fn print_error_test() {
+  let err =
+    shoki.Collated([
+      shoki.Context(
+        "my/file1.md",
+        shoki.Collated([
+          shoki.Context("2021-1212", shoki.DateParseError("Invalid date")),
+          shoki.ErrorReadingFrontmatter("Invalid frontmatter"),
+        ]),
+      ),
+      shoki.Context(
+        "my/file2.md",
+        shoki.Collated([
+          shoki.DirNotFound("/my/example/dir"),
+        ]),
+      ),
+    ])
+
+  err |> shoki.error_to_string |> birdie.snap("nested error formatting")
 }
