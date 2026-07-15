@@ -11,19 +11,30 @@ import shoki/shoki
 pub fn run_main(create_pipeline) {
   let cmd =
     clip.command({
-      use dir <- clip.parameter
+      use pages <- clip.parameter
+      use static <- clip.parameter
       use out <- clip.parameter
 
-      let assert Ok(dir) = fs.from_relative_dir(dir)
-      let assert Ok(out) = fs.ensure_relative_dir(out)
+      echo pages
+      echo static
+      echo out
 
-      let assert Ok(_) =
-        create_pipeline(dir)
-        |> pipeline.run()
-        |> result.try(pipeline.write_all(out, _))
-        |> result.map_error(shoki.error_to_string)
+      use pages <- result.try(fs.from_relative_dir(pages))
+      use static <- result.try(fs.from_relative_dir(static))
+      use out <- result.try(fs.ensure_relative_dir(out))
+
+      let pipeline = create_pipeline(pages, static)
+      use assets <- result.try(
+        pipeline
+        |> pipeline.run(),
+      )
+
+      pipeline.write_all(out, assets)
     })
-    |> clip.opt(opt.new("dir") |> opt.help("directory to load pages from"))
+    |> clip.opt(opt.new("pages") |> opt.help("directory to load pages from"))
+    |> clip.opt(
+      opt.new("static") |> opt.help("directory with static content to copy"),
+    )
     |> clip.opt(opt.new("out") |> opt.help("directory to save to"))
     |> clip.help(help.simple(
       "Shoki Default Template",
@@ -33,6 +44,11 @@ pub fn run_main(create_pipeline) {
   let result = cmd |> clip.run(argv.load().arguments)
   case result {
     Error(err) -> io.println_error(err)
-    _ -> io.println("Pipeline run successfully")
+    Ok(cmd_result) -> {
+      case cmd_result {
+        Ok(_) -> io.println("Pipeline run successfully")
+        Error(err) -> io.println_error(err |> shoki.error_to_string)
+      }
+    }
   }
 }

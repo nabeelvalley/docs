@@ -4,8 +4,8 @@ title: internal ls_dir
 file: ./test/shoki/internal_test.gleam
 test_name: ls_dir_test
 ---
-test/workspace/assets/images/image-1.jpg
-test/workspace/assets/images/image-2.jpg
 test/workspace/pages/about.md
 test/workspace/pages/blog/first_post.md
 test/workspace/pages/blog/second_post.md
+test/workspace/static/images/image-1.jpg
+test/workspace/static/images/image-2.jpg

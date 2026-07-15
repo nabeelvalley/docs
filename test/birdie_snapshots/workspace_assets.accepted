@@ -4,7 +4,7 @@ title: workspace assets
 file: ./test/shoki/internal_test.gleam
 test_name: default_pipeline_test
 ---
-HTMLFile: /pages/about.html
+HTMLFile: /about.html
 <html>
   <body>
     <h1>
@@ -42,7 +42,7 @@ HTMLFile: /pages/about.html
   </body>
 </html>
 
-HTMLFile: /pages/blog/first_post.html
+HTMLFile: /blog/first_post.html
 <html>
   <body>
     <h1>
@@ -97,7 +97,7 @@ print(data)
   </body>
 </html>
 
-HTMLFile: /pages/blog/second_post.html
+HTMLFile: /blog/second_post.html
 <html>
   <body>
     <h1>
@@ -167,17 +167,61 @@ HTMLFile: /index.html
     <main>
       <ul>
         <li>
-          <a href="/pages/blog/second_post.html">
+          <a href="/blog/second_post.html">
             Second Post
           </a>
         </li>
         <li>
-          <a href="/pages/blog/second_post.html">
+          <a href="/blog/second_post.html">
             Second Post
           </a>
         </li>
         <li>
-          <a href="/pages/blog/first_post.html">
+          <a href="/blog/first_post.html">
+            First Post
+          </a>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
+
+HTMLFile: /index.html
+<html>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <a href="/special">
+              special
+            </a>
+          </li>
+          <li>
+            <a href="/blog">
+              blog
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <h1>
+        Index
+      </h1>
+    </header>
+    <main>
+      <ul>
+        <li>
+          <a href="/blog/second_post.html">
+            Second Post
+          </a>
+        </li>
+        <li>
+          <a href="/blog/second_post.html">
+            Second Post
+          </a>
+        </li>
+        <li>
+          <a href="/blog/first_post.html">
             First Post
           </a>
         </li>
@@ -211,12 +255,12 @@ HTMLFile: /blog.html
     <main>
       <ul>
         <li>
-          <a href="/pages/blog/second_post.html">
+          <a href="/blog/second_post.html">
             Second Post
           </a>
         </li>
         <li>
-          <a href="/pages/blog/first_post.html">
+          <a href="/blog/first_post.html">
             First Post
           </a>
         </li>
@@ -250,7 +294,7 @@ HTMLFile: /special.html
     <main>
       <ul>
         <li>
-          <a href="/pages/blog/second_post.html">
+          <a href="/blog/second_post.html">
             Second Post
           </a>
         </li>
@@ -258,3 +302,7 @@ HTMLFile: /special.html
     </main>
   </body>
 </html>
+
+CopyDir: 
+  from: test/workspace/static
+  to: /

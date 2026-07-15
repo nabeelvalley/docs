@@ -57,6 +57,13 @@ gleam format
 gleam build
 gleam test
 ```
+
+## update-snapshots
+
+```sh
+gleam run -m birdie
+```
+
 ## check:js
 
 ```sh
@@ -76,3 +83,13 @@ mask build
 pnpm concurrently "mask watch:gleam" "mask watch:client" "mask serve"
 ```
 
+
+## shoki
+
+### test-default
+
+Runs the static site generator using the default preset and outputs it to .test-out
+
+```sh
+gleam run -m shoki/preset/default -- --pages test/workspace/pages --static test/workspace/static --out .test-out
+```

@@ -19,8 +19,8 @@ type Renderer(page, aggregate) =
   fn(List(page), aggregate) -> ShokiResult(List(Asset))
 
 pub opaque type Asset {
-  HTMLFile(path: fs.SitePath, html: element.Element(Nil))
-  // CopyDir(fs.DirPath, fs.SitePath)
+  HTMLFile(path: fs.SiteFilePath, html: element.Element(Nil))
+  CopyDir(from: fs.DirPath, to: fs.SiteDirPath)
 }
 
 /// load -> process -> persist
@@ -37,7 +37,7 @@ pub opaque type Pipeline(page, aggregate) {
 pub opaque type MarkdownFile(a) {
   MarkdownFile(
     path: fs.FilePath,
-    site_path: fs.SitePath,
+    site_path: fs.SiteFilePath,
     frontmatter: a,
     content: String,
   )
@@ -143,15 +143,23 @@ pub fn with(
   })
 }
 
+pub fn static_dir(from: fs.DirPath) {
+  fn(_) {
+    use to <- result.map(fs.site_dir_from_string("/"))
+    CopyDir(from, to) |> list.wrap
+  }
+}
+
 pub fn run(pipeline: Pipeline(page, aggregate)) {
   use loaded <- result.try(pipeline.load())
   pipeline.render(loaded.pages, loaded.aggregated)
 }
 
-pub fn write_one(out_dir: fs.DirPath, output: Asset) {
+fn write_one(out_dir: fs.DirPath, output: Asset) {
   case output {
     HTMLFile(path:, html:) ->
       fs.write_site_file(out_dir, path, html |> element.to_document_string)
+    CopyDir(from:, to:) -> fs.copy_site_dir(out_dir, from, to)
   }
 }
 
@@ -180,7 +188,7 @@ pub fn to_html_file(file: MarkdownFile(a), rendered: element.Element(Nil)) {
   HTMLFile(file.site_path, rendered)
 }
 
-pub fn create_html_file(path: fs.SitePath, rendered: element.Element(Nil)) {
+pub fn create_html_file(path: fs.SiteFilePath, rendered: element.Element(Nil)) {
   HTMLFile(path, rendered)
 }
 
@@ -195,5 +203,10 @@ pub fn asset_to_readable_string(asset: Asset) {
       <> path |> fs.site_path_to_string
       <> "\n"
       <> html |> element.to_readable_string
+    CopyDir(from, to) ->
+      "CopyDir: \n  from: "
+      <> from |> fs.dir_path_to_string
+      <> "\n  to: "
+      <> to |> fs.site_dir_to_string
   }
 }

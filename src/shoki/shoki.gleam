@@ -12,12 +12,14 @@ pub type ShokiErr {
   ErrorReadingTextFile(String)
   ErrorReadingFrontmatter(String)
   DirNotFound(String)
+  ErrorCopyingDir(String)
   ErrorCreatingDir(String)
   ErrorDeletingDir(String)
   PathUnresolvable(String)
   ErrorWritingTextFile(String)
   DateParseError(String)
   InvalidSitePath(String)
+  InvalidSiteDir(String)
 }
 
 /// A drop-in replacement for result.all for merging errors into a single error object
@@ -59,6 +61,8 @@ fn error_to_string_rec(err: ShokiErr, indent) {
     ErrorWritingTextFile(msg) -> "ErrorWritingTextFile: " <> msg
     DateParseError(msg) -> "DateParseError: " <> msg
     InvalidSitePath(msg) -> "InvalidSitePath: " <> msg
+    InvalidSiteDir(msg) -> "InvalidSiteDir: " <> msg
+    ErrorCopyingDir(msg) -> "Error Copying Dir: " <> msg
   }
   |> indent_str(indent)
 }

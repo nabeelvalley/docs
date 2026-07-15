@@ -16,7 +16,7 @@ import shoki/shoki
 /// Basic frontmatter type for the default template
 pub opaque type Frontmatter {
   Frontmatter(
-    path: fs.SitePath,
+    path: fs.SiteFilePath,
     draft: Bool,
     title: String,
     description: Option(String),
@@ -25,7 +25,7 @@ pub opaque type Frontmatter {
   )
 }
 
-fn frontmatter_decoder(path: fs.SitePath) -> decode.Decoder(Frontmatter) {
+fn frontmatter_decoder(path: fs.SiteFilePath) -> decode.Decoder(Frontmatter) {
   use draft <- decode.optional_field("draft", False, decode.bool)
   use title <- decode.field("title", decode.string)
   use description <- decode.field("description", decode.optional(decode.string))
@@ -116,7 +116,15 @@ fn render_indices(tags: GroupedTags) {
   [index_page, ..tag_pages]
 }
 
-pub fn create_pipeline(content_dir: fs.DirPath) {
+fn render_index(tags: GroupedTags) {
+  use path <- result.try(fs.site_path_from_string("/index.html"))
+
+  index(path, "Index", tags, tags |> dict.values |> list.flatten)
+  |> list.wrap
+  |> Ok
+}
+
+pub fn create_pipeline(content_dir: fs.DirPath, static_dir: fs.DirPath) {
   let pipeline =
     pipeline.from_markdown(
       dir: content_dir,
@@ -124,7 +132,9 @@ pub fn create_pipeline(content_dir: fs.DirPath) {
       agg: group_by_tag,
       render: render_page,
     )
+    |> pipeline.with(render_index)
     |> pipeline.with(render_indices)
+    |> pipeline.with(pipeline.static_dir(static_dir))
 
   pipeline
 }

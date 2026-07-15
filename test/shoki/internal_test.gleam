@@ -23,9 +23,10 @@ pub fn ls_dir_test() {
 }
 
 pub fn default_pipeline_test() {
-  let assert Ok(pages) = fs.from_relative_dir("./test/workspace")
+  let assert Ok(pages) = fs.from_relative_dir("./test/workspace/pages")
+  let assert Ok(static) = fs.from_relative_dir("./test/workspace/static")
 
-  let default_pipeline = default.create_pipeline(pages)
+  let default_pipeline = default.create_pipeline(pages, static)
   let assert Ok(assets) = pipeline.run(default_pipeline)
 
   assets

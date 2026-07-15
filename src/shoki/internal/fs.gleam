@@ -5,9 +5,9 @@ import gleam/result
 import gleam/string
 import lustre/attribute
 import shoki/shoki.{
-  type ShokiResult, DirNotFound, ErrorCreatingDir, ErrorDeletingDir,
-  ErrorReadingTextFile, ErrorWritingTextFile, FileNotFound, InvalidSitePath,
-  PathUnresolvable,
+  type ShokiResult, DirNotFound, ErrorCopyingDir, ErrorCreatingDir,
+  ErrorDeletingDir, ErrorReadingTextFile, ErrorWritingTextFile, FileNotFound,
+  InvalidSiteDir, InvalidSitePath, PathUnresolvable,
 }
 import simplifile
 
@@ -19,8 +19,12 @@ type RelativePath {
   RelativePath(path: String)
 }
 
-pub opaque type SitePath {
-  SitePath(slug: String)
+pub opaque type SiteFilePath {
+  SiteFile(slug: String)
+}
+
+pub opaque type SiteDirPath {
+  SiteDir(slug: String)
 }
 
 pub opaque type FilePath {
@@ -123,11 +127,21 @@ pub fn file_path_to_string(p: FilePath) {
   p.file.path |> string.remove_prefix(matching: cwd)
 }
 
-pub fn site_path_to_string(p: SitePath) {
+pub fn dir_path_to_string(p: DirPath) {
+  let cwd = cwd().dir.path <> "/"
+
+  p.dir.path |> string.remove_prefix(matching: cwd)
+}
+
+pub fn site_path_to_string(p: SiteFilePath) {
   p.slug
 }
 
-pub fn site_path_to_href(p: SitePath) {
+pub fn site_dir_to_string(p: SiteDirPath) {
+  p.slug
+}
+
+pub fn site_path_to_href(p: SiteFilePath) {
   p.slug |> attribute.href
 }
 
@@ -136,7 +150,7 @@ pub fn read_text_file(p: FilePath) {
   |> result.replace_error(ErrorReadingTextFile(p.file.path))
 }
 
-pub fn write_site_file(out_dir: DirPath, path: SitePath, content: String) {
+pub fn write_site_file(out_dir: DirPath, path: SiteFilePath, content: String) {
   let to_resolve = out_dir.dir.path <> path.slug
   use resolved <- result.try(
     simplifile.resolve(to_resolve)
@@ -176,8 +190,17 @@ pub fn site_path_from_string(site_path: String) {
   let assert Ok(re) = regexp.from_string("^\\/.+\\.\\w+$")
 
   case regexp.check(re, site_path) {
-    True -> Ok(SitePath(site_path))
+    True -> Ok(SiteFile(site_path))
     False -> Error(InvalidSitePath(site_path))
+  }
+}
+
+pub fn site_dir_from_string(site_dir: String) {
+  let assert Ok(re) = regexp.from_string("^\\/.*")
+
+  case regexp.check(re, site_dir) {
+    True -> Ok(SiteDir(site_dir))
+    False -> Error(InvalidSiteDir(site_dir))
   }
 }
 
@@ -185,7 +208,7 @@ pub fn to_site_path(
   dir: DirPath,
   p: FilePath,
   replace_ext: dict.Dict(Extension, Extension),
-) -> SitePath {
+) -> SiteFilePath {
   let path = p.file.path
 
   let input_ext = dict.keys(replace_ext)
@@ -204,11 +227,24 @@ pub fn to_site_path(
       without_ext <> new_ext
     }
   }
-  |> SitePath
+  |> SiteFile
 }
 
 pub fn has_ext(file: FilePath, exts: List(Extension)) {
   let suffixes = exts |> list.map(to_suffix)
 
   list.any(suffixes, string.ends_with(file.file.path, _))
+}
+
+pub fn copy_site_dir(out: DirPath, from: DirPath, to: SiteDirPath) {
+  let input = from.dir.path
+  let output = out.dir.path <> to.slug
+
+  echo input
+  echo output
+
+  simplifile.copy_directory(input, output)
+  |> result.replace_error(ErrorCopyingDir(
+    "from: " <> input <> " to: " <> output,
+  ))
 }
