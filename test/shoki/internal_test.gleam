@@ -1,6 +1,5 @@
 import birdie
 import gleam/list
-import gleam/result
 import gleam/string
 import shoki/internal/fs
 import shoki/internal/pipeline
@@ -25,15 +24,14 @@ pub fn ls_dir_test() {
 
 pub fn default_pipeline_test() {
   let assert Ok(pages) = fs.from_relative_dir("./test/workspace")
-  let assert Ok(out) = fs.ensure_relative_dir("./test/workspace_out")
 
   let default_pipeline = default.create_pipeline(pages)
-  let assert Ok(_) =
-    pipeline.run(default_pipeline)
-    |> result.try(pipeline.write_all(out, _))
+  let assert Ok(assets) = pipeline.run(default_pipeline)
 
-  dir_to_string(out)
-  |> birdie.snap("workspace out dir")
+  assets
+  |> list.map(pipeline.asset_to_readable_string)
+  |> string.join("\n\n")
+  |> birdie.snap("workspace assets")
 }
 
 pub fn print_error_test() {

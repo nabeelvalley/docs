@@ -1,0 +1,260 @@
+---
+version: 2.0.1
+title: workspace assets
+file: ./test/shoki/internal_test.gleam
+test_name: default_pipeline_test
+---
+HTMLFile: /pages/about.html
+<html>
+  <body>
+    <h1>
+      Hello world!
+    </h1>
+    <main>
+      <h2>
+        Welcome!
+      </h2>
+      
+
+      <p>
+        This is some content in Markdown that can be rendered to your site
+      </p>
+      
+
+      <p>
+        Here&#39;s a code block and some other 
+        <em>
+          fancy
+        </em>
+         formatting
+      </p>
+      
+
+      <pre>
+        <code class="language-sh">
+          gleam run
+
+        </code>
+      </pre>
+      
+
+    </main>
+  </body>
+</html>
+
+HTMLFile: /pages/blog/first_post.html
+<html>
+  <body>
+    <h1>
+      First Post
+    </h1>
+    <main>
+      <h2>
+        Welcome!
+      </h2>
+      
+
+      <p>
+        This is some content in Markdown that can be rendered to your site
+      </p>
+      
+
+      <p>
+        Here&#39;s a code block and some other 
+        <em>
+          fancy
+        </em>
+         formatting
+      </p>
+      
+
+      <pre>
+        <code class="language-sh">
+          gleam run
+
+        </code>
+      </pre>
+      
+
+      <pre>
+        <code class="language-js">
+          // some more complicated example
+const data = {
+  name: &quot;bob&quot;
+}
+
+function print(d){
+  console.log(d)
+}
+
+print(data)
+
+        </code>
+      </pre>
+      
+
+    </main>
+  </body>
+</html>
+
+HTMLFile: /pages/blog/second_post.html
+<html>
+  <body>
+    <h1>
+      Second Post
+    </h1>
+    <main>
+      <h2>
+        Welcome!
+      </h2>
+      
+
+      <p>
+        This is some content in Markdown that can be rendered to your site
+      </p>
+      
+
+      <p>
+        Here&#39;s a code block and some other 
+        <em>
+          fancy
+        </em>
+         formatting
+      </p>
+      
+
+      <my-custom-tag data="hello world">
+        <h2>
+          Nested Heading
+        </h2>
+        
+
+        <pre>
+          <code class="language-gleam">
+            code |&gt; print_me |&gt; echo
+
+          </code>
+        </pre>
+        
+
+      </my-custom-tag>
+    </main>
+  </body>
+</html>
+
+HTMLFile: /index.html
+<html>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <a href="/special">
+              special
+            </a>
+          </li>
+          <li>
+            <a href="/blog">
+              blog
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <h1>
+        Index
+      </h1>
+    </header>
+    <main>
+      <ul>
+        <li>
+          <a href="/pages/blog/second_post.html">
+            Second Post
+          </a>
+        </li>
+        <li>
+          <a href="/pages/blog/second_post.html">
+            Second Post
+          </a>
+        </li>
+        <li>
+          <a href="/pages/blog/first_post.html">
+            First Post
+          </a>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
+
+HTMLFile: /blog.html
+<html>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <a href="/special">
+              special
+            </a>
+          </li>
+          <li>
+            <a href="/blog">
+              blog
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <h1>
+        Blog
+      </h1>
+    </header>
+    <main>
+      <ul>
+        <li>
+          <a href="/pages/blog/second_post.html">
+            Second Post
+          </a>
+        </li>
+        <li>
+          <a href="/pages/blog/first_post.html">
+            First Post
+          </a>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
+
+HTMLFile: /special.html
+<html>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <a href="/special">
+              special
+            </a>
+          </li>
+          <li>
+            <a href="/blog">
+              blog
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <h1>
+        Special
+      </h1>
+    </header>
+    <main>
+      <ul>
+        <li>
+          <a href="/pages/blog/second_post.html">
+            Second Post
+          </a>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>

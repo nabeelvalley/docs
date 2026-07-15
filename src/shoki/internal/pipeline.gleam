@@ -35,18 +35,26 @@ pub opaque type Pipeline(page, aggregate) {
 }
 
 pub opaque type MarkdownFile(a) {
-  MarkdownFile(path: fs.FilePath, frontmatter: a, content: String)
+  MarkdownFile(
+    path: fs.FilePath,
+    site_path: fs.SitePath,
+    frontmatter: a,
+    content: String,
+  )
 }
 
 fn read_markdown_file(
+  dir: fs.DirPath,
   file: fs.FilePath,
-  decode_frontmatter,
+  frontmatter_decoder,
 ) -> ShokiResult(MarkdownFile(a)) {
   use content <- result.try(fs.read_text_file(file))
 
   let lines = content |> string.trim |> string.split("\n")
 
   let not_end = fn(str) { !string.starts_with(str, "---") }
+  let site_path = md_file_to_site_path(dir, file)
+  let decode = frontmatter_decoder(site_path)
 
   case lines {
     ["---", ..rest] -> {
@@ -54,7 +62,7 @@ fn read_markdown_file(
       let fm = front |> string.join("\n")
 
       use frontmatter <- result.try(
-        yamleam.parse(fm, decode_frontmatter)
+        yamleam.parse(fm, decode)
         |> result.replace_error(
           ErrorReadingFrontmatter(fm)
           |> shoki.error_context(file |> fs.file_path_to_string),
@@ -63,6 +71,7 @@ fn read_markdown_file(
 
       Ok(MarkdownFile(
         file,
+        site_path,
         frontmatter,
         content |> list.drop(1) |> string.join("\n"),
       ))
@@ -76,7 +85,7 @@ fn read_markdown_files(dir: DirPath, decode_frontmatter) {
 
   files
   |> list.filter(fs.has_ext(_, [fs.MD, fs.MDX]))
-  |> list.map(read_markdown_file(_, decode_frontmatter))
+  |> list.map(read_markdown_file(dir, _, decode_frontmatter))
   |> shoki.collate_errors
 }
 
@@ -90,7 +99,7 @@ pub fn from_markdown(dir dir: DirPath, decode decode, agg agg, render render) {
     render: fn(pages, agg) {
       pages
       |> list.map(fn(page) {
-        render(page, agg) |> result.map(to_html_file(dir, page, _))
+        render(page, agg) |> result.map(to_html_file(page, _))
       })
       |> shoki.collate_errors
     },
@@ -124,13 +133,13 @@ pub fn merge(
 
 pub fn with(
   from: Pipeline(page, aggregate),
-  render: fn(aggregate) -> ShokiResult(Asset),
+  render: fn(aggregate) -> ShokiResult(List(Asset)),
 ) {
   Pipeline(load: from.load, render: fn(pages, aggregated) {
     use prev_result <- result.try(from.render(pages, aggregated))
     use next_result <- result.try(render(aggregated))
 
-    [next_result, ..prev_result] |> Ok
+    list.append(prev_result, next_result) |> Ok
   })
 }
 
@@ -148,7 +157,10 @@ pub fn write_one(out_dir: fs.DirPath, output: Asset) {
 
 pub fn write_all(out_dir: fs.DirPath, outputs: List(Asset)) {
   use _ <- result.try(fs.delete_dir(out_dir))
-  outputs |> list.map(write_one(out_dir, _)) |> shoki.collate_errors
+  outputs
+  |> list.map(write_one(out_dir, _))
+  |> shoki.collate_errors
+  |> result.replace(Nil)
 }
 
 pub fn frontmatter(file: MarkdownFile(a)) {
@@ -160,15 +172,12 @@ fn markdown_ext_replacements() {
   |> dict.insert(fs.MD, fs.HTML)
 }
 
-pub fn to_html_file(
-  base: fs.DirPath,
-  file: MarkdownFile(a),
-  rendered: element.Element(Nil),
-) {
-  HTMLFile(
-    fs.to_site_path(base, file.path, markdown_ext_replacements()),
-    rendered,
-  )
+fn md_file_to_site_path(base: fs.DirPath, file: fs.FilePath) {
+  fs.to_site_path(base, file, markdown_ext_replacements())
+}
+
+pub fn to_html_file(file: MarkdownFile(a), rendered: element.Element(Nil)) {
+  HTMLFile(file.site_path, rendered)
 }
 
 pub fn create_html_file(path: fs.SitePath, rendered: element.Element(Nil)) {
@@ -176,5 +185,15 @@ pub fn create_html_file(path: fs.SitePath, rendered: element.Element(Nil)) {
 }
 
 pub fn render_markdown(file: MarkdownFile(a)) {
-  md.parse_default(file.content)
+  file.content |> md.parse
+}
+
+pub fn asset_to_readable_string(asset: Asset) {
+  case asset {
+    HTMLFile(path:, html:) ->
+      "HTMLFile: "
+      <> path |> fs.site_path_to_string
+      <> "\n"
+      <> html |> element.to_readable_string
+  }
 }
