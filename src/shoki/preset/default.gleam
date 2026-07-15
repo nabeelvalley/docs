@@ -1,7 +1,8 @@
 import gleam/dict.{type Dict}
 import gleam/dynamic/decode
 import gleam/list
-import gleam/option.{type Option, None}
+import gleam/option.{type Option, None, Some}
+import gleam/order
 import gleam/pair
 import gleam/result
 import gleam/string
@@ -107,10 +108,27 @@ fn render_indices(tags: GroupedTags) {
   |> shoki.collate_errors
 }
 
+pub fn compare_date(a: Frontmatter, b: Frontmatter) {
+  case a.date, b.date {
+    Some(a), Some(b) -> date.compare(a, b)
+    Some(_), _ -> order.Gt
+    None, _ -> order.Lt
+  }
+}
+
 fn render_index(tags: GroupedTags) {
   use path <- result.try(fs.site_path_from_string("/index.html"))
 
-  index(path, "Index", tags, tags |> dict.values |> list.flatten)
+  index(
+    path,
+    "Index",
+    tags,
+    tags
+      |> dict.values
+      |> list.flatten
+      |> list.unique
+      |> list.sort(compare_date),
+  )
   |> list.wrap
   |> Ok
 }
