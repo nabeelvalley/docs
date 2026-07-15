@@ -11,9 +11,9 @@ import shoki/internal/date.{type IsoDate}
 import shoki/internal/fs
 import shoki/internal/pipeline
 import shoki/internal/preset
+import shoki/preset/shared
 import shoki/shoki
 
-/// Basic frontmatter type for the default template
 pub opaque type Frontmatter {
   Frontmatter(
     path: fs.SiteFilePath,
@@ -51,20 +51,22 @@ pub fn group_by_tag(frontmatters: List(Frontmatter)) -> GroupedTags {
   |> result.unwrap(dict.new())
 }
 
-fn render_page(file: pipeline.MarkdownFile(Frontmatter), _tags: GroupedTags) {
+const css_path = "/default.css"
+
+fn render_page(file: pipeline.MarkdownFile(Frontmatter), tags: GroupedTags) {
   let fm = file |> pipeline.frontmatter
 
-  html.html([], [
-    html.body([], [
-      html.h1([], [html.text(fm.title)]),
-      html.main([], file |> pipeline.render_markdown),
-    ]),
+  html.body([], [
+    header(fm.title, tags),
+    html.main([], file |> pipeline.render_markdown),
   ])
+  |> shared.page(fm.title, css_path)
   |> Ok
 }
 
 fn header(title, tags: GroupedTags) {
   html.header([], [
+    html.h1([], [html.text(title)]),
     html.nav([], [
       html.ul(
         [],
@@ -75,7 +77,6 @@ fn header(title, tags: GroupedTags) {
           }),
       ),
     ]),
-    html.h1([], [html.text(title)]),
   ])
 }
 
@@ -88,32 +89,22 @@ fn item(entry: Frontmatter) {
 }
 
 fn index(path, title, tags, entries) {
-  html.html([], [
-    html.body([], [
-      header(title, tags),
-      html.main([], [html.ul([], entries |> list.map(item))]),
-    ]),
+  html.body([], [
+    header(title, tags),
+    html.main([], [html.ul([], entries |> list.map(item))]),
   ])
+  |> shared.page(title, css_path)
   |> pipeline.create_html_file(path, _)
 }
 
 fn render_indices(tags: GroupedTags) {
-  use path <- result.try(fs.site_path_from_string("/index.html"))
-
-  let index_page =
-    index(path, "Index", tags, tags |> dict.values |> list.flatten)
-
-  let tags =
-    tags
-    |> dict.map_values(fn(tag, entries) {
-      use path <- result.map(fs.site_path_from_string("/" <> tag <> ".html"))
-      index(path, tag |> string.capitalise, tags, entries)
-    })
-    |> dict.values
-
-  use tag_pages <- result.map(tags |> shoki.collate_errors)
-
-  [index_page, ..tag_pages]
+  tags
+  |> dict.map_values(fn(tag, entries) {
+    use path <- result.map(fs.site_path_from_string("/" <> tag <> ".html"))
+    index(path, tag |> string.capitalise, tags, entries)
+  })
+  |> dict.values
+  |> shoki.collate_errors
 }
 
 fn render_index(tags: GroupedTags) {

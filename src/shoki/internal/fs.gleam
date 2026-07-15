@@ -240,9 +240,6 @@ pub fn copy_site_dir(out: DirPath, from: DirPath, to: SiteDirPath) {
   let input = from.dir.path
   let output = out.dir.path <> to.slug
 
-  echo input
-  echo output
-
   simplifile.copy_directory(input, output)
   |> result.replace_error(ErrorCopyingDir(
     "from: " <> input <> " to: " <> output,

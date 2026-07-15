@@ -15,10 +15,6 @@ pub fn run_main(create_pipeline) {
       use static <- clip.parameter
       use out <- clip.parameter
 
-      echo pages
-      echo static
-      echo out
-
       use pages <- result.try(fs.from_relative_dir(pages))
       use static <- result.try(fs.from_relative_dir(static))
       use out <- result.try(fs.ensure_relative_dir(out))

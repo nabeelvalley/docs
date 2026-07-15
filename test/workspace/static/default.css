@@ -1,0 +1,95 @@
+/* resets adapted from https://www.joshwcomeau.com/css/custom-css-reset/ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+*:not(dialog) {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* basic styles */
+:root {
+  --black: #323232;
+  --white: #fefefe;
+  --color: #8390fa;
+}
+
+html,
+body {
+  padding: 0;
+}
+
+body {
+  /* system font stack: https://systemfontstack.com/ */
+  font-family: '-apple-system', BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+
+  max-width: min(80ch, 90vw);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4rem;
+
+  color-scheme: light dark;
+  background-color: lightdark(var(--black), var(--white));
+  color: lightdark(var(--white), var(--white));
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style: none;
+  gap: 1rem;
+}
