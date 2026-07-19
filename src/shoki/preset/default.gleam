@@ -6,10 +6,10 @@ import gleam/order
 import gleam/pair
 import gleam/result
 import gleam/string
-import lustre/attribute
-import lustre/element/html
+import shoki/attr
 import shoki/date.{type IsoDate}
 import shoki/element
+import shoki/html
 import shoki/internal/fs
 import shoki/internal/preset
 import shoki/markdown
@@ -61,25 +61,22 @@ fn render_page(file: markdown.MarkdownFile(Frontmatter), tags: GroupedTags) {
 
   html.body([], [
     header(fm.title, tags),
-    html.main([], [
-      file |> markdown.render |> element.tmp_to_lustre_please_remove,
-    ]),
+    html.main([], file |> markdown.render),
   ])
   |> shared.page(fm.title, css_path)
-  |> element.tmp_doc_from_lustre_please_remove
   |> Ok
 }
 
 fn header(title, tags: GroupedTags) {
   html.header([], [
-    html.h1([], [html.text(title)]),
+    html.h1([], [element.text(title)]),
     html.nav([], [
       html.ul(
         [],
         tags
           |> dict.keys
           |> list.map(fn(tag) {
-            html.li([], [html.a([attribute.href("/" <> tag)], [html.text(tag)])])
+            html.li([], [html.a([attr.href("/" <> tag)], [element.text(tag)])])
           }),
       ),
     ]),
@@ -88,8 +85,8 @@ fn header(title, tags: GroupedTags) {
 
 fn item(entry: Frontmatter) {
   html.li([], [
-    html.a([entry.path |> fs.site_path_to_lustre_href], [
-      html.text(entry.title),
+    html.a([entry.path |> fs.site_path_to_href], [
+      element.text(entry.title),
     ]),
   ])
 }
@@ -100,7 +97,6 @@ fn index(path, title, tags, entries) {
     html.main([], [html.ul([], entries |> list.map(item))]),
   ])
   |> shared.page(title, css_path)
-  |> element.tmp_doc_from_lustre_please_remove
   |> pipeline.create_html_file(path, _)
 }
 

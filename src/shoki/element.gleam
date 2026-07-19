@@ -3,7 +3,6 @@ import gleam/list
 import gleam/set
 import gleam/string
 import glentities/html_encoder
-import lustre/element
 import shoki/internal/html
 
 pub opaque type Attr {
@@ -11,16 +10,12 @@ pub opaque type Attr {
 }
 
 pub opaque type Element {
-  Element(tag: String, attrs: List(Attr), children: List(ChildNode))
-}
-
-pub opaque type ChildNode {
-  ElementNode(element: Element)
-  TextNode(skip_encode: Bool, text: String)
+  Element(tag: String, attrs: List(Attr), children: List(Element))
+  Text(skip_encode: Bool, text: String)
 }
 
 pub opaque type DocumentNode {
-  DocumentNode(doctype: DocumentTypeNode, children: List(ChildNode))
+  DocumentNode(doctype: DocumentTypeNode, children: List(Element))
 }
 
 pub opaque type DocumentTypeNode {
@@ -69,11 +64,10 @@ pub fn to_elements_rec(parsed: List(html.Parsed), with custom) {
   use node <- list.map(parsed)
 
   let el = case node {
-    html.Text(text:) -> TextNode(False, text)
+    html.Text(text:) -> Text(False, text)
     html.Node(tag:, attributes:, children:) -> {
       let attrs = attributes |> list.map(to_attr)
       Element(tag, attrs, to_elements_rec(children, custom))
-      |> ElementNode
     }
     html.Script(attributes:, script: content) -> {
       let attrs = attributes |> list.map(to_attr)
@@ -86,22 +80,22 @@ pub fn to_elements_rec(parsed: List(html.Parsed), with custom) {
   }
 
   case el {
-    TextNode(_, _) -> el
-    ElementNode(element:) -> {
-      case dict.get(custom, element.tag) {
+    Text(_, _) -> el
+    Element(_, _, _) -> {
+      case dict.get(custom, element) {
         Error(_) -> el
-        Ok(transform) -> transform(element) |> ElementNode
+        Ok(transform) -> transform(element)
       }
     }
   }
 }
 
 pub fn script(attrs, script) {
-  Element("script", attrs, [TextNode(True, script)]) |> ElementNode
+  Element("script", attrs, [Text(True, script)])
 }
 
 pub fn style(attrs, script) {
-  Element("style", attrs, [TextNode(True, script)]) |> ElementNode
+  Element("style", attrs, [Text(True, script)])
 }
 
 const doctype_html = "<!doctype html>"
@@ -119,50 +113,49 @@ fn inside_tag(attrs: List(Attr)) {
 // TODO: create real indent structure for formatting
 const indent = "\n"
 
-fn opening(el: Element) {
-  let attrs = inside_tag(el.attrs)
+fn opening(tag, attrs) {
+  let attrs = inside_tag(attrs)
   let content = case attrs {
     "" -> ""
     _ -> " " <> attrs
   }
 
-  indent <> "<" <> el.tag <> content <> ">"
+  indent <> "<" <> tag <> content <> ">"
 }
 
-fn closing(el: Element) {
-  "</" <> el.tag <> ">"
+fn closing(tag) {
+  "</" <> tag <> ">"
 }
 
-fn self_closing(el: Element) {
-  let attrs = inside_tag(el.attrs)
+fn self_closing(tag, attrs) {
+  let attrs = inside_tag(attrs)
   let content = case attrs {
     "" -> " "
     _ -> " " <> attrs <> " "
   }
 
-  indent <> "<" <> el.tag <> content <> "/>"
+  indent <> "<" <> tag <> content <> "/>"
 }
 
-fn node_to_string_rec(el: ChildNode, voids) {
+fn elem_to_string_rec(el: Element, voids) {
   case el {
-    ElementNode(element:) -> elem_to_string_rec(element, voids)
-    TextNode(skip_encode:, text:) ->
+    Text(skip_encode:, text:) -> {
       case skip_encode {
         True -> text
         False -> html_encoder.encode(text)
       }
-  }
-}
-
-fn elem_to_string_rec(el: Element, voids) {
-  case voids |> set.contains(el.tag) {
-    True -> self_closing(el)
-    False ->
-      opening(el)
-      <> el.children
-      |> list.map(node_to_string_rec(_, voids))
-      |> string.join("")
-      <> closing(el)
+    }
+    Element(tag:, attrs:, children:) -> {
+      case voids |> set.contains(tag) {
+        True -> self_closing(tag, attrs)
+        False ->
+          opening(tag, attrs)
+          <> children
+          |> list.map(elem_to_string_rec(_, voids))
+          |> string.join("")
+          <> closing(tag)
+      }
+    }
   }
 }
 
@@ -176,14 +169,10 @@ pub fn to_string(el: Element) {
   elem_to_string_rec(el, void_tags())
 }
 
-pub fn node_to_string(el: ChildNode) {
-  node_to_string_rec(el, void_tags())
-}
-
 pub fn to_document_string(doc: DocumentNode) {
   doctype_to_string(doc.doctype)
   <> doc.children
-  |> list.map(node_to_string_rec(_, void_tags()))
+  |> list.map(elem_to_string_rec(_, void_tags()))
   |> string.join("\n")
 }
 
@@ -195,27 +184,22 @@ pub fn href(value: String) {
   attr("href", value)
 }
 
-/// TODO: remove this once all lustre stuff have been removed
-pub fn tmp_from_lustre_please_remove(el: element.Element(Nil)) {
-  el |> element.to_document_string |> parse(dict.new())
-}
-
-pub fn tmp_doc_from_lustre_please_remove(el: element.Element(Nil)) {
-  tmp_from_lustre_please_remove(el) |> DocumentNode(DocumentTypeHTML, _)
-}
-
-/// TODO: remove this once all lustre stuff have been removed
-pub fn tmp_to_lustre_please_remove(els: List(ChildNode)) {
-  els
-  |> list.map(node_to_string)
-  |> string.join("")
-  |> element.unsafe_raw_html("", "div", [], _)
-}
-
 pub fn element(tag, attrs, children) {
   Element(tag:, attrs:, children:)
 }
 
 pub fn attribute(name, value) {
   Attr(name:, value:)
+}
+
+pub fn text(text) {
+  Text(False, text)
+}
+
+pub fn raw_text(text) {
+  Text(True, text)
+}
+
+pub fn to_html_document(root) {
+  DocumentNode(DocumentTypeHTML, [root])
 }

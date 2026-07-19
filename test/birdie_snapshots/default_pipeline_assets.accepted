@@ -1,5 +1,5 @@
 ---
-version: 2.0.1
+version: 2.0.2
 title: default pipeline assets
 file: ./test/shoki/pipeline_test.gleam
 test_name: default_pipeline_test
@@ -10,18 +10,16 @@ CopyDir:
 
 HTMLFile: /about.html
 <!doctype html>
-
-
 <html lang="en">
 <head>
 <title>Hello world!</title>
 <meta charset="UTF-8" />
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<link href="/favicon.png" rel="icon" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/x-icon" href="/favicon.png" />
 <link href="/default.css" rel="stylesheet" />
 <noscript>
 <link href="/index.css" rel="stylesheet" /></noscript>
-<script defer="true" src="/index.js" type="module"></script></head>
+<script defer="true" type="module" src="/index.js"></script></head>
 <body>
 <header>
 <h1>Hello world!</h1>
@@ -32,39 +30,30 @@ HTMLFile: /about.html
 <li>
 <a href="/blog">blog</a></li></ul></nav></header>
 <main>
-<div>
-
 <h2>Welcome!</h2>
-
 
 <p>This is some content in Markdown that can be rendered to your site</p>
 
-
 <p>Here&#39;s a code block and some other 
-
 <em>fancy</em> formatting</p>
 
-
 <pre>
-
 <code class="language-sh">gleam run
 </code></pre>
-</div></main></body></html>
+</main></body></html>
 
 HTMLFile: /blog.html
 <!doctype html>
-
-
 <html lang="en">
 <head>
 <title>Blog</title>
 <meta charset="UTF-8" />
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<link href="/favicon.png" rel="icon" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/x-icon" href="/favicon.png" />
 <link href="/default.css" rel="stylesheet" />
 <noscript>
 <link href="/index.css" rel="stylesheet" /></noscript>
-<script defer="true" src="/index.js" type="module"></script></head>
+<script defer="true" type="module" src="/index.js"></script></head>
 <body>
 <header>
 <h1>Blog</h1>
@@ -83,18 +72,16 @@ HTMLFile: /blog.html
 
 HTMLFile: /blog/first_post.html
 <!doctype html>
-
-
 <html lang="en">
 <head>
 <title>First Post</title>
 <meta charset="UTF-8" />
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<link href="/favicon.png" rel="icon" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/x-icon" href="/favicon.png" />
 <link href="/default.css" rel="stylesheet" />
 <noscript>
 <link href="/index.css" rel="stylesheet" /></noscript>
-<script defer="true" src="/index.js" type="module"></script></head>
+<script defer="true" type="module" src="/index.js"></script></head>
 <body>
 <header>
 <h1>First Post</h1>
@@ -105,27 +92,18 @@ HTMLFile: /blog/first_post.html
 <li>
 <a href="/blog">blog</a></li></ul></nav></header>
 <main>
-<div>
-
 <h2>Welcome!</h2>
-
 
 <p>This is some content in Markdown that can be rendered to your site</p>
 
-
 <p>Here&#39;s a code block and some other 
-
 <em>fancy</em> formatting</p>
 
-
 <pre>
-
 <code class="language-sh">gleam run
 </code></pre>
 
-
 <pre>
-
 <code class="language-js">// some more complicated example
 const data = {
   name: &quot;bob&quot;
@@ -137,22 +115,20 @@ function print(d){
 
 print(data)
 </code></pre>
-</div></main></body></html>
+</main></body></html>
 
 HTMLFile: /blog/second_post.html
 <!doctype html>
-
-
 <html lang="en">
 <head>
 <title>Second Post</title>
 <meta charset="UTF-8" />
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<link href="/favicon.png" rel="icon" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/x-icon" href="/favicon.png" />
 <link href="/default.css" rel="stylesheet" />
 <noscript>
 <link href="/index.css" rel="stylesheet" /></noscript>
-<script defer="true" src="/index.js" type="module"></script></head>
+<script defer="true" type="module" src="/index.js"></script></head>
 <body>
 <header>
 <h1>Second Post</h1>
@@ -163,44 +139,33 @@ HTMLFile: /blog/second_post.html
 <li>
 <a href="/blog">blog</a></li></ul></nav></header>
 <main>
-<div>
-
 <h2>Welcome!</h2>
-
 
 <p>This is some content in Markdown that can be rendered to your site</p>
 
-
 <p>Here&#39;s a code block and some other 
-
 <em>fancy</em> formatting</p>
 
-
 <my-custom-tag data="hello world">
-
 <h2>Nested Heading</h2>
 
-
 <pre>
-
 <code class="language-gleam">code |&gt; print_me |&gt; echo
 </code></pre>
-</my-custom-tag></div></main></body></html>
+</my-custom-tag></main></body></html>
 
 HTMLFile: /index.html
 <!doctype html>
-
-
 <html lang="en">
 <head>
 <title>Index</title>
 <meta charset="UTF-8" />
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<link href="/favicon.png" rel="icon" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/x-icon" href="/favicon.png" />
 <link href="/default.css" rel="stylesheet" />
 <noscript>
 <link href="/index.css" rel="stylesheet" /></noscript>
-<script defer="true" src="/index.js" type="module"></script></head>
+<script defer="true" type="module" src="/index.js"></script></head>
 <body>
 <header>
 <h1>Index</h1>
@@ -219,18 +184,16 @@ HTMLFile: /index.html
 
 HTMLFile: /special.html
 <!doctype html>
-
-
 <html lang="en">
 <head>
 <title>Special</title>
 <meta charset="UTF-8" />
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<link href="/favicon.png" rel="icon" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/x-icon" href="/favicon.png" />
 <link href="/default.css" rel="stylesheet" />
 <noscript>
 <link href="/index.css" rel="stylesheet" /></noscript>
-<script defer="true" src="/index.js" type="module"></script></head>
+<script defer="true" type="module" src="/index.js"></script></head>
 <body>
 <header>
 <h1>Special</h1>

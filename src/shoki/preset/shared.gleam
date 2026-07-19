@@ -1,43 +1,47 @@
-import lustre/attribute
-import lustre/element/html
+import shoki/attr
+import shoki/element
+import shoki/html
 
 pub fn page(body, title, css_path) {
-  html.html([attribute.lang("en")], [
+  html.html([attr.lang("en")], [
     html.head([], [
-      html.title([], title),
+      html.title([], [element.text(title)]),
 
-      html.meta([attribute.charset("UTF-8")]),
+      html.meta([attr.charset("UTF-8")]),
       html.meta([
-        attribute.name("viewport"),
-        attribute.content("width=device-width, initial-scale=1.0"),
+        attr.name("viewport"),
+        attr.content("width=device-width, initial-scale=1.0"),
       ]),
 
       html.link([
-        attribute.rel("icon"),
-        attribute.type_("image/x-icon"),
-        attribute.href("/favicon.png"),
+        attr.rel("icon"),
+        attr.type_("image/x-icon"),
+        attr.href("/favicon.png"),
       ]),
 
       html.link([
-        attribute.href(css_path),
-        attribute.rel("stylesheet"),
+        attr.href(css_path),
+        attr.rel("stylesheet"),
       ]),
       html.noscript([], [
         html.link([
-          attribute.href("/index.css"),
-          attribute.rel("stylesheet"),
+          attr.href("/index.css"),
+          attr.rel("stylesheet"),
         ]),
       ]),
 
       html.script(
         [
-          attribute.attribute("defer", "true"),
-          attribute.type_("module"),
-          attribute.src("/index.js"),
+          attr.defer("true"),
+          attr.type_("module"),
+          attr.src("/index.js"),
         ],
-        "",
+        [
+          element.raw_text(""),
+        ],
       ),
     ]),
     body,
   ])
+  |> element.to_html_document
 }

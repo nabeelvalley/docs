@@ -15,7 +15,7 @@ const elements_header = "// This file is generated. Do not edit by hand
 //// Element creation functions scraped from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
 //// This list automatically excludes any elements or attributes that are deprecated
 
-import shoki/element.{type Attr, type ChildNode}
+import shoki/element
 "
 
 const attribute_out_file = "../src/shoki/attr.gleam"
@@ -32,7 +32,7 @@ type Scraped {
   Scraped(name: String, doc: String)
 }
 
-fn func(el: Scraped, args: String, impl: fn(String) -> String) {
+fn func(el: Scraped, args: fn(String) -> String, impl: fn(String) -> String) {
   let assert Ok(re) = regexp.from_string("\\s+")
 
   let name =
@@ -63,12 +63,33 @@ fn func(el: Scraped, args: String, impl: fn(String) -> String) {
       <> "pub fn "
       <> func_name
       <> "("
-      <> args
+      <> args(name)
       <> ") { "
       <> impl(name)
       <> " }"
     }
   }
+}
+
+/// List of void elements: https://developer.mozilla.org/en-US/docs/Glossary/Void_element
+fn void_tags() {
+  [
+    "area",
+    "base",
+    "br",
+    "col",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "link",
+    "meta",
+    "param ",
+    "source",
+    "track",
+    "wbr",
+  ]
+  |> set.from_list
 }
 
 fn scrape_els() {
@@ -98,8 +119,12 @@ fn scrape_els() {
     use matched <- soup.map(desc)
 
     case matched {
-      [[el], desc] -> Scraped(el, desc |> string.join(" ")) |> Ok
-      [[el]] -> Scraped(el, "") |> Ok
+      [els, desc] ->
+        els
+        |> list.filter(string.contains(_, "<"))
+        |> list.map(Scraped(_, desc |> string.join(" ")))
+        |> Ok
+      [els] -> els |> list.map(Scraped(_, "")) |> Ok
       _ -> Error(matched |> list.map(string.join(_, ";")) |> string.join(";"))
     }
   }
@@ -116,17 +141,34 @@ fn scrape_els() {
     |> soup.scrape(resp.body)
     |> result.map(list.flatten)
 
-  let deprecated_els = deprecated |> result.values |> set.from_list
+  let deprecated_els =
+    deprecated |> result.values |> list.flatten |> set.from_list
 
   all
   |> result.values
+  |> list.flatten
   |> set.from_list
   |> set.difference(deprecated_els)
   |> set.to_list
   |> list.map(
-    func(_, "attrs: List(Attr), children: List(ChildNode)", fn(name) {
-      "element.element(\"" <> name <> "\", attrs, children)"
-    }),
+    func(
+      _,
+      fn(name) {
+        let is_void = void_tags() |> set.contains(name)
+        case is_void {
+          True -> "attrs"
+          False -> "attrs, children"
+        }
+      },
+      fn(name) {
+        let is_void = void_tags() |> set.contains(name)
+
+        case is_void {
+          True -> "element.element(\"" <> name <> "\", attrs, [])"
+          False -> "element.element(\"" <> name <> "\", attrs, children)"
+        }
+      },
+    ),
   )
   |> string.join("\n\n")
   |> string.append(elements_header, _)
@@ -171,7 +213,7 @@ fn scrape_attrs() {
   all
   |> result.values
   |> list.map(
-    func(_, "value: String", fn(name) {
+    func(_, fn(_) { "value" }, fn(name) {
       "element.attribute(\"" <> name <> "\", value" <> ")"
     }),
   )
