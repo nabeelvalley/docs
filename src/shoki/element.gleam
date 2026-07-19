@@ -11,12 +11,7 @@ pub opaque type Attr {
 }
 
 pub opaque type Element {
-  Element(
-    tag: String,
-    attrs: List(Attr),
-    is_void: Bool,
-    children: List(ChildNode),
-  )
+  Element(tag: String, attrs: List(Attr), children: List(ChildNode))
 }
 
 pub opaque type ChildNode {
@@ -40,7 +35,7 @@ pub fn parse_doc(html str: String, with custom) {
 pub fn parse(html str: String, with custom) {
   str
   |> html.parse
-  |> to_elements_rec(void_tags(), custom)
+  |> to_elements_rec(custom)
 }
 
 fn to_attr(attr: html.Attr) {
@@ -70,19 +65,14 @@ fn void_tags() {
   |> set.from_list
 }
 
-pub fn to_elements_rec(parsed: List(html.Parsed), voids, with custom) {
+pub fn to_elements_rec(parsed: List(html.Parsed), with custom) {
   use node <- list.map(parsed)
 
   let el = case node {
     html.Text(text:) -> TextNode(False, text)
     html.Node(tag:, attributes:, children:) -> {
       let attrs = attributes |> list.map(to_attr)
-      Element(
-        tag,
-        attrs,
-        voids |> set.contains(tag),
-        to_elements_rec(children, voids, custom),
-      )
+      Element(tag, attrs, to_elements_rec(children, custom))
       |> ElementNode
     }
     html.Script(attributes:, script: content) -> {
@@ -107,11 +97,11 @@ pub fn to_elements_rec(parsed: List(html.Parsed), voids, with custom) {
 }
 
 pub fn script(attrs, script) {
-  Element("script", attrs, False, [TextNode(True, script)]) |> ElementNode
+  Element("script", attrs, [TextNode(True, script)]) |> ElementNode
 }
 
 pub fn style(attrs, script) {
-  Element("style", attrs, False, [TextNode(True, script)]) |> ElementNode
+  Element("style", attrs, [TextNode(True, script)]) |> ElementNode
 }
 
 const doctype_html = "<!doctype html>"
@@ -220,4 +210,12 @@ pub fn tmp_to_lustre_please_remove(els: List(ChildNode)) {
   |> list.map(node_to_string)
   |> string.join("")
   |> element.unsafe_raw_html("", "div", [], _)
+}
+
+pub fn element(tag, attrs, children) {
+  Element(tag:, attrs:, children:)
+}
+
+pub fn attribute(name, value) {
+  Attr(name:, value:)
 }

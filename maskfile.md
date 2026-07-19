@@ -3,8 +3,10 @@
 ## install
 
 ```sh
-gleam deps download
 pnpm install
+gleam deps download
+cd codegen
+gleam deps download
 ```
 
 ## build:client
@@ -92,4 +94,13 @@ Runs the static site generator using the default preset and outputs it to .test-
 
 ```sh
 gleam run -m shoki/preset/default -- --pages test/workspace/pages --static test/workspace/static --out .test-out
+```
+
+## codegen
+
+```sh
+cd codegen
+gleam run
+cd ..
+gleam format
 ```
