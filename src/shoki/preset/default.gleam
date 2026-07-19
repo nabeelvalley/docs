@@ -9,6 +9,7 @@ import gleam/string
 import lustre/attribute
 import lustre/element/html
 import shoki/date.{type IsoDate}
+import shoki/element
 import shoki/internal/fs
 import shoki/internal/preset
 import shoki/markdown
@@ -60,9 +61,12 @@ fn render_page(file: markdown.MarkdownFile(Frontmatter), tags: GroupedTags) {
 
   html.body([], [
     header(fm.title, tags),
-    html.main([], file |> markdown.render),
+    html.main([], [
+      file |> markdown.render |> element.tmp_to_lustre_please_remove,
+    ]),
   ])
   |> shared.page(fm.title, css_path)
+  |> element.tmp_doc_from_lustre_please_remove
   |> Ok
 }
 
@@ -84,7 +88,7 @@ fn header(title, tags: GroupedTags) {
 
 fn item(entry: Frontmatter) {
   html.li([], [
-    html.a([entry.path |> fs.site_path_to_href], [
+    html.a([entry.path |> fs.site_path_to_lustre_href], [
       html.text(entry.title),
     ]),
   ])
@@ -96,6 +100,7 @@ fn index(path, title, tags, entries) {
     html.main([], [html.ul([], entries |> list.map(item))]),
   ])
   |> shared.page(title, css_path)
+  |> element.tmp_doc_from_lustre_please_remove
   |> pipeline.create_html_file(path, _)
 }
 

@@ -1,8 +1,8 @@
 import gleam/list
 import gleam/result
 import gleam/string
-import lustre/element
 import shoki/component
+import shoki/element
 import shoki/internal/fs
 import shoki/shoki.{type ShokiResult}
 
@@ -17,7 +17,7 @@ type Renderer(state, aggregate) =
   fn(List(state), aggregate) -> ShokiResult(List(Asset))
 
 pub type Asset {
-  HTMLFile(path: fs.SitePath, html: element.Element(Nil))
+  HTMLFile(path: fs.SitePath, html: element.DocumentNode)
   CopyDir(from: fs.Path, to: fs.SitePath)
 }
 
@@ -117,7 +117,7 @@ pub fn write_all(out_dir: fs.Path, outputs: List(Asset)) {
   |> result.replace(Nil)
 }
 
-pub fn create_html_file(path: fs.SitePath, rendered: element.Element(Nil)) {
+pub fn create_html_file(path: fs.SitePath, rendered: element.DocumentNode) {
   HTMLFile(path, rendered)
 }
 
@@ -144,7 +144,7 @@ pub fn asset_to_readable_string(asset: Asset) {
       "HTMLFile: "
       <> path |> fs.site_path_to_string
       <> "\n"
-      <> html |> element.to_readable_string
+      <> html |> element.to_document_string
     CopyDir(from, to) ->
       "CopyDir: \n  from: "
       <> from |> fs.path_to_string

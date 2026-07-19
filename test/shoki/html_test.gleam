@@ -1,6 +1,6 @@
 import birdie
-import lustre/element
-import shoki/internal/html
+import gleam/dict
+import shoki/element
 
 const example_html = "
 <h2>Welcome!</h2>
@@ -26,9 +26,7 @@ const example_html = "
 
 pub fn parse_html_test() {
   example_html
-  |> html.parse
-  |> html.to_lustre
-  |> element.fragment
-  |> element.to_readable_string
-  |> birdie.snap("html to lustre")
+  |> element.parse_doc(dict.new())
+  |> element.to_document_string
+  |> birdie.snap("html to string")
 }

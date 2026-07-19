@@ -1,12 +1,12 @@
-import lustre/element
 import rendering/assets
+import shoki/element
 
 pub type Visited {
-  Visited(html: element.Element(Nil), assets: List(assets.Asset))
+  Visited(html: element.Element, assets: List(assets.Asset))
 }
 
 type Visit =
-  fn(element.Element(Nil)) -> Visited
+  fn(element.Element) -> Visited
 
 /// Represents a server component
 pub opaque type Component {
@@ -17,6 +17,6 @@ pub fn new(tag tag, visit visit) {
   Component(tag, visit)
 }
 
-pub fn render(page: element.Element(Nil), components: List(Component)) {
-  todo
+pub fn render(doc: element.DocumentNode, components: List(Component)) {
+  doc
 }

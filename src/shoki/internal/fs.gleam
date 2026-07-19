@@ -4,6 +4,7 @@ import gleam/list
 import gleam/result
 import gleam/string
 import lustre/attribute
+import shoki/element
 import shoki/shoki.{
   type ShokiResult, DirNotFound, ErrorCopyingDir, ErrorCreatingDir,
   ErrorDeletingDir, ErrorReadingTextFile, ErrorWritingTextFile, InvalidSitePath,
@@ -103,6 +104,10 @@ pub fn site_path_to_string(p: SitePath) {
 }
 
 pub fn site_path_to_href(p: SitePath) {
+  p.slug |> element.href
+}
+
+pub fn site_path_to_lustre_href(p: SitePath) {
   p.slug |> attribute.href
 }
 

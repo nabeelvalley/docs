@@ -1,49 +1,25 @@
-import gleam/list
-import lustre/attribute
-import lustre/element
-import lustre/element/html
-
-type Attrib =
+pub type Attr =
   #(String, String)
 
 pub type Parsed {
   Text(text: String)
-  Node(tag: String, attributes: List(Attrib), children: List(Parsed))
+  Node(tag: String, attributes: List(Attr), children: List(Parsed))
 
   /// Script tags are handled differently since their content
   /// should not be escaped when converting to Lustre
-  Script(attributes: List(Attrib), script: String)
+  Script(attributes: List(Attr), script: String)
 
   /// Style tags are handled differently since their content
   /// should not be escaped when converting to Lustre
-  Style(attributes: List(Attrib), stylesheet: String)
+  Style(attributes: List(Attr), stylesheet: String)
+}
+
+@external(javascript, "./html_ffi.mjs", "pretty")
+pub fn pretty(_html: String) -> String {
+  panic as "not supported for the given target"
 }
 
 @external(javascript, "./html_ffi.mjs", "parse")
 pub fn parse(_html: String) -> List(Parsed) {
   panic as "not supported for the given target"
-}
-
-fn to_attr(attrib: Attrib) {
-  let #(k, v) = attrib
-  attribute.attribute(k, v)
-}
-
-pub fn to_lustre(parsed: List(Parsed)) {
-  use node <- list.map(parsed)
-  case node {
-    Text(text:) -> html.text(text)
-    Node(tag:, attributes:, children:) -> {
-      let attrs = attributes |> list.map(to_attr)
-      element.element(tag, attrs, to_lustre(children))
-    }
-    Script(attributes:, script:) -> {
-      let attrs = attributes |> list.map(to_attr)
-      html.script(attrs, script)
-    }
-    Style(attributes:, stylesheet:) -> {
-      let attrs = attributes |> list.map(to_attr)
-      html.style(attrs, stylesheet)
-    }
-  }
 }

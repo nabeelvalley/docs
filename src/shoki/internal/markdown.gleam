@@ -1,5 +1,6 @@
+import gleam/dict
 import gleam/string
-import shoki/internal/html
+import shoki/element
 
 @external(javascript, "./markdown_ffi.mjs", "parse")
 fn md_to_html(_md: String) -> String {
@@ -10,6 +11,5 @@ pub fn parse(md: String) {
   md
   |> string.trim
   |> md_to_html
-  |> html.parse
-  |> html.to_lustre
+  |> element.parse(dict.new())
 }

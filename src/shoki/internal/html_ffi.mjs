@@ -1,4 +1,5 @@
 import { parseDocument, ElementType } from 'htmlparser2'
+import render from 'dom-serializer';
 
 import { Node, Text, Script, Style }
   // @ts-expect-error relative to current file
@@ -8,6 +9,14 @@ import { to_list as array_to_list }
   // @ts-expect-error relative this file's location in build/dev/javascript/web
   from '../../../gleam_javascript/gleam/javascript/array.mjs';
 
+ 
+/**
+ * @param {string} html
+ */
+export function pretty(html) {
+  const dom = parseDocument(html)
+  return render(dom)
+}
 
 /**
  * @param {string} html

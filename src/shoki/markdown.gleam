@@ -2,7 +2,7 @@ import gleam/dict
 import gleam/list
 import gleam/result
 import gleam/string
-import lustre/element
+import shoki/element
 import shoki/internal/fs
 import shoki/internal/markdown
 import shoki/pipeline
@@ -94,7 +94,7 @@ fn to_site_path(base: fs.Path, file: fs.Path) {
   fs.to_site_path(base, file, exts())
 }
 
-pub fn to_html_file(file: MarkdownFile(a), rendered: element.Element(Nil)) {
+pub fn to_html_file(file: MarkdownFile(a), rendered: element.DocumentNode) {
   pipeline.HTMLFile(file.site_path, rendered)
 }
 
