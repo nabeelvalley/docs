@@ -45,6 +45,7 @@ pub fn parse(str: String) {
 pub fn to_string(date: IsoDate, sep) {
   [date.year, date.month, date.day]
   |> list.map(int.to_string)
+  |> list.map(string.pad_start(_, 2, "0"))
   |> string.join(sep)
 }
 

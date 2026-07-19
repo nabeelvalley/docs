@@ -1,4 +1,4 @@
-import shoki/internal/date
+import shoki/date
 
 @external(javascript, "./date_ffi.mjs", "toRFC822")
 fn to_rfc_822(_date: String) -> String {

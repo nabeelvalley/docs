@@ -9,7 +9,13 @@ type Attrib =
 pub type Parsed {
   Text(text: String)
   Node(tag: String, attributes: List(Attrib), children: List(Parsed))
+
+  /// Script tags are handled differently since their content
+  /// should not be escaped when converting to Lustre
   Script(attributes: List(Attrib), script: String)
+
+  /// Style tags are handled differently since their content
+  /// should not be escaped when converting to Lustre
   Style(attributes: List(Attrib), stylesheet: String)
 }
 

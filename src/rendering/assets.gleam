@@ -8,7 +8,7 @@ import gleam/order
 import gleam/regexp
 import gleam/result
 import js/sharp
-import shoki/internal/date
+import shoki/date
 import util
 
 pub type Paths {

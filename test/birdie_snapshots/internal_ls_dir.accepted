@@ -1,7 +1,7 @@
 ---
 version: 2.0.1
 title: internal ls_dir
-file: ./test/shoki/internal_test.gleam
+file: ./test/shoki/pipeline_test.gleam
 test_name: ls_dir_test
 ---
 test/workspace/pages/about.md

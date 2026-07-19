@@ -1,7 +1,7 @@
 ---
 version: 2.0.1
 title: nested error formatting
-file: ./test/shoki/internal_test.gleam
+file: ./test/shoki/pipeline_test.gleam
 test_name: print_error_test
 ---
 my/file1.md

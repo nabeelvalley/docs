@@ -5,7 +5,7 @@ import clip/opt
 import gleam/io
 import gleam/result
 import shoki/internal/fs
-import shoki/internal/pipeline
+import shoki/pipeline
 import shoki/shoki
 
 pub fn run_main(create_pipeline) {

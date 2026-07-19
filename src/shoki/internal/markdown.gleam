@@ -1,7 +1,7 @@
 import gleam/string
 import shoki/internal/html
 
-@external(javascript, "./md_ffi.mjs", "parse")
+@external(javascript, "./markdown_ffi.mjs", "parse")
 fn md_to_html(_md: String) -> String {
   panic as "not supported for the given target"
 }

@@ -8,10 +8,11 @@ import gleam/result
 import gleam/string
 import lustre/attribute
 import lustre/element/html
-import shoki/internal/date.{type IsoDate}
+import shoki/date.{type IsoDate}
 import shoki/internal/fs
-import shoki/internal/pipeline
 import shoki/internal/preset
+import shoki/markdown
+import shoki/pipeline
 import shoki/preset/shared
 import shoki/shoki
 
@@ -54,12 +55,12 @@ pub fn group_by_tag(frontmatters: List(Frontmatter)) -> GroupedTags {
 
 const css_path = "/default.css"
 
-fn render_page(file: pipeline.MarkdownFile(Frontmatter), tags: GroupedTags) {
-  let fm = file |> pipeline.frontmatter
+fn render_page(file: markdown.MarkdownFile(Frontmatter), tags: GroupedTags) {
+  let fm = file |> markdown.frontmatter
 
   html.body([], [
     header(fm.title, tags),
-    html.main([], file |> pipeline.render_markdown),
+    html.main([], file |> markdown.render),
   ])
   |> shared.page(fm.title, css_path)
   |> Ok
@@ -135,7 +136,7 @@ fn render_index(tags: GroupedTags) {
 
 pub fn create_pipeline(content_dir: fs.Path, static_dir: fs.Path) {
   let pipeline =
-    pipeline.from_markdown(
+    markdown.from_markdown(
       dir: content_dir,
       decode: frontmatter_decoder,
       agg: group_by_tag,

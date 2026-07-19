@@ -2,7 +2,7 @@ import birdie
 import gleam/list
 import gleam/string
 import shoki/internal/fs
-import shoki/internal/pipeline
+import shoki/pipeline
 import shoki/preset/default
 import shoki/shoki
 
