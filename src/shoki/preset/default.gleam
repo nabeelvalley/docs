@@ -17,7 +17,7 @@ import shoki/shoki
 
 pub opaque type Frontmatter {
   Frontmatter(
-    path: fs.SiteFilePath,
+    path: fs.SitePath,
     draft: Bool,
     title: String,
     description: Option(String),
@@ -26,7 +26,7 @@ pub opaque type Frontmatter {
   )
 }
 
-fn frontmatter_decoder(path: fs.SiteFilePath) -> decode.Decoder(Frontmatter) {
+fn frontmatter_decoder(path: fs.SitePath) -> decode.Decoder(Frontmatter) {
   use draft <- decode.optional_field("draft", False, decode.bool)
   use title <- decode.field("title", decode.string)
   use description <- decode.field("description", decode.optional(decode.string))
@@ -133,7 +133,7 @@ fn render_index(tags: GroupedTags) {
   |> Ok
 }
 
-pub fn create_pipeline(content_dir: fs.DirPath, static_dir: fs.DirPath) {
+pub fn create_pipeline(content_dir: fs.Path, static_dir: fs.Path) {
   let pipeline =
     pipeline.from_markdown(
       dir: content_dir,

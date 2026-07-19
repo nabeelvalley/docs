@@ -15,8 +15,8 @@ pub fn run_main(create_pipeline) {
       use static <- clip.parameter
       use out <- clip.parameter
 
-      use pages <- result.try(fs.from_relative_dir(pages))
-      use static <- result.try(fs.from_relative_dir(static))
+      use pages <- result.try(fs.from_cwd(pages))
+      use static <- result.try(fs.from_cwd(static))
       use out <- result.try(fs.ensure_relative_dir(out))
 
       let pipeline = create_pipeline(pages, static)

@@ -27,7 +27,6 @@ const example_html = "
 pub fn parse_html_test() {
   example_html
   |> html.parse
-  |> echo
   |> html.to_lustre
   |> element.fragment
   |> element.to_readable_string

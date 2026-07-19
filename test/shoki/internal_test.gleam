@@ -10,26 +10,27 @@ fn dir_to_string(dir) {
   let assert Ok(files) = fs.ls_dir(dir)
 
   files
-  |> list.map(fs.file_path_to_string)
+  |> list.map(fs.path_to_string)
   |> list.sort(string.compare)
   |> string.join("\n")
 }
 
 pub fn ls_dir_test() {
-  let assert Ok(dir) = fs.from_relative_dir("./test/workspace")
+  let assert Ok(dir) = fs.from_cwd("./test/workspace")
 
   dir_to_string(dir)
   |> birdie.snap("internal ls_dir")
 }
 
 pub fn default_pipeline_test() {
-  let assert Ok(pages) = fs.from_relative_dir("./test/workspace/pages")
-  let assert Ok(static) = fs.from_relative_dir("./test/workspace/static")
+  let assert Ok(pages) = fs.from_cwd("./test/workspace/pages")
+  let assert Ok(static) = fs.from_cwd("./test/workspace/static")
 
   let default_pipeline = default.create_pipeline(pages, static)
   let assert Ok(assets) = pipeline.run(default_pipeline)
 
   assets
+  |> pipeline.sort_assets
   |> list.map(pipeline.asset_to_readable_string)
   |> string.join("\n\n")
   |> birdie.snap("workspace assets")

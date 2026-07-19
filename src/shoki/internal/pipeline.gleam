@@ -3,7 +3,7 @@ import gleam/list
 import gleam/result
 import gleam/string
 import lustre/element
-import shoki/internal/fs.{type DirPath}
+import shoki/internal/fs
 import shoki/internal/md
 import shoki/shoki.{type ShokiResult, ErrorReadingFrontmatter}
 import yamleam
@@ -19,8 +19,8 @@ type Renderer(page, aggregate) =
   fn(List(page), aggregate) -> ShokiResult(List(Asset))
 
 pub opaque type Asset {
-  HTMLFile(path: fs.SiteFilePath, html: element.Element(Nil))
-  CopyDir(from: fs.DirPath, to: fs.SiteDirPath)
+  HTMLFile(path: fs.SitePath, html: element.Element(Nil))
+  CopyDir(from: fs.Path, to: fs.SitePath)
 }
 
 /// load -> process -> persist
@@ -36,16 +36,16 @@ pub opaque type Pipeline(page, aggregate) {
 
 pub opaque type MarkdownFile(a) {
   MarkdownFile(
-    path: fs.FilePath,
-    site_path: fs.SiteFilePath,
+    path: fs.Path,
+    site_path: fs.SitePath,
     frontmatter: a,
     content: String,
   )
 }
 
 fn read_markdown_file(
-  dir: fs.DirPath,
-  file: fs.FilePath,
+  dir: fs.Path,
+  file: fs.Path,
   frontmatter_decoder,
 ) -> ShokiResult(MarkdownFile(a)) {
   use content <- result.try(fs.read_text_file(file))
@@ -65,7 +65,7 @@ fn read_markdown_file(
         yamleam.parse(fm, decode)
         |> result.replace_error(
           ErrorReadingFrontmatter(fm)
-          |> shoki.error_context(file |> fs.file_path_to_string),
+          |> shoki.error_context(file |> fs.path_to_string),
         ),
       )
 
@@ -80,7 +80,7 @@ fn read_markdown_file(
   }
 }
 
-fn read_markdown_files(dir: DirPath, decode_frontmatter) {
+fn read_markdown_files(dir: fs.Path, decode_frontmatter) {
   use files <- result.try(fs.ls_dir(dir))
 
   files
@@ -89,7 +89,7 @@ fn read_markdown_files(dir: DirPath, decode_frontmatter) {
   |> shoki.collate_errors
 }
 
-pub fn from_markdown(dir dir: DirPath, decode decode, agg agg, render render) {
+pub fn from_markdown(dir dir: fs.Path, decode decode, agg agg, render render) {
   Pipeline(
     load: fn() {
       use pages <- result.map(read_markdown_files(dir, decode))
@@ -143,9 +143,9 @@ pub fn with(
   })
 }
 
-pub fn static_dir(from: fs.DirPath) {
+pub fn static_dir(from: fs.Path) {
   fn(_) {
-    use to <- result.map(fs.site_dir_from_string("/"))
+    use to <- result.map(fs.site_path_from_string("/"))
     CopyDir(from, to) |> list.wrap
   }
 }
@@ -155,7 +155,7 @@ pub fn run(pipeline: Pipeline(page, aggregate)) {
   pipeline.render(loaded.pages, loaded.aggregated)
 }
 
-fn write_one(out_dir: fs.DirPath, output: Asset) {
+fn write_one(out_dir: fs.Path, output: Asset) {
   case output {
     HTMLFile(path:, html:) ->
       fs.write_site_file(out_dir, path, html |> element.to_document_string)
@@ -163,7 +163,7 @@ fn write_one(out_dir: fs.DirPath, output: Asset) {
   }
 }
 
-pub fn write_all(out_dir: fs.DirPath, outputs: List(Asset)) {
+pub fn write_all(out_dir: fs.Path, outputs: List(Asset)) {
   use _ <- result.try(fs.delete_dir(out_dir))
   outputs
   |> list.map(write_one(out_dir, _))
@@ -180,7 +180,7 @@ fn markdown_ext_replacements() {
   |> dict.insert(fs.MD, fs.HTML)
 }
 
-fn md_file_to_site_path(base: fs.DirPath, file: fs.FilePath) {
+fn md_file_to_site_path(base: fs.Path, file: fs.Path) {
   fs.to_site_path(base, file, markdown_ext_replacements())
 }
 
@@ -188,12 +188,29 @@ pub fn to_html_file(file: MarkdownFile(a), rendered: element.Element(Nil)) {
   HTMLFile(file.site_path, rendered)
 }
 
-pub fn create_html_file(path: fs.SiteFilePath, rendered: element.Element(Nil)) {
+pub fn create_html_file(path: fs.SitePath, rendered: element.Element(Nil)) {
   HTMLFile(path, rendered)
 }
 
 pub fn render_markdown(file: MarkdownFile(a)) {
   file.content |> md.parse
+}
+
+pub fn sort_assets(assets: List(Asset)) {
+  assets
+  |> list.sort(fn(a, b) {
+    string.compare(
+      a |> asset_path |> fs.site_path_to_string,
+      b |> asset_path |> fs.site_path_to_string,
+    )
+  })
+}
+
+fn asset_path(asset: Asset) {
+  case asset {
+    HTMLFile(path:, html: _) -> path
+    CopyDir(from: _, to:) -> to
+  }
 }
 
 pub fn asset_to_readable_string(asset: Asset) {
@@ -205,8 +222,8 @@ pub fn asset_to_readable_string(asset: Asset) {
       <> html |> element.to_readable_string
     CopyDir(from, to) ->
       "CopyDir: \n  from: "
-      <> from |> fs.dir_path_to_string
+      <> from |> fs.path_to_string
       <> "\n  to: "
-      <> to |> fs.site_dir_to_string
+      <> to |> fs.site_path_to_string
   }
 }
