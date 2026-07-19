@@ -1,4 +1,4 @@
-//// Element creation functions scraped from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference
+//// Element creation functions scraped from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
 //// This list automatically excludes any elements or attributes that are deprecated
 
 // This file is generated. Do not edit by hand

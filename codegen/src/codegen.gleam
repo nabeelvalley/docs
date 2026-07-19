@@ -12,7 +12,7 @@ const elements_out_file = "../src/shoki/html.gleam"
 
 const elements_header = "// This file is generated. Do not edit by hand
 
-//// Element creation functions scraped from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference
+//// Element creation functions scraped from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements
 //// This list automatically excludes any elements or attributes that are deprecated
 
 import shoki/element.{type Attr, type ChildNode}
@@ -22,7 +22,7 @@ const attribute_out_file = "../src/shoki/attr.gleam"
 
 const attributes_header = "// This file is generated. Do not edit by hand
 
-//// Element creation functions scraped from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference
+//// Element creation functions scraped from https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes
 //// This list automatically excludes any elements or attributes that are deprecated
 
 import shoki/element
