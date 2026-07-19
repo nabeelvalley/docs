@@ -1,6 +1,7 @@
 import birdie
 import gleam/list
 import gleam/string
+import shoki/component
 import shoki/internal/fs
 import shoki/pipeline
 import shoki/preset/default
@@ -26,14 +27,36 @@ pub fn default_pipeline_test() {
   let assert Ok(pages) = fs.from_cwd("./test/workspace/pages")
   let assert Ok(static) = fs.from_cwd("./test/workspace/static")
 
-  let default_pipeline = default.create_pipeline(pages, static)
-  let assert Ok(assets) = pipeline.run(default_pipeline)
+  let pipeline = default.create_pipeline(pages, static)
+  let assert Ok(assets) = pipeline.run(pipeline)
 
   assets
-  |> pipeline.sort_assets
-  |> list.map(pipeline.asset_to_readable_string)
-  |> string.join("\n\n")
-  |> birdie.snap("workspace assets")
+  |> pipeline.assets_to_readable_string
+  |> birdie.snap("default pipeline assets")
+}
+
+pub fn pipeline_with_components_test() {
+  let assert Ok(pages) = fs.from_cwd("./test/workspace/pages")
+  let assert Ok(static) = fs.from_cwd("./test/workspace/static")
+  let assert Ok(custom_tag_page_path) =
+    fs.site_path_from_string("/blog/second_post.html")
+
+  let components = [
+    component.new("my-custom-tag", fn(x) { component.Visited(x, []) }),
+  ]
+
+  let pipeline =
+    default.create_pipeline(pages, static)
+    |> pipeline.with_components(components)
+
+  let assert Ok(assets) = pipeline.run(pipeline)
+
+  let assert Ok(custom_tag_page) =
+    assets |> pipeline.find_asset(custom_tag_page_path)
+
+  custom_tag_page
+  |> pipeline.asset_to_readable_string
+  |> birdie.snap("custom component assets")
 }
 
 pub fn print_error_test() {

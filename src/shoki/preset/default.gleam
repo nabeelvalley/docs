@@ -142,9 +142,9 @@ pub fn create_pipeline(content_dir: fs.Path, static_dir: fs.Path) {
       agg: group_by_tag,
       render: render_page,
     )
-    |> pipeline.with(render_index)
-    |> pipeline.with(render_indices)
-    |> pipeline.with(pipeline.static_dir(static_dir))
+    |> pipeline.with_aggregate(render_index)
+    |> pipeline.with_aggregate(render_indices)
+    |> pipeline.with_aggregate(pipeline.static_dir(static_dir))
 
   pipeline
 }

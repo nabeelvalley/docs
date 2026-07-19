@@ -2,6 +2,7 @@ import gleam/list
 import gleam/result
 import gleam/string
 import lustre/element
+import shoki/component
 import shoki/internal/fs
 import shoki/shoki.{type ShokiResult}
 
@@ -9,11 +10,11 @@ pub opaque type Loaded(page, aggregate) {
   Loaded(pages: List(page), aggregated: aggregate)
 }
 
-type Loader(page, aggregate) =
-  fn() -> ShokiResult(Loaded(page, aggregate))
+type Loader(state, aggregate) =
+  fn() -> ShokiResult(Loaded(state, aggregate))
 
-type Renderer(page, aggregate) =
-  fn(List(page), aggregate) -> ShokiResult(List(Asset))
+type Renderer(state, aggregate) =
+  fn(List(state), aggregate) -> ShokiResult(List(Asset))
 
 pub type Asset {
   HTMLFile(path: fs.SitePath, html: element.Element(Nil))
@@ -21,13 +22,13 @@ pub type Asset {
 }
 
 /// load -> process -> persist
-pub opaque type Pipeline(page, aggregate) {
+pub opaque type Pipeline(state, aggregate) {
   Pipeline(
     /// Loads all data in so that any non-render output
     /// can be shared with other pages and pipelines
-    load: Loader(page, aggregate),
+    load: Loader(state, aggregate),
     /// Process a single page - receives aggregated data
-    render: Renderer(page, aggregate),
+    render: Renderer(state, aggregate),
   )
 }
 
@@ -64,7 +65,19 @@ pub fn merge(
   )
 }
 
-pub fn with(
+pub fn with_components(from: Pipeline(page, aggregate), components) {
+  Pipeline(load: from.load, render: fn(pages, aggregated) {
+    use prev_result <- result.map(from.render(pages, aggregated))
+    use asset <- list.map(prev_result)
+    case asset {
+      HTMLFile(path:, html:) ->
+        HTMLFile(path, component.render(html, components))
+      _ -> asset
+    }
+  })
+}
+
+pub fn with_aggregate(
   from: Pipeline(page, aggregate),
   render: fn(aggregate) -> ShokiResult(List(Asset)),
 ) {
@@ -138,4 +151,15 @@ pub fn asset_to_readable_string(asset: Asset) {
       <> "\n  to: "
       <> to |> fs.site_path_to_string
   }
+}
+
+pub fn find_asset(assets: List(Asset), path: fs.SitePath) {
+  assets |> list.find(fn(a) { path == a |> asset_path })
+}
+
+pub fn assets_to_readable_string(assets: List(Asset)) {
+  assets
+  |> sort_assets
+  |> list.map(asset_to_readable_string)
+  |> string.join("\n\n")
 }

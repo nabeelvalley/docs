@@ -1,6 +1,6 @@
 ---
 version: 2.0.1
-title: workspace assets
+title: default pipeline assets
 file: ./test/shoki/pipeline_test.gleam
 test_name: default_pipeline_test
 ---
