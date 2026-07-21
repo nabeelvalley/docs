@@ -26,6 +26,10 @@ An interactive tree-based search tool with custom preview
 
 Developers don't read documentation. Just bring it to them instead.
 
+## [mellie](https://github.com/sftsrv/mellie)
+
+A Gleam library for working with HTML that supports JavaScript and Erlang
+
 ## [Lynks](https://github.com/sftsrv/lynks)
 
 A CLI tool for interactively fixing links in markdown files
