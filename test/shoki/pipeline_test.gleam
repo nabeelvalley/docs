@@ -1,8 +1,12 @@
 import birdie
 import gleam/list
 import gleam/string
+import mellie
+import mellie/attr
+import mellie/html
 import shoki/component
 import shoki/internal/fs
+import shoki/markdown
 import shoki/pipeline
 import shoki/preset/default
 import shoki/shoki
@@ -37,16 +41,45 @@ pub fn default_pipeline_test() {
 
 pub fn pipeline_with_components_test() {
   let assert Ok(pages) = fs.from_cwd("./test/workspace/pages")
-  let assert Ok(static) = fs.from_cwd("./test/workspace/static")
+  let assert Ok(_static) = fs.from_cwd("./test/workspace/static")
   let assert Ok(custom_tag_page_path) =
     fs.site_path_from_string("/blog/second_post.html")
 
+  let assert Ok(text_output_file_path) =
+    fs.site_path_from_string("/blog/second_post_text.html")
+
   let components = [
-    component.new("my-custom-tag", fn(x) { component.Visited(x, []) }),
+    component.new("my-custom-tag", fn(el) {
+      let text =
+        el
+        |> mellie.inner_text
+
+      let data =
+        text
+        |> html.text
+        |> pipeline.HTMLFile(text_output_file_path, _)
+
+      let new_el =
+        html.data(
+          [
+            attr.value(
+              text
+              |> string.replace("\n", " + "),
+            ),
+          ],
+          [html.text("My Updated Tag")],
+        )
+      component.Visited(new_el, [data])
+    }),
   ]
 
   let pipeline =
-    default.create_pipeline(pages, static)
+    markdown.from_markdown(
+      dir: pages,
+      decode: default.frontmatter_decoder,
+      agg: default.group_by_tag,
+      render: default.render_page,
+    )
     |> pipeline.with_components(components)
 
   let assert Ok(assets) = pipeline.run(pipeline)
@@ -54,8 +87,11 @@ pub fn pipeline_with_components_test() {
   let assert Ok(custom_tag_page) =
     assets |> pipeline.find_asset(custom_tag_page_path)
 
-  custom_tag_page
-  |> pipeline.asset_to_readable_string
+  let assert Ok(text_output_page) =
+    assets |> pipeline.find_asset(text_output_file_path)
+
+  [custom_tag_page, text_output_page]
+  |> pipeline.assets_to_readable_string
   |> birdie.snap("custom component assets")
 }
 

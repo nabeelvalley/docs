@@ -1,5 +1,5 @@
 ---
-version: 2.0.1
+version: 2.0.2
 title: nested error formatting
 file: ./test/shoki/pipeline_test.gleam
 test_name: print_error_test

@@ -1,5 +1,5 @@
 ---
-version: 2.0.1
+version: 2.0.2
 title: internal ls_dir
 file: ./test/shoki/pipeline_test.gleam
 test_name: ls_dir_test

@@ -6,10 +6,9 @@ import gleam/order
 import gleam/pair
 import gleam/result
 import gleam/string
-import shoki/attr
+import mellie/attr
+import mellie/html
 import shoki/date.{type IsoDate}
-import shoki/element
-import shoki/html
 import shoki/internal/fs
 import shoki/internal/preset
 import shoki/markdown
@@ -28,7 +27,7 @@ pub opaque type Frontmatter {
   )
 }
 
-fn frontmatter_decoder(path: fs.SitePath) -> decode.Decoder(Frontmatter) {
+pub fn frontmatter_decoder(path: fs.SitePath) -> decode.Decoder(Frontmatter) {
   use draft <- decode.optional_field("draft", False, decode.bool)
   use title <- decode.field("title", decode.string)
   use description <- decode.field("description", decode.optional(decode.string))
@@ -56,27 +55,30 @@ pub fn group_by_tag(frontmatters: List(Frontmatter)) -> GroupedTags {
 
 const css_path = "/default.css"
 
-fn render_page(file: markdown.MarkdownFile(Frontmatter), tags: GroupedTags) {
+pub fn render_page(
+  file: markdown.MarkdownFile(Frontmatter),
+  tags: GroupedTags,
+) {
+  use md <- result.map(markdown.render(file))
   let fm = file |> markdown.frontmatter
 
   html.body([], [
     header(fm.title, tags),
-    html.main([], file |> markdown.render),
+    html.main([], [md]),
   ])
   |> shared.page(fm.title, css_path)
-  |> Ok
 }
 
 fn header(title, tags: GroupedTags) {
   html.header([], [
-    html.h1([], [element.text(title)]),
+    html.h1([], [html.text(title)]),
     html.nav([], [
       html.ul(
         [],
         tags
           |> dict.keys
           |> list.map(fn(tag) {
-            html.li([], [html.a([attr.href("/" <> tag)], [element.text(tag)])])
+            html.li([], [html.a([attr.href("/" <> tag)], [html.text(tag)])])
           }),
       ),
     ]),
@@ -86,7 +88,7 @@ fn header(title, tags: GroupedTags) {
 fn item(entry: Frontmatter) {
   html.li([], [
     html.a([entry.path |> fs.site_path_to_href], [
-      element.text(entry.title),
+      html.text(entry.title),
     ]),
   ])
 }

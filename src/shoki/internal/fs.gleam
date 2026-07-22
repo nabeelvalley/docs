@@ -3,8 +3,7 @@ import gleam/dict
 import gleam/list
 import gleam/result
 import gleam/string
-import lustre/attribute
-import shoki/element
+import mellie/attr
 import shoki/shoki.{
   type ShokiResult, DirNotFound, ErrorCopyingDir, ErrorCreatingDir,
   ErrorDeletingDir, ErrorReadingTextFile, ErrorWritingTextFile, InvalidSitePath,
@@ -104,11 +103,7 @@ pub fn site_path_to_string(p: SitePath) {
 }
 
 pub fn site_path_to_href(p: SitePath) {
-  p.slug |> element.href
-}
-
-pub fn site_path_to_lustre_href(p: SitePath) {
-  p.slug |> attribute.href
+  p.slug |> attr.href
 }
 
 pub fn read_text_file(p: Path) {

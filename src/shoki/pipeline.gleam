@@ -1,8 +1,8 @@
 import gleam/list
 import gleam/result
 import gleam/string
+import mellie
 import shoki/component
-import shoki/element
 import shoki/internal/fs
 import shoki/shoki.{type ShokiResult}
 
@@ -17,7 +17,7 @@ type Renderer(state, aggregate) =
   fn(List(state), aggregate) -> ShokiResult(List(Asset))
 
 pub type Asset {
-  HTMLFile(path: fs.SitePath, html: element.DocumentNode)
+  HTMLFile(path: fs.SitePath, html: mellie.ElementTree)
   CopyDir(from: fs.Path, to: fs.SitePath)
 }
 
@@ -65,18 +65,6 @@ pub fn merge(
   )
 }
 
-pub fn with_components(from: Pipeline(page, aggregate), components) {
-  Pipeline(load: from.load, render: fn(pages, aggregated) {
-    use prev_result <- result.map(from.render(pages, aggregated))
-    use asset <- list.map(prev_result)
-    case asset {
-      HTMLFile(path:, html:) ->
-        HTMLFile(path, component.render(html, components))
-      _ -> asset
-    }
-  })
-}
-
 pub fn with_aggregate(
   from: Pipeline(page, aggregate),
   render: fn(aggregate) -> ShokiResult(List(Asset)),
@@ -86,6 +74,29 @@ pub fn with_aggregate(
     use next_result <- result.try(render(aggregated))
 
     list.append(prev_result, next_result) |> Ok
+  })
+}
+
+pub fn with_components(
+  from: Pipeline(page, aggregate),
+  comps: List(component.Component(List(Asset))),
+) {
+  let render = component.render(_, comps)
+  Pipeline(load: from.load, render: fn(pages, aggregated) {
+    use assets <- result.try(from.render(pages, aggregated))
+    let rendered =
+      assets
+      |> list.map(fn(asset) {
+        case asset {
+          HTMLFile(path:, html:) -> {
+            let #(html, assets) = render(html)
+            [HTMLFile(path:, html:), ..assets |> list.flatten]
+          }
+          _ -> [asset]
+        }
+      })
+
+    rendered |> list.flatten |> Ok
   })
 }
 
@@ -104,7 +115,7 @@ pub fn run(pipeline: Pipeline(page, aggregate)) {
 fn write_one(out_dir: fs.Path, output: Asset) {
   case output {
     HTMLFile(path:, html:) ->
-      fs.write_site_file(out_dir, path, html |> element.to_document_string)
+      fs.write_site_file(out_dir, path, html |> mellie.to_document_string)
     CopyDir(from:, to:) -> fs.copy_site_dir(out_dir, from, to)
   }
 }
@@ -117,7 +128,7 @@ pub fn write_all(out_dir: fs.Path, outputs: List(Asset)) {
   |> result.replace(Nil)
 }
 
-pub fn create_html_file(path: fs.SitePath, rendered: element.DocumentNode) {
+pub fn create_html_file(path: fs.SitePath, rendered: mellie.ElementTree) {
   HTMLFile(path, rendered)
 }
 
@@ -144,7 +155,7 @@ pub fn asset_to_readable_string(asset: Asset) {
       "HTMLFile: "
       <> path |> fs.site_path_to_string
       <> "\n"
-      <> html |> element.to_document_string
+      <> html |> mellie.to_document_string
     CopyDir(from, to) ->
       "CopyDir: \n  from: "
       <> from |> fs.path_to_string

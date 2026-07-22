@@ -1,6 +1,5 @@
 import birdie
-import gleam/dict
-import shoki/element
+import mellie
 
 const example_html = "
 <h2>Welcome!</h2>
@@ -25,8 +24,11 @@ const example_html = "
 "
 
 pub fn parse_html_test() {
-  example_html
-  |> element.parse_doc(dict.new())
-  |> element.to_document_string
+  let assert Ok(result) =
+    example_html
+    |> mellie.parse
+
+  result
+  |> mellie.to_document_string
   |> birdie.snap("html to string")
 }

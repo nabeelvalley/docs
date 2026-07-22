@@ -1,5 +1,5 @@
 ---
-version: 2.0.1
+version: 2.0.2
 title: markdown content
 file: ./test/web_test.gleam
 test_name: extract_frontmatter_test

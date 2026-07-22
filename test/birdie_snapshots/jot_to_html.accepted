@@ -1,5 +1,5 @@
 ---
-version: 2.0.1
+version: 2.0.2
 title: jot to html
 file: ./test/shoki/markdown_test.gleam
 test_name: jot_test

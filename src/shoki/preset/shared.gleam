@@ -1,11 +1,10 @@
-import shoki/attr
-import shoki/element
-import shoki/html
+import mellie/attr
+import mellie/html
 
 pub fn page(body, title, css_path) {
   html.html([attr.lang("en")], [
     html.head([], [
-      html.title([], [element.text(title)]),
+      html.title([], [html.text(title)]),
 
       html.meta([attr.charset("UTF-8")]),
       html.meta([
@@ -37,11 +36,10 @@ pub fn page(body, title, css_path) {
           attr.src("/index.js"),
         ],
         [
-          element.raw_text(""),
+          html.text(""),
         ],
       ),
     ]),
     body,
   ])
-  |> element.to_html_document
 }

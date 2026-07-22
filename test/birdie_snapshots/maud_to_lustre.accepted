@@ -1,5 +1,5 @@
 ---
-version: 2.0.1
+version: 2.0.2
 title: maud to lustre
 file: ./test/shoki/markdown_test.gleam
 test_name: maud_test

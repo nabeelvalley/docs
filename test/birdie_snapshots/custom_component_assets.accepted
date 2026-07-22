@@ -7,36 +7,45 @@ test_name: pipeline_with_components_test
 HTMLFile: /blog/second_post.html
 <!doctype html>
 <html lang="en">
-<head>
-<title>Second Post</title>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" type="image/x-icon" href="/favicon.png" />
-<link href="/default.css" rel="stylesheet" />
-<noscript>
-<link href="/index.css" rel="stylesheet" /></noscript>
-<script defer="true" type="module" src="/index.js"></script></head>
-<body>
-<header>
-<h1>Second Post</h1>
-<nav>
-<ul>
-<li>
-<a href="/special">special</a></li>
-<li>
-<a href="/blog">blog</a></li></ul></nav></header>
-<main>
-<h2>Welcome!</h2>
+  <head>
+    <title>Second Post</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link href="/default.css" rel="stylesheet">
+    <noscript>
+      <link href="/index.css" rel="stylesheet">
+    </noscript>
+    <script defer="true" type="module" src="/index.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Second Post</h1>
+      <nav>
+        <ul>
+          <li>
+            <a href="/special">special</a>
+          </li>
+          <li>
+            <a href="/blog">blog</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div>
+        <h2>Welcome!</h2>
+        <p>This is some content in Markdown that can be rendered to your site</p>
+        <p>Here&#39;s a code block and some other
+          <em>fancy</em>
+          formatting</p>
+        <data value="Nested Heading + code |> print_me |> echo +  + ">My Updated Tag</data>
+      </div>
+    </main>
+  </body>
+</html>
 
-<p>This is some content in Markdown that can be rendered to your site</p>
-
-<p>Here&#39;s a code block and some other 
-<em>fancy</em> formatting</p>
-
-<my-custom-tag data="hello world">
-<h2>Nested Heading</h2>
-
-<pre>
-<code class="language-gleam">code |&gt; print_me |&gt; echo
-</code></pre>
-</my-custom-tag></main></body></html>
+HTMLFile: /blog/second_post_text.html
+<!doctype html>
+Nested Heading
+code |&gt; print_me |&gt; echo

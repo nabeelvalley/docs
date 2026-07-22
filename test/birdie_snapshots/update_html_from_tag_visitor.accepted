@@ -1,5 +1,5 @@
 ---
-version: 2.0.1
+version: 2.0.2
 title: update html from tag visitor
 file: ./test/web_test.gleam
 test_name: update_dom_test

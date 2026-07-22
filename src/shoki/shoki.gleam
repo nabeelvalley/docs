@@ -20,6 +20,7 @@ pub type ShokiErr {
   DateParseError(String)
   InvalidSitePath(String)
   InvalidSiteDir(String)
+  ErrorRenderingMarkdown(String)
 }
 
 /// A drop-in replacement for result.all for merging errors into a single error object
@@ -62,7 +63,8 @@ fn error_to_string_rec(err: ShokiErr, indent) {
     DateParseError(msg) -> "DateParseError: " <> msg
     InvalidSitePath(msg) -> "InvalidSitePath: " <> msg
     InvalidSiteDir(msg) -> "InvalidSiteDir: " <> msg
-    ErrorCopyingDir(msg) -> "Error Copying Dir: " <> msg
+    ErrorCopyingDir(msg) -> "ErrorCopyingDir: " <> msg
+    ErrorRenderingMarkdown(msg) -> "ErrorRenderingMarkdown: " <> msg
   }
   |> indent_str(indent)
 }

@@ -2,7 +2,7 @@ import gleam/dict
 import gleam/list
 import gleam/result
 import gleam/string
-import shoki/element
+import mellie
 import shoki/internal/fs
 import shoki/internal/markdown
 import shoki/pipeline
@@ -94,10 +94,26 @@ fn to_site_path(base: fs.Path, file: fs.Path) {
   fs.to_site_path(base, file, exts())
 }
 
-pub fn to_html_file(file: MarkdownFile(a), rendered: element.DocumentNode) {
+pub fn to_html_file(file: MarkdownFile(a), rendered: mellie.ElementTree) {
   pipeline.HTMLFile(file.site_path, rendered)
 }
 
-pub fn render(file: MarkdownFile(a)) {
-  file.content |> markdown.parse
+pub fn replace_body(tree: mellie.ElementTree) {
+  tree
+  |> mellie.get_child_by_tag("body")
+  |> result.replace_error(shoki.ErrorRenderingMarkdown(
+    "Failed to find body in rendered markdown",
+  ))
+  |> result.map(mellie.children)
+  |> result.map(mellie.element("div", [], _))
+}
+
+pub fn render(file: MarkdownFile(a)) -> ShokiResult(mellie.ElementTree) {
+  file.content
+  |> markdown.parse
+  |> mellie.parse
+  |> result.replace_error(shoki.ErrorRenderingMarkdown(
+    "Error parsing HTML from markdown",
+  ))
+  |> result.try(replace_body)
 }
