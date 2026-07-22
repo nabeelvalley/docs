@@ -8,7 +8,7 @@ CopyDir:
   from: test/workspace/static
   to: /
 
-HTMLFile: /about.html
+HTMLFile: test/workspace/pages/about.md:/about.html
 <!doctype html>
 <html lang="en">
   <head>
@@ -52,7 +52,7 @@ HTMLFile: /about.html
   </body>
 </html>
 
-HTMLFile: /blog.html
+HTMLFile: [no source]:/blog.html
 <!doctype html>
 <html lang="en">
   <head>
@@ -93,7 +93,7 @@ HTMLFile: /blog.html
   </body>
 </html>
 
-HTMLFile: /blog/first_post.html
+HTMLFile: test/workspace/pages/blog/first_post.md:/blog/first_post.html
 <!doctype html>
 <html lang="en">
   <head>
@@ -150,7 +150,7 @@ print(data)
   </body>
 </html>
 
-HTMLFile: /blog/second_post.html
+HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
 <!doctype html>
 <html lang="en">
   <head>
@@ -197,7 +197,7 @@ HTMLFile: /blog/second_post.html
   </body>
 </html>
 
-HTMLFile: /index.html
+HTMLFile: [no source]:/index.html
 <!doctype html>
 <html lang="en">
   <head>
@@ -238,7 +238,7 @@ HTMLFile: /index.html
   </body>
 </html>
 
-HTMLFile: /special.html
+HTMLFile: [no source]:/special.html
 <!doctype html>
 <html lang="en">
   <head>

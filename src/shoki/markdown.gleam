@@ -1,5 +1,6 @@
 import gleam/dict
 import gleam/list
+import gleam/option
 import gleam/result
 import gleam/string
 import mellie
@@ -95,7 +96,7 @@ fn to_site_path(base: fs.Path, file: fs.Path) {
 }
 
 pub fn to_html_file(file: MarkdownFile(a), rendered: mellie.ElementTree) {
-  pipeline.HTMLFile(file.site_path, rendered)
+  pipeline.HTMLFile(option.Some(file.path), file.site_path, rendered)
 }
 
 pub fn replace_body(tree: mellie.ElementTree) {

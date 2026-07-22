@@ -1,5 +1,6 @@
 import birdie
 import gleam/list
+import gleam/option
 import gleam/string
 import mellie
 import mellie/attr
@@ -48,7 +49,7 @@ pub fn pipeline_with_components_test() {
     fs.site_path_from_string("/blog/second_post_text.html")
 
   let components = [
-    component.new("my-custom-tag", fn(el) {
+    component.new("my-custom-tag", fn(source, el) {
       let text =
         el
         |> mellie.inner_text
@@ -56,11 +57,15 @@ pub fn pipeline_with_components_test() {
       let data =
         text
         |> html.text
-        |> pipeline.HTMLFile(text_output_file_path, _)
+        |> pipeline.html_file_without_source(text_output_file_path, _)
 
       let new_el =
         html.data(
           [
+            mellie.attribute(
+              "source",
+              source |> option.map(fs.path_to_string) |> option.unwrap(""),
+            ),
             attr.value(
               text
               |> string.replace("\n", " + "),

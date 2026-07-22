@@ -4,7 +4,7 @@ title: custom component assets
 file: ./test/shoki/pipeline_test.gleam
 test_name: pipeline_with_components_test
 ---
-HTMLFile: /blog/second_post.html
+HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
 <!doctype html>
 <html lang="en">
   <head>
@@ -39,13 +39,13 @@ HTMLFile: /blog/second_post.html
         <p>Here&#39;s a code block and some other
           <em>fancy</em>
           formatting</p>
-        <data value="Nested Heading + code |> print_me |> echo +  + ">My Updated Tag</data>
+        <data source="test/workspace/pages/blog/second_post.md" value="Nested Heading + code |> print_me |> echo +  + ">My Updated Tag</data>
       </div>
     </main>
   </body>
 </html>
 
-HTMLFile: /blog/second_post_text.html
+HTMLFile: [no source]:/blog/second_post_text.html
 <!doctype html>
 Nested Heading
 code |&gt; print_me |&gt; echo

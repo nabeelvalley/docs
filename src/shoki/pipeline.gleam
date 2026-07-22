@@ -1,4 +1,5 @@
 import gleam/list
+import gleam/option
 import gleam/result
 import gleam/string
 import mellie
@@ -17,7 +18,11 @@ type Renderer(state, aggregate) =
   fn(List(state), aggregate) -> ShokiResult(List(Asset))
 
 pub type Asset {
-  HTMLFile(path: fs.SitePath, html: mellie.ElementTree)
+  HTMLFile(
+    source: option.Option(fs.Path),
+    path: fs.SitePath,
+    html: mellie.ElementTree,
+  )
   CopyDir(from: fs.Path, to: fs.SitePath)
 }
 
@@ -94,16 +99,15 @@ pub fn with_components(
   from: Pipeline(page, aggregate),
   comps: List(component.Component(List(Asset))),
 ) {
-  let render = component.render(_, comps)
   Pipeline(load: from.load, render: fn(pages, aggregated) {
     use assets <- result.try(from.render(pages, aggregated))
     let rendered =
       assets
       |> list.map(fn(asset) {
         case asset {
-          HTMLFile(path:, html:) -> {
-            let #(html, assets) = render(html)
-            [HTMLFile(path:, html:), ..assets |> list.flatten]
+          HTMLFile(source:, path:, html:) -> {
+            let #(html, assets) = component.render(source, html, comps)
+            [HTMLFile(source:, path:, html:), ..assets |> list.flatten]
           }
           _ -> [asset]
         }
@@ -120,7 +124,7 @@ pub fn run(pipeline: Pipeline(page, aggregate)) {
 
 fn write_one(out_dir: fs.Path, output: Asset) {
   case output {
-    HTMLFile(path:, html:) ->
+    HTMLFile(source: _, path:, html:) ->
       fs.write_site_file(out_dir, path, html |> mellie.to_document_string)
     CopyDir(from:, to:) -> fs.copy_site_dir(out_dir, from, to)
   }
@@ -134,8 +138,19 @@ pub fn write_all(out_dir: fs.Path, outputs: List(Asset)) {
   |> result.replace(Nil)
 }
 
-pub fn create_html_file(path: fs.SitePath, rendered: mellie.ElementTree) {
-  HTMLFile(path, rendered)
+pub fn html_file_without_source(
+  path: fs.SitePath,
+  rendered: mellie.ElementTree,
+) {
+  HTMLFile(option.None, path, rendered)
+}
+
+pub fn create_html_file(
+  source: fs.Path,
+  path: fs.SitePath,
+  rendered: mellie.ElementTree,
+) {
+  HTMLFile(option.Some(source), path, rendered)
 }
 
 pub fn sort_assets(assets: List(Asset)) {
@@ -150,15 +165,19 @@ pub fn sort_assets(assets: List(Asset)) {
 
 fn asset_path(asset: Asset) {
   case asset {
-    HTMLFile(path:, html: _) -> path
+    HTMLFile(source: _, path:, html: _) -> path
     CopyDir(from: _, to:) -> to
   }
 }
 
 pub fn asset_to_readable_string(asset: Asset) {
   case asset {
-    HTMLFile(path:, html:) ->
+    HTMLFile(source:, path:, html:) ->
       "HTMLFile: "
+      <> source
+      |> option.map(fs.path_to_string)
+      |> option.unwrap("[no source]")
+      <> ":"
       <> path |> fs.site_path_to_string
       <> "\n"
       <> html |> mellie.to_document_string
