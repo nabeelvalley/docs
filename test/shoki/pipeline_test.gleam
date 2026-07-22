@@ -31,8 +31,7 @@ pub fn default_pipeline_test() {
   let assert Ok(pages) = fs.from_cwd("./test/workspace/pages")
   let assert Ok(static) = fs.from_cwd("./test/workspace/static")
 
-  let pipeline = default.create_pipeline(pages, static)
-  let assert Ok(assets) = pipeline.run(pipeline)
+  let assert Ok(assets) = default.create_pipeline(pages, static) |> pipeline.run
 
   assets
   |> pipeline.assets_to_readable_string
@@ -73,7 +72,7 @@ pub fn pipeline_with_components_test() {
     }),
   ]
 
-  let pipeline =
+  let assert Ok(assets) =
     markdown.from_markdown(
       dir: pages,
       decode: default.frontmatter_decoder,
@@ -81,8 +80,7 @@ pub fn pipeline_with_components_test() {
       render: default.render_page,
     )
     |> pipeline.with_components(components)
-
-  let assert Ok(assets) = pipeline.run(pipeline)
+    |> pipeline.run
 
   let assert Ok(custom_tag_page) =
     assets |> pipeline.find_asset(custom_tag_page_path)

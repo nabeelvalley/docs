@@ -65,7 +65,7 @@ pub fn merge(
   )
 }
 
-pub fn with_aggregate(
+pub fn with(
   from: Pipeline(page, aggregate),
   render: fn(aggregate) -> ShokiResult(List(Asset)),
 ) {
@@ -74,6 +74,19 @@ pub fn with_aggregate(
     use next_result <- result.try(render(aggregated))
 
     list.append(prev_result, next_result) |> Ok
+  })
+}
+
+pub fn with_one(from, render) {
+  use agg <- with(from)
+
+  agg |> render |> result.map(list.wrap)
+}
+
+pub fn with_static_dir(pipeline, dir: fs.Path) {
+  with(pipeline, fn(_) {
+    use to <- result.map(fs.site_path_from_string("/"))
+    CopyDir(dir, to) |> list.wrap
   })
 }
 
@@ -98,13 +111,6 @@ pub fn with_components(
 
     rendered |> list.flatten |> Ok
   })
-}
-
-pub fn static_dir(from: fs.Path) {
-  fn(_) {
-    use to <- result.map(fs.site_path_from_string("/"))
-    CopyDir(from, to) |> list.wrap
-  }
 }
 
 pub fn run(pipeline: Pipeline(page, aggregate)) {

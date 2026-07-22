@@ -102,7 +102,7 @@ fn index(path, title, tags, entries) {
   |> pipeline.create_html_file(path, _)
 }
 
-fn render_indices(tags: GroupedTags) {
+fn tag_pages(tags: GroupedTags) {
   tags
   |> dict.map_values(fn(tag, entries) {
     use path <- result.map(fs.site_path_from_string("/" <> tag <> ".html"))
@@ -120,7 +120,7 @@ pub fn compare_date(a: Frontmatter, b: Frontmatter) {
   }
 }
 
-fn render_index(tags: GroupedTags) {
+fn index_page(tags: GroupedTags) {
   use path <- result.try(fs.site_path_from_string("/index.html"))
 
   index(
@@ -133,7 +133,6 @@ fn render_index(tags: GroupedTags) {
       |> list.unique
       |> list.sort(compare_date),
   )
-  |> list.wrap
   |> Ok
 }
 
@@ -145,9 +144,9 @@ pub fn create_pipeline(content_dir: fs.Path, static_dir: fs.Path) {
       agg: group_by_tag,
       render: render_page,
     )
-    |> pipeline.with_aggregate(render_index)
-    |> pipeline.with_aggregate(render_indices)
-    |> pipeline.with_aggregate(pipeline.static_dir(static_dir))
+    |> pipeline.with(tag_pages)
+    |> pipeline.with_one(index_page)
+    |> pipeline.with_static_dir(static_dir)
 
   pipeline
 }
