@@ -248,3 +248,7 @@ WHERE id IN
     )
 AND LOWER(username) LIKE LOWER('%bob%')
 ```
+
+## Additional References
+
+- [SQL Bolt Interactive Learning](https://sqlbolt.com/)
