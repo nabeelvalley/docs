@@ -1,10 +1,12 @@
 ---
-version: 2.0.1
+version: 2.0.2
 title: internal ls_dir
-file: ./test/shoki/internal_test.gleam
+file: ./test/shoki/pipeline_test.gleam
 test_name: ls_dir_test
 ---
-test/workspace/assets/images/image-1.jpg
-test/workspace/assets/images/image-2.jpg
-test/workspace/pages/index.md
-test/workspace/pages/posts/first_post.md
+test/workspace/pages/about.md
+test/workspace/pages/blog/first_post.md
+test/workspace/pages/blog/second_post.md
+test/workspace/static/default.css
+test/workspace/static/images/image-1.jpg
+test/workspace/static/images/image-2.jpg

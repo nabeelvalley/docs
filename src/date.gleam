@@ -5,7 +5,7 @@ import gleam/string
 import parz
 import parz/combinators
 import parz/parsers
-import shoki/internal/date.{type IsoDate, IsoDate}
+import shoki/date.{type IsoDate, IsoDate}
 
 /// parses a path of the format /myfolder/2026/31-01/some-other-stuff
 fn parser_from_path() {

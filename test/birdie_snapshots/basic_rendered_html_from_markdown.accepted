@@ -1,5 +1,5 @@
 ---
-version: 2.0.1
+version: 2.0.2
 title: basic rendered html from markdown
 file: ./test/web_test.gleam
 test_name: markdown_parser_test

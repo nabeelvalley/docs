@@ -6,7 +6,7 @@ import lustre/element/html
 import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/pages/blog
 import rendering/templates/base
-import shoki/internal/date
+import shoki/date
 
 pub fn render(pages: List(Page)) {
   let meta = Meta("Home", None, None, [])

@@ -1,0 +1,51 @@
+---
+version: 2.0.2
+title: custom component assets
+file: ./test/shoki/pipeline_test.gleam
+test_name: pipeline_with_components_test
+---
+HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Second Post</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link href="/default.css" rel="stylesheet">
+    <noscript>
+      <link href="/index.css" rel="stylesheet">
+    </noscript>
+    <script defer="true" type="module" src="/index.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Second Post</h1>
+      <nav>
+        <ul>
+          <li>
+            <a href="/special">special</a>
+          </li>
+          <li>
+            <a href="/blog">blog</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div>
+        <h2>Welcome!</h2>
+        <p>This is some content in Markdown that can be rendered to your site</p>
+        <p>Here&#39;s a code block and some other
+          <em>fancy</em>
+          formatting</p>
+        <data source="test/workspace/pages/blog/second_post.md" value="Nested Heading + code |> print_me |> echo +  + ">My Updated Tag</data>
+      </div>
+    </main>
+  </body>
+</html>
+
+HTMLFile: [no source]:/blog/second_post_text.html
+<!doctype html>
+Nested Heading
+code |&gt; print_me |&gt; echo

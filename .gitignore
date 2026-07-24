@@ -17,3 +17,4 @@ build/
 out/
 erl_crash.dump
 .parcel-cache/
+.test-*

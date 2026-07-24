@@ -16,3 +16,16 @@ Here's a code block and some other _fancy_ formatting
 ```sh
 gleam run
 ```
+
+```js
+// some more complicated example
+const data = {
+  name: "bob"
+}
+
+function print(d){
+  console.log(d)
+}
+
+print(data)
+```

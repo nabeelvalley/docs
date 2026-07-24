@@ -1,5 +1,5 @@
 ---
-version: 2.0.1
+version: 2.0.2
 title: css snippet rendering
 file: ./test/web_test.gleam
 test_name: css_snippet_render_test

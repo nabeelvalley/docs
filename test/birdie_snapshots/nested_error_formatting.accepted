@@ -1,0 +1,12 @@
+---
+version: 2.0.2
+title: nested error formatting
+file: ./test/shoki/pipeline_test.gleam
+test_name: print_error_test
+---
+my/file1.md
+    2021-1212
+        DateParseError: Invalid date
+    ErrorReadingFrontmatter: Invalid frontmatter
+my/file2.md
+    DirNotFound: /my/example/dir

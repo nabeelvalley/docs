@@ -1,5 +1,5 @@
 ---
-version: 2.0.1
+version: 2.0.2
 title: respects custom self closing tags
 file: ./test/web_test.gleam
 test_name: update_dom_self_closing_test
