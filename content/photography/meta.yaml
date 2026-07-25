@@ -1,0 +1,35 @@
+cam_lens:
+  # phones
+  redmi:
+    camera: Redmi Note 10
+  i16:
+    camera: iPhone 16e
+
+  # nikon d3200
+  n50:
+    camera: Nikon D3200
+    lens: Nikon 50mm f/1.8D
+  n18-55:
+    camera: Nikon D3200
+    lens: Nikon AF-S DX 18-55mm f/3.5-5.6
+  n55-200:
+    camera: Nikon D3200
+    lens: Nikon AF 55-200mm f/4-5.6
+  n70-300:
+    camera: Nikon D3200
+    lens: Sigma 70-300mm f/4-5.6 APO DG Macro
+
+  # xt 200
+  xt15-45:
+    camera: Fujifilm X-T200
+    lens: Fujifilm XC 15-45mm f/3.5-5.6
+  xt35:
+    camera: Fujifilm X-T200
+    lens: TTArtisan 35mm f/1.4
+  xt75-300:
+    camera: Fujifilm X-T200
+    lens: Sigma 75-300mm f/4-5.6 (adapted)
+  xt7.5:
+    camera: Fujifilm X-T200
+    lens: TTArtisan 7.5mm f/2
+  
