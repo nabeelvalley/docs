@@ -5,7 +5,7 @@ fd -tf
   try {
   $p
   | path basename 
-  | parse "{date} - {camera} - {country} - {title}"
+  | parse "{date} - {camera} - {tags} - {country} - {title}"
   | get 0
   | insert valid true
   } catch {
