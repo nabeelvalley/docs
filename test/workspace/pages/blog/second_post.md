@@ -23,4 +23,6 @@ code |> print_me |> echo
 
 </my-custom-tag>
 
+<my-async-tag data="hello world"></my-async-tag>
+
 

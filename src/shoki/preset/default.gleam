@@ -100,6 +100,7 @@ fn index(path, title, tags, entries) {
   ])
   |> shared.page(title, css_path)
   |> pipeline.html_file_without_source(path, _)
+  |> pipeline.asset
 }
 
 fn tag_pages(tags: GroupedTags) {
@@ -110,6 +111,7 @@ fn tag_pages(tags: GroupedTags) {
   })
   |> dict.values
   |> shoki.collate_errors
+  |> result.map(pipeline.flatten_rendered)
 }
 
 pub fn compare_date(a: Frontmatter, b: Frontmatter) {

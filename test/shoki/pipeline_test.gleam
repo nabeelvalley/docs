@@ -1,4 +1,5 @@
 import birdie
+import gleam/javascript/promise
 import gleam/list
 import gleam/option
 import gleam/string
@@ -32,11 +33,15 @@ pub fn default_pipeline_test() {
   let assert Ok(pages) = fs.from_cwd("./test/workspace/pages")
   let assert Ok(static) = fs.from_cwd("./test/workspace/static")
 
-  let assert Ok(assets) = default.create_pipeline(pages, static) |> pipeline.run
+  let pipeline = default.create_pipeline(pages, static)
+  use rendered <- promise.await(pipeline |> pipeline.run)
+
+  let assert Ok(assets) = rendered
 
   assets
   |> pipeline.assets_to_readable_string
   |> birdie.snap("default pipeline assets")
+  |> promise.resolve
 }
 
 pub fn pipeline_with_components_test() {
@@ -54,11 +59,6 @@ pub fn pipeline_with_components_test() {
         el
         |> mellie.inner_text
 
-      let data =
-        text
-        |> html.text
-        |> pipeline.html_file_without_source(text_output_file_path, _)
-
       let new_el =
         html.data(
           [
@@ -73,11 +73,32 @@ pub fn pipeline_with_components_test() {
           ],
           [html.text("My Updated Tag")],
         )
-      component.Visited(new_el, [data])
+
+      let rendered =
+        text
+        |> html.text
+        |> pipeline.html_file_without_source(text_output_file_path, _)
+        |> pipeline.asset
+
+      component.Visited(new_el, rendered)
+    }),
+
+    component.new("my-async-tag", fn(source, el) {
+      case source {
+        option.None -> component.Visited(el, pipeline.Rendered([], []))
+        option.Some(path) -> {
+          let renderd =
+            todo
+            // figure out how to create lazy assets more cleanly
+            |> pipeline.processor
+
+          component.Visited(el, renderd)
+        }
+      }
     }),
   ]
 
-  let assert Ok(assets) =
+  let pipeline =
     markdown.from_markdown(
       dir: pages,
       decode: default.frontmatter_decoder,
@@ -85,7 +106,9 @@ pub fn pipeline_with_components_test() {
       render: default.render_page,
     )
     |> pipeline.with_components(components)
-    |> pipeline.run
+
+  use rendered <- promise.await(pipeline |> pipeline.run)
+  let assert Ok(assets) = rendered
 
   let assert Ok(custom_tag_page) =
     assets |> pipeline.find_asset(custom_tag_page_path)
@@ -96,6 +119,7 @@ pub fn pipeline_with_components_test() {
   [custom_tag_page, text_output_page]
   |> pipeline.assets_to_readable_string
   |> birdie.snap("custom component assets")
+  |> promise.resolve
 }
 
 pub fn print_error_test() {

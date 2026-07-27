@@ -1,9 +1,11 @@
 import gleam/dict
+import gleam/dynamic/decode
 import gleam/list
 import gleam/option
 import gleam/result
 import gleam/string
 import mellie
+import presentable_soup
 import shoki/internal/fs
 import shoki/internal/markdown
 import shoki/pipeline
@@ -65,19 +67,31 @@ fn read_files(dir: fs.Path, decode_frontmatter) {
   |> shoki.collate_errors
 }
 
-pub fn from_markdown(dir dir: fs.Path, decode decode, agg agg, render render) {
+pub fn from_markdown(
+  dir dir: fs.Path,
+  decode decode: fn(fs.SitePath) -> decode.Decoder(a),
+  agg agg: fn(List(a)) -> b,
+  render render: fn(MarkdownFile(a), b) ->
+    Result(presentable_soup.ElementTree, shoki.ShokiErr),
+) -> pipeline.Pipeline(MarkdownFile(a), b) {
   pipeline.new(
     load: fn() {
       use pages <- result.map(read_files(dir, decode))
 
       pipeline.loaded(pages, pages |> list.map(frontmatter) |> agg)
     },
-    render: fn(pages, agg) {
+    render: fn(pages: List(MarkdownFile(a)), agg: b) -> Result(
+      pipeline.Rendered,
+      shoki.ShokiErr,
+    ) {
       pages
       |> list.map(fn(page) {
-        render(page, agg) |> result.map(to_html_file(page, _))
+        render(page, agg)
+        |> result.map(to_html_file(page, _))
+        |> result.map(pipeline.asset)
       })
       |> shoki.collate_errors
+      |> result.map(pipeline.flatten_rendered)
     },
   )
 }
