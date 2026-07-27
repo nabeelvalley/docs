@@ -1,12 +1,12 @@
 import consts
-import lustre/attribute.{class, href, id}
+import lustre/attribute.{rel, class, href, id}
 import lustre/element/html.{a, footer, li, section, text, ul}
 
 pub fn render() {
   footer([class("site-footer")], [
     ul([class("social")], [
       li([], [a([href(consts.linkedin_url)], [text("Linkedin")])]),
-      li([], [a([href(consts.github_url)], [text("GitHub")])]),
+      li([], [a([href(consts.github_url), rel("me")], [text("GitHub")])]),
       li([], [a([href("/feed/rss.xml")], [text("RSS")])]),
     ]),
     section([class("webring"), attribute.aria_labelledby("webring-label")], [
