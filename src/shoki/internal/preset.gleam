@@ -7,7 +7,7 @@ import gleam/javascript/promise
 import shoki/async
 import shoki/error
 import shoki/internal/fs
-import shoki/pipeline
+import shoki
 
 pub fn run_main(create_pipeline) {
   let cmd =
@@ -23,10 +23,10 @@ pub fn run_main(create_pipeline) {
       let pipeline = create_pipeline(pages, static)
       use assets <- promise.try_await(
         pipeline
-        |> pipeline.run(),
+        |> shoki.run(),
       )
 
-      pipeline.write_all(out, assets) |> promise.resolve
+      shoki.write_all(out, assets) |> promise.resolve
     })
     |> clip.opt(opt.new("pages") |> opt.help("directory to load pages from"))
     |> clip.opt(

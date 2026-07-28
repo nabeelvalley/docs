@@ -7,11 +7,11 @@ import gleam/string
 import mellie
 import mellie/attr
 import mellie/html
+import shoki
 import shoki/component
 import shoki/error
 import shoki/internal/fs
 import shoki/markdown
-import shoki/pipeline
 import shoki/preset/default
 
 fn dir_to_string(dir) {
@@ -35,12 +35,12 @@ pub fn default_pipeline_test() {
   let assert Ok(static) = fs.from_cwd("./test/workspace/static")
 
   let pipeline = default.create_pipeline(pages, static)
-  use rendered <- promise.await(pipeline |> pipeline.run)
+  use rendered <- promise.await(pipeline |> shoki.run)
 
   let assert Ok(assets) = rendered
 
   assets
-  |> pipeline.assets_to_readable_string
+  |> shoki.assets_to_readable_string
   |> birdie.snap("default pipeline assets")
   |> promise.resolve
 }
@@ -54,50 +54,42 @@ pub fn pipeline_with_components_test() {
   let assert Ok(text_output_file_path) =
     fs.site_path_from_string("/blog/second_post_text.html")
 
-  let with_my_custom_tag_extractor = pipeline.with_additional_assets(_, fn(a) {
-    case a {
-      pipeline.HTMLFile(source: _, path: _, html:) -> {
-        let children = mellie.get_children_by_tag(html, "my-custom-tag")
-        list.map(children, fn(child) {
-          let text = child |> mellie.inner_text
+  let with_my_custom_tag_extractor = shoki.with_additional_assets(_, fn(a) {
+    use _, _, html <- shoki.if_html(a, [])
 
-          text
-          |> html.text
-          |> pipeline.generated_html_file(text_output_file_path, _)
-        })
-      }
-      _ -> []
-    }
-    |> Ok
+    let children = mellie.get_children_by_tag(html, "my-custom-tag")
+    list.map(children, fn(child) {
+      let text = child |> mellie.inner_text
+
+      text
+      |> html.text
+      |> shoki.generated_html_file(text_output_file_path, _)
+    })
   })
 
-  let with_my_async_tag_updater = pipeline.with_task(_, fn(a) {
-    case a {
-      pipeline.HTMLFile(source: _, path:, html:) -> {
-        let children = mellie.get_children_by_tag(html, "my-async-tag")
-        list.map(children, fn(child) {
-          let text =
-            child
-            |> mellie.attrs
-            |> dict.from_list
-            |> dict.get("data")
-            |> result.unwrap("data not found")
-            |> mellie.text
+  let with_my_async_tag_updater = shoki.with_task(_, fn(a) {
+    use _, path, html <- shoki.if_html(a, [])
 
-          let new_el =
-            mellie.element("my-updated-async-tag", child |> mellie.attrs, [
-              mellie.text("Extracted text: "),
-              text,
-            ])
+    let children = mellie.get_children_by_tag(html, "my-async-tag")
+    list.map(children, fn(child) {
+      let text =
+        child
+        |> mellie.attrs
+        |> dict.from_list
+        |> dict.get("data")
+        |> result.unwrap("data not found")
+        |> mellie.text
 
-          pipeline.html_file_transform_task(path, child, fn() {
-            new_el |> Ok |> promise.resolve
-          })
-        })
-      }
-      _ -> []
-    }
-    |> Ok
+      let new_el =
+        mellie.element("my-updated-async-tag", child |> mellie.attrs, [
+          mellie.text("Extracted text: "),
+          text,
+        ])
+
+      shoki.html_file_transform_task(path, child, fn() {
+        new_el |> Ok |> promise.resolve
+      })
+    })
   })
 
   let my_custom_tag =
@@ -132,19 +124,19 @@ pub fn pipeline_with_components_test() {
     // creates task from async tag
     |> with_my_async_tag_updater
     // renders custom tag before rendering
-    |> pipeline.with_components([my_custom_tag])
+    |> shoki.with_components([my_custom_tag])
 
-  use rendered <- promise.await(pipeline |> pipeline.run)
+  use rendered <- promise.await(pipeline |> shoki.run)
   let assert Ok(assets) = rendered
 
   let assert Ok(custom_tag_page) =
-    assets |> pipeline.find_asset(custom_tag_page_path)
+    assets |> shoki.find_asset(custom_tag_page_path)
 
   let assert Ok(text_output_page) =
-    assets |> pipeline.find_asset(text_output_file_path)
+    assets |> shoki.find_asset(text_output_file_path)
 
   [custom_tag_page, text_output_page]
-  |> pipeline.assets_to_readable_string
+  |> shoki.assets_to_readable_string
   |> birdie.snap("custom component assets")
   |> promise.resolve
 }

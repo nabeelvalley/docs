@@ -1,15 +1,14 @@
 import gleam/dict
 import gleam/dynamic/decode
 import gleam/list
-import gleam/option
 import gleam/result
 import gleam/string
 import mellie
 import presentable_soup
+import shoki
 import shoki/error.{type ShokiResult, ErrorReadingFrontmatter}
 import shoki/internal/fs
 import shoki/internal/markdown
-import shoki/pipeline
 import yamleam
 
 pub opaque type MarkdownFile(a) {
@@ -73,15 +72,15 @@ pub fn from_markdown(
   agg agg: fn(List(a)) -> b,
   render render: fn(MarkdownFile(a), b) ->
     Result(presentable_soup.ElementTree, error.ShokiErr),
-) -> pipeline.Pipeline(MarkdownFile(a), b) {
-  pipeline.new(
+) -> shoki.Pipeline(MarkdownFile(a), b) {
+  shoki.new(
     load: fn() {
       use pages <- result.map(read_files(dir, decode))
 
-      pipeline.loaded(pages, pages |> list.map(frontmatter) |> agg)
+      shoki.loaded(pages, pages |> list.map(frontmatter) |> agg)
     },
     render: fn(pages: List(MarkdownFile(a)), agg: b) -> Result(
-      pipeline.Rendered,
+      shoki.Rendered,
       error.ShokiErr,
     ) {
       pages
@@ -92,7 +91,7 @@ pub fn from_markdown(
         |> to_html_file(page, _)
       })
       |> error.collate_errors
-      |> result.map(pipeline.from_assets)
+      |> result.map(shoki.from_assets)
     },
   )
 }
@@ -111,7 +110,7 @@ fn to_site_path(base: fs.Path, file: fs.Path) {
 }
 
 pub fn to_html_file(file: MarkdownFile(a), rendered: mellie.ElementTree) {
-  pipeline.HTMLFile(option.Some(file.path), file.site_path, rendered)
+  shoki.derived_html_file(file.path, file.site_path, rendered)
 }
 
 pub fn replace_body(tree: mellie.ElementTree) {

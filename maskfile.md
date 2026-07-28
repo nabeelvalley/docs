@@ -104,3 +104,11 @@ gleam run
 cd ..
 gleam format
 ```
+
+## docs
+
+Preview the documentation
+
+```sh
+gleam docs build --open
+```

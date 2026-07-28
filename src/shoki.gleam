@@ -1,7 +1,7 @@
 import gleam/dict
 import gleam/javascript/promise.{type Promise}
 import gleam/list
-import gleam/option
+import gleam/option.{None, Some}
 import gleam/result
 import gleam/string
 import mellie
@@ -25,16 +25,20 @@ pub opaque type Rendered {
   Rendered(assets: List(Asset), tasks: List(Task))
 }
 
-pub opaque type Task {
-  HTMLFileTransformTask(
+pub opaque type HTMLFileTransform {
+  HTMLFileTransform(
     path: fs.SitePath,
     replacement: mellie.ElementTree,
     render: fn() -> Promise(ShokiResult(mellie.ElementTree)),
   )
-  // Task(fn() -> Promise(ShokiResult(Nil)))
 }
 
-pub type Asset {
+pub opaque type Task {
+  HTMLFileTransformTask(HTMLFileTransform)
+  Task(fn() -> Promise(ShokiResult(Nil)))
+}
+
+pub opaque type Asset {
   HTMLFile(
     source: option.Option(fs.Path),
     path: fs.SitePath,
@@ -107,13 +111,13 @@ pub fn with(
 
 pub fn with_assets(
   from: Pipeline(page, aggregate),
-  render: fn(aggregate) -> ShokiResult(Rendered),
+  render: fn(aggregate) -> ShokiResult(List(Asset)),
 ) -> Pipeline(page, aggregate) {
   Pipeline(load: from.load, render: fn(pages, aggregated) {
     use prev_result <- result.try(from.render(pages, aggregated))
     use next_result <- result.map(render(aggregated))
 
-    merge_rendered(prev_result, next_result)
+    merge_rendered(prev_result, next_result |> from_assets)
   })
 }
 
@@ -206,7 +210,7 @@ pub fn run(
     loaded.aggregated,
   ))
 
-  let tasks = tasks |> list.group(fn(p) { p.path })
+  let tasks = tasks |> filter_html_transforms |> list.group(fn(p) { p.path })
 
   assets
   |> list.map(fn(a) {
@@ -248,7 +252,7 @@ pub fn generated_html_file(
   path: fs.SitePath,
   rendered: mellie.ElementTree,
 ) -> Asset {
-  HTMLFile(option.None, path, rendered)
+  HTMLFile(None, path, rendered)
 }
 
 pub fn derived_html_file(
@@ -256,7 +260,7 @@ pub fn derived_html_file(
   path: fs.SitePath,
   rendered: mellie.ElementTree,
 ) -> Asset {
-  HTMLFile(option.Some(source), path, rendered)
+  HTMLFile(Some(source), path, rendered)
 }
 
 pub fn sort_assets(assets: List(Asset)) -> List(Asset) {
@@ -338,21 +342,18 @@ fn apply_element_updates(
   }
 }
 
-fn apply_tasks(base, tasks: List(Task)) {
+fn apply_tasks(base, transforms: List(HTMLFileTransform)) {
   let processed =
-    // this is gross, there must be a nicer way to do this
-    promise.await_list(
-      tasks
-      |> list.map(fn(p) {
-        p.render()
-        |> promise.map(fn(r) {
-          r |> result.map(ElementReplacement(p.replacement, _))
-        })
-      }),
-    )
+    promise.await_list({
+      use p <- list.map(transforms)
+      use r <- promise.map_try(p.render())
+
+      ElementReplacement(p.replacement, r) |> Ok
+    })
     |> promise.map(error.collate_errors)
 
   use results <- promise.try_await(processed)
+
   apply_element_updates(base, results |> to_element_update_dict)
   |> Ok
   |> promise.resolve
@@ -378,5 +379,26 @@ pub fn from_tasks(a) {
 }
 
 pub fn html_file_transform_task(path, replace, render) {
-  HTMLFileTransformTask(path, replace, render)
+  HTMLFileTransform(path, replace, render) |> HTMLFileTransformTask
+}
+
+fn filter_html_transforms(tasks: List(Task)) {
+  list.map(tasks, fn(t) {
+    case t {
+      HTMLFileTransformTask(t) -> Some(t)
+      _ -> None
+    }
+  })
+  |> option.values
+}
+
+pub fn task(t) {
+  Task(t)
+}
+
+pub fn if_html(asset: Asset, or_else, f) {
+  case asset {
+    HTMLFile(source:, path:, html:) -> f(source, path, html) |> Ok
+    _ -> or_else |> Ok
+  }
 }

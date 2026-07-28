@@ -13,7 +13,7 @@ import shoki/error
 import shoki/internal/fs
 import shoki/internal/preset
 import shoki/markdown
-import shoki/pipeline
+import shoki
 import shoki/preset/shared
 
 pub opaque type Frontmatter {
@@ -99,7 +99,7 @@ fn index(path, title, tags, entries) {
     html.main([], [html.ul([], entries |> list.map(item))]),
   ])
   |> shared.page(title, css_path)
-  |> pipeline.generated_html_file(path, _)
+  |> shoki.generated_html_file(path, _)
 }
 
 fn tag_pages(tags: GroupedTags) {
@@ -110,7 +110,7 @@ fn tag_pages(tags: GroupedTags) {
   })
   |> dict.values
   |> error.collate_errors
-  |> result.map(pipeline.from_assets)
+  |> result.map(shoki.from_assets)
 }
 
 pub fn compare_date(a: Frontmatter, b: Frontmatter) {
@@ -145,9 +145,9 @@ pub fn create_pipeline(content_dir: fs.Path, static_dir: fs.Path) {
       agg: group_by_tag,
       render: render_page,
     )
-    |> pipeline.with(tag_pages)
-    |> pipeline.with_asset(index_page)
-    |> pipeline.with_static_dir(static_dir)
+    |> shoki.with(tag_pages)
+    |> shoki.with_asset(index_page)
+    |> shoki.with_static_dir(static_dir)
 
   pipeline
 }
