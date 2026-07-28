@@ -7,7 +7,6 @@ import gleam/javascript/promise
 import shoki/internal/fs
 import shoki/pipeline
 import shoki/shoki
-import util
 
 pub fn run_main(create_pipeline) {
   let cmd =
@@ -16,9 +15,9 @@ pub fn run_main(create_pipeline) {
       use static <- clip.parameter
       use out <- clip.parameter
 
-      use pages <- util.try_resolve(fs.from_cwd(pages))
-      use static <- util.try_resolve(fs.from_cwd(static))
-      use out <- util.try_resolve(fs.ensure_relative_dir(out))
+      use pages <- pipeline.try_resolve(fs.from_cwd(pages))
+      use static <- pipeline.try_resolve(fs.from_cwd(static))
+      use out <- pipeline.try_resolve(fs.ensure_relative_dir(out))
 
       let pipeline = create_pipeline(pages, static)
       use assets <- promise.try_await(

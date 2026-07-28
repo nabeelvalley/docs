@@ -9,7 +9,6 @@ import presentable_soup
 import shoki/component
 import shoki/internal/fs
 import shoki/shoki.{type ShokiResult}
-import util
 
 pub opaque type Loaded(page, aggregate) {
   Loaded(pages: List(page), aggregated: aggregate)
@@ -187,9 +186,9 @@ pub fn with_task(
 pub fn run(
   pipeline: Pipeline(page, aggregate),
 ) -> Promise(Result(List(Asset), shoki.ShokiErr)) {
-  use loaded <- util.try_resolve(pipeline.load())
+  use loaded <- try_resolve(pipeline.load())
 
-  use Rendered(assets:, processors:) <- util.try_resolve(pipeline.render(
+  use Rendered(assets:, processors:) <- try_resolve(pipeline.render(
     loaded.pages,
     loaded.aggregated,
   ))
@@ -367,4 +366,14 @@ pub fn processors(a) {
 
 pub fn html_file_transform_task(path, replace, render) {
   HTMLFileTransformTask(path, replace, render)
+}
+
+/// A drop-in replacement for result.try when in a promise context.
+/// Wraps results in a promise so that they can be used in `use` statements
+/// within a function ensuring consistent returns
+pub fn try_resolve(result, cb) {
+  case result {
+    Ok(ok) -> cb(ok)
+    Error(err) -> promise.resolve(Error(err))
+  }
 }
