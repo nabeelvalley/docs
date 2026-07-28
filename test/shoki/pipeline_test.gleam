@@ -55,9 +55,9 @@ pub fn pipeline_with_components_test() {
     fs.site_path_from_string("/blog/second_post_text.html")
 
   let with_my_custom_tag_extractor = shoki.with_derived_assets(_, fn(a) {
-    use _, _, html <- shoki.if_html(a, [])
+    use file <- shoki.if_html(a, [])
 
-    let children = mellie.get_children_by_tag(html, "my-custom-tag")
+    let children = mellie.get_children_by_tag(file.html, "my-custom-tag")
     list.map(children, fn(child) {
       let text = child |> mellie.inner_text
 
@@ -68,9 +68,9 @@ pub fn pipeline_with_components_test() {
   })
 
   let with_my_async_tag_updater = shoki.with_task(_, fn(a) {
-    use _, path, html <- shoki.if_html(a, [])
+    use file <- shoki.if_html(a, [])
 
-    let children = mellie.get_children_by_tag(html, "my-async-tag")
+    let children = mellie.get_children_by_tag(file.html, "my-async-tag")
     list.map(children, fn(child) {
       let text =
         child
@@ -86,7 +86,7 @@ pub fn pipeline_with_components_test() {
           text,
         ])
 
-      shoki.html_file_transform_task(path, child, fn() {
+      shoki.html_file_transform_task(file.path, child, fn() {
         new_el |> Ok |> promise.resolve
       })
     })

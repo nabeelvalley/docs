@@ -38,13 +38,17 @@ pub opaque type Task {
   Task(fn() -> Promise(ShokiResult(Nil)))
 }
 
-pub opaque type Asset {
+pub type HTMLFile {
   HTMLFile(
     source: option.Option(fs.Path),
     path: fs.SitePath,
     html: mellie.ElementTree,
   )
-  CopyDir(from: fs.Path, to: fs.SitePath)
+}
+
+pub opaque type Asset {
+  HTMLFileAsset(HTMLFile)
+  CopyDirAsset(from: fs.Path, to: fs.SitePath)
 }
 
 /// load -> process -> persist
@@ -142,7 +146,7 @@ pub fn with_static_dir(
   use _ <- with(pipeline)
   use to <- result.map(fs.site_path_from_string("/"))
 
-  CopyDir(dir, to) |> list.wrap |> from_assets
+  CopyDirAsset(dir, to) |> list.wrap |> from_assets
 }
 
 /// Add server-side components to the pipeline
@@ -158,11 +162,14 @@ pub fn with_components(
     let rendered =
       prev_assets
       |> list.map(fn(a) {
-        use source, path, html <- if_html(a, prev)
+        use file <- if_html(a, prev)
 
-        let html = component.render(html, comps)
+        let html = component.render(file.html, comps)
 
-        HTMLFile(source:, path:, html:) |> list.wrap |> from_assets
+        HTMLFile(..file, html:)
+        |> HTMLFileAsset
+        |> list.wrap
+        |> from_assets
       })
 
     rendered
@@ -219,13 +226,16 @@ pub fn run(
   assets
   |> list.map(fn(a) {
     case a {
-      HTMLFile(source:, path:, html:) -> {
-        let appliccable = tasks |> dict.get(path) |> result.unwrap([])
-        use result <- promise.try_await(apply_tasks(html, appliccable))
+      HTMLFileAsset(file) -> {
+        let appliccable = tasks |> dict.get(file.path) |> result.unwrap([])
+        use result <- promise.try_await(apply_tasks(file.html, appliccable))
 
-        HTMLFile(source:, path:, html: result) |> Ok |> promise.resolve
+        HTMLFile(..file, html: result)
+        |> HTMLFileAsset
+        |> Ok
+        |> promise.resolve
       }
-      CopyDir(from: _, to: _) -> a |> Ok |> promise.resolve
+      CopyDirAsset(from: _, to: _) -> a |> Ok |> promise.resolve
     }
   })
   |> promise.await_list
@@ -234,9 +244,13 @@ pub fn run(
 
 fn write_one(out_dir: fs.Path, output: Asset) -> Result(Nil, error.ShokiErr) {
   case output {
-    HTMLFile(source: _, path:, html:) ->
-      fs.write_site_file(out_dir, path, html |> mellie.to_document_string)
-    CopyDir(from:, to:) -> fs.copy_site_dir(out_dir, from, to)
+    HTMLFileAsset(file) ->
+      fs.write_site_file(
+        out_dir,
+        file.path,
+        file.html |> mellie.to_document_string,
+      )
+    CopyDirAsset(from:, to:) -> fs.copy_site_dir(out_dir, from, to)
   }
 }
 
@@ -257,7 +271,7 @@ pub fn generated_html_file(
   path: fs.SitePath,
   rendered: mellie.ElementTree,
 ) -> Asset {
-  HTMLFile(None, path, rendered)
+  HTMLFile(None, path, rendered) |> HTMLFileAsset
 }
 
 pub fn derived_html_file(
@@ -265,7 +279,7 @@ pub fn derived_html_file(
   path: fs.SitePath,
   rendered: mellie.ElementTree,
 ) -> Asset {
-  HTMLFile(Some(source), path, rendered)
+  HTMLFile(Some(source), path, rendered) |> HTMLFileAsset
 }
 
 pub fn sort_assets(assets: List(Asset)) -> List(Asset) {
@@ -280,23 +294,23 @@ pub fn sort_assets(assets: List(Asset)) -> List(Asset) {
 
 fn asset_path(asset: Asset) -> fs.SitePath {
   case asset {
-    HTMLFile(source: _, path:, html: _) -> path
-    CopyDir(from: _, to:) -> to
+    HTMLFileAsset(file) -> file.path
+    CopyDirAsset(from: _, to:) -> to
   }
 }
 
 pub fn asset_to_readable_string(asset: Asset) -> String {
   case asset {
-    HTMLFile(source:, path:, html:) ->
+    HTMLFileAsset(file) ->
       "HTMLFile: "
-      <> source
+      <> file.source
       |> option.map(fs.path_to_string)
       |> option.unwrap("[no source]")
       <> ":"
-      <> path |> fs.site_path_to_string
+      <> file.path |> fs.site_path_to_string
       <> "\n"
-      <> html |> mellie.to_document_string
-    CopyDir(from, to) ->
+      <> file.html |> mellie.to_document_string
+    CopyDirAsset(from, to) ->
       "CopyDir: \n  from: "
       <> from |> fs.path_to_string
       <> "\n  to: "
@@ -403,7 +417,7 @@ pub fn task(t) {
 
 pub fn if_html(asset: Asset, or_else, f) {
   case asset {
-    HTMLFile(source:, path:, html:) -> f(source, path, html) |> Ok
+    HTMLFileAsset(file) -> f(file) |> Ok
     _ -> or_else |> Ok
   }
 }
