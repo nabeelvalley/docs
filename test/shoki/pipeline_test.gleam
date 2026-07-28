@@ -8,11 +8,11 @@ import mellie
 import mellie/attr
 import mellie/html
 import shoki/component
+import shoki/error
 import shoki/internal/fs
 import shoki/markdown
 import shoki/pipeline
 import shoki/preset/default
-import shoki/shoki
 
 fn dir_to_string(dir) {
   let assert Ok(files) = fs.ls_dir(dir)
@@ -63,7 +63,7 @@ pub fn pipeline_with_components_test() {
 
           text
           |> html.text
-          |> pipeline.html_file_without_source(text_output_file_path, _)
+          |> pipeline.generated_html_file(text_output_file_path, _)
         })
       }
       _ -> []
@@ -151,21 +151,21 @@ pub fn pipeline_with_components_test() {
 
 pub fn print_error_test() {
   let err =
-    shoki.Collated([
-      shoki.Context(
+    error.Collated([
+      error.Context(
         "my/file1.md",
-        shoki.Collated([
-          shoki.Context("2021-1212", shoki.DateParseError("Invalid date")),
-          shoki.ErrorReadingFrontmatter("Invalid frontmatter"),
+        error.Collated([
+          error.Context("2021-1212", error.DateParseError("Invalid date")),
+          error.ErrorReadingFrontmatter("Invalid frontmatter"),
         ]),
       ),
-      shoki.Context(
+      error.Context(
         "my/file2.md",
-        shoki.Collated([
-          shoki.DirNotFound("/my/example/dir"),
+        error.Collated([
+          error.DirNotFound("/my/example/dir"),
         ]),
       ),
     ])
 
-  err |> shoki.error_to_string |> birdie.snap("nested error formatting")
+  err |> error.error_to_string |> birdie.snap("nested error formatting")
 }

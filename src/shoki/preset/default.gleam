@@ -9,12 +9,12 @@ import gleam/string
 import mellie/attr
 import mellie/html
 import shoki/date.{type IsoDate}
+import shoki/error
 import shoki/internal/fs
 import shoki/internal/preset
 import shoki/markdown
 import shoki/pipeline
 import shoki/preset/shared
-import shoki/shoki
 
 pub opaque type Frontmatter {
   Frontmatter(
@@ -99,9 +99,7 @@ fn index(path, title, tags, entries) {
     html.main([], [html.ul([], entries |> list.map(item))]),
   ])
   |> shared.page(title, css_path)
-  |> pipeline.html_file_without_source(path, _)
-  |> list.wrap
-  |> pipeline.assets
+  |> pipeline.generated_html_file(path, _)
 }
 
 fn tag_pages(tags: GroupedTags) {
@@ -111,8 +109,8 @@ fn tag_pages(tags: GroupedTags) {
     index(path, tag |> string.capitalise, tags, entries)
   })
   |> dict.values
-  |> shoki.collate_errors
-  |> result.map(pipeline.flatten_rendered)
+  |> error.collate_errors
+  |> result.map(pipeline.from_assets)
 }
 
 pub fn compare_date(a: Frontmatter, b: Frontmatter) {
@@ -148,7 +146,7 @@ pub fn create_pipeline(content_dir: fs.Path, static_dir: fs.Path) {
       render: render_page,
     )
     |> pipeline.with(tag_pages)
-    |> pipeline.with_one(index_page)
+    |> pipeline.with_asset(index_page)
     |> pipeline.with_static_dir(static_dir)
 
   pipeline

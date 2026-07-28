@@ -6,9 +6,10 @@ import gleam/result
 import gleam/string
 import mellie
 import presentable_soup
+import shoki/async
 import shoki/component
+import shoki/error.{type ShokiResult}
 import shoki/internal/fs
-import shoki/shoki.{type ShokiResult}
 
 pub opaque type Loaded(page, aggregate) {
   Loaded(pages: List(page), aggregated: aggregate)
@@ -21,7 +22,7 @@ type Renderer(state, aggregate) =
   fn(List(state), aggregate) -> ShokiResult(Rendered)
 
 pub opaque type Rendered {
-  Rendered(assets: List(Asset), processors: List(Task))
+  Rendered(assets: List(Asset), tasks: List(Task))
 }
 
 pub opaque type Task {
@@ -54,8 +55,8 @@ pub opaque type Pipeline(state, aggregate) {
 }
 
 pub fn new(
-  load load: fn() -> Result(Loaded(state, aggregate), shoki.ShokiErr),
-  render render: fn(List(state), aggregate) -> Result(Rendered, shoki.ShokiErr),
+  load load: fn() -> Result(Loaded(state, aggregate), error.ShokiErr),
+  render render: fn(List(state), aggregate) -> Result(Rendered, error.ShokiErr),
 ) -> Pipeline(state, aggregate) {
   Pipeline(load, render)
 }
@@ -85,9 +86,9 @@ pub fn merge(
         prev_loaded.aggregated,
       ))
 
-      use next_result <- result.try(render(pages, prev_loaded.aggregated))
+      use next_result <- result.map(render(pages, prev_loaded.aggregated))
 
-      merge_rendered(prev_result, next_result) |> Ok
+      merge_rendered(prev_result, next_result)
     },
   )
 }
@@ -98,20 +99,32 @@ pub fn with(
 ) -> Pipeline(page, aggregate) {
   Pipeline(load: from.load, render: fn(pages, aggregated) {
     use prev_result <- result.try(from.render(pages, aggregated))
-    use next_result <- result.try(render(aggregated))
+    use next_result <- result.map(render(aggregated))
 
-    merge_rendered(prev_result, next_result) |> Ok
+    merge_rendered(prev_result, next_result)
   })
 }
 
-pub fn with_one(
+pub fn with_assets(
   from: Pipeline(page, aggregate),
   render: fn(aggregate) -> ShokiResult(Rendered),
+) -> Pipeline(page, aggregate) {
+  Pipeline(load: from.load, render: fn(pages, aggregated) {
+    use prev_result <- result.try(from.render(pages, aggregated))
+    use next_result <- result.map(render(aggregated))
+
+    merge_rendered(prev_result, next_result)
+  })
+}
+
+pub fn with_asset(
+  from: Pipeline(page, aggregate),
+  render: fn(aggregate) -> ShokiResult(Asset),
 ) -> Pipeline(page, aggregate) {
   use agg <- with(from)
   use out <- result.map(render(agg))
 
-  out
+  out |> list.wrap |> from_assets
 }
 
 pub fn with_static_dir(
@@ -121,7 +134,7 @@ pub fn with_static_dir(
   use _ <- with(pipeline)
   use to <- result.map(fs.site_path_from_string("/"))
 
-  CopyDir(dir, to) |> list.wrap |> assets
+  CopyDir(dir, to) |> list.wrap |> from_assets
 }
 
 pub fn with_components(
@@ -131,7 +144,7 @@ pub fn with_components(
   Pipeline(load: from.load, render: fn(pages, aggregated) {
     use prev <- result.map(from.render(pages, aggregated))
 
-    let Rendered(assets: prev_assets, processors: prev_processors) = prev
+    let Rendered(assets: prev_assets, tasks: prev_tasks) = prev
 
     let rendered =
       prev_assets
@@ -141,7 +154,7 @@ pub fn with_components(
             let html = component.render(html, comps)
 
             Rendered(
-              processors: prev_processors,
+              tasks: prev_tasks,
               assets: HTMLFile(source:, path:, html:) |> list.wrap,
             )
           }
@@ -160,11 +173,11 @@ pub fn with_additional_assets(
   Pipeline(load: from.load, render: fn(pages, aggregated) {
     use prev <- result.try(from.render(pages, aggregated))
 
-    let results = prev.assets |> list.map(extract) |> shoki.collate_errors
+    let results = prev.assets |> list.map(extract) |> error.collate_errors
 
     use result <- result.map(results)
 
-    merge_rendered(prev, result |> list.flatten |> assets)
+    merge_rendered(prev, result |> list.flatten |> from_assets)
   })
 }
 
@@ -175,32 +188,32 @@ pub fn with_task(
   Pipeline(load: from.load, render: fn(pages, aggregated) {
     use prev <- result.try(from.render(pages, aggregated))
 
-    let results = prev.assets |> list.map(create_tasks) |> shoki.collate_errors
+    let results = prev.assets |> list.map(create_tasks) |> error.collate_errors
 
     use result <- result.map(results)
 
-    merge_rendered(prev, result |> list.flatten |> processors)
+    merge_rendered(prev, result |> list.flatten |> from_tasks)
   })
 }
 
 pub fn run(
   pipeline: Pipeline(page, aggregate),
-) -> Promise(Result(List(Asset), shoki.ShokiErr)) {
-  use loaded <- try_resolve(pipeline.load())
+) -> Promise(Result(List(Asset), error.ShokiErr)) {
+  use loaded <- async.try_resolve(pipeline.load())
 
-  use Rendered(assets:, processors:) <- try_resolve(pipeline.render(
+  use Rendered(assets:, tasks:) <- async.try_resolve(pipeline.render(
     loaded.pages,
     loaded.aggregated,
   ))
 
-  let processors = processors |> list.group(fn(p) { p.path })
+  let tasks = tasks |> list.group(fn(p) { p.path })
 
   assets
   |> list.map(fn(a) {
     case a {
       HTMLFile(source:, path:, html:) -> {
-        let appliccable = processors |> dict.get(path) |> result.unwrap([])
-        use result <- promise.try_await(apply_processors(html, appliccable))
+        let appliccable = tasks |> dict.get(path) |> result.unwrap([])
+        use result <- promise.try_await(apply_tasks(html, appliccable))
 
         HTMLFile(source:, path:, html: result) |> Ok |> promise.resolve
       }
@@ -208,10 +221,10 @@ pub fn run(
     }
   })
   |> promise.await_list
-  |> promise.map(shoki.collate_errors)
+  |> promise.map(error.collate_errors)
 }
 
-fn write_one(out_dir: fs.Path, output: Asset) -> Result(Nil, shoki.ShokiErr) {
+fn write_one(out_dir: fs.Path, output: Asset) -> Result(Nil, error.ShokiErr) {
   case output {
     HTMLFile(source: _, path:, html:) ->
       fs.write_site_file(out_dir, path, html |> mellie.to_document_string)
@@ -222,23 +235,23 @@ fn write_one(out_dir: fs.Path, output: Asset) -> Result(Nil, shoki.ShokiErr) {
 pub fn write_all(
   out_dir: fs.Path,
   assets: List(Asset),
-) -> Result(Nil, shoki.ShokiErr) {
+) -> Result(Nil, error.ShokiErr) {
   use _ <- result.try(fs.delete_dir(out_dir))
   // handle async asset rendering before comitting file
   assets
   |> list.map(write_one(out_dir, _))
-  |> shoki.collate_errors
+  |> error.collate_errors
   |> result.replace(Nil)
 }
 
-pub fn html_file_without_source(
+pub fn generated_html_file(
   path: fs.SitePath,
   rendered: mellie.ElementTree,
 ) -> Asset {
   HTMLFile(option.None, path, rendered)
 }
 
-pub fn create_html_file(
+pub fn derived_html_file(
   source: fs.Path,
   path: fs.SitePath,
   rendered: mellie.ElementTree,
@@ -325,11 +338,11 @@ fn apply_element_updates(
   }
 }
 
-fn apply_processors(base, processors: List(Task)) {
+fn apply_tasks(base, tasks: List(Task)) {
   let processed =
     // this is gross, there must be a nicer way to do this
     promise.await_list(
-      processors
+      tasks
       |> list.map(fn(p) {
         p.render()
         |> promise.map(fn(r) {
@@ -337,7 +350,7 @@ fn apply_processors(base, processors: List(Task)) {
         })
       }),
     )
-    |> promise.map(shoki.collate_errors)
+    |> promise.map(error.collate_errors)
 
   use results <- promise.try_await(processed)
   apply_element_updates(base, results |> to_element_update_dict)
@@ -345,35 +358,25 @@ fn apply_processors(base, processors: List(Task)) {
   |> promise.resolve
 }
 
-pub fn merge_rendered(a: Rendered, b: Rendered) -> Rendered {
+fn merge_rendered(a: Rendered, b: Rendered) -> Rendered {
   Rendered(
     assets: list.append(a.assets, b.assets),
-    processors: list.append(a.processors, b.processors),
+    tasks: list.append(a.tasks, b.tasks),
   )
 }
 
-pub fn flatten_rendered(r: List(Rendered)) {
+fn flatten_rendered(r: List(Rendered)) {
   list.fold(r, Rendered([], []), merge_rendered)
 }
 
-pub fn assets(a) {
+pub fn from_assets(a) {
   Rendered(a, [])
 }
 
-pub fn processors(a) {
+pub fn from_tasks(a) {
   Rendered([], a)
 }
 
 pub fn html_file_transform_task(path, replace, render) {
   HTMLFileTransformTask(path, replace, render)
-}
-
-/// A drop-in replacement for result.try when in a promise context.
-/// Wraps results in a promise so that they can be used in `use` statements
-/// within a function ensuring consistent returns
-pub fn try_resolve(result, cb) {
-  case result {
-    Ok(ok) -> cb(ok)
-    Error(err) -> promise.resolve(Error(err))
-  }
 }

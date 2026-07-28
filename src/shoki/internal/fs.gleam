@@ -4,7 +4,7 @@ import gleam/list
 import gleam/result
 import gleam/string
 import mellie/attr
-import shoki/shoki.{
+import shoki/error.{
   type ShokiResult, DirNotFound, ErrorCopyingDir, ErrorCreatingDir,
   ErrorDeletingDir, ErrorReadingTextFile, ErrorWritingTextFile, InvalidSitePath,
   PathUnresolvable,
@@ -76,7 +76,7 @@ pub fn ls_dir(at: Path) -> ShokiResult(List(Path)) {
   )
 
   use resolved <- result.try(
-    paths |> list.map(resolve(at, _)) |> shoki.collate_errors,
+    paths |> list.map(resolve(at, _)) |> error.collate_errors,
   )
 
   let files = resolved |> list.filter(is_file)

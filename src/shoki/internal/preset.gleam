@@ -4,9 +4,10 @@ import clip/help
 import clip/opt
 import gleam/io
 import gleam/javascript/promise
+import shoki/async
+import shoki/error
 import shoki/internal/fs
 import shoki/pipeline
-import shoki/shoki
 
 pub fn run_main(create_pipeline) {
   let cmd =
@@ -15,9 +16,9 @@ pub fn run_main(create_pipeline) {
       use static <- clip.parameter
       use out <- clip.parameter
 
-      use pages <- pipeline.try_resolve(fs.from_cwd(pages))
-      use static <- pipeline.try_resolve(fs.from_cwd(static))
-      use out <- pipeline.try_resolve(fs.ensure_relative_dir(out))
+      use pages <- async.try_resolve(fs.from_cwd(pages))
+      use static <- async.try_resolve(fs.from_cwd(static))
+      use out <- async.try_resolve(fs.ensure_relative_dir(out))
 
       let pipeline = create_pipeline(pages, static)
       use assets <- promise.try_await(
@@ -44,7 +45,7 @@ pub fn run_main(create_pipeline) {
       use cmd_resolved <- promise.await(cmd_result)
       case cmd_resolved {
         Ok(_) -> io.println("Pipeline run successfully")
-        Error(err) -> io.println_error(err |> shoki.error_to_string)
+        Error(err) -> io.println_error(err |> error.error_to_string)
       }
       |> promise.resolve
     }

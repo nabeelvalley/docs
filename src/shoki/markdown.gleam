@@ -6,10 +6,10 @@ import gleam/result
 import gleam/string
 import mellie
 import presentable_soup
+import shoki/error.{type ShokiResult, ErrorReadingFrontmatter}
 import shoki/internal/fs
 import shoki/internal/markdown
 import shoki/pipeline
-import shoki/shoki.{type ShokiResult, ErrorReadingFrontmatter}
 import yamleam
 
 pub opaque type MarkdownFile(a) {
@@ -43,7 +43,7 @@ fn read_file(
         yamleam.parse(fm, decode)
         |> result.replace_error(
           ErrorReadingFrontmatter(fm)
-          |> shoki.error_context(file |> fs.path_to_string),
+          |> error.error_context(file |> fs.path_to_string),
         ),
       )
 
@@ -64,7 +64,7 @@ fn read_files(dir: fs.Path, decode_frontmatter) {
   files
   |> list.filter(fs.has_ext(_, [fs.MD, fs.MDX]))
   |> list.map(read_file(dir, _, decode_frontmatter))
-  |> shoki.collate_errors
+  |> error.collate_errors
 }
 
 pub fn from_markdown(
@@ -72,7 +72,7 @@ pub fn from_markdown(
   decode decode: fn(fs.SitePath) -> decode.Decoder(a),
   agg agg: fn(List(a)) -> b,
   render render: fn(MarkdownFile(a), b) ->
-    Result(presentable_soup.ElementTree, shoki.ShokiErr),
+    Result(presentable_soup.ElementTree, error.ShokiErr),
 ) -> pipeline.Pipeline(MarkdownFile(a), b) {
   pipeline.new(
     load: fn() {
@@ -82,7 +82,7 @@ pub fn from_markdown(
     },
     render: fn(pages: List(MarkdownFile(a)), agg: b) -> Result(
       pipeline.Rendered,
-      shoki.ShokiErr,
+      error.ShokiErr,
     ) {
       pages
       |> list.map(fn(page) {
@@ -90,11 +90,9 @@ pub fn from_markdown(
 
         rendered
         |> to_html_file(page, _)
-        |> list.wrap
-        |> pipeline.assets
       })
-      |> shoki.collate_errors
-      |> result.map(pipeline.flatten_rendered)
+      |> error.collate_errors
+      |> result.map(pipeline.from_assets)
     },
   )
 }
@@ -119,7 +117,7 @@ pub fn to_html_file(file: MarkdownFile(a), rendered: mellie.ElementTree) {
 pub fn replace_body(tree: mellie.ElementTree) {
   tree
   |> mellie.get_child_by_tag("body")
-  |> result.replace_error(shoki.ErrorRenderingMarkdown(
+  |> result.replace_error(error.ErrorRenderingMarkdown(
     "Failed to find body in rendered markdown",
   ))
   |> result.map(mellie.children)
@@ -130,7 +128,7 @@ pub fn render(file: MarkdownFile(a)) -> ShokiResult(mellie.ElementTree) {
   file.content
   |> markdown.parse
   |> mellie.parse
-  |> result.replace_error(shoki.ErrorRenderingMarkdown(
+  |> result.replace_error(error.ErrorRenderingMarkdown(
     "Error parsing HTML from markdown",
   ))
   |> result.try(replace_body)

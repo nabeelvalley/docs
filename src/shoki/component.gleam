@@ -6,7 +6,6 @@ import presentable_soup.{ElementNode, TextNode}
 type Visit(a) =
   fn(ElementTree) -> a
 
-/// Represents a server component
 pub type Component(a) =
   #(String, Visit(a))
 
@@ -14,7 +13,7 @@ pub fn new(tag tag, visit visit: Visit(a)) {
   #(tag, visit)
 }
 
-/// Rennders content depth-first
+/// Updates content depth-first with the given components
 fn render_rec(
   components: Dict(String, Visit(ElementTree)),
   el: ElementTree,
@@ -39,6 +38,7 @@ fn render_rec(
   }
 }
 
+/// Runs components over the given HTML depth-first
 pub fn render(
   html: ElementTree,
   components: List(Component(ElementTree)),

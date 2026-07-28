@@ -7,7 +7,7 @@ import gleam/string
 import parz
 import parz/combinators
 import parz/parsers
-import shoki/shoki.{DateParseError}
+import shoki/error.{DateParseError}
 
 pub type IsoDate {
   IsoDate(year: Int, month: Int, day: Int)
