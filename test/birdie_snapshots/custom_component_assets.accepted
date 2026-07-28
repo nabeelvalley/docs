@@ -41,7 +41,8 @@ HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
           formatting</p>
         <data value="Nested Heading + code |> print_me |> echo +  + ">My Updated Tag</data>
         <p>
-          <my-async-tag data="hello world"></my-async-tag>
+          <my-updated-async-tag data="hello world">Extracted text:
+            hello world</my-updated-async-tag>
         </p>
       </div>
     </main>

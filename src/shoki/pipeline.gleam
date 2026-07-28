@@ -11,10 +11,6 @@ import shoki/internal/fs
 import shoki/shoki.{type ShokiResult}
 import util
 
-pub opaque type ExtractAssets {
-  ExtractAssets(extract: fn(Asset) -> ShokiResult(List(Asset)))
-}
-
 pub opaque type Loaded(page, aggregate) {
   Loaded(pages: List(page), aggregated: aggregate)
 }
@@ -25,18 +21,14 @@ type Loader(state, aggregate) =
 type Renderer(state, aggregate) =
   fn(List(state), aggregate) -> ShokiResult(Rendered)
 
-pub type Rendered {
+pub opaque type Rendered {
   Rendered(assets: List(Asset), processors: List(Task))
 }
 
-pub type Replacement {
-  Replacement(replace: mellie.ElementTree)
-}
-
-pub type Task {
+pub opaque type Task {
   HTMLFileTransformTask(
     path: fs.SitePath,
-    replacement: Replacement,
+    replacement: mellie.ElementTree,
     render: fn() -> Promise(ShokiResult(mellie.ElementTree)),
   )
   // Task(fn() -> Promise(ShokiResult(Nil)))
@@ -164,13 +156,12 @@ pub fn with_components(
 
 pub fn with_additional_assets(
   from: Pipeline(page, aggregate),
-  extractor: ExtractAssets,
+  extract: fn(Asset) -> ShokiResult(List(Asset)),
 ) -> Pipeline(page, aggregate) {
   Pipeline(load: from.load, render: fn(pages, aggregated) {
     use prev <- result.try(from.render(pages, aggregated))
 
-    let results =
-      prev.assets |> list.map(extractor.extract) |> shoki.collate_errors
+    let results = prev.assets |> list.map(extract) |> shoki.collate_errors
 
     use result <- result.map(results)
 
@@ -343,7 +334,7 @@ fn apply_processors(base, processors: List(Task)) {
       |> list.map(fn(p) {
         p.render()
         |> promise.map(fn(r) {
-          r |> result.map(ElementReplacement(p.replacement.replace, _))
+          r |> result.map(ElementReplacement(p.replacement, _))
         })
       }),
     )
@@ -370,26 +361,10 @@ pub fn assets(a) {
   Rendered(a, [])
 }
 
-pub fn asset(a) {
-  Rendered([a], [])
-}
-
 pub fn processors(a) {
   Rendered([], a)
 }
 
-pub fn processor(a) {
-  Rendered([], [a])
-}
-
-pub fn empty_rendered() {
-  Rendered([], [])
-}
-
-pub fn extract_assets(extract) {
-  ExtractAssets(extract)
-}
-
-pub fn create_task(task: fn(Asset) -> ShokiResult(List(Task))) {
-  task
+pub fn html_file_transform_task(path, replace, render) {
+  HTMLFileTransformTask(path, replace, render)
 }

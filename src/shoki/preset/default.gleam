@@ -100,7 +100,8 @@ fn index(path, title, tags, entries) {
   ])
   |> shared.page(title, css_path)
   |> pipeline.html_file_without_source(path, _)
-  |> pipeline.asset
+  |> list.wrap
+  |> pipeline.assets
 }
 
 fn tag_pages(tags: GroupedTags) {

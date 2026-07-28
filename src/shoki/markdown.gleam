@@ -86,9 +86,12 @@ pub fn from_markdown(
     ) {
       pages
       |> list.map(fn(page) {
-        render(page, agg)
-        |> result.map(to_html_file(page, _))
-        |> result.map(pipeline.asset)
+        use rendered <- result.map(render(page, agg))
+
+        rendered
+        |> to_html_file(page, _)
+        |> list.wrap
+        |> pipeline.assets
       })
       |> shoki.collate_errors
       |> result.map(pipeline.flatten_rendered)
