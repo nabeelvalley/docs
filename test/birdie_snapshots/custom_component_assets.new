@@ -1,8 +1,6 @@
 ---
 version: 2.0.2
 title: custom component assets
-file: ./test/shoki/pipeline_test.gleam
-test_name: pipeline_with_components_test
 ---
 HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
 <!doctype html>
@@ -41,7 +39,8 @@ HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
           formatting</p>
         <data value="Nested Heading + code |> print_me |> echo +  + ">My Updated Tag</data>
         <p>
-          <my-async-tag data="hello world"></my-async-tag>
+          <my-updated-async-tag data="hello world">Extracted text:
+            hello world</my-updated-async-tag>
         </p>
       </div>
     </main>

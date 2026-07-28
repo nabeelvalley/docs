@@ -1,7 +1,8 @@
 import birdie
+import gleam/dict
 import gleam/javascript/promise
 import gleam/list
-import gleam/option
+import gleam/result
 import gleam/string
 import mellie
 import mellie/attr
@@ -53,8 +54,58 @@ pub fn pipeline_with_components_test() {
   let assert Ok(text_output_file_path) =
     fs.site_path_from_string("/blog/second_post_text.html")
 
-  let components = [
-    component.new("my-custom-tag", fn(source, el) {
+  let my_custom_tag_extractor =
+    pipeline.extract_assets(fn(a) {
+      case a {
+        pipeline.HTMLFile(source: _, path: _, html:) -> {
+          let children = mellie.get_children_by_tag(html, "my-custom-tag")
+          list.map(children, fn(child) {
+            let text = child |> mellie.inner_text
+
+            text
+            |> html.text
+            |> pipeline.html_file_without_source(text_output_file_path, _)
+          })
+        }
+        _ -> []
+      }
+      |> Ok
+    })
+
+  let my_async_tag_updater =
+    pipeline.create_task(fn(a) {
+      case a {
+        pipeline.HTMLFile(source: _, path:, html:) -> {
+          let children = mellie.get_children_by_tag(html, "my-async-tag")
+          list.map(children, fn(child) {
+            let text =
+              child
+              |> mellie.attrs
+              |> dict.from_list
+              |> dict.get("data")
+              |> result.unwrap("data not found")
+              |> mellie.text
+
+            let new_el =
+              mellie.element("my-updated-async-tag", child |> mellie.attrs, [
+                mellie.text("Extracted text: "),
+                text,
+              ])
+
+            pipeline.HTMLFileTransformTask(
+              path,
+              pipeline.Replacement(child),
+              fn() { new_el |> Ok |> promise.resolve },
+            )
+          })
+        }
+        _ -> []
+      }
+      |> Ok
+    })
+
+  let my_custom_tag =
+    component.new("my-custom-tag", fn(el) {
       let text =
         el
         |> mellie.inner_text
@@ -62,10 +113,6 @@ pub fn pipeline_with_components_test() {
       let new_el =
         html.data(
           [
-            mellie.attribute(
-              "source",
-              source |> option.map(fs.path_to_string) |> option.unwrap(""),
-            ),
             attr.value(
               text
               |> string.replace("\n", " + "),
@@ -74,29 +121,8 @@ pub fn pipeline_with_components_test() {
           [html.text("My Updated Tag")],
         )
 
-      let rendered =
-        text
-        |> html.text
-        |> pipeline.html_file_without_source(text_output_file_path, _)
-        |> pipeline.asset
-
-      component.Visited(new_el, rendered)
-    }),
-
-    component.new("my-async-tag", fn(source, el) {
-      case source {
-        option.None -> component.Visited(el, pipeline.Rendered([], []))
-        option.Some(path) -> {
-          let renderd =
-            todo
-            // figure out how to create lazy assets more cleanly
-            |> pipeline.processor
-
-          component.Visited(el, renderd)
-        }
-      }
-    }),
-  ]
+      new_el
+    })
 
   let pipeline =
     markdown.from_markdown(
@@ -105,7 +131,12 @@ pub fn pipeline_with_components_test() {
       agg: default.group_by_tag,
       render: default.render_page,
     )
-    |> pipeline.with_components(components)
+    // extracts custom tag before rendering
+    |> pipeline.with_additional_assets(my_custom_tag_extractor)
+    // renders custom tag before rendering
+    |> pipeline.with_components([my_custom_tag])
+    // creates taks from async tag
+    |> pipeline.with_task(my_async_tag_updater)
 
   use rendered <- promise.await(pipeline |> pipeline.run)
   let assert Ok(assets) = rendered

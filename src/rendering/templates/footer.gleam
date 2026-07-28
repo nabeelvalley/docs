@@ -1,5 +1,5 @@
 import consts
-import lustre/attribute.{rel, class, href, id}
+import lustre/attribute.{class, href, id, rel}
 import lustre/element/html.{a, footer, li, section, text, ul}
 
 pub fn render() {

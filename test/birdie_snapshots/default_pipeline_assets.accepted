@@ -192,6 +192,9 @@ HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
             </code>
           </pre>
         </my-custom-tag>
+        <p>
+          <my-async-tag data="hello world"></my-async-tag>
+        </p>
       </div>
     </main>
   </body>

@@ -11,6 +11,10 @@ import shoki/internal/fs
 import shoki/shoki.{type ShokiResult}
 import util
 
+pub opaque type ExtractAssets {
+  ExtractAssets(extract: fn(Asset) -> ShokiResult(List(Asset)))
+}
+
 pub opaque type Loaded(page, aggregate) {
   Loaded(pages: List(page), aggregated: aggregate)
 }
@@ -22,20 +26,20 @@ type Renderer(state, aggregate) =
   fn(List(state), aggregate) -> ShokiResult(Rendered)
 
 pub type Rendered {
-  Rendered(assets: List(Asset), processors: List(Processor))
+  Rendered(assets: List(Asset), processors: List(Task))
 }
 
 pub type Replacement {
   Replacement(replace: mellie.ElementTree)
 }
 
-// TODO: add other processor types, here, possibly rename from 'Processor' to 'AsyncAsset' or something
-pub type Processor {
-  HTMLFileTransform(
+pub type Task {
+  HTMLFileTransformTask(
     path: fs.SitePath,
     replacement: Replacement,
     render: fn() -> Promise(ShokiResult(mellie.ElementTree)),
   )
+  // Task(fn() -> Promise(ShokiResult(Nil)))
 }
 
 pub type Asset {
@@ -123,18 +127,18 @@ pub fn with_static_dir(
   pipeline: Pipeline(page, aggregate),
   dir: fs.Path,
 ) -> Pipeline(page, aggregate) {
-  with(pipeline, fn(_) {
-    use to <- result.map(fs.site_path_from_string("/"))
-    CopyDir(dir, to) |> list.wrap |> assets
-  })
+  use _ <- with(pipeline)
+  use to <- result.map(fs.site_path_from_string("/"))
+
+  CopyDir(dir, to) |> list.wrap |> assets
 }
 
 pub fn with_components(
   from: Pipeline(page, aggregate),
-  comps: List(component.Component(Rendered)),
+  comps: List(component.Component(mellie.ElementTree)),
 ) -> Pipeline(page, aggregate) {
   Pipeline(load: from.load, render: fn(pages, aggregated) {
-    use prev <- result.try(from.render(pages, aggregated))
+    use prev <- result.map(from.render(pages, aggregated))
 
     let Rendered(assets: prev_assets, processors: prev_processors) = prev
 
@@ -143,19 +147,49 @@ pub fn with_components(
       |> list.map(fn(a) {
         case a {
           HTMLFile(source:, path:, html:) -> {
-            let #(html, rendered) = component.render(source, html, comps)
+            let html = component.render(html, comps)
 
-            [
-              prev_processors |> processors,
-              HTMLFile(source:, path:, html:) |> asset,
-              ..rendered
-            ]
+            Rendered(
+              processors: prev_processors,
+              assets: HTMLFile(source:, path:, html:) |> list.wrap,
+            )
           }
-          _ -> [prev]
+          _ -> prev
         }
       })
 
-    rendered |> list.flatten |> flatten_rendered |> Ok
+    rendered |> flatten_rendered
+  })
+}
+
+pub fn with_additional_assets(
+  from: Pipeline(page, aggregate),
+  extractor: ExtractAssets,
+) -> Pipeline(page, aggregate) {
+  Pipeline(load: from.load, render: fn(pages, aggregated) {
+    use prev <- result.try(from.render(pages, aggregated))
+
+    let results =
+      prev.assets |> list.map(extractor.extract) |> shoki.collate_errors
+
+    use result <- result.map(results)
+
+    merge_rendered(prev, result |> list.flatten |> assets)
+  })
+}
+
+pub fn with_task(
+  from: Pipeline(page, aggregate),
+  create_tasks: fn(Asset) -> ShokiResult(List(Task)),
+) -> Pipeline(page, aggregate) {
+  Pipeline(load: from.load, render: fn(pages, aggregated) {
+    use prev <- result.try(from.render(pages, aggregated))
+
+    let results = prev.assets |> list.map(create_tasks) |> shoki.collate_errors
+
+    use result <- result.map(results)
+
+    merge_rendered(prev, result |> list.flatten |> processors)
   })
 }
 
@@ -301,7 +335,7 @@ fn apply_element_updates(
   }
 }
 
-fn apply_processors(base, processors: List(Processor)) {
+fn apply_processors(base, processors: List(Task)) {
   let processed =
     // this is gross, there must be a nicer way to do this
     promise.await_list(
@@ -346,4 +380,16 @@ pub fn processors(a) {
 
 pub fn processor(a) {
   Rendered([], [a])
+}
+
+pub fn empty_rendered() {
+  Rendered([], [])
+}
+
+pub fn extract_assets(extract) {
+  ExtractAssets(extract)
+}
+
+pub fn create_task(task: fn(Asset) -> ShokiResult(List(Task))) {
+  task
 }
