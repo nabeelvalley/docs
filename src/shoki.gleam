@@ -97,6 +97,7 @@ pub fn merge(
   )
 }
 
+/// The raw unit for composing rendering pipelines
 pub fn with(
   from: Pipeline(page, aggregate),
   render: fn(aggregate) -> ShokiResult(Rendered),
@@ -109,6 +110,7 @@ pub fn with(
   })
 }
 
+/// Derive some assets from the pipeline aggregate
 pub fn with_assets(
   from: Pipeline(page, aggregate),
   render: fn(aggregate) -> ShokiResult(List(Asset)),
@@ -121,6 +123,7 @@ pub fn with_assets(
   })
 }
 
+/// Derive an asset from the pipeline aggregate
 pub fn with_asset(
   from: Pipeline(page, aggregate),
   render: fn(aggregate) -> ShokiResult(Asset),
@@ -131,6 +134,7 @@ pub fn with_asset(
   out |> list.wrap |> from_assets
 }
 
+/// Add a static directory to be copied as part of the pipeline
 pub fn with_static_dir(
   pipeline: Pipeline(page, aggregate),
   dir: fs.Path,
@@ -141,36 +145,35 @@ pub fn with_static_dir(
   CopyDir(dir, to) |> list.wrap |> from_assets
 }
 
+/// Add server-side components to the pipeline
 pub fn with_components(
   from: Pipeline(page, aggregate),
   comps: List(component.Component(mellie.ElementTree)),
 ) -> Pipeline(page, aggregate) {
   Pipeline(load: from.load, render: fn(pages, aggregated) {
-    use prev <- result.map(from.render(pages, aggregated))
+    use prev <- result.try(from.render(pages, aggregated))
 
-    let Rendered(assets: prev_assets, tasks: prev_tasks) = prev
+    let Rendered(assets: prev_assets, tasks: _) = prev
 
     let rendered =
       prev_assets
       |> list.map(fn(a) {
-        case a {
-          HTMLFile(source:, path:, html:) -> {
-            let html = component.render(html, comps)
+        use source, path, html <- if_html(a, prev)
 
-            Rendered(
-              tasks: prev_tasks,
-              assets: HTMLFile(source:, path:, html:) |> list.wrap,
-            )
-          }
-          _ -> prev
-        }
+        let html = component.render(html, comps)
+
+        HTMLFile(source:, path:, html:) |> list.wrap |> from_assets
       })
 
-    rendered |> flatten_rendered
+    rendered
+    |> error.collate_errors
+    |> result.map(flatten_rendered)
+    |> result.map(merge_rendered(prev, _))
   })
 }
 
-pub fn with_additional_assets(
+/// Add assets that are derived from an existing asset, e.g. copying images that are needed for a given page
+pub fn with_derived_assets(
   from: Pipeline(page, aggregate),
   extract: fn(Asset) -> ShokiResult(List(Asset)),
 ) -> Pipeline(page, aggregate) {
@@ -178,13 +181,13 @@ pub fn with_additional_assets(
     use prev <- result.try(from.render(pages, aggregated))
 
     let results = prev.assets |> list.map(extract) |> error.collate_errors
-
     use result <- result.map(results)
 
     merge_rendered(prev, result |> list.flatten |> from_assets)
   })
 }
 
+/// Add some generic tasks into the pipeline for each asset, e.g. running an accessibility check on all generated html
 pub fn with_task(
   from: Pipeline(page, aggregate),
   create_tasks: fn(Asset) -> ShokiResult(List(Task)),
@@ -200,6 +203,7 @@ pub fn with_task(
   })
 }
 
+/// Run the pipeline
 pub fn run(
   pipeline: Pipeline(page, aggregate),
 ) -> Promise(Result(List(Asset), error.ShokiErr)) {
@@ -236,6 +240,7 @@ fn write_one(out_dir: fs.Path, output: Asset) -> Result(Nil, error.ShokiErr) {
   }
 }
 
+/// Write all resulting assets from the pipeline to disc
 pub fn write_all(
   out_dir: fs.Path,
   assets: List(Asset),

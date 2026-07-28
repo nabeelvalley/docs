@@ -54,7 +54,7 @@ pub fn pipeline_with_components_test() {
   let assert Ok(text_output_file_path) =
     fs.site_path_from_string("/blog/second_post_text.html")
 
-  let with_my_custom_tag_extractor = shoki.with_additional_assets(_, fn(a) {
+  let with_my_custom_tag_extractor = shoki.with_derived_assets(_, fn(a) {
     use _, _, html <- shoki.if_html(a, [])
 
     let children = mellie.get_children_by_tag(html, "my-custom-tag")

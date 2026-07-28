@@ -8,12 +8,12 @@ import gleam/result
 import gleam/string
 import mellie/attr
 import mellie/html
+import shoki
 import shoki/date.{type IsoDate}
 import shoki/error
 import shoki/internal/fs
 import shoki/internal/preset
 import shoki/markdown
-import shoki
 import shoki/preset/shared
 
 pub opaque type Frontmatter {
@@ -110,7 +110,6 @@ fn tag_pages(tags: GroupedTags) {
   })
   |> dict.values
   |> error.collate_errors
-  |> result.map(shoki.from_assets)
 }
 
 pub fn compare_date(a: Frontmatter, b: Frontmatter) {
@@ -145,7 +144,7 @@ pub fn create_pipeline(content_dir: fs.Path, static_dir: fs.Path) {
       agg: group_by_tag,
       render: render_page,
     )
-    |> shoki.with(tag_pages)
+    |> shoki.with_assets(tag_pages)
     |> shoki.with_asset(index_page)
     |> shoki.with_static_dir(static_dir)
 
