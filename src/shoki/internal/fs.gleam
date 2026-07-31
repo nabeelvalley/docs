@@ -29,7 +29,18 @@ pub fn resolve(dir: Path, relative: String) {
   |> result.map(Path)
 }
 
-fn cwd() {
+// TODO: make this function not the slowest thing in the world
+pub fn parent(path: Path) {
+  filepath.split(path.path)
+  |> list.reverse
+  |> list.drop(1)
+  |> list.reverse
+  |> list.reduce(filepath.join)
+  |> result.map(Path)
+  |> result.replace_error(error.ParentDirNotFound(path.path))
+}
+
+pub fn cwd() {
   // something would be very wrong if we couldn't resolve the current dir
   let assert Ok(cwd) = simplifile.resolve(".")
 
@@ -43,6 +54,15 @@ pub fn from_cwd(rel: String) {
 pub fn delete_dir(dir: Path) {
   let path = dir.path
   simplifile.delete(path) |> result.replace_error(ErrorDeletingDir(path))
+}
+
+pub fn ensure_dir(path: Path) {
+  case is_dir(path) {
+    True -> Ok(Nil)
+    False ->
+      simplifile.create_directory_all(path.path)
+      |> result.replace_error(error.ErrorCreatingDir(path.path))
+  }
 }
 
 pub fn ensure_relative_dir(rel: String) {
@@ -98,6 +118,11 @@ pub fn path_to_string(p: Path) {
   p.path |> string.remove_prefix(matching: cwd)
 }
 
+/// Gets the absolute path as a string
+pub fn to_abs_string(p: Path) {
+  p.path
+}
+
 pub fn site_path_to_string(p: SitePath) {
   p.slug
 }
@@ -111,14 +136,18 @@ pub fn read_text_file(p: Path) {
   |> result.replace_error(ErrorReadingTextFile(p.path))
 }
 
-pub fn write_site_file(out_dir: Path, path: SitePath, content: String) {
+pub fn site_path_to_path(out_dir: Path, path: SitePath) {
   let to_resolve = out_dir.path <> path.slug
-  use resolved <- result.try(
-    simplifile.resolve(to_resolve)
-    |> result.replace_error(PathUnresolvable(to_resolve)),
-  )
 
-  let parent_to_resolve = resolved <> "/.."
+  to_resolve
+  |> simplifile.resolve
+  |> result.replace_error(PathUnresolvable(to_resolve))
+  |> result.map(Path)
+}
+
+pub fn write_site_file(out_dir: Path, path: SitePath, content: String) {
+  use resolved <- result.try(site_path_to_path(out_dir, path))
+  let parent_to_resolve = resolved.path <> "/.."
   use dir <- result.try(
     simplifile.resolve(parent_to_resolve)
     |> result.replace_error(PathUnresolvable(parent_to_resolve)),
@@ -129,14 +158,18 @@ pub fn write_site_file(out_dir: Path, path: SitePath, content: String) {
     |> result.replace_error(ErrorCreatingDir(dir)),
   )
 
-  simplifile.write(resolved, content)
-  |> result.replace_error(ErrorWritingTextFile(resolved))
+  simplifile.write(resolved.path, content)
+  |> result.replace_error(ErrorWritingTextFile(resolved.path))
 }
 
 pub type Extension {
   MD
   MDX
   HTML
+  JPG
+  PNG
+  JPEG
+  WEBP
 }
 
 fn to_suffix(ext: Extension) {
@@ -144,6 +177,10 @@ fn to_suffix(ext: Extension) {
     MD -> ".md"
     MDX -> ".mdx"
     HTML -> ".html"
+    PNG -> ".png"
+    JPG -> ".jpg"
+    JPEG -> ".jpeg"
+    WEBP -> ".webp"
   }
 }
 
@@ -194,4 +231,17 @@ pub fn copy_site_dir(out: Path, from: Path, to: SitePath) {
   |> result.replace_error(ErrorCopyingDir(
     "from: " <> input <> " to: " <> output,
   ))
+}
+
+pub fn file_name_only(file: Path) {
+  file.path |> filepath.base_name |> filepath.strip_extension
+}
+
+/// Just does a string concat of two site paths, dropping the leading slash of the second path
+pub fn concat_site_path(a: SitePath, b: SitePath) {
+  case b.slug {
+    "/" <> slug -> a.slug <> "/" <> slug
+    slug -> a.slug <> "/" <> slug
+  }
+  |> SitePath
 }

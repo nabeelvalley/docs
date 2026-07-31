@@ -4,10 +4,10 @@ import clip/help
 import clip/opt
 import gleam/io
 import gleam/javascript/promise
+import shoki
 import shoki/async
 import shoki/error
 import shoki/internal/fs
-import shoki
 
 pub fn run_main(create_pipeline) {
   let cmd =
@@ -20,13 +20,13 @@ pub fn run_main(create_pipeline) {
       use static <- async.try_resolve(fs.from_cwd(static))
       use out <- async.try_resolve(fs.ensure_relative_dir(out))
 
-      let pipeline = create_pipeline(pages, static)
+      let pipeline = create_pipeline(out, pages, static)
       use assets <- promise.try_await(
         pipeline
         |> shoki.run(),
       )
 
-      shoki.write_all(out, assets) |> promise.resolve
+      shoki.write_all(pipeline, assets) |> promise.resolve
     })
     |> clip.opt(opt.new("pages") |> opt.help("directory to load pages from"))
     |> clip.opt(

@@ -67,6 +67,7 @@ fn read_files(dir: fs.Path, decode_frontmatter) {
 }
 
 pub fn from_markdown(
+  out out_dir: fs.Path,
   dir dir: fs.Path,
   decode decode: fn(fs.SitePath) -> decode.Decoder(a),
   agg agg: fn(List(a)) -> b,
@@ -74,6 +75,7 @@ pub fn from_markdown(
     Result(presentable_soup.ElementTree, error.ShokiErr),
 ) -> shoki.Pipeline(MarkdownFile(a), b) {
   shoki.new(
+    out: out_dir,
     load: fn() {
       use pages <- result.map(read_files(dir, decode))
 

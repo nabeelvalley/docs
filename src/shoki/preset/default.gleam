@@ -11,6 +11,7 @@ import mellie/html
 import shoki
 import shoki/date.{type IsoDate}
 import shoki/error
+import shoki/image
 import shoki/internal/fs
 import shoki/internal/preset
 import shoki/markdown
@@ -136,9 +137,14 @@ fn index_page(tags: GroupedTags) {
   |> Ok
 }
 
-pub fn create_pipeline(content_dir: fs.Path, static_dir: fs.Path) {
+pub fn create_pipeline(
+  out_dir: fs.Path,
+  content_dir: fs.Path,
+  static_dir: fs.Path,
+) {
   let pipeline =
     markdown.from_markdown(
+      out: out_dir,
       dir: content_dir,
       decode: frontmatter_decoder,
       agg: group_by_tag,
@@ -147,6 +153,7 @@ pub fn create_pipeline(content_dir: fs.Path, static_dir: fs.Path) {
     |> shoki.with_assets(tag_pages)
     |> shoki.with_asset(index_page)
     |> shoki.with_static_dir(static_dir)
+    |> image.with_image_optimization(static_dir)
 
   pipeline
 }

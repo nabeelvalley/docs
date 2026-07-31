@@ -3,7 +3,7 @@ import Sharp from 'sharp'
 
 import { Result$Ok, Result$Error }
   // @ts-expect-error relative this file's location in build/dev/javascript/web
-  from "../../prelude.mjs";
+  from "../../../prelude.mjs";
 
 import { Metadata }
   // @ts-expect-error relative points to the compiled version of sharp.gleam

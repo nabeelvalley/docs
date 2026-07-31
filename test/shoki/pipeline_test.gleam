@@ -34,8 +34,9 @@ pub fn ls_dir_test() {
 pub fn default_pipeline_test() {
   let assert Ok(pages) = fs.from_cwd("./test/workspace/pages")
   let assert Ok(static) = fs.from_cwd("./test/workspace/static")
+  let assert Ok(out) = fs.from_cwd("./test/workspace/.test-out")
 
-  let pipeline = default.create_pipeline(pages, static)
+  let pipeline = default.create_pipeline(out, pages, static)
   use rendered <- promise.await(pipeline |> shoki.run)
 
   let assert Ok(assets) = rendered
@@ -49,6 +50,8 @@ pub fn default_pipeline_test() {
 pub fn pipeline_with_components_test() {
   let assert Ok(pages) = fs.from_cwd("./test/workspace/pages")
   let assert Ok(static) = fs.from_cwd("./test/workspace/static")
+  let assert Ok(out) = fs.from_cwd("./test/workspace/.test-out")
+
   let assert Ok(custom_tag_page_path) =
     fs.site_path_from_string("/blog/second_post.html")
 
@@ -117,6 +120,7 @@ pub fn pipeline_with_components_test() {
 
   let pipeline =
     markdown.from_markdown(
+      out: out,
       dir: pages,
       decode: default.frontmatter_decoder,
       agg: default.group_by_tag,

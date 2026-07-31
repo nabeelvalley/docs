@@ -46,10 +46,10 @@ HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
         </p>
         <h3>Some Images to Optimize</h3>
         <p>
-          <img src="../../static/images/image-1.jpg" alt="My first image" data-shoki-original-path="../../static/images/image-1.jpg">
+          <img src="/optimized-images/test/workspace/static/images/image-1.webp" alt="image-1" aspect-ratio="1.4989969909729188">
         </p>
         <p>
-          <img src="../../static/images/image-2.jpg" alt="My second image" data-shoki-original-path="../../static/images/image-2.jpg">
+          <img src="/optimized-images/test/workspace/static/images/image-2.webp" alt="image-2" aspect-ratio="1.5037593984962405">
         </p>
       </div>
     </main>

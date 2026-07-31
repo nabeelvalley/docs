@@ -1,29 +1,39 @@
 import gleam/dict
+import gleam/float
+import gleam/javascript/promise
 import gleam/list
 import gleam/option.{type Option, None, Some}
+import gleam/pair
 import gleam/result
 import gleam/uri
 import mellie
 import mellie/attr
 import shoki
+import shoki/async
 import shoki/component
 import shoki/error
 import shoki/internal/fs
+import shoki/internal/sharp
 
 const src_data_key = "shoki-original-path"
 
 fn create_image_optimization_placeholder(el) {
-  let src = el |> mellie.attrs |> dict.from_list |> dict.get("src")
-
-  case src {
-    Error(_) -> el
-    Ok(src) -> {
-      el |> mellie.set_attribute(attr.data(src_data_key, src))
-    }
-  }
+  el
+  |> mellie.attr("src")
+  |> result.map(attr.data(src_data_key, _))
+  |> result.map(mellie.set_attribute(el, _))
+  |> result.unwrap(el)
 }
 
-pub fn with_image_optimization(pipeline, static_images_dir) {
+fn optimized_images_path() {
+  let assert Ok(path) = fs.site_path_from_string("/optimized-images")
+
+  path
+}
+
+pub fn with_image_optimization(pipeline, static_images_dir: fs.Path) {
+  let optimized_dir = optimized_images_path()
+
   pipeline
   |> shoki.with_components([
     component.new("img", fn(_, el) { create_image_optimization_placeholder(el) }),
@@ -38,10 +48,22 @@ pub fn with_image_optimization(pipeline, static_images_dir) {
             case resolve(static_images_dir, file.source, src) {
               Error(err) -> Error(err)
               Ok(None) -> Ok([])
-              Ok(Some(resolved)) -> {
+              Ok(Some(input_path)) -> {
+                let site_path = get_output_path(optimized_dir, input_path)
                 let update_task =
-                  shoki.html_file_transform_task(file.path, img, todo)
-                let generate_task = shoki.task(todo)
+                  shoki.html_file_transform_task(file.path, img, fn() {
+                    render_image(img, input_path, site_path)
+                  })
+                let generate_task =
+                  shoki.task(fn(state) {
+                    use output_path <- async.try_resolve(fs.site_path_to_path(
+                      state.out_dir,
+                      site_path,
+                    ))
+
+                    sharp.optimize_image(input_path, output_path)
+                    |> promise.map_try(fn(_) { Ok([site_path]) })
+                  })
 
                 Ok([update_task, generate_task])
               }
@@ -73,10 +95,55 @@ fn resolve(static_dir: fs.Path, source: Option(fs.Path), src: String) {
     _ ->
       case source {
         None -> Error(error.ImageNotFound(src))
-        Some(source) ->
-          from_uri_path(src)
-          |> result.try(fs.resolve(source, _))
+        Some(file) -> {
+          let src =
+            from_uri_path(src)
+            |> result.unwrap(src)
+
+          let dir = fs.parent(file)
+
+          dir
+          |> result.try(fs.resolve(_, src))
+          |> echo
           |> result.map(Some)
+        }
       }
   }
+}
+
+fn optimized_exts() {
+  [fs.JPG, fs.JPEG, fs.PNG]
+  |> list.map(pair.new(_, fs.WEBP))
+  |> dict.from_list
+}
+
+fn get_output_path(optimized_images_path: fs.SitePath, input: fs.Path) {
+  fs.to_site_path(fs.cwd(), input, optimized_exts())
+  |> fs.concat_site_path(optimized_images_path, _)
+}
+
+fn render_image(img, input: fs.Path, output: fs.SitePath) {
+  use meta <- promise.try_await(sharp.meta(input))
+
+  let aspect_ratio =
+    meta
+    |> sharp.aspect_ratio
+    |> float.to_string
+    |> mellie.attribute("aspect-ratio", _)
+
+  let alt = mellie.attr(img, "img") |> option.from_result
+
+  let src = attr.src(output |> fs.site_path_to_string)
+  let alt =
+    attr.alt(
+      alt
+      |> option.unwrap(fs.file_name_only(input)),
+    )
+
+  let result =
+    img
+    |> mellie.remove_attribute(src_data_key)
+    |> mellie.set_attributes([src, alt, aspect_ratio])
+
+  result |> Ok |> promise.resolve
 }

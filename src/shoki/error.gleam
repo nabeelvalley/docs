@@ -11,7 +11,9 @@ pub type ShokiErr {
   FileNotFound(String)
   ErrorReadingTextFile(String)
   ErrorReadingFrontmatter(String)
+  ErrorReadingImageMeta(String)
   DirNotFound(String)
+  ParentDirNotFound(String)
   ErrorCopyingDir(String)
   ErrorCreatingDir(String)
   ErrorDeletingDir(String)
@@ -58,6 +60,7 @@ fn error_to_string_rec(err: ShokiErr, indent) {
     ErrorReadingTextFile(msg) -> "ErrorReadingTextFile: " <> msg
     ErrorReadingFrontmatter(msg) -> "ErrorReadingFrontmatter: " <> msg
     DirNotFound(msg) -> "DirNotFound: " <> msg
+    ParentDirNotFound(msg) -> "ParentDirNotFound: " <> msg
     ErrorCreatingDir(msg) -> "ErrorCreatingDir: " <> msg
     ErrorDeletingDir(msg) -> "ErrorDeletingDir: " <> msg
     PathUnresolvable(msg) -> "PathUnresolvable: " <> msg
@@ -69,6 +72,7 @@ fn error_to_string_rec(err: ShokiErr, indent) {
     ErrorRenderingMarkdown(msg) -> "ErrorRenderingMarkdown: " <> msg
     ImageNotFound(msg) -> "ImageNotFound: " <> msg
     InvalidImageSrc(msg) -> "InvalidImageSrc: " <> msg
+    ErrorReadingImageMeta(msg) -> "ErrorReadingImageMeta: " <> msg
   }
   |> indent_str(indent)
 }
