@@ -64,6 +64,7 @@ fn read_files(dir: fs.Path, decode_frontmatter) {
   |> list.filter(fs.has_ext(_, [fs.MD, fs.MDX]))
   |> list.map(read_file(dir, _, decode_frontmatter))
   |> error.collate_errors
+  |> result.map_error(error.error_context(_, dir |> fs.path_to_string))
 }
 
 pub fn from_markdown(

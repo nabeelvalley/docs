@@ -4,10 +4,6 @@ title: internal ls_dir
 file: ./test/shoki/pipeline_test.gleam
 test_name: ls_dir_test
 ---
-test/workspace/.test-out/optimized-images/test/workspace/static/images/image-1.webp
-test/workspace/.test-out/optimized-images/test/workspace/static/images/image-2.webp
-test/workspace/.test-out/optimized/test/workspace/static/images/image-1.webp
-test/workspace/.test-out/optimized/test/workspace/static/images/image-2.webp
 test/workspace/pages/about.md
 test/workspace/pages/blog/first_post.md
 test/workspace/pages/blog/second_post.md

@@ -217,10 +217,12 @@ pub fn with_task(
   })
 }
 
-/// Run the pipeline
+/// Cleans the output directory and runs the pipeline
 pub fn run(
   pipeline: Pipeline(page, aggregate),
 ) -> Promise(Result(List(Asset), error.ShokiErr)) {
+  use _ <- async.try_resolve(fs.delete_dir(pipeline.out_dir))
+
   use loaded <- async.try_resolve(pipeline.load())
 
   use Rendered(assets:, tasks:) <- async.try_resolve(pipeline.render(
@@ -283,7 +285,6 @@ pub fn write_all(
   pipeline: Pipeline(a, b),
   assets: List(Asset),
 ) -> Result(Nil, error.ShokiErr) {
-  use _ <- result.try(fs.delete_dir(pipeline.out_dir))
   // handle async asset rendering before comitting file
   assets
   |> list.map(write_one(pipeline.out_dir, _))
