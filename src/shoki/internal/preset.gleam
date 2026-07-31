@@ -21,12 +21,9 @@ pub fn run_main(create_pipeline) {
       use out <- async.try_resolve(fs.ensure_relative_dir(out))
 
       let pipeline = create_pipeline(out, pages, static)
-      use assets <- promise.try_await(
-        pipeline
-        |> shoki.run(),
-      )
 
-      shoki.write_all(pipeline, assets) |> promise.resolve
+      pipeline
+      |> shoki.run()
     })
     |> clip.opt(opt.new("pages") |> opt.help("directory to load pages from"))
     |> clip.opt(

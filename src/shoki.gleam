@@ -260,11 +260,15 @@ pub fn run(
       t(info) |> promise.map_try(fn(r) { r |> list.map(TaskResult) |> Ok })
     })
 
-  [asset_results, task_results]
-  |> list.flatten
-  |> promise.await_list
-  |> promise.map(error.collate_errors)
-  |> promise.map(result.map(_, list.flatten))
+  use assets <- promise.map_try(
+    [asset_results, task_results]
+    |> list.flatten
+    |> promise.await_list
+    |> promise.map(error.collate_errors)
+    |> promise.map(result.map(_, list.flatten)),
+  )
+
+  write_all(pipeline.out_dir, assets) |> result.map(fn(_) { assets })
 }
 
 fn write_one(out_dir: fs.Path, output: Asset) -> Result(Nil, error.ShokiErr) {
@@ -281,13 +285,10 @@ fn write_one(out_dir: fs.Path, output: Asset) -> Result(Nil, error.ShokiErr) {
 }
 
 /// Write all resulting assets from the pipeline to disc
-pub fn write_all(
-  pipeline: Pipeline(a, b),
-  assets: List(Asset),
-) -> Result(Nil, error.ShokiErr) {
+fn write_all(out_dir, assets: List(Asset)) -> Result(Nil, error.ShokiErr) {
   // handle async asset rendering before comitting file
   assets
-  |> list.map(write_one(pipeline.out_dir, _))
+  |> list.map(write_one(out_dir, _))
   |> error.collate_errors
   |> result.replace(Nil)
 }
