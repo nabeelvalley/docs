@@ -41,37 +41,46 @@ pub fn with_image_optimization(pipeline, static_images_dir: fs.Path) {
   |> shoki.with_task(fn(asset) {
     {
       use file <- shoki.if_html(asset, Ok([]))
-      list.try_map(mellie.get_children_by_tag(file.html, "img"), fn(img) {
-        case mellie.data_attr(img, src_data_key) {
-          Error(_) -> Ok([])
-          Ok(src) ->
-            case resolve(static_images_dir, file.source, src) {
-              Error(err) -> Error(err)
-              Ok(None) -> Ok([])
-              Ok(Some(input_path)) -> {
-                let site_path = get_output_path(optimized_dir, input_path)
-                let update_task =
-                  shoki.html_file_transform_task(file.path, img, fn() {
-                    render_image(img, input_path, site_path)
-                  })
-                let generate_task =
-                  shoki.task(fn(state) {
-                    use output_path <- async.try_resolve(fs.site_path_to_path(
-                      state.out_dir,
-                      site_path,
-                    ))
+      use img <- list.try_map(mellie.get_children_by_tag(file.html, "img"))
 
-                    sharp.optimize_image(input_path, output_path)
-                    |> promise.map_try(fn(_) { Ok([site_path]) })
-                  })
+      case mellie.data_attr(img, src_data_key) {
+        Error(_) -> Ok([])
+        Ok(src) -> {
+          use resolved <- result.try(resolve(
+            static_images_dir,
+            file.source,
+            src,
+          ))
+          {
+            use input_path <- option.map(resolved)
+            let output = get_output_path(optimized_dir, input_path)
 
-                Ok([update_task, generate_task])
-              }
-            }
+            let update_task =
+              shoki.html_file_transform_task(file.path, img, fn() {
+                render_image(img, input_path, output)
+              })
+            let generate_task = optimize_image_task(input_path, output)
+
+            [update_task, generate_task]
+          }
+          |> option.unwrap([])
+          |> Ok
         }
-      })
+      }
     }
     |> result.map(list.flatten)
+  })
+}
+
+fn optimize_image_task(input_path, site_path) {
+  shoki.task(fn(state) {
+    use output_path <- async.try_resolve(fs.site_path_to_path(
+      state.out_dir,
+      site_path,
+    ))
+
+    sharp.optimize_image(input_path, output_path)
+    |> promise.map_try(fn(_) { Ok([site_path]) })
   })
 }
 
@@ -104,7 +113,6 @@ fn resolve(static_dir: fs.Path, source: Option(fs.Path), src: String) {
 
           dir
           |> result.try(fs.resolve(_, src))
-          |> echo
           |> result.map(Some)
         }
       }
