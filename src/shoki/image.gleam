@@ -10,20 +10,9 @@ import mellie
 import mellie/attr
 import shoki
 import shoki/async
-import shoki/component
 import shoki/error
 import shoki/internal/fs
 import shoki/internal/sharp
-
-const src_data_key = "shoki-original-path"
-
-fn create_image_optimization_placeholder(el) {
-  el
-  |> mellie.attr("src")
-  |> result.map(attr.data(src_data_key, _))
-  |> result.map(mellie.set_attribute(el, _))
-  |> result.unwrap(el)
-}
 
 fn optimized_images_path() {
   let assert Ok(path) = fs.site_path_from_string("/optimized-images")
@@ -32,18 +21,18 @@ fn optimized_images_path() {
 }
 
 pub fn with_image_optimization(pipeline, static_images_dir: fs.Path) {
-  let optimized_dir = optimized_images_path()
-
   pipeline
-  |> shoki.with_components([
-    component.new("img", fn(_, el) { create_image_optimization_placeholder(el) }),
-  ])
-  |> shoki.with_task(fn(asset) {
+  |> shoki.with_task(image_optimize_task(static_images_dir))
+}
+
+pub fn image_optimize_task(static_images_dir) {
+  let optimized_dir = optimized_images_path()
+  fn(asset: shoki.Asset) -> Result(List(shoki.Task), error.ShokiErr) {
     {
       use file <- shoki.if_html(asset, Ok([]))
       use img <- list.try_map(mellie.get_children_by_tag(file.html, "img"))
 
-      case mellie.data_attr(img, src_data_key) {
+      case mellie.attr(img, "src") {
         Error(_) -> Ok([])
         Ok(src) -> {
           use resolved <- result.try(resolve(
@@ -69,7 +58,7 @@ pub fn with_image_optimization(pipeline, static_images_dir: fs.Path) {
       }
     }
     |> result.map(list.flatten)
-  })
+  }
 }
 
 fn optimize_image_task(input_path, site_path) {
@@ -150,7 +139,6 @@ fn render_image(img, input: fs.Path, output: fs.SitePath) {
 
   let result =
     img
-    |> mellie.remove_attribute(src_data_key)
     |> mellie.set_attributes([src, alt, aspect_ratio])
 
   result |> Ok |> promise.resolve

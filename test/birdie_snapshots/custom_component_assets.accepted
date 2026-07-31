@@ -46,10 +46,10 @@ HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
         </p>
         <h3>Some Images to Optimize</h3>
         <p>
-          <img src="/optimized-images/test/workspace/static/images/image-1.webp" alt="image-1" aspect-ratio="1.4989969909729188">
+          <img aspect-ratio="1.4989969909729188" alt="image-1" src="/optimized-images/test/workspace/static/images/image-1.webp">
         </p>
         <p>
-          <img src="/optimized-images/test/workspace/static/images/image-2.webp" alt="image-2" aspect-ratio="1.5037593984962405">
+          <img aspect-ratio="1.5037593984962405" alt="image-2" src="/optimized-images/test/workspace/static/images/image-2.webp">
         </p>
       </div>
     </main>
