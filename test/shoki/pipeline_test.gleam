@@ -10,6 +10,7 @@ import mellie/html
 import shoki
 import shoki/component
 import shoki/error
+import shoki/image
 import shoki/internal/fs
 import shoki/markdown
 import shoki/preset/default
@@ -47,7 +48,7 @@ pub fn default_pipeline_test() {
 
 pub fn pipeline_with_components_test() {
   let assert Ok(pages) = fs.from_cwd("./test/workspace/pages")
-  let assert Ok(_static) = fs.from_cwd("./test/workspace/static")
+  let assert Ok(static) = fs.from_cwd("./test/workspace/static")
   let assert Ok(custom_tag_page_path) =
     fs.site_path_from_string("/blog/second_post.html")
 
@@ -55,7 +56,7 @@ pub fn pipeline_with_components_test() {
     fs.site_path_from_string("/blog/second_post_text.html")
 
   let with_my_custom_tag_extractor = shoki.with_derived_assets(_, fn(a) {
-    use file <- shoki.if_html(a, [])
+    use file <- shoki.if_html(a, Ok([]))
 
     let children = mellie.get_children_by_tag(file.html, "my-custom-tag")
     list.map(children, fn(child) {
@@ -65,10 +66,11 @@ pub fn pipeline_with_components_test() {
       |> html.text
       |> shoki.generated_html_file(text_output_file_path, _)
     })
+    |> Ok
   })
 
   let with_my_async_tag_updater = shoki.with_task(_, fn(a) {
-    use file <- shoki.if_html(a, [])
+    use file <- shoki.if_html(a, Ok([]))
 
     let children = mellie.get_children_by_tag(file.html, "my-async-tag")
     list.map(children, fn(child) {
@@ -90,10 +92,11 @@ pub fn pipeline_with_components_test() {
         new_el |> Ok |> promise.resolve
       })
     })
+    |> Ok
   })
 
   let my_custom_tag =
-    component.new("my-custom-tag", fn(el) {
+    component.new("my-custom-tag", fn(_, el) {
       let text =
         el
         |> mellie.inner_text
@@ -125,6 +128,7 @@ pub fn pipeline_with_components_test() {
     |> with_my_async_tag_updater
     // renders custom tag before rendering
     |> shoki.with_components([my_custom_tag])
+    |> image.with_image_optimization(static)
 
   use rendered <- promise.await(pipeline |> shoki.run)
   let assert Ok(assets) = rendered

@@ -25,4 +25,9 @@ code |> print_me |> echo
 
 <my-async-tag data="hello world"></my-async-tag>
 
+### Some Images to Optimize
+
+![My first image](../../static/images/image-1.jpg)
+
+![My second image](../../static/images/image-2.jpg)
 

@@ -157,25 +157,22 @@ pub fn with_components(
   Pipeline(load: from.load, render: fn(pages, aggregated) {
     use prev <- result.try(from.render(pages, aggregated))
 
-    let Rendered(assets: prev_assets, tasks: _) = prev
+    let Rendered(assets: prev_assets, tasks: prev_tasks) = prev
 
     let rendered =
       prev_assets
       |> list.map(fn(a) {
-        use file <- if_html(a, prev)
+        use file <- if_html(a, a)
 
-        let html = component.render(file.html, comps)
+        let html = component.render(file.source, file.path, file.html, comps)
 
         HTMLFile(..file, html:)
         |> HTMLFileAsset
-        |> list.wrap
-        |> from_assets
       })
 
     rendered
-    |> error.collate_errors
-    |> result.map(flatten_rendered)
-    |> result.map(merge_rendered(prev, _))
+    |> Rendered(tasks: prev_tasks, assets: _)
+    |> Ok
   })
 }
 
@@ -385,10 +382,6 @@ fn merge_rendered(a: Rendered, b: Rendered) -> Rendered {
   )
 }
 
-fn flatten_rendered(r: List(Rendered)) {
-  list.fold(r, Rendered([], []), merge_rendered)
-}
-
 pub fn from_assets(a) {
   Rendered(a, [])
 }
@@ -417,7 +410,7 @@ pub fn task(t) {
 
 pub fn if_html(asset: Asset, or_else, f) {
   case asset {
-    HTMLFileAsset(file) -> f(file) |> Ok
-    _ -> or_else |> Ok
+    HTMLFileAsset(file) -> f(file)
+    _ -> or_else
   }
 }

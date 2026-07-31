@@ -26,8 +26,9 @@ jot = ">= 12.0.1 and < 13.0.0"
 filepath = ">= 1.1.2 and < 2.0.0"
 glentities = ">= 6.2.1 and < 7.0.0"
 presentable_soup = ">= 2.0.0 and < 3.0.0"
+youid = ">= 1.6.0 and < 2.0.0"
 
 [dependencies.mellie]
 git = "https://github.com/sftsrv/mellie"
-ref = "15d4f18"
+ref = "30a095d"
 

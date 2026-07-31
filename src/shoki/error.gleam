@@ -21,6 +21,8 @@ pub type ShokiErr {
   InvalidSitePath(String)
   InvalidSiteDir(String)
   ErrorRenderingMarkdown(String)
+  ImageNotFound(String)
+  InvalidImageSrc(String)
 }
 
 /// A drop-in replacement for result.all for merging errors into a single error object
@@ -65,6 +67,8 @@ fn error_to_string_rec(err: ShokiErr, indent) {
     InvalidSiteDir(msg) -> "InvalidSiteDir: " <> msg
     ErrorCopyingDir(msg) -> "ErrorCopyingDir: " <> msg
     ErrorRenderingMarkdown(msg) -> "ErrorRenderingMarkdown: " <> msg
+    ImageNotFound(msg) -> "ImageNotFound: " <> msg
+    InvalidImageSrc(msg) -> "InvalidImageSrc: " <> msg
   }
   |> indent_str(indent)
 }

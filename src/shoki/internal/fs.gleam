@@ -21,7 +21,7 @@ pub opaque type SitePath {
   SitePath(slug: String)
 }
 
-fn resolve(dir: Path, relative: String) {
+pub fn resolve(dir: Path, relative: String) {
   let joined = filepath.join(dir.path, relative)
   joined
   |> filepath.expand
