@@ -7,6 +7,7 @@ import gleam/javascript/promise
 import gleam/result
 import mellie
 import rendering/assets
+import rendering/pages/index
 import rendering/ssr/custom_el
 import rendering/templates/article
 import shoki
@@ -33,6 +34,7 @@ pub fn pipeline() {
       md |> mellie.children |> custom_el.site_markdown |> article.render(meta)
     },
   )
+  |> shoki.with_asset(index.render_shoki)
   |> shoki.with_static_dir(public)
 }
 

@@ -1,4 +1,5 @@
 import consts
+import content/frontmatter
 import gleam/list
 import gleam/option.{Some}
 import gleam/string
@@ -6,30 +7,33 @@ import js/date
 import js/dom
 import lustre/attribute
 import lustre/element
-import rendering/assets.{type Page, XMLFeed}
+import rendering/assets.{XMLFeed}
+import shoki/internal/fs
 
-pub fn render(pages: List(Page)) {
+pub fn render(pages: List(frontmatter.Frontmatter)) {
+  let assert Ok(blog_path) = fs.site_path_from_string("/blog")
+  let assert Ok(rss_only_path) = fs.site_path_from_string("/rss-only")
   let rss_pages =
     pages
     |> list.filter(fn(p) {
-      string.starts_with(p.slug, "/blog")
-      || string.starts_with(p.slug, "/rss-only")
+      fs.site_path_starts_with(p.path, blog_path)
+      || fs.site_path_starts_with(p.path, rss_only_path)
     })
     |> assets.sort_by_date
 
   let feed =
     rss_pages
     |> list.map(fn(p) {
-      let url = consts.site_base_url <> p.slug
-      let nodes = dom.get_nodes(tag: "main", html: p.html)
+      let url = consts.site_base_url <> p.path |> fs.site_path_to_string
+      let nodes = dom.get_nodes(tag: "main", html: todo)
       let main = nodes.nodes |> list.map(fn(n) { n.content }) |> string.join("")
 
       [
-        Some(title(p.meta.title)),
+        Some(title(p.title)),
         Some(link(url)),
         Some(guid(url)),
-        option.map(p.meta.description, description),
-        option.map(p.meta.date, pub_date),
+        option.map(p.description, description),
+        option.map(p.date, pub_date),
         Some(content(main)),
       ]
       |> option.values

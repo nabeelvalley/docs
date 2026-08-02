@@ -24,6 +24,7 @@ pub type Frontmatter {
     layout: Layout,
     tags: List(String),
     date: Option(sdate.IsoDate),
+    path: sfs.SitePath,
   )
 }
 
@@ -105,6 +106,7 @@ pub fn decoder(path: sfs.SitePath) -> decode.Decoder(Frontmatter) {
     layout:,
     tags:,
     date:,
+    path:,
   ))
 }
 
@@ -140,5 +142,6 @@ pub fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
     layout:,
     tags:,
     date: None,
+    path: todo,
   ))
 }

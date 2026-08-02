@@ -1,4 +1,5 @@
 import consts
+import content/frontmatter
 import content/fs
 import gleam/io
 import gleam/javascript/promise.{type Promise}
@@ -157,10 +158,10 @@ fn write_asset(asset: Asset) {
   }
 }
 
-pub fn sort_by_date(pages: List(Page)) {
+pub fn sort_by_date(pages: List(frontmatter.Frontmatter)) {
   pages
   |> list.sort(fn(a, b) {
-    case a.meta.date, b.meta.date {
+    case a.date, b.date {
       Some(a), Some(b) -> date.compare(a, b)
       Some(_), _ -> order.Gt
       None, _ -> order.Lt

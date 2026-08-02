@@ -28,35 +28,36 @@ import util
 pub fn render(
   collection: content.Collection,
 ) -> Promise(Result(List(assets.RenderedPage), String)) {
-  use published_pages <- promise.try_await(
-    list.map(collection.pages |> list.filter(content.is_published), render_page)
-    |> promise.await_list
-    |> promise.map(result.all),
-  )
+  todo
+  //   use published_pages <- promise.try_await(
+  //     list.map(collection.pages |> list.filter(content.is_published), render_page)
+  //     |> promise.await_list
+  //     |> promise.map(result.all),
+  //   )
 
-  use unpublished_pages <- promise.try_await(
-    list.map(
-      collection.pages |> list.filter(content.is_unpublished),
-      render_page,
-    )
-    |> promise.await_list
-    |> promise.map(result.all),
-  )
+  //   use unpublished_pages <- promise.try_await(
+  //     list.map(
+  //       collection.pages |> list.filter(content.is_unpublished),
+  //       render_page,
+  //     )
+  //     |> promise.await_list
+  //     |> promise.map(result.all),
+  //   )
 
-  let index = index.render(published_pages) |> Dynamic
-  let blog = blog.render(published_pages) |> Dynamic
-  let docs = docs.render(published_pages) |> Dynamic
-  let talks = talks.render(published_pages) |> Dynamic
-  let photography = photography.render(published_pages) |> Dynamic
+  //   let index = index.render(published_pages) |> Dynamic
+  //   let blog = blog.render(published_pages) |> Dynamic
+  //   let docs = docs.render(published_pages) |> Dynamic
+  //   let talks = talks.render(published_pages) |> Dynamic
+  //   let photography = photography.render(published_pages) |> Dynamic
 
-  let rss = rss.render(published_pages) |> Feed
+  //   let rss = rss.render(published_pages) |> Feed
 
-  let wip = wip.render(unpublished_pages) |> Dynamic
+  //   let wip = wip.render(unpublished_pages) |> Dynamic
 
-  let content_pages = published_pages |> list.map(Content)
+  //   let content_pages = published_pages |> list.map(Content)
 
-  Ok([index, blog, docs, talks, photography, wip, rss, ..content_pages])
-  |> promise.resolve
+  //   Ok([index, blog, docs, talks, photography, wip, rss, ..content_pages])
+  //   |> promise.resolve
 }
 
 fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {

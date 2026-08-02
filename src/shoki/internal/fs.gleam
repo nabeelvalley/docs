@@ -255,3 +255,10 @@ pub fn concat_site_path(a: SitePath, b: SitePath) {
   }
   |> SitePath
 }
+
+pub fn site_path_starts_with(path, prefix) {
+  let path = path |> site_path_to_string
+  let start = prefix |> site_path_to_string
+
+  path |> string.starts_with(start)
+}
