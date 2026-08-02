@@ -1,5 +1,6 @@
 import gleam/dict
 import gleam/float
+import gleam/io
 import gleam/javascript/promise
 import gleam/list
 import gleam/option.{type Option, None, Some}
@@ -32,12 +33,17 @@ pub fn image_optimize_task(static_images_dir) {
       use file <- shoki.if_html(asset, Ok([]))
       use img <- list.try_map(mellie.get_children_by_tag(file.html, "img"))
 
+      echo img |> mellie.element_to_string
+
       case mellie.attr(img, "src") {
         Error(_) -> Ok([])
         Ok(src) -> {
           // If we can't optimize an image then we just skip it
           let resolved =
-            result.unwrap(resolve(static_images_dir, file.source, src), None)
+            result.unwrap(
+              resolve(static_images_dir, file.source, src) |> echo,
+              None,
+            )
           {
             use input_path <- option.map(resolved)
             case can_optimize(input_path) {
@@ -75,6 +81,7 @@ fn optimize_image_task(input_path, site_path) {
       site_path,
     ))
 
+    io.println("optimize: " <> input_path |> fs.path_to_string)
     sharp.optimize_image(input_path, output_path)
     |> promise.map_try(fn(_) { Ok([site_path]) })
   })
@@ -150,6 +157,13 @@ fn render_image(img, input: fs.Path, output: fs.SitePath) {
     |> float.to_string
     |> mellie.attribute("aspect-ratio", _)
 
+  let orientation =
+    case sharp.orientation(meta) {
+      sharp.Vertical -> "vertical"
+      sharp.Horizontal -> "horizontal"
+    }
+    |> mellie.attribute("orientation", _)
+
   let alt = mellie.attr(img, "img") |> option.from_result
 
   let src = attr.src(output |> fs.site_path_to_string)
@@ -161,7 +175,7 @@ fn render_image(img, input: fs.Path, output: fs.SitePath) {
 
   let result =
     img
-    |> mellie.set_attributes([src, alt, aspect_ratio])
+    |> mellie.set_attributes([src, alt, aspect_ratio, orientation])
 
   result |> Ok |> promise.resolve
 }

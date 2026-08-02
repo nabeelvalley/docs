@@ -28,12 +28,12 @@ site-gallery {
   site-gallery-image {
 
     /* i cheat a bit with the aspect ratios to make them fit nicely */
-    &[orientation="vertical"] {
+    &:has(img[orientation="vertical"]) {
       grid-column: span 6;
       grid-row: span 8;
     }
 
-    &[orientation="horizontal"] {
+    &:has(img[orientation="horizontal"]) {
       grid-column: span 6;
       grid-row: span 4;
     }

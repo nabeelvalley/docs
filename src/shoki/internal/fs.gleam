@@ -1,3 +1,4 @@
+import content/fs
 import filepath
 import gleam/dict
 import gleam/list
@@ -139,6 +140,10 @@ pub fn site_path_to_string(p: SitePath) {
 
 pub fn site_path_to_href(p: SitePath) {
   p.slug |> attr.href
+}
+
+pub fn site_path_to_src(p: SitePath) {
+  p.slug |> attr.src
 }
 
 pub fn read_text_file(p: Path) {

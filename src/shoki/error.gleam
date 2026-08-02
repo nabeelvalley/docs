@@ -27,6 +27,7 @@ pub type ShokiErr {
   InvalidImageSrc(String)
   ImageOptimizeError(String)
   SyntaxHighlightingError(String)
+  ComponentError(String)
 }
 
 /// A drop-in replacement for result.all for merging errors into a single error object
@@ -77,6 +78,7 @@ fn error_to_string_rec(err: ShokiErr, indent) {
     ErrorReadingImageMeta(msg) -> "ErrorReadingImageMeta: " <> msg
     ImageOptimizeError(msg) -> "ImageOptimizeError: " <> msg
     SyntaxHighlightingError(msg) -> "SyntaxHighlightingError: " <> msg
+    ComponentError(msg) -> "ComponentError: " <> msg
   }
   |> indent_str(indent)
 }

@@ -1,11 +1,11 @@
 import argv
 import clip
 import clip/flag
+import consts
 import content/frontmatter
 import gleam/io
 import gleam/javascript/promise
 import gleam/result
-import js/shiki
 import mellie
 import rendering/assets
 import rendering/pages/blog
@@ -14,18 +14,20 @@ import rendering/pages/index
 import rendering/pages/photography
 import rendering/pages/talks
 import rendering/ssr/custom_el
+import rendering/ssr/gallery
 import rendering/templates/article
 import shoki
 import shoki/error
+import shoki/highlight
 import shoki/image
 import shoki/internal/fs
+
 import shoki/markdown
 
 pub fn pipeline() {
-  let assert Ok(out) = fs.from_cwd("./out")
-  let assert Ok(public) = fs.from_cwd("./public")
-  let assert Ok(photography) = fs.from_cwd("./content")
-  let assert Ok(md) = fs.from_cwd("./content/pages")
+  let assert Ok(out) = fs.from_cwd(consts.out_dir)
+  let assert Ok(public) = fs.from_cwd(consts.public_dir)
+  let assert Ok(md) = fs.from_cwd(consts.content_dir)
 
   markdown.from_markdown(
     out: out,
@@ -47,8 +49,10 @@ pub fn pipeline() {
   |> shoki.with_asset(photography.render)
   |> shoki.with_asset(docs.render)
   |> shoki.with_asset(talks.render)
-  |> shiki.with_syntax_highlighting
-  |> image.with_image_optimization(photography)
+  |> shoki.with_components([gallery.component()])
+  |> highlight.with_syntax_highlighting
+  |> image.with_image_optimization(fs.cwd())
+  // |> image.with_image_optimization(public)
   |> shoki.with_static_dir(public)
 }
 

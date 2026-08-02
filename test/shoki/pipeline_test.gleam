@@ -118,6 +118,9 @@ pub fn pipeline_with_components_test() {
       new_el
     })
 
+  let my_custom_image =
+    component.new("my-custom-image", fn(_, el) { html.img(el |> mellie.attrs) })
+
   let pipeline =
     markdown.from_markdown(
       out: out,
@@ -131,7 +134,8 @@ pub fn pipeline_with_components_test() {
     // creates task from async tag
     |> with_my_async_tag_updater
     // renders custom tag before rendering
-    |> shoki.with_components([my_custom_tag])
+    |> shoki.with_components([my_custom_tag, my_custom_image])
+    // image optimization should run after custom_image runs
     |> image.with_image_optimization(static)
 
   use rendered <- promise.await(pipeline |> shoki.run)

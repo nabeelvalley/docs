@@ -2,7 +2,7 @@ import { codeToHtml, bundledLanguages } from 'shiki'
 
 import { Result$Ok, Result$Error }
   // @ts-expect-error relative this file's location in build/dev/javascript/web
-  from "../../prelude.mjs";
+  from "../../../prelude.mjs";
 
 /**
  * @param {string} code

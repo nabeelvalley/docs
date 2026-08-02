@@ -106,6 +106,7 @@ pub fn frontmatter(file: MarkdownFile(a)) {
 fn exts() {
   dict.new()
   |> dict.insert(fs.MD, fs.HTML)
+  |> dict.insert(fs.MDX, fs.HTML)
 }
 
 fn to_site_path(base: fs.Path, file: fs.Path) {

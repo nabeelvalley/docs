@@ -1,106 +1,68 @@
 import consts
-import content/fs
 import gleam/dict
-import gleam/javascript/promise.{type Promise}
 import gleam/list
-import gleam/option
+import gleam/option.{None, Some}
 import gleam/result
-import js/dom
-import js/sharp
 import mellie
 import mellie/attr as attribute
 import mellie/html
-import rendering/assets.{type Page, Page}
 import rendering/ssr/custom_el
-import util
+import shoki/component
+import shoki/error
+import shoki/internal/fs as sfs
 
-type GalleryNode {
-  GalleryNode(node: dom.JSNodeRef, images: List(assets.Asset))
+fn gallery_dir() {
+  let assert Ok(dir) = sfs.from_cwd(consts.gallery_dir)
+  dir
 }
 
-fn read_gallery_node(
-  node: dom.Node,
-  page: Page,
-) -> Result(GalleryNode, String) {
-  let attrs = dict.from_list(node.attrs)
+fn get_files(el: mellie.ElementTree, page: sfs.Path) {
   use path <- result.try(
-    dict.get(attrs, "path")
-    |> result.replace_error("could not read path for snippet"),
+    mellie.attr(el, "path")
+    |> result.replace_error(
+      error.ComponentError("site-gallery could not find path on given element")
+      |> error.error_context(page |> sfs.path_to_string),
+    ),
   )
 
-  use parent <- result.try(fs.parent(page.path))
-  use gallery_path <- result.try(fs.join([consts.gallery_dir, path]))
-  use relative_path <- result.try(fs.join([parent, path]))
+  use parent <- result.try(sfs.parent(page))
+  use gallery_path <- result.try(sfs.resolve(gallery_dir(), path))
+  use relative_path <- result.try(sfs.resolve(parent, path))
 
-  let gallery_files = fs.ls_dir(gallery_path)
-  let relative_files = fs.ls_dir(relative_path)
+  let gallery_files = sfs.ls_dir(gallery_path)
+  let relative_files = sfs.ls_dir(relative_path)
 
   use files <- result.try(result.or(gallery_files, relative_files))
 
-  let images =
-    files
-    |> list.map(fn(f) { assets.OptimizeImageAsset(f.path) })
-
-  Ok(GalleryNode(node.node, images))
+  files |> Ok
 }
 
-pub fn render_all(page: Page) -> Promise(Result(Page, String)) {
-  let tree = dom.get_nodes(page.html, tag: "gallery")
-  use galleries <- util.try_resolve(
-    tree.nodes
-    |> list.map(read_gallery_node(_, page))
-    |> result.all,
-  )
-
-  use updates <- promise.try_await(
-    galleries
-    |> list.map(fn(gallery) {
-      render(gallery.images)
-      |> promise.map(fn(el) {
-        el
-        |> result.map(mellie.element_to_string)
-        |> result.map(dom.NodeUpdate(gallery.node, _))
-      })
-    })
-    |> promise.await_list
-    |> promise.map(result.all),
-  )
-
-  let html = dom.update_nodes(tree.root, updates)
-  let assets = galleries |> list.flat_map(fn(g) { g.images })
-
-  Ok(Page(..page, html:, assets: list.append(page.assets, assets)))
-  |> promise.resolve
+pub fn component() {
+  component.new(tag: "gallery", visit: fn(data, el) {
+    case data.source_path {
+      None -> el
+      Some(path) ->
+        get_files(el, path)
+        |> result.map(render)
+        |> result.unwrap(el)
+    }
+  })
 }
 
-fn render(
-  paths: List(assets.Asset),
-) -> Promise(Result(mellie.ElementTree, String)) {
-  use content: List(mellie.ElementTree) <- promise.try_await(
-    paths
-    |> list.map(render_image)
-    |> promise.await_list
-    |> promise.map(result.all),
-  )
-
-  Ok(custom_el.site_gallery(content)) |> promise.resolve
+fn render(paths: List(sfs.Path)) {
+  paths
+  |> list.map(render_image)
+  |> custom_el.site_gallery
 }
 
-fn render_image(
-  img: assets.Asset,
-) -> Promise(Result(mellie.ElementTree, String)) {
-  use resolved <- util.try_resolve(assets.resolve(img))
-  use meta <- promise.try_await(sharp.meta(img.input_file))
+fn render_image(img: sfs.Path) {
+  let site_path = sfs.to_site_path(sfs.cwd(), img, dict.new())
 
-  Ok(custom_el.site_gallery_image(
-    meta,
+  custom_el.site_gallery_image(
     html.img([
-      attribute.src(resolved.site_path),
-      attribute.alt(
-        fs.file_name_only(img.input_file)
-        |> option.unwrap(""),
-      ),
+      site_path
+        |> sfs.site_path_to_src,
+      attribute.alt(img |> sfs.file_name_only),
     ]),
-  ))
-  |> promise.resolve
+  )
 }

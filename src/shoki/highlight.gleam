@@ -1,4 +1,4 @@
-import gleam/javascript/promise.{type Promise}
+import gleam/javascript/promise
 import gleam/list
 import gleam/result
 import mellie
@@ -6,12 +6,7 @@ import mellie/attr
 import mellie/html
 import shoki
 import shoki/error
-
-/// Returns the highlighted code in `body>pre` with the rest of the expected content
-@external(javascript, "./shiki_ffi.mjs", "highlight")
-fn highlight_(_code: String, _lang: String) -> Promise(Result(String, String)) {
-  panic as "not supported for the given target"
-}
+import shoki/internal/shiki
 
 fn highlight(pre) {
   let lang = get_lang(pre)
@@ -20,7 +15,7 @@ fn highlight(pre) {
     pre
     |> mellie.inner_text
 
-  highlight_(code, lang)
+  shiki.highlight(code, lang)
   |> promise.map_try(mellie.parse)
   |> promise.map(result.map_error(_, error.SyntaxHighlightingError))
   |> promise.map_try(render(_, lang))

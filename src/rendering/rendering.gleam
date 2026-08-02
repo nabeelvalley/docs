@@ -83,8 +83,7 @@ fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {
 
             // // highlight all code blocks (markdown or ssr)
             // highlight.render_all,
-            gallery.render_all,
-
+            // gallery.render_all,
             // // rendered last to ensure that processors don't modify the result
             promisify(script_raw.render_all),
           ]),

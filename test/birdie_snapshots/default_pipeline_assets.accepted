@@ -191,12 +191,13 @@ HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
         <p>
           <my-async-tag data="hello world"></my-async-tag>
         </p>
+        <my-custom-image src="../../static/images/special-1.jpg"></my-custom-image>
         <h3>Some Images to Optimize</h3>
         <p>
-          <img aspect-ratio="1.4989969909729188" alt="image-1" src="/optimized-images/test/workspace/static/images/image-1.webp">
+          <img aspect-ratio="1.4989969909729188" orientation="horizontal" alt="image-1" src="/optimized-images/test/workspace/static/images/image-1.webp">
         </p>
         <p>
-          <img aspect-ratio="1.5037593984962405" alt="image-2" src="/optimized-images/test/workspace/static/images/image-2.webp">
+          <img aspect-ratio="1.5037593984962405" orientation="horizontal" alt="image-2" src="/optimized-images/test/workspace/static/images/image-2.webp">
         </p>
       </div>
     </main>

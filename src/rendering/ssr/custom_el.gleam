@@ -13,20 +13,8 @@ pub fn site_gallery(children) {
   mellie.element("site-gallery", [], children)
 }
 
-pub fn site_gallery_image(meta, img) {
-  let orientation = case sharp.orientation(meta) {
-    Vertical -> "vertical"
-    Horizontal -> "horizontal"
-  }
-
-  mellie.element(
-    "site-gallery-image",
-    [
-      mellie.attribute("aspect", meta |> sharp.aspect_ratio |> float.to_string),
-      mellie.attribute("orientation", orientation),
-    ],
-    [img],
-  )
+pub fn site_gallery_image(img) {
+  mellie.element("site-gallery-image", [], [img])
 }
 
 pub fn site_markdown(html) {

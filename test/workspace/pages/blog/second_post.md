@@ -25,6 +25,8 @@ code |> print_me |> echo
 
 <my-async-tag data="hello world"></my-async-tag>
 
+<my-custom-image src="../../static/images/special-1.jpg" />
+
 ### Some Images to Optimize
 
 ![My first image](../../static/images/image-1.jpg)
