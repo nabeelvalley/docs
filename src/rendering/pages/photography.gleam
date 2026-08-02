@@ -3,11 +3,8 @@ import gleam/dict
 import gleam/list
 import gleam/option.{None}
 import gleam/result
-import gleam/string
-import mellie
 import mellie/attr as attribute
 import mellie/html
-import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/templates/base
 import shoki
 import shoki/internal/fs
@@ -19,7 +16,7 @@ fn photography_path() {
 }
 
 pub fn render(pages: List(frontmatter.Frontmatter)) {
-  let meta = Meta("Photography", None, None, [])
+  let meta = base.Meta("Photography", None, None, [])
   let photography_items =
     pages
     |> list.filter(fn(p) {

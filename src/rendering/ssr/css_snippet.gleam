@@ -2,36 +2,11 @@ import gleam/option.{None, Some}
 import gleam/result
 import mellie
 import mellie/html
-import rendering/assets.{type Page, Page}
 import rendering/ssr/custom_el
 import rendering/ssr/snippet
 import shoki/component
 import shoki/error
 import shoki/internal/fs
-
-pub fn render_all(page: Page) -> Result(Page, String) {
-  todo
-  // let tree = dom.get_nodes(page.html, tag: "csssnippet")
-
-  // let updates =
-  //   tree.nodes
-  //   |> list.map(fn(node) {
-  //     use css <- result.try(snippet.load(node, page.path, "path"))
-  //     use html <- result.map(snippet.load(node, page.path, "htmlpath"))
-  //     let show_html = dict.from_list(node.attrs) |> dict.has_key("html")
-
-  //     render(css, html, show_html)
-  //     |> mellie.element_to_string
-  //     |> dom.NodeUpdate(node.node, _)
-  //   })
-  //   |> result.all
-
-  // use update_nodes <- result.try(updates)
-
-  // let html = dom.update_nodes(tree.root, update_nodes)
-
-  // Ok(Page(..page, html:))
-}
 
 pub fn component() {
   component.new("csssnippet", fn(data, el) {

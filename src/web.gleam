@@ -9,12 +9,10 @@ import gleam/list
 import gleam/option
 import gleam/result
 import mellie
-import rendering/assets
 import rendering/pages/blog
 import rendering/pages/docs
 import rendering/pages/index
 import rendering/pages/photography
-import rendering/pages/rss
 import rendering/pages/talks
 import rendering/ssr/css_snippet
 import rendering/ssr/custom_el
@@ -23,11 +21,13 @@ import rendering/ssr/html_snippet
 import rendering/ssr/script_raw
 import rendering/ssr/snippet
 import rendering/templates/article
+import rendering/templates/base
 import shoki
 import shoki/error
 import shoki/highlight
 import shoki/image
 import shoki/internal/fs
+import shoki/rss
 
 import shoki/markdown
 
@@ -40,12 +40,12 @@ pub fn pipeline() {
     out: out,
     dir: md,
     decode: frontmatter.decoder,
-    agg: fn(frontmatters) { frontmatters },
+    agg: fn(fms) { fms |> list.filter(frontmatter.is_published) },
     render: fn(file, _frontmatters) {
       use md <- result.map(markdown.render(file))
       let fm = file |> markdown.frontmatter
 
-      let meta = assets.Meta(fm.title, fm.description, fm.date, fm.tags)
+      let meta = base.Meta(fm.title, fm.description, fm.date, fm.tags)
 
       // TODO: Replace this once we've got fragments
       md |> mellie.children |> custom_el.site_markdown |> article.render(meta)

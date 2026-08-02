@@ -13,10 +13,6 @@ fn snippets_dir() {
   dir
 }
 
-pub fn render_all(page) {
-  todo
-}
-
 pub fn component() {
   component.new("snippet", fn(data, el) {
     case data.source_path {

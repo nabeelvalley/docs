@@ -3,7 +3,6 @@ import gleam/list
 import gleam/option.{None}
 import mellie/attr as attribute
 import mellie/html
-import rendering/assets.{Meta}
 import rendering/templates/base
 import shoki
 import shoki/date
@@ -20,11 +19,11 @@ fn talks_file() {
 }
 
 pub fn render(pages: List(frontmatter.Frontmatter)) {
-  let meta = Meta("Talks", None, None, [])
+  let meta = base.Meta("Talks", None, None, [])
   let items =
     pages
     |> list.filter(fn(p) { fs.site_path_starts_with(p.path, talks_path()) })
-    |> assets.sort_by_date
+    |> frontmatter.sort_by_date
     |> list.reverse
     |> list.map(fn(p) {
       let slug = p.path |> fs.site_path_to_string

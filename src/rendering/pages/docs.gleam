@@ -1,10 +1,8 @@
 import content/frontmatter
 import gleam/list
 import gleam/option.{None}
-import mellie
 import mellie/attr as attribute
 import mellie/html
-import rendering/assets.{DynamicPage, Meta}
 import rendering/templates/base
 import shoki
 import shoki/internal/fs
@@ -21,7 +19,7 @@ fn docs_file() {
 }
 
 pub fn render(pages: List(frontmatter.Frontmatter)) {
-  let meta = Meta("Docs", None, None, [])
+  let meta = base.Meta("Docs", None, None, [])
 
   let items =
     pages

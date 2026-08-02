@@ -1,11 +1,7 @@
-import gleam/list
 import gleam/option.{None, Some}
-import gleam/pair
 import gleam/result
-import js/dom
 import mellie
 import mellie/html
-import rendering/assets.{type Page, Page}
 import rendering/ssr/snippet
 import shoki/component
 import shoki/error
@@ -28,10 +24,6 @@ pub fn component() {
       }
     }
   })
-}
-
-pub fn render_all(page: Page) -> Result(Page, String) {
-  todo
 }
 
 fn render(code: String, attrs) {

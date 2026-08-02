@@ -1,19 +1,12 @@
-import gleam/list
 import gleam/option.{None, Some}
 import gleam/result
-import js/dom
 import mellie
 import mellie/html
-import rendering/assets.{type Page, Page}
 import rendering/ssr/custom_el
 import rendering/ssr/snippet
 import shoki/component
 import shoki/error
 import shoki/internal/fs
-
-pub fn render_all(page: Page) -> Result(Page, String) {
-  todo
-}
 
 pub fn component() {
   component.new("htmlsnippet", fn(data, el) {

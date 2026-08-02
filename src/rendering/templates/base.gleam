@@ -1,11 +1,20 @@
 import consts
-import gleam/option
+import gleam/option.{type Option}
 import mellie
 import mellie/attr as attribute
 import mellie/html
-import rendering/assets.{type Meta}
 import rendering/templates/footer
 import rendering/templates/header
+import shoki/date
+
+pub type Meta {
+  Meta(
+    title: String,
+    description: Option(String),
+    date: Option(date.IsoDate),
+    tags: List(String),
+  )
+}
 
 pub fn render(body, meta: Meta) {
   let title = meta.title <> " - " <> consts.site_title

@@ -1,12 +1,11 @@
 import consts
 import gleam/list
 import gleam/option.{None, Some}
-import gleam/string
-import js/date
 import mellie
 import mellie/attr
 import shoki
-import shoki/date as sdate
+import shoki/date
+import shoki/internal/date as idate
 import shoki/internal/fs
 
 pub type RSSItem {
@@ -14,7 +13,7 @@ pub type RSSItem {
     title: String,
     path: fs.SitePath,
     description: option.Option(String),
-    date: option.Option(sdate.IsoDate),
+    date: option.Option(date.IsoDate),
     content: option.Option(mellie.ElementTree),
   )
 }
@@ -146,7 +145,7 @@ fn description(s) {
 }
 
 fn pub_date(d) {
-  xml_element("pubDate", [], [mellie.text(date.to_rss_pub_date(d))])
+  xml_element("pubDate", [], [mellie.text(idate.to_rss_pub_date(d))])
 }
 
 fn content(s) {

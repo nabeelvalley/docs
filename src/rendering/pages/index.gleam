@@ -4,7 +4,6 @@ import gleam/option.{None}
 import gleam/result
 import mellie/attr as attribute
 import mellie/html
-import rendering/assets.{Meta}
 import rendering/pages/blog
 import rendering/templates/base
 import shoki
@@ -12,7 +11,7 @@ import shoki/date
 import shoki/internal/fs
 
 pub fn render(pages: List(frontmatter.Frontmatter)) {
-  let meta = Meta("Home", None, None, [])
+  let meta = base.Meta("Home", None, None, [])
   let recent_blogs =
     blog.filter_and_sort(pages)
     |> list.take(10)

@@ -1,8 +1,6 @@
 //// Using element.advanced to define custom elements is more reliable
 //// since we have finer control over how children are treated
 
-import gleam/float
-import js/sharp.{Horizontal, Vertical}
 import mellie
 
 pub fn site_snippet_preview(attrs, children: List(mellie.ElementTree)) {
