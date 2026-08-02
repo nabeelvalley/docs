@@ -238,6 +238,10 @@ pub fn has_ext(file: Path, exts: List(Extension)) {
   list.any(suffixes, string.ends_with(file.path, _))
 }
 
+pub fn ext(file: Path) {
+  file.path |> filepath.extension
+}
+
 pub fn copy_site_dir(out: Path, from: Path, to: SitePath) {
   let input = from.path
   let output = out.path <> to.slug

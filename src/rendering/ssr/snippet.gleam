@@ -1,59 +1,58 @@
 import consts
-import content/fs
-import gleam/dict
-import gleam/list
+import gleam/option.{None, Some}
 import gleam/result
-import gleam/string
-import js/dom
 import mellie
 import mellie/attr as attribute
 import mellie/html
-import rendering/assets.{type Page, Page}
+import shoki/component
+import shoki/error
+import shoki/internal/fs
 
-pub fn render_all(page: Page) -> Result(Page, String) {
-  let tree = dom.get_nodes(page.html, tag: "snippet")
-
-  let updates =
-    tree.nodes
-    |> list.try_map(fn(node) {
-      use file <- result.map(load(node, page.path, "path"))
-
-      render(file.path |> snippet_relative, file.content)
-      |> mellie.element_to_string
-      |> dom.NodeUpdate(node.node, _)
-    })
-
-  use update_nodes <- result.try(updates)
-
-  let html = dom.update_nodes(tree.root, update_nodes)
-
-  Ok(Page(..page, html:))
+fn snippets_dir() {
+  let assert Ok(dir) = fs.from_cwd(consts.snippets_dir)
+  dir
 }
 
-pub fn snippet_relative(path) {
-  string.drop_start(path, string.length(consts.snippets_dir) - 1)
+pub fn render_all(page) {
+  todo
 }
 
-pub fn load(node: dom.Node, from_file: String, path_attr: String) {
-  let attrs = dict.from_list(node.attrs)
-  use path <- result.try(
-    dict.get(attrs, path_attr)
-    |> result.replace_error("could not read " <> path_attr <> " for snippet"),
-  )
+pub fn component() {
+  component.new("snippet", fn(data, el) {
+    case data.source_path {
+      None -> el |> Ok
+      Some(source) -> {
+        use path <- result.try(
+          mellie.attr(el, "path")
+          |> result.replace_error(error.ComponentError(
+            "could not read path for snippet",
+          )),
+        )
 
-  let full_path = case path {
+        use #(resolved, code) <- result.map(load(source, path))
+
+        render(resolved, path, code)
+      }
+    }
+  })
+}
+
+pub fn load(from_file: fs.Path, path: String) {
+  use full_path <- result.try(case path {
     "." <> _ -> {
       use parent <- result.try(fs.parent(from_file))
-      fs.join([parent, path])
+      fs.resolve(parent, path)
     }
-    _ -> fs.join([consts.snippets_dir, path])
-  }
+    _ -> fs.resolve(snippets_dir(), path)
+  })
 
-  result.try(full_path, fs.read_file)
+  use content <- result.map(fs.read_text_file(full_path))
+
+  #(full_path, content)
 }
 
-pub fn render(title: String, code: String) {
-  let lang = fs.ext(title)
+pub fn render(file: fs.Path, title: String, code: String) {
+  let lang = fs.ext(file) |> result.unwrap("text")
 
   html.figure([attribute.class("snippet")], [
     html.figcaption([], [html.text(title)]),

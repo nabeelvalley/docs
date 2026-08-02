@@ -13,8 +13,12 @@ import rendering/pages/docs
 import rendering/pages/index
 import rendering/pages/photography
 import rendering/pages/talks
+import rendering/ssr/css_snippet
 import rendering/ssr/custom_el
 import rendering/ssr/gallery
+import rendering/ssr/html_snippet
+import rendering/ssr/script_raw
+import rendering/ssr/snippet
 import rendering/templates/article
 import shoki
 import shoki/error
@@ -49,7 +53,13 @@ pub fn pipeline() {
   |> shoki.with_asset(photography.render)
   |> shoki.with_asset(docs.render)
   |> shoki.with_asset(talks.render)
-  |> shoki.with_components([gallery.component()])
+  |> shoki.with_components([
+    gallery.component(),
+    snippet.component(),
+    html_snippet.component(),
+    css_snippet.component(),
+    script_raw.component(),
+  ])
   |> highlight.with_syntax_highlighting
   |> image.with_image_optimization(fs.cwd())
   |> image.with_image_optimization(public)

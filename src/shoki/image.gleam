@@ -6,6 +6,7 @@ import gleam/list
 import gleam/option.{type Option, None, Some}
 import gleam/pair
 import gleam/result
+import gleam/string
 import gleam/uri
 import mellie
 import mellie/attr
@@ -87,6 +88,13 @@ fn from_uri_path(src) {
   |> result.replace_error(error.InvalidImageSrc(src))
 }
 
+pub fn percent_encode(p) {
+  p
+  |> string.split("/")
+  |> list.map(uri.percent_encode)
+  |> string.join("/")
+}
+
 /// Resolves a file path if it exists
 fn resolve(static_dir: fs.Path, source: Option(fs.Path), src: String) {
   case src {
@@ -161,7 +169,7 @@ fn render_image(img, input: fs.Path, output: fs.SitePath) {
 
   let alt = mellie.attr(img, "img") |> option.from_result
 
-  let src = attr.src(output |> fs.site_path_to_string)
+  let src = output |> fs.site_path_to_string |> percent_encode |> attr.src
   let alt =
     attr.alt(
       alt
