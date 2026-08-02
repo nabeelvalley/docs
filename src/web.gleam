@@ -7,17 +7,23 @@ import gleam/javascript/promise
 import gleam/result
 import mellie
 import rendering/assets
+import rendering/pages/blog
+import rendering/pages/docs
 import rendering/pages/index
+import rendering/pages/photography
+import rendering/pages/talks
 import rendering/ssr/custom_el
 import rendering/templates/article
 import shoki
 import shoki/error
+import shoki/image
 import shoki/internal/fs
 import shoki/markdown
 
 pub fn pipeline() {
   let assert Ok(out) = fs.from_cwd("./out")
   let assert Ok(public) = fs.from_cwd("./public")
+  let assert Ok(photography) = fs.from_cwd("./content")
   let assert Ok(md) = fs.from_cwd("./content/pages")
 
   markdown.from_markdown(
@@ -28,14 +34,20 @@ pub fn pipeline() {
     render: fn(file, _frontmatters) {
       use md <- result.map(markdown.render(file))
       let fm = file |> markdown.frontmatter
+
       let meta = assets.Meta(fm.title, fm.description, fm.date, fm.tags)
 
       // TODO: Replace this once we've got fragments
       md |> mellie.children |> custom_el.site_markdown |> article.render(meta)
     },
   )
-  |> shoki.with_asset(index.render_shoki)
+  |> shoki.with_asset(index.render)
+  |> shoki.with_asset(blog.render)
+  |> shoki.with_asset(photography.render)
+  |> shoki.with_asset(docs.render)
+  |> shoki.with_asset(talks.render)
   |> shoki.with_static_dir(public)
+  |> image.with_image_optimization(photography)
 }
 
 pub fn main() {

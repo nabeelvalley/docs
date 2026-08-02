@@ -276,12 +276,13 @@ pub fn run(
 
 fn write_one(out_dir: fs.Path, output: Asset) -> Result(Nil, error.ShokiErr) {
   case output {
-    HTMLFileAsset(file) ->
+    HTMLFileAsset(file) -> {
       fs.write_site_file(
         out_dir,
         file.path,
         file.html |> mellie.to_document_string,
       )
+    }
     CopyDirAsset(from:, to:) -> fs.copy_site_dir(out_dir, from, to)
     _ -> Ok(Nil)
   }

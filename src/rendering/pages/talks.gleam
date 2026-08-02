@@ -1,22 +1,29 @@
 import content/frontmatter
 import gleam/list
 import gleam/option.{None}
-import gleam/string
-import mellie
 import mellie/attr as attribute
 import mellie/html
-import rendering/assets.{DynamicPage, Meta}
+import rendering/assets.{Meta}
 import rendering/templates/base
+import shoki
 import shoki/date
 import shoki/internal/fs
+
+fn talks_path() {
+  let assert Ok(path) = fs.site_path_from_string("/talks")
+  path
+}
+
+fn talks_file() {
+  let assert Ok(path) = fs.site_path_from_string("/talks.html")
+  path
+}
 
 pub fn render(pages: List(frontmatter.Frontmatter)) {
   let meta = Meta("Talks", None, None, [])
   let items =
     pages
-    |> list.filter(fn(p) {
-      string.starts_with(p.path |> fs.site_path_to_string, "/talks")
-    })
+    |> list.filter(fn(p) { fs.site_path_starts_with(p.path, talks_path()) })
     |> assets.sort_by_date
     |> list.reverse
     |> list.map(fn(p) {
@@ -37,7 +44,6 @@ pub fn render(pages: List(frontmatter.Frontmatter)) {
     // temp until we figure out how this layout should look
     html.article([attribute.class("site-article")], [html.ul([], items)])
     |> base.render(meta)
-    |> mellie.to_document_string
 
-  DynamicPage("/talks", meta, html, [])
+  shoki.generated_html_file(talks_file(), html) |> Ok
 }

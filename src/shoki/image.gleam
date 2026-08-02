@@ -35,22 +35,25 @@ pub fn image_optimize_task(static_images_dir) {
       case mellie.attr(img, "src") {
         Error(_) -> Ok([])
         Ok(src) -> {
-          use resolved <- result.try(resolve(
-            static_images_dir,
-            file.source,
-            src,
-          ))
+          // If we can't optimize an image then we just skip it
+          let resolved =
+            result.unwrap(resolve(static_images_dir, file.source, src), None)
           {
             use input_path <- option.map(resolved)
-            let output = get_output_path(optimized_dir, input_path)
+            case can_optimize(input_path) {
+              False -> []
+              True -> {
+                let output = get_output_path(optimized_dir, input_path)
 
-            let update_task =
-              shoki.html_file_transform_task(file.path, img, fn() {
-                render_image(img, input_path, output)
-              })
-            let generate_task = optimize_image_task(input_path, output)
+                let update_task =
+                  shoki.html_file_transform_task(file.path, img, fn() {
+                    render_image(img, input_path, output)
+                  })
+                let generate_task = optimize_image_task(input_path, output)
 
-            [update_task, generate_task]
+                [update_task, generate_task]
+              }
+            }
           }
           |> option.unwrap([])
           |> Ok
@@ -59,6 +62,10 @@ pub fn image_optimize_task(static_images_dir) {
     }
     |> result.map(list.flatten)
   }
+}
+
+fn can_optimize(input_path: fs.Path) -> Bool {
+  fs.has_ext(input_path, optimized_exts())
 }
 
 fn optimize_image_task(input_path, site_path) {
@@ -78,6 +85,7 @@ fn from_uri_path(src) {
   |> result.replace_error(error.InvalidImageSrc(src))
 }
 
+/// Resolves a file path if it exists
 fn resolve(static_dir: fs.Path, source: Option(fs.Path), src: String) {
   case src {
     "https://" <> _ | "http://" <> _ -> Ok(None)
@@ -86,7 +94,12 @@ fn resolve(static_dir: fs.Path, source: Option(fs.Path), src: String) {
     "/" <> src -> {
       from_uri_path(src)
       |> result.try(fs.resolve(static_dir, _))
-      |> result.map(Some)
+      |> result.map(fn(p) {
+        case fs.is_file(p) {
+          True -> Some(p)
+          False -> None
+        }
+      })
     }
 
     // otherwise must be relative to source file
@@ -102,7 +115,12 @@ fn resolve(static_dir: fs.Path, source: Option(fs.Path), src: String) {
 
           dir
           |> result.try(fs.resolve(_, src))
-          |> result.map(Some)
+          |> result.map(fn(p) {
+            case fs.is_file(p) {
+              True -> Some(p)
+              False -> None
+            }
+          })
         }
       }
   }
@@ -110,12 +128,16 @@ fn resolve(static_dir: fs.Path, source: Option(fs.Path), src: String) {
 
 fn optimized_exts() {
   [fs.JPG, fs.JPEG, fs.PNG]
+}
+
+fn optimized_ext_mapping() {
+  optimized_exts()
   |> list.map(pair.new(_, fs.WEBP))
   |> dict.from_list
 }
 
 fn get_output_path(optimized_images_path: fs.SitePath, input: fs.Path) {
-  fs.to_site_path(fs.cwd(), input, optimized_exts())
+  fs.to_site_path(fs.cwd(), input, optimized_ext_mapping())
   |> fs.concat_site_path(optimized_images_path, _)
 }
 

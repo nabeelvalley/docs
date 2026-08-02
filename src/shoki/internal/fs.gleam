@@ -91,7 +91,7 @@ pub fn ensure_relative_dir(rel: String) {
   resolved |> Path
 }
 
-fn is_file(path: Path) {
+pub fn is_file(path: Path) {
   simplifile.is_file(path.path) |> result.unwrap(False)
 }
 
@@ -261,4 +261,8 @@ pub fn site_path_starts_with(path, prefix) {
   let start = prefix |> site_path_to_string
 
   path |> string.starts_with(start)
+}
+
+pub fn site_path_parts(path) {
+  path |> site_path_to_string |> string.split("/") |> list.drop(1)
 }
