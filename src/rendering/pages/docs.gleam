@@ -1,23 +1,32 @@
-import content/fs
+import content/frontmatter
 import gleam/list
 import gleam/option.{None}
-import gleam/string
-import lustre/attribute
-import lustre/element
-import lustre/element/html
-import rendering/assets.{type Page, DynamicPage, Meta}
+import mellie/attr as attribute
+import mellie/html
 import rendering/templates/base
+import shoki
+import shoki/internal/fs
 import util
 
-pub fn render(pages: List(Page)) {
-  let meta = Meta("Docs", None, None, [])
+fn docs_path() {
+  let assert Ok(path) = fs.site_path_from_string("/docs")
+  path
+}
+
+fn docs_file() {
+  let assert Ok(path) = fs.site_path_from_string("/docs.html")
+  path
+}
+
+pub fn render(pages: List(frontmatter.Frontmatter)) {
+  let meta = base.Meta("Docs", None, None, [])
 
   let items =
     pages
-    |> list.filter(fn(p) { string.starts_with(p.slug, "/docs") })
+    |> list.filter(fn(p) { fs.site_path_starts_with(p.path, docs_path()) })
     |> list.group(fn(a) {
-      case fs.split(a.slug) {
-        [_empty, _docs, section, ..] -> section
+      case fs.site_path_parts(a.path) {
+        [_docs, section, ..] -> section
         _ -> "other"
       }
     })
@@ -30,10 +39,9 @@ pub fn render(pages: List(Page)) {
       let subitems =
         ps
         |> list.map(fn(p) {
-          let slug = p.slug
           html.li([], [
-            html.a([attribute.href(slug)], [
-              html.text(p.meta.title),
+            html.a([fs.site_path_to_href(p.path)], [
+              html.text(p.title),
             ]),
           ])
         })
@@ -49,7 +57,6 @@ pub fn render(pages: List(Page)) {
     // temp until we figure out how this layout should look
     html.article([attribute.class("site-article")], items)
     |> base.render(meta)
-    |> element.to_document_string
 
-  DynamicPage("/docs", meta, html, [])
+  shoki.generated_html_file(docs_file(), html) |> Ok
 }

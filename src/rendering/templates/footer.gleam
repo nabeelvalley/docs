@@ -1,6 +1,6 @@
 import consts
-import lustre/attribute.{rel, class, href, id}
-import lustre/element/html.{a, footer, li, section, text, ul}
+import mellie/attr.{class, href, id, rel}
+import mellie/html.{a, footer, li, section, text, ul}
 
 pub fn render() {
   footer([class("site-footer")], [
@@ -9,7 +9,7 @@ pub fn render() {
       li([], [a([href(consts.github_url), rel("me")], [text("GitHub")])]),
       li([], [a([href("/feed/rss.xml")], [text("RSS")])]),
     ]),
-    section([class("webring"), attribute.aria_labelledby("webring-label")], [
+    section([class("webring"), attr.aria("labelledby", "webring-label")], [
       a([href(consts.webring_base_url), id("webring-label")], [text("Webring")]),
       ul([], [
         li([], [

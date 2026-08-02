@@ -1,5 +1,5 @@
-import lustre/attribute.{class, href}
-import lustre/element/html.{a, li, nav, text, ul}
+import mellie/attr.{class, href}
+import mellie/html.{a, li, nav, text, ul}
 
 pub fn render() {
   nav([class("site-nav")], [

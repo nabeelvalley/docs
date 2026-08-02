@@ -1,36 +1,41 @@
-import gleam/list
+import gleam/option.{None, Some}
 import gleam/result
-import js/dom
-import lustre/element
-import rendering/assets.{type Page, Page}
+import mellie
+import mellie/html
 import rendering/ssr/custom_el
 import rendering/ssr/snippet
+import shoki/component
+import shoki/error
+import shoki/internal/fs
 
-pub fn render_all(page: Page) -> Result(Page, String) {
-  let tree = dom.get_nodes(page.html, tag: "htmlsnippet")
+pub fn component() {
+  component.new("htmlsnippet", fn(data, el) {
+    case data.source_path {
+      None -> el |> Ok
+      Some(source) -> {
+        use path <- result.try(
+          mellie.attr(el, "path")
+          |> result.replace_error(error.ComponentError(
+            "could not read path for snippet",
+          )),
+        )
 
-  let updates =
-    tree.nodes
-    |> list.try_map(fn(node) {
-      use file <- result.map(snippet.load(node, page.path, "path"))
+        use #(resolved, code) <- result.try(snippet.load(source, path))
 
-      render(file.path |> snippet.snippet_relative, file.content)
-      |> element.to_string
-      |> dom.NodeUpdate(node.node, _)
-    })
-
-  use update_nodes <- result.try(updates)
-
-  let html = dom.update_nodes(tree.root, update_nodes)
-
-  Ok(Page(..page, html:))
+        render(resolved, path, code)
+      }
+    }
+  })
 }
 
-fn render(title: String, code: String) {
-  let snip = snippet.render(title, code)
+fn render(file: fs.Path, title: String, code: String) {
+  use parsed <- result.map(
+    mellie.parse(code)
+    |> result.replace_error(error.ComponentError(
+      "Error parsing html for html snippet: " <> file |> fs.path_to_string,
+    )),
+  )
 
-  custom_el.site_snippet_preview([], [
-    snip,
-    element.unsafe_raw_html("", "div", [], code),
-  ])
+  let snip = snippet.render(file, title, code)
+  custom_el.site_snippet_preview([], [snip, html.div([], [parsed])])
 }

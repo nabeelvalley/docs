@@ -1,10 +1,20 @@
 import consts
-import gleam/option
-import lustre/attribute
-import lustre/element/html
-import rendering/assets.{type Meta}
+import gleam/option.{type Option}
+import mellie
+import mellie/attr as attribute
+import mellie/html
 import rendering/templates/footer
 import rendering/templates/header
+import shoki/date
+
+pub type Meta {
+  Meta(
+    title: String,
+    description: Option(String),
+    date: Option(date.IsoDate),
+    tags: List(String),
+  )
+}
 
 pub fn render(body, meta: Meta) {
   let title = meta.title <> " - " <> consts.site_title
@@ -13,7 +23,7 @@ pub fn render(body, meta: Meta) {
 
   html.html([attribute.lang("en")], [
     html.head([], [
-      html.title([], title),
+      html.title([], [title |> mellie.text]),
 
       html.meta([attribute.charset("UTF-8")]),
       html.meta([
@@ -54,7 +64,7 @@ pub fn render(body, meta: Meta) {
       // non-render-blocking
       html.link([
         attribute.href("/index.css"),
-        attribute.attribute("onload", "this.onload=null;this.rel='stylesheet'"),
+        mellie.attribute("onload", "this.onload=null;this.rel='stylesheet'"),
         attribute.as_("style"),
         attribute.rel("preload"),
       ]),
@@ -67,11 +77,11 @@ pub fn render(body, meta: Meta) {
 
       html.script(
         [
-          attribute.attribute("defer", "true"),
+          attribute.defer("true"),
           attribute.type_("module"),
           attribute.src("/index.js"),
         ],
-        "",
+        [mellie.text("")],
       ),
     ]),
     header.render(),

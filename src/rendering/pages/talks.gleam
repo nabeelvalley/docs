@@ -1,30 +1,40 @@
+import content/frontmatter
 import gleam/list
 import gleam/option.{None}
-import gleam/string
-import lustre/attribute
-import lustre/element
-import lustre/element/html
-import rendering/assets.{type Page, DynamicPage, Meta}
+import mellie/attr as attribute
+import mellie/html
 import rendering/templates/base
-import shoki/internal/date
+import shoki
+import shoki/date
+import shoki/internal/fs
 
-pub fn render(pages: List(Page)) {
-  let meta = Meta("Talks", None, None, [])
+fn talks_path() {
+  let assert Ok(path) = fs.site_path_from_string("/talks")
+  path
+}
+
+fn talks_file() {
+  let assert Ok(path) = fs.site_path_from_string("/talks.html")
+  path
+}
+
+pub fn render(pages: List(frontmatter.Frontmatter)) {
+  let meta = base.Meta("Talks", None, None, [])
   let items =
     pages
-    |> list.filter(fn(p) { string.starts_with(p.slug, "/talks") })
-    |> assets.sort_by_date
+    |> list.filter(fn(p) { fs.site_path_starts_with(p.path, talks_path()) })
+    |> frontmatter.sort_by_date
     |> list.reverse
     |> list.map(fn(p) {
-      let slug = p.slug
-      let date = case p.meta.date {
+      let slug = p.path |> fs.site_path_to_string
+      let date = case p.date {
         option.Some(d) -> d |> date.to_string(".")
         None -> "date unknown"
       }
 
       html.li([], [
         html.a([attribute.href(slug)], [
-          html.text(date <> " - " <> p.meta.title),
+          html.text(date <> " - " <> p.title),
         ]),
       ])
     })
@@ -33,7 +43,6 @@ pub fn render(pages: List(Page)) {
     // temp until we figure out how this layout should look
     html.article([attribute.class("site-article")], [html.ul([], items)])
     |> base.render(meta)
-    |> element.to_document_string
 
-  DynamicPage("/talks", meta, html, [])
+  shoki.generated_html_file(talks_file(), html) |> Ok
 }

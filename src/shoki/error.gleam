@@ -1,0 +1,98 @@
+import gleam/list
+import gleam/pair
+import gleam/result
+import gleam/string
+
+pub type ShokiResult(r) =
+  Result(r, ShokiErr)
+
+pub type ShokiErr {
+  Context(String, ShokiErr)
+  Collated(List(ShokiErr))
+  FileNotFound(String)
+  ErrorReadingTextFile(String)
+  ErrorReadingFrontmatter(String)
+  ErrorReadingImageMeta(String)
+  DirNotFound(String)
+  ParentDirNotFound(String)
+  ErrorCopyingDir(String)
+  ErrorCreatingDir(String)
+  ErrorDeletingDir(String)
+  PathUnresolvable(String)
+  ErrorWritingTextFile(String)
+  DateParseError(String)
+  InvalidSitePath(String)
+  InvalidSiteDir(String)
+  ErrorRenderingMarkdown(String)
+  ImageNotFound(String)
+  InvalidImageSrc(String)
+  ImageOptimizeError(String)
+  SyntaxHighlightingError(String)
+  ComponentError(String)
+}
+
+/// A drop-in replacement for result.all for merging errors into a single error object
+/// this is pretty slow since it uses result.all, result.partition, and list.reverse
+/// under the hood. Potentially an optimization target. If we don't care about
+/// ordering we can just use `result.partition` but order is important - especially for
+/// the happy case
+pub fn collate_errors(results: List(ShokiResult(r))) -> ShokiResult(List(r)) {
+  case result.all(results) {
+    Ok(oks) -> Ok(oks)
+    Error(_) ->
+      Error(
+        results
+        |> result.partition
+        |> pair.second
+        |> list.reverse
+        |> Collated,
+      )
+  }
+}
+
+/// Add some context to an error
+pub fn error_context(err, msg) {
+  Context(msg, err)
+}
+
+fn indent_str(str, i) {
+  let indent = string.repeat(" ", i * 2)
+  str
+  |> string.split("\n")
+  |> list.map(string.append(indent, _))
+  |> string.join("\n")
+}
+
+fn error_to_string_rec(err: ShokiErr, indent) {
+  case err {
+    Context(msg, inner) -> msg <> "\n" <> error_to_string_rec(inner, indent + 1)
+    Collated(errs) ->
+      errs |> list.map(error_to_string_rec(_, indent)) |> string.join("\n")
+
+    FileNotFound(msg) -> "FileNotFound: " <> msg
+    ErrorReadingTextFile(msg) -> "ErrorReadingTextFile: " <> msg
+    ErrorReadingFrontmatter(msg) -> "ErrorReadingFrontmatter: " <> msg
+    DirNotFound(msg) -> "DirNotFound: " <> msg
+    ParentDirNotFound(msg) -> "ParentDirNotFound: " <> msg
+    ErrorCreatingDir(msg) -> "ErrorCreatingDir: " <> msg
+    ErrorDeletingDir(msg) -> "ErrorDeletingDir: " <> msg
+    PathUnresolvable(msg) -> "PathUnresolvable: " <> msg
+    ErrorWritingTextFile(msg) -> "ErrorWritingTextFile: " <> msg
+    DateParseError(msg) -> "DateParseError: " <> msg
+    InvalidSitePath(msg) -> "InvalidSitePath: " <> msg
+    InvalidSiteDir(msg) -> "InvalidSiteDir: " <> msg
+    ErrorCopyingDir(msg) -> "ErrorCopyingDir: " <> msg
+    ErrorRenderingMarkdown(msg) -> "ErrorRenderingMarkdown: " <> msg
+    ImageNotFound(msg) -> "ImageNotFound: " <> msg
+    InvalidImageSrc(msg) -> "InvalidImageSrc: " <> msg
+    ErrorReadingImageMeta(msg) -> "ErrorReadingImageMeta: " <> msg
+    ImageOptimizeError(msg) -> "ImageOptimizeError: " <> msg
+    SyntaxHighlightingError(msg) -> "SyntaxHighlightingError: " <> msg
+    ComponentError(msg) -> "ComponentError: " <> msg
+  }
+  |> indent_str(indent)
+}
+
+pub fn error_to_string(err) {
+  error_to_string_rec(err, 0)
+}

@@ -1,28 +1,33 @@
+import content/frontmatter
 import gleam/list
 import gleam/option.{None}
-import gleam/string
-import lustre/attribute
-import lustre/element
-import lustre/element/html
-import rendering/assets.{type Page, DynamicPage, Meta}
+import gleam/result
+import mellie/attr as attribute
+import mellie/html
 import rendering/templates/base
-import shoki/internal/date
+import shoki
+import shoki/date
+import shoki/internal/fs
 
-pub fn render(pages: List(Page)) {
-  let meta = Meta("Blog", None, None, [])
+fn blog_path() {
+  let assert Ok(blog_path) = fs.site_path_from_string("/blog")
+  blog_path
+}
+
+pub fn render(pages: List(frontmatter.Frontmatter)) {
+  let meta = base.Meta("Blog", None, None, [])
   let items =
     pages
     |> filter_and_sort
     |> list.map(fn(p) {
-      let slug = p.slug
-      let date = case p.meta.date {
+      let date = case p.date {
         option.Some(d) -> d |> date.to_string(".")
         None -> "date unknown"
       }
 
       html.li([], [
-        html.a([attribute.href(slug)], [
-          html.text(date <> " - " <> p.meta.title),
+        html.a([fs.site_path_to_href(p.path)], [
+          html.text(date <> " - " <> p.title),
         ]),
       ])
     })
@@ -31,14 +36,14 @@ pub fn render(pages: List(Page)) {
     // temp until we figure out how this layout should look
     html.article([attribute.class("site-article")], [html.ul([], items)])
     |> base.render(meta)
-    |> element.to_document_string
 
-  DynamicPage("/blog", meta, html, [])
+  fs.site_path_from_string("/blog.html")
+  |> result.map(shoki.generated_html_file(_, html))
 }
 
-pub fn filter_and_sort(pages: List(Page)) {
+pub fn filter_and_sort(pages: List(frontmatter.Frontmatter)) {
   pages
-  |> list.filter(fn(p) { string.starts_with(p.slug, "/blog") })
-  |> assets.sort_by_date
+  |> list.filter(fn(p) { fs.site_path_starts_with(p.path, blog_path()) })
+  |> frontmatter.sort_by_date
   |> list.reverse
 }

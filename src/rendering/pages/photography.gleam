@@ -1,33 +1,40 @@
-import content/fs
+import content/frontmatter
 import gleam/dict
 import gleam/list
 import gleam/option.{None}
-import gleam/string
-import lustre/attribute
-import lustre/element
-import lustre/element/html
-import rendering/assets.{type Page, DynamicPage, Meta}
+import gleam/result
+import mellie/attr as attribute
+import mellie/html
 import rendering/templates/base
+import shoki
+import shoki/internal/fs
 import util
 
-pub fn render(pages: List(Page)) {
-  let meta = Meta("Photography", None, None, [])
+fn photography_path() {
+  let assert Ok(path) = fs.site_path_from_string("/photography")
+  path
+}
+
+pub fn render(pages: List(frontmatter.Frontmatter)) {
+  let meta = base.Meta("Photography", None, None, [])
   let photography_items =
     pages
-    |> list.filter(fn(p) { string.starts_with(p.slug, "/photography") })
+    |> list.filter(fn(p) {
+      fs.site_path_starts_with(p.path, photography_path())
+    })
     |> list.group(fn(a) {
-      case fs.split(a.slug) {
-        [_empty, _photography, section, ..] -> section
+      case fs.site_path_parts(a.path) {
+        [_photography, section, ..] -> section
         _ -> "other"
       }
     })
 
   let tag_items =
     pages
-    |> list.filter(fn(p) { p.meta.tags |> list.contains("photography") })
+    |> list.filter(fn(p) { p.tags |> list.contains("photography") })
     |> list.group(fn(a) {
-      case fs.split(a.slug) {
-        [_empty, section, ..] -> section
+      case fs.site_path_parts(a.path) {
+        [section, ..] -> section
         _ -> "other"
       }
     })
@@ -44,10 +51,9 @@ pub fn render(pages: List(Page)) {
       let subitems =
         ps
         |> list.map(fn(p) {
-          let slug = p.slug
           html.li([], [
-            html.a([attribute.href(slug)], [
-              html.text(p.meta.title),
+            html.a([fs.site_path_to_href(p.path)], [
+              html.text(p.title),
             ]),
           ])
         })
@@ -63,7 +69,7 @@ pub fn render(pages: List(Page)) {
     // temp until we figure out how this layout should look
     html.article([attribute.class("site-article")], rendered)
     |> base.render(meta)
-    |> element.to_document_string
 
-  DynamicPage("/photography", meta, html, [])
+  fs.site_path_from_string("/photography.html")
+  |> result.map(shoki.generated_html_file(_, html))
 }

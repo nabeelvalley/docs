@@ -1,42 +1,75 @@
-import content/fs
-import gleam/dict
-import gleam/list
+import gleam/option.{None, Some}
 import gleam/result
-import js/dom
-import lustre/element
-import lustre/element/html
-import rendering/assets.{type Page, Page}
+import mellie
+import mellie/html
 import rendering/ssr/custom_el
 import rendering/ssr/snippet
+import shoki/component
+import shoki/error
+import shoki/internal/fs
 
-pub fn render_all(page: Page) -> Result(Page, String) {
-  let tree = dom.get_nodes(page.html, tag: "csssnippet")
+pub fn component() {
+  component.new("csssnippet", fn(data, el) {
+    case data.source_path {
+      None -> el |> Ok
+      Some(source) -> {
+        use css_path <- result.try(
+          mellie.attr(el, "path")
+          |> result.replace_error(error.ComponentError(
+            "could not read path for snippet",
+          )),
+        )
+        use html_path <- result.try(
+          mellie.attr(el, "htmlpath")
+          |> result.replace_error(error.ComponentError(
+            "could not read path for snippet",
+          )),
+        )
 
-  let updates =
-    tree.nodes
-    |> list.map(fn(node) {
-      use css <- result.try(snippet.load(node, page.path, "path"))
-      use html <- result.map(snippet.load(node, page.path, "htmlpath"))
-      let show_html = dict.from_list(node.attrs) |> dict.has_key("html")
+        use #(html_source, html_code) <- result.try(snippet.load(
+          source,
+          html_path,
+        ))
 
-      render(css, html, show_html)
-      |> element.to_string
-      |> dom.NodeUpdate(node.node, _)
-    })
-    |> result.all
+        use #(css_source, css_code) <- result.try(snippet.load(source, css_path))
 
-  use update_nodes <- result.try(updates)
+        let show_html =
+          mellie.attr(el, "html")
+          |> result.replace(True)
+          |> result.unwrap(False)
 
-  let html = dom.update_nodes(tree.root, update_nodes)
-
-  Ok(Page(..page, html:))
+        render(
+          css_path,
+          css_source,
+          css_code,
+          html_path,
+          html_source,
+          html_code,
+          show_html,
+        )
+      }
+    }
+  })
 }
 
-pub fn render(css: fs.File, html: fs.File, show_html: Bool) {
-  let html_snip =
-    snippet.render(css.path |> snippet.snippet_relative, css.content)
-  let css_snip =
-    snippet.render(html.path |> snippet.snippet_relative, html.content)
+pub fn render(
+  css_path,
+  css: fs.Path,
+  css_code,
+  html_path,
+  html: fs.Path,
+  html_code,
+  show_html: Bool,
+) {
+  use parsed <- result.map(
+    mellie.parse(html_code)
+    |> result.replace_error(error.ComponentError(
+      "error parsing html in csssnippet:" <> html_path,
+    )),
+  )
+
+  let css_snip = snippet.render(css, css_path, css_code)
+  let html_snip = snippet.render(html, html_path, html_code)
 
   let snips = case show_html {
     True -> html.div([], [css_snip, html_snip])
@@ -45,11 +78,12 @@ pub fn render(css: fs.File, html: fs.File, show_html: Bool) {
 
   // uses https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope
   // to scope the CSS to the parent element that also contains the rendered HTML
-  let scoped_css = "@scope {" <> css.content <> "}"
+  let scoped_css = "@scope {" <> css_code <> "}"
+
   let preview =
     html.div([], [
-      element.unsafe_raw_html("", "div", [], html.content),
-      html.style([], scoped_css),
+      parsed,
+      html.style([], [scoped_css |> mellie.text]),
     ])
 
   custom_el.site_snippet_preview([], [snips, preview])

@@ -1,10 +1,10 @@
-import content/fs
+import date
 import gleam/dynamic/decode
 import gleam/list
 import gleam/option.{type Option, None, Some}
-import gleam/result
-import gleam/string
-import yamleam
+import gleam/order
+import shoki/date as sdate
+import shoki/internal/fs as sfs
 
 pub type Layout {
   NoLayout
@@ -20,50 +20,12 @@ pub type Frontmatter {
     feature: Bool,
     layout: Layout,
     tags: List(String),
+    date: Option(sdate.IsoDate),
+    path: sfs.SitePath,
   )
 }
 
-pub type Extracted {
-  Extracted(frontmatter: Frontmatter, content: String)
-}
-
-type Parts {
-  Parts(frontmatter: String, content: String)
-}
-
-pub fn extract(file: fs.File) {
-  use parts <- result.try(separate(file))
-  use parsed <- result.try(parse(parts.frontmatter))
-
-  Ok(Extracted(parsed, parts.content))
-}
-
-fn separate(file: fs.File) -> Result(Parts, String) {
-  let lines = file.content |> string.trim |> string.split("\n")
-
-  let not_end = fn(str) { !string.starts_with(str, "---") }
-
-  case lines {
-    ["---", ..rest] -> {
-      let #(front, content) = list.split_while(rest, not_end)
-
-      Ok(Parts(
-        front |> string.join("\n"),
-        content |> list.drop(1) |> string.join("\n"),
-      ))
-    }
-    _ -> Error("No frontmatter present:" <> file.path)
-  }
-}
-
-fn parse(frontmatter: String) -> Result(Frontmatter, String) {
-  yamleam.parse(frontmatter, frontmatter_decoder())
-  |> result.replace_error(
-    "error decoding frontmatter, given:\n\n" <> frontmatter,
-  )
-}
-
-fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
+pub fn decoder(path: sfs.SitePath) -> decode.Decoder(Frontmatter) {
   let decode_bool = fn(field, default, a) {
     decode.optional_field(field, default, decode.bool, a)
   }
@@ -87,6 +49,12 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
     _ -> ArticleLayout
   }
 
+  let date =
+    path
+    |> sfs.site_path_to_string
+    |> date.parse_from_path
+    |> option.from_result
+
   decode.success(Frontmatter(
     title:,
     description:,
@@ -94,5 +62,22 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
     feature:,
     layout:,
     tags:,
+    date:,
+    path:,
   ))
+}
+
+pub fn sort_by_date(pages: List(Frontmatter)) {
+  pages
+  |> list.sort(fn(a, b) {
+    case a.date, b.date {
+      Some(a), Some(b) -> date.compare(a, b)
+      Some(_), _ -> order.Gt
+      None, _ -> order.Lt
+    }
+  })
+}
+
+pub fn is_published(fm: Frontmatter) {
+  fm.published
 }
