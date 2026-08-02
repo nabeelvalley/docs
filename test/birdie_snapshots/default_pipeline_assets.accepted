@@ -9,7 +9,6 @@ CopyDir:
   to: /
 
 HTMLFile: test/workspace/pages/about.md:/about.html
-<!doctype html>
 <html lang="en">
   <head>
     <title>Hello world!</title>
@@ -53,7 +52,6 @@ HTMLFile: test/workspace/pages/about.md:/about.html
 </html>
 
 HTMLFile: [no source]:/blog.html
-<!doctype html>
 <html lang="en">
   <head>
     <title>Blog</title>
@@ -94,7 +92,6 @@ HTMLFile: [no source]:/blog.html
 </html>
 
 HTMLFile: test/workspace/pages/blog/first_post.md:/blog/first_post.html
-<!doctype html>
 <html lang="en">
   <head>
     <title>First Post</title>
@@ -151,7 +148,6 @@ print(data)
 </html>
 
 HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
-<!doctype html>
 <html lang="en">
   <head>
     <title>Second Post</title>
@@ -208,7 +204,6 @@ HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
 </html>
 
 HTMLFile: [no source]:/index.html
-<!doctype html>
 <html lang="en">
   <head>
     <title>Index</title>
@@ -253,7 +248,6 @@ Task Result: /optimized-images/test/workspace/static/images/image-1.webp
 Task Result: /optimized-images/test/workspace/static/images/image-2.webp
 
 HTMLFile: [no source]:/special.html
-<!doctype html>
 <html lang="en">
   <head>
     <title>Special</title>

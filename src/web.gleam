@@ -5,6 +5,7 @@ import content/frontmatter
 import gleam/io
 import gleam/javascript/promise
 import gleam/result
+import js/shiki
 import mellie
 import rendering/assets
 import rendering/pages/blog
@@ -46,8 +47,9 @@ pub fn pipeline() {
   |> shoki.with_asset(photography.render)
   |> shoki.with_asset(docs.render)
   |> shoki.with_asset(talks.render)
-  |> shoki.with_static_dir(public)
+  |> shiki.with_syntax_highlighting
   |> image.with_image_optimization(photography)
+  |> shoki.with_static_dir(public)
 }
 
 pub fn main() {

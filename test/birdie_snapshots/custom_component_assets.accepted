@@ -5,7 +5,6 @@ file: ./test/shoki/pipeline_test.gleam
 test_name: pipeline_with_components_test
 ---
 HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
-<!doctype html>
 <html lang="en">
   <head>
     <title>Second Post</title>
@@ -57,6 +56,5 @@ HTMLFile: test/workspace/pages/blog/second_post.md:/blog/second_post.html
 </html>
 
 HTMLFile: [no source]:/blog/second_post_text.html
-<!doctype html>
 Nested Heading
 code |&gt; print_me |&gt; echo

@@ -30,5 +30,5 @@ youid = ">= 1.6.0 and < 2.0.0"
 
 [dependencies.mellie]
 git = "https://github.com/sftsrv/mellie"
-ref = "4b1e11f"
+ref = "d94ab22"
 

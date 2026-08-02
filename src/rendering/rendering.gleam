@@ -17,7 +17,6 @@ import rendering/pages/wip
 import rendering/ssr/css_snippet
 import rendering/ssr/custom_el
 import rendering/ssr/gallery
-import rendering/ssr/highlight
 import rendering/ssr/html_snippet
 import rendering/ssr/image
 import rendering/ssr/script_raw
@@ -83,7 +82,7 @@ fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {
             promisify(html_snippet.render_all),
 
             // // highlight all code blocks (markdown or ssr)
-            highlight.render_all,
+            // highlight.render_all,
             gallery.render_all,
 
             // // rendered last to ensure that processors don't modify the result

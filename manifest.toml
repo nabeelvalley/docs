@@ -32,11 +32,12 @@ packages = [
   { name = "global_value", version = "1.0.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "global_value", source = "hex", outer_checksum = "23F74C91A7B819C43ABCCBF49DAD5BB8799D81F2A3736BA9A534BD47F309FF4F" },
   { name = "houdini", version = "1.2.1", build_tools = ["gleam"], requirements = [], otp_app = "houdini", source = "hex", outer_checksum = "6F8AC2F12974567FB744BEA66AC93CEB76AAEA19AD28564623F76CDA9BC26A85" },
   { name = "htmerl", version = "0.2.1", build_tools = ["rebar3"], requirements = [], otp_app = "htmerl", source = "hex", outer_checksum = "EBD3F54E6DC98594F54BB3C214F5B96CAE90D1AE2A4B7E487FBE94A929110015" },
+  { name = "htmgrrrl", version = "1.0.1", build_tools = ["gleam"], requirements = ["gleam_stdlib", "htmerl"], otp_app = "htmgrrrl", source = "hex", outer_checksum = "2FE14FE588737FA5A6E41FC6DBA66056CCAC2E14F737E3A4FA602C473A9A40B5" },
   { name = "jot", version = "12.1.0", build_tools = ["gleam"], requirements = ["gleam_stdlib", "houdini", "splitter"], otp_app = "jot", source = "hex", outer_checksum = "454E74D6134EBE476E1656C466CB2CC282BB0C0E3155250976738B893E687168" },
   { name = "justin", version = "1.1.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "justin", source = "hex", outer_checksum = "8B1C62269E8607D0A0ED698B7903984CE0BF7B6B3C0DEA3C6C8302B39402837B" },
   { name = "lustre", version = "5.7.1", build_tools = ["gleam"], requirements = ["exception", "gleam_erlang", "gleam_json", "gleam_otp", "gleam_stdlib", "houdini"], otp_app = "lustre", source = "hex", outer_checksum = "663A2D1A3458914CA537A42AC07E601DD3FD85415EBDAF4717F2DFF6E86F90F9" },
   { name = "maud", version = "2.0.0", build_tools = ["gleam"], requirements = ["gleam_stdlib", "lustre", "mork"], otp_app = "maud", source = "hex", outer_checksum = "73CECA8B235B159E2EC24D487DA4CBBEF550D01AD79599AB9810C235496667B8" },
-  { name = "mellie", version = "1.2.0", build_tools = ["gleam"], requirements = ["gleam_javascript", "gleam_stdlib", "presentable_soup"], source = "git", repo = "https://github.com/sftsrv/mellie", commit = "4b1e11f8bf884cc34f41c1c9bfeaa3d7349b978b" },
+  { name = "mellie", version = "1.2.0", build_tools = ["gleam"], requirements = ["gleam_javascript", "gleam_stdlib", "glentities", "htmgrrrl", "presentable_soup"], source = "git", repo = "https://github.com/sftsrv/mellie", commit = "d94ab221896b8e751935a7f870e101bcc02cead5" },
   { name = "mork", version = "1.12.1", build_tools = ["gleam"], requirements = ["casefold", "gleam_regexp", "gleam_stdlib", "splitter"], otp_app = "mork", source = "hex", outer_checksum = "73CEB1DBF2C4E827D420970729EEE8931D324D23612869938F729DEFFEDBB820" },
   { name = "mork_to_lustre", version = "1.0.0", build_tools = ["gleam"], requirements = ["gleam_regexp", "gleam_stdlib", "lustre", "mork", "splitter"], otp_app = "mork_to_lustre", source = "hex", outer_checksum = "8188DADF0C88BE60603153C9FCCAFFE8E17F267D37D4DA6F76CAB303E45C4871" },
   { name = "parz", version = "1.1.0", build_tools = ["gleam"], requirements = ["gleam_regexp", "gleam_stdlib"], otp_app = "parz", source = "hex", outer_checksum = "CD1AFEEA57D4986B2987B3E0C59429C92CD64882EA64F4BC9C2CF07C4666EBDD" },
@@ -66,7 +67,7 @@ glentities = { version = ">= 6.2.1 and < 7.0.0" }
 jot = { version = ">= 12.0.1 and < 13.0.0" }
 lustre = { version = ">= 5.7.0 and < 6.0.0" }
 maud = { version = ">= 2.0.0 and < 3.0.0" }
-mellie = { git = "https://github.com/sftsrv/mellie", ref = "4b1e11f" }
+mellie = { git = "https://github.com/sftsrv/mellie", ref = "d94ab22" }
 mork = { version = ">= 1.12.1 and < 2.0.0" }
 mork_to_lustre = { version = ">= 1.0.0 and < 2.0.0" }
 parz = { version = ">= 1.1.0 and < 2.0.0" }

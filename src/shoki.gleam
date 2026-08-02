@@ -340,7 +340,7 @@ pub fn asset_to_readable_string(asset: Asset) -> String {
       <> ":"
       <> file.path |> fs.site_path_to_string
       <> "\n"
-      <> file.html |> mellie.to_document_string
+      <> file.html |> mellie.element_to_string_pretty
     CopyDirAsset(from, to) ->
       "CopyDir: \n  from: "
       <> from |> fs.path_to_string

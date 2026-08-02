@@ -4,7 +4,6 @@ title: html to string
 file: ./test/shoki/html_test.gleam
 test_name: parse_html_test
 ---
-<!doctype html>
 <html>
   <head></head>
   <body>

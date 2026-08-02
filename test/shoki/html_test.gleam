@@ -29,6 +29,6 @@ pub fn parse_html_test() {
     |> mellie.parse
 
   result
-  |> mellie.to_document_string
+  |> mellie.element_to_string_pretty
   |> birdie.snap("html to string")
 }
