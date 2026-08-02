@@ -115,11 +115,13 @@ pub fn pipeline_with_components_test() {
           [html.text("My Updated Tag")],
         )
 
-      new_el
+      new_el |> Ok
     })
 
   let my_custom_image =
-    component.new("my-custom-image", fn(_, el) { html.img(el |> mellie.attrs) })
+    component.new("my-custom-image", fn(_, el) {
+      html.img(el |> mellie.attrs) |> Ok
+    })
 
   let pipeline =
     markdown.from_markdown(

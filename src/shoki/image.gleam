@@ -33,17 +33,12 @@ pub fn image_optimize_task(static_images_dir) {
       use file <- shoki.if_html(asset, Ok([]))
       use img <- list.try_map(mellie.get_children_by_tag(file.html, "img"))
 
-      echo img |> mellie.element_to_string
-
       case mellie.attr(img, "src") {
         Error(_) -> Ok([])
         Ok(src) -> {
           // If we can't optimize an image then we just skip it
           let resolved =
-            result.unwrap(
-              resolve(static_images_dir, file.source, src) |> echo,
-              None,
-            )
+            result.unwrap(resolve(static_images_dir, file.source, src), None)
           {
             use input_path <- option.map(resolved)
             case can_optimize(input_path) {

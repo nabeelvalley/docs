@@ -1,12 +1,14 @@
 import gleam/dict.{type Dict}
 import gleam/list
 import gleam/option
+import gleam/result
 import mellie.{type ElementTree}
 import presentable_soup.{ElementNode, TextNode}
+import shoki/error
 import shoki/internal/fs
 
 type Visit(a) =
-  fn(RenderData, ElementTree) -> a
+  fn(RenderData, ElementTree) -> error.ShokiResult(a)
 
 pub type Component(a) =
   #(String, Visit(a))
@@ -24,11 +26,16 @@ fn render_rec(
   data,
   components: Dict(String, Visit(ElementTree)),
   el: ElementTree,
-) -> ElementTree {
+) -> error.ShokiResult(ElementTree) {
   case el {
-    TextNode(_) -> el
+    TextNode(_) -> el |> Ok
     ElementNode(tag:, attributes: _, children:) -> {
-      let inner_children = children |> list.map(render_rec(data, components, _))
+      use inner_children <- result.try(
+        children
+        |> list.map(render_rec(data, components, _))
+        |> error.collate_errors,
+      )
+
       let inner_updated = ElementNode(..el, children: inner_children)
 
       let visit = components |> dict.get(tag)
@@ -38,7 +45,7 @@ fn render_rec(
           visit(data, inner_updated)
         }
         Error(_) -> {
-          inner_updated
+          inner_updated |> Ok
         }
       }
     }
@@ -51,7 +58,7 @@ pub fn render(
   site_path: fs.SitePath,
   html: ElementTree,
   components: List(Component(ElementTree)),
-) -> ElementTree {
+) {
   components
   |> dict.from_list
   |> render_rec(RenderData(source_path, site_path), _, html)

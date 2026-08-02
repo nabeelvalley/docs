@@ -1,4 +1,5 @@
 import gleam/list
+import gleam/pair
 import gleam/result
 import gleam/string
 
@@ -31,12 +32,21 @@ pub type ShokiErr {
 }
 
 /// A drop-in replacement for result.all for merging errors into a single error object
+/// this is pretty slow since it uses result.all, result.partition, and list.reverse
+/// under the hood. Potentially an optimization target. If we don't care about
+/// ordering we can just use `result.partition` but order is important - especially for
+/// the happy case
 pub fn collate_errors(results: List(ShokiResult(r))) -> ShokiResult(List(r)) {
-  let #(oks, errs) = result.partition(results)
-
-  case errs {
-    [] -> Ok(oks)
-    _ -> Error(Collated(errs))
+  case result.all(results) {
+    Ok(oks) -> Ok(oks)
+    Error(_) ->
+      Error(
+        results
+        |> result.partition
+        |> pair.second
+        |> list.reverse
+        |> Collated,
+      )
   }
 }
 

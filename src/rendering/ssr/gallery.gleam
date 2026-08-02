@@ -40,11 +40,10 @@ fn get_files(el: mellie.ElementTree, page: sfs.Path) {
 pub fn component() {
   component.new(tag: "gallery", visit: fn(data, el) {
     case data.source_path {
-      None -> el
+      None -> el |> Ok
       Some(path) ->
         get_files(el, path)
         |> result.map(render)
-        |> result.unwrap(el)
     }
   })
 }

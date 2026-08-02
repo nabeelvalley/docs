@@ -172,17 +172,15 @@ pub fn with_components(
     let rendered =
       prev_assets
       |> list.map(fn(a) {
-        use file <- if_html(a, a)
+        use file <- if_html(a, a |> Ok)
 
-        let html = component.render(file.source, file.path, file.html, comps)
-
-        HTMLFile(..file, html:)
-        |> HTMLFileAsset
+        component.render(file.source, file.path, file.html, comps)
+        |> result.map(fn(html) { HTMLFile(..file, html:) |> HTMLFileAsset })
       })
 
     rendered
-    |> Rendered(tasks: prev_tasks, assets: _)
-    |> Ok
+    |> error.collate_errors
+    |> result.map(Rendered(tasks: prev_tasks, assets: _))
   })
 }
 
