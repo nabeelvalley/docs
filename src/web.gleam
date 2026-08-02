@@ -5,6 +5,8 @@ import consts
 import content/frontmatter
 import gleam/io
 import gleam/javascript/promise
+import gleam/list
+import gleam/option
 import gleam/result
 import mellie
 import rendering/assets
@@ -12,6 +14,7 @@ import rendering/pages/blog
 import rendering/pages/docs
 import rendering/pages/index
 import rendering/pages/photography
+import rendering/pages/rss
 import rendering/pages/talks
 import rendering/ssr/css_snippet
 import rendering/ssr/custom_el
@@ -63,6 +66,24 @@ pub fn pipeline() {
   |> highlight.with_syntax_highlighting
   |> image.with_image_optimization(fs.cwd())
   |> image.with_image_optimization(public)
+  |> rss.with_rss(
+    rss.RSSFeed(
+      consts.site_title,
+      consts.site_description,
+      consts.site_base_url,
+    ),
+    fn(frontmatters, file) {
+      let found = frontmatters |> list.find(fn(i) { i.path == file.path })
+
+      found
+      |> option.from_result
+      |> option.map(fn(fm) {
+        let html =
+          file.html |> mellie.get_child_by_tag("main") |> option.from_result
+        rss.RSSItem(fm.title, fm.path, fm.description, fm.date, html)
+      })
+    },
+  )
   |> shoki.with_static_dir(public)
 }
 

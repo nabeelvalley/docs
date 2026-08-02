@@ -1,7 +1,7 @@
 import gleam/dict
 import gleam/javascript/promise.{type Promise}
 import gleam/list
-import gleam/option.{None, Some}
+import gleam/option.{type Option, None, Some}
 import gleam/result
 import gleam/string
 import mellie
@@ -19,10 +19,10 @@ type Loader(state, aggregate) =
   fn() -> ShokiResult(Loaded(state, aggregate))
 
 type Renderer(state, aggregate) =
-  fn(List(state), aggregate) -> ShokiResult(Rendered)
+  fn(List(state), aggregate) -> ShokiResult(Rendered(aggregate))
 
-pub opaque type Rendered {
-  Rendered(assets: List(Asset), tasks: List(Task))
+pub opaque type Rendered(aggregate) {
+  Rendered(assets: List(Asset), tasks: List(Task(aggregate)))
 }
 
 pub opaque type HTMLFileTransform {
@@ -37,25 +37,24 @@ pub type TaskInfo {
   TaskInfo(out_dir: fs.Path)
 }
 
-pub opaque type Task {
+pub opaque type Task(aggregate) {
   HTMLFileTransformTask(HTMLFileTransform)
   /// Tasks receive some context and are expected to return a list of
   /// any files they might have written
   Task(fn(TaskInfo) -> Promise(ShokiResult(List(fs.SitePath))))
+  /// Summarize the result of all complete tasks, may optionally ouput some final assets
+  SummarizeTask(fn(aggregate, List(Asset)) -> ShokiResult(List(Asset)))
 }
 
 pub type HTMLFile {
-  HTMLFile(
-    source: option.Option(fs.Path),
-    path: fs.SitePath,
-    html: mellie.ElementTree,
-  )
+  HTMLFile(source: Option(fs.Path), path: fs.SitePath, html: mellie.ElementTree)
 }
 
 pub opaque type Asset {
   HTMLFileAsset(HTMLFile)
   CopyDirAsset(from: fs.Path, to: fs.SitePath)
   TaskResult(fs.SitePath)
+  TextFile(path: fs.SitePath, content: String)
 }
 
 /// load -> process -> persist
@@ -73,7 +72,8 @@ pub opaque type Pipeline(state, aggregate) {
 pub fn new(
   out out_dir: fs.Path,
   load load: fn() -> Result(Loaded(state, aggregate), error.ShokiErr),
-  render render: fn(List(state), aggregate) -> Result(Rendered, error.ShokiErr),
+  render render: fn(List(state), aggregate) ->
+    Result(Rendered(aggregate), error.ShokiErr),
 ) -> Pipeline(state, aggregate) {
   Pipeline(out_dir, load, render)
 }
@@ -85,36 +85,10 @@ pub fn loaded(
   Loaded(pages, aggregate)
 }
 
-pub fn merge(
-  prev: Pipeline(page, aggregate),
-  to_pages: fn(aggregate) -> List(page),
-  render: Renderer(page, aggregate),
-) -> Pipeline(page, Loaded(page, aggregate)) {
-  Pipeline(
-    out_dir: prev.out_dir,
-    load: fn() {
-      use prev <- result.map(prev.load())
-      let next = prev.aggregated |> to_pages
-
-      Loaded(next, prev)
-    },
-    render: fn(pages, prev_loaded) {
-      use prev_result <- result.try(prev.render(
-        prev_loaded.pages,
-        prev_loaded.aggregated,
-      ))
-
-      use next_result <- result.map(render(pages, prev_loaded.aggregated))
-
-      merge_rendered(prev_result, next_result)
-    },
-  )
-}
-
 /// The raw unit for composing rendering pipelines
 pub fn with(
   from: Pipeline(page, aggregate),
-  render: fn(aggregate) -> ShokiResult(Rendered),
+  render: fn(aggregate) -> ShokiResult(Rendered(aggregate)),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
     use prev_result <- result.try(from.render(pages, aggregated))
@@ -202,7 +176,7 @@ pub fn with_derived_assets(
 /// Add some generic tasks into the pipeline for each asset, e.g. running an accessibility check on all generated html
 pub fn with_task(
   from: Pipeline(page, aggregate),
-  create_tasks: fn(Asset) -> ShokiResult(List(Task)),
+  create_tasks: fn(Asset) -> ShokiResult(List(Task(aggregate))),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
     use prev <- result.try(from.render(pages, aggregated))
@@ -213,6 +187,20 @@ pub fn with_task(
 
     merge_rendered(prev, result |> list.flatten |> from_tasks)
   })
+}
+
+/// Add some generic tasks into the pipeline for each asset, e.g. running an accessibility check on all generated html
+pub fn with_summary(from, summarize) {
+  Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
+    use prev <- result.try(from.render(pages, aggregated))
+
+    merge_rendered(prev, summarize_task(summarize) |> list.wrap |> from_tasks)
+    |> Ok
+  })
+}
+
+pub fn summarize_task(t) {
+  SummarizeTask(t)
 }
 
 /// Cleans the output directory and runs the pipeline
@@ -261,7 +249,7 @@ pub fn run(
       t(info) |> promise.map_try(fn(r) { r |> list.map(TaskResult) |> Ok })
     })
 
-  use assets <- promise.map_try(
+  use main_assets <- promise.map_try(
     [asset_results, task_results]
     |> list.flatten
     |> promise.await_list
@@ -269,7 +257,17 @@ pub fn run(
     |> promise.map(result.map(_, list.flatten)),
   )
 
-  write_all(pipeline.out_dir, assets) |> result.map(fn(_) { assets })
+  let summaries = tasks |> filter_summaries
+
+  use summary_assets <- result.try(
+    list.map(summaries, fn(a) { a(loaded.aggregated, main_assets) })
+    |> error.collate_errors,
+  )
+
+  let all_assets = list.append(main_assets, summary_assets |> list.flatten)
+
+  write_all(pipeline.out_dir, all_assets)
+  |> result.replace(all_assets)
 }
 
 fn write_one(out_dir: fs.Path, output: Asset) -> Result(Nil, error.ShokiErr) {
@@ -282,6 +280,7 @@ fn write_one(out_dir: fs.Path, output: Asset) -> Result(Nil, error.ShokiErr) {
       )
     }
     CopyDirAsset(from:, to:) -> fs.copy_site_dir(out_dir, from, to)
+    TextFile(path, content) -> fs.write_site_file(out_dir, path, content)
     _ -> Ok(Nil)
   }
 }
@@ -325,6 +324,7 @@ fn asset_path(asset: Asset) -> fs.SitePath {
     HTMLFileAsset(file) -> file.path
     CopyDirAsset(from: _, to:) -> to
     TaskResult(path) -> path
+    TextFile(path, _) -> path
   }
 }
 
@@ -345,6 +345,8 @@ pub fn asset_to_readable_string(asset: Asset) -> String {
       <> "\n  to: "
       <> to |> fs.site_path_to_string
     TaskResult(path) -> "Task Result: " <> path |> fs.site_path_to_string
+    TextFile(path, content) ->
+      "Text File : " <> path |> fs.site_path_to_string <> ":\n" <> content
   }
 }
 
@@ -408,7 +410,10 @@ fn apply_tasks(base, transforms: List(HTMLFileTransform)) {
   |> promise.resolve
 }
 
-fn merge_rendered(a: Rendered, b: Rendered) -> Rendered {
+fn merge_rendered(
+  a: Rendered(aggregate),
+  b: Rendered(aggregate),
+) -> Rendered(aggregate) {
   Rendered(
     assets: list.append(a.assets, b.assets),
     tasks: list.append(a.tasks, b.tasks),
@@ -427,7 +432,7 @@ pub fn html_file_transform_task(path, replace, render) {
   HTMLFileTransform(path, replace, render) |> HTMLFileTransformTask
 }
 
-fn filter_html_transforms(tasks: List(Task)) {
+fn filter_html_transforms(tasks: List(Task(aggregate))) {
   list.map(tasks, fn(t) {
     case t {
       HTMLFileTransformTask(t) -> Some(t)
@@ -437,10 +442,20 @@ fn filter_html_transforms(tasks: List(Task)) {
   |> option.values
 }
 
-fn filter_tasks(tasks: List(Task)) {
+fn filter_tasks(tasks: List(Task(aggregate))) {
   list.map(tasks, fn(t) {
     case t {
       Task(t) -> Some(t)
+      _ -> None
+    }
+  })
+  |> option.values
+}
+
+fn filter_summaries(tasks: List(Task(aggregate))) {
+  list.map(tasks, fn(t) {
+    case t {
+      SummarizeTask(t) -> Some(t)
       _ -> None
     }
   })
@@ -456,4 +471,8 @@ pub fn if_html(asset: Asset, or_else, f) {
     HTMLFileAsset(file) -> f(file)
     _ -> or_else
   }
+}
+
+pub fn text_file(path: fs.SitePath, content: String) {
+  TextFile(path:, content:)
 }

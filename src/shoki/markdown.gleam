@@ -83,7 +83,7 @@ pub fn from_markdown(
       shoki.loaded(pages, pages |> list.map(frontmatter) |> agg)
     },
     render: fn(pages: List(MarkdownFile(a)), agg: b) -> Result(
-      shoki.Rendered,
+      shoki.Rendered(b),
       error.ShokiErr,
     ) {
       pages

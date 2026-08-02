@@ -29,7 +29,7 @@ pub fn with_image_optimization(pipeline, static_images_dir: fs.Path) {
 
 pub fn image_optimize_task(static_images_dir) {
   let optimized_dir = optimized_images_path()
-  fn(asset: shoki.Asset) -> Result(List(shoki.Task), error.ShokiErr) {
+  fn(asset: shoki.Asset) -> Result(List(shoki.Task(a)), error.ShokiErr) {
     {
       use file <- shoki.if_html(asset, Ok([]))
       use img <- list.try_map(mellie.get_children_by_tag(file.html, "img"))
