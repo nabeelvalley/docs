@@ -7,9 +7,9 @@ import gleam/option
 import gleam/result
 import js/dom
 import js/sharp
-import lustre/attribute
-import lustre/element
-import lustre/element/html
+import mellie
+import mellie/attr as attribute
+import mellie/html
 import rendering/assets.{type Page, Page}
 import rendering/ssr/custom_el
 import util
@@ -58,7 +58,7 @@ pub fn render_all(page: Page) -> Promise(Result(Page, String)) {
       render(gallery.images)
       |> promise.map(fn(el) {
         el
-        |> result.map(element.to_string)
+        |> result.map(mellie.element_to_string)
         |> result.map(dom.NodeUpdate(gallery.node, _))
       })
     })
@@ -75,8 +75,8 @@ pub fn render_all(page: Page) -> Promise(Result(Page, String)) {
 
 fn render(
   paths: List(assets.Asset),
-) -> Promise(Result(element.Element(a), String)) {
-  use content: List(element.Element(a)) <- promise.try_await(
+) -> Promise(Result(mellie.ElementTree, String)) {
+  use content: List(mellie.ElementTree) <- promise.try_await(
     paths
     |> list.map(render_image)
     |> promise.await_list
@@ -88,7 +88,7 @@ fn render(
 
 fn render_image(
   img: assets.Asset,
-) -> Promise(Result(element.Element(a), String)) {
+) -> Promise(Result(mellie.ElementTree, String)) {
   use resolved <- util.try_resolve(assets.resolve(img))
   use meta <- promise.try_await(sharp.meta(img.input_file))
 

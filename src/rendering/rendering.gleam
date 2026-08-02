@@ -5,7 +5,7 @@ import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/option
 import gleam/result
-import lustre/element
+import mellie
 import rendering/assets.{Content, Dynamic, Feed, Meta, Page}
 import rendering/pages/blog
 import rendering/pages/docs
@@ -90,9 +90,10 @@ fn render_page(doc: content.Page) -> Promise(Result(assets.Page, String)) {
           ]),
         fn(processed) {
           let html =
-            custom_el.site_markdown(processed.html)
+            // custom_el.site_markdown(processed.html)
+            todo as "this should never be hit in the new implementation"
             |> article.render(meta)
-            |> element.to_document_string
+            |> mellie.to_document_string
 
           Ok(Page(..processed, html:)) |> promise.resolve
         },

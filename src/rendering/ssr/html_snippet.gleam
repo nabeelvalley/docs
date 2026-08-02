@@ -1,7 +1,8 @@
 import gleam/list
 import gleam/result
 import js/dom
-import lustre/element
+import mellie
+import mellie/html
 import rendering/assets.{type Page, Page}
 import rendering/ssr/custom_el
 import rendering/ssr/snippet
@@ -15,7 +16,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
       use file <- result.map(snippet.load(node, page.path, "path"))
 
       render(file.path |> snippet.snippet_relative, file.content)
-      |> element.to_string
+      |> mellie.element_to_string
       |> dom.NodeUpdate(node.node, _)
     })
 
@@ -28,9 +29,8 @@ pub fn render_all(page: Page) -> Result(Page, String) {
 
 fn render(title: String, code: String) {
   let snip = snippet.render(title, code)
+  // TODO: fix this when converting to component
+  let assert Ok(parsed) = mellie.parse(code)
 
-  custom_el.site_snippet_preview([], [
-    snip,
-    element.unsafe_raw_html("", "div", [], code),
-  ])
+  custom_el.site_snippet_preview([], [snip, html.div([], [parsed])])
 }

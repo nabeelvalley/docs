@@ -221,7 +221,10 @@ pub fn with_task(
 pub fn run(
   pipeline: Pipeline(page, aggregate),
 ) -> Promise(Result(List(Asset), error.ShokiErr)) {
-  use _ <- async.try_resolve(fs.delete_dir(pipeline.out_dir))
+  use _ <- async.try_resolve(
+    fs.delete_dir_if_exists(pipeline.out_dir)
+    |> fn(_) { Ok(Nil) },
+  )
 
   use loaded <- async.try_resolve(pipeline.load())
 

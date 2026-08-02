@@ -1,7 +1,8 @@
 import consts
 import gleam/option
-import lustre/attribute
-import lustre/element/html
+import mellie
+import mellie/attr as attribute
+import mellie/html
 import rendering/assets.{type Meta}
 import rendering/templates/footer
 import rendering/templates/header
@@ -13,7 +14,7 @@ pub fn render(body, meta: Meta) {
 
   html.html([attribute.lang("en")], [
     html.head([], [
-      html.title([], title),
+      html.title([], [title |> mellie.text]),
 
       html.meta([attribute.charset("UTF-8")]),
       html.meta([
@@ -54,7 +55,7 @@ pub fn render(body, meta: Meta) {
       // non-render-blocking
       html.link([
         attribute.href("/index.css"),
-        attribute.attribute("onload", "this.onload=null;this.rel='stylesheet'"),
+        mellie.attribute("onload", "this.onload=null;this.rel='stylesheet'"),
         attribute.as_("style"),
         attribute.rel("preload"),
       ]),
@@ -67,11 +68,11 @@ pub fn render(body, meta: Meta) {
 
       html.script(
         [
-          attribute.attribute("defer", "true"),
+          attribute.defer("true"),
           attribute.type_("module"),
           attribute.src("/index.js"),
         ],
-        "",
+        [mellie.text("")],
       ),
     ]),
     header.render(),

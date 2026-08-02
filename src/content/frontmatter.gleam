@@ -1,9 +1,12 @@
 import content/fs
+import date
 import gleam/dynamic/decode
 import gleam/list
 import gleam/option.{type Option, None, Some}
 import gleam/result
 import gleam/string
+import shoki/date as sdate
+import shoki/internal/fs as sfs
 import yamleam
 
 pub type Layout {
@@ -20,6 +23,7 @@ pub type Frontmatter {
     feature: Bool,
     layout: Layout,
     tags: List(String),
+    date: Option(sdate.IsoDate),
   )
 }
 
@@ -63,7 +67,48 @@ fn parse(frontmatter: String) -> Result(Frontmatter, String) {
   )
 }
 
-fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
+pub fn decoder(path: sfs.SitePath) -> decode.Decoder(Frontmatter) {
+  let decode_bool = fn(field, default, a) {
+    decode.optional_field(field, default, decode.bool, a)
+  }
+
+  let decode_str = fn(field, a) {
+    decode.optional_field(field, None, decode.optional(decode.string), a)
+  }
+
+  use title <- decode.field("title", decode.string)
+  use description <- decode_str("description")
+  use layout_str <- decode_str("layout")
+
+  use published <- decode_bool("published", True)
+  use feature <- decode_bool("feature", False)
+
+  use tags <- decode.optional_field("tags", [], decode.list(decode.string))
+
+  let layout = case layout_str {
+    Some("gallery") -> GalleryLayout
+    Some("none") -> NoLayout
+    _ -> ArticleLayout
+  }
+
+  let date =
+    path
+    |> sfs.site_path_to_string
+    |> date.parse_from_path
+    |> option.from_result
+
+  decode.success(Frontmatter(
+    title:,
+    description:,
+    published:,
+    feature:,
+    layout:,
+    tags:,
+    date:,
+  ))
+}
+
+pub fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
   let decode_bool = fn(field, default, a) {
     decode.optional_field(field, default, decode.bool, a)
   }
@@ -94,5 +139,6 @@ fn frontmatter_decoder() -> decode.Decoder(Frontmatter) {
     feature:,
     layout:,
     tags:,
+    date: None,
   ))
 }

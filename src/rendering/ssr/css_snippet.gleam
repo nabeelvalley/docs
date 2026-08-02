@@ -3,8 +3,8 @@ import gleam/dict
 import gleam/list
 import gleam/result
 import js/dom
-import lustre/element
-import lustre/element/html
+import mellie
+import mellie/html
 import rendering/assets.{type Page, Page}
 import rendering/ssr/custom_el
 import rendering/ssr/snippet
@@ -20,7 +20,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
       let show_html = dict.from_list(node.attrs) |> dict.has_key("html")
 
       render(css, html, show_html)
-      |> element.to_string
+      |> mellie.element_to_string
       |> dom.NodeUpdate(node.node, _)
     })
     |> result.all
@@ -46,10 +46,13 @@ pub fn render(css: fs.File, html: fs.File, show_html: Bool) {
   // uses https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope
   // to scope the CSS to the parent element that also contains the rendered HTML
   let scoped_css = "@scope {" <> css.content <> "}"
+
+  // TODO: remove this assert when converting to a component
+  let assert Ok(parsed) = mellie.parse(html.content)
   let preview =
     html.div([], [
-      element.unsafe_raw_html("", "div", [], html.content),
-      html.style([], scoped_css),
+      parsed,
+      html.style([], [scoped_css |> mellie.text]),
     ])
 
   custom_el.site_snippet_preview([], [snips, preview])

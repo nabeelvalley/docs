@@ -9,9 +9,9 @@ import gleam/result
 import gleam/uri
 import js/dom
 import js/sharp
-import lustre/attribute
-import lustre/element
-import lustre/element/html
+import mellie
+import mellie/attr as attribute
+import mellie/html
 import rendering/assets.{type Page, Page}
 import util
 
@@ -37,7 +37,7 @@ pub fn render_all(page: Page) -> promise.Promise(Result(Page, String)) {
 
               option.Some(
                 result
-                |> result.map(element.to_string)
+                |> result.map(mellie.element_to_string)
                 |> result.map(dom.NodeUpdate(node.node, _)),
               )
               |> promise.resolve
@@ -112,21 +112,21 @@ fn from_uri_path(str) {
 fn render_image(
   node: dom.Node,
   asset: assets.Asset,
-) -> promise.Promise(Result(element.Element(a), String)) {
+) -> promise.Promise(Result(mellie.ElementTree, String)) {
   use meta <- promise.try_await(sharp.meta(asset.input_file))
   use resolved <- util.try_resolve(assets.resolve(asset))
   let attrs =
     node.attrs
     |> list.map(fn(attr) {
       let #(k, v) = attr
-      attribute.attribute(k, v)
+      mellie.attribute(k, v)
     })
 
   let aspect_ratio =
     meta
     |> sharp.aspect_ratio
     |> float.to_string
-    |> attribute.attribute("aspect-ratio", _)
+    |> mellie.attribute("aspect-ratio", _)
 
   let alt =
     node.attrs |> dict.from_list |> dict.get("alt") |> option.from_result

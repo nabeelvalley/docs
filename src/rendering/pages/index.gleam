@@ -1,8 +1,8 @@
 import gleam/list
 import gleam/option.{None}
-import lustre/attribute
-import lustre/element
-import lustre/element/html
+import mellie/attr as attribute
+import mellie
+import mellie/html
 import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/pages/blog
 import rendering/templates/base
@@ -53,7 +53,7 @@ pub fn render(pages: List(Page)) {
       recent_blogs,
     ])
     |> base.render(meta)
-    |> element.to_document_string
+    |> mellie.to_document_string
 
   DynamicPage("/index", meta, html, [])
 }

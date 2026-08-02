@@ -5,9 +5,9 @@ import gleam/list
 import gleam/result
 import gleam/string
 import js/dom
-import lustre/attribute
-import lustre/element
-import lustre/element/html
+import mellie
+import mellie/attr as attribute
+import mellie/html
 import rendering/assets.{type Page, Page}
 
 pub fn render_all(page: Page) -> Result(Page, String) {
@@ -19,7 +19,7 @@ pub fn render_all(page: Page) -> Result(Page, String) {
       use file <- result.map(load(node, page.path, "path"))
 
       render(file.path |> snippet_relative, file.content)
-      |> element.to_string
+      |> mellie.element_to_string
       |> dom.NodeUpdate(node.node, _)
     })
 

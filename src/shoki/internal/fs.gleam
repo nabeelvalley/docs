@@ -56,6 +56,16 @@ pub fn delete_dir(dir: Path) {
   simplifile.delete(path) |> result.replace_error(ErrorDeletingDir(path))
 }
 
+pub fn delete_dir_if_exists(dir: Path) {
+  case is_dir(dir) {
+    False -> Ok(Nil)
+    True -> {
+      let path = dir.path
+      simplifile.delete(path) |> result.replace_error(ErrorDeletingDir(path))
+    }
+  }
+}
+
 pub fn ensure_dir(path: Path) {
   case is_dir(path) {
     True -> Ok(Nil)

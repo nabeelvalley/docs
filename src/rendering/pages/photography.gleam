@@ -3,9 +3,9 @@ import gleam/dict
 import gleam/list
 import gleam/option.{None}
 import gleam/string
-import lustre/attribute
-import lustre/element
-import lustre/element/html
+import mellie/attr as attribute
+import mellie
+import mellie/html
 import rendering/assets.{type Page, DynamicPage, Meta}
 import rendering/templates/base
 import util
@@ -63,7 +63,7 @@ pub fn render(pages: List(Page)) {
     // temp until we figure out how this layout should look
     html.article([attribute.class("site-article")], rendered)
     |> base.render(meta)
-    |> element.to_document_string
+    |> mellie.to_document_string
 
   DynamicPage("/photography", meta, html, [])
 }

@@ -1,6 +1,6 @@
 import consts
-import lustre/attribute.{class, href}
-import lustre/element/html.{a, header, text}
+import mellie/attr.{class, href}
+import mellie/html.{a, header, text}
 import rendering/templates/navigation
 
 pub fn render() {
