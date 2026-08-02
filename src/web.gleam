@@ -52,7 +52,7 @@ pub fn pipeline() {
   |> shoki.with_components([gallery.component()])
   |> highlight.with_syntax_highlighting
   |> image.with_image_optimization(fs.cwd())
-  // |> image.with_image_optimization(public)
+  |> image.with_image_optimization(public)
   |> shoki.with_static_dir(public)
 }
 
