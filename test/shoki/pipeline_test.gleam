@@ -10,6 +10,7 @@ import mellie/html
 import shoki
 import shoki/component
 import shoki/error
+import shoki/highlight
 import shoki/image
 import shoki/internal/fs
 import shoki/markdown
@@ -139,6 +140,8 @@ pub fn pipeline_with_components_test() {
     |> shoki.with_components([my_custom_tag, my_custom_image])
     // image optimization should run after custom_image runs
     |> image.with_image_optimization(static)
+    // shiki syntax highlighting
+    |> highlight.with_syntax_highlighting
 
   use rendered <- promise.await(pipeline |> shoki.run)
   let assert Ok(assets) = rendered
