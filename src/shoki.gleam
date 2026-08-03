@@ -136,7 +136,7 @@ pub fn with_static_dir(
 /// Add server-side components to the pipeline
 pub fn with_components(
   from: Pipeline(page, aggregate),
-  comps: List(component.Component(mellie.ElementTree)),
+  comps: List(component.Component(ShokiResult(mellie.ElementTree))),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
     use prev <- result.try(from.render(pages, aggregated))
@@ -148,13 +148,48 @@ pub fn with_components(
       |> list.map(fn(a) {
         use file <- if_html(a, a |> Ok)
 
-        component.render(file.source, file.path, file.html, comps)
+        component.render(file.source, file.path, from.out_dir, file.html, comps)
         |> result.map(fn(html) { HTMLFile(..file, html:) |> HTMLFileAsset })
       })
 
     rendered
     |> error.collate_errors
     |> result.map(Rendered(tasks: prev_tasks, assets: _))
+  })
+}
+
+pub fn with_async_component(from, comp) {
+  Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
+    use prev <- result.try(from.render(pages, aggregated))
+
+    let Rendered(assets: prev_assets, tasks: prev_tasks) = prev
+
+    let tasks =
+      prev_assets
+      |> list.map(fn(a) {
+        use file <- if_html(a, None)
+
+        component.render_async(
+          file.source,
+          file.path,
+          from.out_dir,
+          file.html,
+          comp,
+        )
+        |> list.map(fn(async) {
+          HTMLFileTransform(
+            path: file.path,
+            replacement: async.replace,
+            render: async.render,
+          )
+          |> HTMLFileTransformTask
+        })
+        |> Some
+      })
+      |> option.values
+      |> list.flatten
+
+    Rendered(tasks: prev_tasks |> list.append(tasks), assets: prev_assets) |> Ok
   })
 }
 

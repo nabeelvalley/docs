@@ -12,6 +12,7 @@ import mellie
 import mellie/attr
 import shoki
 import shoki/async
+import shoki/component
 import shoki/error
 import shoki/internal/fs
 import shoki/internal/sharp
@@ -23,64 +24,60 @@ fn optimized_images_path() {
 }
 
 pub fn with_image_optimization(pipeline, static_images_dir: fs.Path) {
-  pipeline
-  |> shoki.with_task(image_optimize_task(static_images_dir))
-}
-
-pub fn image_optimize_task(static_images_dir) {
   let optimized_dir = optimized_images_path()
-  fn(asset: shoki.Asset) -> Result(List(shoki.Task(a)), error.ShokiErr) {
-    {
-      use file <- shoki.if_html(asset, Ok([]))
-      use img <- list.try_map(mellie.get_children_by_tag(file.html, "img"))
 
-      case mellie.attr(img, "src") {
-        Error(_) -> Ok([])
-        Ok(src) -> {
-          // If we can't optimize an image then we just skip it
-          let resolved =
-            result.unwrap(resolve(static_images_dir, file.source, src), None)
-          {
-            use input_path <- option.map(resolved)
-            case can_optimize(input_path) {
-              False -> []
-              True -> {
-                let output = get_output_path(optimized_dir, input_path)
+  pipeline
+  |> shoki.with_async_component(
+    component.new("img", fn(data, el) {
+      let task =
+        case mellie.attr(el, "src") {
+          Error(_) -> None
+          Ok(src) -> {
+            // If we can't optimize an image then we just skip it
+            let resolved =
+              result.unwrap(
+                resolve(static_images_dir, data.source_path, src),
+                None,
+              )
+            {
+              use input_path <- option.map(resolved)
+              case can_optimize(input_path) {
+                False -> None
+                True -> {
+                  let output = get_output_path(optimized_dir, input_path)
 
-                let update_task =
-                  shoki.html_file_transform_task(file.path, img, fn() {
-                    render_image(img, input_path, output)
-                  })
-                let generate_task = optimize_image_task(input_path, output)
-
-                [update_task, generate_task]
+                  fn() {
+                    optimize_image_task(data.out_dir, input_path, output)
+                    |> promise.await(fn(_) {
+                      render_image(el, input_path, output)
+                    })
+                  }
+                  |> Some
+                }
               }
             }
           }
-          |> option.unwrap([])
-          |> Ok
         }
+        |> option.flatten
+
+      case task {
+        Some(t) -> t
+        None -> fn() { promise.resolve(Ok(el)) }
       }
-    }
-    |> result.map(list.flatten)
-  }
+    }),
+  )
 }
 
 fn can_optimize(input_path: fs.Path) -> Bool {
   fs.has_ext(input_path, optimized_exts())
 }
 
-fn optimize_image_task(input_path, site_path) {
-  shoki.task(fn(state) {
-    use output_path <- async.try_resolve(fs.site_path_to_path(
-      state.out_dir,
-      site_path,
-    ))
+fn optimize_image_task(out_dir, input_path, site_path) {
+  use output_path <- async.try_resolve(fs.site_path_to_path(out_dir, site_path))
 
-    io.println("optimize: " <> input_path |> fs.path_to_string)
-    sharp.optimize_image(input_path, output_path)
-    |> promise.map_try(fn(_) { Ok([site_path]) })
-  })
+  io.println("optimize: " <> input_path |> fs.path_to_string)
+  sharp.optimize_image(input_path, output_path)
+  |> promise.map_try(fn(_) { Ok([site_path]) })
 }
 
 fn from_uri_path(src) {
