@@ -1,11 +1,10 @@
-import gleam/dict
 import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/option.{type Option, None, Some}
 import gleam/result
 import gleam/string
 import mellie
-import mellie/element.{type ElementTree, ElementNode, TextNode}
+import mellie/element.{type ElementTree}
 import shoki/async
 import shoki/component
 import shoki/error.{type ShokiResult}
@@ -19,32 +18,10 @@ type Loader(state, aggregate) =
   fn() -> ShokiResult(Loaded(state, aggregate))
 
 type Renderer(state, aggregate) =
-  fn(List(state), aggregate) -> Promise(ShokiResult(Rendered(aggregate)))
+  fn(List(state), aggregate) -> Promise(ShokiResult(Rendered))
 
-pub opaque type Rendered(aggregate) {
-  Rendered(assets: List(Asset), tasks: List(Task(aggregate)))
-}
-
-pub opaque type HTMLFileTransform {
-  HTMLFileTransform(
-    path: fs.SitePath,
-    replacement: ElementTree,
-    render: fn() -> Promise(ShokiResult(ElementTree)),
-  )
-}
-
-pub type TaskInfo {
-  TaskInfo(out_dir: fs.Path)
-}
-
-pub opaque type Task(aggregate) {
-  HTMLFileTransformTask(HTMLFileTransform)
-  /// Tasks receive some context and are expected to return a list of
-  /// any files they might have written
-  Task(fn(TaskInfo) -> Promise(ShokiResult(List(fs.SitePath))))
-  /// Summarize the result of all complete tasks, may optionally ouput some final assets
-  SummarizeTask(fn(aggregate, List(Asset)) -> ShokiResult(List(Asset)))
-}
+pub type Rendered =
+  List(Asset)
 
 pub type HTMLFile {
   HTMLFile(source: Option(fs.Path), path: fs.SitePath, html: ElementTree)
@@ -72,8 +49,7 @@ pub opaque type Pipeline(state, aggregate) {
 pub fn new(
   out out_dir: fs.Path,
   load load: fn() -> Result(Loaded(state, aggregate), error.ShokiErr),
-  render render: fn(List(state), aggregate) ->
-    Result(Rendered(aggregate), error.ShokiErr),
+  render render: fn(List(state), aggregate) -> Result(Rendered, error.ShokiErr),
 ) -> Pipeline(state, aggregate) {
   Pipeline(out_dir, load, async.to_async2(render))
 }
@@ -88,20 +64,19 @@ pub fn loaded(
 /// The raw unit for composing sync rendering pipelines
 pub fn with_async(
   from: Pipeline(page, aggregate),
-  render: fn(aggregate) -> Promise(ShokiResult(Rendered(aggregate))),
+  render: fn(aggregate) -> Promise(ShokiResult(Rendered)),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
     use prev_result <- promise.try_await(from.render(pages, aggregated))
 
     render(aggregated)
-    |> echo
     |> promise.map(result.map(_, merge_rendered(prev_result, _)))
   })
 }
 
 pub fn with(
   from: Pipeline(page, aggregate),
-  render: fn(aggregate) -> ShokiResult(Rendered(aggregate)),
+  render: fn(aggregate) -> ShokiResult(Rendered),
 ) -> Pipeline(page, aggregate) {
   with_async(from, async.to_async1(render))
 }
@@ -115,7 +90,6 @@ pub fn with_assets(
     use prev_result <- promise.try_await(from.render(pages, aggregated))
 
     render(aggregated)
-    |> result.map(from_assets)
     |> result.map(merge_rendered(prev_result, _))
     |> promise.resolve
   })
@@ -129,7 +103,7 @@ pub fn with_asset(
   use agg <- with(from)
   use out <- result.map(render(agg))
 
-  out |> list.wrap |> from_assets
+  out |> list.wrap
 }
 
 /// Add a static directory to be copied as part of the pipeline
@@ -140,7 +114,7 @@ pub fn with_static_dir(
   use _ <- with(pipeline)
   use to <- result.map(fs.site_path_from_string("/"))
 
-  CopyDirAsset(dir, to) |> list.wrap |> from_assets
+  CopyDirAsset(dir, to) |> list.wrap
 }
 
 /// Add server-side components to the pipeline
@@ -149,9 +123,7 @@ pub fn with_components(
   comps: List(component.Component(ShokiResult(ElementTree))),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
-    use prev <- promise.try_await(from.render(pages, aggregated))
-
-    let Rendered(assets: prev_assets, tasks: prev_tasks) = prev
+    use prev_assets <- promise.try_await(from.render(pages, aggregated))
 
     let rendered =
       prev_assets
@@ -164,82 +136,65 @@ pub fn with_components(
 
     rendered
     |> error.collate_errors
-    |> result.map(Rendered(tasks: prev_tasks, assets: _))
     |> promise.resolve
   })
 }
 
 pub fn with_async_component(from, comp) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
-    use prev <- promise.try_await(from.render(pages, aggregated))
+    use prev_assets <- promise.try_await(from.render(pages, aggregated))
 
-    let Rendered(assets: prev_assets, tasks: prev_tasks) = prev
+    prev_assets
+    |> list.map(fn(a) {
+      use file <- if_html(a, promise.resolve(Ok(a)))
 
-    let tasks =
-      prev_assets
-      |> list.map(fn(a) {
-        use file <- if_html(a, None)
-
-        component.render_async(
-          file.source,
-          file.path,
-          from.out_dir,
-          file.html,
-          comp,
-        )
-        |> list.map(fn(async) {
-          HTMLFileTransform(
-            path: file.path,
-            replacement: async.replace,
-            render: async.render,
-          )
-          |> HTMLFileTransformTask
-        })
-        |> Some
+      component.render_async(
+        file.source,
+        file.path,
+        from.out_dir,
+        file.html,
+        comp,
+      )
+      |> promise.map_try(fn(html) {
+        HTMLFile(..file, html: html)
+        |> HTMLFileAsset
+        |> Ok
       })
-      |> option.values
-      |> list.flatten
-
-    Rendered(tasks: prev_tasks |> list.append(tasks), assets: prev_assets)
-    |> Ok
-    |> promise.resolve
+    })
+    |> promise.await_list
+    |> promise.map(error.collate_errors)
   })
 }
 
-/// Add assets that are derived from an existing asset, e.g. copying images that are needed for a given page
+/// Add assets that are derived from an existing asset, e.g. providing an alternate of each page
 pub fn with_derived_assets(
   from: Pipeline(page, aggregate),
   extract: fn(Asset) -> ShokiResult(List(Asset)),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
-    use prev <- promise.try_await(from.render(pages, aggregated))
+    use prev_assets <- promise.try_await(from.render(pages, aggregated))
 
     let results =
-      prev.assets
+      prev_assets
       |> list.map(extract)
       |> error.collate_errors
       |> result.map(list.flatten)
 
-    result.map(results, fn(result) {
-      merge_rendered(prev, result |> from_assets)
-    })
+    result.map(results, fn(result) { merge_rendered(prev_assets, result) })
     |> promise.resolve
   })
 }
 
-/// Add some generic tasks into the pipeline for each asset, e.g. running an accessibility check on all generated html
+/// Add some generic tasks into the pipeline given all the assets rendered till this point as well as the relevant aggregate
+/// e.g. running creating an accessibility report on all generated html pages, creating an RSS Feed, etc.
 pub fn with_summary(from, summarize) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
-    use prev <- promise.try_await(from.render(pages, aggregated))
+    use prev_assets <- promise.try_await(from.render(pages, aggregated))
 
-    merge_rendered(prev, summarize_task(summarize) |> list.wrap |> from_tasks)
-    |> Ok
+    summarize(prev_assets, aggregated)
+    |> result.map(merge_rendered(prev_assets, _))
     |> promise.resolve
   })
-}
-
-pub fn summarize_task(t) {
-  SummarizeTask(t)
 }
 
 /// Cleans the output directory and runs the pipeline
@@ -253,60 +208,14 @@ pub fn run(
 
   use loaded <- async.try_resolve(pipeline.load())
 
-  use Rendered(assets:, tasks:) <- promise.try_await(pipeline.render(
+  use assets <- promise.try_await(pipeline.render(
     loaded.pages,
     loaded.aggregated,
   ))
 
-  let transform_tasks =
-    tasks |> filter_html_transforms |> list.group(fn(p) { p.path })
-
-  let asset_results =
-    assets
-    |> list.map(fn(a) {
-      case a {
-        HTMLFileAsset(file) -> {
-          let appliccable =
-            transform_tasks |> dict.get(file.path) |> result.unwrap([])
-          use result <- promise.try_await(apply_tasks(file.html, appliccable))
-
-          HTMLFile(..file, html: result)
-          |> HTMLFileAsset
-          |> list.wrap
-          |> Ok
-          |> promise.resolve
-        }
-        _ -> a |> list.wrap |> Ok |> promise.resolve
-      }
-    })
-
-  let info = TaskInfo(pipeline.out_dir)
-  let task_results =
-    tasks
-    |> filter_tasks
-    |> list.map(fn(t) {
-      t(info) |> promise.map_try(fn(r) { r |> list.map(TaskResult) |> Ok })
-    })
-
-  use main_assets <- promise.map_try(
-    [asset_results, task_results]
-    |> list.flatten
-    |> promise.await_list
-    |> promise.map(error.collate_errors)
-    |> promise.map(result.map(_, list.flatten)),
-  )
-
-  let summaries = tasks |> filter_summaries
-
-  use summary_assets <- result.try(
-    list.map(summaries, fn(a) { a(loaded.aggregated, main_assets) })
-    |> error.collate_errors,
-  )
-
-  let all_assets = list.append(main_assets, summary_assets |> list.flatten)
-
-  write_all(pipeline.out_dir, all_assets)
-  |> result.replace(all_assets)
+  write_all(pipeline.out_dir, assets)
+  |> result.replace(assets)
+  |> promise.resolve
 }
 
 fn write_one(out_dir: fs.Path, output: Asset) -> Result(Nil, error.ShokiErr) {
@@ -400,106 +309,8 @@ pub fn assets_to_readable_string(assets: List(Asset)) -> String {
   |> string.join("\n\n")
 }
 
-type ElementReplacement {
-  ElementReplacement(replace: ElementTree, with: ElementTree)
-}
-
-fn to_element_update_dict(
-  updates: List(ElementReplacement),
-) -> dict.Dict(ElementTree, ElementTree) {
-  updates |> list.map(fn(u) { #(u.replace, u.with) }) |> dict.from_list
-}
-
-fn apply_element_updates(
-  from in: ElementTree,
-  with replacements: dict.Dict(ElementTree, ElementTree),
-) {
-  case dict.get(replacements, in) {
-    Error(_) ->
-      case in {
-        TextNode(_) -> in
-        ElementNode(tag: _, attributes: _, children:) ->
-          ElementNode(
-            ..in,
-            children: children
-              |> list.map(apply_element_updates(_, replacements)),
-          )
-      }
-    Ok(update) -> update
-  }
-}
-
-fn apply_tasks(base, transforms: List(HTMLFileTransform)) {
-  let processed =
-    promise.await_list({
-      use p <- list.map(transforms)
-      use r <- promise.map_try(p.render())
-
-      ElementReplacement(p.replacement, r) |> Ok
-    })
-    |> promise.map(error.collate_errors)
-
-  use results <- promise.try_await(processed)
-
-  apply_element_updates(base, results |> to_element_update_dict)
-  |> Ok
-  |> promise.resolve
-}
-
-fn merge_rendered(
-  a: Rendered(aggregate),
-  b: Rendered(aggregate),
-) -> Rendered(aggregate) {
-  Rendered(
-    assets: list.append(a.assets, b.assets),
-    tasks: list.append(a.tasks, b.tasks),
-  )
-}
-
-pub fn from_assets(a) {
-  Rendered(a, [])
-}
-
-pub fn from_tasks(a) {
-  Rendered([], a)
-}
-
-pub fn html_file_transform_task(path, replace, render) {
-  HTMLFileTransform(path, replace, render) |> HTMLFileTransformTask
-}
-
-fn filter_html_transforms(tasks: List(Task(aggregate))) {
-  list.map(tasks, fn(t) {
-    case t {
-      HTMLFileTransformTask(t) -> Some(t)
-      _ -> None
-    }
-  })
-  |> option.values
-}
-
-fn filter_tasks(tasks: List(Task(aggregate))) {
-  list.map(tasks, fn(t) {
-    case t {
-      Task(t) -> Some(t)
-      _ -> None
-    }
-  })
-  |> option.values
-}
-
-fn filter_summaries(tasks: List(Task(aggregate))) {
-  list.map(tasks, fn(t) {
-    case t {
-      SummarizeTask(t) -> Some(t)
-      _ -> None
-    }
-  })
-  |> option.values
-}
-
-pub fn task(t) {
-  Task(t)
+fn merge_rendered(a: Rendered, b: Rendered) -> Rendered {
+  list.append(a, b)
 }
 
 pub fn if_html(asset: Asset, or_else, f) {

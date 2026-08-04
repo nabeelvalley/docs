@@ -46,12 +46,10 @@ pub fn with_image_optimization(pipeline, static_images_dir: fs.Path) {
                 True -> {
                   let output = get_output_path(optimized_dir, input_path)
 
-                  fn() {
-                    optimize_image_task(data.out_dir, input_path, output)
-                    |> promise.await(fn(_) {
-                      render_image(el, input_path, output)
-                    })
-                  }
+                  optimize_image_task(data.out_dir, input_path, output)
+                  |> promise.await(fn(_) {
+                    render_image(el, input_path, output)
+                  })
                   |> Some
                 }
               }
@@ -62,7 +60,7 @@ pub fn with_image_optimization(pipeline, static_images_dir: fs.Path) {
 
       case task {
         Some(t) -> t
-        None -> fn() { promise.resolve(Ok(el)) }
+        None -> promise.resolve(Ok(el))
       }
     }),
   )

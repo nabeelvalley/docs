@@ -7,7 +7,6 @@ import gleam/io
 import gleam/javascript/promise
 import gleam/list
 import gleam/option
-import gleam/result
 import mellie
 import rendering/pages/blog
 import rendering/pages/docs
@@ -40,15 +39,18 @@ pub fn pipeline() {
     out: out,
     dir: md,
     decode: frontmatter.decoder,
-    agg: fn(fms) { fms |> list.filter(frontmatter.is_published) },
+    agg: list.filter(_, frontmatter.is_published),
     render: fn(file, _frontmatters) {
-      use md <- result.map(markdown.render(file))
+      let content = file |> markdown.content
       let fm = file |> markdown.frontmatter
 
       let meta = base.Meta(fm.title, fm.description, fm.date, fm.tags)
 
-      // TODO: Replace this once we've got fragments
-      md |> mellie.children |> custom_el.site_markdown |> article.render(meta)
+      content
+      |> mellie.children
+      |> custom_el.site_markdown
+      |> article.render(meta)
+      |> Ok
     },
   )
   |> shoki.with_asset(index.render)
@@ -72,19 +74,24 @@ pub fn pipeline() {
       consts.site_description,
       consts.site_base_url,
     ),
-    fn(frontmatters, file) {
-      let found = frontmatters |> list.find(fn(i) { i.path == file.path })
-
-      found
-      |> option.from_result
-      |> option.map(fn(fm) {
-        let html =
-          file.html |> mellie.get_child_by_tag("main") |> option.from_result
-        rss.RSSItem(fm.title, fm.path, fm.description, fm.date, html)
-      })
-    },
+    to_rss_item,
   )
   |> shoki.with_static_dir(public)
+}
+
+fn to_rss_item(
+  frontmatters: List(frontmatter.Frontmatter),
+  file: shoki.HTMLFile,
+) {
+  let found = frontmatters |> list.find(fn(i) { i.path == file.path })
+
+  found
+  |> option.from_result
+  |> option.map(fn(fm) {
+    let html =
+      file.html |> mellie.get_child_by_tag("main") |> option.from_result
+    rss.RSSItem(fm.title, fm.path, fm.description, fm.date, html)
+  })
 }
 
 pub fn main() {

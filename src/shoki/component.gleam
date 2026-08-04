@@ -3,7 +3,6 @@ import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/option
 import gleam/result
-import mellie
 import mellie/element.{type ElementTree, ElementNode, TextNode}
 import shoki/error.{type ShokiResult}
 import shoki/internal/fs
@@ -70,11 +69,31 @@ pub fn render(
   |> render_rec(RenderData(source_path:, site_path:, out_dir:), _, html)
 }
 
-pub type AsyncComponent {
-  AsyncComponent(
-    replace: ElementTree,
-    render: fn() -> Promise(ShokiResult(ElementTree)),
-  )
+fn render_rec_async(
+  data,
+  tag,
+  visit: fn(RenderData, ElementTree) -> Promise(ShokiResult(ElementTree)),
+  el: ElementTree,
+) -> Promise(ShokiResult(ElementTree)) {
+  case el {
+    TextNode(_) -> el |> Ok |> promise.resolve
+    ElementNode(tag: t, attributes: _, children:) -> {
+      let children_task =
+        children
+        |> list.map(render_rec_async(data, tag, visit, _))
+        |> promise.await_list
+        |> promise.map(error.collate_errors)
+
+      children_task
+      |> promise.try_await(fn(new_children) {
+        let new_el = ElementNode(..el, children: new_children)
+        case tag == t {
+          False -> new_el |> Ok |> promise.resolve
+          True -> visit(data, new_el)
+        }
+      })
+    }
+  }
 }
 
 /// Visits all nodes that a component expects
@@ -83,19 +102,12 @@ pub fn render_async(
   site_path: fs.SitePath,
   out_dir: fs.Path,
   html: ElementTree,
-  component: Component(fn() -> Promise(Result(ElementTree, error.ShokiErr))),
-) -> List(AsyncComponent) {
+  component: Component(Promise(Result(ElementTree, error.ShokiErr))),
+) -> Promise(ShokiResult(ElementTree)) {
   let data = RenderData(source_path:, site_path:, out_dir:)
   let #(tag, visit) = component
 
-  let children =
-    mellie.find_all(html, mellie.get_children_by_tag(_, tag))
-    |> list.map(fn(el) { visit(data, el) |> AsyncComponent(el, _) })
+  let result = render_rec_async(data, tag, visit, html)
 
-  let self = case mellie.has_tag(html, tag) {
-    True -> [visit(data, html) |> AsyncComponent(html, _)]
-    False -> []
-  }
-
-  list.append(self, children)
+  result
 }

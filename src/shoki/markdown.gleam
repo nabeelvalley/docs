@@ -16,7 +16,7 @@ pub opaque type MarkdownFile(a) {
     path: fs.Path,
     site_path: fs.SitePath,
     frontmatter: a,
-    content: String,
+    content: ElementTree,
   )
 }
 
@@ -46,12 +46,14 @@ fn read_file(
         ),
       )
 
-      Ok(MarkdownFile(
-        file,
-        site_path,
-        frontmatter,
-        content |> list.drop(1) |> string.join("\n"),
-      ))
+      let html =
+        content
+        |> list.drop(1)
+        |> string.join("\n")
+        |> render
+
+      html
+      |> result.map(MarkdownFile(file, site_path, frontmatter, _))
     }
     _ -> Error(ErrorReadingFrontmatter("No frontmatter present"))
   }
@@ -82,7 +84,7 @@ pub fn from_markdown(
       shoki.loaded(pages, pages |> list.map(frontmatter) |> agg)
     },
     render: fn(pages: List(MarkdownFile(a)), agg: b) -> Result(
-      shoki.Rendered(b),
+      shoki.Rendered,
       error.ShokiErr,
     ) {
       pages
@@ -93,7 +95,6 @@ pub fn from_markdown(
         |> to_html_file(page, _)
       })
       |> error.collate_errors
-      |> result.map(shoki.from_assets)
     },
   )
 }
@@ -126,12 +127,16 @@ pub fn replace_body(tree: ElementTree) {
   |> result.map(mellie.element("div", [], _))
 }
 
-pub fn render(file: MarkdownFile(a)) -> ShokiResult(ElementTree) {
-  file.content
+fn render(content) -> ShokiResult(ElementTree) {
+  content
   |> markdown.parse
   |> mellie.parse
   |> result.replace_error(error.ErrorRenderingMarkdown(
     "Error parsing HTML from markdown",
   ))
   |> result.try(replace_body)
+}
+
+pub fn content(file: MarkdownFile(a)) {
+  file.content
 }

@@ -33,7 +33,7 @@ pub fn with_rss(
   feed: RSSFeed,
   get_item: fn(b, shoki.HTMLFile) -> option.Option(RSSItem),
 ) {
-  shoki.with_summary(pipeline, fn(agg, assets) {
+  shoki.with_summary(pipeline, fn(assets, agg) {
     let items =
       list.map(assets, fn(asset) {
         use html <- shoki.if_html(asset, None)

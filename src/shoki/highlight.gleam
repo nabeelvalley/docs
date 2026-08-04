@@ -50,6 +50,6 @@ fn render(highlighted, lang) {
 pub fn with_syntax_highlighting(pipeline) {
   pipeline
   |> shoki.with_async_component(
-    component.new("pre", fn(_, pre) { fn() { highlight(pre) } }),
+    component.new("pre", fn(_, pre) { highlight(pre) }),
   )
 }
