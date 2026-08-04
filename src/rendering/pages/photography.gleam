@@ -5,10 +5,10 @@ import gleam/option.{None}
 import gleam/result
 import mellie/attr as attribute
 import mellie/html
+import rendering/dict as dict_util
 import rendering/templates/base
 import shoki
 import shoki/internal/fs
-import util
 
 fn photography_path() {
   let assert Ok(path) = fs.site_path_from_string("/photography")
@@ -43,7 +43,7 @@ pub fn render(pages: List(frontmatter.Frontmatter)) {
 
   let rendered =
     all_items
-    |> util.dict_to_sorted_entries
+    |> dict_util.to_sorted_entries
     |> list.map(fn(entry) {
       let #(section, ps) = entry
       let title = section |> html.text

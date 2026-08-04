@@ -69,17 +69,13 @@ pub opaque type Pipeline(state, aggregate) {
   )
 }
 
-fn to_async(f) {
-  fn(a, b) { f(a, b) |> promise.resolve }
-}
-
 pub fn new(
   out out_dir: fs.Path,
   load load: fn() -> Result(Loaded(state, aggregate), error.ShokiErr),
   render render: fn(List(state), aggregate) ->
     Result(Rendered(aggregate), error.ShokiErr),
 ) -> Pipeline(state, aggregate) {
-  Pipeline(out_dir, load, to_async(render))
+  Pipeline(out_dir, load, async.to_async2(render))
 }
 
 pub fn loaded(
@@ -90,17 +86,24 @@ pub fn loaded(
 }
 
 /// The raw unit for composing sync rendering pipelines
-pub fn with(
+pub fn with_async(
   from: Pipeline(page, aggregate),
-  render: fn(aggregate) -> ShokiResult(Rendered(aggregate)),
+  render: fn(aggregate) -> Promise(ShokiResult(Rendered(aggregate))),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
     use prev_result <- promise.try_await(from.render(pages, aggregated))
 
     render(aggregated)
-    |> result.map(merge_rendered(prev_result, _))
-    |> promise.resolve
+    |> echo
+    |> promise.map(result.map(_, merge_rendered(prev_result, _)))
   })
+}
+
+pub fn with(
+  from: Pipeline(page, aggregate),
+  render: fn(aggregate) -> ShokiResult(Rendered(aggregate)),
+) -> Pipeline(page, aggregate) {
+  with_async(from, async.to_async1(render))
 }
 
 /// Derive some assets from the pipeline aggregate
