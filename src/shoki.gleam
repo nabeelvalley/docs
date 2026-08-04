@@ -5,7 +5,7 @@ import gleam/option.{type Option, None, Some}
 import gleam/result
 import gleam/string
 import mellie
-import presentable_soup
+import mellie/element.{type ElementTree, ElementNode, TextNode}
 import shoki/async
 import shoki/component
 import shoki/error.{type ShokiResult}
@@ -28,8 +28,8 @@ pub opaque type Rendered(aggregate) {
 pub opaque type HTMLFileTransform {
   HTMLFileTransform(
     path: fs.SitePath,
-    replacement: mellie.ElementTree,
-    render: fn() -> Promise(ShokiResult(mellie.ElementTree)),
+    replacement: ElementTree,
+    render: fn() -> Promise(ShokiResult(ElementTree)),
   )
 }
 
@@ -47,7 +47,7 @@ pub opaque type Task(aggregate) {
 }
 
 pub type HTMLFile {
-  HTMLFile(source: Option(fs.Path), path: fs.SitePath, html: mellie.ElementTree)
+  HTMLFile(source: Option(fs.Path), path: fs.SitePath, html: ElementTree)
 }
 
 pub opaque type Asset {
@@ -136,7 +136,7 @@ pub fn with_static_dir(
 /// Add server-side components to the pipeline
 pub fn with_components(
   from: Pipeline(page, aggregate),
-  comps: List(component.Component(ShokiResult(mellie.ElementTree))),
+  comps: List(component.Component(ShokiResult(ElementTree))),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
     use prev <- result.try(from.render(pages, aggregated))
@@ -329,17 +329,14 @@ fn write_all(out_dir, assets: List(Asset)) -> Result(Nil, error.ShokiErr) {
   |> result.replace(Nil)
 }
 
-pub fn generated_html_file(
-  path: fs.SitePath,
-  rendered: mellie.ElementTree,
-) -> Asset {
+pub fn generated_html_file(path: fs.SitePath, rendered: ElementTree) -> Asset {
   HTMLFile(None, path, rendered) |> HTMLFileAsset
 }
 
 pub fn derived_html_file(
   source: fs.Path,
   path: fs.SitePath,
-  rendered: mellie.ElementTree,
+  rendered: ElementTree,
 ) -> Asset {
   HTMLFile(Some(source), path, rendered) |> HTMLFileAsset
 }
@@ -400,25 +397,25 @@ pub fn assets_to_readable_string(assets: List(Asset)) -> String {
 }
 
 type ElementReplacement {
-  ElementReplacement(replace: mellie.ElementTree, with: mellie.ElementTree)
+  ElementReplacement(replace: ElementTree, with: ElementTree)
 }
 
 fn to_element_update_dict(
   updates: List(ElementReplacement),
-) -> dict.Dict(presentable_soup.ElementTree, presentable_soup.ElementTree) {
+) -> dict.Dict(ElementTree, ElementTree) {
   updates |> list.map(fn(u) { #(u.replace, u.with) }) |> dict.from_list
 }
 
 fn apply_element_updates(
-  from in: mellie.ElementTree,
-  with replacements: dict.Dict(mellie.ElementTree, mellie.ElementTree),
+  from in: ElementTree,
+  with replacements: dict.Dict(ElementTree, ElementTree),
 ) {
   case dict.get(replacements, in) {
     Error(_) ->
       case in {
-        presentable_soup.TextNode(_) -> in
-        presentable_soup.ElementNode(tag: _, attributes: _, children:) ->
-          presentable_soup.ElementNode(
+        TextNode(_) -> in
+        ElementNode(tag: _, attributes: _, children:) ->
+          ElementNode(
             ..in,
             children: children
               |> list.map(apply_element_updates(_, replacements)),

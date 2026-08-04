@@ -4,7 +4,7 @@ import gleam/list
 import gleam/result
 import gleam/string
 import mellie
-import presentable_soup
+import mellie/element.{type ElementTree}
 import shoki
 import shoki/error.{type ShokiResult, ErrorReadingFrontmatter}
 import shoki/internal/fs
@@ -72,8 +72,7 @@ pub fn from_markdown(
   dir dir: fs.Path,
   decode decode: fn(fs.SitePath) -> decode.Decoder(a),
   agg agg: fn(List(a)) -> b,
-  render render: fn(MarkdownFile(a), b) ->
-    Result(presentable_soup.ElementTree, error.ShokiErr),
+  render render: fn(MarkdownFile(a), b) -> Result(ElementTree, error.ShokiErr),
 ) -> shoki.Pipeline(MarkdownFile(a), b) {
   shoki.new(
     out: out_dir,
@@ -113,11 +112,11 @@ fn to_site_path(base: fs.Path, file: fs.Path) {
   fs.to_site_path(base, file, exts())
 }
 
-pub fn to_html_file(file: MarkdownFile(a), rendered: mellie.ElementTree) {
+pub fn to_html_file(file: MarkdownFile(a), rendered: ElementTree) {
   shoki.derived_html_file(file.path, file.site_path, rendered)
 }
 
-pub fn replace_body(tree: mellie.ElementTree) {
+pub fn replace_body(tree: ElementTree) {
   tree
   |> mellie.get_child_by_tag("body")
   |> result.replace_error(error.ErrorRenderingMarkdown(
@@ -127,7 +126,7 @@ pub fn replace_body(tree: mellie.ElementTree) {
   |> result.map(mellie.element("div", [], _))
 }
 
-pub fn render(file: MarkdownFile(a)) -> ShokiResult(mellie.ElementTree) {
+pub fn render(file: MarkdownFile(a)) -> ShokiResult(ElementTree) {
   file.content
   |> markdown.parse
   |> mellie.parse

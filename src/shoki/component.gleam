@@ -3,8 +3,8 @@ import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/option
 import gleam/result
-import mellie.{type ElementTree}
-import presentable_soup.{ElementNode, TextNode}
+import mellie
+import mellie/element.{type ElementTree, ElementNode, TextNode}
 import shoki/error.{type ShokiResult}
 import shoki/internal/fs
 

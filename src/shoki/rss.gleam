@@ -3,6 +3,7 @@ import gleam/list
 import gleam/option.{None, Some}
 import mellie
 import mellie/attr
+import mellie/element.{type ElementTree}
 import shoki
 import shoki/date
 import shoki/internal/date as idate
@@ -14,7 +15,7 @@ pub type RSSItem {
     path: fs.SitePath,
     description: option.Option(String),
     date: option.Option(date.IsoDate),
-    content: option.Option(mellie.ElementTree),
+    content: option.Option(ElementTree),
   )
 }
 
