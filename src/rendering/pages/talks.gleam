@@ -4,9 +4,9 @@ import gleam/option.{None}
 import mellie/attr as attribute
 import mellie/html
 import rendering/templates/base
-import shoki
-import shoki/date
-import shoki/internal/fs
+import charge
+import charge/date
+import charge/internal/fs
 
 fn talks_path() {
   let assert Ok(path) = fs.site_path_from_string("/talks")
@@ -44,5 +44,5 @@ pub fn render(pages: List(frontmatter.Frontmatter)) {
     html.article([attribute.class("site-article")], [html.ul([], items)])
     |> base.render(meta)
 
-  shoki.generated_html_file(talks_file(), html) |> Ok
+  charge.generated_html_file(talks_file(), html) |> Ok
 }

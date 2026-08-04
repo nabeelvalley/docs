@@ -7,8 +7,8 @@ import mellie/attr as attribute
 import mellie/html
 import rendering/dict as dict_util
 import rendering/templates/base
-import shoki
-import shoki/internal/fs
+import charge
+import charge/internal/fs
 
 fn photography_path() {
   let assert Ok(path) = fs.site_path_from_string("/photography")
@@ -71,5 +71,5 @@ pub fn render(pages: List(frontmatter.Frontmatter)) {
     |> base.render(meta)
 
   fs.site_path_from_string("/photography.html")
-  |> result.map(shoki.generated_html_file(_, html))
+  |> result.map(charge.generated_html_file(_, html))
 }

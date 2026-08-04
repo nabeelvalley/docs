@@ -5,8 +5,8 @@ import mellie/attr as attribute
 import mellie/html
 import rendering/dict
 import rendering/templates/base
-import shoki
-import shoki/internal/fs
+import charge
+import charge/internal/fs
 
 fn docs_path() {
   let assert Ok(path) = fs.site_path_from_string("/docs")
@@ -58,5 +58,5 @@ pub fn render(pages: List(frontmatter.Frontmatter)) {
     html.article([attribute.class("site-article")], items)
     |> base.render(meta)
 
-  shoki.generated_html_file(docs_file(), html) |> Ok
+  charge.generated_html_file(docs_file(), html) |> Ok
 }

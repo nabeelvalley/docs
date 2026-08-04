@@ -4,9 +4,9 @@ import mellie
 import mellie/html
 import rendering/ssr/custom_el
 import rendering/ssr/snippet
-import shoki/component
-import shoki/error
-import shoki/internal/fs
+import charge/component
+import charge/error
+import charge/internal/fs
 
 pub fn component() {
   component.new("htmlsnippet", fn(data, el) {

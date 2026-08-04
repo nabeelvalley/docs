@@ -4,9 +4,9 @@ import gleam/result
 import mellie
 import mellie/attr as attribute
 import mellie/html
-import shoki/component
-import shoki/error
-import shoki/internal/fs
+import charge/component
+import charge/error
+import charge/internal/fs
 
 fn snippets_dir() {
   let assert Ok(dir) = fs.from_cwd(consts.snippets_dir)

@@ -23,3 +23,7 @@ glentities = ">= 6.2.1 and < 7.0.0"
 git = "https://github.com/sftsrv/mellie"
 ref = "cf3d2a3"
 
+[dependencies.charge]
+git = "https://github.com/sftsrv/charge"
+ref = "53368f0"
+

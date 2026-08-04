@@ -5,9 +5,9 @@ import gleam/result
 import mellie/attr as attribute
 import mellie/html
 import rendering/templates/base
-import shoki
-import shoki/date
-import shoki/internal/fs
+import charge
+import charge/date
+import charge/internal/fs
 
 fn blog_path() {
   let assert Ok(blog_path) = fs.site_path_from_string("/blog")
@@ -38,7 +38,7 @@ pub fn render(pages: List(frontmatter.Frontmatter)) {
     |> base.render(meta)
 
   fs.site_path_from_string("/blog.html")
-  |> result.map(shoki.generated_html_file(_, html))
+  |> result.map(charge.generated_html_file(_, html))
 }
 
 pub fn filter_and_sort(pages: List(frontmatter.Frontmatter)) {

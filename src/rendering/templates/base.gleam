@@ -5,7 +5,7 @@ import mellie/attr as attribute
 import mellie/html
 import rendering/templates/footer
 import rendering/templates/header
-import shoki/date
+import charge/date
 
 pub type Meta {
   Meta(

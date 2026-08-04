@@ -3,8 +3,8 @@ import gleam/result
 import mellie
 import mellie/html
 import rendering/ssr/snippet
-import shoki/component
-import shoki/error
+import charge/component
+import charge/error
 
 pub fn component() {
   component.new("script-raw", fn(data, el) {

@@ -8,9 +8,9 @@ import mellie/attr as attribute
 import mellie/element.{type ElementTree}
 import mellie/html
 import rendering/ssr/custom_el
-import shoki/component
-import shoki/error
-import shoki/internal/fs as sfs
+import charge/component
+import charge/error
+import charge/internal/fs as sfs
 
 fn gallery_dir() {
   let assert Ok(dir) = sfs.from_cwd(consts.gallery_dir)

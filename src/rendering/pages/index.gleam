@@ -6,9 +6,9 @@ import mellie/attr as attribute
 import mellie/html
 import rendering/pages/blog
 import rendering/templates/base
-import shoki
-import shoki/date
-import shoki/internal/fs
+import charge
+import charge/date
+import charge/internal/fs
 
 pub fn render(pages: List(frontmatter.Frontmatter)) {
   let meta = base.Meta("Home", None, None, [])
@@ -55,5 +55,5 @@ pub fn render(pages: List(frontmatter.Frontmatter)) {
     |> base.render(meta)
 
   fs.site_path_from_string("/index.html")
-  |> result.map(shoki.generated_html_file(_, html))
+  |> result.map(charge.generated_html_file(_, html))
 }

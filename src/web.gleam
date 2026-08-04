@@ -21,14 +21,14 @@ import rendering/ssr/script_raw
 import rendering/ssr/snippet
 import rendering/templates/article
 import rendering/templates/base
-import shoki
-import shoki/error
-import shoki/highlight
-import shoki/image
-import shoki/internal/fs
-import shoki/rss
+import charge
+import charge/error
+import charge/highlight
+import charge/image
+import charge/internal/fs
+import charge/rss
 
-import shoki/markdown
+import charge/markdown
 
 pub fn pipeline() {
   let assert Ok(out) = fs.from_cwd(consts.out_dir)
@@ -53,12 +53,12 @@ pub fn pipeline() {
       |> Ok
     },
   )
-  |> shoki.with_asset(index.render)
-  |> shoki.with_asset(blog.render)
-  |> shoki.with_asset(photography.render)
-  |> shoki.with_asset(docs.render)
-  |> shoki.with_asset(talks.render)
-  |> shoki.with_components([
+  |> charge.with_asset(index.render)
+  |> charge.with_asset(blog.render)
+  |> charge.with_asset(photography.render)
+  |> charge.with_asset(docs.render)
+  |> charge.with_asset(talks.render)
+  |> charge.with_components([
     gallery.component(),
     snippet.component(),
     html_snippet.component(),
@@ -76,12 +76,12 @@ pub fn pipeline() {
     ),
     to_rss_item,
   )
-  |> shoki.with_static_dir(public)
+  |> charge.with_static_dir(public)
 }
 
 fn to_rss_item(
   frontmatters: List(frontmatter.Frontmatter),
-  file: shoki.HTMLFile,
+  file: charge.HTMLFile,
 ) {
   let found = frontmatters |> list.find(fn(i) { i.path == file.path })
 
@@ -100,7 +100,7 @@ pub fn main() {
       // to be used for running axe linting once pages are rendered
       use _report <- clip.parameter
 
-      pipeline() |> shoki.run()
+      pipeline() |> charge.run()
     })
     |> clip.flag(
       flag.new("report") |> flag.help("run a11y and link-checking reports"),

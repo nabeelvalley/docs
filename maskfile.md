@@ -80,35 +80,19 @@ pnpm serve out
 
 ## dev
 
-```nu
+```sh
 mask build
 pnpm concurrently "mask watch:gleam" "mask watch:client" "mask serve"
 ```
 
-
-## shoki
-
-### test-default
-
-Runs the static site generator using the default preset and outputs it to .test-out
+## test
 
 ```sh
-gleam run -m shoki/preset/default -- --pages test/workspace/pages --static test/workspace/static --out .test-out
+gleam test
 ```
 
-## codegen
+## snap
 
 ```sh
-cd codegen
-gleam run
-cd ..
-gleam format
-```
-
-## docs
-
-Preview the documentation
-
-```sh
-gleam docs build --open
+gleam run -m birdie
 ```
