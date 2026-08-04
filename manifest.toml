@@ -29,7 +29,7 @@ packages = [
   { name = "htmerl", version = "0.2.1", build_tools = ["rebar3"], requirements = [], otp_app = "htmerl", source = "hex", outer_checksum = "EBD3F54E6DC98594F54BB3C214F5B96CAE90D1AE2A4B7E487FBE94A929110015" },
   { name = "htmgrrrl", version = "1.0.1", build_tools = ["gleam"], requirements = ["gleam_stdlib", "htmerl"], otp_app = "htmgrrrl", source = "hex", outer_checksum = "2FE14FE588737FA5A6E41FC6DBA66056CCAC2E14F737E3A4FA602C473A9A40B5" },
   { name = "justin", version = "1.1.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "justin", source = "hex", outer_checksum = "8B1C62269E8607D0A0ED698B7903984CE0BF7B6B3C0DEA3C6C8302B39402837B" },
-  { name = "mellie", version = "1.2.0", build_tools = ["gleam"], requirements = ["gleam_javascript", "gleam_stdlib", "glentities", "htmgrrrl", "presentable_soup"], source = "git", repo = "https://github.com/sftsrv/mellie", commit = "e146b52d28f9c540e2995bbe014c0f8a4ebacf96" },
+  { name = "mellie", version = "1.2.0", build_tools = ["gleam"], requirements = ["gleam_javascript", "gleam_stdlib", "glentities", "htmgrrrl", "presentable_soup"], source = "git", repo = "https://github.com/sftsrv/mellie", commit = "cf3d2a3d31008a086aae4f114b995a7f1993ab3a" },
   { name = "parz", version = "1.1.0", build_tools = ["gleam"], requirements = ["gleam_regexp", "gleam_stdlib"], otp_app = "parz", source = "hex", outer_checksum = "CD1AFEEA57D4986B2987B3E0C59429C92CD64882EA64F4BC9C2CF07C4666EBDD" },
   { name = "presentable_soup", version = "2.0.0", build_tools = ["gleam"], requirements = ["gleam_stdlib", "houdini", "htmerl"], otp_app = "presentable_soup", source = "hex", outer_checksum = "56FED72B18B55DDC31B672667AD8C6B440C906FFA832435653E927818752F6AB" },
   { name = "rank", version = "1.1.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "rank", source = "hex", outer_checksum = "B846D54D1512FB83A3994A07A8C7915FE74335A99BCE1EDC7943EA31ED710DFD" },
@@ -51,7 +51,7 @@ gleam_regexp = { version = ">= 1.1.1 and < 2.0.0" }
 gleam_stdlib = { version = ">= 1.0.0 and < 2.0.0" }
 gleeunit = { version = ">= 1.0.0 and < 2.0.0" }
 glentities = { version = ">= 6.2.1 and < 7.0.0" }
-mellie = { git = "https://github.com/sftsrv/mellie", ref = "e146b52" }
+mellie = { git = "https://github.com/sftsrv/mellie", ref = "cf3d2a3" }
 parz = { version = ">= 1.1.0 and < 2.0.0" }
 simplifile = { version = ">= 2.6.0 and < 3.0.0" }
 yamleam = { version = ">= 1.0.0 and < 2.0.0" }
