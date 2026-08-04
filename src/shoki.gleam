@@ -19,7 +19,7 @@ type Loader(state, aggregate) =
   fn() -> ShokiResult(Loaded(state, aggregate))
 
 type Renderer(state, aggregate) =
-  fn(List(state), aggregate) -> ShokiResult(Rendered(aggregate))
+  fn(List(state), aggregate) -> Promise(ShokiResult(Rendered(aggregate)))
 
 pub opaque type Rendered(aggregate) {
   Rendered(assets: List(Asset), tasks: List(Task(aggregate)))
@@ -69,13 +69,17 @@ pub opaque type Pipeline(state, aggregate) {
   )
 }
 
+fn to_async(f) {
+  fn(a, b) { f(a, b) |> promise.resolve }
+}
+
 pub fn new(
   out out_dir: fs.Path,
   load load: fn() -> Result(Loaded(state, aggregate), error.ShokiErr),
   render render: fn(List(state), aggregate) ->
     Result(Rendered(aggregate), error.ShokiErr),
 ) -> Pipeline(state, aggregate) {
-  Pipeline(out_dir, load, render)
+  Pipeline(out_dir, load, to_async(render))
 }
 
 pub fn loaded(
@@ -85,16 +89,17 @@ pub fn loaded(
   Loaded(pages, aggregate)
 }
 
-/// The raw unit for composing rendering pipelines
+/// The raw unit for composing sync rendering pipelines
 pub fn with(
   from: Pipeline(page, aggregate),
   render: fn(aggregate) -> ShokiResult(Rendered(aggregate)),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
-    use prev_result <- result.try(from.render(pages, aggregated))
-    use next_result <- result.map(render(aggregated))
+    use prev_result <- promise.try_await(from.render(pages, aggregated))
 
-    merge_rendered(prev_result, next_result)
+    render(aggregated)
+    |> result.map(merge_rendered(prev_result, _))
+    |> promise.resolve
   })
 }
 
@@ -104,10 +109,12 @@ pub fn with_assets(
   render: fn(aggregate) -> ShokiResult(List(Asset)),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
-    use prev_result <- result.try(from.render(pages, aggregated))
-    use next_result <- result.map(render(aggregated))
+    use prev_result <- promise.try_await(from.render(pages, aggregated))
 
-    merge_rendered(prev_result, next_result |> from_assets)
+    render(aggregated)
+    |> result.map(from_assets)
+    |> result.map(merge_rendered(prev_result, _))
+    |> promise.resolve
   })
 }
 
@@ -139,7 +146,7 @@ pub fn with_components(
   comps: List(component.Component(ShokiResult(ElementTree))),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
-    use prev <- result.try(from.render(pages, aggregated))
+    use prev <- promise.try_await(from.render(pages, aggregated))
 
     let Rendered(assets: prev_assets, tasks: prev_tasks) = prev
 
@@ -155,12 +162,13 @@ pub fn with_components(
     rendered
     |> error.collate_errors
     |> result.map(Rendered(tasks: prev_tasks, assets: _))
+    |> promise.resolve
   })
 }
 
 pub fn with_async_component(from, comp) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
-    use prev <- result.try(from.render(pages, aggregated))
+    use prev <- promise.try_await(from.render(pages, aggregated))
 
     let Rendered(assets: prev_assets, tasks: prev_tasks) = prev
 
@@ -189,7 +197,9 @@ pub fn with_async_component(from, comp) {
       |> option.values
       |> list.flatten
 
-    Rendered(tasks: prev_tasks |> list.append(tasks), assets: prev_assets) |> Ok
+    Rendered(tasks: prev_tasks |> list.append(tasks), assets: prev_assets)
+    |> Ok
+    |> promise.resolve
   })
 }
 
@@ -199,38 +209,29 @@ pub fn with_derived_assets(
   extract: fn(Asset) -> ShokiResult(List(Asset)),
 ) -> Pipeline(page, aggregate) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
-    use prev <- result.try(from.render(pages, aggregated))
+    use prev <- promise.try_await(from.render(pages, aggregated))
 
-    let results = prev.assets |> list.map(extract) |> error.collate_errors
-    use result <- result.map(results)
+    let results =
+      prev.assets
+      |> list.map(extract)
+      |> error.collate_errors
+      |> result.map(list.flatten)
 
-    merge_rendered(prev, result |> list.flatten |> from_assets)
-  })
-}
-
-/// Add some generic tasks into the pipeline for each asset, e.g. running an accessibility check on all generated html
-pub fn with_task(
-  from: Pipeline(page, aggregate),
-  create_tasks: fn(Asset) -> ShokiResult(List(Task(aggregate))),
-) -> Pipeline(page, aggregate) {
-  Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
-    use prev <- result.try(from.render(pages, aggregated))
-
-    let results = prev.assets |> list.map(create_tasks) |> error.collate_errors
-
-    use result <- result.map(results)
-
-    merge_rendered(prev, result |> list.flatten |> from_tasks)
+    result.map(results, fn(result) {
+      merge_rendered(prev, result |> from_assets)
+    })
+    |> promise.resolve
   })
 }
 
 /// Add some generic tasks into the pipeline for each asset, e.g. running an accessibility check on all generated html
 pub fn with_summary(from, summarize) {
   Pipeline(..from, load: from.load, render: fn(pages, aggregated) {
-    use prev <- result.try(from.render(pages, aggregated))
+    use prev <- promise.try_await(from.render(pages, aggregated))
 
     merge_rendered(prev, summarize_task(summarize) |> list.wrap |> from_tasks)
     |> Ok
+    |> promise.resolve
   })
 }
 
@@ -249,7 +250,7 @@ pub fn run(
 
   use loaded <- async.try_resolve(pipeline.load())
 
-  use Rendered(assets:, tasks:) <- async.try_resolve(pipeline.render(
+  use Rendered(assets:, tasks:) <- promise.try_await(pipeline.render(
     loaded.pages,
     loaded.aggregated,
   ))

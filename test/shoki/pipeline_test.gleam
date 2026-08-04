@@ -73,31 +73,28 @@ pub fn pipeline_with_components_test() {
     |> Ok
   })
 
-  let with_my_async_tag_updater = shoki.with_task(_, fn(a) {
-    use file <- shoki.if_html(a, Ok([]))
+  let with_my_async_tag_updater = shoki.with_async_component(
+    _,
+    component.new("my-async-tag", fn(_, child) {
+      fn() {
+        let text =
+          child
+          |> mellie.attrs
+          |> dict.from_list
+          |> dict.get("data")
+          |> result.unwrap("data not found")
+          |> mellie.text
 
-    let children = mellie.get_children_by_tag(file.html, "my-async-tag")
-    list.map(children, fn(child) {
-      let text =
-        child
-        |> mellie.attrs
-        |> dict.from_list
-        |> dict.get("data")
-        |> result.unwrap("data not found")
-        |> mellie.text
+        let new_el =
+          mellie.element("my-updated-async-tag", child |> mellie.attrs, [
+            mellie.text("Extracted text: "),
+            text,
+          ])
 
-      let new_el =
-        mellie.element("my-updated-async-tag", child |> mellie.attrs, [
-          mellie.text("Extracted text: "),
-          text,
-        ])
-
-      shoki.html_file_transform_task(file.path, child, fn() {
         new_el |> Ok |> promise.resolve
-      })
-    })
-    |> Ok
-  })
+      }
+    }),
+  )
 
   let my_custom_tag =
     component.new("my-custom-tag", fn(_, el) {
