@@ -2,6 +2,14 @@
 title: Projects
 ---
 
+## [charge](https://github.com/sftsrv/charge)
+
+A composable, component-based, static site generator for Gleam
+
+## [mellie](https://github.com/sftsrv/mellie)
+
+A Gleam library for working with HTML that supports JavaScript and Erlang
+
 ## [Coat Rack](/blog/2025/09-11/coat-rack)
 
 a Cloud for people who don't like clouds
@@ -25,10 +33,6 @@ An interactive tree-based search tool with custom preview
 ![Déjà vu](/content/projects/dejavu.gif)
 
 Developers don't read documentation. Just bring it to them instead.
-
-## [mellie](https://github.com/sftsrv/mellie)
-
-A Gleam library for working with HTML that supports JavaScript and Erlang
 
 ## [Lynks](https://github.com/sftsrv/lynks)
 
