@@ -6,7 +6,7 @@ import mellie/html
 import rendering/templates/base
 import charge
 import charge/date
-import charge/internal/fs
+import charge/fs
 
 fn talks_path() {
   let assert Ok(path) = fs.site_path_from_string("/talks")

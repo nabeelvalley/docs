@@ -25,7 +25,7 @@ import charge
 import charge/error
 import charge/highlight
 import charge/image
-import charge/internal/fs
+import charge/fs
 import charge/rss
 
 import charge/markdown

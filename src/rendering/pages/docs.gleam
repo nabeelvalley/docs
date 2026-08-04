@@ -6,7 +6,7 @@ import mellie/html
 import rendering/dict
 import rendering/templates/base
 import charge
-import charge/internal/fs
+import charge/fs
 
 fn docs_path() {
   let assert Ok(path) = fs.site_path_from_string("/docs")

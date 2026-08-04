@@ -6,7 +6,7 @@ import mellie/attr as attribute
 import mellie/html
 import charge/component
 import charge/error
-import charge/internal/fs
+import charge/fs
 
 fn snippets_dir() {
   let assert Ok(dir) = fs.from_cwd(consts.snippets_dir)

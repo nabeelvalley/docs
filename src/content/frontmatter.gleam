@@ -4,7 +4,7 @@ import gleam/list
 import gleam/option.{type Option, None, Some}
 import gleam/order
 import charge/date as sdate
-import charge/internal/fs as sfs
+import charge/fs as sfs
 
 pub type Layout {
   NoLayout

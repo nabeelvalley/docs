@@ -6,7 +6,7 @@ import rendering/ssr/custom_el
 import rendering/ssr/snippet
 import charge/component
 import charge/error
-import charge/internal/fs
+import charge/fs
 
 pub fn component() {
   component.new("csssnippet", fn(data, el) {

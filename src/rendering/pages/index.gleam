@@ -8,7 +8,7 @@ import rendering/pages/blog
 import rendering/templates/base
 import charge
 import charge/date
-import charge/internal/fs
+import charge/fs
 
 pub fn render(pages: List(frontmatter.Frontmatter)) {
   let meta = base.Meta("Home", None, None, [])

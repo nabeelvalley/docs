@@ -10,7 +10,7 @@ import mellie/html
 import rendering/ssr/custom_el
 import charge/component
 import charge/error
-import charge/internal/fs as sfs
+import charge/fs as sfs
 
 fn gallery_dir() {
   let assert Ok(dir) = sfs.from_cwd(consts.gallery_dir)

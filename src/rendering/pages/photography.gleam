@@ -8,7 +8,7 @@ import mellie/html
 import rendering/dict as dict_util
 import rendering/templates/base
 import charge
-import charge/internal/fs
+import charge/fs
 
 fn photography_path() {
   let assert Ok(path) = fs.site_path_from_string("/photography")
