@@ -244,10 +244,6 @@ HTMLFile: [no source]:/index.html
   </body>
 </html>
 
-Task Result: /optimized-images/test/workspace/static/images/image-1.webp
-
-Task Result: /optimized-images/test/workspace/static/images/image-2.webp
-
 HTMLFile: [no source]:/special.html
 <html lang="en">
   <head>

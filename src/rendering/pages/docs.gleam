@@ -3,10 +3,10 @@ import gleam/list
 import gleam/option.{None}
 import mellie/attr as attribute
 import mellie/html
+import rendering/dict
 import rendering/templates/base
 import shoki
 import shoki/internal/fs
-import util
 
 fn docs_path() {
   let assert Ok(path) = fs.site_path_from_string("/docs")
@@ -30,7 +30,7 @@ pub fn render(pages: List(frontmatter.Frontmatter)) {
         _ -> "other"
       }
     })
-    |> util.dict_to_sorted_entries
+    |> dict.to_sorted_entries
     |> list.map(fn(entry) {
       let #(section, ps) = entry
 

@@ -1,10 +1,10 @@
 import gleam/javascript/promise
-import gleam/list
 import gleam/result
 import mellie
 import mellie/attr
 import mellie/html
 import shoki
+import shoki/component
 import shoki/error
 import shoki/internal/shiki
 
@@ -49,15 +49,7 @@ fn render(highlighted, lang) {
 
 pub fn with_syntax_highlighting(pipeline) {
   pipeline
-  |> shoki.with_task(fn(asset) {
-    use file <- shoki.if_html(asset, Ok([]))
-
-    let pres = mellie.get_children_by_tag(file.html, "pre")
-
-    pres
-    |> list.map(fn(pre) {
-      shoki.html_file_transform_task(file.path, pre, fn() { highlight(pre) })
-    })
-    |> Ok
-  })
+  |> shoki.with_async_component(
+    component.new("pre", fn(_, pre) { highlight(pre) }),
+  )
 }

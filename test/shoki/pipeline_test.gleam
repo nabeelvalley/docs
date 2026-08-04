@@ -10,6 +10,7 @@ import mellie/html
 import shoki
 import shoki/component
 import shoki/error
+import shoki/highlight
 import shoki/image
 import shoki/internal/fs
 import shoki/markdown
@@ -72,11 +73,9 @@ pub fn pipeline_with_components_test() {
     |> Ok
   })
 
-  let with_my_async_tag_updater = shoki.with_task(_, fn(a) {
-    use file <- shoki.if_html(a, Ok([]))
-
-    let children = mellie.get_children_by_tag(file.html, "my-async-tag")
-    list.map(children, fn(child) {
+  let with_my_async_tag_updater = shoki.with_async_component(
+    _,
+    component.new("my-async-tag", fn(_, child) {
       let text =
         child
         |> mellie.attrs
@@ -91,12 +90,9 @@ pub fn pipeline_with_components_test() {
           text,
         ])
 
-      shoki.html_file_transform_task(file.path, child, fn() {
-        new_el |> Ok |> promise.resolve
-      })
-    })
-    |> Ok
-  })
+      new_el |> Ok |> promise.resolve
+    }),
+  )
 
   let my_custom_tag =
     component.new("my-custom-tag", fn(_, el) {
@@ -139,6 +135,8 @@ pub fn pipeline_with_components_test() {
     |> shoki.with_components([my_custom_tag, my_custom_image])
     // image optimization should run after custom_image runs
     |> image.with_image_optimization(static)
+    // shiki syntax highlighting
+    |> highlight.with_syntax_highlighting
 
   use rendered <- promise.await(pipeline |> shoki.run)
   let assert Ok(assets) = rendered

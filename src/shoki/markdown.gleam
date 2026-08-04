@@ -4,7 +4,7 @@ import gleam/list
 import gleam/result
 import gleam/string
 import mellie
-import presentable_soup
+import mellie/element.{type ElementTree}
 import shoki
 import shoki/error.{type ShokiResult, ErrorReadingFrontmatter}
 import shoki/internal/fs
@@ -16,7 +16,7 @@ pub opaque type MarkdownFile(a) {
     path: fs.Path,
     site_path: fs.SitePath,
     frontmatter: a,
-    content: String,
+    content: ElementTree,
   )
 }
 
@@ -46,12 +46,14 @@ fn read_file(
         ),
       )
 
-      Ok(MarkdownFile(
-        file,
-        site_path,
-        frontmatter,
-        content |> list.drop(1) |> string.join("\n"),
-      ))
+      let html =
+        content
+        |> list.drop(1)
+        |> string.join("\n")
+        |> render
+
+      html
+      |> result.map(MarkdownFile(file, site_path, frontmatter, _))
     }
     _ -> Error(ErrorReadingFrontmatter("No frontmatter present"))
   }
@@ -72,8 +74,7 @@ pub fn from_markdown(
   dir dir: fs.Path,
   decode decode: fn(fs.SitePath) -> decode.Decoder(a),
   agg agg: fn(List(a)) -> b,
-  render render: fn(MarkdownFile(a), b) ->
-    Result(presentable_soup.ElementTree, error.ShokiErr),
+  render render: fn(MarkdownFile(a), b) -> Result(ElementTree, error.ShokiErr),
 ) -> shoki.Pipeline(MarkdownFile(a), b) {
   shoki.new(
     out: out_dir,
@@ -83,7 +84,7 @@ pub fn from_markdown(
       shoki.loaded(pages, pages |> list.map(frontmatter) |> agg)
     },
     render: fn(pages: List(MarkdownFile(a)), agg: b) -> Result(
-      shoki.Rendered(b),
+      shoki.Rendered,
       error.ShokiErr,
     ) {
       pages
@@ -94,7 +95,6 @@ pub fn from_markdown(
         |> to_html_file(page, _)
       })
       |> error.collate_errors
-      |> result.map(shoki.from_assets)
     },
   )
 }
@@ -113,11 +113,11 @@ fn to_site_path(base: fs.Path, file: fs.Path) {
   fs.to_site_path(base, file, exts())
 }
 
-pub fn to_html_file(file: MarkdownFile(a), rendered: mellie.ElementTree) {
+pub fn to_html_file(file: MarkdownFile(a), rendered: ElementTree) {
   shoki.derived_html_file(file.path, file.site_path, rendered)
 }
 
-pub fn replace_body(tree: mellie.ElementTree) {
+pub fn replace_body(tree: ElementTree) {
   tree
   |> mellie.get_child_by_tag("body")
   |> result.replace_error(error.ErrorRenderingMarkdown(
@@ -127,12 +127,16 @@ pub fn replace_body(tree: mellie.ElementTree) {
   |> result.map(mellie.element("div", [], _))
 }
 
-pub fn render(file: MarkdownFile(a)) -> ShokiResult(mellie.ElementTree) {
-  file.content
+fn render(content) -> ShokiResult(ElementTree) {
+  content
   |> markdown.parse
   |> mellie.parse
   |> result.replace_error(error.ErrorRenderingMarkdown(
     "Error parsing HTML from markdown",
   ))
   |> result.try(replace_body)
+}
+
+pub fn content(file: MarkdownFile(a)) {
+  file.content
 }

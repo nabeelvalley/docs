@@ -9,3 +9,11 @@ pub fn try_resolve(result, cb) {
     Error(err) -> promise.resolve(Error(err))
   }
 }
+
+pub fn to_async2(f) {
+  fn(a, b) { f(a, b) |> promise.resolve }
+}
+
+pub fn to_async1(f) {
+  fn(a) { f(a) |> promise.resolve }
+}

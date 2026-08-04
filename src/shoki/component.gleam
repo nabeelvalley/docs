@@ -1,14 +1,14 @@
 import gleam/dict.{type Dict}
+import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/option
 import gleam/result
-import mellie.{type ElementTree}
-import presentable_soup.{ElementNode, TextNode}
-import shoki/error
+import mellie/element.{type ElementTree, ElementNode, TextNode}
+import shoki/error.{type ShokiResult}
 import shoki/internal/fs
 
 type Visit(a) =
-  fn(RenderData, ElementTree) -> error.ShokiResult(a)
+  fn(RenderData, ElementTree) -> a
 
 pub type Component(a) =
   #(String, Visit(a))
@@ -18,15 +18,19 @@ pub fn new(tag tag, visit visit: Visit(a)) {
 }
 
 pub type RenderData {
-  RenderData(source_path: option.Option(fs.Path), site_path: fs.SitePath)
+  RenderData(
+    source_path: option.Option(fs.Path),
+    site_path: fs.SitePath,
+    out_dir: fs.Path,
+  )
 }
 
 /// Updates content depth-first with the given components
 fn render_rec(
   data,
-  components: Dict(String, Visit(ElementTree)),
+  components: Dict(String, Visit(ShokiResult(ElementTree))),
   el: ElementTree,
-) -> error.ShokiResult(ElementTree) {
+) -> ShokiResult(ElementTree) {
   case el {
     TextNode(_) -> el |> Ok
     ElementNode(tag:, attributes: _, children:) -> {
@@ -56,10 +60,54 @@ fn render_rec(
 pub fn render(
   source_path: option.Option(fs.Path),
   site_path: fs.SitePath,
+  out_dir: fs.Path,
   html: ElementTree,
-  components: List(Component(ElementTree)),
+  components: List(Component(ShokiResult(ElementTree))),
 ) {
   components
   |> dict.from_list
-  |> render_rec(RenderData(source_path, site_path), _, html)
+  |> render_rec(RenderData(source_path:, site_path:, out_dir:), _, html)
+}
+
+fn render_rec_async(
+  data,
+  tag,
+  visit: fn(RenderData, ElementTree) -> Promise(ShokiResult(ElementTree)),
+  el: ElementTree,
+) -> Promise(ShokiResult(ElementTree)) {
+  case el {
+    TextNode(_) -> el |> Ok |> promise.resolve
+    ElementNode(tag: t, attributes: _, children:) -> {
+      let children_task =
+        children
+        |> list.map(render_rec_async(data, tag, visit, _))
+        |> promise.await_list
+        |> promise.map(error.collate_errors)
+
+      children_task
+      |> promise.try_await(fn(new_children) {
+        let new_el = ElementNode(..el, children: new_children)
+        case tag == t {
+          False -> new_el |> Ok |> promise.resolve
+          True -> visit(data, new_el)
+        }
+      })
+    }
+  }
+}
+
+/// Visits all nodes that a component expects
+pub fn render_async(
+  source_path: option.Option(fs.Path),
+  site_path: fs.SitePath,
+  out_dir: fs.Path,
+  html: ElementTree,
+  component: Component(Promise(Result(ElementTree, error.ShokiErr))),
+) -> Promise(ShokiResult(ElementTree)) {
+  let data = RenderData(source_path:, site_path:, out_dir:)
+  let #(tag, visit) = component
+
+  let result = render_rec_async(data, tag, visit, html)
+
+  result
 }

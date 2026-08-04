@@ -60,14 +60,15 @@ pub fn render_page(
   file: markdown.MarkdownFile(Frontmatter),
   tags: GroupedTags,
 ) {
-  use md <- result.map(markdown.render(file))
+  let content = file |> markdown.content
   let fm = file |> markdown.frontmatter
 
   html.body([], [
     header(fm.title, tags),
-    html.main([], [md]),
+    html.main([], [content]),
   ])
   |> shared.page(fm.title, css_path)
+  |> Ok
 }
 
 fn header(title, tags: GroupedTags) {

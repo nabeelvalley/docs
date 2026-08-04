@@ -2,8 +2,9 @@
 //// since we have finer control over how children are treated
 
 import mellie
+import mellie/element.{type ElementTree}
 
-pub fn site_snippet_preview(attrs, children: List(mellie.ElementTree)) {
+pub fn site_snippet_preview(attrs, children: List(ElementTree)) {
   mellie.element("site-snippet-preview", attrs, children)
 }
 

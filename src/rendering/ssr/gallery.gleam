@@ -5,6 +5,7 @@ import gleam/option.{None, Some}
 import gleam/result
 import mellie
 import mellie/attr as attribute
+import mellie/element.{type ElementTree}
 import mellie/html
 import rendering/ssr/custom_el
 import shoki/component
@@ -16,7 +17,7 @@ fn gallery_dir() {
   dir
 }
 
-fn get_files(el: mellie.ElementTree, page: sfs.Path) {
+fn get_files(el: ElementTree, page: sfs.Path) {
   use path <- result.try(
     mellie.attr(el, "path")
     |> result.replace_error(
