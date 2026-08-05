@@ -62,9 +62,9 @@ Some tasks/ideas to keep in mind for the redesign
 - [ ] Consistent way to do paths/file names for code blocks (```type path="something/like.this"?)
 - [ ] Think about how we can continue to use tweakpane for snippets
 - [ ] Remove all dependencies for markdown to HTML conversion?
-- [ ] Remove dependency on Astro components
-  - [ ] Use Web Components (progressive enhancements)
-  - [ ] Figure out SSR
+- [x] Remove dependency on Astro components
+  - [x] Use Web Components (progressive enhancements)
+  - [x] Figure out SSR
 - [ ] Better use of asides (+ render in "side section")
 - [ ] Better use of footers
 - [ ] Header links (simplify sharing)
@@ -72,9 +72,13 @@ Some tasks/ideas to keep in mind for the redesign
 - [ ] Better use of figures/figcaptions
 - [x] Get rid of conversion step for ipynb files (what to do about content?)
   - Converted to md and archived
+- [ ] Scrollspy (like medium?)
+- [ ] Fix footnotes
 
 ## Data Management
-
+- [ ] Ensure that image paths are always correct
+- [ ] Way to upload images nicely
+  - [ ] Additional image meta
 - [ ] Easier way to manage links + automatic creation of weekly reading summaries
 - [ ] Full content search (database?)
 - [ ] Pages-cms friendly content
