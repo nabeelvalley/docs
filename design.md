@@ -7,7 +7,7 @@ Some tasks/ideas to keep in mind for the redesign
 - [x] Relative images don't work, see `/talks/2025/09-10/ai` and `/blog/2024/24-08/unintentionally-made-a-programming-language`
 - [x] Fix incorrect filenames in snippets (missing first few chars)
 - [ ] SVG images not scaling correctly in Safari, see `/projects`
-- [ ] Fix footnotes, see `/talks/2026/24-04/the-power-of-small-tools`, can use https://www.npmjs.com/package/marked-footnote
+- [x] Fix footnotes, see `/talks/2026/24-04/the-power-of-small-tools`, can use https://www.npmjs.com/package/marked-footnote
 
 ## Architecture
 
@@ -73,7 +73,6 @@ Some tasks/ideas to keep in mind for the redesign
 - [x] Get rid of conversion step for ipynb files (what to do about content?)
   - Converted to md and archived
 - [ ] Scrollspy (like medium?)
-- [ ] Fix footnotes
 
 ## Data Management
 - [ ] Ensure that image paths are always correct

@@ -1,4 +1,11 @@
 import argv
+import charge
+import charge/error
+import charge/footnote
+import charge/fs
+import charge/highlight
+import charge/image
+import charge/rss
 import clip
 import clip/flag
 import consts
@@ -21,12 +28,6 @@ import rendering/ssr/script_raw
 import rendering/ssr/snippet
 import rendering/templates/article
 import rendering/templates/base
-import charge
-import charge/error
-import charge/highlight
-import charge/image
-import charge/fs
-import charge/rss
 
 import charge/markdown
 
@@ -53,6 +54,7 @@ pub fn pipeline() {
       |> Ok
     },
   )
+  |> footnote.with_footnotes
   |> charge.with_asset(index.render)
   |> charge.with_asset(blog.render)
   |> charge.with_asset(photography.render)

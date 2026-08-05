@@ -1,3 +1,4 @@
+import charge/date
 import consts
 import gleam/option.{type Option}
 import mellie
@@ -5,7 +6,6 @@ import mellie/attr as attribute
 import mellie/html
 import rendering/templates/footer
 import rendering/templates/header
-import charge/date
 
 pub type Meta {
   Meta(
@@ -47,6 +47,13 @@ pub fn render(body, meta: Meta) {
       html.link([
         attribute.rel("webmention"),
         attribute.href("https://webmention.io/nabeelvalley.co.za/webmention"),
+      ]),
+
+      html.link([
+        attribute.rel("alternate"),
+        attribute.type_("application/rss+xml"),
+        attribute.href("/feed/rss.xml"),
+        attribute.title("Nabeel's Blog"),
       ]),
 
       html.link([
