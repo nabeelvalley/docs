@@ -294,5 +294,5 @@ while((line = Console.In.ReadLine()) != null)
 
 ### Footnotes
 
-[^1]: [Wikipedia - Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)
-[^2]: [Steph Ango - File over app](https://stephango.com/file-over-app)
+- [^1]: [Wikipedia - Unix Philosophy](https://en.wikipedia.org/wiki/Unix_philosophy)
+- [^2]: [Steph Ango - File over app](https://stephango.com/file-over-app)
