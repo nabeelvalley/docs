@@ -96,3 +96,11 @@ gleam test
 ```sh
 gleam run -m birdie
 ```
+
+## check-photos
+
+Check that all photos and metadata are correct
+
+```sh
+gleam run -m content/metadata
+```

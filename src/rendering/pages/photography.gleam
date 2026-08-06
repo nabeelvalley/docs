@@ -1,4 +1,4 @@
-import content/frontmatter
+import content/metadata
 import gleam/dict
 import gleam/list
 import gleam/option.{None}
@@ -15,7 +15,7 @@ fn photography_path() {
   path
 }
 
-pub fn render(pages: List(frontmatter.Frontmatter)) {
+pub fn render(pages: List(metadata.Frontmatter)) {
   let meta = base.Meta("Photography", None, None, [])
   let photography_items =
     pages

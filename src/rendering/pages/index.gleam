@@ -1,4 +1,4 @@
-import content/frontmatter
+import content/metadata
 import gleam/list
 import gleam/option.{None}
 import gleam/result
@@ -10,7 +10,7 @@ import charge
 import charge/date
 import charge/fs
 
-pub fn render(pages: List(frontmatter.Frontmatter)) {
+pub fn render(pages: List(metadata.Frontmatter)) {
   let meta = base.Meta("Home", None, None, [])
   let recent_blogs =
     blog.filter_and_sort(pages)

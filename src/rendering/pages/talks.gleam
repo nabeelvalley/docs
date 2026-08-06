@@ -1,4 +1,4 @@
-import content/frontmatter
+import content/metadata
 import gleam/list
 import gleam/option.{None}
 import mellie/attr as attribute
@@ -18,12 +18,12 @@ fn talks_file() {
   path
 }
 
-pub fn render(pages: List(frontmatter.Frontmatter)) {
+pub fn render(pages: List(metadata.Frontmatter)) {
   let meta = base.Meta("Talks", None, None, [])
   let items =
     pages
     |> list.filter(fn(p) { fs.site_path_starts_with(p.path, talks_path()) })
-    |> frontmatter.sort_by_date
+    |> metadata.sort_by_date
     |> list.reverse
     |> list.map(fn(p) {
       let slug = p.path |> fs.site_path_to_string

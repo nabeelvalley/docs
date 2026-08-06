@@ -1,4 +1,4 @@
-import content/frontmatter
+import content/metadata
 import gleam/list
 import gleam/option.{None}
 import gleam/result
@@ -14,7 +14,7 @@ fn blog_path() {
   blog_path
 }
 
-pub fn render(pages: List(frontmatter.Frontmatter)) {
+pub fn render(pages: List(metadata.Frontmatter)) {
   let meta = base.Meta("Blog", None, None, [])
   let items =
     pages
@@ -41,9 +41,9 @@ pub fn render(pages: List(frontmatter.Frontmatter)) {
   |> result.map(charge.generated_html_file(_, html))
 }
 
-pub fn filter_and_sort(pages: List(frontmatter.Frontmatter)) {
+pub fn filter_and_sort(pages: List(metadata.Frontmatter)) {
   pages
   |> list.filter(fn(p) { fs.site_path_starts_with(p.path, blog_path()) })
-  |> frontmatter.sort_by_date
+  |> metadata.sort_by_date
   |> list.reverse
 }

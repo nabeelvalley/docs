@@ -9,7 +9,7 @@ import charge/rss
 import clip
 import clip/flag
 import consts
-import content/frontmatter
+import content/metadata
 import gleam/io
 import gleam/javascript/promise
 import gleam/list
@@ -39,9 +39,9 @@ pub fn pipeline() {
   markdown.from_markdown(
     out: out,
     dir: md,
-    decode: frontmatter.decoder,
-    agg: list.filter(_, frontmatter.is_published),
-    render: fn(file, _frontmatters) {
+    decode: metadata.decoder,
+    agg: list.filter(_, metadata.is_published),
+    render: fn(file, _metadatas) {
       let content = file |> markdown.content
       let fm = file |> markdown.frontmatter
 
@@ -81,11 +81,8 @@ pub fn pipeline() {
   |> charge.with_static_dir(public)
 }
 
-fn to_rss_item(
-  frontmatters: List(frontmatter.Frontmatter),
-  file: charge.HTMLFile,
-) {
-  let found = frontmatters |> list.find(fn(i) { i.path == file.path })
+fn to_rss_item(metadatas: List(metadata.Frontmatter), file: charge.HTMLFile) {
+  let found = metadatas |> list.find(fn(i) { i.path == file.path })
 
   found
   |> option.from_result

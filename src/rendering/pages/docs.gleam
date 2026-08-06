@@ -1,4 +1,4 @@
-import content/frontmatter
+import content/metadata
 import gleam/list
 import gleam/option.{None}
 import mellie/attr as attribute
@@ -18,7 +18,7 @@ fn docs_file() {
   path
 }
 
-pub fn render(pages: List(frontmatter.Frontmatter)) {
+pub fn render(pages: List(metadata.Frontmatter)) {
   let meta = base.Meta("Docs", None, None, [])
 
   let items =
