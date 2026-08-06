@@ -14,6 +14,7 @@ import gleam/io
 import gleam/javascript/promise
 import gleam/list
 import gleam/option
+import gleam/result
 import mellie
 import rendering/pages/blog
 import rendering/pages/docs
@@ -60,6 +61,14 @@ pub fn pipeline() {
   |> charge.with_asset(photography.render)
   |> charge.with_asset(docs.render)
   |> charge.with_asset(talks.render)
+  |> charge.switch(fn(fm) {
+    metadata.load_photos() |> result.map(metadata.SiteData(fm, _))
+  })
+  |> charge.with_assets(fn(data) {
+    data.photos
+    |> list.map(photography.render_photo_page)
+    |> Ok
+  })
   |> charge.with_components([
     gallery.component(),
     snippet.component(),
@@ -81,8 +90,8 @@ pub fn pipeline() {
   |> charge.with_static_dir(public)
 }
 
-fn to_rss_item(metadatas: List(metadata.Frontmatter), file: charge.HTMLFile) {
-  let found = metadatas |> list.find(fn(i) { i.path == file.path })
+fn to_rss_item(data: metadata.SiteData, file: charge.HTMLFile) {
+  let found = data.frontmatters |> list.find(fn(i) { i.path == file.path })
 
   found
   |> option.from_result

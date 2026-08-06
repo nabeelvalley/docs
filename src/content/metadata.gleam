@@ -40,7 +40,7 @@ pub type Frontmatter {
 }
 
 pub type SiteData {
-  SiteData(fms: List(Frontmatter), photos: List(Photo))
+  SiteData(frontmatters: List(Frontmatter), photos: List(Photo))
 }
 
 pub fn decoder(path: sfs.SitePath) -> decode.Decoder(Frontmatter) {
