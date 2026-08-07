@@ -15,6 +15,7 @@ mv gleam ~/.local/bin/
 echo "gleam download complete"
 
 pnpm i
+gleam deps download
 
 # checks
-gleam build &pnpm tsc --noEmit && gleam run && pnpm parcel build
+gleam build & pnpm tsc --noEmit && gleam run && pnpm parcel build
