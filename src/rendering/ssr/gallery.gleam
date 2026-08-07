@@ -1,3 +1,6 @@
+import charge/component
+import charge/error
+import charge/fs as sfs
 import consts
 import gleam/dict
 import gleam/list
@@ -7,10 +10,8 @@ import mellie
 import mellie/attr as attribute
 import mellie/element.{type ElementTree}
 import mellie/html
+import rendering/pages/photography
 import rendering/ssr/custom_el
-import charge/component
-import charge/error
-import charge/fs as sfs
 
 fn gallery_dir() {
   let assert Ok(dir) = sfs.from_cwd(consts.gallery_dir)
@@ -59,10 +60,19 @@ fn render_image(img: sfs.Path) {
   let site_path = sfs.to_site_path(sfs.cwd(), img, dict.new())
 
   custom_el.site_gallery_image(
-    html.img([
-      site_path
-        |> sfs.site_path_to_src,
-      attribute.alt(img |> sfs.file_name_only),
-    ]),
+    html.a(
+      [
+        img
+        |> photography.photo_to_site_page_path
+        |> sfs.site_path_to_href,
+      ],
+      [
+        html.img([
+          site_path
+            |> sfs.site_path_to_src,
+          attribute.alt(img |> sfs.file_name_only),
+        ]),
+      ],
+    ),
   )
 }

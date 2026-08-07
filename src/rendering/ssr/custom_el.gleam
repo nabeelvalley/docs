@@ -19,3 +19,15 @@ pub fn site_gallery_image(img) {
 pub fn site_markdown(html) {
   mellie.element("site-markdown", [], html)
 }
+
+pub fn site_photo_info(html) {
+  mellie.element("site-photo-info", [], html)
+}
+
+pub fn site_photo_info_item(html) {
+  mellie.element("site-photo-info-item", [], html)
+}
+
+pub fn site_photo_full(html) {
+  mellie.element("site-photo-full", [], html)
+}

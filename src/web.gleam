@@ -15,6 +15,7 @@ import gleam/javascript/promise
 import gleam/list
 import gleam/option
 import gleam/result
+import gleave
 import mellie
 import rendering/pages/blog
 import rendering/pages/docs
@@ -106,10 +107,17 @@ pub fn main() {
   let cmd =
     clip.command({
       // to be used for running axe linting once pages are rendered
+      use dev <- clip.parameter
       use _report <- clip.parameter
 
-      pipeline() |> charge.run()
+      let run = case dev {
+        False -> charge.run
+        True -> charge.run_dev
+      }
+
+      pipeline() |> run
     })
+    |> clip.flag(flag.new("dev"))
     |> clip.flag(
       flag.new("report") |> flag.help("run a11y and link-checking reports"),
     )
@@ -117,12 +125,20 @@ pub fn main() {
   let result = cmd |> clip.run(argv.load().arguments)
 
   case result {
-    Error(err) -> io.println_error(err) |> promise.resolve
+    Error(err) -> {
+      io.println_error(err)
+
+      gleave.exit(1)
+      |> promise.resolve
+    }
     Ok(cmd_result) -> {
       use cmd_resolved <- promise.await(cmd_result)
       case cmd_resolved {
         Ok(_) -> io.println("Pipeline run successfully")
-        Error(err) -> io.println_error(err |> error.error_to_string)
+        Error(err) -> {
+          io.println_error(err |> error.error_to_string)
+          gleave.exit(1)
+        }
       }
       |> promise.resolve
     }

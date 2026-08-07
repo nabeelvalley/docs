@@ -11,6 +11,7 @@ import gleam/result
 import mellie/attr as attribute
 import mellie/html
 import rendering/dict as dict_util
+import rendering/ssr/custom_el
 import rendering/templates/base
 
 fn gallery_path() {
@@ -88,22 +89,28 @@ pub fn render(pages: List(metadata.Frontmatter)) {
 }
 
 pub fn render_photo_page(photo: metadata.Photo) {
-  let page_path = to_site_page_path(photo.path)
+  let page_path = photo_to_site_page_path(photo.path)
   let src_path = to_site_src_path(photo.path)
 
   let content =
-    html.section([], [
-      html.h1([], [html.text("Photo: " <> photo.description)]),
+    html.article([attribute.class("site-photo-detail")], [
+      html.h1([], [html.text(photo.description)]),
 
-      html.dl([], [
-        html.dt([], [html.text("Taken")]),
-        html.dd([], [html.text(photo.date |> date.to_string("-"))]),
+      custom_el.site_photo_info([
+        html.dl([], [
+          custom_el.site_photo_info_item([
+            html.dt([], [html.text("Taken")]),
+            html.dd([], [html.text(photo.date |> date.to_string("-"))]),
+          ]),
 
-        html.dt([], [html.text("Country")]),
-        html.dd([], [html.text(photo.country)]),
+          custom_el.site_photo_info_item([
+            html.dt([], [html.text("Country")]),
+            html.dd([], [html.text(photo.country)]),
+          ]),
+        ]),
       ]),
 
-      html.div([], [
+      custom_el.site_photo_full([
         html.img([fs.site_path_to_src(src_path), attribute.alt("")]),
       ]),
     ])
@@ -119,7 +126,7 @@ pub fn render_photo_page(photo: metadata.Photo) {
   charge.derived_html_file(photo.path, page_path, content)
 }
 
-fn to_site_page_path(path) {
+pub fn photo_to_site_page_path(path) {
   fs.to_site_path(
     gallery_path(),
     path,

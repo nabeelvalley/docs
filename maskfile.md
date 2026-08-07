@@ -32,7 +32,7 @@ gleam run
 ## watch:gleam
 
 ```nu
-watch src --debounce=10sec {try { mask build:gleam; mask build:client }}
+gleam run -- --dev
 ```
 
 ## build
@@ -81,7 +81,7 @@ pnpm serve out
 ## dev
 
 ```sh
-mask build
+mask build:client
 pnpm concurrently "mask watch:gleam" "mask watch:client" "mask serve"
 ```
 

@@ -76,31 +76,8 @@ main {
   flex: 1;
   container-type: inline-size;
   container-name: main;
-}
 
-.site-article {
-  /* define the base grid as a reading-width with space on either side */
-  display: grid;
-  grid-template-columns: var(--grid-template-columns);
 
-  >* {
-    grid-column: content;
-    margin-bottom: 1rem;
-  }
-
-  /* a little awkward but if we hit a site-markdown then
-     the subgrid must be re-stretched and then contained
-     to ensure that elements inside of the markdown can also stretch */
-  site-markdown {
-    display: grid;
-    grid-template-columns: subgrid;
-    grid-column: breakout;
-
-    >* {
-      grid-column: content;
-      margin-bottom: 1rem;
-    }
-  }
 
 
   h1 {
@@ -129,12 +106,12 @@ main {
 
   /* prevent layout shift if the size is known */
   img {
-    aspect-ratio: attr(aspect-ratio type(<number>), unset);
+    aspect-ratio: attr(aspect-ratio, unset);
   }
 
   video {
     /* default video to 16/9 if not specified */
-    aspect-ratio: attr(aspect-ratio type(<number>), 16/9);
+    aspect-ratio: attr(aspect-ratio, 16/9);
   }
 
   blockquote *:last-child {
@@ -163,8 +140,78 @@ main {
   }
 }
 
+.site-photo-detail {
+  /* define the base grid as a reading-width with space on either side */
+  display: grid;
+  grid-template-columns: var(--grid-template-columns);
 
-.site-related {}
+
+  >* {
+    grid-column: content;
+    margin-bottom: 1rem;
+  }
+
+  site-photo-info {
+
+    dl {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      site-photo-info-item {
+        display: flex;
+        gap: 0.25rem;
+      }
+    }
+  }
+
+  site-photo-full {
+    grid-column: breakout;
+    max-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+
+    img {
+      aspect-ratio: attr(aspect-ratio);
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+      margin: 0;
+    }
+  }
+}
+
+.site-article {
+  /* define the base grid as a reading-width with space on either side */
+  display: grid;
+  grid-template-columns: var(--grid-template-columns);
+
+  >* {
+    grid-column: content;
+    margin-bottom: 1rem;
+  }
+
+  /* a little awkward but if we hit a site-markdown then
+     the subgrid must be re-stretched and then contained
+     to ensure that elements inside of the markdown can also stretch */
+  site-markdown {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: breakout;
+
+    >* {
+      grid-column: content;
+      margin-bottom: 1rem;
+    }
+  }
+
+}
+
 
 .site-footer {
   display: flex;

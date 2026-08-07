@@ -152,8 +152,16 @@ fn photo_parser(cam_lenses) {
     text
     |> combinators.map(fn(d) { #(None, d) })
 
+  let text =
+    parsers.regex(".+")
+    |> combinators.label_error("expected some description text")
+
+  let text_before_sep =
+    parsers.regex(".+(?= - )")
+    |> combinators.label_error("expected some text followed by a dash")
+
   let desc_with_location =
-    combinators.left(text, sep("afer location"))
+    combinators.left(text_before_sep, sep("afer location"))
     |> combinators.then(text)
     |> combinators.map2(fn(l, d) { #(Some(l), d) })
     |> combinators.label_error("expected location and description")
