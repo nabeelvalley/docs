@@ -11,12 +11,12 @@ We took a quick trip on the Eurostar to Paris on Monday and just hung out a bit.
 
 The experience was beautiful and eerie. Here's a short video I made from inside the installation:
 
-<video controls alt="2026-07-10 - Summer in Paris" width="100%">
+<video controls alt="2026-03-28 - Summer in Paris" width="100%">
   <source src="/content/blog/2026/10-07/summer-in-paris.mov" />
 </video>
 
 
 And of course, there are some pictures too:
 
-<Gallery caption path="/2026-07-10 - summer-in-paris" />
+<Gallery caption path="/blog/2026-07-06 - summer-in-paris" />
 
