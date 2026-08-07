@@ -1,5 +1,6 @@
 import charge
 import charge/date
+import charge/error
 import charge/fs
 import consts
 import content/metadata
@@ -8,6 +9,8 @@ import gleam/list
 import gleam/option.{None}
 import gleam/pair
 import gleam/result
+import gleam/string
+import gleam/uri
 import mellie/attr as attribute
 import mellie/html
 import rendering/dict as dict_util
@@ -89,7 +92,7 @@ pub fn render(pages: List(metadata.Frontmatter)) {
 }
 
 pub fn render_photo_page(photo: metadata.Photo) {
-  let page_path = photo_to_site_page_path(photo.path)
+  use page_path <- result.map(photo_to_site_page_path(photo.path))
   let src_path = to_site_src_path(photo.path)
 
   let content =
@@ -140,6 +143,11 @@ pub fn photo_to_site_page_path(path) {
       |> dict.from_list,
   )
   |> fs.concat_site_path(photography_photo_path(), _)
+  |> fs.site_path_to_string
+  |> uri.percent_decode
+  |> result.replace_error(error.Custom("error replacing image path"))
+  |> result.map(string.replace(_, " ", "-"))
+  |> result.try(fs.site_path_from_string)
 }
 
 fn to_site_src_path(path) {

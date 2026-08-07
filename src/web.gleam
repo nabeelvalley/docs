@@ -68,7 +68,7 @@ pub fn pipeline() {
   |> charge.with_assets(fn(data) {
     data.photos
     |> list.map(photography.render_photo_page)
-    |> Ok
+    |> error.collate_errors
   })
   |> charge.with_components([
     gallery.component(),

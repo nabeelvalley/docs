@@ -45,7 +45,7 @@ pub fn component() {
       None -> el |> Ok
       Some(path) ->
         get_files(el, path)
-        |> result.map(render)
+        |> result.try(render)
     }
   })
 }
@@ -53,26 +53,24 @@ pub fn component() {
 fn render(paths: List(sfs.Path)) {
   paths
   |> list.map(render_image)
-  |> custom_el.site_gallery
+  |> error.collate_errors
+  |> result.map(custom_el.site_gallery)
 }
 
 fn render_image(img: sfs.Path) {
   let site_path = sfs.to_site_path(sfs.cwd(), img, dict.new())
+  use link_path <- result.map(
+    img
+    |> photography.photo_to_site_page_path,
+  )
 
   custom_el.site_gallery_image(
-    html.a(
-      [
-        img
-        |> photography.photo_to_site_page_path
-        |> sfs.site_path_to_href,
-      ],
-      [
-        html.img([
-          site_path
-            |> sfs.site_path_to_src,
-          attribute.alt(img |> sfs.file_name_only),
-        ]),
-      ],
-    ),
+    html.a([link_path |> sfs.site_path_to_href], [
+      html.img([
+        site_path
+          |> sfs.site_path_to_src,
+        attribute.alt(img |> sfs.file_name_only),
+      ]),
+    ]),
   )
 }

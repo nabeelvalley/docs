@@ -13,9 +13,8 @@ body {
   /*
    Source - https://stackoverflow.com/a/55364176
    Posted by Tim Klein, modified by community. See post 'Timeline' for change history
-   Retrieved 2026-07-04, License - CC BY-SA 4.0
+   Retrieved 2026-07-04, License - CC BY-SA 4
    */
-
   color: var(--color-text);
   background: var(--color-bg);
   background-image: radial-gradient(color-mix(in srgb, var(--color-accent) 10%, transparent) 1px, transparent 0);
@@ -25,6 +24,8 @@ body {
 
 
 .site-header {
+  view-transition-name: site-header;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,10 +78,8 @@ main {
   container-type: inline-size;
   container-name: main;
 
-
-
-
   h1 {
+    view-transition-name: h1;
     text-align: center;
   }
 
@@ -107,6 +106,7 @@ main {
   /* prevent layout shift if the size is known */
   img {
     aspect-ratio: attr(aspect-ratio, unset);
+    view-transition-name: attr(src);
   }
 
   video {
@@ -140,6 +140,33 @@ main {
   }
 }
 
+/* from https://piccalil.li/blog/some-practical-examples-of-view-transitions-to-elevate-your-ui/ */
+@view-transition {
+  navigation: root;
+}
+
+/* Disable the default fade out effect on the old content */
+::view-transition-old(root) {
+  animation: none;
+}
+
+/* Make new content wipe in from the right */
+::view-transition-new(root) {
+  animation: wipe-in 0.6s ease-out forwards;
+}
+
+/* Animation wiping in the new content */
+@keyframes wipe-in {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+
 .site-photo-detail {
   /* define the base grid as a reading-width with space on either side */
   display: grid;
@@ -152,7 +179,6 @@ main {
   }
 
   site-photo-info {
-
     dl {
       display: flex;
       align-items: center;
