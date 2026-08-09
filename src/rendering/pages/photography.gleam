@@ -6,7 +6,7 @@ import consts
 import content/metadata
 import gleam/dict
 import gleam/list
-import gleam/option.{None}
+import gleam/option.{None, Some}
 import gleam/pair
 import gleam/result
 import gleam/string
@@ -95,22 +95,37 @@ pub fn render_photo_page(photo: metadata.Photo) {
   use page_path <- result.map(photo_to_site_page_path(photo.path))
   let src_path = to_site_src_path(photo.path)
 
+  let item = fn(t, d) {
+    case d {
+      None -> None
+      Some(d) ->
+        Some(
+          custom_el.site_photo_info_item([
+            html.dt([], [html.text(t)]),
+            html.dd([], [html.text(d)]),
+          ]),
+        )
+    }
+  }
+
   let content =
     html.article([attribute.class("site-photo-detail")], [
       html.h1([], [html.text(photo.description)]),
 
       custom_el.site_photo_info([
-        html.dl([], [
-          custom_el.site_photo_info_item([
-            html.dt([], [html.text("Taken")]),
-            html.dd([], [html.text(photo.date |> date.to_string("-"))]),
-          ]),
-
-          custom_el.site_photo_info_item([
-            html.dt([], [html.text("Country")]),
-            html.dd([], [html.text(photo.country)]),
-          ]),
-        ]),
+        html.dl(
+          [],
+          [
+            item("Taken", photo.date |> date.to_string("-") |> Some),
+            item("Country", photo.country |> Some),
+            item("Camera", photo.cam_lens.camera |> Some),
+            item("Lens", photo.cam_lens.lens),
+            item("Shutter Speed", photo.metadata.exif.shutter_speed),
+            item("ISO", photo.metadata.exif.iso),
+            item("Aperture", photo.metadata.exif.aperture),
+          ]
+            |> option.values,
+        ),
       ]),
 
       custom_el.site_photo_full([
@@ -120,8 +135,8 @@ pub fn render_photo_page(photo: metadata.Photo) {
     |> base.render(
       base.Meta(
         "Photo: " <> photo.date |> date.to_string("-"),
-        photo.description |> option.Some,
-        date: photo.date |> option.Some,
+        photo.description |> Some,
+        date: photo.date |> Some,
         tags: ["photo"],
       ),
     )

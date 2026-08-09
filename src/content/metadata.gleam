@@ -1,13 +1,16 @@
 import charge
+import charge/async
 import charge/date as sdate
 import charge/error
 import charge/fs as sfs
+import charge/image
 import consts
 import date
 import gleam/dict
 import gleam/dynamic/decode
 import gleam/int
 import gleam/io
+import gleam/javascript/promise
 import gleam/list
 import gleam/option.{type Option, None, Some}
 import gleam/order
@@ -135,6 +138,7 @@ pub type Photo {
     location: Option(String),
     tags: List(String),
     description: String,
+    metadata: image.Metadata,
   )
 }
 
@@ -205,13 +209,23 @@ fn photo_parser(cam_lenses) {
       |> result.replace_error("cam_lens combination not found: " <> cam_lens),
     )
 
-    fn(path) {
-      Photo(path:, date:, cam_lens:, country:, location:, tags:, description:)
+    fn(path, metadata) {
+      Photo(
+        path:,
+        date:,
+        cam_lens:,
+        country:,
+        location:,
+        tags:,
+        description:,
+        metadata:,
+      )
     }
   })
 }
 
 fn parse_photo(cam_lens, path: sfs.Path) {
+  use meta <- promise.map_try(image.read_metadata(path))
   let name = path |> sfs.file_name_only
 
   let parsed =
@@ -219,7 +233,7 @@ fn parse_photo(cam_lens, path: sfs.Path) {
     |> parz.run(photo_parser(cam_lens))
 
   case parsed {
-    Ok(state) -> state.matched(path) |> Ok
+    Ok(state) -> state.matched(path, meta) |> Ok
     Error(err) ->
       Error(
         err |> error.Custom |> error.error_context(path |> sfs.path_to_string),
@@ -230,30 +244,29 @@ fn parse_photo(cam_lens, path: sfs.Path) {
 pub fn load_photos() {
   let assert Ok(gallery_dir) = sfs.from_cwd(consts.gallery_dir)
 
-  use file <- result.try(
+  use file <- async.try_resolve(
     simplifile.read(consts.photogaphy_metadata)
     |> result.replace_error(error.ErrorReadingTextFile(
       "Error reading photography metadata file",
     )),
   )
 
-  use metadata <- result.try(
+  use metadata <- async.try_resolve(
     yamleam.parse(file, photography_meta_decoder())
     |> result.replace_error(error.Custom("Error parsing photography metadata")),
   )
 
-  use files <- result.try(sfs.ls_dir(gallery_dir))
+  use files <- async.try_resolve(sfs.ls_dir(gallery_dir))
 
   let photos =
     files
     |> list.filter(sfs.has_ext(_, [sfs.JPG, sfs.JPEG, sfs.PNG, sfs.WEBP]))
 
   list.filter(files, fn(p) { !list.contains(photos, p) })
-  use photos <- result.map(
-    list.map(photos, parse_photo(metadata.cam_lens, _)) |> error.collate_errors,
-  )
 
-  photos
+  list.map(photos, parse_photo(metadata.cam_lens, _))
+  |> promise.await_list
+  |> promise.map(error.collate_errors)
 }
 
 fn photo_to_string(photo: Photo) {
@@ -276,7 +289,9 @@ fn photo_to_string(photo: Photo) {
 }
 
 pub fn main() {
-  case load_photos() {
+  use photos <- promise.await(load_photos())
+
+  case photos {
     Ok(photos) -> {
       io.println("parsed photos")
       photos |> list.map(photo_to_string) |> string.join("\n\n") |> io.println
@@ -290,6 +305,7 @@ pub fn main() {
       gleave.exit(1)
     }
   }
+  |> promise.resolve
 }
 
 pub fn with_photos() {

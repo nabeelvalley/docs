@@ -20,6 +20,6 @@ filepath = ">= 1.1.2 and < 2.0.0"
 glentities = ">= 6.2.1 and < 7.0.0"
 mellie = ">= 2.0.0 and < 3.0.0"
 # charge = ">= 1.3.1 and < 2.0.0"
-charge = { git = "https://github.com/sftsrv/charge", ref = "24eb02e" }
+charge = { git = "https://github.com/sftsrv/charge", ref = "main" }
 gleave = ">= 1.0.1 and < 2.0.0"
 

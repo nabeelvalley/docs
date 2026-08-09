@@ -62,8 +62,9 @@ pub fn pipeline() {
   |> charge.with_asset(photography.render)
   |> charge.with_asset(docs.render)
   |> charge.with_asset(talks.render)
-  |> charge.switch(fn(fm) {
-    metadata.load_photos() |> result.map(metadata.SiteData(fm, _))
+  |> charge.switch_async(fn(fm) {
+    metadata.load_photos()
+    |> promise.map(result.map(_, metadata.SiteData(fm, _)))
   })
   |> charge.with_assets(fn(data) {
     data.photos
