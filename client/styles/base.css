@@ -188,7 +188,16 @@ main {
 
       site-photo-info-item {
         display: flex;
+        flex-direction: column;
         gap: 0.25rem;
+
+        dt {
+          background: var(--color-surface);
+          font-size: x-small;
+          padding: 0px 4px;
+          font-weight: bold;
+          text-wrap: nowrap;
+        }
       }
     }
   }
