@@ -1,5 +1,5 @@
 ---
-title: Netherlands
+title: Netherlands BW
 ---
 
-<Gallery path="places/netherlands" />
+<Gallery sort="reverse" country="NL" tags="bw" />

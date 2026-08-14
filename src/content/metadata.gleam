@@ -241,6 +241,21 @@ fn parse_photo(cam_lens, path: sfs.Path) {
   }
 }
 
+pub fn sort_photos(photos: List(Photo)) {
+  photos
+  |> list.sort(fn(a, b) {
+    case date.compare(a.date, b.date) {
+      order.Lt -> order.Lt
+      order.Gt -> order.Gt
+      order.Eq ->
+        string.compare(
+          a.path |> sfs.path_to_string,
+          b.path |> sfs.path_to_string,
+        )
+    }
+  })
+}
+
 pub fn load_photos() {
   let assert Ok(gallery_dir) = sfs.from_cwd(consts.gallery_dir)
 

@@ -92,9 +92,7 @@ pub fn render(pages: List(metadata.Frontmatter)) {
 }
 
 pub fn render_photo_page(photo: metadata.Photo) {
-  use page_path <- result.map(photo_to_site_page_path(photo.path))
-  let src_path = to_site_src_path(photo.path)
-
+  use page_path <- result.map(photo_to_site_page_path(photo))
   let item = fn(t, d) {
     case d {
       None -> None
@@ -129,7 +127,7 @@ pub fn render_photo_page(photo: metadata.Photo) {
       ]),
 
       custom_el.site_photo_full([
-        html.img([fs.site_path_to_src(src_path), attribute.alt("")]),
+        html.img([to_site_src_path(photo), attribute.alt("")]),
       ]),
     ])
     |> base.render(
@@ -144,10 +142,10 @@ pub fn render_photo_page(photo: metadata.Photo) {
   charge.derived_html_file(photo.path, page_path, content)
 }
 
-pub fn photo_to_site_page_path(path) {
+pub fn photo_to_site_page_path(photo: metadata.Photo) {
   fs.to_site_path(
     gallery_path(),
-    path,
+    photo.path,
     [
       fs.JPG,
       fs.PNG,
@@ -165,6 +163,6 @@ pub fn photo_to_site_page_path(path) {
   |> result.try(fs.site_path_from_string)
 }
 
-fn to_site_src_path(path) {
-  fs.to_site_path(fs.cwd(), path, dict.new())
+pub fn to_site_src_path(photo: metadata.Photo) {
+  fs.to_site_path(fs.cwd(), photo.path, dict.new()) |> fs.site_path_to_src
 }
