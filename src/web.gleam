@@ -42,7 +42,7 @@ pub fn pipeline() {
     out: out,
     dir: md,
     decode: metadata.decoder,
-    agg: list.filter(_, metadata.is_published),
+    agg: list.filter(_, metadata.is_blog_post),
     render: fn(file, _metadatas) {
       let content = file |> markdown.content
       let fm = file |> markdown.frontmatter

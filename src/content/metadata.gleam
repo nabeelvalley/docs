@@ -99,8 +99,9 @@ pub fn sort_by_date(pages: List(Frontmatter)) {
   })
 }
 
-pub fn is_published(fm: Frontmatter) {
-  fm.published
+pub fn is_blog_post(fm: Frontmatter) {
+  let assert Ok(blog_path) = sfs.site_path_from_string("/blog")
+  fm.published && sfs.site_path_starts_with(fm.path, blog_path)
 }
 
 pub type CamLens {
