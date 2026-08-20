@@ -99,9 +99,20 @@ pub fn sort_by_date(pages: List(Frontmatter)) {
   })
 }
 
-pub fn is_blog_post(fm: Frontmatter) {
+pub fn is_published(fm: Frontmatter) {
+  fm.published
+}
+
+pub fn is_rss_post(fm: Frontmatter) {
   let assert Ok(blog_path) = sfs.site_path_from_string("/blog")
-  fm.published && sfs.site_path_starts_with(fm.path, blog_path)
+  let assert Ok(rss_only_path) = sfs.site_path_from_string("/rss-only")
+
+  case fm.published {
+    False -> False
+    True ->
+      sfs.site_path_starts_with(fm.path, blog_path)
+      || sfs.site_path_starts_with(fm.path, rss_only_path)
+  }
 }
 
 pub type CamLens {

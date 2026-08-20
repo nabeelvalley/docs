@@ -42,7 +42,7 @@ pub fn pipeline() {
     out: out,
     dir: md,
     decode: metadata.decoder,
-    agg: list.filter(_, metadata.is_blog_post),
+    agg: list.filter(_, metadata.is_published),
     render: fn(file, _metadatas) {
       let content = file |> markdown.content
       let fm = file |> markdown.frontmatter
@@ -93,7 +93,10 @@ pub fn pipeline() {
 }
 
 fn to_rss_item(data: metadata.SiteData, file: charge.HTMLFile) {
-  let found = data.frontmatters |> list.find(fn(i) { i.path == file.path })
+  let found =
+    data.frontmatters
+    |> list.filter(metadata.is_rss_post)
+    |> list.find(fn(f) { f.path == file.path })
 
   found
   |> option.from_result

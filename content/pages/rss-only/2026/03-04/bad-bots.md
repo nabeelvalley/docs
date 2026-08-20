@@ -1,7 +1,7 @@
 ---
 title: Bad Bots
 description: Some light reading on blocking AI crawlers
-published: false
+published: true
 ---
 
 I have a website that kept randomly going down every few weeks - turned out that I hadn't enabled a healthcheck so the auto-restart didn't know to that it had to restart. So after some annoyance I added a basic check and I think it's fine now - probably ...
