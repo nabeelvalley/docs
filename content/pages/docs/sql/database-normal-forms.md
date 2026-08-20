@@ -1,5 +1,7 @@
 ---
+published: true
 title: Database Normalization
+description: Database Normal Forms from First to Fifth Normal Form
 ---
 
 > Notes from from https://www.youtube.com/watch?v=GFQaEYEc8_8
