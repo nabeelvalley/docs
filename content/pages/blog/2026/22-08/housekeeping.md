@@ -1,4 +1,4 @@
 ---
-title: Housekeeping
+title: Architecture
 published: false
 ---
