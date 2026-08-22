@@ -5,7 +5,7 @@ content:
   - name: books
     label: Books
     type: collection
-    path: src/content/books
+    path: src/content/data/books
     filename: "{fields.title}.json"
     fields:
       - { name: title, label: Title, type: string, required: true }
