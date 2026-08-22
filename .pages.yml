@@ -34,11 +34,6 @@ content:
         label: Published
         type: boolean
         default: true
-      - name: date
-        label: date
-        type: date
-        options:
-          format: yyyy-MM-dd
       - name: body
         label: Body
         type: rich-text
