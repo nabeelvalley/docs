@@ -18,9 +18,9 @@ content:
       - { name: tags, label: Tags, type: select, options: { multiple: true, creatable: true } }
   - name: posts
     filename: '{fields.title}.md'
-    label: Posts
+    label: Pages
     type: collection
-    path: content
+    path: content/pages
     fields:
       - name: title
         label: Title
