@@ -9,6 +9,7 @@ Some tasks/ideas to keep in mind for the redesign
 - [ ] SVG images not scaling correctly in Safari, see `/projects`
 - [x] Fix footnotes, see `/talks/2026/24-04/the-power-of-small-tools`, can use https://www.npmjs.com/package/marked-footnote
 - [x] Standardize gallery image sizes
+- [ ] Prefers reduced motion view transitions check
 
 ## Architecture
 
@@ -74,6 +75,7 @@ Some tasks/ideas to keep in mind for the redesign
 - [x] Get rid of conversion step for ipynb files (what to do about content?)
   - Converted to md and archived
 - [ ] Scrollspy (like medium?)
+- [ ] Speculation rules https://www.corewebvitals.io/pagespeed/speculation-rules
 
 ## Data Management
 
