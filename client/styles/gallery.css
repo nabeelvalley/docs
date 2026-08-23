@@ -31,11 +31,20 @@ site-gallery {
     &:has(img[orientation="vertical"]) {
       grid-column: span 6;
       grid-row: span 8;
+
+      img {
+        aspect-ratio: 2/3;
+      }
+
     }
 
     &:has(img[orientation="horizontal"]) {
       grid-column: span 6;
       grid-row: span 4;
+
+      img {
+        aspect-ratio: 3/2;
+      }
     }
 
     img,

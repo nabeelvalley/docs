@@ -8,6 +8,7 @@ Some tasks/ideas to keep in mind for the redesign
 - [x] Fix incorrect filenames in snippets (missing first few chars)
 - [ ] SVG images not scaling correctly in Safari, see `/projects`
 - [x] Fix footnotes, see `/talks/2026/24-04/the-power-of-small-tools`, can use https://www.npmjs.com/package/marked-footnote
+- [x] Standardize gallery image sizes
 
 ## Architecture
 
@@ -75,6 +76,7 @@ Some tasks/ideas to keep in mind for the redesign
 - [ ] Scrollspy (like medium?)
 
 ## Data Management
+
 - [ ] Ensure that image paths are always correct
 - [ ] Way to upload images nicely
   - [ ] Additional image meta
