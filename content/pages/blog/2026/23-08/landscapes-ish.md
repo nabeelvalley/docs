@@ -19,11 +19,11 @@ I also tried some editing using [Darktable](https://www.darktable.org/) and went
 
 ## City
 
-This morning I took a walk through the city. Everything was a little chaotic since half of city was journeying to the F1 in Zaandvoort. Loads of (expected) Red bull T-shirts
+This morning I took a walk through the city. Everything was a little chaotic since half of city was journeying to the F1 in Zaandvoort. Loads of (expected) Red bull T-shirts all over the place
+
+I spent time focusing on trying to create some images of some "picturesque Amsterdam scenes" which I normally avoid but was pretty fun
 
 <gallery path="blog/2026-08-23 - amsterdam" />
-
-I spent time focusing on trying to create some "picturesque Amsterdam" which I normally avoid
 
 ## Review
 
