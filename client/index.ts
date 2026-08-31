@@ -8,3 +8,5 @@ import './web-components/presentation-slide'
 import './web-components/presentation'
 import './web-components/shader-canvas'
 import './web-components/shader'
+
+import './instant.page'
