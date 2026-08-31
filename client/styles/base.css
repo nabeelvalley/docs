@@ -140,33 +140,6 @@ main {
   }
 }
 
-/* from https://piccalil.li/blog/some-practical-examples-of-view-transitions-to-elevate-your-ui/ */
-@view-transition {
-  navigation: root;
-}
-
-/* Disable the default fade out effect on the old content */
-::view-transition-old(root) {
-  animation: none;
-}
-
-/* Make new content wipe in from the right */
-::view-transition-new(root) {
-  animation: wipe-in 0.6s ease-out forwards;
-}
-
-/* Animation wiping in the new content */
-@keyframes wipe-in {
-  from {
-    clip-path: inset(0 0 0 100%);
-  }
-
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-
 .site-photo-detail {
   /* define the base grid as a reading-width with space on either side */
   display: grid;
