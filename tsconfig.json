@@ -4,6 +4,9 @@
     "./src",
     "./client"
   ],
+  "exclude": [ 
+    "./src/vendor"
+  ],
   "compilerOptions": {
     "types": [
       "@webgpu/types"
