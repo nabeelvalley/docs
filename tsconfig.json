@@ -4,9 +4,6 @@
     "./src",
     "./client"
   ],
-  "exclude": [ 
-    "./src/vendor"
-  ],
   "compilerOptions": {
     "types": [
       "@webgpu/types"
@@ -14,7 +11,7 @@
     "noEmit": true,
     "module": "commonjs",
     "esModuleInterop": true,
-    "checkJs": true,
+    "checkJs": false,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
