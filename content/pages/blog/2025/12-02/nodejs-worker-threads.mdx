@@ -129,6 +129,27 @@ const worker = new Worker("my-worker.ts", {
 // do stuff with the worker
 ```
 
+You may also want to support alias resolution, in that case you can provide `tsconfig-paths` as well as the path to the config file that defines them if non-default:
+
+```ts title="uncompiled-ts-worker.ts"
+const worker = new Worker("my-worker.ts", {
+    execArgv: [
+      "-r", 
+      "ts-node/register",
+      "-r",
+      "tsconfig-paths/register",
+      "--no-warnings"
+    ],
+    workerData: {
+      id
+    },
+    env: {
+      // defaults to tsconfig.json
+      TS_NODE_PROJECT: "tsconfig.project.json"
+  })
+
+// do stuff with the worker
+```
 
 ## References
 
