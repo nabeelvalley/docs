@@ -52,6 +52,7 @@ charge = { git = "https://github.com/sftsrv/charge", ref = "main" }
 clip = { version = ">= 1.2.0 and < 2.0.0" }
 filepath = { version = ">= 1.1.2 and < 2.0.0" }
 gleam_javascript = { version = ">= 1.0.0 and < 2.0.0" }
+gleam_json = { version = ">= 3.1.0 and < 4.0.0" }
 gleam_regexp = { version = ">= 1.1.1 and < 2.0.0" }
 gleam_stdlib = { version = ">= 1.0.0 and < 2.0.0" }
 gleave = { version = ">= 1.0.1 and < 2.0.0" }

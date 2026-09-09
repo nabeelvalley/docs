@@ -6,7 +6,7 @@ feature: true
 
 > Assumed audience: People with a personal website or anyone interested in the indie web
 
-I've wanted to start a [Webring](https://en.wikipedia.org/wiki/Webring) for a while now and finally got around to it. Click the links in the footer to explore!
+I've wanted to start a [Webring](https://en.wikipedia.org/wiki/Webring) for a while now and finally got around to it. **Click the links in my site's footer** to explore!
 
 ## Would You like to Join?
 

@@ -21,6 +21,7 @@ import rendering/pages/blog
 import rendering/pages/docs
 import rendering/pages/index
 import rendering/pages/photography
+import rendering/pages/projects
 import rendering/pages/talks
 import rendering/ssr/css_snippet
 import rendering/ssr/custom_el
@@ -62,6 +63,7 @@ pub fn pipeline() {
   |> charge.with_asset(photography.render)
   |> charge.with_asset(docs.render)
   |> charge.with_asset(talks.render)
+  |> charge.with_asset(projects.render)
   |> charge.switch_async(fn(fm) {
     metadata.load_photos()
     |> promise.map(result.map(_, metadata.SiteData(fm, _)))

@@ -12,6 +12,8 @@ pub const gallery_dir = "./content/photography"
 
 pub const photogaphy_metadata = "./content/photography/meta.yaml"
 
+pub const projects = "./content/data/projects.yaml"
+
 pub const out_dir = "./out"
 
 pub const img_size = 2000

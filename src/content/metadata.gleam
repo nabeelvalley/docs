@@ -338,3 +338,53 @@ pub fn main() {
 pub fn with_photos() {
   charge.with_static_dir
 }
+
+pub type Link {
+  Internal(sfs.SitePath)
+  External(String)
+}
+
+pub type Project {
+  Project(
+    title: String,
+    description: String,
+    tags: List(String),
+    link: Link,
+    image: Option(sfs.SitePath),
+  )
+}
+
+fn sitepath_decoder() {
+  decode.string
+  |> decode.map(fn(field) {
+    field |> sfs.site_path_from_string |> option.from_result
+  })
+}
+
+fn project_decoder() -> decode.Decoder(Project) {
+  use title <- decode.field("title", decode.string)
+  use description <- decode.field("description", decode.string)
+  use tags <- decode.optional_field("tags", [], decode.list(decode.string))
+  use link_text <- decode.field("link", decode.string)
+  use image <- decode.optional_field("image", option.None, sitepath_decoder())
+
+  let link = case sfs.site_path_from_string(link_text) {
+    Ok(site_path) -> Internal(site_path)
+    Error(_) -> External(link_text)
+  }
+
+  decode.success(Project(title:, description:, tags:, link:, image:))
+}
+
+fn projects_decoder() {
+  decode.list(project_decoder())
+}
+
+pub fn load_projects() {
+  let assert Ok(path) = sfs.from_cwd(consts.projects)
+  let assert Ok(projects_file) = sfs.read_text_file(path)
+
+  let assert Ok(projects) = yamleam.parse(projects_file, projects_decoder())
+
+  projects
+}

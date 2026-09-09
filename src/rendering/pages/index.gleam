@@ -1,3 +1,6 @@
+import charge
+import charge/date
+import charge/fs
 import content/metadata
 import gleam/list
 import gleam/option.{None}
@@ -5,10 +8,8 @@ import gleam/result
 import mellie/attr as attribute
 import mellie/html
 import rendering/pages/blog
+import rendering/pages/projects
 import rendering/templates/base
-import charge
-import charge/date
-import charge/fs
 
 pub fn render(pages: List(metadata.Frontmatter)) {
   let meta = base.Meta("Home", None, None, [])
@@ -29,6 +30,17 @@ pub fn render(pages: List(metadata.Frontmatter)) {
     })
     |> html.ul([], _)
 
+  let recent_projects =
+    metadata.load_projects()
+    |> list.take(10)
+    |> list.map(fn(p) {
+      html.li([], [
+        projects.project_link(p),
+        html.text(" - " <> p.description),
+      ])
+    })
+    |> html.ul([], _)
+
   let html =
     // temp until we figure out how this layout should look
     html.article([attribute.class("site-article")], [
@@ -37,20 +49,21 @@ pub fn render(pages: List(metadata.Frontmatter)) {
       ]),
       html.p([], [
         html.text(
-          "Welcome to the 7th iteration of my website. This version is in active development as of 7 July 2026 so expect some stuff to be missing.",
+          "My name is Nabeel and you've found your way to my little space on the internet. I hope you enjoy your stay!",
         ),
       ]),
-      html.p([], [
-        html.text(
-          "Feel free to browse around in the meantime - some pages might be a little wonky but hopefully the kinks will be worked out in the coming weeks.",
-        ),
-      ]),
-      html.p([], [
-        html.text(
-          "Until everything is sorted though - why not look at some of my recent posts:",
-        ),
+      html.h2([], [
+        html.text("What I'm Thinking About"),
       ]),
       recent_blogs,
+      html.p([], [html.a([attribute.href("/blog")], [html.text("All posts")])]),
+      html.h2([], [
+        html.text("What I'm Working On"),
+      ]),
+      recent_projects,
+      html.p([], [
+        html.a([attribute.href("/projects")], [html.text("All projects")]),
+      ]),
     ])
     |> base.render(meta)
 
