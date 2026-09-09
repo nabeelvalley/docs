@@ -5,21 +5,36 @@
 }
 
 body {
-  position: relative;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
 
-  /*
+  position: relative;
+
+  .overlay {
+    flex: 1;
+
+    /* over footer */
+    z-index: 2;
+    padding-bottom: min(4rem);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    /*
    Source - https://stackoverflow.com/a/55364176
    Posted by Tim Klein, modified by community. See post 'Timeline' for change history
    Retrieved 2026-07-04, License - CC BY-SA 4
    */
-  color: var(--color-text);
-  background: var(--color-bg);
-  background-image: radial-gradient(color-mix(in srgb, var(--color-accent) 10%, transparent) 1px, transparent 0);
-  background-size: 1rem 1rem;
-  background-position: -10px -10px;
+    color: var(--color-text);
+    background: var(--color-bg);
+    background-image: radial-gradient(color-mix(in srgb, var(--color-accent) 10%, transparent) 1px, transparent 0);
+    background-size: 1rem 1rem;
+    background-position: -10px -10px;
+
+  }
 }
 
 
@@ -222,12 +237,16 @@ main {
 
 
 .site-footer {
+  /* behind overlay */
+  z-index: 1;
+  position: sticky;
+  bottom: 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 
-  margin-top: min(4rem);
   padding: 2rem 0;
 
   background-color: var(--color-surface);

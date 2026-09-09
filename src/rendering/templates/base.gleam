@@ -91,8 +91,10 @@ pub fn render(body, meta: Meta) {
         [mellie.text("")],
       ),
     ]),
-    header.render(),
-    html.main([], [body]),
+    html.div([attribute.class("overlay")], [
+      header.render(),
+      html.main([], [body]),
+    ]),
     footer.render(),
   ])
 }
