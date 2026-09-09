@@ -4,19 +4,6 @@
   font-family: var(--font-body);
 }
 
-
-@keyframes shrink {
-  from {
-    transform-origin: bottom center;
-    scale: 1;
-  }
-
-  to {
-    transform-origin: bottom center;
-    scale: 0.5;
-  }
-}
-
 @keyframes fade-bg {
   from {
     background-color: var(--color-base);
@@ -39,9 +26,8 @@ body {
      a flash when the initial background doesn't match the one visible behind
      the scroll */
   background-color: var(--color-bg);
-  animation: fade-bg 1ms linear;
-  animation-timeline: view();
-  overflow-x: hidden;
+  animation: fade-bg 1ms linear forwards;
+  animation-timeline: scroll();
 
   .overlay {
     flex: 1;
@@ -66,13 +52,6 @@ body {
     /* overlay on top of footer */
     z-index: 2;
     padding-bottom: min(4rem);
-
-    @media (prefers-reduced-motion: no-preference) {
-      /* just fiddled around, not super clear on how the animation timelines work*/
-      animation: shrink 1ms linear;
-      animation-timeline: view();
-      animation-range: exit;
-    }
   }
 }
 
