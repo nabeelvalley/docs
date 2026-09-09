@@ -6,7 +6,8 @@
 :root {
   color-scheme: light dark;
 
-  --shade-bg: 255, 232, 240;
+  --shade-bg: 247, 186, 208;
+  --shade-base: 255, 232, 240;
   --shade-text: 61, 26, 46;
   --shade-primary: 168, 85, 247;
   --shade-accent: 255, 91, 160;
@@ -17,7 +18,8 @@
   --shade-on-accent: 255, 255, 255;
 
   @media (prefers-color-scheme: dark) {
-    --shade-bg: 45, 58, 47;
+    --shade-bg: 22, 29, 23;
+    --shade-base: 45, 58, 47;
     --shade-text: 232, 224, 201;
     --shade-primary: 90, 107, 74;
     --shade-accent: 168, 192, 144;
@@ -32,6 +34,7 @@
   --font-body: manrope;
 
   --color-bg: rgb(var(--shade-bg));
+  --color-base: rgb(var(--shade-base));
   --color-text: rgb(var(--shade-text));
   --color-primary: rgb(var(--shade-primary));
   --color-accent: rgb(var(--shade-accent));

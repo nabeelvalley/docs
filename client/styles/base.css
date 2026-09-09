@@ -4,6 +4,31 @@
   font-family: var(--font-body);
 }
 
+
+@keyframes shrink {
+  from {
+    transform-origin: bottom center;
+    scale: 1;
+    rotate: 0deg;
+  }
+
+  to {
+    transform-origin: bottom center;
+    scale: 0.5;
+    rotate: -10deg;
+  }
+}
+
+@keyframes fade-bg {
+  from {
+    background-color: var(--color-base);
+  }
+
+  to {
+    background-color: var(--color-bg);
+  }
+}
+
 body {
   min-height: 100dvh;
   display: flex;
@@ -11,12 +36,17 @@ body {
 
   position: relative;
 
+
+  /* fade the background in as the user scrolls to prevent
+     a flash when the initial background doesn't match the one visible behind
+     the scroll */
+  background-color: var(--color-bg);
+  animation: fade-bg 1ms linear;
+  animation-timeline: view();
+  overflow-x: hidden;
+
   .overlay {
     flex: 1;
-
-    /* over footer */
-    z-index: 2;
-    padding-bottom: min(4rem);
 
     position: relative;
     display: flex;
@@ -29,11 +59,22 @@ body {
    Retrieved 2026-07-04, License - CC BY-SA 4
    */
     color: var(--color-text);
-    background: var(--color-bg);
+    background: var(--color-base);
     background-image: radial-gradient(color-mix(in srgb, var(--color-accent) 10%, transparent) 1px, transparent 0);
     background-size: 1rem 1rem;
     background-position: -10px -10px;
 
+
+    /* overlay on top of footer */
+    z-index: 2;
+    padding-bottom: min(4rem);
+
+    @media (prefers-reduced-motion: no-preference) {
+      /* just fiddled around, not super clear on how the animation timelines work*/
+      animation: shrink 1ms linear;
+      animation-timeline: view();
+      animation-range: exit;
+    }
   }
 }
 
@@ -247,10 +288,7 @@ main {
   align-items: center;
   justify-content: space-between;
 
-  padding: 2rem 0;
-
-  background-color: var(--color-surface);
-
+  padding: 6rem 0 2rem 0;
 
   section,
   ul {
