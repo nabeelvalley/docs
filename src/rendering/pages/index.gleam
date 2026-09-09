@@ -49,7 +49,7 @@ pub fn render(pages: List(metadata.Frontmatter)) {
       ]),
       html.p([], [
         html.text(
-          "My name is Nabeel and you've found your way to my little space on the internet. I hope you enjoy your stay!",
+          "I'm Nabeel and you've found your way to my little space on the internet. I hope you enjoy your stay!",
         ),
       ]),
       html.h2([], [
