@@ -16,11 +16,18 @@ My hobbies include building little apps, graphic and ui design, photography, and
 
 ### Entelect
 
+
+#### Lead Engineer
+
+Amsterdam/Utrecht, Netherlands
+
+August 2026 - present
+
 #### Senior Software Engineer / Platform Engineer
 
 Amsterdam/Utrecht, Netherlands
 
-July 2023 - present
+July 2023 - August 2026
 
 - Senior Software Engineer and Platform Engineer for the web ecosystem
 - Finding ways to make developers in the organization more productive
