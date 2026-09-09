@@ -1,3 +1,5 @@
+import charge
+import charge/fs
 import content/metadata
 import gleam/list
 import gleam/option.{None}
@@ -5,8 +7,6 @@ import mellie/attr as attribute
 import mellie/html
 import rendering/dict
 import rendering/templates/base
-import charge
-import charge/fs
 
 fn docs_path() {
   let assert Ok(path) = fs.site_path_from_string("/docs")
@@ -55,7 +55,10 @@ pub fn render(pages: List(metadata.Frontmatter)) {
 
   let html =
     // temp until we figure out how this layout should look
-    html.article([attribute.class("site-article")], items)
+    html.article([attribute.class("site-article")], [
+      html.h1([], [html.text("Blog")]),
+      ..items
+    ])
     |> base.render(meta)
 
   charge.generated_html_file(docs_file(), html) |> Ok

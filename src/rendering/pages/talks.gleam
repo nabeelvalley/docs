@@ -1,12 +1,12 @@
+import charge
+import charge/date
+import charge/fs
 import content/metadata
 import gleam/list
 import gleam/option.{None}
 import mellie/attr as attribute
 import mellie/html
 import rendering/templates/base
-import charge
-import charge/date
-import charge/fs
 
 fn talks_path() {
   let assert Ok(path) = fs.site_path_from_string("/talks")
@@ -41,7 +41,10 @@ pub fn render(pages: List(metadata.Frontmatter)) {
 
   let html =
     // temp until we figure out how this layout should look
-    html.article([attribute.class("site-article")], [html.ul([], items)])
+    html.article([attribute.class("site-article")], [
+      html.h1([], [html.text("Talks")]),
+      html.ul([], items),
+    ])
     |> base.render(meta)
 
   charge.generated_html_file(talks_file(), html) |> Ok

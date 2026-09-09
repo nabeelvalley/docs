@@ -84,7 +84,10 @@ pub fn render(pages: List(metadata.Frontmatter)) {
 
   let html =
     // temp until we figure out how this layout should look
-    html.article([attribute.class("site-article")], rendered)
+    html.article([attribute.class("site-article")], [
+      html.h1([], [html.text("Photography")]),
+      ..rendered
+    ])
     |> base.render(meta)
 
   fs.site_path_from_string("/photography.html")
