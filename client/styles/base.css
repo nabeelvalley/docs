@@ -9,13 +9,11 @@
   from {
     transform-origin: bottom center;
     scale: 1;
-    rotate: 0deg;
   }
 
   to {
     transform-origin: bottom center;
     scale: 0.5;
-    rotate: -10deg;
   }
 }
 
