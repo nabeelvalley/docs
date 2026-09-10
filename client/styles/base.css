@@ -14,11 +14,14 @@
   }
 }
 
+html {
+  scroll-snap-type: y proximity;
+}
+
 body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  scroll-snap-type: y mandatory;
 
   position: relative;
 
@@ -37,6 +40,7 @@ body {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    scroll-snap-align: end;
 
     /*
    Source - https://stackoverflow.com/a/55364176
@@ -52,7 +56,7 @@ body {
 
     /* overlay on top of footer */
     z-index: 2;
-    padding-bottom: min(4rem);
+    padding-bottom: 6rem;
   }
 }
 
