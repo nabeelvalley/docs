@@ -14,10 +14,6 @@
   }
 }
 
-html {
-  scroll-snap-type: y proximity;
-}
-
 body {
   min-height: 100dvh;
   display: flex;
@@ -40,7 +36,6 @@ body {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    scroll-snap-align: end;
 
     /*
    Source - https://stackoverflow.com/a/55364176
@@ -264,7 +259,6 @@ main {
   z-index: 1;
   position: sticky;
   bottom: 0;
-  scroll-snap-align: start;
 
   display: flex;
   flex-direction: column;
