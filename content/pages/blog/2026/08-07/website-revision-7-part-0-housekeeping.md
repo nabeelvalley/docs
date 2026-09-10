@@ -1,4 +1,3 @@
-
 ---
 title: r7.0 - Housekeeping
 description: Some cleanup before the new site redesign can begin
@@ -6,7 +5,15 @@ feature: true
 published: true
 ---
 
-> This is the 0th post in series about my website redesign, I'll add links to the other parts here as they become available
+## Parts in This Series
+
+> This is post is part of a series about my website redesign, I'll add links to the other parts here as they become available
+
+- Part 0 - Housekeeping (this post)
+- [Part 1 - Architecture (or "How Not to Build a Static Site")](/blog/2026/08-07/website-revision-7-part-0-housekeeping)
+- Part 2 - Creating Pages
+- Part 3 - Server Components
+- Part 4 - A Library
 
 ## Context
 
@@ -68,10 +75,11 @@ Additionally, since I've been a bit more involved with web accessibility recentl
 Since this is the 0th part, that perhaps implies that there are other posts to come. My plan for this series is as follows:
 
 - Part 0 - Housekeeping (this post)
-- Part 1 - Architecture
+- Part 1 - Architecture (or "How Not to Build a Static Site")
 - Part 2 - Creating Pages
 - Part 3 - Server Components
 - Part 4 - A Library
+
 
 The site is currently live and is a little ahead of what we've talked about so far, so look around and have a peek at what's to come
 
