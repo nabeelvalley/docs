@@ -28,7 +28,7 @@ pub fn render(body, meta: Meta) {
       html.meta([attribute.charset("UTF-8")]),
       html.meta([
         attribute.name("viewport"),
-        attribute.content("width=device-width, initial-scale=1.0"),
+        attribute.content("width=device-width, initial-scale=1.0, viewport-fit=cover"),
       ]),
       html.meta([
         attribute.name("description"),
