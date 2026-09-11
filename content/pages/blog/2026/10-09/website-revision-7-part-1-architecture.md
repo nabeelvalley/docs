@@ -1,11 +1,9 @@
 ---
 title: r7.1 - Architecture (or "How Not to Build a Static Site")
 description: The initial site architecture and What I learnt from it
-feature: true
 published: true
 ---
-
-It's been a pretty hectic couple of months and though I've taken [loads of pictures](/photography) and worked a lot on this site, I haven't quite gotten around to writing
+It's been a pretty hectic couple of months and though I've taken [loads of pictures](/photography) and worked a lot on this site, I haven't quite gotten around to writing for a few months but at last, here's the first actual post in this series
 
 ## Parts in This Series
 
@@ -19,11 +17,11 @@ It's been a pretty hectic couple of months and though I've taken [loads of pictu
 
 ## Foreword and Warnings
 
-This post discusses the very early, experimental version of my website in Gleam. The goal of this post is to share the high level process as well as - importantly - to identify the pitfalls with the initial approach which helped better define the direction I later chose to go
+This post discusses the very early, experimental version of my website rewrite using Gleam. The goal of this post is to share the high level process that makes the site work as well as - more importantly - to identify the pitfalls with the initial approach which helped better define the direction I later chose to go
 
 ## Recap
 
-[The previous post in this series](/blog/2026/08-07/website-revision-7-part-0) discussed a high level plan for my website's content and what the functional requirements are for the site
+The previous post in this series discussed the high level plan for my website's content and what the functional requirements are for the site
 
 As a recap, the site needs to support:
 
@@ -49,7 +47,6 @@ As a first-pass I chose to implement the following top-level stages:
 1. Load content - reads files from disk and converts them to some kind of standard format that later steps can manipulate
 2. Render pages - takes the content and applies various sub-stages to get the fully-rendered HTML page or other assets
 3. Write files - take the rendered pages and assets and write them to disk
-
 
 This sounds pretty simple, and that's kind of the point. I wanted a brute force scaffolding at this point to play around with. The relatively loose structure makes duplication and poor structure apparent which makes defining the final API easier
 
@@ -138,13 +135,13 @@ Rendering is where things become a little more interesting. At the top-level, th
 
 In terms of actual implementation, this consists of the following sub-stages
 
-1. Get HTML content from Markdown 
+1. Get HTML content from Markdown
 2. Replace any server-side content as needed
 3. Output HTML content with output file path
 
 #### Getting HTML from Markdown
 
-This really came down to using an off-the-shelf Markdown to HTML library. I used a thin wrapper around the great [`marked`](https://marked.js.org/) library which is written in JavaScript
+This really came down to using an off-the-shelf Markdown to HTML library. I used a thin wrapper around the great `[marked](https://marked.js.org/)` library which is written in JavaScript
 
 Gleam has a pretty straightforward way to call into JavaScript, but for the sake of the wrapper, the code really ends up being:
 
@@ -169,6 +166,7 @@ pub fn parse(_md: String) -> String {
   panic as "not supported for the given target"
 }
 ```
+
 The Gleam implementation will also crash if called in a non-JavaScript environment as per the function body
 
 The `parse` function takes a Markdown `String` and returns an HTML `String`, this isn't the ideal representation but at this point in the implementation it was fine to work from
@@ -186,7 +184,7 @@ This process is then repeated for every server-rendering function
 
 The actual implementation of this gets a little chaotic in my initial code so I won't share it here (but you can look at [an example server-side component on GitHub](https://github.com/nabeelvalley/docs/blob/f8babd9f2b2808fadb42640a482113896b8caf95/web/src/rendering/components/script_raw.gleam) if you're interested)
 
-During this process, I also wanted a somewhat elegant way to compose these _server-components_ sequentially. This is effectively a `fold` and the function I assembled for this was kind of pretty:
+During this process, I also wanted a somewhat elegant way to compose these *server-components* sequentially. This is effectively a `fold` and the function I assembled for this was kind of pretty:
 
 ```gleam
 fn process_page(base, processors) {
@@ -213,7 +211,7 @@ fn render_md_page(base: String, doc: md.MarkdownDocument) {
   )
 ```
 
-Now, why might we want these _server-components_? For my use case, this helps separate Markdown authoring from being unnecessarily repetitive. For example, instead of putting a giant blob of HTML for an image gallery, I can do something like `<gallery path="path/to/my/images" />` and then trust that it will be rendered on the page
+Now, why might we want these *server-components*? For my use case, this helps separate Markdown authoring from being unnecessarily repetitive. For example, instead of putting a giant blob of HTML for an image gallery, I can do something like `<gallery path="path/to/my/images" />` and then trust that it will be rendered on the page
 
 I've used HTML instead of typical [shortcodes](https://www.markdownlang.com/advanced/shortcodes.html) because I have both client-side and server-side components and I don't think when a component gets rendered should affect my writing process. As long as the component appears where it needs to on the page I'm happy
 
@@ -247,7 +245,7 @@ fn render_md_page(base: String, doc: md.MarkdownDocument) {
 
 Lustre defines functions in it's `html` namespace that usually take two parameters, namely a list of attributes, and a list of child elements. These functions return a single HTML element that can then be passed around as needed
 
-Since the content from `marked` and our _server-components_ is just a `String` we need to wrap it using Lustre's `unsafe_raw_html` function which needs
+Since the content from `marked` and our *server-components* is just a `String` we need to wrap it using Lustre's `unsafe_raw_html` function which needs
 
 - An element namespace - an empty string means it's just a normal HTML element
 - A wrapping tag name, in this case `article`
@@ -321,6 +319,7 @@ fn write_page(page: Page) {
   fs.write(path, page.html)
 }
 ```
+
 We're using `list.try_each` since these writes may fail and we want to propagate that error upwards to the `main` function so we can handle any errors appropriately
 
 ## Pitfalls and ... Other Places to Fall
@@ -339,14 +338,14 @@ The initial Gleam rewrite was pretty fun, and although the code ended up being p
 
 Based on the main issues I ran into, I chose spend some time solving the two main problems I encountered:
 
-1. HTML Parsing and Manipulation - I couldn't find a good Gleam library that supported parsing transformation in a straightforward way so I built [`mellie`](https://mellie.hexdocs.pm/). `mellie` works on JavaScript and Erlang and uses the [`htmgrrrl`](https://htmgrrrl.hexdocs.pm/) and [`htmlparser2`](https://www.npmjs.com/package/htmlparser2) libraries on their respective targets to support HTML parsing anywhere that Gleam (currently) runs
-2. Composition - The composition problem was big enough that I ended up making [`charge`](https://charge.hexdocs.pm/) which is composable, component-based static site generator for Gleam (with Node.js runtime)
+1. HTML Parsing and Manipulation - I couldn't find a good Gleam library that supported parsing transformation in a straightforward way so I built `[mellie](https://mellie.hexdocs.pm/)`. `mellie` works on JavaScript and Erlang and uses the `[htmgrrrl](https://htmgrrrl.hexdocs.pm/)` and `[htmlparser2](https://www.npmjs.com/package/htmlparser2)` libraries on their respective targets to support HTML parsing anywhere that Gleam (currently) runs
+2. Composition - The composition problem was big enough that I ended up making `[charge](https://charge.hexdocs.pm/)` which is composable, component-based static site generator for Gleam (with Node.js runtime)
 
 I've since re-written the site to use my new libraries. My current challenge is trying to make it fast enough and create some kind of dev-server that is able to reload the site generator pipeline and run it when files (content or source code) are changed
 
 ## Next Up
 
-As outlined before, I plan to have a few posts in this series. My immediate next post will talk about how to actually create a page using `charge` so keep an eye out for that
+As outlined before, I plan to have a few posts in this series. My immediate next post will talk about how to actually create a page using `mellie` so keep an eye out for that
 
 ## Closing
 
@@ -354,4 +353,4 @@ Static site generators can get complicated it turns out. Features need to be wel
 
 I've always thought "I'll never build a framework, that would suck" but it looks like I'm here building one. And it sort of does suck. However, it's an interesting design problem and I'm keen to see just how far I end up taking this little static site framework I've started on
 
-And it's also great getting to spend a lot of time just looking at code and thinking "is this the best way I can represent this"
+And it's also great getting to spend a lot of time just looking at code and thinking "is this the best way I can represent this" and reflecting on it independently
