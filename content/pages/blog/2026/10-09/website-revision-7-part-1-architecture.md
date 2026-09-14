@@ -141,7 +141,7 @@ In terms of actual implementation, this consists of the following sub-stages
 
 #### Getting HTML from Markdown
 
-This really came down to using an off-the-shelf Markdown to HTML library. I used a thin wrapper around the great `[marked](https://marked.js.org/)` library which is written in JavaScript
+This really came down to using an off-the-shelf Markdown to HTML library. I used a thin wrapper around the great [`marked`](https://marked.js.org/) library which is written in JavaScript
 
 Gleam has a pretty straightforward way to call into JavaScript, but for the sake of the wrapper, the code really ends up being:
 
@@ -182,7 +182,7 @@ The high level way in which this works is:
 
 This process is then repeated for every server-rendering function
 
-The actual implementation of this gets a little chaotic in my initial code so I won't share it here (but you can look at [an example server-side component on GitHub](https://github.com/nabeelvalley/docs/blob/f8babd9f2b2808fadb42640a482113896b8caf95/web/src/rendering/components/script_raw.gleam) if you're interested)
+The actual implementation of this gets a little chaotic in my initial code so I won't share it here - but you can look at [an example server-side component on GitHub](https://github.com/nabeelvalley/docs/blob/f8babd9f2b2808fadb42640a482113896b8caf95/web/src/rendering/components/script_raw.gleam) if you're interested
 
 During this process, I also wanted a somewhat elegant way to compose these *server-components* sequentially. This is effectively a `fold` and the function I assembled for this was kind of pretty:
 
@@ -338,8 +338,8 @@ The initial Gleam rewrite was pretty fun, and although the code ended up being p
 
 Based on the main issues I ran into, I chose spend some time solving the two main problems I encountered:
 
-1. HTML Parsing and Manipulation - I couldn't find a good Gleam library that supported parsing transformation in a straightforward way so I built `[mellie](https://mellie.hexdocs.pm/)`. `mellie` works on JavaScript and Erlang and uses the `[htmgrrrl](https://htmgrrrl.hexdocs.pm/)` and `[htmlparser2](https://www.npmjs.com/package/htmlparser2)` libraries on their respective targets to support HTML parsing anywhere that Gleam (currently) runs
-2. Composition - The composition problem was big enough that I ended up making `[charge](https://charge.hexdocs.pm/)` which is composable, component-based static site generator for Gleam (with Node.js runtime)
+1. HTML Parsing and Manipulation - I couldn't find a good Gleam library that supported parsing transformation in a straightforward way so I built [`mellie`](https://mellie.hexdocs.pm/). `mellie` works on JavaScript and Erlang and uses the [`htmgrrrl`](https://htmgrrrl.hexdocs.pm/) and [`htmlparser2`](https://www.npmjs.com/package/htmlparser2) libraries on their respective targets to support HTML parsing anywhere that Gleam (currently) runs
+2. Composition - The composition problem was big enough that I ended up making [`charge`](https://charge.hexdocs.pm/) which is composable, component-based static site generator for Gleam (with Node.js runtime)
 
 I've since re-written the site to use my new libraries. My current challenge is trying to make it fast enough and create some kind of dev-server that is able to reload the site generator pipeline and run it when files (content or source code) are changed
 
