@@ -75,6 +75,7 @@ Some tasks/ideas to keep in mind for the redesign
 - [x] Get rid of conversion step for ipynb files (what to do about content?)
   - Converted to md and archived
 - [ ] Scrollspy (like medium?)
+  - [ ] Heading IDs
 - [ ] Speculation rules https://www.corewebvitals.io/pagespeed/speculation-rules
 
 ## Data Management
