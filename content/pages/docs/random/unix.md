@@ -6,6 +6,10 @@ description: Commands and shortcuts for using the unix based shells
 
 ## Searching
 
+```
+grep <...flags> [search] <...files>
+```
+
 You can use `grep` to search in a file
 
 ```sh
@@ -60,6 +64,10 @@ find . | xargs grep "search text"
 
 ### Cutting Text (`cut`)
 
+```sh
+cut <flags> <...files>
+```
+
 You can cut some text on a per-line basis using `cut`. You can view the help for `cut` using:
 
 ```sh
@@ -101,6 +109,10 @@ cat file.txt | cut -d "," -f 1,5-7,9  # any mix of the above
 ```
 
 ### Stream Editing (`sed`)
+
+```sh
+sed [command] <flags> <...files>
+```
 
 Sed enables stream editing using a specific set of commands
 
@@ -256,6 +268,10 @@ cat hello.txt | pbcopy
 ```
 
 ## Buiding Commands (`xargs`)
+
+```sh
+xargs <flags> [command [...args]]
+```
 
 > [xargs(1) - Linux manual page](https://man7.org/linux/man-pages/man1/xargs.1.html)
 
