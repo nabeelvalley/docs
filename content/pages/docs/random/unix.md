@@ -44,6 +44,18 @@ You can even search for something in the output of a command using a pipe (`|`)
 echo "hello world" | grep "world"
 ```
 
+Grep can also be combined with other commands like those that output a list of file paths to search a set of files for a given piece of text:
+
+```sh
+grep "search text" my-file.txt my-file-2.txt
+```
+
+The same behavior is more generally achieved by composing commands with `xargs`:
+
+```sh
+find . | xargs grep "search text"
+```
+
 ## Text Manipulation
 
 ### Cutting Text (`cut`)
