@@ -286,3 +286,27 @@ It can also be used without a command to just print the "argumentified" string:
 ```sh
 find **/*.go | xargs
 ```
+
+The `-L` flag can also be passed to break up the command by specifying the number of arguments to pass at once, for example using the following will result in a command for each file:
+
+```sh
+find **/*.go | xargs -L 1 cat
+```
+
+## Long Running Tasks (screen)
+
+```sh
+screen <flags> [command [...args]]
+```
+
+The `screen` command makes it possible to run a task in a session. This makes it easy to disconnect a terminal seasion or task without stopping it:
+
+```sh
+screen my-long-command with params
+```sh
+
+Additionally, you can provide the `-S` flag to give the session a name:
+
+```sh
+screen -S hardwork my-long-command with params
+```
