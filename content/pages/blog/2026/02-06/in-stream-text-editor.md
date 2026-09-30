@@ -44,3 +44,7 @@ bat package.json # open a file using `bat`
 ```
 
 By default this also uses [`bat`](https://github.com/sharkdp/bat) to print the output to give syntax highlighting to users but will also pass the plain text on if being passed to another command
+
+## Update 23 September 2026
+
+I've released a custom tool for opening a text editor in-stream called [`touchup`](https://github.com/sftsrv/touchup) which also exposes a Go library so it can be called from a bunch of the [other stuff I make](https://github.com/sftsrv)

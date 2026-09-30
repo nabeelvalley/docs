@@ -151,3 +151,13 @@ Another interesting tool for this kind of text manipulation is [fastmod](https:/
 ## Update 2 June 2026
 
 `sed` also has some kind of scripting behavior using [`sed scripts`](https://www.gnu.org/software/sed/manual/html_node/sed-script-overview.html) but it's fairly limited and clunky
+
+## Update 23 September 2026
+
+I've released a custom tool for opening a text editor in-stream called [`touchup`](https://github.com/sftsrv/touchup) which also exposes a Go library so it can be called from a bunch of the [other stuff I make](https://github.com/sftsrv)
+
+## Update 30 September 2026
+
+With a little bit of elbow-grease, I managed to assemble another bit of this puzzle - A way to edit multiple files in a relatively nice-to-use format with [`mex`](https://github.com/sftsrv/mex)
+
+I've written a bit about the overall progress and [how to edit loads of files](/blog/2026/30-09/multi-file-editing) as far as I currently know how

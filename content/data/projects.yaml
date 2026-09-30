@@ -1,3 +1,9 @@
+- title: mex
+  description: A tool for applying patches using Markdown for readability
+  tags:
+    - go
+    - cli
+  link: https://github.com/sftsrv/mex
 - title: touchup
   description: A little pipe for editing files with your $EDITOR
   tags:
