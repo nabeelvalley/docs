@@ -1,6 +1,6 @@
 ---
 published: true
-title: Basics
+title: Introduction to Go
 description: Notes on the GO Programming language
 ---
 
