@@ -26,7 +26,7 @@ These also tend to run on the busier lines where I travel and so there's also a 
 
 ## Sprinter
 
-2/5 - Too many stops, no time to actually focus. Too many disruptions and people moving around all the tome
+2/5 - Too many stops, no time to actually focus. Too many disruptions and people moving around all the time
 
 ## Tram
 
