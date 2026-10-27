@@ -6,4 +6,5 @@ published: false
 
 - [Drafting a Pants Block](https://youtu.be/2tUM0mRBjac)
 - [Dressmaking Patterns](https://dresspatternmaking.com/)
+- [Basic Blocks](https://youtube.com/playlist?list=PLw5xtlvWyqXZlrichBSmHePE-tWQP0JrO)
 
