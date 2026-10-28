@@ -9,3 +9,4 @@ published: false
 - [Basic Blocks](https://youtube.com/playlist?list=PLw5xtlvWyqXZlrichBSmHePE-tWQP0JrO)
 - [Patternmaking 101](https://www.patternmaking101.com/en)
 - [FirstDraft Pattern Generators](https://firstdraft.fit/app/dashboard)
+- [Basic Blocks](https://nuriamo.com/basic-sewing-blocks/)
